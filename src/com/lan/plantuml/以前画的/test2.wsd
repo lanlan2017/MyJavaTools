@@ -1,0 +1,6 @@
+@startuml
+class java.lang.Object
+interface Hello
+java.lang.Object <|-Ê±¼äÀà
+
+@enduml

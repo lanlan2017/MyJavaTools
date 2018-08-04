@@ -1,0 +1,12 @@
+@startuml
+EventObject <|-- AWTEvent
+AWTEvent <|-- InputEvent
+AWTEvent <|-- InputEvent
+AWTEvent <|-- InputEvent
+AWTEvent <|-- InputEvent
+AWTEvent <|-- InputEvent
+
+legend
+事件类的继承关系
+endlegend
+@enduml

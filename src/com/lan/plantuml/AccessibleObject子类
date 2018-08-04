@@ -1,0 +1,8 @@
+@startuml
+
+AccessibleObject <|-- Constructor
+AccessibleObject <|-- Field
+AccessibleObject <|-- Method
+
+
+@enduml

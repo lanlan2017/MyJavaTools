@@ -1,0 +1,10 @@
+@startuml
+Container <|-- Window
+Container <|-- Panel
+Container <|-- ScrollPanel
+Window <|-- Frame
+ Window <|-- Dialog
+legend
+Í¼4: AWTÈİÆ÷
+endlegend
+@enduml

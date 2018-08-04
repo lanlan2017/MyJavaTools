@@ -1,0 +1,13 @@
+@startuml
+java.long.Object <|-- 事件类
+java.long.Object <|-- 组件
+java.long.Object <|-- 颜色类
+java.long.Object <|-- 布局管理器
+java.long.Object <|-- 字体类
+java.long.Object <|-- 绘图
+java.long.Object <|-- 图像类
+java.long.Object <|-- 菜单类
+组件 <|-- 容器
+Title "AWT包的整体结构图"
+
+@enduml

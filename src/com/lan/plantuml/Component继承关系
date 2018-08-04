@@ -1,0 +1,14 @@
+@startuml
+
+Component <|-- Button
+Component <|-- Checkbox
+Component <|-- Choice
+Component <|-- Label
+Component <|-- List
+Component <|-- Srcollar
+Component <|-- TextComponent
+Component <|-- 等等
+legend
+图2 :Component继承关系
+endlegend
+@enduml
