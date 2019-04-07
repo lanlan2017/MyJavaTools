@@ -1,8 +1,0 @@
-@startuml
-MenuComponent <|-- MenuBar
-MenuComponent <|-- MenuItem
-MenuItem <|--  Menu
-legend
-ͼ3: MenuComponent�̳й�ϵ
-endlegend 
-@enduml

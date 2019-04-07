@@ -1,7 +1,0 @@
-@startuml
-java.awt.Component <|-- java.awt.Container
-java.awt.Container <|-- javax.swing.JComponent
-legend
-ͼ7: JComponent�ļ̳й�ϵ
-endlegend
-@enduml
