@@ -13,12 +13,13 @@ import java.io.IOException;
 public class SysClipboardUtil
 {
 	/**
-	 * 从剪贴板中获取文本字符串。
-	 * @return 剪贴板中的文本。
+	 * 从剪贴板中获取文本.
+	 * 
+	 * @return 如果剪贴板中没有文本,则返回null.如果获取到文本,则返回文本.
 	 */
 	public static String getSysClipboardText()
 	{
-		String ret = "";
+		String text = null;
 		Clipboard sysClip = Toolkit.getDefaultToolkit().getSystemClipboard();
 		// 获取剪切板中的内容
 		Transferable clipTf = sysClip.getContents(null);
@@ -30,7 +31,8 @@ public class SysClipboardUtil
 			{
 				try
 				{
-					ret = (String) clipTf
+					// 转换为文本
+					text = (String) clipTf
 							.getTransferData(DataFlavor.stringFlavor);
 				} catch (Exception e)
 				{
@@ -39,11 +41,13 @@ public class SysClipboardUtil
 			}
 		}
 
-		return ret;
+		return text;
 	}
 	/**
 	 * 把字符串写到系统剪贴板。
-	 * @param writeMe 要写入剪贴板的文本
+	 * 
+	 * @param writeMe
+	 *            要写入剪贴板的文本
 	 */
 	public static void setSysClipboardText(String writeMe)
 	{
@@ -53,6 +57,7 @@ public class SysClipboardUtil
 	}
 	/**
 	 * 从系统剪贴板获取图片。
+	 * 
 	 * @return 系统剪贴板里面的图片。
 	 */
 	public static BufferedImage getImageFromClipboard()
@@ -75,7 +80,9 @@ public class SysClipboardUtil
 
 	/**
 	 * 把图片复制到剪贴板中。
-	 * @param image 要复制到剪贴板的图片。
+	 * 
+	 * @param image
+	 *            要复制到剪贴板的图片。
 	 */
 	public static void setClipboardImage(final Image image)
 	{
