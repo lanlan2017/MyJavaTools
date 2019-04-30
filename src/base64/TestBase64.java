@@ -12,32 +12,38 @@ public class TestBase64
 {
 	public static void main(String[] args)
 	{
-		String imagePath = "C:\\Users\\lan\\Desktop\\1.png";
+//		String imagePath = "avatar.jpg";
+//		String imagePath = "test.png";
+		String imagePath = "ORCode1.png";
 //		long count=0;
-		File file;
+//		File file;
 		Date date;
 		SimpleDateFormat format=new SimpleDateFormat("yyyy/MM/dd_HH:mm:ss");
-		String time;
-		while(true)
-		{
-			try
-			{
-				Thread.sleep(1000);
-			} catch (InterruptedException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			file=new File("C:\\Users\\lan\\Desktop\\1.png");
-			if(file.exists())
-			{
-				date=new Date();
-				time=format.format(date);
-				ImageToBase64(imagePath,time);
-				file.delete();
-			}
-			
-		}
+		String uniqueID;
+		
+		date=new Date();
+		uniqueID=format.format(date);
+		ImageToBase64(imagePath,uniqueID);
+//		while(true)
+//		{
+//			try
+//			{
+//				Thread.sleep(1000);
+//			} catch (InterruptedException e)
+//			{
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			file=new File("test.png");
+//			if(file.exists())
+//			{
+//				date=new Date();
+//				time=format.format(date);
+//				ImageToBase64(imagePath,time);
+////				file.delete();
+//			}
+//			
+//		}
 		
 	}
 
@@ -81,7 +87,7 @@ public class TestBase64
 	/**   
 	 * @param imagePath  
 	 */  
-	public static void ImageToBase64(String imagePath,String time)
+	public static void ImageToBase64(String imagePath,String uniqueID)
 	{
 		FileInputStream io = null;
 		try
@@ -91,11 +97,12 @@ public class TestBase64
 			data = new byte[io.available()];
 			io.read(data);
 			io.close();
-			String MDImageBase64="![Õº∆¨√Ë ˆ][test_img"+time+"]\n[test_img"+time+"]:data:image/jpg;base64,"
+			String MDImageBase64="![Õº∆¨√Ë ˆ][test_img"+uniqueID+"]\n\n[test_img"+uniqueID+"]:data:image/jpg;base64,"
 					+ Base64.getEncoder().encodeToString(data);
 //			System.out.println("data:image/jpg;base64,"
 //					+ Base64.getEncoder().encodeToString(data));
 //			System.out.println(MDImageBase64);
+			System.out.println(MDImageBase64);
 			SysClipboardUtil.setSysClipboardText(MDImageBase64);
 		} catch (Exception e)
 		{
