@@ -7,7 +7,8 @@ public class MyTree
 {
 	private static String RootPath = null;
 	private static MavenJavaWebFileNameFilter mavenJaveWebFileNameFilter = null;
-	private static DefaultFileNameFileter defaultFileNameFileter=new DefaultFileNameFileter();
+	private static DefaultFileNameFileter defaultFileNameFileter = new DefaultFileNameFileter();
+	private static DirFileNameFilter dirFileNameFilter = new DirFileNameFilter();
 	public static void main(String args[])
 	{
 		// String path = "E:\\workspace\\Regex";
@@ -50,9 +51,52 @@ public class MyTree
 			case "java" :
 				printTreeFileAndDir(dir, mavenJaveWebFileNameFilter);
 				break;
-
+			case "dir" :
+				printDir(dir);
+				break;
 			default :
 				break;
+		}
+	}
+	/**
+	 * 显示当前目录列表,类似与cmd的dir命令.
+	 * 
+	 * @param dir
+	 *            目录
+	 */
+	public static void printDir(File dir)
+	{
+		if (dir.isDirectory())
+		{
+			System.out.println(dir.getAbsolutePath());
+			// 获取列表项下的目录
+			File[] fileList = dir.listFiles(defaultFileNameFileter);
+			for (int i = 0; i < fileList.length; i++)
+			{
+				// 如果不是最后一行
+				if (i + 1 < fileList.length)
+				{
+					if (fileList[i].isDirectory())
+					{
+						System.out.println(
+								"├─" + fileList[i].getName() + File.separator);
+					} else
+					{
+						System.out.println("├─" + fileList[i].getName());
+					}
+				} else
+				{
+					if (fileList[i].isDirectory())
+					{
+						System.out.println(
+								"└─" + fileList[i].getName() + File.separator);
+					} else
+					{
+						System.out.println("└─" + fileList[i].getName());
+					}
+
+				}
+			}
 		}
 	}
 	/**
@@ -116,11 +160,12 @@ public class MyTree
 	/**
 	 * @param dir
 	 */
-	public static void printTreeFileAndDir(File dir,FilenameFilter fileNameFilter)
+	public static void printTreeFileAndDir(File dir,
+			FilenameFilter fileNameFilter)
 	{
 		// 打印根目录
 		System.out.println(dir.getAbsolutePath());
-		printTreeFileAndDir(dir, fileNameFilter,"", 0);
+		printTreeFileAndDir(dir, fileNameFilter, "", 0);
 	}
 	/**
 	 * 打印目录树
