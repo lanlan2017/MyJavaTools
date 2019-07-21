@@ -19,6 +19,8 @@ public class SysClipboardUtil
 	 */
 	public static String getSysClipboardText()
 	{
+		// 代码兼容JDK6,不然剪贴板获取文本可能错误
+		System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
 		String text = null;
 		Clipboard sysClip = Toolkit.getDefaultToolkit().getSystemClipboard();
 		// 获取剪切板中的内容
