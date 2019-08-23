@@ -8,7 +8,6 @@ public class MyTree
 	private static String RootPath = null;
 	private static MavenJavaWebFileNameFilter mavenJaveWebFileNameFilter = null;
 	private static DefaultFileNameFileter defaultFileNameFileter = new DefaultFileNameFileter();
-	private static DirFileNameFilter dirFileNameFilter = new DirFileNameFilter();
 	public static void main(String args[])
 	{
 		// String path = "E:\\workspace\\Regex";
@@ -55,6 +54,10 @@ public class MyTree
 				printDir(dir);
 				break;
 			default :
+				System.out.println("本程序支持参数如下:");
+				System.out.println("   f:打印目录和文件");
+				System.out.println("java:打印目录和文件,只保留Java项目必要的目录,忽略IDE创建的目录");
+				System.out.println(" dir:打印目录和文件,在目录后面打印一个反斜杠表示目录");
 				break;
 		}
 	}
@@ -150,7 +153,7 @@ public class MyTree
 						nextPrefix = prefix + "  ";
 					}
 				}
-				System.out.println(thisPrefix + dirList[i].getName());
+				System.out.println(thisPrefix + dirList[i].getName()+File.separator);
 				printTreeDir(dirList[i], nextPrefix, deep + 1);
 			}
 		}
@@ -158,7 +161,10 @@ public class MyTree
 	}
 
 	/**
+	 * 打印目录和文件夹,默认只打印到目录.
+	 * 
 	 * @param dir
+	 * @param fileNameFilter
 	 */
 	public static void printTreeFileAndDir(File dir,
 			FilenameFilter fileNameFilter)
@@ -202,12 +208,15 @@ public class MyTree
 					thisPrefix = prefix + "└─";
 				}
 			}
-			System.out.println(thisPrefix + childs[i].getName());
+			// 如果是目录,则递归
 			if (childs[i].isDirectory())
 			{
+				System.out.println(
+						thisPrefix + childs[i].getName() + File.separator);
 				printTreeFileAndDir(childs[i], fileNameFilter, nextPrefix,
 						deep + 1);
-			}
+			} else
+				System.out.println(thisPrefix + childs[i].getName());
 		}
 	}
 }
