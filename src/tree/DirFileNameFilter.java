@@ -9,9 +9,9 @@ public class DirFileNameFilter implements FilenameFilter
 	/* *
 	 * <p>Title: accept</p>  
 	 * <p>Description: </p>  
-	 * @param dir ±íÊ¾Ä¿Â¼µÄFile¶ÔÏóµÄÒıÓÃ.
-	 * @param name Ä¿Â¼ÏÂµÄÁĞ±íÏîµÄÃû³Æ
-	 * @return ÊÇ·ñÊÇÄ¿Â¼
+	 * @param dir è¡¨ç¤ºç›®å½•çš„Fileå¯¹è±¡çš„å¼•ç”¨.
+	 * @param name ç›®å½•ä¸‹çš„åˆ—è¡¨é¡¹çš„åç§°
+	 * @return æ˜¯å¦æ˜¯ç›®å½•
 	 * @see java.io.FilenameFilter#accept(java.io.File, java.lang.String)  
 	 */
 	@Override

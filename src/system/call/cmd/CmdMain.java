@@ -5,7 +5,7 @@ import java.io.IOException;
 public class CmdMain {
 	public static void main(String[] args) {
  
-		// Ö´ĞĞÅú´¦ÀíÎÄ¼ş
+		// æ‰§è¡Œæ‰¹å¤„ç†æ–‡ä»¶
 		String strcmd = "cmd /c start  D:\\run.bat";
 		Runtime rt = Runtime.getRuntime();
 		Process ps = null;
@@ -22,15 +22,15 @@ public class CmdMain {
 		}
 		int i = ps.exitValue();
 		if (i == 0) {
-			System.out.println("Ö´ĞĞÍê³É.");
+			System.out.println("æ‰§è¡Œå®Œæˆ.");
 		} else {
-			System.out.println("Ö´ĞĞÊ§°Ü.");
+			System.out.println("æ‰§è¡Œå¤±è´¥.");
 		}
 		ps.destroy();
 		ps = null;
  
-		// Åú´¦ÀíÖ´ĞĞÍêºó£¬¸ù¾İcmd.exe½ø³ÌÃû³Æ
-		// killµôcmd´°¿Ú
+		// æ‰¹å¤„ç†æ‰§è¡Œå®Œåï¼Œæ ¹æ®cmd.exeè¿›ç¨‹åç§°
+		// killæ‰cmdçª—å£
 		new CmdMain().killProcess();
  
 	}

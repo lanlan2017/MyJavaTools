@@ -17,20 +17,20 @@ public class PropertyTools {
         String[] tests = test.split("\r\n");
         HashMap<String, String> hashMap = properties2Map("SpecialWords.properties", "utf-8");
         Set<String> keySet = hashMap.keySet();
-        // // 1 »ñÈ¡Map.Entry¶ÔÏóµÄSet¼¯ºÏ
+        // // 1 è·å–Map.Entryå¯¹è±¡çš„Seté›†åˆ
         // Set<Entry<String, String>> mapEntry = hashMap.entrySet();
-        // // 2 Map.Entry¶ÔÏóµÄSet¼¯ºÏµü´úÆ÷
+        // // 2 Map.Entryå¯¹è±¡çš„Seté›†åˆè¿­ä»£å™¨
         // Iterator<Entry<String, String>> mapEntryIt = mapEntry.iterator();
         // while (mapEntryIt.hasNext())
         // {
-        // // 2 ´ÓSet¼¯ºÏÖĞÈ¡³öÒ»¸ö Map.EntryÊµÀı
+        // // 2 ä»Seté›†åˆä¸­å–å‡ºä¸€ä¸ª Map.Entryå®ä¾‹
         // Entry<String, String> mapEntryElement = mapEntryIt.next();
-        // // 3 ·Ö±ğÈ¡³ö¼üºÍÖµ
+        // // 3 åˆ†åˆ«å–å‡ºé”®å’Œå€¼
         // String key = mapEntryElement.getKey();
         // String value = mapEntryElement.getValue();
         // System.out.println("key=" + key + ",value=" + value);
         // }
-        // Ìæ»»
+        // æ›¿æ¢
         for (int i = 0; i < tests.length; i++)
         {
             if (findKeyFromSet(tests[i], keySet))
@@ -39,7 +39,7 @@ public class PropertyTools {
             }
         }
         System.out.println("--------------------------------------");
-        // ²é¿´Ìæ»»½á¹û
+        // æŸ¥çœ‹æ›¿æ¢ç»“æœ
         for (int i = 0; i < tests.length; i++)
         {
             System.out.println(tests[i]);
@@ -64,40 +64,40 @@ public class PropertyTools {
     }
     /**
      * @param  path
-     *                     xxx.propertiesÅäÖÃÎÄ¼şµÄÂ·¾¶.
+     *                     xxx.propertiesé…ç½®æ–‡ä»¶çš„è·¯å¾„.
      * @param  charset
-     *                     propertiesÅäÖÃÎÄ¼şµÄ±àÂë.
+     *                     propertiesé…ç½®æ–‡ä»¶çš„ç¼–ç .
      * @return
      */
     public static HashMap<String, String> properties2Map(String path, String charset)
     {
-        // 1 ÊµÀı»¯
+        // 1 å®ä¾‹åŒ–
         Properties properties = new Properties();
-        // »ñÈ¡µ±Ç°°üÏÂµÄÅäÖÃÎÄ¼şÂ·¾¶
-        // ×¢ÒâÕâ¸öÂ·¾¶µÄ¸ùÄ¿Â¼ÊÇÒÔsrcÄ¿Â¼Îª¸ùÄ¿Â¼.
-        // /Tools/src/property/reader/SpecialWords.properties¶ÔÓ¦µÄÂ·¾¶Îª:
-        // /property/reader/SpecialWords.properties,/Tools/src²»ĞèÒªĞ´³öÀ´
+        // è·å–å½“å‰åŒ…ä¸‹çš„é…ç½®æ–‡ä»¶è·¯å¾„
+        // æ³¨æ„è¿™ä¸ªè·¯å¾„çš„æ ¹ç›®å½•æ˜¯ä»¥srcç›®å½•ä¸ºæ ¹ç›®å½•.
+        // /Tools/src/property/reader/SpecialWords.propertieså¯¹åº”çš„è·¯å¾„ä¸º:
+        // /property/reader/SpecialWords.properties,/Tools/srcä¸éœ€è¦å†™å‡ºæ¥
         // InputStream in = ResourceFileReader.class.getResourceAsStream(
         // "/property/reader/SpecialWords.properties");
         try
         {
-            // ¼ÓÔØÅäÖÃÎÄ¼ş
+            // åŠ è½½é…ç½®æ–‡ä»¶
             properties.load(new InputStreamReader(new FileInputStream(new File(path)), charset));
         } catch (IOException e)
         {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        // »ñÈ¡ËùÓĞkeyµÄSet¼¯ºÏ
+        // è·å–æ‰€æœ‰keyçš„Seté›†åˆ
         Set<String> keys = properties.stringPropertyNames();
         HashMap<String, String> hashMap = new HashMap<String, String>();
         String key;
         String value;
-        // ±éÀúËùÓĞµÄkey
+        // éå†æ‰€æœ‰çš„key
         for (Iterator<String> iterator = keys.iterator(); iterator.hasNext();)
         {
             key = (String) iterator.next();
-            // È¡³ö¶ÔÓ¦keyµÄvalueÖµ
+            // å–å‡ºå¯¹åº”keyçš„valueå€¼
             value = properties.getProperty(key);
             // System.out.println("key=" + key + ",value=" + value);
             hashMap.put(key, value);

@@ -12,13 +12,13 @@ public class CopyByBufferdStream
 
 	public static void main(String[] args)
 	{
-		copyByBufferedStream("C:\\Users\\lan\\Desktop\\2.png","C:\\Users\\lan\\Desktop\\¸±±¾.png");
+		copyByBufferedStream("C:\\Users\\lan\\Desktop\\2.png","C:\\Users\\lan\\Desktop\\å‰¯æœ¬.png");
 
 	}
 	/**
-	 * Ê¹ÓÃ´ø»º³åµÄ×Ö½ÚÁ÷½øĞĞÎÄ¼şµÄ¸´ÖÆ
-	 * @param fromFile Ô´ÎÄ¼şµÄÂ·¾¶
-	 * @param toFile	Ä¿±êÎÄ¼şµÄÂ·¾¶
+	 * ä½¿ç”¨å¸¦ç¼“å†²çš„å­—èŠ‚æµè¿›è¡Œæ–‡ä»¶çš„å¤åˆ¶
+	 * @param fromFile æºæ–‡ä»¶çš„è·¯å¾„
+	 * @param toFile	ç›®æ ‡æ–‡ä»¶çš„è·¯å¾„
 	 */
 	public static void copyByBufferedStream(String fromFile,String toFile)
 	{
@@ -26,7 +26,7 @@ public class CopyByBufferdStream
 		BufferedOutputStream out = null;
 		try
 		{
-			// Ö¸¶¨Òª¶ÁÈ¡ÎÄ¼şµÄ»º³åÊäÈë×Ö½ÚÁ÷
+			// æŒ‡å®šè¦è¯»å–æ–‡ä»¶çš„ç¼“å†²è¾“å…¥å­—èŠ‚æµ
 			in = new BufferedInputStream(
 					new FileInputStream(fromFile));
 			File file = new File(toFile);
@@ -34,14 +34,14 @@ public class CopyByBufferdStream
 			{
 				file.createNewFile();
 			}
-			// Ö¸¶¨ÒªĞ´ÈëÎÄ¼şµÄ»º³åÊä³ö×Ö½ÚÁ÷
+			// æŒ‡å®šè¦å†™å…¥æ–‡ä»¶çš„ç¼“å†²è¾“å‡ºå­—èŠ‚æµ
 			out = new BufferedOutputStream(new FileOutputStream(file));
-			// »º³å,ÓÃÓÚÃ¿´Î
-			byte[] bb = new byte[1024];// ÓÃÀ´´æ´¢Ã¿´Î¶ÁÈ¡µ½µÄ×Ö½ÚÊı×é
-			int n;// Ã¿´Î¶ÁÈ¡µ½µÄ×Ö½ÚÊı×éµÄ³¤¶È
+			// ç¼“å†²,ç”¨äºæ¯æ¬¡
+			byte[] bb = new byte[1024];// ç”¨æ¥å­˜å‚¨æ¯æ¬¡è¯»å–åˆ°çš„å­—èŠ‚æ•°ç»„
+			int n;// æ¯æ¬¡è¯»å–åˆ°çš„å­—èŠ‚æ•°ç»„çš„é•¿åº¦
 			while ((n = in.read(bb)) != -1)
 			{
-				out.write(bb, 0, n);// Ğ´Èëµ½Êä³öÁ÷
+				out.write(bb, 0, n);// å†™å…¥åˆ°è¾“å‡ºæµ
 			}
 		} catch (IOException e)
 		{
@@ -56,7 +56,7 @@ public class CopyByBufferdStream
 				} catch (IOException e)
 				{
 					e.printStackTrace();
-				} // ¹Ø±ÕÁ÷
+				} // å…³é—­æµ
 			}
 			if (in != null)
 			{

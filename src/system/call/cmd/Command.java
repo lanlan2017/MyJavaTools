@@ -4,12 +4,12 @@ import java.io.InputStreamReader;
 public class Command
 {
 	/**
-	 * µ÷ÓÃÆäËû³ÌĞò.
+	 * è°ƒç”¨å…¶ä»–ç¨‹åº.
 	 * <ul>
-	 * ÀıÈç:
-	 * <li>Ê¹ÓÃ²ÎÊı:<code>ipconfig</code>½«ÔÚ<code>cmd</code>ÖĞµ÷ÓÃ<code>ipconfig</code>ÃüÁî</li>
-	 * <li>Ê¹ÓÃ²ÎÊı:<code>"cmd /c start F:\\Program\" \"Files\" \"(x86)\\Mozilla\" \"Firefox\\firefox.exe "+"http://localhost:8080/app05a/formatDateTest.jsp";</code>
-	 * Õâ¸ö´úÂë½«Æô¶¯»ğºüä¯ÀÀÆ÷´ò¿¨JSPÒ³Ãæ.</li>
+	 * ä¾‹å¦‚:
+	 * <li>ä½¿ç”¨å‚æ•°:<code>ipconfig</code>å°†åœ¨<code>cmd</code>ä¸­è°ƒç”¨<code>ipconfig</code>å‘½ä»¤</li>
+	 * <li>ä½¿ç”¨å‚æ•°:<code>"cmd /c start F:\\Program\" \"Files\" \"(x86)\\Mozilla\" \"Firefox\\firefox.exe "+"http://localhost:8080/app05a/formatDateTest.jsp";</code>
+	 * è¿™ä¸ªä»£ç å°†å¯åŠ¨ç«ç‹æµè§ˆå™¨æ‰“å¡JSPé¡µé¢.</li>
 	 * </ul>
 	 * 
 	 * @param commandStr

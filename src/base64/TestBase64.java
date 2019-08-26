@@ -97,7 +97,7 @@ public class TestBase64
 			data = new byte[io.available()];
 			io.read(data);
 			io.close();
-			String MDImageBase64="![Í¼Æ¬ÃèÊö][test_img"+uniqueID+"]\n\n[test_img"+uniqueID+"]:data:image/jpg;base64,"
+			String MDImageBase64="![å›¾ç‰‡æè¿°][test_img"+uniqueID+"]\n\n[test_img"+uniqueID+"]:data:image/jpg;base64,"
 					+ Base64.getEncoder().encodeToString(data);
 //			System.out.println("data:image/jpg;base64,"
 //					+ Base64.getEncoder().encodeToString(data));

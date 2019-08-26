@@ -27,7 +27,7 @@ public class ForDir
 			@Override
 			public boolean accept(File dir, String name)
 			{
-				// ÊÇmarkdownÎÄ¼ş,»òÕßÊÇÄ¿Â¼
+				// æ˜¯markdownæ–‡ä»¶,æˆ–è€…æ˜¯ç›®å½•
 				return name.endsWith(".md")
 						|| new File(dir, name).isDirectory();
 				// return false;
@@ -37,13 +37,13 @@ public class ForDir
 		{
 			if (fileList[i].isDirectory())
 			{
-				// Èç¹ûÊÇÄ¿Â¼,µİ¹é
+				// å¦‚æœæ˜¯ç›®å½•,é€’å½’
 				forDir(fileList[i]);
 				// System.out.println("dir:" + fileList[i].getAbsolutePath());
 			} else if (fileList[i].isFile())
 			{
 				// LastLineReader.getLastLineStr(file, "utf-8");
-				if (">Ô­ÎÄÁ´½Ó: null".equals(
+				if (">åŸæ–‡é“¾æ¥: null".equals(
 						LastLineReader.getLastLineStr(fileList[i], "utf-8")))
 				{
 					System.out.println(fileList[i].getAbsolutePath() + "---"
@@ -51,7 +51,7 @@ public class ForDir
 									"utf-8"));
 
 				}
-				// ¶ÁÈ¡ÎÄ¼ş×îºóÒ»ĞĞ,ÅĞ¶ÏÒª²»ÒªÖØĞÂÉú³ÉÄ¿Â¼
+				// è¯»å–æ–‡ä»¶æœ€åä¸€è¡Œ,åˆ¤æ–­è¦ä¸è¦é‡æ–°ç”Ÿæˆç›®å½•
 			}
 		}
 	}

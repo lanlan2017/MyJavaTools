@@ -37,7 +37,7 @@ public class CommandKillCmd
 				}
 			}
 		}
-		//É±µôcmd
+		//æ€æ‰cmd
 		killProcess();
 		return sb.toString();
 	}

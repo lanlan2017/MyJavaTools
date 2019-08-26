@@ -13,13 +13,13 @@ public class CopyByFileStream
 	 */
 	public static void copyByStream(File fromFile, File toFile)
 	{
-		// Ô´ÎÄ¼ş´æÔÚ²Å¸´ÖÆ
+		// æºæ–‡ä»¶å­˜åœ¨æ‰å¤åˆ¶
 		if (fromFile.exists())
 		{
-			// Èç¹ûÕÒ²»µ½Ä¿±êÎÄ¼ş:ËµÃ÷Õâ¸öÎÄ¼ş»¹Ã»ÓĞ
+			// å¦‚æœæ‰¾ä¸åˆ°ç›®æ ‡æ–‡ä»¶:è¯´æ˜è¿™ä¸ªæ–‡ä»¶è¿˜æ²¡æœ‰
 			if (!toFile.exists())
 			{
-				//»ñÈ¡Ä¿±êÎÄ¼şµÄ¸¸Ä¿Â¼
+				//è·å–ç›®æ ‡æ–‡ä»¶çš„çˆ¶ç›®å½•
 				File parent=toFile.getParentFile();
 				if(parent!=null&&!parent.exists())
 				{
@@ -31,11 +31,11 @@ public class CopyByFileStream
 			try
 			{
 				ins = new FileInputStream(fromFile);
-				// Èç¹ûÄ¿±êÎÄ¼ş²»´æÔÚ£¬ÔòFileOutputStream»á´´½¨Ä¿±êÎÄ¼ş(Ç°ÌáÊÇ¸¸Â·¾¶ÎÄ¼ş¶ÔÏó±ØĞë´æÔÚ)¡£
+				// å¦‚æœç›®æ ‡æ–‡ä»¶ä¸å­˜åœ¨ï¼Œåˆ™FileOutputStreamä¼šåˆ›å»ºç›®æ ‡æ–‡ä»¶(å‰ææ˜¯çˆ¶è·¯å¾„æ–‡ä»¶å¯¹è±¡å¿…é¡»å­˜åœ¨)ã€‚
 				out = new FileOutputStream(toFile);
 				byte[] buf = new byte[1024];
 				int size = 0;
-				// Ã¿´Î´ÓÊäÈëÁ÷ÖĞ¶ÁÈ¡1024¸ö×Ö½Ú,È»ºó°ÑÕâ1024¸ö×Ö½ÚĞ´ÈëÊä³öÁ÷ÖĞ
+				// æ¯æ¬¡ä»è¾“å…¥æµä¸­è¯»å–1024ä¸ªå­—èŠ‚,ç„¶åæŠŠè¿™1024ä¸ªå­—èŠ‚å†™å…¥è¾“å‡ºæµä¸­
 				while ((size = ins.read(buf)) != -1)
 				{
 					out.write(buf, 0, size);
@@ -72,7 +72,7 @@ public class CopyByFileStream
 
 		} else
 		{
-			System.out.println("Ô´ÎÄ¼ş²»´æÔÚ");
+			System.out.println("æºæ–‡ä»¶ä¸å­˜åœ¨");
 		}
 	}
 }

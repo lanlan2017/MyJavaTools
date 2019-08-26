@@ -11,9 +11,9 @@ public class ConsoleCLS
 		{
 			System.out.println("%%%%%%  " + i + "   %%%%%");
 		}
-		// Ë¯ÃßÈıÃë
+		// ç¡çœ ä¸‰ç§’
 		Thread.currentThread().sleep(1000 * 3);
-		// ¿ØÖÆÌ¨ÇåÆÁ
+		// æ§åˆ¶å°æ¸…å±
 		cls();
 	}
 

@@ -5,15 +5,15 @@ import java.io.FileNotFoundException;
 import java.io.PrintStream;
 
 /**
- * Êä³öÖØ¶¨Ïò.
+ * è¾“å‡ºé‡å®šå‘.
  */
 public class OutputRedirection
 {
 	/**
-	 * Êä³öÖØ¶¨Ïò
+	 * è¾“å‡ºé‡å®šå‘
 	 * 
 	 * @param filePath
-	 *            Êä³öÎÄ¼şµÄÂ·¾¶
+	 *            è¾“å‡ºæ–‡ä»¶çš„è·¯å¾„
 	 */
 	public static void outputRedirection(String filePath)
 	{

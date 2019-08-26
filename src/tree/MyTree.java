@@ -12,11 +12,11 @@ public class MyTree
 	{
 		// String path = "E:\\workspace\\Regex";
 		// String path = "E:\\workspace_web\\app17a";
-		// Í¨¹ı¼ôÌù°å¶ÁÈëÄ¿Â¼
+		// é€šè¿‡å‰ªè´´æ¿è¯»å…¥ç›®å½•
 		// String path =SysClipboardUtil.getSysClipboardText();
-		// Ê¹ÓÃµ±Ç°Ä¿Â¼×÷ÎªÄ¿Â¼
+		// ä½¿ç”¨å½“å‰ç›®å½•ä½œä¸ºç›®å½•
 		String path = System.getProperty("user.dir");
-		// ±£´æ¸ùÄ¿Â¼,ºóĞøÒªÓÃµ½
+		// ä¿å­˜æ ¹ç›®å½•,åç»­è¦ç”¨åˆ°
 		RootPath = path;
 		mavenJaveWebFileNameFilter = new MavenJavaWebFileNameFilter(RootPath);
 		File dir = new File(path);
@@ -31,12 +31,12 @@ public class MyTree
 		}
 	}
 	/**
-	 * ÊäÈëÒ»¸ö²ÎÊıµÄÇé¿ö.
+	 * è¾“å…¥ä¸€ä¸ªå‚æ•°çš„æƒ…å†µ.
 	 * 
 	 * @param args
-	 *            ²ÎÊıÁĞ±í
+	 *            å‚æ•°åˆ—è¡¨
 	 * @param dir
-	 *            Ä¿Â¼µÄFile¶ÔÏó.
+	 *            ç›®å½•çš„Fileå¯¹è±¡.
 	 */
 	private static void oneArgs(String[] args, File dir)
 	{
@@ -54,48 +54,48 @@ public class MyTree
 				printDir(dir);
 				break;
 			default :
-				System.out.println("±¾³ÌĞòÖ§³Ö²ÎÊıÈçÏÂ:");
-				System.out.println("   f:´òÓ¡Ä¿Â¼ºÍÎÄ¼ş");
-				System.out.println("java:´òÓ¡Ä¿Â¼ºÍÎÄ¼ş,Ö»±£ÁôJavaÏîÄ¿±ØÒªµÄÄ¿Â¼,ºöÂÔIDE´´½¨µÄÄ¿Â¼");
-				System.out.println(" dir:´òÓ¡Ä¿Â¼ºÍÎÄ¼ş,ÔÚÄ¿Â¼ºóÃæ´òÓ¡Ò»¸ö·´Ğ±¸Ü±íÊ¾Ä¿Â¼");
+				System.out.println("æœ¬ç¨‹åºæ”¯æŒå‚æ•°å¦‚ä¸‹:");
+				System.out.println("   f:æ‰“å°ç›®å½•å’Œæ–‡ä»¶");
+				System.out.println("java:æ‰“å°ç›®å½•å’Œæ–‡ä»¶,åªä¿ç•™Javaé¡¹ç›®å¿…è¦çš„ç›®å½•,å¿½ç•¥IDEåˆ›å»ºçš„ç›®å½•");
+				System.out.println(" dir:æ‰“å°ç›®å½•å’Œæ–‡ä»¶,åœ¨ç›®å½•åé¢æ‰“å°ä¸€ä¸ªåæ–œæ è¡¨ç¤ºç›®å½•");
 				break;
 		}
 	}
 	/**
-	 * ÏÔÊ¾µ±Ç°Ä¿Â¼ÁĞ±í,ÀàËÆÓëcmdµÄdirÃüÁî.
+	 * æ˜¾ç¤ºå½“å‰ç›®å½•åˆ—è¡¨,ç±»ä¼¼ä¸cmdçš„dirå‘½ä»¤.
 	 * 
 	 * @param dir
-	 *            Ä¿Â¼
+	 *            ç›®å½•
 	 */
 	public static void printDir(File dir)
 	{
 		if (dir.isDirectory())
 		{
 			System.out.println(dir.getAbsolutePath());
-			// »ñÈ¡ÁĞ±íÏîÏÂµÄÄ¿Â¼
+			// è·å–åˆ—è¡¨é¡¹ä¸‹çš„ç›®å½•
 			File[] fileList = dir.listFiles(defaultFileNameFileter);
 			for (int i = 0; i < fileList.length; i++)
 			{
-				// Èç¹û²»ÊÇ×îºóÒ»ĞĞ
+				// å¦‚æœä¸æ˜¯æœ€åä¸€è¡Œ
 				if (i + 1 < fileList.length)
 				{
 					if (fileList[i].isDirectory())
 					{
 						System.out.println(
-								"©À©¤" + fileList[i].getName() + File.separator);
+								"â”œâ”€" + fileList[i].getName() + File.separator);
 					} else
 					{
-						System.out.println("©À©¤" + fileList[i].getName());
+						System.out.println("â”œâ”€" + fileList[i].getName());
 					}
 				} else
 				{
 					if (fileList[i].isDirectory())
 					{
 						System.out.println(
-								"©¸©¤" + fileList[i].getName() + File.separator);
+								"â””â”€" + fileList[i].getName() + File.separator);
 					} else
 					{
-						System.out.println("©¸©¤" + fileList[i].getName());
+						System.out.println("â””â”€" + fileList[i].getName());
 					}
 
 				}
@@ -103,10 +103,10 @@ public class MyTree
 		}
 	}
 	/**
-	 * ´òÓ¡dir±íÊ¾µÄÄ¿Â¼µÄÄ¿Â¼Ê÷.
+	 * æ‰“å°dirè¡¨ç¤ºçš„ç›®å½•çš„ç›®å½•æ ‘.
 	 * 
 	 * @param dir
-	 *            ±íÊ¾Ä¿Â¼µÄFile¶ÔÏó.
+	 *            è¡¨ç¤ºç›®å½•çš„Fileå¯¹è±¡.
 	 */
 	public static void printTreeDir(File dir)
 	{
@@ -120,14 +120,14 @@ public class MyTree
 	{
 		if (dir.isDirectory())
 		{
-			// Éú³ÉÄ¿Â¼ÏÂµÄ×ÓÄ¿Â¼ÁĞ±í
+			// ç”Ÿæˆç›®å½•ä¸‹çš„å­ç›®å½•åˆ—è¡¨
 			File[] dirList = dir.listFiles(new FilenameFilter()
 			{
 				@Override
 				public boolean accept(File dir, String name)
 				{
-					// ¸ÃÎÄ¼şÊÇÄ¿Â¼,²¢ÇÒ²»ÄÜÒÔµãºÅ¿ªÍ·,
-					// µãºÅ¿ªÍ·µÄÒ»°ãÊÇÒş²ØÎÄ¼ş
+					// è¯¥æ–‡ä»¶æ˜¯ç›®å½•,å¹¶ä¸”ä¸èƒ½ä»¥ç‚¹å·å¼€å¤´,
+					// ç‚¹å·å¼€å¤´çš„ä¸€èˆ¬æ˜¯éšè—æ–‡ä»¶
 					return new File(dir, name).isDirectory()
 							&& !name.startsWith(".");
 				}
@@ -138,17 +138,17 @@ public class MyTree
 			{
 				if (deep >= 0)
 				{
-					// Èç¹û²»ÊÇ×îºóÒ»¸öÔªËØ
+					// å¦‚æœä¸æ˜¯æœ€åä¸€ä¸ªå…ƒç´ 
 					if ((i + 1 < dirList.length))
 					{
-						// ²»ÊÇ×îºóÒ»¸öÄ¿Â¼¶¼´òÓ¡Õâ¸ö·ûºÅ
-						thisPrefix = prefix + "©À©¤";
-						// ÏÂÒ»¸ö´òÓ¡Õâ·ûºÅ±íÊ¾Õ¹¿ªÄ¿Â¼
-						nextPrefix = prefix + "©¦ ";
+						// ä¸æ˜¯æœ€åä¸€ä¸ªç›®å½•éƒ½æ‰“å°è¿™ä¸ªç¬¦å·
+						thisPrefix = prefix + "â”œâ”€";
+						// ä¸‹ä¸€ä¸ªæ‰“å°è¿™ç¬¦å·è¡¨ç¤ºå±•å¼€ç›®å½•
+						nextPrefix = prefix + "â”‚ ";
 					} else
 					{
-						// ×îºóÒ»¸ö×ÓÄ¿Â¼Ïî
-						thisPrefix = prefix + "©¸©¤";
+						// æœ€åä¸€ä¸ªå­ç›®å½•é¡¹
+						thisPrefix = prefix + "â””â”€";
 						//
 						nextPrefix = prefix + "  ";
 					}
@@ -161,7 +161,7 @@ public class MyTree
 	}
 
 	/**
-	 * ´òÓ¡Ä¿Â¼ºÍÎÄ¼ş¼Ğ,Ä¬ÈÏÖ»´òÓ¡µ½Ä¿Â¼.
+	 * æ‰“å°ç›®å½•å’Œæ–‡ä»¶å¤¹,é»˜è®¤åªæ‰“å°åˆ°ç›®å½•.
 	 * 
 	 * @param dir
 	 * @param fileNameFilter
@@ -169,46 +169,46 @@ public class MyTree
 	public static void printTreeFileAndDir(File dir,
 			FilenameFilter fileNameFilter)
 	{
-		// ´òÓ¡¸ùÄ¿Â¼
+		// æ‰“å°æ ¹ç›®å½•
 		System.out.println(dir.getAbsolutePath());
 		printTreeFileAndDir(dir, fileNameFilter, "", 0);
 	}
 	/**
-	 * ´òÓ¡Ä¿Â¼Ê÷
+	 * æ‰“å°ç›®å½•æ ‘
 	 * 
 	 * @param dir
-	 *            Ä¿Â¼
+	 *            ç›®å½•
 	 * @param prefix
-	 *            Ç°×º,ĞèÒª´òÓ¡ÔÚÎÄ¼ş»òÕßÄ¿Â¼Ö®Ç°
+	 *            å‰ç¼€,éœ€è¦æ‰“å°åœ¨æ–‡ä»¶æˆ–è€…ç›®å½•ä¹‹å‰
 	 * @param deep
-	 *            Éî¶È
+	 *            æ·±åº¦
 	 */
 	private static void printTreeFileAndDir(File dir,
 			FilenameFilter fileNameFilter, String prefix, int deep)
 	{
-		// ÁĞ³öÄ¿Â¼ÏÂµÄ×ÓÄ¿Â¼
+		// åˆ—å‡ºç›®å½•ä¸‹çš„å­ç›®å½•
 		File[] childs = dir.listFiles(fileNameFilter);
-		// ±éÀú×ÓÄ¿Â¼
+		// éå†å­ç›®å½•
 		for (int i = 0; i < childs.length; i++)
 		{
-			// ±¾´Îµİ¹éµÄÇ°×º
+			// æœ¬æ¬¡é€’å½’çš„å‰ç¼€
 			String thisPrefix = "";
-			// ÏÂÒ»¸öµİ¹éµÄÇ°×º
+			// ä¸‹ä¸€ä¸ªé€’å½’çš„å‰ç¼€
 			String nextPrefix = "";
 			if (deep >= 0)
 			{
-				// Èç¹û²»ÊÇ×îºóÒ»¸öÔªËØ
+				// å¦‚æœä¸æ˜¯æœ€åä¸€ä¸ªå…ƒç´ 
 				if ((i + 1 < childs.length))
 				{
-					nextPrefix = prefix + "©¦ ";
-					thisPrefix = prefix + "©À©¤";
+					nextPrefix = prefix + "â”‚ ";
+					thisPrefix = prefix + "â”œâ”€";
 				} else
 				{
 					nextPrefix = prefix + "  ";
-					thisPrefix = prefix + "©¸©¤";
+					thisPrefix = prefix + "â””â”€";
 				}
 			}
-			// Èç¹ûÊÇÄ¿Â¼,Ôòµİ¹é
+			// å¦‚æœæ˜¯ç›®å½•,åˆ™é€’å½’
 			if (childs[i].isDirectory())
 			{
 				System.out.println(

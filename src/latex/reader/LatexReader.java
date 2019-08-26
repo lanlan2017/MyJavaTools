@@ -13,17 +13,17 @@ public class LatexReader
 	static String greekAlphabet = "\\\\(alpha|beta|gamma|delta|epsilon|zeta|eta|theta|iota|kappa|lambda|mu|nu|xi|omicron|pi|rho|sigma|tau|upsilon|phi|chi|psi|omega)";
 	// static String fraction = "\\\\dfrac\\{(.+?)\\}\\{(.+?)\\}";
 	static String exponentialFunction = "(\\w+)\\^\\{(.+?)\\}";
-	static String exponentialFunctionReplace = "$1µÄ$2´Î·½ ";
+	static String exponentialFunctionReplace = "$1çš„$2æ¬¡æ–¹ ";
 	static String substitution = "\\|(\\w+)=(.+)";
-	static String substitutionReplace = "µ±$1µÈÓÚ$2Ê± ";
+	static String substitutionReplace = "å½“$1ç­‰äº$2æ—¶ ";
 
 	public static void main(String[] args)
 	{
 		String latexCode = SysClipboardUtil.getSysClipboardText();
 		latexCode = readeLaTexCode(latexCode);
-		System.out.println("----------- ÀÊ¶Á¹«Ê½ ¿ªÊ¼ ---------------");
+		System.out.println("----------- æœ—è¯»å…¬å¼ å¼€å§‹ ---------------");
 		System.out.println(latexCode);
-		System.out.println("----------- ÀÊ¶Á¹«Ê½ ½áÊø ---------------");
+		System.out.println("----------- æœ—è¯»å…¬å¼ ç»“æŸ ---------------");
 	}
 
 	/**
@@ -33,17 +33,17 @@ public class LatexReader
 	public static String readeLaTexCode(String latexCode)
 	{
 		latexCode = latexCode.replace("$", "");
-		latexCode = latexCode.replaceAll("\\\\approx", "Ô¼µÈÓÚ ");
+		latexCode = latexCode.replaceAll("\\\\approx", "çº¦ç­‰äº ");
 		latexCode = latexCode.replaceAll(substitution, substitutionReplace);
-		latexCode = latexCode.replaceAll("\\\\cdots", "Ê¡ÂÔºÅ ");
-		latexCode = latexCode.replaceAll("\\\\sim", "µ½");
-		// ÀÊ¶Á·ÖÊ½
+		latexCode = latexCode.replaceAll("\\\\cdots", "çœç•¥å· ");
+		latexCode = latexCode.replaceAll("\\\\sim", "åˆ°");
+		// æœ—è¯»åˆ†å¼
 		latexCode = replaceDfrac(latexCode);
 		latexCode = latexCode.replaceAll(greekAlphabet, "$1");
-		// ÀÊ¶ÁÖ¸Êıº¯Êı
+		// æœ—è¯»æŒ‡æ•°å‡½æ•°
 		latexCode = readExponentialFun(latexCode);
-		latexCode = latexCode.replace("=", "µÈÓÚ ");
-		latexCode = latexCode.replace("-", "¼õÈ¥");
+		latexCode = latexCode.replace("=", "ç­‰äº ");
+		latexCode = latexCode.replace("-", "å‡å»");
 		return latexCode;
 	}
 
@@ -54,15 +54,15 @@ public class LatexReader
 	private static String replaceDfrac(String latexCode)
 	{
 		HashMap<String, String> hashMap = findDfracs(latexCode);
-		// 1 »ñÈ¡Map.Entry¶ÔÏóµÄSet¼¯ºÏ
+		// 1 è·å–Map.Entryå¯¹è±¡çš„Seté›†åˆ
 		Set<Entry<String, String>> mapEntry = hashMap.entrySet();
-		// 2 Map.Entry¶ÔÏóµÄSet¼¯ºÏµü´úÆ÷
+		// 2 Map.Entryå¯¹è±¡çš„Seté›†åˆè¿­ä»£å™¨
 		Iterator<Entry<String, String>> mapEntryIt = mapEntry.iterator();
 		while (mapEntryIt.hasNext())
 		{
-			// 2 ´ÓSet¼¯ºÏÖĞÈ¡³öÒ»¸ö Map.EntryÊµÀı
+			// 2 ä»Seté›†åˆä¸­å–å‡ºä¸€ä¸ª Map.Entryå®ä¾‹
 			Entry<String, String> mapEntryElement = mapEntryIt.next();
-			// 3 ·Ö±ğÈ¡³ö¼üºÍÖµ
+			// 3 åˆ†åˆ«å–å‡ºé”®å’Œå€¼
 			String key = mapEntryElement.getKey();
 			String value = mapEntryElement.getValue();
 			latexCode=latexCode.replace(key, value);
@@ -84,18 +84,18 @@ public class LatexReader
 		String zhiShu;
 		while (matcher.find())
 		{
-			// »ñÈ¡Æ¥Åäµ½µÄÒ»¸ö·Ö×é
+			// è·å–åŒ¹é…åˆ°çš„ä¸€ä¸ªåˆ†ç»„
 			diShu = matcher.group(1);
 			zhiShu = matcher.group(2);
 			diShu = fuShu(diShu);
 			zhiShu = fuShu(zhiShu);
 			System.out.println("diShu:" + diShu);
 			System.out.println("zhiShu:" + zhiShu);
-			// ÔÚÕâÀïĞ´ÉÏ´¦Àí·½·¨....
-			// Ìæ»»Ô­À´Æ¥ÅäµÄÎÄ±¾
-			matcher.appendReplacement(sb, diShu + "µÄ" + zhiShu + "´Î·½");
+			// åœ¨è¿™é‡Œå†™ä¸Šå¤„ç†æ–¹æ³•....
+			// æ›¿æ¢åŸæ¥åŒ¹é…çš„æ–‡æœ¬
+			matcher.appendReplacement(sb, diShu + "çš„" + zhiShu + "æ¬¡æ–¹");
 		}
-		// Ìí¼ÓºóÃæÃ»ÓĞÆ¥ÅäµÄÎÄ±¾
+		// æ·»åŠ åé¢æ²¡æœ‰åŒ¹é…çš„æ–‡æœ¬
 		matcher.appendTail(sb);
 
 		latexCode = sb.toString();
@@ -128,7 +128,7 @@ public class LatexReader
 				{
 					daKuoHao++;
 				}
-				// Ìí¼ÓÀ¨ºÅÀïÃæµÄ¶«Î÷
+				// æ·»åŠ æ‹¬å·é‡Œé¢çš„ä¸œè¥¿
 				if (daKuoHao >= 1)
 				{
 					sb.append(ch);
@@ -142,14 +142,14 @@ public class LatexReader
 				{
 					String key = "\\dfrac" + sb.toString();
 					String value = key.replaceAll(
-							"\\\\dfrac\\{(.+)\\}\\{(.+)\\}", "$2·ÖÖ®$1");
+							"\\\\dfrac\\{(.+)\\}\\{(.+)\\}", "$2åˆ†ä¹‹$1");
 					System.out.println(key);
 					System.out.println(value);
-					// ±£´æ
+					// ä¿å­˜
 					hashMap.put(key, value);
 					sb.delete(0, sb.length());
 				}
-				// ÉÏ´ÎµÄÀ¨ºÅÊıÁ¿
+				// ä¸Šæ¬¡çš„æ‹¬å·æ•°é‡
 				before = daKuoHao;
 			}
 		}
@@ -163,7 +163,7 @@ public class LatexReader
 	public static String fuShu(String fushCode)
 	{
 		String fush = "^-(.+)";
-		String fushReplace = "¸º$1";
+		String fushReplace = "è´Ÿ$1";
 		fushCode = fushCode.replaceAll(fush, fushReplace);
 		return fushCode;
 	}

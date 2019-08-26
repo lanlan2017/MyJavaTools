@@ -15,11 +15,11 @@ import java.io.UnsupportedEncodingException;
 public class FileTool
 {
 	/**
-	 * ´ÓÎÄ¼şÖĞ¶ÁÈ¡×Ö·ûµ½ÎÄÕÂ»º´æ¡£
+	 * ä»æ–‡ä»¶ä¸­è¯»å–å­—ç¬¦åˆ°æ–‡ç« ç¼“å­˜ã€‚
 	 * 
 	 * @param file
-	 *            markdownÎÄ¼şµÄFile¶ÔÏó¡£
-	 * @return ´æ·ÅÎÄÕÂÖĞËùÓĞ×Ö·ûµÄStringBuilder¶ÔÏó¡£
+	 *            markdownæ–‡ä»¶çš„Fileå¯¹è±¡ã€‚
+	 * @return å­˜æ”¾æ–‡ç« ä¸­æ‰€æœ‰å­—ç¬¦çš„StringBuilderå¯¹è±¡ã€‚
 	 * @throws UnsupportedEncodingException
 	 * @throws FileNotFoundException
 	 * @throws IOException
@@ -27,15 +27,15 @@ public class FileTool
 	public static StringBuilder readFile(File file)
 	{
 		StringBuilder builder = new StringBuilder(5000);
-		// ÏÈ°ÑÎÄÕÂ¶ÁÈë»º³åÖĞ
+		// å…ˆæŠŠæ–‡ç« è¯»å…¥ç¼“å†²ä¸­
 		try (BufferedReader reader = new BufferedReader(
 				new InputStreamReader(new FileInputStream(file), "utf-8"));)
 		{
 			String line = null;
-			// Ò»ĞĞÒ»ĞĞµÄ¶ÁÈ¡
+			// ä¸€è¡Œä¸€è¡Œçš„è¯»å–
 			while ((line = reader.readLine()) != null)
 			{
-				builder.append(line + "\n");// Ìí¼Óµ½»º³åÖĞ
+				builder.append(line + "\n");// æ·»åŠ åˆ°ç¼“å†²ä¸­
 			}
 		} catch (IOException e)
 		{
@@ -46,12 +46,12 @@ public class FileTool
 		return builder;
 	}
 	/**
-	 * °ÑÎÄÕÂ»º´æÖĞµÄËùÓĞ×Ö·ûĞ´ÈëmarkdownÎÄ¼şÖĞ¡£
+	 * æŠŠæ–‡ç« ç¼“å­˜ä¸­çš„æ‰€æœ‰å­—ç¬¦å†™å…¥markdownæ–‡ä»¶ä¸­ã€‚
 	 * 
 	 * @param file
-	 *            ÎÄ¼ş
+	 *            æ–‡ä»¶
 	 * @param article
-	 *            ÎÄÕÂ»º´æ
+	 *            æ–‡ç« ç¼“å­˜
 	 * @throws UnsupportedEncodingException
 	 * @throws FileNotFoundException
 	 * @throws IOException
@@ -69,27 +69,27 @@ public class FileTool
 		}
 	}
 	/**
-	 * »ñÈ¡Ä¿Â¼ÏÂµÄËùÓĞmarkdownÎÄµµÁĞ±í¡£
+	 * è·å–ç›®å½•ä¸‹çš„æ‰€æœ‰markdownæ–‡æ¡£åˆ—è¡¨ã€‚
 	 * 
 	 * @param dirFile
-	 *            Ä¿Â¼µÄFile
-	 * @return File¶ÔÏóÊı×é,Ã¿Ò»¶ÔÏó±íÊ¾Ò»¸ömarkdownÎÄµµ(ÒÔ.md½áÎ²)
+	 *            ç›®å½•çš„File
+	 * @return Fileå¯¹è±¡æ•°ç»„,æ¯ä¸€å¯¹è±¡è¡¨ç¤ºä¸€ä¸ªmarkdownæ–‡æ¡£(ä»¥.mdç»“å°¾)
 	 */
 	public static File[] getMarkdownFileArray(File dirFile)
 	{
-		// »ñÈ¡mdÎÄ¼ş£¬»òÕßÊÇÄ¿Â¼µÄÁĞ±í
+		// è·å–mdæ–‡ä»¶ï¼Œæˆ–è€…æ˜¯ç›®å½•çš„åˆ—è¡¨
 		File[] fileList = dirFile.listFiles(new FilenameFilter()
 		{
 			@Override
 			public boolean accept(File dir, String name)
 			{
-				// Èç¹ûÊÇmarkdownÎÄ¼şµÄ»°
+				// å¦‚æœæ˜¯markdownæ–‡ä»¶çš„è¯
 				if (name.endsWith(".md"))
 					return true;
-				// Èç¹ûÊÇÒ»¸öÄ¿Â¼µÄ»°
+				// å¦‚æœæ˜¯ä¸€ä¸ªç›®å½•çš„è¯
 				else if (new File(dir, name).isDirectory())
 					return true;
-				// ÆäËû²»Ïà¹ØµÄÎÄ¼ş²»·µ»Ø
+				// å…¶ä»–ä¸ç›¸å…³çš„æ–‡ä»¶ä¸è¿”å›
 				return false;
 			}
 		});

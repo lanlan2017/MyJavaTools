@@ -7,19 +7,19 @@ import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
 
 /**
- * ÎÄ±¾ÎÄ¼ş×îºóÒ»ĞĞ´¦ÀíÆ÷.
+ * æ–‡æœ¬æ–‡ä»¶æœ€åä¸€è¡Œå¤„ç†å™¨.
  */
 public class LastLineReader
 {
 
 	/**
-	 * »ñÈ¡ÎÄ±¾ÎÄ¼ş×îºóÒ»ĞĞÖĞµÄ×Ö·û´®¡£
+	 * è·å–æ–‡æœ¬æ–‡ä»¶æœ€åä¸€è¡Œä¸­çš„å­—ç¬¦ä¸²ã€‚
 	 * 
 	 * @param file
-	 *            Ä¿±êÎÄ¼ş
+	 *            ç›®æ ‡æ–‡ä»¶
 	 * @param charset
-	 *            ×Ö·û±àÂë
-	 * @return ÎÄ±¾ÎÄ¼şÖĞ×îºóÒ»ĞĞÖĞµÄ×Ö·û´®¡£
+	 *            å­—ç¬¦ç¼–ç 
+	 * @return æ–‡æœ¬æ–‡ä»¶ä¸­æœ€åä¸€è¡Œä¸­çš„å­—ç¬¦ä¸²ã€‚
 	 */
 	public static String getLastLineStr(File file, String charset)
 	{
@@ -53,14 +53,14 @@ public class LastLineReader
 		return lastLine;
 	}
 	/**
-	 * ÔÚ×îºóÒ»ĞĞÖĞÄ©Î²ÖĞ²åÈëÎÄ±¾¡£
+	 * åœ¨æœ€åä¸€è¡Œä¸­æœ«å°¾ä¸­æ’å…¥æ–‡æœ¬ã€‚
 	 * 
 	 * @param file
-	 *            Ä¿±êÎÄ¼ş
+	 *            ç›®æ ‡æ–‡ä»¶
 	 * @param newLastLine
-	 *            ¼´½«²åÈëµÄÎÄ±¾
+	 *            å³å°†æ’å…¥çš„æ–‡æœ¬
 	 * @param charset
-	 *            ×Ö·û±àÂëÃû³Æ
+	 *            å­—ç¬¦ç¼–ç åç§°
 	 */
 	public static void insertAfterLastLine(File file, String newLastLine,
 			String charset)
@@ -69,14 +69,14 @@ public class LastLineReader
 		insertInLastLine(file, newLastLine, charset);
 	}
 	/**
-	 * ¸üĞÂ×îºóÒ»ĞĞÎÄ±¾¡£
+	 * æ›´æ–°æœ€åä¸€è¡Œæ–‡æœ¬ã€‚
 	 * 
 	 * @param file
-	 *            Ä¿±êÎÄ¼ş
+	 *            ç›®æ ‡æ–‡ä»¶
 	 * @param newLastLine
-	 *            Ìæ»»ÎÄ±¾
+	 *            æ›¿æ¢æ–‡æœ¬
 	 * @param charset
-	 *            ×Ö·û±àÂëÃû³Æ
+	 *            å­—ç¬¦ç¼–ç åç§°
 	 */
 	public static void updateLastLine(File file, String newLastLine,
 			String charset)
@@ -85,9 +85,9 @@ public class LastLineReader
 		try
 		{
 			raf = new RandomAccessFile(file, "rwd");
-			// É¾³ı×îºóÒ»ĞĞÎÄ±¾
+			// åˆ é™¤æœ€åä¸€è¡Œæ–‡æœ¬
 			deleteLastLine(raf);
-			// ÔÚ×îºóÒ»ĞĞ²åÈëĞÂµÄÒ»ĞĞÎÄ±¾
+			// åœ¨æœ€åä¸€è¡Œæ’å…¥æ–°çš„ä¸€è¡Œæ–‡æœ¬
 			insertInLastLine(newLastLine, charset, raf);
 		} catch (IOException e)
 		{
@@ -106,14 +106,14 @@ public class LastLineReader
 		}
 	}
 	/**
-	 * ÔÚÎÄ±¾ÎÄ¼ş×îºóÒ»ĞĞÄ©Î²×·¼ÓÎÄ±¾¡£
+	 * åœ¨æ–‡æœ¬æ–‡ä»¶æœ€åä¸€è¡Œæœ«å°¾è¿½åŠ æ–‡æœ¬ã€‚
 	 * 
 	 * @param newLastLine
-	 *            Òª×·¼ÓµÄÎÄ±¾
+	 *            è¦è¿½åŠ çš„æ–‡æœ¬
 	 * @param charset
-	 *            ×Ö·û±àÂëÃû³Æ
+	 *            å­—ç¬¦ç¼–ç åç§°
 	 * @param raf
-	 *            RandomAccessFile±íÊ¾µÄÎÄ¼ş
+	 *            RandomAccessFileè¡¨ç¤ºçš„æ–‡ä»¶
 	 * @throws IOException
 	 * @throws UnsupportedEncodingException
 	 */
@@ -121,19 +121,19 @@ public class LastLineReader
 			RandomAccessFile raf)
 			throws IOException, UnsupportedEncodingException
 	{
-		// ÒÆ¶¯Ö¸Õëµ½×îºóÒ»ĞĞ
+		// ç§»åŠ¨æŒ‡é’ˆåˆ°æœ€åä¸€è¡Œ
 		raf.seek(raf.length());
 		raf.write(newLastLine.getBytes(charset));
 	}
 	/**
-	 * ÔÚÎÄ±¾ÎÄ¼ş×îºóÒ»ĞĞÄ©Î²²åÈëÎÄ±¾¡£
+	 * åœ¨æ–‡æœ¬æ–‡ä»¶æœ€åä¸€è¡Œæœ«å°¾æ’å…¥æ–‡æœ¬ã€‚
 	 * 
 	 * @param file
-	 *            Ä¿±êÎÄ¼ş
+	 *            ç›®æ ‡æ–‡ä»¶
 	 * @param newLastLine
-	 *            Òª²åÈëµÄÎÄ±¾
+	 *            è¦æ’å…¥çš„æ–‡æœ¬
 	 * @param charset
-	 *            ×Ö·û±àÂëÃû³Æ
+	 *            å­—ç¬¦ç¼–ç åç§°
 	 */
 	public static void insertInLastLine(File file, String newLastLine,
 			String charset)
@@ -142,7 +142,7 @@ public class LastLineReader
 		try
 		{
 			raf = new RandomAccessFile(file, "rwd");
-			// ÒÆ¶¯Ö¸Õëµ½×îºóÒ»ĞĞ
+			// ç§»åŠ¨æŒ‡é’ˆåˆ°æœ€åä¸€è¡Œ
 			raf.seek(raf.length());
 			raf.write(newLastLine.getBytes(charset));
 		} catch (IOException e)
@@ -162,21 +162,21 @@ public class LastLineReader
 		}
 	}
 	/**
-	 * É¾³ı±¾ÎÄÎÄ¼ş×îºóÒ»ĞĞ¡£
+	 * åˆ é™¤æœ¬æ–‡æ–‡ä»¶æœ€åä¸€è¡Œã€‚
 	 * 
 	 * @param raf
 	 * @throws IOException
 	 */
 	private static void deleteLastLine(RandomAccessFile raf) throws IOException
 	{
-		// »ñÈ¡×îºóÒ»ĞĞµÄÎ»ÖÃ
+		// è·å–æœ€åä¸€è¡Œçš„ä½ç½®
 		long lastLinePos = getLastLinePos(raf);
-		// É¾³ı×îºóÒ»ĞĞ
+		// åˆ é™¤æœ€åä¸€è¡Œ
 		raf.setLength(lastLinePos);
 	}
 
 	/**
-	 * É¾³ı±¾ÎÄÎÄ¼ş×îºóÒ»ĞĞ¡£
+	 * åˆ é™¤æœ¬æ–‡æ–‡ä»¶æœ€åä¸€è¡Œã€‚
 	 * 
 	 * @param file
 	 */
@@ -186,9 +186,9 @@ public class LastLineReader
 		try
 		{
 			raf = new RandomAccessFile(file, "rwd");
-			// »ñÈ¡×îºóÒ»ĞĞµÄÎ»ÖÃ
+			// è·å–æœ€åä¸€è¡Œçš„ä½ç½®
 			long lastLinePos = getLastLinePos(raf);
-			// É¾³ı×îºóÒ»ĞĞ
+			// åˆ é™¤æœ€åä¸€è¡Œ
 			raf.setLength(lastLinePos);
 		} catch (IOException e)
 		{
@@ -209,32 +209,32 @@ public class LastLineReader
 
 	}
 	/**
-	 * ·µ»Ø×îºóÒ»ĞĞµÄÆğÊ¼Î»ÖÃ,²¢ÒÆ¶¯ÎÄ¼şÖ¸Õëµ½×îºóÒ»ĞĞµÄÆğÊ¼Î»ÖÃ¡£
+	 * è¿”å›æœ€åä¸€è¡Œçš„èµ·å§‹ä½ç½®,å¹¶ç§»åŠ¨æ–‡ä»¶æŒ‡é’ˆåˆ°æœ€åä¸€è¡Œçš„èµ·å§‹ä½ç½®ã€‚
 	 * 
 	 * @param raf
-	 *            RandomAccessFile¶ÔÏó
-	 * @return ×îºóÒ»ĞĞµÄÆğÊ¼Î»ÖÃ
+	 *            RandomAccessFileå¯¹è±¡
+	 * @return æœ€åä¸€è¡Œçš„èµ·å§‹ä½ç½®
 	 * @throws IOException
 	 */
 	private static long getLastLinePos(RandomAccessFile raf) throws IOException
 	{
 		long lastLinePos = 0L;
-		// »ñÈ¡ÎÄ¼şÕ¼ÓÃ×Ö½ÚÊı
+		// è·å–æ–‡ä»¶å ç”¨å­—èŠ‚æ•°
 		long len = raf.length();
 		if (len > 0L)
 		{
-			// ÏòÇ°×ßÒ»¸ö×Ö½Ú
+			// å‘å‰èµ°ä¸€ä¸ªå­—èŠ‚
 			long pos = len - 1;
 			while (pos > 0)
 			{
 				pos--;
-				// ÒÆ¶¯Ö¸Õë
+				// ç§»åŠ¨æŒ‡é’ˆ
 				raf.seek(pos);
-				// ÅĞ¶ÏÕâ¸ö×Ö½ÚÊÇ²»ÊÇ»Ø³µ·û
+				// åˆ¤æ–­è¿™ä¸ªå­—èŠ‚æ˜¯ä¸æ˜¯å›è½¦ç¬¦
 				if (raf.readByte() == '\n')
 				{
-					// lastLinePos = pos;// ¼ÇÂ¼ÏÂÎ»ÖÃ
-					// break;// Ç°ÒÆµ½»áµÚÒ»¸ö»Ø³µ·ûºó½áÊø
+					// lastLinePos = pos;// è®°å½•ä¸‹ä½ç½®
+					// break;// å‰ç§»åˆ°ä¼šç¬¬ä¸€ä¸ªå›è½¦ç¬¦åç»“æŸ
 					return pos;
 				}
 
@@ -243,11 +243,11 @@ public class LastLineReader
 		return lastLinePos;
 	}
 	/**
-	 * ·µ»ØÎÄ±¾ÎÄ¼şµÄ×îºóÒ»ĞĞµÄÆğÊ¼Î»ÖÃ¡£
+	 * è¿”å›æ–‡æœ¬æ–‡ä»¶çš„æœ€åä¸€è¡Œçš„èµ·å§‹ä½ç½®ã€‚
 	 * 
 	 * @param file
-	 *            ÎÄ±¾ÎÄ¼ş
-	 * @return ×îºóÒ»ĞĞµÄÏÂ±ê
+	 *            æ–‡æœ¬æ–‡ä»¶
+	 * @return æœ€åä¸€è¡Œçš„ä¸‹æ ‡
 	 */
 	public static long getLastLinePos(File file)
 	{
@@ -257,22 +257,22 @@ public class LastLineReader
 		{
 			raf = new RandomAccessFile(file, "r");
 
-			// »ñÈ¡ÎÄ¼şÕ¼ÓÃ×Ö½ÚÊı
+			// è·å–æ–‡ä»¶å ç”¨å­—èŠ‚æ•°
 			long len = raf.length();
 			if (len > 0L)
 			{
-				// ÏòÇ°×ßÒ»¸ö×Ö½Ú
+				// å‘å‰èµ°ä¸€ä¸ªå­—èŠ‚
 				long pos = len - 1;
 				while (pos > 0)
 				{
 					pos--;
-					// ÒÆ¶¯Ö¸Õë
+					// ç§»åŠ¨æŒ‡é’ˆ
 					raf.seek(pos);
-					// ÅĞ¶ÏÕâ¸ö×Ö½ÚÊÇ²»ÊÇ»Ø³µ·û
+					// åˆ¤æ–­è¿™ä¸ªå­—èŠ‚æ˜¯ä¸æ˜¯å›è½¦ç¬¦
 					if (raf.readByte() == '\n')
 					{
-						lastLinePos = pos;// ¼ÇÂ¼ÏÂÎ»ÖÃ
-						break;// Ç°ÒÆµ½»áµÚÒ»¸ö»Ø³µ·ûºó½áÊø
+						lastLinePos = pos;// è®°å½•ä¸‹ä½ç½®
+						break;// å‰ç§»åˆ°ä¼šç¬¬ä¸€ä¸ªå›è½¦ç¬¦åç»“æŸ
 						// return pos;
 					}
 				}

@@ -25,9 +25,9 @@ public class PropertiesTools
 			}
 		}
 	}
-	// 1.ÊµÀı»¯ÅäÖÃÎÄ¼ş¶ÔÏó
+	// 1.å®ä¾‹åŒ–é…ç½®æ–‡ä»¶å¯¹è±¡
 	private Properties properties = new Properties();
-	// »ñÈ¡ËùÓĞkeyµÄSet¼¯ºÏ
+	// è·å–æ‰€æœ‰keyçš„Seté›†åˆ
 	private Set<String> keySet;
 	public PropertiesTools()
 	{
@@ -36,10 +36,10 @@ public class PropertiesTools
 	{
 		try
 		{
-			// 2.¼ÓÔØÅäÖÃÎÄ¼ş
+			// 2.åŠ è½½é…ç½®æ–‡ä»¶
 			this.properties.load(new InputStreamReader(
 					new FileInputStream(new File(path)), charset));
-			// 3.»ñÈ¡ËùÓĞµÄkey,±£´æµ½Set¼¯ºÏÖĞ
+			// 3.è·å–æ‰€æœ‰çš„key,ä¿å­˜åˆ°Seté›†åˆä¸­
 			this.keySet = properties.stringPropertyNames();
 		} catch (IOException e)
 		{
@@ -47,11 +47,11 @@ public class PropertiesTools
 		}
 	}
 	/**
-	 * ²éÕÒÅäÖÃÎÄ¼şÖ®ÖĞÓĞÃ»ÓĞÏà¹ØµÄkey.
+	 * æŸ¥æ‰¾é…ç½®æ–‡ä»¶ä¹‹ä¸­æœ‰æ²¡æœ‰ç›¸å…³çš„key.
 	 * 
 	 * @param keyToFind
-	 *            ÏëÒª²éÕÒµÄkey.
-	 * @return Èç¹ûÕÒµ½·µ»Øtrue,Èç¹ûÃ»ÓĞÕÒµ½·µ»Øfalse.
+	 *            æƒ³è¦æŸ¥æ‰¾çš„key.
+	 * @return å¦‚æœæ‰¾åˆ°è¿”å›true,å¦‚æœæ²¡æœ‰æ‰¾åˆ°è¿”å›false.
 	 */
 	public boolean findKey(String keyToFind)
 	{
@@ -66,11 +66,11 @@ public class PropertiesTools
 		return false;
 	}
 	/**
-	 * ¸ù¾İkey»ñÈ¡Öµ.
+	 * æ ¹æ®keyè·å–å€¼.
 	 * 
 	 * @param key
-	 *            ¾ÍÊÇÅäÖÃÎÄ¼şÖĞµÄkey.
-	 * @return key¶ÔÓ¦µÄÖµ.
+	 *            å°±æ˜¯é…ç½®æ–‡ä»¶ä¸­çš„key.
+	 * @return keyå¯¹åº”çš„å€¼.
 	 */
 	public String getValue(String key)
 	{

@@ -3,26 +3,26 @@ package cmd.tools;
 import java.io.IOException;
 
 /**
- * ¿ØÖÆÌ¨ÇåÆÁ¹¦ÄÜ.Õâ¸öÇåÆÁ¹¦ÄÜÔÚeclipseÖĞÎŞĞ§,Ö»ÔÚCMDÃüÁîĞĞÖĞÓĞĞ§.
+ * æ§åˆ¶å°æ¸…å±åŠŸèƒ½.è¿™ä¸ªæ¸…å±åŠŸèƒ½åœ¨eclipseä¸­æ— æ•ˆ,åªåœ¨CMDå‘½ä»¤è¡Œä¸­æœ‰æ•ˆ.
  */
 public class CmdCls
 {
 	/**
-	 * ÊµÏÖÔÚcmd¿ØÖÆÌ¨ÏÂÇåÆÁ¹¦ÄÜ.
+	 * å®ç°åœ¨cmdæ§åˆ¶å°ä¸‹æ¸…å±åŠŸèƒ½.
 	 */
 	public static void cls()
 	{
 		try
 		{
-			//// ĞÂ½¨Ò»¸ö ProcessBuilder£¬ÆäÒªÖ´ĞĞµÄÃüÁîÊÇ cmd.exe£¬²ÎÊıÊÇ /c ºÍ cls
+			//// æ–°å»ºä¸€ä¸ª ProcessBuilderï¼Œå…¶è¦æ‰§è¡Œçš„å‘½ä»¤æ˜¯ cmd.exeï¼Œå‚æ•°æ˜¯ /c å’Œ cls
 			new ProcessBuilder("cmd", "/c", "cls")
-					// ½« ProcessBuilder ¶ÔÏóµÄÊä³ö¹ÜµÀºÍ Java µÄ½ø³Ì½øĞĞ¹ØÁª£¬Õâ¸öº¯ÊıµÄ·µ»ØÖµÒ²ÊÇÒ»¸ö
+					// å°† ProcessBuilder å¯¹è±¡çš„è¾“å‡ºç®¡é“å’Œ Java çš„è¿›ç¨‹è¿›è¡Œå…³è”ï¼Œè¿™ä¸ªå‡½æ•°çš„è¿”å›å€¼ä¹Ÿæ˜¯ä¸€ä¸ª
 					// ProcessBuilder
 					.inheritIO()
-					// ¿ªÊ¼Ö´ĞĞ ProcessBuilder ÖĞµÄÃüÁî
+					// å¼€å§‹æ‰§è¡Œ ProcessBuilder ä¸­çš„å‘½ä»¤
 					.start()
-					// µÈ´ı ProcessBuilder ÖĞµÄÇåÆÁÃüÁîÖ´ĞĞÍê±Ï
-					// Èç¹û²»µÈ´ıÔò»á³öÏÖÇåÆÁ´úÂëºóÃæµÄÊä³ö±»ÇåµôµÄÇé¿ö
+					// ç­‰å¾… ProcessBuilder ä¸­çš„æ¸…å±å‘½ä»¤æ‰§è¡Œå®Œæ¯•
+					// å¦‚æœä¸ç­‰å¾…åˆ™ä¼šå‡ºç°æ¸…å±ä»£ç åé¢çš„è¾“å‡ºè¢«æ¸…æ‰çš„æƒ…å†µ
 					.waitFor();
 		} catch (InterruptedException e)
 		{
@@ -32,6 +32,6 @@ public class CmdCls
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} // ÇåÆÁÃüÁî
+		} // æ¸…å±å‘½ä»¤
 	}
 }

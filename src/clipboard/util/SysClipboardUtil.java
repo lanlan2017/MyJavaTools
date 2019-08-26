@@ -13,27 +13,27 @@ import java.io.IOException;
 public class SysClipboardUtil
 {
 	/**
-	 * ´Ó¼ôÌù°åÖĞ»ñÈ¡ÎÄ±¾.
+	 * ä»å‰ªè´´æ¿ä¸­è·å–æ–‡æœ¬.
 	 * 
-	 * @return Èç¹û¼ôÌù°åÖĞÃ»ÓĞÎÄ±¾,Ôò·µ»Ønull.Èç¹û»ñÈ¡µ½ÎÄ±¾,Ôò·µ»ØÎÄ±¾.
+	 * @return å¦‚æœå‰ªè´´æ¿ä¸­æ²¡æœ‰æ–‡æœ¬,åˆ™è¿”å›null.å¦‚æœè·å–åˆ°æ–‡æœ¬,åˆ™è¿”å›æ–‡æœ¬.
 	 */
 	public static String getSysClipboardText()
 	{
-		// ´úÂë¼æÈİJDK6,²»È»¼ôÌù°å»ñÈ¡ÎÄ±¾¿ÉÄÜ´íÎó
+		// ä»£ç å…¼å®¹JDK6,ä¸ç„¶å‰ªè´´æ¿è·å–æ–‡æœ¬å¯èƒ½é”™è¯¯
 		System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
 		String text = null;
 		Clipboard sysClip = Toolkit.getDefaultToolkit().getSystemClipboard();
-		// »ñÈ¡¼ôÇĞ°åÖĞµÄÄÚÈİ
+		// è·å–å‰ªåˆ‡æ¿ä¸­çš„å†…å®¹
 		Transferable clipTf = sysClip.getContents(null);
 
 		if (clipTf != null)
 		{
-			// ¼ì²éÄÚÈİÊÇ·ñÊÇÎÄ±¾ÀàĞÍ
+			// æ£€æŸ¥å†…å®¹æ˜¯å¦æ˜¯æ–‡æœ¬ç±»å‹
 			if (clipTf.isDataFlavorSupported(DataFlavor.stringFlavor))
 			{
 				try
 				{
-					// ×ª»»ÎªÎÄ±¾
+					// è½¬æ¢ä¸ºæ–‡æœ¬
 					text = (String) clipTf
 							.getTransferData(DataFlavor.stringFlavor);
 				} catch (Exception e)
@@ -46,10 +46,10 @@ public class SysClipboardUtil
 		return text;
 	}
 	/**
-	 * °Ñ×Ö·û´®Ğ´µ½ÏµÍ³¼ôÌù°å¡£
+	 * æŠŠå­—ç¬¦ä¸²å†™åˆ°ç³»ç»Ÿå‰ªè´´æ¿ã€‚
 	 * 
 	 * @param writeMe
-	 *            ÒªĞ´Èë¼ôÌù°åµÄÎÄ±¾
+	 *            è¦å†™å…¥å‰ªè´´æ¿çš„æ–‡æœ¬
 	 */
 	public static void setSysClipboardText(String writeMe)
 	{
@@ -58,9 +58,9 @@ public class SysClipboardUtil
 		clip.setContents(tText, null);
 	}
 	/**
-	 * ´ÓÏµÍ³¼ôÌù°å»ñÈ¡Í¼Æ¬¡£
+	 * ä»ç³»ç»Ÿå‰ªè´´æ¿è·å–å›¾ç‰‡ã€‚
 	 * 
-	 * @return ÏµÍ³¼ôÌù°åÀïÃæµÄÍ¼Æ¬¡£
+	 * @return ç³»ç»Ÿå‰ªè´´æ¿é‡Œé¢çš„å›¾ç‰‡ã€‚
 	 */
 	public static BufferedImage getImageFromClipboard()
 	{
@@ -81,10 +81,10 @@ public class SysClipboardUtil
 	}
 
 	/**
-	 * °ÑÍ¼Æ¬¸´ÖÆµ½¼ôÌù°åÖĞ¡£
+	 * æŠŠå›¾ç‰‡å¤åˆ¶åˆ°å‰ªè´´æ¿ä¸­ã€‚
 	 * 
 	 * @param image
-	 *            Òª¸´ÖÆµ½¼ôÌù°åµÄÍ¼Æ¬¡£
+	 *            è¦å¤åˆ¶åˆ°å‰ªè´´æ¿çš„å›¾ç‰‡ã€‚
 	 */
 	public static void setClipboardImage(final Image image)
 	{

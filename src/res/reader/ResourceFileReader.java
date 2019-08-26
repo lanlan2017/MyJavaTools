@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 /**
- * Õâ¸öÀà×¨ÃÅÓÃÀ´¶ÁÈ¡×ÊÔ´ÎÄ¼ş
+ * è¿™ä¸ªç±»ä¸“é—¨ç”¨æ¥è¯»å–èµ„æºæ–‡ä»¶
  */
 public class ResourceFileReader {
     public static void main(String[] args)
@@ -14,13 +14,13 @@ public class ResourceFileReader {
         System.out.println(getResourceFileContent("htmlTemplate.html", "utf-8"));
     }
     /**
-     * /** ¶ÁÈë×ÊÔ´Ä¿Â¼ÏÂµÄpathÎÄ¼şÖĞµÄÄÚÈİ.»áÒÔUTF-8±àÂëÀ´¶ÁÈ¡,ËùÒÔ¸ÃÎÄ¼ş±ØĞëÒª±£´æÎªUTF-8±àÂë¸ñÊ½.
+     * /** è¯»å…¥èµ„æºç›®å½•ä¸‹çš„pathæ–‡ä»¶ä¸­çš„å†…å®¹.ä¼šä»¥UTF-8ç¼–ç æ¥è¯»å–,æ‰€ä»¥è¯¥æ–‡ä»¶å¿…é¡»è¦ä¿å­˜ä¸ºUTF-8ç¼–ç æ ¼å¼.
      * 
      * @param  path
-     *                  ×ÊÔ´ÎÄ¼şµÄÂ·¾¶,±ØĞëÒÔ<code>/</code>¿ªÍ·.<br>
-     *                  ÀıÈçÏîÄ¿×ÊÔ´Ä¿Â¼resÏÂµÄµÄ<code>AudioPlay.html</code>µÄÂ·¾¶Îª:
+     *                  èµ„æºæ–‡ä»¶çš„è·¯å¾„,å¿…é¡»ä»¥<code>/</code>å¼€å¤´.<br>
+     *                  ä¾‹å¦‚é¡¹ç›®èµ„æºç›®å½•resä¸‹çš„çš„<code>AudioPlay.html</code>çš„è·¯å¾„ä¸º:
      *                  <code>"/AudioPlay.html"</code>
-     * @return      ×ÊÔ´Ä¿Â¼ÏÂµÄpathÎÄ¼şµÄÄÚÈİ
+     * @return      èµ„æºç›®å½•ä¸‹çš„pathæ–‡ä»¶çš„å†…å®¹
      */
     public static String getResourceFileContent(String path, String charset)
     {

@@ -14,19 +14,19 @@ public class MavenJavaWebFileNameFilter implements FilenameFilter
 	@Override
 	public boolean accept(File dir, String name)
 	{
-		// ¸ÃÎÄ¼ş²»ÄÜÒÔµãºÅ¿ªÍ·,
-		// Ò²²»ÄÜÒÔtxtÎÄ¼ş½áÎ²
-		// ÎÄ¼şÃû³Æ²»ÄÜÊÇbin
-		// ÎÄ¼şÃû³Æ²»ÄÜÊÇtarget
+		// è¯¥æ–‡ä»¶ä¸èƒ½ä»¥ç‚¹å·å¼€å¤´,
+		// ä¹Ÿä¸èƒ½ä»¥txtæ–‡ä»¶ç»“å°¾
+		// æ–‡ä»¶åç§°ä¸èƒ½æ˜¯bin
+		// æ–‡ä»¶åç§°ä¸èƒ½æ˜¯target
 		if (name.startsWith(".") || name.endsWith(".txt"))
 		{
 			return false;
 		}
-		// Èç¹ûÊÇ¸ùÄ¿Â¼
+		// å¦‚æœæ˜¯æ ¹ç›®å½•
 		if (RootPath.equals(dir.getAbsolutePath()))
 		{
-			// µÚÒ»¼¶Ä¿Â¼ÏÂµÄbinÄ¿Â¼,
-			// »òÕßtargetÄ¿Â¼(maven,Êä³ö)²»ÊÇjavaÏîÄ¿±ØĞëÄ¿Â¼ËùÒÔ²»Êä³ö
+			// ç¬¬ä¸€çº§ç›®å½•ä¸‹çš„binç›®å½•,
+			// æˆ–è€…targetç›®å½•(maven,è¾“å‡º)ä¸æ˜¯javaé¡¹ç›®å¿…é¡»ç›®å½•æ‰€ä»¥ä¸è¾“å‡º
 			if ("bin".equals(name) || "target".equals(name)
 					|| "test".equals(name)||"build".equals(name))
 			{
