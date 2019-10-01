@@ -28,7 +28,7 @@ public class MavenJavaWebFileNameFilter implements FilenameFilter
 			// 第一级目录下的bin目录,
 			// 或者target目录(maven,输出)不是java项目必须目录所以不输出
 			if ("bin".equals(name) || "target".equals(name)
-					|| "test".equals(name)||"build".equals(name))
+					|| "process/tools".equals(name)||"build".equals(name))
 			{
 				return false;
 			}
