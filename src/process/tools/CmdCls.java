@@ -16,8 +16,9 @@ public class CmdCls {
             List<String> command = new ArrayList<>();
             // 程序:cmd.exe
             command.add("cmd");
-            // 参数:
+            // 参数:/C 执行字符串指定的命令然后终止
             command.add("/c");
+            // 参数:清屏命令cls
             command.add("cls");
             ProcessBuilder processBuilder = new ProcessBuilder(command);
             // 子进程和父进程使用相同的输入输出流.
