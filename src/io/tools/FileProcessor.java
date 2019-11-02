@@ -35,10 +35,12 @@ public abstract class FileProcessor {
      * @param subFile 要处理的文件.
      */
     private void processingSubFile(File subFile) {
-        System.out.println(subFile.getAbsolutePath());
         String fileContent = readFile(subFile);
-        fileContent = processingFileContent(fileContent);
-        writeFile(subFile, fileContent);
+        String processedFileContent = processingFileContent(fileContent);
+        if (processedFileContent.length() < fileContent.length()) {
+            System.out.println("被修改的文件:" + subFile.getAbsolutePath());
+            writeFile(subFile, processedFileContent);
+        }
     }
 
     protected abstract String processingFileContent(String fileContent);
@@ -66,7 +68,7 @@ public abstract class FileProcessor {
         });
         if (subFileList != null) {
             for (File subFile : subFileList) {
-                System.out.println(subFile.getAbsolutePath());
+                // System.out.println(subFile.getAbsolutePath());
                 if (subFile.isFile()) {
                     processingSubFile(subFile);
 
@@ -113,7 +115,7 @@ public abstract class FileProcessor {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(sb.toString());
+        // System.out.println(sb.toString());
         return sb.toString();
     }
 }
