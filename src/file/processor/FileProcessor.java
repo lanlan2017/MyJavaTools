@@ -1,4 +1,4 @@
-package io.tools;
+package file.processor;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -11,6 +11,7 @@ public abstract class FileProcessor {
      * 需要处理的文件或目录.
      */
     private File inputFile;
+    FilenameFilter filenameFilter;
 
     public FileProcessor(String filePath) {
         inputFile = new File(filePath);
@@ -23,27 +24,53 @@ public abstract class FileProcessor {
     public void processing() {
         // File file = new File(path);
         if (inputFile.isFile()) {
-            processingSubFile(inputFile);
+            // 处理文件.
+            processingFile(inputFile);
         } else if (inputFile.isDirectory()) {
-            traversingDir(inputFile);
+            // 处理目录.
+            processingDir(inputFile, filenameFilter);
         }
     }
 
     /**
-     * 使用正则表达式对文件进行替换操作.
+     * 处理文件.
      *
-     * @param subFile 要处理的文件.
+     * @param file 要处理的文件.
      */
-    private void processingSubFile(File subFile) {
-        String fileContent = readFile(subFile);
+    private void processingFile(File file) {
+        // 读入文件中的字符串.
+        String fileContent = readFile(file);
+        // 处理文件内容.
         String processedFileContent = processingFileContent(fileContent);
-        if (processedFileContent.length() < fileContent.length()) {
-            System.out.println("被修改的文件:" + subFile.getAbsolutePath());
-            writeFile(subFile, processedFileContent);
+        // 如果文件内容改变了.
+        if (processedFileContent != null) {
+            System.out.println("被修改的文件:" + file.getAbsolutePath());
+            // 写入文件内容.
+            writeFile(file, processedFileContent);
         }
     }
 
+    /**
+     * 处理文件内容.
+     *
+     * @param fileContent 要处理的内容.
+     * @return 处理后的内容.
+     */
     protected abstract String processingFileContent(String fileContent);
+
+    /**
+     * 设置文件名过滤器.
+     */
+    protected abstract void setFilenameFilter();
+// /**
+    //  * 设置文件名过滤器.
+    //  *
+    //  * @param filenameFilter 文件名过滤器实例。
+    //  * @return 文件名过滤器.
+    //  */
+    // public void setFilenameFilter(FilenameFilter filenameFilter) {
+    //     this.filenameFilter = filenameFilter;
+    // }
 
 
     /**
@@ -51,30 +78,36 @@ public abstract class FileProcessor {
      *
      * @param dirFile 表示目录的File对象.
      */
-    private void traversingDir(File dirFile) {
+    private void processingDir(File dirFile, FilenameFilter filenameFilter) {
         if (dirFile == null)
             return;
-        File[] subFileList = dirFile.listFiles((dir, name) -> {
-            File file1 = new File(dir, name);
-            // 返回.md文件.
-            if (file1.isFile()) {
-                return name.endsWith(".md");
-            }
-            // 返回不是.开头的目录.
-            else if (file1.isDirectory()) {
-                return !name.startsWith(".");
-            }
-            return false;
-        });
-        if (subFileList != null) {
-            for (File subFile : subFileList) {
-                // System.out.println(subFile.getAbsolutePath());
-                if (subFile.isFile()) {
-                    processingSubFile(subFile);
 
-                } else if (subFile.isDirectory()) {
+        // File[] dirFileList = dirFile.listFiles((dir, name) -> {
+        //     File file1 = new File(dir, name);
+        //     // 返回.md文件.
+        //     if (file1.isFile()) {
+        //         return name.endsWith(".md");
+        //     }
+        //     // 返回不是.开头的目录.
+        //     else if (file1.isDirectory()) {
+        //         return !name.startsWith(".");
+        //     }
+        //     return false;
+        // });
+        // 获取符合文件名过滤器的文件列表.
+        File[] dirFileList = dirFile.listFiles(filenameFilter);
+        // 如果列表不为空
+        if (dirFileList != null) {
+            // 遍历目录列表
+            for (File file : dirFileList) {
+                // System.out.println(file.getAbsolutePath());
+                // 如果是文件,则处理这个文件.
+                if (file.isFile()) {
+                    processingFile(file);
+
+                } else if (file.isDirectory()) {
                     // 递归遍历下一级目录.
-                    traversingDir(subFile);
+                    processingDir(file, filenameFilter);
                 }
             }
         }
