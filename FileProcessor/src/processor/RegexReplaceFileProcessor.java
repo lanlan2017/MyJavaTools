@@ -1,4 +1,4 @@
-package file.processor;
+package processor;
 
 import java.io.File;
 import java.util.regex.Matcher;

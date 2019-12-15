@@ -1,4 +1,4 @@
-package file.processor;
+package processor;
 
 /**
  * @author francis

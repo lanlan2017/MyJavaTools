@@ -1,4 +1,4 @@
-package file.processor;
+package processor;
 
 /**
  * 文件处理器:输出文件内容
