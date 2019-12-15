@@ -13,6 +13,19 @@ public class RegexReplaceFileProcessor extends FileProcessor {
 
     public RegexReplaceFileProcessor(String filePath, String regex, String replacement) {
         super(filePath);
+        // 设置文件名过滤器.
+        super.setFilenameFilter((dir, name) -> {
+            File file = new File(dir, name);
+            // 返回.md文件.
+            if (file.isFile()) {
+                return name.endsWith(".md");
+            }
+            // 返回不是.开头的目录.
+            else if (file.isDirectory()) {
+                return !name.startsWith(".");
+            }
+            return false;
+        });
         this.regex = regex;
         this.replacement = replacement;
     }
@@ -35,22 +48,5 @@ public class RegexReplaceFileProcessor extends FileProcessor {
         }
         // 如果没有找到匹配的字串,则返回null,表示不需要替换.
         return null;
-    }
-
-    @Override
-    protected void setFilenameFilter() {
-        // 只返回markdown格式的文件.
-        this.filenameFilter = (dir, name) -> {
-            File file = new File(dir, name);
-            // 返回.md文件.
-            if (file.isFile()) {
-                return name.endsWith(".md");
-            }
-            // 返回不是.开头的目录.
-            else if (file.isDirectory()) {
-                return !name.startsWith(".");
-            }
-            return false;
-        };
     }
 }

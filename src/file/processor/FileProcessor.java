@@ -11,7 +11,10 @@ public abstract class FileProcessor {
      * 需要处理的文件或目录.
      */
     private File inputFile;
-    FilenameFilter filenameFilter;
+    /**
+     * 文件名过滤器.
+     */
+    private FilenameFilter filenameFilter;
 
     public FileProcessor(String filePath) {
         inputFile = new File(filePath);
@@ -25,8 +28,10 @@ public abstract class FileProcessor {
         // File file = new File(path);
         if (inputFile.isFile()) {
             // 处理文件.
+            // System.out.println("文件:"+inputFile.getAbsoluteFile());
             processingFile(inputFile);
         } else if (inputFile.isDirectory()) {
+            // System.out.println("目录:"+inputFile.getAbsoluteFile());
             // 处理目录.
             processingDir(inputFile, filenameFilter);
         }
@@ -40,11 +45,13 @@ public abstract class FileProcessor {
     private void processingFile(File file) {
         // 读入文件中的字符串.
         String fileContent = readFile(file);
+        // System.out.println("正则处理的文件:"+file.getAbsoluteFile());
         // 处理文件内容.
         String processedFileContent = processingFileContent(fileContent);
         // 如果文件内容改变了.
         if (processedFileContent != null) {
             System.out.println("被修改的文件:" + file.getAbsolutePath());
+            // System.out.println(processedFileContent);
             // 写入文件内容.
             writeFile(file, processedFileContent);
         }
@@ -61,17 +68,9 @@ public abstract class FileProcessor {
     /**
      * 设置文件名过滤器.
      */
-    protected abstract void setFilenameFilter();
-// /**
-    //  * 设置文件名过滤器.
-    //  *
-    //  * @param filenameFilter 文件名过滤器实例。
-    //  * @return 文件名过滤器.
-    //  */
-    // public void setFilenameFilter(FilenameFilter filenameFilter) {
-    //     this.filenameFilter = filenameFilter;
-    // }
-
+    protected void setFilenameFilter(FilenameFilter filenameFilter) {
+        this.filenameFilter = filenameFilter;
+    }
 
     /**
      * 递归遍历目录.
@@ -81,19 +80,6 @@ public abstract class FileProcessor {
     private void processingDir(File dirFile, FilenameFilter filenameFilter) {
         if (dirFile == null)
             return;
-
-        // File[] dirFileList = dirFile.listFiles((dir, name) -> {
-        //     File file1 = new File(dir, name);
-        //     // 返回.md文件.
-        //     if (file1.isFile()) {
-        //         return name.endsWith(".md");
-        //     }
-        //     // 返回不是.开头的目录.
-        //     else if (file1.isDirectory()) {
-        //         return !name.startsWith(".");
-        //     }
-        //     return false;
-        // });
         // 获取符合文件名过滤器的文件列表.
         File[] dirFileList = dirFile.listFiles(filenameFilter);
         // 如果列表不为空
@@ -104,7 +90,6 @@ public abstract class FileProcessor {
                 // 如果是文件,则处理这个文件.
                 if (file.isFile()) {
                     processingFile(file);
-
                 } else if (file.isDirectory()) {
                     // 递归遍历下一级目录.
                     processingDir(file, filenameFilter);
