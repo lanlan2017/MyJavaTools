@@ -5,7 +5,6 @@ import processor.FileProcessor;
 import regex.Regex;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,7 +27,7 @@ public class HexoMarkdownFileProcessor extends FileProcessor {
             Properties fmPt = new Properties();
             fmPt.load(new InputStreamReader(new FileInputStream(hexoRoot + File.separator + "FM.properties"), "gbk"));
             relativeURL = fmPt.getProperty("relativeURL");
-            System.out.println(relativeURL);
+            // System.out.println(relativeURL);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -43,24 +42,25 @@ public class HexoMarkdownFileProcessor extends FileProcessor {
         Matcher hexoFmM = hexoFmP.matcher(fileContent);
         // 这个要放在前面
         if (myFmM.find()) {
-            String myFMStr = fileContent.substring(myFmM.start(), myFmM.end());
+            // String myFMStr = fileContent.substring(myFmM.start(), myFmM.end());
             fileContent = fileContent.substring(myFmM.end());
-            System.out.println("=============================MYFM==================================");
-            System.out.println(myFMStr);
-            System.out.println("=============================MYFM==================================");
+            // System.out.println("=============================MYFM==================================");
+            // System.out.println(myFMStr);
+            // System.out.println("=============================MYFM==================================");
             // System.out.println("========FM========");
             oldHexoFM = myFmM.group(1);
             hexoFrontMatter = new HexoFrontMatter(file, oldHexoFM);
-            System.out.println(hexoFrontMatter.toString());
+            // System.out.println(hexoFrontMatter.toString());
             String myScript = "<div id='my_toc'>INSERT_TOC_HERE</div>\n" +
                     "<!--more-->\n" +
                     "<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}</script>\n" +
                     "\n" +
-                    "<!--end-->";
-            myScript = myScript.replace("INSERT_TOC_HERE", toc.toString().replace("Insert_Relative_Address_Here", relativeURL+hexoFrontMatter.getAbbrlink()+"/"));
-            System.out.println(myScript);
+                    "<!--end-->\n";
+            myScript = myScript.replace("INSERT_TOC_HERE", toc.toString().replace("Insert_Relative_Address_Here", relativeURL + hexoFrontMatter.getAbbrlink() + "/"));
+            // System.out.println(myScript);
             // System.out.println("========FM========");
-            System.out.println(fileContent);
+            // System.out.println(fileContent);
+            return hexoFrontMatter.toString() + "\n" + myScript + fileContent;
         } else if (hexoFmM.find()) {
             oldHexoFM = fileContent.substring(hexoFmM.start(), hexoFmM.end());
             fileContent = fileContent.substring(hexoFmM.end());
@@ -70,8 +70,6 @@ public class HexoMarkdownFileProcessor extends FileProcessor {
             System.out.println("=============================FM==================================");
             System.out.println(fileContent);
         }
-
-
         return null;
     }
 
