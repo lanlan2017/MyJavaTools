@@ -14,6 +14,8 @@ public class PropertiesTools
 	{
 		PropertiesTools propertiesTools = new PropertiesTools(
 				"SpecialWords.properties", "utf-8");
+
+
 		String test = "id\r\n" + "MIME\r\n" + "url\r\n" + "GET\r\n" + "CRUD\r\n"
 				+ "JavaEE\r\n" + "SpringMVC\r\n+xxxx\r\n";
 		String[] tests = test.split("\r\n");

@@ -45,11 +45,6 @@ public class PropertyTools {
             System.out.println(tests[i]);
         }
     }
-    /**
-     * @param tests
-     * @param keySet
-     * @param i
-     */
     public static boolean findKeyFromSet(String toFind, Set<String> keySet)
     {
         for (Iterator<String> iterator = keySet.iterator(); iterator.hasNext();)

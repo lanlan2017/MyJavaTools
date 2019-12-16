@@ -1,4 +1,6 @@
-package processor;
+package processor.impl;
+
+import processor.FileProcessor;
 
 /**
  * 文件处理器:输出文件内容

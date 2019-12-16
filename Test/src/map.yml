@@ -1,0 +1,8 @@
+# map.yml
+sample1:
+  r: 10
+sample2:
+  other: haha
+sample3:
+  x: 100
+  y: 100

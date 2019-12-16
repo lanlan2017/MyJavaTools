@@ -119,7 +119,7 @@ public abstract class FileProcessor {
      * @param file 要读取的文件.
      * @return 保存文件的内容的字符串对象.
      */
-    private String readFile(File file) {
+    protected String readFile(File file) {
         StringBuilder sb = new StringBuilder(10240);
         char[] timeChs = new char[1024];
         try (BufferedReader reader = new BufferedReader(

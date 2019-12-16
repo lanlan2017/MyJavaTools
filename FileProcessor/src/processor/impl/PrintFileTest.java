@@ -1,4 +1,6 @@
-package processor;
+package processor.impl;
+
+import processor.FileProcessor;
 
 /**
  * @author francis

@@ -1,5 +1,7 @@
-package processor;
+package processor.impl;
 
+
+import processor.FileProcessor;
 
 public class RegexReplaceTest {
     public static void main(String[] args) {
