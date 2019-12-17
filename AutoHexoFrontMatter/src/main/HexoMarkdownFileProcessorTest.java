@@ -2,7 +2,7 @@ package main;
 
 import clipboard.SystemClipboard;
 import io.HexoMarkdownFileProcessor;
-import processor.FileProcessor;
+import file.processor.FileProcessor;
 
 /**
  * @author francis
