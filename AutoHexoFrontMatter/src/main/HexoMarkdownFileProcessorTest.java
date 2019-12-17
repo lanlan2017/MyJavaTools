@@ -1,5 +1,7 @@
-package io;
+package main;
 
+import clipboard.SystemClipboard;
+import io.HexoMarkdownFileProcessor;
 import processor.FileProcessor;
 
 /**
@@ -10,7 +12,8 @@ public class HexoMarkdownFileProcessorTest {
     public static void main(String[] args) {
         // String path = "E:\\Blog\\blogRoot\\source\\_posts\\测试\\测试.md";
         // String path = "E:\\Blog\\blogRoot\\source\\_posts\\测试\\测试\\测试.md";
-        String path = "E:\\Blog\\blogRoot\\source\\_posts\\测试\\测试\\测试3.md";
+        // String path = "E:\\Blog\\blogRoot\\source\\_posts\\测试\\测试\\测试3.md";
+        String path = SystemClipboard.getSysClipboardText();
         FileProcessor fileProcessor = new HexoMarkdownFileProcessor(path);
         fileProcessor.processing();
     }

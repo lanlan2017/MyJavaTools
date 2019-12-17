@@ -20,6 +20,9 @@ public class HexoFrontMatter {
     private String top;
 
     public String getAbbrlink() {
+        if (abbrlink == null) {
+            abbrlink = "null";
+        }
         return abbrlink.replace("'", "");
     }
 
@@ -67,7 +70,7 @@ public class HexoFrontMatter {
         }
         if (date != null) {
             hexoFrontMatter.append("date: ").append(date).append("\n");
-        }else {
+        } else {
             hexoFrontMatter.append("date: ").append(updated).append("\n");
         }
 

@@ -16,23 +16,34 @@ import java.util.regex.Pattern;
 public class HexoMarkdownFileProcessor extends FileProcessor {
     private File file;
     private StringBuilder toc = new StringBuilder();
+    private String tocModel;
     private String relativeURL;
+    private String script;
     HexoFrontMatter hexoFrontMatter;
 
     public HexoMarkdownFileProcessor(String filePath) {
         super(filePath);
+        // 取得Hexo站点的路径.
         String hexoRoot = filePath.substring(0, filePath.lastIndexOf(File.separator + "source" + File.separator + "_posts"));
-        // System.out.println(hexoRoot + File.separator + "FM.properties");
         try {
             Properties fmPt = new Properties();
             fmPt.load(new InputStreamReader(new FileInputStream(hexoRoot + File.separator + "FM.properties"), "gbk"));
+            // 读取配置文件,取得子站点的相对路径.
             relativeURL = fmPt.getProperty("relativeURL");
-            // System.out.println(relativeURL);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        // 取得JS代码模板
+        script = MyScript.getInstance().getScript();
+        tocModel = TOC.getInstance().getToc();
     }
 
+    /**
+     * 处理文章内容.
+     *
+     * @param fileContent 要处理的内容.
+     * @return 添加了Hexo FrontMatter和自定义JS代码的文章内容.
+     */
     @Override
     protected String processingFileContent(String fileContent) {
         String oldHexoFM;
@@ -42,41 +53,42 @@ public class HexoMarkdownFileProcessor extends FileProcessor {
         Matcher hexoFmM = hexoFmP.matcher(fileContent);
         // 这个要放在前面
         if (myFmM.find()) {
-            // String myFMStr = fileContent.substring(myFmM.start(), myFmM.end());
-            fileContent = fileContent.substring(myFmM.end());
-            // System.out.println("=============================MYFM==================================");
-            // System.out.println(myFMStr);
-            // System.out.println("=============================MYFM==================================");
-            // System.out.println("========FM========");
+            System.out.println("=============================MyFM==================================");
             oldHexoFM = myFmM.group(1);
-            hexoFrontMatter = new HexoFrontMatter(file, oldHexoFM);
-            // System.out.println(hexoFrontMatter.toString());
-            String myScript = "<div id='my_toc'>INSERT_TOC_HERE</div>\n" +
-                    "<!--more-->\n" +
-                    "<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}</script>\n" +
-                    "\n" +
-                    "<!--end-->\n";
-            myScript = myScript.replace("INSERT_TOC_HERE", toc.toString().replace("Insert_Relative_Address_Here", relativeURL + hexoFrontMatter.getAbbrlink() + "/"));
-            // System.out.println(myScript);
-            // System.out.println("========FM========");
-            // System.out.println(fileContent);
-            return hexoFrontMatter.toString() + "\n" + myScript + fileContent;
+            fileContent = fileContent.substring(myFmM.end());
+            return generateContent(fileContent, oldHexoFM);
         } else if (hexoFmM.find()) {
+            System.out.println("=============================FM==================================");
             oldHexoFM = fileContent.substring(hexoFmM.start(), hexoFmM.end());
             fileContent = fileContent.substring(hexoFmM.end());
-            System.out.println("=============================FM==================================");
-            hexoFrontMatter = new HexoFrontMatter(file, oldHexoFM);
-            System.out.println(hexoFrontMatter.toString());
-            System.out.println("=============================FM==================================");
-            System.out.println(fileContent);
+
+            return generateContent(fileContent, oldHexoFM);
+        } else {
+            System.out.println("=============================NoFM==================================");
+            hexoFrontMatter = new HexoFrontMatter(file);
+            return hexoFrontMatter.toString() + "\n" + fileContent;
         }
-        return null;
+    }
+
+    /**
+     * 生成更新后的文章内容.
+     *
+     * @param fileContent 文章正文.
+     * @param oldHexoFM   旧的HexoFrontMatter.
+     * @return 更新后的HexoFrontMatter和自定义JS+文章正文.
+     */
+    private String generateContent(String fileContent, String oldHexoFM) {
+        hexoFrontMatter = new HexoFrontMatter(file, oldHexoFM);
+        script = script.replace("INSERT_TOC_HERE",
+                toc.toString().replace("Relative__Address", relativeURL + hexoFrontMatter.getAbbrlink() + "/"));
+        return hexoFrontMatter.toString() + "\n" + script + fileContent;
     }
 
     @Override
     public String readFile(File file) {
         this.file = file;
         StringBuilder content = new StringBuilder();
+        String tocItem;
         // String hexoFMStr;
         // boolean isFrontMatter = false;
         boolean isCodeBlock = false;
@@ -95,13 +107,14 @@ public class HexoMarkdownFileProcessor extends FileProcessor {
                     // <a href="#2019年12月15日">2019年12月15日</a>
                     Pattern headerP = Pattern.compile("^(#+)[ ]+(.+)(?:[ ]+#+)?$");
                     Matcher matcher = headerP.matcher(line);
-                    int deep;
-                    String alink;
+                    // int deep;
+                    // String AnchorName;
                     if (matcher.matches()) {
-                        deep = matcher.group(1).length();
-                        alink = "<a href=\"Insert_Relative_Address_Here#" + matcher.group(2) + "\" style=\"margin-left:" + (deep * 2) + "em;\">" + matcher.group(2) + "</a><br>";
-                        // toc.append(alink + "\n");
-                        toc.append(alink);
+                        // deep = matcher.group(1).length();
+                        // AnchorName = matcher.group(2);
+                        tocItem = tocModel.replace("Anchor__Name", matcher.group(2));
+                        tocItem = tocItem.replace("Toc_Depth", String.valueOf(matcher.group(1).length()));
+                        toc.append(tocItem);
                         // margin
 
                     }
