@@ -4,7 +4,7 @@ import clipboard.SystemClipboard;
 import dir.processor.DirProcessor;
 import file.processor.FileProcessor;
 import io.HexoMarkdownFileProcessor;
-import toc.MyHexoNextToc;
+import io.toc.MyHexoNextToc;
 
 import java.io.File;
 

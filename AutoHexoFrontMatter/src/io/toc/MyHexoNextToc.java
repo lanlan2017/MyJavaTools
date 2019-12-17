@@ -1,4 +1,4 @@
-package toc;
+package io.toc;
 
 import dir.processor.DirProcessor;
 import regex.UrlCheck;

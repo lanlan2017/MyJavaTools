@@ -1,8 +1,4 @@
-package toc;
-
-import dir.processor.DirProcessor;
-
-import java.io.File;
+package io.toc;
 
 /**
  * @author francis
