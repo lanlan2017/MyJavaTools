@@ -95,6 +95,8 @@ public class HexoMarkdownFileProcessor extends FileProcessor {
         // String hexoFMStr;
         // boolean isFrontMatter = false;
         boolean isCodeBlock = false;
+        String AnchorName;
+        String HeaderName;
         // boolean isFirstLine = true;
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "utf-8"));) {
             String line;
@@ -110,13 +112,14 @@ public class HexoMarkdownFileProcessor extends FileProcessor {
                     // <a href="#2019年12月15日">2019年12月15日</a>
                     Pattern headerP = Pattern.compile("^(#+)[ ]+(.+?)(?:[ ]+#+)?$");
                     Matcher matcher = headerP.matcher(line);
-                    // int deep;
-                    // String AnchorName;
                     if (matcher.matches()) {
                         // deep = matcher.group(1).length();
-                        // AnchorName = matcher.group(2);
-                        tocItem = tocModel.replace("Anchor__Name", matcher.group(2));
+                        HeaderName = matcher.group(2);
+                        AnchorName = HeaderName.replaceAll("[ :]", "-");
+                        tocItem = tocModel.replace("Header__Name", HeaderName);
+                        tocItem = tocItem.replace("Anchor__Name", AnchorName);
                         tocItem = tocItem.replace("Toc_Depth", String.valueOf(matcher.group(1).length()));
+                        // System.out.println(tocItem);
                         toc.append(tocItem);
                         // margin
 
