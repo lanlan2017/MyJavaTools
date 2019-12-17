@@ -2,6 +2,7 @@ package io;
 
 import model.HexoFrontMatter;
 import file.processor.FileProcessor;
+import regex.UrlCheck;
 import regex.Regex;
 
 import java.io.*;
@@ -116,14 +117,14 @@ public class HexoMarkdownFileProcessor extends FileProcessor {
                         // deep = matcher.group(1).length();
                         HeaderName = matcher.group(2);
                         if (HeaderName.matches("\\[(.+?)\\]\\(.+?\\)")) {
-                            System.out.println("超链接" + HeaderName);
+                            // System.out.println("超链接" + HeaderName);
                             HeaderName = HeaderName.replaceAll("\\[(.+?)\\]\\(.+?\\)", "$1");
-                            System.out.println("替换为:" + HeaderName);
-
+                            // System.out.println("替换为:" + HeaderName);
                         }
                         //轻量级Java-EE企业应用实战-第5版-
-                        AnchorName = HeaderName.replaceAll("[ :\\[\\]`\\(\\)]+", "-");
-                        AnchorName = AnchorName.replaceAll("-$", "");
+                        // AnchorName = HeaderName.replaceAll("[ :\\[\\]`\\(\\)]+", "-");
+                        // AnchorName = AnchorName.replaceAll("-$", "");
+                        AnchorName = UrlCheck.checkURL(HeaderName);
                         tocItem = tocModel.replace("Header__Name", HeaderName);
                         tocItem = tocItem.replace("Anchor__Name", AnchorName);
                         tocItem = tocItem.replace("Toc_Depth", String.valueOf(matcher.group(1).length()));
@@ -143,4 +144,17 @@ public class HexoMarkdownFileProcessor extends FileProcessor {
         // System.out.println(toc.toString());
         return content.toString();
     }
+
+    // /**
+    //  * 修复URL.
+    //  *
+    //  * @param headerName
+    //  * @return
+    //  */
+    // private String checkURL(String headerName) {
+    //     String AnchorName;
+    //     AnchorName = headerName.replaceAll(Regex.HexoNextUrl1.getRegex(), "-");
+    //     AnchorName = AnchorName.replaceAll(Regex.HexoNextUrl2.getRegex(), "");
+    //     return AnchorName;
+    // }
 }
