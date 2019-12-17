@@ -13,10 +13,10 @@ cd %~dp0
 ::
 :: ################# 创建启动程序 开始 #################
 ::
-echo ############ 生成启动程序 PrintClip.bat... #####
+REM echo ############ 生成启动程序 mytree.bat... #####
 ::覆盖写入
-echo @echo off>PrintClip.bat
-echo java -jar "%thispath%\PrintClip.jar" %%1 %%2 %%3>>PrintClip.bat
+REM echo @echo off>mytree.bat
+REM echo java -jar "%thispath%\mytree.jar" %%1 %%2 %%3>>mytree.bat
 ::
 :: ################# 创建启动程序 结束 #################
 :: 

@@ -14,10 +14,11 @@ public class TOC {
 
     private TOC() {
         StringBuilder sb = new StringBuilder();
-        String line;
+        char[] buff = new char[512];
+        int size = -1;
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("toc.html"), StandardCharsets.UTF_8))) {
-            while ((line = reader.readLine()) != null) {
-                sb.append(line + "\n");
+            while ((size = reader.read(buff)) != -1) {
+                sb.append(buff, 0, size);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -33,8 +34,8 @@ public class TOC {
         return instance;
     }
 
-    public static void main(String[] args) {
-        System.out.println(TOC.getInstance() == TOC.getInstance());
-        System.out.println(TOC.getInstance().getToc());
-    }
+    // public static void main(String[] args) {
+    //     System.out.println(TOC.getInstance() == TOC.getInstance());
+    //     System.out.println(TOC.getInstance().getToc());
+    // }
 }

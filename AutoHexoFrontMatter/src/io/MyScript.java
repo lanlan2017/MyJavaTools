@@ -34,9 +34,9 @@ public class MyScript {
         return script;
     }
 
-    public static void main(String[] args) {
-        // 验证单例模式是否正确,应该返回true
-        System.out.println(MyScript.getInstance() == MyScript.getInstance());
-        System.out.println(MyScript.getInstance().getScript());
-    }
+    // public static void main(String[] args) {
+    //     // 验证单例模式是否正确,应该返回true
+    //     System.out.println(MyScript.getInstance() == MyScript.getInstance());
+    //     System.out.println(MyScript.getInstance().getScript());
+    // }
 }

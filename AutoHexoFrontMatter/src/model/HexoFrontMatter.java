@@ -48,6 +48,11 @@ public class HexoFrontMatter {
                 date = line.substring(line.indexOf("date: ") + "date: ".length());
             } else if (line.startsWith("abbrlink: ")) {
                 abbrlink = line.substring(line.indexOf("abbrlink: ") + "abbrlink: ".length());
+                System.out.println(abbrlink);
+                if ("'0'".equals(abbrlink)) {
+                    abbrlink = null;
+                }
+
             } else if (line.startsWith("comments: ")) {
                 comments = line.substring(line.indexOf("comments: ") + "comments: ".length());
             } else if (line.startsWith("mathjax: ")) {

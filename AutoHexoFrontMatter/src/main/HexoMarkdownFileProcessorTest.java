@@ -13,8 +13,15 @@ public class HexoMarkdownFileProcessorTest {
         // String path = "E:\\Blog\\blogRoot\\source\\_posts\\测试\\测试.md";
         // String path = "E:\\Blog\\blogRoot\\source\\_posts\\测试\\测试\\测试.md";
         // String path = "E:\\Blog\\blogRoot\\source\\_posts\\测试\\测试\\测试3.md";
-        String path = SystemClipboard.getSysClipboardText();
-        FileProcessor fileProcessor = new HexoMarkdownFileProcessor(path);
+        FileProcessor fileProcessor;
+        if (args.length == 1) {
+            fileProcessor = new HexoMarkdownFileProcessor(args[0]);
+            // System.out.println("通过 命令行参数 传入文件地址");
+        } else {
+            String path = SystemClipboard.getSysClipboardText();
+            // System.out.println("通过 剪贴板 传入文件地址");
+            fileProcessor = new HexoMarkdownFileProcessor(path);
+        }
         fileProcessor.processing();
     }
 }
