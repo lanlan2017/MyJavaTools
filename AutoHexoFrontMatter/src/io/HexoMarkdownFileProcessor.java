@@ -15,10 +15,10 @@ import java.util.regex.Pattern;
  */
 public class HexoMarkdownFileProcessor extends FileProcessor {
     private File file;
-    private StringBuilder toc = new StringBuilder();
+    private StringBuilder toc;
     private String tocModel;
     private String relativeURL;
-    private String script;
+    private String scriptModel;
     HexoFrontMatter hexoFrontMatter;
 
     public HexoMarkdownFileProcessor(String filePath) {
@@ -34,7 +34,7 @@ public class HexoMarkdownFileProcessor extends FileProcessor {
             e.printStackTrace();
         }
         // 取得JS代码模板
-        script = MyScript.getInstance().getScript();
+        scriptModel = MyScript.getInstance().getScript();
         tocModel = TOC.getInstance().getToc();
     }
 
@@ -53,18 +53,18 @@ public class HexoMarkdownFileProcessor extends FileProcessor {
         Matcher hexoFmM = hexoFmP.matcher(fileContent);
         // 这个要放在前面
         if (myFmM.find()) {
-            System.out.println("=============================MyFM==================================");
+            // System.out.println("=============================MyFM==================================");
             oldHexoFM = myFmM.group(1);
             fileContent = fileContent.substring(myFmM.end());
             return generateContent(fileContent, oldHexoFM);
         } else if (hexoFmM.find()) {
-            System.out.println("=============================FM==================================");
+            // System.out.println("=============================FM==================================");
             oldHexoFM = fileContent.substring(hexoFmM.start(), hexoFmM.end());
             fileContent = fileContent.substring(hexoFmM.end());
 
             return generateContent(fileContent, oldHexoFM);
         } else {
-            System.out.println("=============================NoFM==================================");
+            // System.out.println("=============================NoFM==================================");
             hexoFrontMatter = new HexoFrontMatter(file);
             return hexoFrontMatter.toString() + "\n" + fileContent;
         }
@@ -79,14 +79,17 @@ public class HexoMarkdownFileProcessor extends FileProcessor {
      */
     private String generateContent(String fileContent, String oldHexoFM) {
         hexoFrontMatter = new HexoFrontMatter(file, oldHexoFM);
-        script = script.replace("INSERT_TOC_HERE",
+        // System.out.println(hexoFrontMatter.getAbbrlink());
+        String script = this.scriptModel.replace("INSERT_TOC_HERE",
                 toc.toString().replace("Relative__Address", relativeURL + hexoFrontMatter.getAbbrlink() + "/"));
+        // System.out.println(script);
         return hexoFrontMatter.toString() + "\n" + script + fileContent;
     }
 
     @Override
     public String readFile(File file) {
         this.file = file;
+        toc = new StringBuilder();
         StringBuilder content = new StringBuilder();
         String tocItem;
         // String hexoFMStr;
@@ -105,7 +108,7 @@ public class HexoMarkdownFileProcessor extends FileProcessor {
                 if (!isCodeBlock && line.startsWith("#")) {
 
                     // <a href="#2019年12月15日">2019年12月15日</a>
-                    Pattern headerP = Pattern.compile("^(#+)[ ]+(.+)(?:[ ]+#+)?$");
+                    Pattern headerP = Pattern.compile("^(#+)[ ]+(.+?)(?:[ ]+#+)?$");
                     Matcher matcher = headerP.matcher(line);
                     // int deep;
                     // String AnchorName;

@@ -51,7 +51,7 @@ public abstract class FileProcessor {
         // 如果文件内容改变了.
         if (processedFileContent != null) {
             System.out.println("被修改的文件:" + file.getAbsolutePath());
-            System.out.println(processedFileContent);
+            // System.out.println(processedFileContent);
             // 写入文件内容.
             writeFile(file, processedFileContent);
         }
