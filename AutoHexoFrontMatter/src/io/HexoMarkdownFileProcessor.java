@@ -115,7 +115,15 @@ public class HexoMarkdownFileProcessor extends FileProcessor {
                     if (matcher.matches()) {
                         // deep = matcher.group(1).length();
                         HeaderName = matcher.group(2);
-                        AnchorName = HeaderName.replaceAll("[ :]", "-");
+                        if (HeaderName.matches("\\[(.+?)\\]\\(.+?\\)")) {
+                            System.out.println("超链接" + HeaderName);
+                            HeaderName = HeaderName.replaceAll("\\[(.+?)\\]\\(.+?\\)", "$1");
+                            System.out.println("替换为:" + HeaderName);
+
+                        }
+                        //轻量级Java-EE企业应用实战-第5版-
+                        AnchorName = HeaderName.replaceAll("[ :\\[\\]`\\(\\)]+", "-");
+                        AnchorName = AnchorName.replaceAll("-$", "");
                         tocItem = tocModel.replace("Header__Name", HeaderName);
                         tocItem = tocItem.replace("Anchor__Name", AnchorName);
                         tocItem = tocItem.replace("Toc_Depth", String.valueOf(matcher.group(1).length()));
