@@ -4,14 +4,14 @@ package regex;
  * @author francis
  * create at 2019/12/17-16:37
  */
-public class UrlCheck {
+public class UrlEscape {
     /**
      * 修复URL.
      *
      * @param headerName
      * @return
      */
-    public static String checkURL(String headerName) {
+    public static String escapeURL(String headerName) {
         String AnchorName;
         AnchorName = headerName.replace("\\", "/");
         AnchorName = AnchorName.replaceAll(Regex.HexoNextUrl1.getRegex(), "-");

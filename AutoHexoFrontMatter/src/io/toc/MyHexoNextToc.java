@@ -1,7 +1,7 @@
 package io.toc;
 
 import dir.processor.DirProcessor;
-import regex.UrlCheck;
+import regex.UrlEscape;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -86,7 +86,7 @@ public class MyHexoNextToc extends DirProcessor {
                         } else {
                             tocFileContents.append("\n");
                         }
-                        tocFileContents.append("# [" + directSubDirName + "](" + relativeURL + "categories/" + UrlCheck.checkURL(directSubDirName) + ")" + "\n");
+                        tocFileContents.append("# [" + directSubDirName + "](" + relativeURL + "categories/" + UrlEscape.escapeURL(directSubDirName) + ")" + "\n");
 
                     } else {
                         // System.out.println("间接子目录:" + file.getAbsolutePath());
@@ -101,7 +101,7 @@ public class MyHexoNextToc extends DirProcessor {
                         String text = indirectSubDirName.substring(indirectSubDirName.lastIndexOf(File.separator) + 1);
                         // String url = indirectSubDirName.replace("\\", "/");
                         // url = UrlCheck.checkURL(url);
-                        tocFileContents.append(generateTabs(count - 1) + "- [" + text + "](" + relativeURL + "categories/" + UrlCheck.checkURL(indirectSubDirName) + ")" + "\n");
+                        tocFileContents.append(generateTabs(count - 1) + "- [" + text + "](" + relativeURL + "categories/" + UrlEscape.escapeURL(indirectSubDirName) + ")" + "\n");
                     }
                     // 递归遍历下一级目录.
                     processingDir(file);

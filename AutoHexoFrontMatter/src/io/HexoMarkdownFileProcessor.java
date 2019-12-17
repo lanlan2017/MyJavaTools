@@ -4,7 +4,7 @@ import model.HexoFrontMatter;
 import file.processor.FileProcessor;
 import model.MyScript;
 import model.TOC;
-import regex.UrlCheck;
+import regex.UrlEscape;
 import regex.Regex;
 
 import java.io.*;
@@ -126,7 +126,7 @@ public class HexoMarkdownFileProcessor extends FileProcessor {
                         //轻量级Java-EE企业应用实战-第5版-
                         // AnchorName = HeaderName.replaceAll("[ :\\[\\]`\\(\\)]+", "-");
                         // AnchorName = AnchorName.replaceAll("-$", "");
-                        AnchorName = UrlCheck.checkURL(HeaderName);
+                        AnchorName = UrlEscape.escapeURL(HeaderName);
                         tocItem = tocModel.replace("Header__Name", HeaderName);
                         tocItem = tocItem.replace("Anchor__Name", AnchorName);
                         tocItem = tocItem.replace("Toc_Depth", String.valueOf(matcher.group(1).length()));
