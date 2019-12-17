@@ -16,6 +16,7 @@ public class UrlCheck {
         AnchorName = headerName.replace("\\", "/");
         AnchorName = AnchorName.replaceAll(Regex.HexoNextUrl1.getRegex(), "-");
         AnchorName = AnchorName.replaceAll(Regex.HexoNextUrl2.getRegex(), "");
+        AnchorName = AnchorName.replaceAll(Regex.HexoNextUrl3.getRegex(), "/");
         return AnchorName;
     }
 }
