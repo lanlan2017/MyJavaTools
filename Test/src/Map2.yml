@@ -1,0 +1,13 @@
+# markdown命令
+m:
+  b: tools.markdown.MarkdownTools.bold
+  k: tools.markdown.MarkdownTools.inlineCode
+  img: 30
+  l: 40
+  h:
+    h1: tools.markdown.MarkdownTools.header1
+    h2: tools.markdown.MarkdownTools.header2
+    h3: tools.markdown.MarkdownTools.header3
+    h4: tools.markdown.MarkdownTools.header4
+    h5: tools.markdown.MarkdownTools.header5
+    h6: tools.markdown.MarkdownTools.header6

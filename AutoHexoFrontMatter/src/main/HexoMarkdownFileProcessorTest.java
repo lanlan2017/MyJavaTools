@@ -1,6 +1,6 @@
 package main;
 
-import clipboard.SystemClipboard;
+import clipboard.swing.SystemClipboard;
 import dir.processor.DirProcessor;
 import file.processor.FileProcessor;
 import io.HexoMarkdownFileProcessor;
