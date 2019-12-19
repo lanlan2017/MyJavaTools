@@ -67,16 +67,16 @@ public class MarkdownTools {
         return "[" + input + "](" + input + ")";
     }
 
-    public String img(String input) {
-        Pattern legalInput = Pattern.compile(".+?([ ]{2,}).+?");
-        Matcher matcher = legalInput.matcher(input);
-        if (matcher.matches()) {
-            String delimiter = matcher.group(1);
-            final int index = input.indexOf(delimiter);
-            return "![" + input.substring(0, index) + "](" + input.substring(index + delimiter.length()) + ")";
+    public String img(String text) {
+        if (text.matches(RegexEnum.ImgURL.getRegex())) {
+            return "![这里有一张图片](" + text + ")";
+        }else if(text.matches(RegexEnum.MdImgNoAlt.getRegex()))
+        {
+            return text.replaceAll(RegexEnum.MdImgNoAlt.getRegex(),"![这里有一张图片]($1)");
         }
         return null;
     }
+
     public String unorderList(String text) {
         text = new StringDeleter().deleteBlankLine(text);
         // 开头不是字母数字或者中文的一律删除掉.
