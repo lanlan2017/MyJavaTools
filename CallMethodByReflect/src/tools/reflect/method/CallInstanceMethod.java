@@ -80,4 +80,33 @@ public class CallInstanceMethod {
         }
         return null;
     }
+
+    public static String twoArgMethod(String className, String methodName, String arg1, String arg2) {
+
+        try {
+            String result;
+            // 获取类
+            Class<?> class1 = Class.forName(className);
+            // 根据参数列表获取构造器
+            Constructor<?> constructor = class1.getConstructor();
+            // 创建对象
+            Object object = constructor.newInstance();
+            // 根据方法名和参数列表获取要调用的方法
+            Method method = class1.getMethod(methodName, String.class, String.class);
+            // invoke方法的第一个参数是要调用方法的拥有者,后面剩下的参数是该方法的实参列表
+            result = (String) method.invoke(object, arg1, arg2);
+            return result;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
