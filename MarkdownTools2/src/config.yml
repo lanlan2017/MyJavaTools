@@ -1,0 +1,20 @@
+# markdown命令
+m:
+  h1: tools.markdown.MarkdownTools.header1
+  h2: tools.markdown.MarkdownTools.header2
+  h3: tools.markdown.MarkdownTools.header3
+  h4: tools.markdown.MarkdownTools.header4
+  h5: tools.markdown.MarkdownTools.header5
+  h6: tools.markdown.MarkdownTools.header6
+  h+: tools.markdown.MarkdownTools.headerAdd
+  h-: tools.markdown.MarkdownTools.headerMinus
+  b: tools.markdown.MarkdownTools.bold
+  k: tools.markdown.MarkdownTools.inlineCode
+  l: tools.markdown.MarkdownTools.hyperLinks
+  u: tools.markdown.MarkdownTools.unorderList
+  o: tools.markdown.MarkdownTools.orderedList
+  q: tools.markdown.MarkdownTools.quote
+  cb:
+    j: tools.markdown.MarkdownTools.codeBlockJava
+    js: tools.markdown.MarkdownTools.codeBlockJavaScript
+  img: tools.markdown.MarkdownTools.img
