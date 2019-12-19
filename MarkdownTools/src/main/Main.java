@@ -137,7 +137,27 @@ public class Main {
 //         test.testMap2(argsTest);
 //         argsTest = new String[]{"m", "o"};
 //         test.testMap2(argsTest);
-        argsTest = new String[]{"m", "q"};
-        test.testMap2(argsTest);
+//         argsTest = new String[]{"m", "q"};
+//         test.testMap2(argsTest);
+//         argsTest = new String[]{"m", "ks"};
+//         test.testMap2(argsTest);
+//         argsTest = new String[]{"m", "table","cp"};
+//         test.testMap2(argsTest);
+//         argsTest = new String[]{"m", "table","cphl"};
+//         test.testMap2(argsTest);
+//         argsTest = new String[]{"m", "table","api"};
+//         test.testMap2(argsTest);
+//         argsTest = new String[]{"m", "u2o"};
+//         test.testMap2(argsTest);
+//         argsTest = new String[]{"m", "o2u"};
+//         test.testMap2(argsTest);
+//         argsTest = new String[]{"m", "u2t"};
+//         test.testMap2(argsTest);
+//         argsTest = new String[]{"m", "read"};
+//         test.testMap2(argsTest);
+//         argsTest = new String[]{"m", "2ol"};
+//         test.testMap2(argsTest);
+//         argsTest = new String[]{"m", "dcb"};
+//         test.testMap2(argsTest);
     }
 }

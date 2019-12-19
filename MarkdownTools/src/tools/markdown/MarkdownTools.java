@@ -54,8 +54,44 @@ public class MarkdownTools {
         return "`" + input + "`";
     }
 
-    public String autoInlineCode(String input) {
-        return null;
+    public String inlineCodeAuto(String text) {
+        Pattern pattern = Pattern.compile(RegexEnum.ToMDCodeInLine.getRegex());
+        Matcher matcher = pattern.matcher(text);
+        StringBuffer sb = new StringBuffer();
+        String InlineCodeMatcher;
+        while (matcher.find()) {
+            // 获取匹配到的一个分组
+            InlineCodeMatcher = matcher.group(1);
+            // System.out.println("----------------------------------");
+            // System.out.print(InlineCodeMatcher);
+            // System.out.print("--->");
+            // System.out.println(InlineCodeMatcher);
+            // System.out.println("----------------------------------");
+            InlineCodeMatcher = InlineCodeMatcher.replace("$", "\\$");
+            InlineCodeMatcher = repairAutoInlineCode(InlineCodeMatcher);
+
+            // 替换原来匹配的文本
+            matcher.appendReplacement(sb, InlineCodeMatcher);
+        }
+        // 添加后面没有匹配的文本
+        matcher.appendTail(sb);
+        return sb.toString();
+    }
+    public String inlineCodeUndo(String mdCodes) {
+        mdCodes = mdCodes.replaceAll("`([^`]+?)`", "$1");
+        return mdCodes;
+    }
+
+    private String repairAutoInlineCode(String inlineCode) {
+        // 以右括号结尾时,但是前面有没有左括号,这说明这个右括号的匹配错误
+        if (inlineCode.endsWith(")") && !inlineCode.contains("(")) {
+            int index = inlineCode.length() - 1;
+            inlineCode = "`" + inlineCode.substring(0, index) + "`" + inlineCode.substring(index);
+        } else {
+            // 如果有美元符号的话,先,因为美元符号在正则中有特殊意义
+            inlineCode = "`" + inlineCode + "`";
+        }
+        return inlineCode;
     }
 
     public String hyperLinks(String input) {
@@ -70,9 +106,8 @@ public class MarkdownTools {
     public String img(String text) {
         if (text.matches(RegexEnum.ImgURL.getRegex())) {
             return "![这里有一张图片](" + text + ")";
-        }else if(text.matches(RegexEnum.MdImgNoAlt.getRegex()))
-        {
-            return text.replaceAll(RegexEnum.MdImgNoAlt.getRegex(),"![这里有一张图片]($1)");
+        } else if (text.matches(RegexEnum.MdImgNoAlt.getRegex())) {
+            return text.replaceAll(RegexEnum.MdImgNoAlt.getRegex(), "![这里有一张图片]($1)");
         }
         return null;
     }
@@ -96,12 +131,14 @@ public class MarkdownTools {
         }
         return buf.toString();
     }
+
     public String quote(String text) {
         text = new StringDeleter().deleteBlankLine(text);
         // 在多行文本的每一个行开头添加引用标记
         text = text.replaceAll(RegexEnum.LineStart.getRegex(), "> ");
         return text;
     }
+
     public String codeBlock(String language, String input) {
         return "```" + language + "\n" + input + "\n```";
     }
