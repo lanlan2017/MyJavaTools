@@ -1,4 +1,4 @@
-package xunfei.sst;
+package tools.sst.xunfei;
 
 
 import reader.file.resouce.ResourceFileReader;
@@ -26,9 +26,7 @@ public class XunFeiSstFlag {
      */
     public String duyin(String input) {
         if (input != null) {
-            // String readFlag = OutputTemplateFile
-            //         .getTemplate("template/xunfei/Replace.txt");
-            String readFlag = ResourceFileReader.getFileContent(this.getClass(), "xunfei/sst/replace.template");
+            String readFlag = ResourceFileReader.getFileContent(this.getClass(), "tools/sst/xunfei/replace.template");
             if (readFlag != null)
                 readFlag = readFlag.replace("=", input + "=");
             return readFlag;

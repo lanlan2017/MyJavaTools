@@ -1,6 +1,6 @@
 package tools.markdown;
 
-import formatter.string.StringDeleter;
+import tools.string.StringDeleter;
 import regex.RegexEnum;
 
 import java.util.regex.Matcher;

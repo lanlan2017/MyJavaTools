@@ -1,4 +1,4 @@
-package formatter.string;
+package tools.string;
 
 import regex.RegexEnum;
 
