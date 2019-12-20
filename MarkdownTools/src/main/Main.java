@@ -2,21 +2,20 @@ package main;
 
 import clipboard.swing.SystemClipboard;
 import org.yaml.snakeyaml.Yaml;
+import reader.file.resouce.ResourceFileReader;
 import tools.reflect.method.CallInstanceMethod;
 
 import java.util.Map;
 
 /**
- * @author francis
- * create at 2019/12/18-22:18
+ * 程序入口.
  */
 public class Main {
     Map<String, Object> map;
 
     public Main() {
         Yaml yaml = new Yaml();
-        map = yaml.load(
-                this.getClass().getClassLoader().getResourceAsStream("config.yml"));
+        map = yaml.load(ResourceFileReader.getInputStream(this.getClass(), "config.yml"));
     }
 
     public void testMap2(String... args) {
@@ -159,5 +158,13 @@ public class Main {
 //         test.testMap2(argsTest);
 //         argsTest = new String[]{"m", "dcb"};
 //         test.testMap2(argsTest);
+//         argsTest = new String[]{"m", "cb2","ngs"};
+//         test.testMap2(argsTest);
+//         argsTest = new String[]{"m", "dbl"};
+//         test.testMap2(argsTest);
+//         argsTest = new String[]{"m", "f_shuqian111"};
+//         test.testMap2(argsTest);
+        argsTest = new String[]{"m", "duyin"};
+        test.testMap2(argsTest);
     }
 }

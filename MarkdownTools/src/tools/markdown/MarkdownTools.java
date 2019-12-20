@@ -77,6 +77,7 @@ public class MarkdownTools {
         matcher.appendTail(sb);
         return sb.toString();
     }
+
     public String inlineCodeUndo(String mdCodes) {
         mdCodes = mdCodes.replaceAll("`([^`]+?)`", "$1");
         return mdCodes;
@@ -149,5 +150,31 @@ public class MarkdownTools {
 
     public String codeBlockJavaScript(String input) {
         return "```javascript\n" + input + "\n```";
+    }
+
+    public String codeBlockSql(String code) {
+        // 将SQL代码中的中文标点符号转成英文
+        code = chinesePunctuationMarks2English(code);
+        // 检测SQL末尾有没有分号,如果没有分号的话就加上分号.
+        if (!code.endsWith(";"))
+            code = code + ";";
+        return "```sql" + "\r\n" + code + "\r\n```";
+    }
+    /**
+     * 中文标点符号转成英文标点符号.
+     *
+     * @param code 可能有中文表单符号的字符串.
+     * @return 只有英文标点符号的字符串.
+     */
+    private String chinesePunctuationMarks2English(String code) {
+        code = code.replace("；", ";");
+        code = code.replace("，", ",");
+        code = code.replace("‘", "'");
+        code = code.replace("’", "'");
+        code = code.replace("“", "\"");
+        code = code.replace("”", "\"");
+        code = code.replace("（", "(");
+        code = code.replace("）", ")");
+        return code;
     }
 }

@@ -19,6 +19,19 @@ m:
   u2t: formatter.markdown.converter.MardownConverter.unorderList2Table
   o2u: formatter.markdown.converter.MardownConverter.orderList2UnorderList
   u2o: formatter.markdown.converter.MardownConverter.unorderList2OrderList
+  img: tools.markdown.MarkdownTools.img
+  cb:
+    j: tools.markdown.MarkdownTools.codeBlockJava
+    js: tools.markdown.MarkdownTools.codeBlockJavaScript
+    sql: tools.markdown.MarkdownTools.codeBlockSql
+  cb2:
+    ngsvc: formatter.markdown.code.MdJavaCodeBlock.romoveGetterSetterLikeVC
+    ngs: formatter.markdown.code.MdJavaCodeBlock.removeGetterSetterDefaultStyle
+  table:
+    cp: tools.markdown.MarkdownTableTools.mdTableCopy
+    cphl: tools.markdown.MarkdownTableTools.mdTableCopyHighlight
+    api: tools.markdown.MarkdownTableTools.copyMdTableFramJavadoc
+  # 其他命令
   f_shuqian111: formatter.string.PdfBookmarkOcrStrCorrector.correctBookmark111
   f_shuqian12: formatter.string.PdfBookmarkOcrStrCorrector.correctBookmark12
   f_shuqian21: formatter.string.PdfBookmarkOcrStrCorrector.correctBookmark21
@@ -29,13 +42,5 @@ m:
   ds: formatter.string.StringDeleter.deleteSpaces
   dcb: formatter.string.StringDeleter.deleteMdCodeBlock
   2ol: formatter.string.StringDeleter.deleteCRLF
-#  duyin:
   read: xunfei.sst.XunFeiSstFlag.addSSTFlag
-  cb:
-    j: tools.markdown.MarkdownTools.codeBlockJava
-    js: tools.markdown.MarkdownTools.codeBlockJavaScript
-  img: tools.markdown.MarkdownTools.img
-  table:
-    cp: tools.markdown.MarkdownTableTools.mdTableCopy
-    cphl: tools.markdown.MarkdownTableTools.mdTableCopyHighlight
-    api: tools.markdown.MarkdownTableTools.copyMdTableFramJavadoc
+  duyin: xunfei.sst.XunFeiSstFlag.duyin
