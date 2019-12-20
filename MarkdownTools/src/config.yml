@@ -1,46 +1,45 @@
 # markdown命令
-m:
-  b: tools.markdown.MarkdownTools.bold
-  l: tools.markdown.MarkdownTools.hyperLinks
-  u: tools.markdown.MarkdownTools.unorderList
-  o: tools.markdown.MarkdownTools.orderedList
-  q: tools.markdown.MarkdownTools.quote
-  h1: tools.markdown.MarkdownTools.header1
-  h2: tools.markdown.MarkdownTools.header2
-  h3: tools.markdown.MarkdownTools.header3
-  h4: tools.markdown.MarkdownTools.header4
-  h5: tools.markdown.MarkdownTools.header5
-  h6: tools.markdown.MarkdownTools.header6
-  h+: tools.markdown.MarkdownTools.headerAdd
-  h-: tools.markdown.MarkdownTools.headerMinus
-  k: tools.markdown.MarkdownTools.inlineCode
-  ks: tools.markdown.MarkdownTools.inlineCodeAuto
-  nks: tools.markdown.MarkdownTools.inlineCodeUndo
-  u2t: tools.markdown.MardownConverter.unorderList2Table
-  o2u: tools.markdown.MardownConverter.orderList2UnorderList
-  u2o: tools.markdown.MardownConverter.unorderList2OrderList
-  img: tools.markdown.MarkdownTools.img
-  cb:
-    j: tools.markdown.MarkdownTools.codeBlockJava
-    js: tools.markdown.MarkdownTools.codeBlockJavaScript
-    sql: tools.markdown.MarkdownTools.codeBlockSql
-  cb2:
-    ngsvc: tools.markdown.MdJavaCodeBlock.romoveGetterSetterLikeVC
-    ngs: tools.markdown.MdJavaCodeBlock.removeGetterSetterDefaultStyle
-  table:
-    cp: tools.markdown.MarkdownTableTools.mdTableCopy
-    cphl: tools.markdown.MarkdownTableTools.mdTableCopyHighlight
-    api: tools.markdown.MarkdownTableTools.copyMdTableFramJavadoc
-  # 其他命令
-  f_shuqian111: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark111
-  f_shuqian12: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark12
-  f_shuqian21: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark21
-  f_shuqian211: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark211
-  f_shuqian22: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark22
-  f_shuqian221: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark221
-  dbl: tools.string.StringDeleter.deleteBlankLine
-  ds: tools.string.StringDeleter.deleteSpaces
-  dcb: tools.string.StringDeleter.deleteMdCodeBlock
-  2ol: tools.string.StringDeleter.deleteCRLF
-  read: tools.sst.xunfei.XunFeiSstFlag.addSSTFlag
-  duyin: tools.sst.xunfei.XunFeiSstFlag.duyin
+b: tools.markdown.MarkdownTools.bold
+l: tools.markdown.MarkdownTools.hyperLinks
+u: tools.markdown.MarkdownTools.unorderList
+o: tools.markdown.MarkdownTools.orderedList
+q: tools.markdown.MarkdownTools.quote
+h1: tools.markdown.MarkdownTools.header1
+h2: tools.markdown.MarkdownTools.header2
+h3: tools.markdown.MarkdownTools.header3
+h4: tools.markdown.MarkdownTools.header4
+h5: tools.markdown.MarkdownTools.header5
+h6: tools.markdown.MarkdownTools.header6
+h+: tools.markdown.MarkdownTools.headerAdd
+h-: tools.markdown.MarkdownTools.headerMinus
+k: tools.markdown.MarkdownTools.inlineCode
+ks: tools.markdown.MarkdownTools.inlineCodeAuto
+nks: tools.markdown.MarkdownTools.inlineCodeUndo
+u2t: tools.markdown.MardownConverter.unorderList2Table
+o2u: tools.markdown.MardownConverter.orderList2UnorderList
+u2o: tools.markdown.MardownConverter.unorderList2OrderList
+img: tools.markdown.MarkdownTools.img
+cb:
+  j: tools.markdown.MarkdownTools.codeBlockJava
+  js: tools.markdown.MarkdownTools.codeBlockJavaScript
+  sql: tools.markdown.MarkdownTools.codeBlockSql
+cb2:
+  ngsvc: tools.markdown.MdJavaCodeBlock.romoveGetterSetterLikeVC
+  ngs: tools.markdown.MdJavaCodeBlock.removeGetterSetterDefaultStyle
+table:
+  cp: tools.markdown.MarkdownTableTools.mdTableCopy
+  cphl: tools.markdown.MarkdownTableTools.mdTableCopyHighlight
+  api: tools.markdown.MarkdownTableTools.copyMdTableFramJavadoc
+# 其他命令
+f_shuqian111: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark111
+f_shuqian12: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark12
+f_shuqian21: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark21
+f_shuqian211: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark211
+f_shuqian22: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark22
+f_shuqian221: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark221
+dbl: tools.string.StringDeleter.deleteBlankLine
+ds: tools.string.StringDeleter.deleteSpaces
+dcb: tools.string.StringDeleter.deleteMdCodeBlock
+2ol: tools.string.StringDeleter.deleteCRLF
+read: tools.sst.xunfei.XunFeiSstFlag.addSSTFlag
+duyin: tools.sst.xunfei.XunFeiSstFlag.duyin

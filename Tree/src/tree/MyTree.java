@@ -40,7 +40,6 @@ public class MyTree
 	 */
 	private static void oneArgs(String[] args, File dir)
 	{
-		// TODO Auto-generated method stub
 		String arg1 = args[0];
 		switch (arg1)
 		{

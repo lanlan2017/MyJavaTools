@@ -14,6 +14,7 @@ public class ConfigTools {
     // 获取配置文件内容.
     private Map<String, Object> configMap;
     private static ConfigTools instance = new ConfigTools();
+
     private ConfigTools() {
         Yaml yaml = new Yaml();
         configMap = yaml.load(ResourceFileReader.getInputStream(this.getClass(), "config.yml"));
@@ -23,47 +24,41 @@ public class ConfigTools {
         return instance;
     }
 
-
-    public void testMap2(String... args) {
+    public void forward(String... args) {
         switch (args.length) {
-            case 2:
-                getValueDeep2(args);
+            case 1:
+                argsLength1(args);
                 break;
-            case 3:
-                getValueDeep3(args);
+            case 2:
+                argsLength2(args);
                 break;
         }
     }
 
-    private void getValueDeep2(String[] args) {
-        // System.out.println(printArgs(args));
+    private void argsLength1(String[] args) {
+        // System.out.println(configMap);
+        // 如果map中有这key
+        if (configMap.containsKey(args[0])) {
+            // 获取key对应的value(全限定方法名)
+            String fQMethodName = (String) configMap.get(args[0]);
+            // System.out.println(fQMethodName);
+            // 调用该方法
+            callMethod(fQMethodName);
+        }
+    }
+
+    private void argsLength2(String[] args) {
         if (configMap.containsKey(args[0])) {
             Map<String, String> subMapDeepOne = (Map<String, String>) configMap.get(args[0]);
             if (subMapDeepOne.containsKey(args[1])) {
                 String fQMethodName = subMapDeepOne.get(args[1]);
-                // System.out.println("=" + fQMethodName);
                 callMethod(fQMethodName);
-            }
-        }
-    }
-
-    private void getValueDeep3(String[] args) {
-        // System.out.println(printArgs(args));
-        if (configMap.containsKey(args[0])) {
-            Map<String, Object> subMapDeepOne = (Map<String, Object>) configMap.get(args[0]);
-            if (subMapDeepOne.containsKey(args[1])) {
-                Map<String, String> subMapDeepTwo = (Map<String, String>) subMapDeepOne.get(args[1]);
-                if (subMapDeepTwo.containsKey(args[2])) {
-                    String fQMethodName = subMapDeepTwo.get(args[2]);
-                    // System.out.println("=" + fQMethodName);
-                    callMethod(fQMethodName);
-                } else {
-                    switch (args[1]) {
-                        case "cb":
-                            String fQMethodName = "tools.markdown.MarkdownTools.codeBlock";
-                            callMethod(fQMethodName, args[2]);
-                            break;
-                    }
+            } else {
+                switch (args[0]) {
+                    case "cb":
+                        String fQMethodName = "tools.markdown.MarkdownTools.codeBlock";
+                        callMethod(fQMethodName, args[1]);
+                        break;
                 }
             }
         }
@@ -86,24 +81,12 @@ public class ConfigTools {
         String methodName = fQMethodName.substring(fQMethodName.lastIndexOf(".") + 1);
         // System.out.println("类名:" + className);
         // System.out.println("方法名:" + methodName);
+        // 获取剪贴板数据
         String input = SystemClipboard.getSysClipboardText();
         // String input = "xxxx";
         String result = CallInstanceMethod.twoArgMethod(className, methodName, arg, input);
+        // 输出到剪贴板
         SystemClipboard.setSysClipboardText(result);
         System.out.println(result);
-    }
-
-    private String printArgs(String... args) {
-        boolean isPrintSplit = false;
-        StringBuilder sb = new StringBuilder();
-        for (String arg : args) {
-            if (isPrintSplit) {
-                sb.append(" ");
-            } else {
-                isPrintSplit = true;
-            }
-            sb.append(arg);
-        }
-        return sb.toString();
     }
 }

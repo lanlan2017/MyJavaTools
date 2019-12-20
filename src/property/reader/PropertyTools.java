@@ -80,7 +80,6 @@ public class PropertyTools {
             properties.load(new InputStreamReader(new FileInputStream(new File(path)), charset));
         } catch (IOException e)
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         // 获取所有key的Set集合

@@ -7,6 +7,6 @@ import tools.config.ConfigTools;
  */
 public class Main {
     public static void main(String[] args) {
-        ConfigTools.getInstance().testMap2(args);
+        ConfigTools.getInstance().forward(args);
     }
 }

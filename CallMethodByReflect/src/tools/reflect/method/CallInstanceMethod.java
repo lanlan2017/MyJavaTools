@@ -5,16 +5,14 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * @author francis
- * create at 2019/12/18-22:56
+ * 通过反射调用方法.
  */
 public class CallInstanceMethod {
     /**
-     * 通过反射调用静态无参数实例方法.
+     * 通过反射调用对象的方法.
      *
      * @param className  类的全限定名.
      * @param methodName 方法名.
-     * @return
      */
     public static void noArgMethod(String className, String methodName) {
 
@@ -45,12 +43,11 @@ public class CallInstanceMethod {
     }
 
     /**
-     * 调用一个参数的实例方法.
+     * 通过反射调用形参列表是一个String返回值是String的方法.
      *
      * @param className  全限定类名.
      * @param methodName 方法名.
-     * @param arg        参数.
-     * @return
+     * @param arg        方法的形参.
      */
     public static String oneArgMethod(String className, String methodName, String arg) {
 
@@ -81,6 +78,12 @@ public class CallInstanceMethod {
         return null;
     }
 
+    /**
+     * @param className  类名
+     * @param methodName 方法名.
+     * @param arg1       参数1
+     * @param arg2       参数2
+     */
     public static String twoArgMethod(String className, String methodName, String arg1, String arg2) {
 
         try {

@@ -7,7 +7,10 @@ import tools.config.ConfigTools;
  */
 public class Test {
     public static void main(String[] args) {
-        String[] argsTest = new String[]{"m", "duyin"};
-        ConfigTools.getInstance().testMap2(argsTest);
+        String[] argsTest;
+        // argsTest = new String[]{"b"};
+        // argsTest = new String[]{"cb", "j"};
+        argsTest = new String[]{"cb", "html"};
+        ConfigTools.getInstance().forward(argsTest);
     }
 }
