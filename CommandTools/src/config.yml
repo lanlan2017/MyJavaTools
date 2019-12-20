@@ -50,6 +50,8 @@ s:
   ucf: tools.string.StringConverter.toUpperCaseFirst
   2cccn: tools.string.StringConverter.toCamelCaseClassName
   2ccmn: tools.string.StringConverter.toCameCaseMethodName
+  # Linux地址和windows地址相互转换
+  cvpath: tools.string.StringConverter.convertFilePath
 g:
   s: git status
   a: git add .

@@ -1,5 +1,8 @@
 package tools.string;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * 字符串转换器.
  */
@@ -87,6 +90,24 @@ public class StringConverter {
             return sb.toString();
         }
         return "参数错误!";
+    }
+
+    public String convertFilePath(String path) {
+        Pattern linuxPath = Pattern.compile("/(.+?)(/.+)");
+        Matcher linuxMatcher = linuxPath.matcher(path);
+        Pattern windowsPath = Pattern.compile("([a-zA-Z]):(\\\\.+)");
+        Matcher windowsMatcher = windowsPath.matcher(path);
+        // /e/dev2/idea_workspace/MyJavaTools
+        if (linuxMatcher.matches()) {
+            String driveLetter = linuxMatcher.group(1);
+            String relativePath = linuxMatcher.group(2).replace("/", "\\");
+            return driveLetter + ":" + relativePath;
+        } else if (windowsMatcher.matches()) {
+            String driveLetter = windowsMatcher.group(1);
+            String relativePath = windowsMatcher.group(2).replace("\\", "/");
+            return "/" + driveLetter + relativePath;
+        }
+        return "地址格式错误:" + path;
     }
 
     public static void main(String[] args) {

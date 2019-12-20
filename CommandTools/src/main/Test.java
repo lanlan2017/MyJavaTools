@@ -19,8 +19,9 @@ public class Test {
         // argsTest = new String[]{"s", "2ccmn"};
         // argsTest = new String[]{"g", "s"};
         // argsTest = new String[]{"m","cb","j"};
-        argsTest = new String[]{"m","cb","html"};
+        // argsTest = new String[]{"m","cb","html"};
         // argsTest = new String[]{"m","table","cp"};
+        argsTest = new String[]{"s","cvpath"};
         ConfigTools.getInstance().forward(argsTest);
     }
 }
