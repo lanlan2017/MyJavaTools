@@ -49,6 +49,16 @@ public class StringConverter {
     }
 
     /**
+     * 换换成驼峰命名法的java包名.
+     *
+     * @param str 以空格分隔的一串单词(翻译来的).
+     * @return 合法的java包名.
+     */
+    public String toCameCasePackgeName(String str) {
+        return str.toLowerCase().replace(" ", ".");
+    }
+
+    /**
      * 转成驼峰命名法的Java类名.
      *
      * @param str 需要转换的java类名,一般是通过翻译得到的字符串.这些字符串一般以空格作为分隔符.

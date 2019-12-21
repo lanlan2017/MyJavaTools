@@ -49,6 +49,7 @@ s:
   lc: tools.string.StringConverter.toLowerCase
   lcf: tools.string.StringConverter.toLowerCaseFirst
   ucf: tools.string.StringConverter.toUpperCaseFirst
+  2ccpn: tools.string.StringConverter.toCameCasePackgeName
   2cccn: tools.string.StringConverter.toCamelCaseClassName
   2ccmn: tools.string.StringConverter.toCameCaseMethodName
   # Linux地址和windows地址相互转换
@@ -79,3 +80,6 @@ g:
   rs: git restore --staged
   rb: git rebase
   rbi: git rebase -i
+suanfa:
+  maopao:
+    js: template/javascript/sort/BubbleSort.js

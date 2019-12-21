@@ -77,14 +77,25 @@ public class ConfigTools {
         }
     }
 
+    /**
+     * 处理value.
+     *
+     * @param value 配置文件中的value字符串.
+     */
     private void processValue(String value) {
-        // System.out.println(value);
         // 如果是全限定方法名
         if (value.matches(RegexEnum.fullyQualifiedMethodName.toString())) {
             // System.out.println("调用方法");
             callMethod(value);
+        }
+        // 如果是地址
+        else if (value.matches("(?:.+?\\/)+.+?\\.[a-zA-Z]+")) {
+            // System.out.println("输出模板文件:");
+            String code = ResourceFileReader.getFileContent(this.getClass(), value);
+            // String code = ResourceFileReader.getFileContent(ConfigTools.class, value);
+            System.out.println(code);
+            SystemClipboard.setSysClipboardText(code);
         } else {
-            // System.out.println("直接输出值");
             SystemClipboard.setSysClipboardText(value);
             System.out.println(value);
         }

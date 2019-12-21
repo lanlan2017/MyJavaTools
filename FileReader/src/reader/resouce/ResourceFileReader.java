@@ -19,6 +19,7 @@ public class ResourceFileReader {
      */
     public static InputStream getInputStream(Class<?> clazz, String relativePathToSrc) {
         return clazz.getClassLoader().getResourceAsStream(relativePathToSrc);
+        // return clazz.getResourceAsStream("/" + relativePathToSrc);
     }
 
     /**
