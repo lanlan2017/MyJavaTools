@@ -82,4 +82,4 @@ g:
   rbi: git rebase -i
 suanfa:
   maopao:
-    js: template/javascript/sort/BubbleSort.js
+    js: templace/code/sort/js/BubbleSort.js
