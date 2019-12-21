@@ -90,9 +90,4 @@ public enum RegexEnum {
     public String toString() {
         return this.regex;
     }
-
-    // @Override
-    // public String toString() {
-    //     return regex;
-    // }
 }

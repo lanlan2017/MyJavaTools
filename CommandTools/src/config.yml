@@ -1,4 +1,4 @@
-# markdown命令
+# markdown代码生成
 m:
   b: tools.markdown.MarkdownTools.bold
   l: tools.markdown.MarkdownTools.hyperLinks
@@ -39,6 +39,7 @@ m:
     cp: tools.markdown.MarkdownTableTools.mdTableCopy
     cphl: tools.markdown.MarkdownTableTools.mdTableCopyHighlight
     api: tools.markdown.MarkdownTableTools.copyMdTableFramJavadoc
+# 字符串处理
 s:
   dbl: tools.string.StringDeleter.deleteBlankLine
   ds: tools.string.StringDeleter.deleteSpaces
@@ -52,10 +53,29 @@ s:
   2ccmn: tools.string.StringConverter.toCameCaseMethodName
   # Linux地址和windows地址相互转换
   cvpath: tools.string.StringConverter.convertFilePath
+# 快捷git命令
 g:
   s: git status
   a: git add .
+  b: git branch
+  ba: git branch -a
+  bd: git branch -d
   cm: git commit -m '
-  r:  git restore
+  cma: git commit --amend
+  d: git diff
+  f: git fetch
+  fomt: git fetch origin master:tmp
+  lpo: git log -10 --pretty=oneline
+  lgo: git log --graph --oneline
+  m: git merge
+  pom: git push origin master
+  pos: git push origin src
+  pfom: git push -f origin master
+  pfos: git push -f origin src
+  plom: git pull origin master
+  plos: git pull origin src
+  r: git restore
+  ra:  git restore .
   rs: git restore --staged
-  
+  rb: git rebase
+  rbi: git rebase -i

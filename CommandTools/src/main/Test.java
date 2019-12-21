@@ -21,7 +21,7 @@ public class Test {
         // argsTest = new String[]{"m","cb","j"};
         // argsTest = new String[]{"m","cb","html"};
         // argsTest = new String[]{"m","table","cp"};
-        argsTest = new String[]{"s","cvpath"};
+        argsTest = new String[]{"s","2ol"};
         ConfigTools.getInstance().forward(argsTest);
     }
 }
