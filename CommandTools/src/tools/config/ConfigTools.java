@@ -55,9 +55,15 @@ public class ConfigTools {
             if (subMapDeepOne.containsKey(args[1])) {
                 String value = subMapDeepOne.get(args[1]);
                 processValue(value);
+            } else {
+                // 如果父命令是h的话
+                if ("h".equals(args[0])) {
+                    htmlDefault(args[1]);
+                }
             }
         }
     }
+
 
     private void argsLength3(String[] args) {
         if (configMap.containsKey(args[0])) {
@@ -75,6 +81,17 @@ public class ConfigTools {
                 }
             }
         }
+    }
+    /**
+     * 生成默认的双标签代码.
+     *
+     * @param arg 标签的名称.
+     */
+    private void htmlDefault(String arg) {
+        String subTag = SystemClipboard.getSysClipboardText();
+        final String html = "<" + arg + ">" + subTag + "</" + arg + ">";
+        SystemClipboard.setSysClipboardText(html);
+        System.out.println(html);
     }
 
     /**

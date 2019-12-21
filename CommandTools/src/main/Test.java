@@ -24,7 +24,12 @@ public class Test {
         // argsTest = new String[]{"s",""};
         // argsTest = new String[]{"s","2ccpn"};
         // argsTest = new String[]{"suanfa","maopao","js"};
-        argsTest = new String[]{"suanfa","maopao","js"};
+        // argsTest = new String[]{"suanfa","maopao","js"};
+        // argsTest = new String[]{"h", "t"};
+        // argsTest = new String[]{"h", "cm"};
+        // argsTest = new String[]{"h", "code"};
+        // argsTest = new String[]{"h", "linkcss"};
+        argsTest = new String[]{"h", "js"};
         ConfigTools.getInstance().forward(argsTest);
     }
 }

@@ -54,32 +54,37 @@ s:
   2ccmn: tools.string.StringConverter.toCameCaseMethodName
   # Linux地址和windows地址相互转换
   cvpath: tools.string.StringConverter.convertFilePath
-# 快捷git命令
-g:
-  s: git status
-  a: git add .
-  b: git branch
-  ba: git branch -a
-  bd: git branch -d
-  cm: git commit -m '
-  cma: git commit --amend
-  d: git diff
-  f: git fetch
-  fomt: git fetch origin master:tmp
-  lpo: git log -10 --pretty=oneline
-  lgo: git log --graph --oneline
-  m: git merge
-  pom: git push origin master
-  pos: git push origin src
-  pfom: git push -f origin master
-  pfos: git push -f origin src
-  plom: git pull origin master
-  plos: git pull origin src
-  r: git restore
-  ra:  git restore .
-  rs: git restore --staged
-  rb: git rebase
-  rbi: git rebase -i
+# 快捷git命令:当在其他电脑上可能会用到.
+#g:
+#  s: git status
+#  a: git add .
+#  b: git branch
+#  ba: git branch -a
+#  bd: git branch -d
+#  cm: git commit -m '
+#  cma: git commit --amend
+#  d: git diff
+#  f: git fetch
+#  fomt: git fetch origin master:tmp
+#  lpo: git log -10 --pretty=oneline
+#  lgo: git log --graph --oneline
+#  m: git merge
+#  pom: git push origin master
+#  pos: git push origin src
+#  pfom: git push -f origin master
+#  pfos: git push -f origin src
+#  plom: git pull origin master
+#  plos: git pull origin src
+#  r: git restore
+#  ra:  git restore .
+#  rs: git restore --staged
+#  rb: git rebase
+#  rbi: git rebase -i
+h:
+  t: templace/html/Html5Template.html
+  cm: tools.html.HtmlTools.addComment
+  linkcss: tools.html.HtmlTools.linkCss
+  js: tools.html.HtmlTools.importJS
 suanfa:
   maopao:
-    js: templace/code/sort/js/BubbleSort.js
+    js: templace/algorithm/sort/js/BubbleSort.js
