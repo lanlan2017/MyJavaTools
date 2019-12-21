@@ -1,90 +1,143 @@
 # markdown代码生成
 m:
+  # 加粗
   b: tools.markdown.MarkdownTools.bold
+  # 超链接
   l: tools.markdown.MarkdownTools.hyperLinks
+  # 无序列表
   u: tools.markdown.MarkdownTools.unorderList
+  # 有序列表
   o: tools.markdown.MarkdownTools.orderedList
+  # 引用
   q: tools.markdown.MarkdownTools.quote
+  # 一级标题
   h1: tools.markdown.MarkdownTools.header1
   h2: tools.markdown.MarkdownTools.header2
   h3: tools.markdown.MarkdownTools.header3
   h4: tools.markdown.MarkdownTools.header4
   h5: tools.markdown.MarkdownTools.header5
   h6: tools.markdown.MarkdownTools.header6
+  # 标题降级
   h+: tools.markdown.MarkdownTools.headerAdd
+  # 标题升级
   h-: tools.markdown.MarkdownTools.headerMinus
+  # 行内代码
   k: tools.markdown.MarkdownTools.inlineCode
+  # 多个行内代码
   ks: tools.markdown.MarkdownTools.inlineCodeAuto
+  # 移除行内代码
   nks: tools.markdown.MarkdownTools.inlineCodeUndo
+  # 无序列表转表格
   u2t: tools.markdown.MardownConverter.unorderList2Table
+  # 有序列表转无序列表
   o2u: tools.markdown.MardownConverter.orderList2UnorderList
+  # 无序列表转有序列表
   u2o: tools.markdown.MardownConverter.unorderList2OrderList
+  # 图片
   img: tools.markdown.MarkdownTools.img
-  f_shuqian111: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark111
-  f_shuqian12: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark12
-  f_shuqian21: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark21
-  f_shuqian211: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark211
-  f_shuqian22: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark22
-  f_shuqian221: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark221
   read: tools.sst.xunfei.XunFeiSstFlag.addSSTFlag
   duyin: tools.sst.xunfei.XunFeiSstFlag.duyin
+  # 代码块
   cb:
     j: tools.markdown.MarkdownTools.codeBlockJava
     js: tools.markdown.MarkdownTools.codeBlockJavaScript
     sql: tools.markdown.MarkdownTools.codeBlockSql
-  cb2:
-    ngsvc: tools.markdown.MdJavaCodeBlock.romoveGetterSetterLikeVC
-    ngs: tools.markdown.MdJavaCodeBlock.removeGetterSetterDefaultStyle
+  # 删除块中的一些代码
+  dcb:
+    gsvc: tools.markdown.MdJavaCodeBlock.romoveGetterSetterLikeVC
+    gs: tools.markdown.MdJavaCodeBlock.removeGetterSetterDefaultStyle
+  # 表格
   table:
+    # 将空格分隔的表格格式化为表格
     cp: tools.markdown.MarkdownTableTools.mdTableCopy
+    # 将空格分隔的表格格式化为表格,并标出代码
     cphl: tools.markdown.MarkdownTableTools.mdTableCopyHighlight
+    # 将java doc文章中复制得到的字符串格式化为表格
     api: tools.markdown.MarkdownTableTools.copyMdTableFramJavadoc
 # 字符串处理
 s:
+  # 删除空行
   dbl: tools.string.StringDeleter.deleteBlankLine
+  # 删除多余空白符
   ds: tools.string.StringDeleter.deleteSpaces
+  # 删除markdown代码块
   dcb: tools.string.StringDeleter.deleteMdCodeBlock
+  # 压缩成一行
   2ol: tools.string.StringDeleter.deleteCRLF
+  # 大写
   uc: tools.string.StringConverter.toUppperCase
+  # 小写
   lc: tools.string.StringConverter.toLowerCase
+  # 首字母小写
   lcf: tools.string.StringConverter.toLowerCaseFirst
+  # 首字母大写
   ucf: tools.string.StringConverter.toUpperCaseFirst
+  # java包名称
   2ccpn: tools.string.StringConverter.toCameCasePackgeName
+  # 驼峰命名法java类名
   2cccn: tools.string.StringConverter.toCamelCaseClassName
+  # 驼峰命名法java方法名,属性名
   2ccmn: tools.string.StringConverter.toCameCaseMethodName
   # Linux地址和windows地址相互转换
   cvpath: tools.string.StringConverter.convertFilePath
+  # 格式化从微信公众号复制来的代码
+  weixincode: tools.string.StringDeleter.weixinCode
+  # 中文标点转英文标点
+  cy2ey: tools.string.StringReplace.chineseSymbol2EnglishSymbol
+  f:
+    shuqian111: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark111
+    shuqian12: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark12
+    shuqian21: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark21
+    shuqian211: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark211
+    shuqian22: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark22
+    shuqian221: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark221
 # 快捷git命令:当在其他电脑上可能会用到.
-#g:
-#  s: git status
-#  a: git add .
-#  b: git branch
-#  ba: git branch -a
-#  bd: git branch -d
-#  cm: git commit -m '
-#  cma: git commit --amend
-#  d: git diff
-#  f: git fetch
-#  fomt: git fetch origin master:tmp
-#  lpo: git log -10 --pretty=oneline
-#  lgo: git log --graph --oneline
-#  m: git merge
-#  pom: git push origin master
-#  pos: git push origin src
-#  pfom: git push -f origin master
-#  pfos: git push -f origin src
-#  plom: git pull origin master
-#  plos: git pull origin src
-#  r: git restore
-#  ra:  git restore .
-#  rs: git restore --staged
-#  rb: git rebase
-#  rbi: git rebase -i
+g:
+  s: git status
+  a: git add .
+  b: git branch
+  ba: git branch -a
+  bd: git branch -d
+  cm: git commit -m '
+  cma: git commit --amend
+  d: git diff
+  f: git fetch
+  fomt: git fetch origin master:tmp
+  lpo: git log -10 --pretty=oneline
+  lgo: git log --graph --oneline
+  m: git merge
+  pom: git push origin master
+  pos: git push origin src
+  pfom: git push -f origin master
+  pfos: git push -f origin src
+  plom: git pull origin master
+  plos: git pull origin src
+  r: git restore
+  ra:  git restore .
+  rs: git restore --staged
+  rb: git rebase
+  rbi: git rebase -i
 h:
+  # html5模板
   t: templace/html/Html5Template.html
+  # html超链接
+  a: tools.html.HtmlTools.a
+  # html注释
   cm: tools.html.HtmlTools.addComment
+  # 导入.css的link标签
   linkcss: tools.html.HtmlTools.linkCss
+  # 导入.js的标签
   js: tools.html.HtmlTools.importJS
 suanfa:
+  # 冒泡排序
   maopao:
     js: templace/algorithm/sort/js/BubbleSort.js
+    j: templace/algorithm/sort/java/BubbleSort.java
+  # 鸡尾酒排序
+  jiweijiu: templace/algorithm/sort/java/CockTailSort.java
+  # 选择排序
+  xuanzhe: templace/algorithm/sort/java/SelectionSort.java
+  # 插入排序
+  charu: templace/algorithm/sort/java/InsertSort.java
+  # 希尔排序
+  xier: templace/algorithm/sort/java/ShellSort.java

@@ -34,10 +34,20 @@ public class StringDeleter {
      */
     public String deleteCRLF(String text) {
         // 删除开头空白.
-        text = text.replaceAll("(?m)^[ ]+", "");
+        text = text.replaceAll("(?m)^[ ]+", " ");
         // 删除回车换行符.
         text = text.replaceAll(RegexEnum.CRLF.toString(), "");
         return text;
+    }
+
+    public String weixinCode(String code) {
+        code = code.replaceAll("(?m)(^\\/\\/.+$)", "___SingleLineComment___$1___SingleLineComment___");
+        // System.out.println(code);
+        code = code.replaceAll("(?m)^[ ]+", " ");
+        code = code.replaceAll("\\n", "");
+        code = code.replaceAll(RegexEnum.CRLF.toString(), "");
+        code = code.replace("___SingleLineComment___", "\n");
+        return code;
     }
 
     /**

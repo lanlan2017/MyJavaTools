@@ -15,4 +15,12 @@ public class HtmlTools {
     public String importJS(String jsUrl) {
         return "<script type=\"text/javascript\" src=\"" + jsUrl + "\"></script>";
     }
+
+    public String a(String url) {
+        if (url.matches(".+?[ ]+.+")) {
+            String[] UrlText = url.split("[ ]+");
+            return "<a href=\"" + UrlText[0] + "\">" + UrlText[1] + "</a>";
+        }
+        return "<a href=\"" + url + "\"></a>";
+    }
 }
