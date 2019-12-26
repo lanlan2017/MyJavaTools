@@ -75,7 +75,10 @@ public class MarkdownTools {
         }
         // 添加后面没有匹配的文本
         matcher.appendTail(sb);
-        return sb.toString();
+        String result = sb.toString();
+        // 移除多余的空格符
+        result = result.replaceAll("[ ]+`", "`");
+        return result;
     }
 
     public String inlineCodeUndo(String mdCodes) {
@@ -160,6 +163,7 @@ public class MarkdownTools {
             code = code + ";";
         return "```sql" + "\r\n" + code + "\r\n```";
     }
+
     /**
      * 中文标点符号转成英文标点符号.
      *
