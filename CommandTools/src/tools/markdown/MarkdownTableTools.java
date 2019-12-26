@@ -8,7 +8,7 @@ public class MarkdownTableTools {
     /**
      * 将两个一样的空格分隔的表格转成markdown表格.
      *
-     * @param tableStrFromWeb
+     * @param tableStrFromWeb 从Javadoc复制过来的字符串.
      * @return markdown表格.
      */
     public String mdTableCopy(String tableStrFromWeb) {
@@ -82,6 +82,8 @@ public class MarkdownTableTools {
         // // 删除多余的空格
         text = text.replaceAll("\\s{2,}", " ");
         text = text.replace("\u200B(", "(");
+        text = text.replace("\t", " ");
+
         return text;
     }
 }
