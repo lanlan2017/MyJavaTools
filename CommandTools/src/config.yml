@@ -54,6 +54,7 @@ m:
     cphl: tools.markdown.MarkdownTableTools.mdTableCopyHighlight
     # 将java doc文章中复制得到的字符串格式化为表格
     api: tools.markdown.MarkdownTableTools.copyMdTableFramJavadoc
+    apim: tools.markdown.MarkdownTableTools.copyMdTableFramJavadocMethod
 # 字符串处理
 s:
   # 删除空行

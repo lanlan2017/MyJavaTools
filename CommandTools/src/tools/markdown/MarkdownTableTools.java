@@ -41,6 +41,33 @@ public class MarkdownTableTools {
      */
     public String copyMdTableFramJavadoc(String text) {
         // 两行之间添加竖杠,然后变成一行
+        text = copyMdTableFramJavadocBody(text);
+        // 添加表格标题和对齐方式
+        return "|方法|描述|\n|:--|:--|\n" + text;
+    }
+
+    /**
+     * 从Java Doc文档中复制方法表格.
+     *
+     * @param text Java doc表格中复制得到的字符串.
+     * @return markdown表格.
+     */
+    public String copyMdTableFramJavadocMethod(String text) {
+        text = copyMdTableFramJavadocBody(text);
+        // 第一列作为行内代码
+        text = text.replaceAll("(?m)^\\|(.+?)(\\|.+?\\|)$", "|`$1`$2");
+        // 添加表格标题和对齐方式
+        return "|方法|描述|\n|:--|:--|\n" + text;
+    }
+
+    /**
+     * 生成表格主体.
+     *
+     * @param text 从java Doc表格中复制过来的文本.
+     * @return markdown表格体字符串.
+     */
+    private String copyMdTableFramJavadocBody(String text) {
+        // 两行之间添加竖杠,然后变成一行
         text = text.replaceAll("(.+)\\n(.+)", "$1|$2");
         // 行首加竖杠
         text = text.replaceAll("(?m)^", "|");
@@ -48,11 +75,13 @@ public class MarkdownTableTools {
         text = text.replaceAll("(?m)$", "|");
         // 删除多引入的竖杠
         text = text.replaceAll("(?m)^\\|$", "");
+        //System.out.println(text);
         // 删除分隔符前面的空格.
-        text = text.replaceAll("[ \u200B](?=[|(])", "");
+        text = text.replaceAll("[ \t]+(?=[|])", "");
+        //text = text.replaceAll("\\s+(?=[|(])", "");
         // // 删除多余的空格
         text = text.replaceAll("\\s{2,}", " ");
-        // 添加表格标题和对齐方式
-        return "|方法|描述|\n|:--|:--|\n" + text;
+        text = text.replace("\u200B(", "(");
+        return text;
     }
 }
