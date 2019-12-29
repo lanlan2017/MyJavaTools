@@ -132,8 +132,21 @@ h:
   linkcss: tools.html.HtmlTools.linkCss
   # 导入.js的标签
   js: tools.html.HtmlTools.importJS
-  #  展开/折叠块
+  # 展开/折叠块
   fold: tools.html.HtmlTools.flod
+# java代码模板
+j:
+  # 遍历字符串的for语句
+  forstr: tools.java.JavaTools.forString
+  # 遍历数组的for语句
+  forarr: tools.java.JavaTools.forArray
+  # 生成switch语句
+  switch:
+    default: tools.java.JavaTools.switchCaseDefault
+    str: tools.java.JavaTools.switchCaseString
+file:
+  gbkutf8: tools.file.ConvertProjectEncode.gbkToUtf8
+  utf8gbk: tools.file.ConvertProjectEncode.utf8ToGbk
 suanfa:
   # 冒泡排序
   maopao:

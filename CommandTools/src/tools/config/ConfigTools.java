@@ -14,13 +14,16 @@ import java.util.Map;
 public class ConfigTools {
     // 获取配置文件内容.
     private Map<String, Object> configMap;
+    // 直接创建实例
     private static ConfigTools instance = new ConfigTools();
 
+    // 私有化构造函数
     private ConfigTools() {
         Yaml yaml = new Yaml();
         configMap = yaml.load(ResourceFileReader.getInputStream(this.getClass(), "config.yml"));
     }
 
+    // 提供获取实例的方法
     public static ConfigTools getInstance() {
         return instance;
     }
@@ -103,18 +106,6 @@ public class ConfigTools {
     }
 
     /**
-     * 生成默认的双标签代码.
-     *
-     * @param arg 标签的名称.
-     */
-    private void htmlDefault(String arg) {
-        String subTag = SystemClipboard.getSysClipboardText();
-        final String html = "<" + arg + ">" + subTag + "</" + arg + ">";
-        SystemClipboard.setSysClipboardText(html);
-        System.out.println(html);
-    }
-
-    /**
      * 处理value.
      *
      * @param value 配置文件中的value字符串.
@@ -132,7 +123,9 @@ public class ConfigTools {
             // String code = ResourceFileReader.getFileContent(ConfigTools.class, value);
             System.out.println(code);
             SystemClipboard.setSysClipboardText(code);
-        } else {
+        }
+        // 如果都不是直接返回值
+        else {
             SystemClipboard.setSysClipboardText(value);
             System.out.println(value);
         }
@@ -151,8 +144,8 @@ public class ConfigTools {
         String input = SystemClipboard.getSysClipboardText();
         // String input = "xxxx";
         String result = CallInstanceMethod.oneArgMethod(className, methodName, input);
-        SystemClipboard.setSysClipboardText(result);
-        System.out.println(result);
+        // 如果有返回值的话就输出返回值
+        showResult(result);
     }
 
     private void callMethod(String fQMethodName, String arg) {
@@ -161,11 +154,17 @@ public class ConfigTools {
         // System.out.println("类名:" + className);
         // System.out.println("方法名:" + methodName);
         // 获取剪贴板数据
-        String input = SystemClipboard.getSysClipboardText();
+        String clipboardText = SystemClipboard.getSysClipboardText();
         // String input = "xxxx";
-        String result = CallInstanceMethod.twoArgMethod(className, methodName, arg, input);
-        // 输出到剪贴板
-        SystemClipboard.setSysClipboardText(result);
-        System.out.println(result);
+        String result = CallInstanceMethod.twoArgMethod(className, methodName, arg, clipboardText);
+        showResult(result);
+    }
+
+    private void showResult(String result) {
+        // 如果有返回值的话就输出返回值
+        if (result != null) {
+            SystemClipboard.setSysClipboardText(result);
+            System.out.println(result);
+        }
     }
 }
