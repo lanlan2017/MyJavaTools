@@ -147,6 +147,10 @@ public class MarkdownTools {
         return "```" + language + "\n" + input + "\n```";
     }
 
+    public String codeBlockDefault(String input) {
+        return "```\n" + input + "\n```";
+    }
+
     public String codeBlockJava(String input) {
         return "```java\n" + input + "\n```";
     }

@@ -42,6 +42,7 @@ m:
     j: tools.markdown.MarkdownTools.codeBlockJava
     js: tools.markdown.MarkdownTools.codeBlockJavaScript
     sql: tools.markdown.MarkdownTools.codeBlockSql
+    default: tools.markdown.MarkdownTools.codeBlockDefault
   # 删除块中的一些代码
   dcb:
     gsvc: tools.markdown.MdJavaCodeBlock.romoveGetterSetterLikeVC
@@ -129,6 +130,7 @@ h:
   linkcss: tools.html.HtmlTools.linkCss
   # 导入.js的标签
   js: tools.html.HtmlTools.importJS
+  default: tools.html.HtmlTools.htmlDefault
 suanfa:
   # 冒泡排序
   maopao:

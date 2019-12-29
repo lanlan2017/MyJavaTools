@@ -52,13 +52,32 @@ public class ConfigTools {
     private void argsLength2(String[] args) {
         if (configMap.containsKey(args[0])) {
             Map<String, String> subMapDeepOne = (Map<String, String>) configMap.get(args[0]);
+            // 如果找到这个key
             if (subMapDeepOne.containsKey(args[1])) {
-                String value = subMapDeepOne.get(args[1]);
-                processValue(value);
-            } else {
-                // 如果父命令是h的话
+                Object valueGet = subMapDeepOne.get(args[1]);
+                // 如果值是字符串的话
+                if (valueGet instanceof String) {
+                    //System.out.println("读取到字符串值");
+                    //String value = subMapDeepOne.get(args[1]);
+                    processValue((String) valueGet);
+                }
+                // 如果值是map的话
+                else if (valueGet instanceof Map) {
+                    //System.out.println("读取到Map值");
+
+                    Object defaultSubValue = ((Map) valueGet).get("default");
+                    //System.out.println(defaultSubValue);
+                    processValue((String) defaultSubValue);
+                }
+            }
+            // 如果没有找到这个key
+            else {
+                // 如果父命令是h,子命令找不到
                 if ("h".equals(args[0])) {
-                    htmlDefault(args[1]);
+                    // 使用默认配置
+                    String valueGet = subMapDeepOne.get("default");
+                    // 调用默认方法
+                    callMethod(valueGet, args[1]);
                 }
             }
         }
@@ -82,6 +101,7 @@ public class ConfigTools {
             }
         }
     }
+
     /**
      * 生成默认的双标签代码.
      *

@@ -27,12 +27,14 @@ public class Test {
         // argsTest = new String[]{"suanfa","maopao","j"};
         // argsTest = new String[]{"h", "t"};
         // argsTest = new String[]{"h", "cm"};
-        // argsTest = new String[]{"h", "code"};
+         argsTest = new String[]{"h", "code"};
         // argsTest = new String[]{"h", "linkcss"};
-        // argsTest = new String[]{"h", "a"};
+        // argsTest = new String[]{"h", "strong"};
         //argsTest = new String[]{"suanfa", "m"};
         //argsTest = new String[]{"m", "table","apim"};
-        argsTest = new String[]{"m", "table","api"};
+        //argsTest = new String[]{"m", "cb"};
+        //argsTest = new String[]{"m", "cb","xxxxx"};
+        //argsTest = new String[]{"m", "b"};
         ConfigTools.getInstance().forward(argsTest);
     }
 }

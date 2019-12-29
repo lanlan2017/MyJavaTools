@@ -23,4 +23,9 @@ public class HtmlTools {
         }
         return "<a href=\"" + url + "\"></a>";
     }
+
+    public String htmlDefault(String tagName, String value) {
+        return "<" + tagName + ">" + value + "</" + tagName + ">";
+
+    }
 }
