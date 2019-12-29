@@ -145,8 +145,12 @@ j:
     default: tools.java.JavaTools.switchCaseDefault
     str: tools.java.JavaTools.switchCaseString
 file:
+  # 将文件从gbk编码转成utf8编码
   gbkutf8: tools.file.ConvertProjectEncode.gbkToUtf8
+  # 将文件从utf8编码转成gbk编码
   utf8gbk: tools.file.ConvertProjectEncode.utf8ToGbk
+  # 使用空格缩进
+  indentBySpaces: tools.file.FileTools.indentBySpaces
 suanfa:
   # 冒泡排序
   maopao:

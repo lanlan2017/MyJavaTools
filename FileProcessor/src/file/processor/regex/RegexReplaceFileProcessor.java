@@ -1,4 +1,4 @@
-package file.processor.impl;
+package file.processor.regex;
 
 import file.processor.FileProcessor;
 
@@ -31,6 +31,7 @@ public class RegexReplaceFileProcessor extends FileProcessor {
         this.regex = regex;
         this.replacement = replacement;
     }
+
 
     /**
      * 使用正则表达式替换所有匹配的内容.

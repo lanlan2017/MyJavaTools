@@ -11,6 +11,7 @@ public abstract class FileProcessor {
      * 需要处理的文件或目录.
      */
     private File inputFile;
+    protected String message = "被修改的文件:";
     /**
      * 文件名过滤器.
      */
@@ -20,6 +21,7 @@ public abstract class FileProcessor {
         inputFile = new File(filePath);
         // 处理文件或目录
     }
+
 
     /**
      * 处理文件或目录中的所有文件.
@@ -50,7 +52,7 @@ public abstract class FileProcessor {
         String processedFileContent = processingFileContent(fileContent);
         // 如果文件内容改变了.
         if (processedFileContent != null) {
-            System.out.println("被修改的文件:" + file.getAbsolutePath());
+            System.out.println(message + file.getAbsolutePath());
             // System.out.println(processedFileContent);
             // 写入文件内容.
             writeFile(file, processedFileContent);

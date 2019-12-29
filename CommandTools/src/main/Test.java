@@ -12,6 +12,7 @@ public class Test {
         //ConfigTools.getInstance().forward("j", "switch");
         //ConfigTools.getInstance().forward("j", "switch","str");
         //ConfigTools.getInstance().forward("file", "gbkutf8");
-        ConfigTools.getInstance().forward("file", "utf8gbk");
+        //ConfigTools.getInstance().forward("file", "utf8gbk");
+        ConfigTools.getInstance().forward("file", "indentBySpaces");
     }
 }
