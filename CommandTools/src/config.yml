@@ -120,6 +120,8 @@ g:
   rb: git rebase
   rbi: git rebase -i
 h:
+  # 其他命令
+  default: tools.html.HtmlTools.htmlDefault
   # html5模板
   t: templace/html/Html5Template.html
   # html超链接
@@ -130,7 +132,8 @@ h:
   linkcss: tools.html.HtmlTools.linkCss
   # 导入.js的标签
   js: tools.html.HtmlTools.importJS
-  default: tools.html.HtmlTools.htmlDefault
+  #  展开/折叠块
+  fold: tools.html.HtmlTools.flod
 suanfa:
   # 冒泡排序
   maopao:

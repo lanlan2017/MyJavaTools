@@ -28,4 +28,8 @@ public class HtmlTools {
         return "<" + tagName + ">" + value + "</" + tagName + ">";
 
     }
+
+    public String flod(String toFlod) {
+        return "<details><summary>展开/折叠</summary>\n\n" + toFlod + "\n\n</details>";
+    }
 }
