@@ -51,7 +51,7 @@ public class ConfigTools {
      * 取出嵌套map中最深的一层map的值.
      *
      * @param args 命令行参数.对应map的key.
-     * @return
+     * @return 配置文件中对应的value.
      */
     private String getFinallyValue(String[] args) {
         Object value = null;
@@ -61,22 +61,18 @@ public class ConfigTools {
             // 如果是Map的话
             if (value instanceof Map) {
                 map = (Map<String, Object>) value;
-                System.out.println("key:" + args[i] + "|value:" + map);
-                // 不是最后一个参数
-                // 下一个参数存在的话
-                if ((i < args.length - 1) && map.containsKey(args[i + 1])) {
+                //System.out.println("key:" + args[i] + "|value:" + map);
+                if ((i < args.length - 1) && map.containsKey(i + 1)) {
                     continue;
-                }
-                // 是最后一个参数时
-                else if (map.containsKey("default")) {
+                } else if (map.containsKey("default")) {
                     value = map.get("default");
-                    System.out.println("key:default" + "|value:" + value);
+                    //System.out.println("key:default" + "|value:" + value);
                     break;
                 }
             }
             // 如果是字符串的话
             else if (value instanceof String) {
-                System.out.println("String:" + value);
+                //System.out.println("String:" + value);
                 break;
             }
         }
@@ -109,10 +105,6 @@ public class ConfigTools {
         }
     }
 
-    private void markdownCodeBlockDefualt(String language) {
-        String fQMethodName = "tools.markdown.MarkdownTools.codeBlock";
-        callMethod(fQMethodName, language);
-    }
 
     private void callMethod(String fQMethodName) {
         String className = fQMethodName.substring(0, fQMethodName.lastIndexOf("."));
