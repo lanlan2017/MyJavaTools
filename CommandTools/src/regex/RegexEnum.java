@@ -72,7 +72,11 @@ public enum RegexEnum {
     /**
      * 全限定方法名
      */
-    fullyQualifiedMethodName("\\w+(?:\\.\\w+)+");
+    FQ_MethodName("[a-zA-z][a-zA-Z0-9]*(?:\\.[a-zA-z][a-zA-Z0-9]*)+"),
+    /**
+     * 全限定方法名
+     */
+    FQ_MethodNameUseLastArg("[a-zA-z][a-zA-Z0-9]+(?:\\.[a-zA-z][a-zA-Z0-9]+)+_[a-zA-z][a-zA-Z0-9]+");
 
     // 正则表达式字符串.
     private String regex;

@@ -29,80 +29,58 @@ public class ConfigTools {
     }
 
     public void forward(String... args) {
-        switch (args.length) {
-            case 1:
-                argsLength1(args);
-                break;
-            case 2:
-                argsLength2(args);
-                break;
-            case 3:
-                argsLength3(args);
-                break;
-        }
-    }
-
-    private void argsLength1(String[] args) {
-        // System.out.println(configMap);
-        // 如果map中有这key
-        if (configMap.containsKey(args[0])) {
-            // 获取key对应的value(全限定方法名)
-            String fQMethodName = (String) configMap.get(args[0]);
-            processValue(fQMethodName);
-        }
-    }
-
-    private void argsLength2(String[] args) {
-        if (configMap.containsKey(args[0])) {
-            Map<String, String> subMapDeepOne = (Map<String, String>) configMap.get(args[0]);
-            // 如果找到这个key
-            if (subMapDeepOne.containsKey(args[1])) {
-                Object valueGet = subMapDeepOne.get(args[1]);
-                // 如果值是字符串的话
-                if (valueGet instanceof String) {
-                    //System.out.println("读取到字符串值");
-                    //String value = subMapDeepOne.get(args[1]);
-                    processValue((String) valueGet);
-                }
-                // 如果值是map的话
-                else if (valueGet instanceof Map) {
-                    //System.out.println("读取到Map值");
-
-                    Object defaultSubValue = ((Map) valueGet).get("default");
-                    //System.out.println(defaultSubValue);
-                    processValue((String) defaultSubValue);
-                }
-            }
-            // 如果没有找到这个key
-            else {
-                // 如果父命令是h,子命令找不到
-                if ("h".equals(args[0])) {
-                    // 使用默认配置
-                    String valueGet = subMapDeepOne.get("default");
-                    // 调用默认方法
-                    callMethod(valueGet, args[1]);
-                }
-            }
-        }
+        processHardValue(args);
     }
 
 
-    private void argsLength3(String[] args) {
-        if (configMap.containsKey(args[0])) {
-            Map<String, Object> subMapDeepOne = (Map<String, Object>) configMap.get(args[0]);
-            if (subMapDeepOne.containsKey(args[1])) {
-                Map<String, String> subMapDeepTwo = (Map<String, String>) subMapDeepOne.get(args[1]);
-                // System.out.println(subMapDeepTwo);
-                if (subMapDeepTwo.containsKey(args[2])) {
-                    String value = subMapDeepTwo.get(args[2]);
-                    processValue(value);
-                } else {
-                    if ("cb".equals(args[1])) {
-                        markdownCodeBlockDefualt(args[2]);
-                    }
+    private void processHardValue(String[] args) {
+        String value = getFinallyValue(args);
+        if (value.matches(RegexEnum.FQ_MethodNameUseLastArg.toString())) {
+            String fQMethodName = value.substring(0, value.lastIndexOf("_"));
+            String lastArg = args[args.length - 1];
+            if ("cb".equals(lastArg))
+                callMethod(fQMethodName, "");
+            else
+                callMethod(fQMethodName, lastArg);
+        } else {
+            processValue(value);
+        }
+    }
+
+    /**
+     * 取出嵌套map中最深的一层map的值.
+     *
+     * @param args 命令行参数.对应map的key.
+     * @return
+     */
+    private String getFinallyValue(String[] args) {
+        Object value = null;
+        Map<String, Object> map = configMap;
+        for (int i = 0; i < args.length; i++) {
+            value = map.get(args[i]);
+            // 如果是Map的话
+            if (value instanceof Map) {
+                map = (Map<String, Object>) value;
+                System.out.println("key:" + args[i] + "|value:" + map);
+                // 不是最后一个参数
+                // 下一个参数存在的话
+                if ((i < args.length - 1) && map.containsKey(args[i + 1])) {
+                    continue;
+                }
+                // 是最后一个参数时
+                else if (map.containsKey("default")) {
+                    value = map.get("default");
+                    System.out.println("key:default" + "|value:" + value);
+                    break;
                 }
             }
+            // 如果是字符串的话
+            else if (value instanceof String) {
+                System.out.println("String:" + value);
+                break;
+            }
         }
+        return (String) value;
     }
 
     /**
@@ -112,7 +90,7 @@ public class ConfigTools {
      */
     private void processValue(String value) {
         // 如果是全限定方法名
-        if (value.matches(RegexEnum.fullyQualifiedMethodName.toString())) {
+        if (value.matches(RegexEnum.FQ_MethodName.toString())) {
             // System.out.println("调用方法");
             callMethod(value);
         }

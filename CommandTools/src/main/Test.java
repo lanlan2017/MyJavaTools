@@ -13,6 +13,12 @@ public class Test {
         //ConfigTools.getInstance().forward("j", "switch","str");
         //ConfigTools.getInstance().forward("file", "gbkutf8");
         //ConfigTools.getInstance().forward("file", "utf8gbk");
-        ConfigTools.getInstance().forward("file", "indentBySpaces");
+        //ConfigTools.getInstance().forward("file", "indentBySpaces");
+        //ConfigTools.getInstance().forward("m","cb","j","ngs");
+        //ConfigTools.getInstance().forward("m","cb","j");
+        //ConfigTools.getInstance().forward("suanfa", "maopao");
+        //ConfigTools.getInstance().forward("m", "cb","j");
+        //ConfigTools.getInstance().forward("m", "cb","xyz");
+        ConfigTools.getInstance().forward("h", "code");
     }
 }
