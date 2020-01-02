@@ -7,3 +7,5 @@ out/
 *.iml
 *.class
 *.txt
+*.png
+/OCR/src/config.properties
