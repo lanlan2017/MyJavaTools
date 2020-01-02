@@ -6,11 +6,6 @@ import java.util.Properties;
 
 public class Config
 {
-	// 设置APPID/AK/SK
-	// public static final String APP_ID = "11803566";
-	// public static final String API_KEY = "n8ytVA3HxIYCWgqQiLRBhG0r";
-	// public static final String SECRET_KEY =
-	// "ZFGhGp6swLKjHAk8OSPlKQkAz0NgwHRt";
 	private final String APP_ID;
 	private final String API_KEY;
 	private final String SECRET_KEY;

@@ -8,9 +8,10 @@ import java.util.Iterator;
 import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
+
+import clipboard.swing.SystemClipboard;
 import org.json.JSONObject;
 import com.baidu.aip.ocr.AipOcr;
-import clipboard.util.SysClipboardUtil;
 import net.sf.json.JSONArray;
 import ocr.baidu.config.SingletonAipOcr;
 import ocr.baidu.formatter.FormatterByCmd;
@@ -56,7 +57,7 @@ public class BaiduOcrRunable implements Runnable
         // 获取图片中的文字
         String orcStr = baiduOCR(path);
         // 将识别结果写到剪贴板中.
-        SysClipboardUtil.setSysClipboardText(orcStr);
+        SystemClipboard.setSysClipboardText(orcStr);
         // 将按钮设置成原来的颜色
         baiduOCRButton.setBackground(defaultColor);
         // 移动工具栏到左上角，避免挡住屏幕不好阅读
@@ -106,7 +107,7 @@ public class BaiduOcrRunable implements Runnable
         words = words.replaceAll(
                 "(?:(?:\\\"\\})?\\{\\\"words\\\":\\\"|\\\"\\})", "");
         // 输出到剪贴板中
-        // SysClipboardUtil.setSysClipboardText(words);
+        // SysClipboard.setSysClipboardText(words);
         return words;
     }
 

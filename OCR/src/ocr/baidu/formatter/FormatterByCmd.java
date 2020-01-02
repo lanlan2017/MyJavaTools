@@ -1,7 +1,8 @@
 package ocr.baidu.formatter;
 
+import tools.ProcessRunner;
+
 import java.util.List;
-import process.tools.ProcessRunner;
 
 public abstract class FormatterByCmd
 {

@@ -77,7 +77,7 @@ public class ToolsWindow extends JWindow {
         //    e.printStackTrace();
         //}
         //JToolBar toolBar = new JToolBar(str);
-        //JToolBar toolBar = new JToolBar("Java 截图");
+        JToolBar toolBar = new JToolBar("Java 截图");
         addButtons(toolBar);
         this.add(toolBar, BorderLayout.NORTH);
     }
