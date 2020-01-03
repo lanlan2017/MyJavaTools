@@ -54,29 +54,48 @@ public class ConfigTools {
      * @return 配置文件中对应的value.
      */
     private String getFinallyValue(String[] args) {
-        Object value = null;
+        // 最后一个命令所对的value
+        Object lastArgValue;
+        // 返回值
+        String resutl = null;
+        // 缓存map
         Map<String, Object> map = configMap;
-        for (int i = 0; i < args.length; i++) {
-            value = map.get(args[i]);
-            // 如果是Map的话
-            if (value instanceof Map) {
-                map = (Map<String, Object>) value;
-                //System.out.println("key:" + args[i] + "|value:" + map);
-                if ((i < args.length - 1) && map.containsKey(i + 1)) {
-                    continue;
-                } else if (map.containsKey("default")) {
-                    value = map.get("default");
-                    //System.out.println("key:default" + "|value:" + value);
-                    break;
+        // 最后一个命令所对的下标
+        final int lastArgIndex = args.length - 1;
+        // 根据前n-1个命令查找map
+        for (int i = 0; i < lastArgIndex; i++) {
+            map = (Map<String, Object>) map.get(args[i]);
+            //System.out.println("key:" + args[i] + "|value:" + map);
+        }
+        // 如果存在最后一个参数
+        if (map.containsKey(args[lastArgIndex])) {
+            // 获取最后一个参数的value
+            lastArgValue = map.get(args[lastArgIndex]);
+            //System.out.println(args[lastArgsIndex] + ":" + value);
+            // 如果最后一个参数为map
+            if (lastArgValue instanceof Map) {
+                map = (Map<String, Object>) lastArgValue;
+                // 获取default
+                if (map.containsKey("default")) {
+                    //object = map.get("default");
+                    //System.out.println("User Default|" + value);
+                    resutl = (String) map.get("default");
                 }
             }
-            // 如果是字符串的话
-            else if (value instanceof String) {
-                //System.out.println("String:" + value);
-                break;
+            // 如果最后一个参数是字符串
+            else if (lastArgValue instanceof String) {
+                //System.out.println("User Last arg:key" + args[lastArgsIndex] + "|" + object);
+                resutl = (String) lastArgValue;
             }
         }
-        return (String) value;
+        // 如果不存在最后一个参数,则取默认
+        else if (map.containsKey("default")) {
+            //object = map.get("default");
+            //System.out.println("default|" + object);
+            resutl = (String) map.get("default");
+        }
+        return resutl;
+        //System.out.println(value);
     }
 
     /**

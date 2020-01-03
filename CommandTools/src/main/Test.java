@@ -17,8 +17,9 @@ public class Test {
         //ConfigTools.getInstance().forward("m","cb","j","ngs");
         //ConfigTools.getInstance().forward("m","cb","j");
         //ConfigTools.getInstance().forward("suanfa", "maopao");
+        //ConfigTools.getInstance().forward("suanfa", "xuanzhe");
         //ConfigTools.getInstance().forward("m", "cb","j");
-        ConfigTools.getInstance().forward("m", "cb","xyz");
+        //ConfigTools.getInstance().forward("m", "cb","xyz");
         //ConfigTools.getInstance().forward("h", "code");
     }
 }
