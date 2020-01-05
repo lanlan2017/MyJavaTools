@@ -68,7 +68,7 @@ public class MarkdownTools {
             // System.out.println(InlineCodeMatcher);
             // System.out.println("----------------------------------");
             InlineCodeMatcher = InlineCodeMatcher.replace("$", "\\$");
-            InlineCodeMatcher = repairAutoInlineCode(InlineCodeMatcher);
+            InlineCodeMatcher = toMdInlineCode(InlineCodeMatcher);
 
             // 替换原来匹配的文本
             matcher.appendReplacement(sb, InlineCodeMatcher);
@@ -76,17 +76,43 @@ public class MarkdownTools {
         // 添加后面没有匹配的文本
         matcher.appendTail(sb);
         String result = sb.toString();
+
         // 移除多余的空格符
-        result = result.replaceAll("[ ]+`", "`");
+        result = fixErrors(result);
         return result;
     }
 
+    /**
+     * 修复Markdown行内代码中的错误字符串.
+     * @param result 包含markdown行内代码的字符串.
+     * @return 纠错后的字符串
+     */
+    private String fixErrors(String result) {
+        // 移除markdown行内代码之前的多余空格符
+        result = result.replaceAll("[ ]+`", "`");
+        //// 恢复文字识别错误的圆括号
+        //result = result.replaceAll("[0oO]`方法", "()`方法");
+        return result;
+    }
+
+    /**
+     * 移除markdown行内代码.
+     *
+     * @param mdCodes 包含markdown行内代码的字符串.
+     * @return 没有markdown行内代码的字符串.
+     */
     public String inlineCodeUndo(String mdCodes) {
         mdCodes = mdCodes.replaceAll("`([^`]+?)`", "$1");
         return mdCodes;
     }
 
-    private String repairAutoInlineCode(String inlineCode) {
+    /**
+     * 转成markdown行内代码.
+     *
+     * @param inlineCode 要包装成markdown行内代码的字符串.
+     * @return markdown行内代码字符串
+     */
+    private String toMdInlineCode(String inlineCode) {
         // 以右括号结尾时,但是前面有没有左括号,这说明这个右括号的匹配错误
         if (inlineCode.endsWith(")") && !inlineCode.contains("(")) {
             int index = inlineCode.length() - 1;

@@ -72,7 +72,7 @@ public class ProcessRunner {
      * @return 程序执行的结果字符串.
      */
     public String runProcess(ProcessBuilder processBuilder, String cmdEncoding) {
-        Process process = null;
+        Process process;
         StringBuffer sb = new StringBuffer();
         try {
             process = processBuilder.start();
