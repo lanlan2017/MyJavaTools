@@ -29,6 +29,7 @@ public class MdCodeInLineFormatter extends FormatterByCmd {
         // 恢复文字识别错误的圆括号
         String inlineCode = processOutput.replaceAll("[0oO]`方法", "()`方法");
         inlineCode=inlineCode.replaceAll("Array[ ]?[lL]ist", "ArrayList");
+        inlineCode=inlineCode.replaceAll("(?i)statIc", "static");
         SystemClipboard.setSysClipboardText(inlineCode);
     }
 }
