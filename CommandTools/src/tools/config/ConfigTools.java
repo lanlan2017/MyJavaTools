@@ -6,7 +6,9 @@ import reader.resouce.ResourceFileReader;
 import regex.RegexEnum;
 import tools.reflect.method.CallInstanceMethod;
 
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 根据配置文件中的全限定方法名,运行方法.
@@ -29,7 +31,23 @@ public class ConfigTools {
     }
 
     public void forward(String... args) {
-        processHardValue(args);
+        switch (args.length) {
+            case 1:
+                Map<String, Object> map = (Map<String, Object>) configMap.get(args[0]);
+                //Set<Map.Entry<String, Object>> entrySet = map.entrySet();
+                //Iterator<Map.Entry<String, Object>> iterator = entrySet.iterator();
+                Iterator<Map.Entry<String, Object>> iterator = map.entrySet().iterator();
+                while (iterator.hasNext()) {
+                    Map.Entry entry = iterator.next();
+                    System.out.println(entry.getKey());
+                }
+
+                break;
+            default:
+
+                processHardValue(args);
+                break;
+        }
     }
 
 
