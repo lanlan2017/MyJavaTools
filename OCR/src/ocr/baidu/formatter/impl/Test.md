@@ -1,0 +1,1 @@
+`Java nIo`包:主要包含各种与`Buer`相关的类。`Java nio. channels`包:主要包含与`Channel`和`Selector`相关的类。`Java. nic. charset`包:主要包含与字符集相关的类。`Java. nIc. channels. spi`包:主要包含与`Channel`相关的服务提供者编程接口。`ava. nio. charset.spi`包:包含与字符集相关的服务提供者编程接口。
