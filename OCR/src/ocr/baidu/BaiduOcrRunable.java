@@ -18,8 +18,7 @@ import ocr.baidu.formatter.FormatterByCmd;
 import ui.ScreenShotWindow;
 import ui.ToolsWindow;
 
-public class BaiduOcrRunable implements Runnable
-{
+public class BaiduOcrRunable implements Runnable {
     /**
      * 触发的按钮
      */
@@ -33,21 +32,22 @@ public class BaiduOcrRunable implements Runnable
      * 格式化工具
      */
     private static FormatterByCmd formatter;
+
     /**
      * 设置格式化器
+     *
      * @param formatter
      */
-    public static void setFormatter(FormatterByCmd formatter)
-    {
+    public static void setFormatter(FormatterByCmd formatter) {
         BaiduOcrRunable.formatter = formatter;
     }
-    public BaiduOcrRunable(String path)
-    {
+
+    public BaiduOcrRunable(String path) {
         this.path = path;
     }
+
     @Override
-    public void run()
-    {
+    public void run() {
         // 保存下原来的按钮颜色
         Color defaultColor = baiduOCRButton.getBackground();
         // 设置按钮颜色，表示开始处理
@@ -56,24 +56,26 @@ public class BaiduOcrRunable implements Runnable
         ScreenShotWindow.getInstance().setVisible(false);
         // 获取图片中的文字
         String orcStr = baiduOCR(path);
+        // 如果设置了格式化器
+        if (formatter != null) {
+            orcStr = formatter.format(orcStr);
+        }
+        // 输出处理结果
+        System.out.println(orcStr);
         // 将识别结果写到剪贴板中.
         SystemClipboard.setSysClipboardText(orcStr);
         // 将按钮设置成原来的颜色
         baiduOCRButton.setBackground(defaultColor);
         // 移动工具栏到左上角，避免挡住屏幕不好阅读
         ToolsWindow.getInstance().setLocation(0, 0);
-        // 格式化识别的文字结果
-        if (formatter != null)
-        {
-            formatter.format();
-        }
     }
+
     /**
      * 调用百度接口对识别图片中的文字.
+     *
      * @param imagePath 图片的路径
      */
-    private static String baiduOCR(String imagePath)
-    {
+    private static String baiduOCR(String imagePath) {
         // 初始化一个AipOcr
         AipOcr client = SingletonAipOcr.getAipOcr();
         // 调用文字识别接口,返回JSON数据
@@ -87,16 +89,13 @@ public class BaiduOcrRunable implements Runnable
         // 字符串缓冲,用于存放识别的结果
         StringBuilder sbBuilder = new StringBuilder();
         Map.Entry<String, Object> entry;
-        while (it.hasNext())
-        {
+        while (it.hasNext()) {
             entry = it.next();
-            if (entry.getKey().equals("words_result"))
-            {
+            if (entry.getKey().equals("words_result")) {
                 // 获取词组
                 JSONArray jsonArray = JSONArray.fromObject(entry.getValue());
                 System.out.println(jsonArray.toString());
-                for (Object object : jsonArray)
-                {
+                for (Object object : jsonArray) {
                     sbBuilder.append(object.toString());
                 }
             }
@@ -114,15 +113,12 @@ public class BaiduOcrRunable implements Runnable
     /**
      * 启动文字识别
      */
-    public static void startBaiduOCR()
-    {
+    public static void startBaiduOCR() {
         String imagePath = "1.png";
-        try
-        {
+        try {
             ImageIO.write(ScreenShotWindow.getInstance().getSaveImage(), "png",
                     new File(imagePath));
-        } catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         // 创建线程执行体

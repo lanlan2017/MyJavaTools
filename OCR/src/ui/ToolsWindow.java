@@ -68,15 +68,6 @@ public class ToolsWindow extends JWindow {
      */
     private void init() {
         this.setLayout(new BorderLayout());
-        //byte[] label;
-        //String str = "";
-        //try {
-        //    label = "Java 截图".getBytes("gbk");
-        //    str = new String(label, "gbk");
-        //} catch (UnsupportedEncodingException e) {
-        //    e.printStackTrace();
-        //}
-        //JToolBar toolBar = new JToolBar(str);
         JToolBar toolBar = new JToolBar("Java 截图");
         addButtons(toolBar);
         this.add(toolBar, BorderLayout.NORTH);
