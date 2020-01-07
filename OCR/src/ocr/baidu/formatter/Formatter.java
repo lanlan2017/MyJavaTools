@@ -1,6 +1,6 @@
 package ocr.baidu.formatter;
 
-public abstract class FormatterByCmd {
+public abstract class Formatter {
 
     public String format(String str) {
 

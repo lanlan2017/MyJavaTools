@@ -1,12 +1,12 @@
 package ocr.baidu.formatter.impl;
 
-import ocr.baidu.formatter.FormatterByCmd;
+import ocr.baidu.formatter.Formatter;
 import tools.markdown.MarkdownTools;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class MdCodeInLineFormatter extends FormatterByCmd {
+public class MdCodeInLineFormatter extends Formatter {
 
     @Override
     public String format(String str) {
@@ -23,6 +23,7 @@ public class MdCodeInLineFormatter extends FormatterByCmd {
      * @param processOutput m ks命令的处理结果.
      */
     protected String fixMdInlineCode(String processOutput) {
+        //System.out.println("纠错之前:" + processOutput);
         // 恢复文字识别错误的圆括号
         String inlineCode = processOutput.replaceAll("[0oO]`方法", "()`方法");
         // 关键字恢复小写
@@ -33,6 +34,7 @@ public class MdCodeInLineFormatter extends FormatterByCmd {
             // 恢复java包名
             inlineCode = fixJavaPackageName(inlineCode);
         }
+        //System.out.println("纠错之后:" + inlineCode);
         return inlineCode;
     }
 
@@ -52,10 +54,8 @@ public class MdCodeInLineFormatter extends FormatterByCmd {
         while (matcher.find()) {
             // 获取匹配到的一个分组
             code = matcher.group(1);
-            // 删除大写前面的空格
-            code = code.replaceAll(" ([A-Z])", "$1");
             // 将前面后空格的小写转成大写
-            //code = lcAfterSpaceToUc(code);
+            code = lcAfterSpaceToUc(code);
             // 在这里写上处理方法....
             // 替换原来匹配的文本
             matcher.appendReplacement(sb, "`" + code + "`");
@@ -72,14 +72,22 @@ public class MdCodeInLineFormatter extends FormatterByCmd {
      * @return 将空格和小写字母转换成大写字母后的字符串.
      */
     private String lcAfterSpaceToUc(String code) {
-        Pattern pattern = Pattern.compile(" ([a-z])");
-        Matcher matcher = pattern.matcher(code);
+        // 如果包含括号,则这可能是一个方法,方法定义是可以有空格的.
+        Matcher methodWithParameters = Pattern.compile("[(].+?[)]").matcher(code);
+        if (methodWithParameters.find()) {
+            //System.out.println("带参数的方法:" + code);
+            return code;
+        }
+        // 如果不是方法
+        // 删除大写前面的空格
+        code = code.replaceAll(" ([A-Z])", "$1");
+        // 删除小写前面的空格,然后将小写转为大写
+        Matcher matcher = Pattern.compile(" ([a-z])").matcher(code);
         StringBuffer sb = new StringBuffer(code.length());
         String uppercaseLetter;
         while (matcher.find()) {
             // 获取匹配到的一个分组
             uppercaseLetter = matcher.group(1).toUpperCase();
-            // 在这里写上处理方法....
             // 替换原来匹配的文本
             matcher.appendReplacement(sb, uppercaseLetter);
         }

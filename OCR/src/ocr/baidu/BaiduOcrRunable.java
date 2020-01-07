@@ -14,7 +14,7 @@ import org.json.JSONObject;
 import com.baidu.aip.ocr.AipOcr;
 import net.sf.json.JSONArray;
 import ocr.baidu.config.SingletonAipOcr;
-import ocr.baidu.formatter.FormatterByCmd;
+import ocr.baidu.formatter.Formatter;
 import ui.ScreenShotWindow;
 import ui.ToolsWindow;
 
@@ -31,14 +31,14 @@ public class BaiduOcrRunable implements Runnable {
     /**
      * 格式化工具
      */
-    private static FormatterByCmd formatter;
+    private static Formatter formatter;
 
     /**
      * 设置格式化器
      *
      * @param formatter
      */
-    public static void setFormatter(FormatterByCmd formatter) {
+    public static void setFormatter(Formatter formatter) {
         BaiduOcrRunable.formatter = formatter;
     }
 

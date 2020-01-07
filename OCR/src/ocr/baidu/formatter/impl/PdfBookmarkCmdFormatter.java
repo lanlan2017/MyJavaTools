@@ -1,9 +1,9 @@
 package ocr.baidu.formatter.impl;
 
-import ocr.baidu.formatter.FormatterByCmd;
+import ocr.baidu.formatter.Formatter;
 import tools.string.PdfBookmarkOcrStrCorrector;
 
-public class PdfBookmarkCmdFormatter extends FormatterByCmd {
+public class PdfBookmarkCmdFormatter extends Formatter {
     String bookMarkPatten;
 
     public PdfBookmarkCmdFormatter(String bookMarkPatten) {
