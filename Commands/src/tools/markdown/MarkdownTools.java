@@ -84,6 +84,7 @@ public class MarkdownTools {
 
     /**
      * 修复Markdown行内代码中的错误字符串.
+     *
      * @param result 包含markdown行内代码的字符串.
      * @return 纠错后的字符串
      */
@@ -170,14 +171,17 @@ public class MarkdownTools {
     }
 
     public String codeBlock(String language, String input) {
+        input = input.replaceAll("\t", "    ");
         return "```" + language + "\n" + input + "\n```";
     }
 
     public String codeBlockDefault(String input) {
+        input = input.replaceAll("\t", "    ");
         return "```\n" + input + "\n```";
     }
 
     public String codeBlockJava(String input) {
+        input = input.replaceAll("\t", "    ");
         return "```java\n" + input + "\n```";
     }
 
