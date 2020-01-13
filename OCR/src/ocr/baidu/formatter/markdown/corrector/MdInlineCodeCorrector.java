@@ -1,28 +1,19 @@
-package ocr.baidu.formatter.impl;
-
-import ocr.baidu.formatter.Formatter;
-import tools.markdown.MarkdownTools;
+package ocr.baidu.formatter.markdown.corrector;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class MdCodeInLineFormatter extends Formatter {
-
-    @Override
-    public String format(String str) {
-        // 变成markdown代码.
-        str = new MarkdownTools().inlineCodeAuto(str);
-        // 处理
-        str = fixMdInlineCode(str);
-        return str;
-    }
-
+/**
+ * Markdown 行内代码校正器.
+ */
+public class MdInlineCodeCorrector {
     /**
      * 修复处理后的markdown行内代码.文字识别无法识别圆括号<code>()</code>,这里恢复圆括号.
      *
      * @param processOutput m ks命令的处理结果.
      */
-    protected String fixMdInlineCode(String processOutput) {
+    // 校正
+    public String correctMdInlineCode(String processOutput) {
         //System.out.println("纠错之前:" + processOutput);
         // 恢复文字识别错误的圆括号
         String inlineCode = processOutput.replaceAll("[0oO]`方法", "()`方法");
@@ -108,7 +99,7 @@ public class MdCodeInLineFormatter extends Formatter {
         StringBuffer sb = new StringBuffer(inlineCode.length());
         String group1;
         while (matcher.find()) {
-            StringBuffer rightPackageName = new StringBuffer();
+            StringBuilder rightPackageName = new StringBuilder();
             // 获取匹配到的一个分组
             group1 = matcher.group(1);
             String[] packageNames = group1.split("[. ]+");

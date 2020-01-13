@@ -1,1 +1,0 @@
-`PosixFileAttri buteView`:它主要用于获取或修改`POSIX(Port ableOperatingSystemInterface ofINIX)`属性

@@ -1,29 +1,30 @@
 package ocr.baidu;
 
-import java.awt.Color;
+import clipboard.swing.SystemClipboard;
+import com.baidu.aip.ocr.AipOcr;
+import net.sf.json.JSONArray;
+import ocr.baidu.config.SingletonAipOcr;
+import ocr.baidu.formatter.Formatter;
+import ocr.baidu.formatter.markdown.MdMultiLine;
+import org.json.JSONObject;
+import ui.ScreenShotWindow;
+import ui.toolbar.ToolsWindow;
+import ui.toolbar.buttons.BaiduOCRButton;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import javax.imageio.ImageIO;
-import javax.swing.JButton;
-
-import clipboard.swing.SystemClipboard;
-import org.json.JSONObject;
-import com.baidu.aip.ocr.AipOcr;
-import net.sf.json.JSONArray;
-import ocr.baidu.config.SingletonAipOcr;
-import ocr.baidu.formatter.Formatter;
-import ui.ScreenShotWindow;
-import ui.ToolsWindow;
 
 public class BaiduOcrRunable implements Runnable {
     /**
      * 触发的按钮
      */
-    private JButton baiduOCRButton = ToolsWindow.getInstance()
-            .getBaiduOCRButton();
+    private JButton baiduOCRButton = BaiduOCRButton.getInstance().getBaiduOCRButton();
     /**
      * 图片文件路径
      */
@@ -36,7 +37,7 @@ public class BaiduOcrRunable implements Runnable {
     /**
      * 设置格式化器
      *
-     * @param formatter
+     * @param formatter 格式化器.
      */
     public static void setFormatter(Formatter formatter) {
         BaiduOcrRunable.formatter = formatter;
@@ -55,12 +56,9 @@ public class BaiduOcrRunable implements Runnable {
         // 让截屏的窗体不可以见
         ScreenShotWindow.getInstance().setVisible(false);
         // 获取图片中的文字
-        String orcStr = baiduOCR(path);
-        // 如果设置了格式化器
-        if (formatter != null) {
-            orcStr = formatter.format(orcStr);
-        }
+        String orcStr = formattedOcrString();
         // 输出处理结果
+        System.out.println("--------------处理结果---------------");
         System.out.println(orcStr);
         // 将识别结果写到剪贴板中.
         SystemClipboard.setSysClipboardText(orcStr);
@@ -71,16 +69,40 @@ public class BaiduOcrRunable implements Runnable {
     }
 
     /**
-     * 调用百度接口对识别图片中的文字.
+     * 格式化OCR得到的字符串.
      *
-     * @param imagePath 图片的路径
+     * @return 格式化后的字符串.
+     */
+    private String formattedOcrString() {
+        String orcStr;
+        // 如果设置了格式化器
+        if (formatter != null) {
+            if (formatter instanceof MdMultiLine) {
+                orcStr = baiduOCRMultiLine(path);
+            } else {
+                orcStr = baiduOCRToOneLine(path);
+            }
+            orcStr = formatter.format(orcStr);
+        } else {
+            System.out.println("xxxx");
+            // 默认识别为单行模式
+            orcStr = baiduOCRToOneLine(path);
+        }
+        return orcStr;
+    }
+
+    /**
+     * 调用百度OCR接口,识别图片中的文字.
+     *
+     * @param imagePath 图片的路径.
+     * @return 包含文字信息的JSON字符字符串.
      */
     private static String baiduOCR(String imagePath) {
         // 初始化一个AipOcr
         AipOcr client = SingletonAipOcr.getAipOcr();
         // 调用文字识别接口,返回JSON数据
         JSONObject res = client.basicGeneral(imagePath,
-                new HashMap<String, String>());
+                new HashMap<>());
         // 取出HashMap
         HashMap<String, Object> resMap = (HashMap<String, Object>) res.toMap();
 
@@ -94,19 +116,41 @@ public class BaiduOcrRunable implements Runnable {
             if (entry.getKey().equals("words_result")) {
                 // 获取词组
                 JSONArray jsonArray = JSONArray.fromObject(entry.getValue());
-                System.out.println(jsonArray.toString());
+                //System.out.println(jsonArray.toString());
                 for (Object object : jsonArray) {
                     sbBuilder.append(object.toString());
                 }
             }
         }
+        //System.out.println(sbBuilder.toString());
         // 取出识别的文字结果
-        String words = sbBuilder.toString();
-        // 使用正则表达式删除无关字符.
-        words = words.replaceAll(
-                "(?:(?:\\\"\\})?\\{\\\"words\\\":\\\"|\\\"\\})", "");
-        // 输出到剪贴板中
-        // SysClipboard.setSysClipboardText(words);
+        return sbBuilder.toString();
+    }
+
+    /**
+     * 调用百度接口对识别图片中的文字.并将所有的文字整理成一行.
+     *
+     * @param imagePath 图片的路径
+     * @return 识别的单行文字
+     */
+    private static String baiduOCRToOneLine(String imagePath) {
+        String words = baiduOCR(imagePath);
+        //// 使用正则表达式删除JSON字符串中的无关字符.
+        words = words.replace("\"}{\"words\":\"", "");
+        words = words.replace("{\"words\":\"", "");
+        words = words.replace("\"}", "");
+        System.out.println("---------------识别结果---------------------");
+        System.out.println(words);
+        return words;
+    }
+
+    private static String baiduOCRMultiLine(String imagePath) {
+        String words = baiduOCR(imagePath);
+        System.out.println("------------识别结果-------------");
+        System.out.println(words);
+        words = words.replace("\"}{\"words\":\"", "\n");
+        words = words.replace("{\"words\":\"", "\n");
+        words = words.replace("\"}", "");
         return words;
     }
 
