@@ -67,6 +67,8 @@ public class MarkdownTableTools {
      * @return markdown表格体字符串.
      */
     private String copyMdTableFramJavadocBody(String text) {
+
+        text=text.replaceAll("Deprecated.\n","**Deprecated**. ");
         // 两行之间添加竖杠,然后变成一行
         text = text.replaceAll("(.+)\\n(.+)", "$1|$2");
         // 行首加竖杠
