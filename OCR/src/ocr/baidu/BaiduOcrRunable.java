@@ -4,11 +4,11 @@ import clipboard.swing.SystemClipboard;
 import com.baidu.aip.ocr.AipOcr;
 import net.sf.json.JSONArray;
 import ocr.baidu.config.SingletonAipOcr;
-import ocr.baidu.formatter.Formatter;
-import ocr.baidu.formatter.markdown.MdMultiLine;
+import formatter.Formatter;
+import formatter.FormatterMultiLine;
 import org.json.JSONObject;
 import ui.ScreenShotWindow;
-import ui.toolbar.ToolsWindow;
+import ui.ToolsWindow;
 import ui.toolbar.buttons.BaiduOCRButton;
 
 import javax.imageio.ImageIO;
@@ -77,9 +77,14 @@ public class BaiduOcrRunable implements Runnable {
         String orcStr;
         // 如果设置了格式化器
         if (formatter != null) {
-            if (formatter instanceof MdMultiLine) {
+            // 如果是多行的格式化器
+            if (formatter instanceof FormatterMultiLine) {
+                // 这识别为多行,保留换行符
                 orcStr = baiduOCRMultiLine(path);
-            } else {
+            }
+            // 如果是不是多行的格式化器
+            else {
+                // 则合并为一行
                 orcStr = baiduOCRToOneLine(path);
             }
             orcStr = formatter.format(orcStr);

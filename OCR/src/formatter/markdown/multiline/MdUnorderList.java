@@ -1,8 +1,11 @@
-package ocr.baidu.formatter.markdown;
+package formatter.markdown.multiline;
 
 import tools.markdown.MarkdownTools;
 
-public class MdUnorderList extends MdMultiLine {
+/**
+ * 无序列表
+ */
+public class MdUnorderList extends MdInlineCodesMultiLine {
     @Override
     public String format(String str) {
         str = super.format(str);

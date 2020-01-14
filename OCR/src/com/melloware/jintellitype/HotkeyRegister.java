@@ -2,7 +2,7 @@ package com.melloware.jintellitype;
 
 import ocr.baidu.BaiduOcrRunable;
 import ui.ScreenShotWindow;
-import ui.toolbar.ToolsWindow;
+import ui.ToolsWindow;
 
 /**
  * 全局快捷键注册器.

@@ -1,7 +1,7 @@
 package ui.toolbar.buttons;
 
 import ui.ScreenShotWindow;
-import ui.toolbar.ToolsWindow;
+import ui.ToolsWindow;
 
 import javax.swing.*;
 

@@ -1,14 +1,14 @@
-package ocr.baidu.formatter.markdown;
+package formatter.markdown.multiline;
 
-import ocr.baidu.formatter.Formatter;
-import ocr.baidu.formatter.markdown.corrector.MdInlineCodeCorrector;
+import formatter.FormatterMultiLine;
+import formatter.markdown.corrector.MdInlineCodeCorrector;
 import tools.markdown.MarkdownTools;
 import tools.string.StringDeleter;
 
 /**
- *
+ * 多行的行内代码模式
  */
-public class MdMultiLine implements Formatter {
+public class MdInlineCodesMultiLine implements FormatterMultiLine {
     @Override
     public String format(String str) {
         MarkdownTools mdTools = new MarkdownTools();

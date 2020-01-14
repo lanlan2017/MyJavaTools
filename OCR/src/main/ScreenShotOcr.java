@@ -2,7 +2,7 @@ package main;
 
 import java.awt.EventQueue;
 import ui.ScreenShotWindow;
-import ui.toolbar.ToolsWindow;
+import ui.ToolsWindow;
 
 public class ScreenShotOcr
 {

@@ -1,6 +1,6 @@
 package ui.toolbar.buttons;
 
-import ui.toolbar.ToolsWindow;
+import ui.ToolsWindow;
 
 import javax.swing.*;
 import java.awt.*;

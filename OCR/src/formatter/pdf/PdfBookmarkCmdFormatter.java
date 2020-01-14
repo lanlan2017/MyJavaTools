@@ -1,6 +1,6 @@
-package ocr.baidu.formatter.pdf;
+package formatter.pdf;
 
-import ocr.baidu.formatter.Formatter;
+import formatter.Formatter;
 import tools.string.PdfBookmarkOcrStrCorrector;
 
 public class PdfBookmarkCmdFormatter implements Formatter {

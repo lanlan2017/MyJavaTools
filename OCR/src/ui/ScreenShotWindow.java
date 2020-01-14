@@ -17,7 +17,6 @@ import java.awt.image.RescaleOp;
 import javax.swing.JWindow;
 
 import com.melloware.jintellitype.HotkeyRegister;
-import ui.toolbar.ToolsWindow;
 
 /*
  * 截图矩形窗口
