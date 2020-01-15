@@ -5,15 +5,14 @@ import ocr.baidu.BaiduOcrRunable;
 import javax.swing.*;
 
 /**
- * @author francis
- * create at 2020/1/13-15:41
+ * OCR按钮
  */
 public class BaiduOCRButton {
 
-    private static BaiduOCRButton instance=new BaiduOCRButton();
+    private static BaiduOCRButton instance = new BaiduOCRButton();
     private JButton baiduOCRButton;
-    private BaiduOCRButton()
-    {
+
+    private BaiduOCRButton() {
         baiduOCRButton = new JButton("OCR");
         baiduOCRButton.addActionListener(e -> {
             // 使用百度文字识别

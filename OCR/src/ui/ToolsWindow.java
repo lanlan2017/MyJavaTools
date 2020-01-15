@@ -36,33 +36,6 @@ public class ToolsWindow extends JWindow {
      */
     private void init() {
         this.setLayout(new BorderLayout());
-        //JToolBar toolBar = new JToolBar("Java 截图");
-        //// 设置工具条不可拖动
-        //toolBar.setFloatable(false);
-        //addToolBarButtons(toolBar);
-        //this.add(toolBar, BorderLayout.NORTH);
         this.add(ToolBar.getInstance().getToolBar(), BorderLayout.NORTH);
     }
-
-    ///**
-    // * 在工具条上添加各种按钮.
-    // *
-    // * @param toolBar 工具条.
-    // */
-    //private void addToolBarButtons(JToolBar toolBar) {
-    //    // 添加 移动 标签
-    //    toolBar.add(MoveLabel.getInstance().getLabel());
-    //    // 添加 截屏 按钮
-    //    toolBar.add(SreenShotButton.getInstance().getStartButton());
-    //    // 添加 取消截屏 按钮
-    //    toolBar.add(SreenShotButton.getInstance().getCancelButton());
-    //    // 添加 文字识别 按钮
-    //    //BaiduOCRButton.addBaiduOCRButton(toolBar);
-    //    toolBar.add(BaiduOCRButton.getInstance().getBaiduOCRButton());
-    //    toolBar.add(FormatterGroupSelector.getInstance().getComboBox());
-    //    // 添加 格式化器 选择框
-    //    toolBar.add(FormatterJComboBoxAll.getInstance().getComboBox());
-    //    // 添加 退出 按钮
-    //    toolBar.add(ExitButton.getInstance().getCloseButton());
-    //}
 }

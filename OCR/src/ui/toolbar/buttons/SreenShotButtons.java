@@ -6,19 +6,19 @@ import ui.ToolsWindow;
 import javax.swing.*;
 
 /**
- * @author francis
- * create at 2020/1/13-15:35
+ * 截屏和取消截屏按钮
  */
-public class SreenShotButton {
+public class SreenShotButtons {
 
-    private static SreenShotButton instance = new SreenShotButton();
+    private static SreenShotButtons instance = new SreenShotButtons();
     JButton cancelButton;
     JButton startButton;
 
-    private SreenShotButton() {
+    private SreenShotButtons() {
         cancelButton = new JButton("取消截屏");
         cancelButton.addActionListener(e -> {
-            ScreenShotWindow.getInstance().setVisible(false);// 不显示截屏窗口
+            // 不显示截屏窗口
+            ScreenShotWindow.getInstance().setVisible(false);
             // 移动窗体到最左边
             ToolsWindow.getInstance().setLocation(0, 0);
         });
@@ -31,7 +31,7 @@ public class SreenShotButton {
         });
     }
 
-    public static SreenShotButton getInstance() {
+    public static SreenShotButtons getInstance() {
         return instance;
     }
 
