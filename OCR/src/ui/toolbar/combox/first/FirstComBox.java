@@ -1,5 +1,7 @@
 package ui.toolbar.combox.first;
 
+import formatter.markdown.MdInlineCodesOneLine;
+import formatter.pdf.PdfBookmarkCmdFormatter;
 import ocr.baidu.BaiduOcrRunable;
 import ui.toolbar.ToolBar;
 import ui.toolbar.combox.second.BookMarkJComBox;
@@ -46,21 +48,28 @@ public class FirstComBox {
         });
     }
 
+
     private void selectDefault() {
         ToolBar.getInstance().setSubCombox(null);
         ToolBar.getInstance().repaintToolBar();
+        // 设置默认的格式化器
         BaiduOcrRunable.setFormatter(null);
-    }
-
-    private void selectBookMark() {
-        ToolBar.getInstance().setSubCombox(BookMarkJComBox.getInstance().getComboBox());
-        ToolBar.getInstance().repaintToolBar();
     }
 
     private void selectMarkdown() {
         ToolBar.getInstance().setSubCombox(MarkdownJComBox.getInstance().getComboBox());
         ToolBar.getInstance().repaintToolBar();
+        // 设置默认的格式化器
+        BaiduOcrRunable.setFormatter(new MdInlineCodesOneLine());
     }
+
+    private void selectBookMark() {
+        ToolBar.getInstance().setSubCombox(BookMarkJComBox.getInstance().getComboBox());
+        ToolBar.getInstance().repaintToolBar();
+        // 设置默认的格式化器
+        BaiduOcrRunable.setFormatter(new PdfBookmarkCmdFormatter("111"));
+    }
+
 
     public static FirstComBox getInstance() {
         return instance;
