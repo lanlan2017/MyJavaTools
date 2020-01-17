@@ -73,4 +73,15 @@ public class StringDeleter {
         text = text.replaceAll("(?m)^[ ]", "");
         return text;
     }
+
+    /**
+     * 删除空格
+     *
+     * @param str 带有空格的字符串.
+     * @return 没有空格的字符串.
+     */
+    public String removeSpaces(String str) {
+        str = str.replace(" ", "");
+        return str;
+    }
 }

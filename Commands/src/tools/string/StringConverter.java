@@ -126,4 +126,17 @@ public class StringConverter {
         System.out.println(stringConverter.toCamelCaseClassName(str));
         System.out.println(stringConverter.toCameCaseMethodName(str));
     }
+
+    /**
+     * 将中文翻译得到的单词转成相对的URL
+     *
+     * @param str 翻译得到的单词.
+     * @return 相对的URL路径
+     */
+    public String translateToURL(String str) {
+        str = str.replaceAll("[ ]{2,}", "/");
+        str = str.replace(" ", "");
+        str = str + "/";
+        return str;
+    }
 }

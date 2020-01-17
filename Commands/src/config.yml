@@ -64,11 +64,15 @@ s:
   # 删除空行
   dbl: tools.string.StringDeleter.deleteBlankLine
   # 删除多余空白符
-  ds: tools.string.StringDeleter.deleteSpaces
+  dsbc: tools.string.StringDeleter.deleteSpaces
   # 删除markdown代码块
   dcb: tools.string.StringDeleter.deleteMdCodeBlock
+  # 删除空格
+  rmsp: tools.string.StringDeleter.removeSpaces
   # 压缩成一行
   2ol: tools.string.StringDeleter.deleteCRLF
+  # 翻译为URL
+  tlurl: tools.string.StringConverter.translateToURL
   # 大写
   uc: tools.string.StringConverter.toUppperCase
   # 小写

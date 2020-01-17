@@ -23,6 +23,8 @@ public class Test {
         //ConfigTools.getInstance().forward("h", "code");
         //ConfigTools.getInstance().forward("file");
         //ConfigTools.getInstance().forward("m");
-        ConfigTools.getInstance().forward("m","table","apim");
+        //ConfigTools.getInstance().forward("m","table","apim");
+        //ConfigTools.getInstance().forward("s","rmsp");
+        ConfigTools.getInstance().forward("s","tlurl");
     }
 }
