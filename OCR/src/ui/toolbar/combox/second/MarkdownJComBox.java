@@ -1,6 +1,7 @@
 package ui.toolbar.combox.second;
 
 import formatter.markdown.MdInlineCodesOneLine;
+import formatter.markdown.multiline.MdInlineCodesMultiLine;
 import formatter.markdown.multiline.MdUnorderList;
 import formatter.markdown.multiline.codeblock.MdCbJava;
 import formatter.markdown.multiline.codeblock.MdCbSql;
@@ -17,7 +18,7 @@ public class MarkdownJComBox {
     private JComboBox<String> comboBox;
 
     private MarkdownJComBox() {
-        String[] markdownItems = {"行内代码", "无序列表", "Java代码块", "SQL代码块"};
+        String[] markdownItems = {"单行代码", "多行代码", "无序列表", "Java代码块", "SQL代码块"};
         comboBox = new JComboBox<>(markdownItems);
         comboBox.addItemListener(markdownE -> {
             // 如果是选中的话
@@ -26,10 +27,16 @@ public class MarkdownJComBox {
                 String markdownItem = markdownE.getItem().toString();
                 switch (markdownItem) {
                     // 触发事件的选项
-                    case "行内代码":
+                    case "单行代码":
                         System.out.println("格式化为:Markdown单行");
                         BaiduOcrRunable
                                 .setFormatter(new MdInlineCodesOneLine());
+                        break;
+                    // 触发事件的选项
+                    case "多行代码":
+                        System.out.println("格式化为:Markdown单行");
+                        BaiduOcrRunable
+                                .setFormatter(new MdInlineCodesMultiLine());
                         break;
                     // 触发事件的选项
                     case "无序列表":
