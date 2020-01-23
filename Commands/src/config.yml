@@ -59,6 +59,8 @@ m:
     # 将java doc文章中复制得到的字符串格式化为表格
     api: tools.markdown.MarkdownTableTools.copyMdTableFramJavadoc
     apim: tools.markdown.MarkdownTableTools.copyMdTableFramJavadocMethod
+    # 将多行分隔的无序列表转成表格
+    u: tools.markdown.MarkdownTableTools.multiLine2Table
 # 字符串处理
 s:
   # 删除空行
