@@ -89,7 +89,7 @@ public class BaiduOcrRunable implements Runnable {
             }
             orcStr = formatter.format(orcStr);
         } else {
-            System.out.println("xxxx");
+            //System.out.println("xxxx");
             // 默认识别为单行模式
             orcStr = baiduOCRToOneLine(path);
         }
@@ -140,15 +140,23 @@ public class BaiduOcrRunable implements Runnable {
      */
     private static String baiduOCRToOneLine(String imagePath) {
         String words = baiduOCR(imagePath);
+        System.out.println("---------------识别结果---------------------");
+        System.out.println(words);
         //// 使用正则表达式删除JSON字符串中的无关字符.
         words = words.replace("\"}{\"words\":\"", "");
         words = words.replace("{\"words\":\"", "");
         words = words.replace("\"}", "");
-        System.out.println("---------------识别结果---------------------");
-        System.out.println(words);
+        // 取消对双引号的转义
+        words = words.replace("\\\"", "\"");
         return words;
     }
 
+    /**
+     * 识别为多行
+     *
+     * @param imagePath 图片路径
+     * @return 删除json标记之后的多行字符串.
+     */
     private static String baiduOCRMultiLine(String imagePath) {
         String words = baiduOCR(imagePath);
         System.out.println("------------识别结果-------------");
@@ -156,6 +164,8 @@ public class BaiduOcrRunable implements Runnable {
         words = words.replace("\"}{\"words\":\"", "\n");
         words = words.replace("{\"words\":\"", "\n");
         words = words.replace("\"}", "");
+        // 取消对双引号的转义
+        words = words.replace("\\\"", "\"");
         return words;
     }
 
