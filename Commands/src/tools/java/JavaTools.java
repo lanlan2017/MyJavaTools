@@ -39,4 +39,32 @@ public class JavaTools {
         codeTemplate = codeTemplate.replace("VALUE", "\"\"");
         return codeTemplate;
     }
+
+    /**
+     * 将<code>System.out.println(xxxxx);</code>转成sb.appand(xxxxxx);
+     *
+     * @param soutCode
+     * @return appand语句.
+     */
+    public String sout2Append(String soutCode) {
+        System.out.println("输出语句:" + soutCode);
+        String soutLine = "System.out.println(";
+        String sout = "System.out.print(";
+        String codeEnd = ");";
+        String result = "";
+        StringBuilder sb = new StringBuilder(soutCode.length());
+        if (soutCode.startsWith(soutLine)) {
+            int outStart = soutCode.indexOf(soutLine) + soutLine.length();
+            int outEnd = soutCode.lastIndexOf(codeEnd);
+            String outText = soutCode.substring(outStart, outEnd);
+            result = "sb.append(" + outText + "+\"\\n\");";
+        } else if (soutCode.startsWith(sout)) {
+            int outStart = soutCode.indexOf(sout) + sout.length();
+            int outEnd = soutCode.lastIndexOf(codeEnd);
+            String outText = soutCode.substring(outStart, outEnd);
+            result = "sb.append(" + outText + ");";
+        }
+        System.out.println("append语句:" + result);
+        return result;
+    }
 }

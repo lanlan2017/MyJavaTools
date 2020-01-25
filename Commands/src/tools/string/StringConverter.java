@@ -134,9 +134,19 @@ public class StringConverter {
      * @return 相对的URL路径
      */
     public String translateToURL(String str) {
-        str = str.replaceAll("[ ]{2,}", "/");
-        str = str.replace(" ", "");
-        str = str + "/";
-        return str;
+        StringBuilder sb = new StringBuilder(str.length());
+        String[] dirs = str.split("[ ]{2,}");
+        for (String dir : dirs) {
+            if (dir.contains(" ")) {
+                String[] names = dir.split(" ");
+                for (String name : names) {
+                    sb.append(toUpperCaseFirst(name));
+                }
+            } else {
+                sb.append(dir);
+            }
+            sb.append("/");
+        }
+        return sb.toString();
     }
 }

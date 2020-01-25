@@ -153,6 +153,8 @@ j:
   switch:
     default: tools.java.JavaTools.switchCaseDefault
     str: tools.java.JavaTools.switchCaseString
+  sout:
+    ap: tools.java.JavaTools.sout2Append
 file:
   # 将文件从gbk编码转成utf8编码
   gbkutf8: tools.file.ConvertProjectEncode.gbkToUtf8

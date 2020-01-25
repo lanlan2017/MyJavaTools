@@ -12,8 +12,11 @@ public class JavaCorrector {
      * @return 纠正后的Java代码
      */
     public static String correctJava(String str) {
+        System.out.println("-------------------------------------------");
+        System.out.println(str);
+        System.out.println("-------------------------------------------");
         // 所有的行必须以分号结尾
-        str = str.replaceAll("(?m)i$", ");");
+        str = str.replaceAll("(?m)[:i]$", ";");
         // 在方法后面加上英文分号,方法的标准为")结尾"
         str = str.replaceAll("(?m)(^(?!(?:catch|try)).*[)]$)", "$1;");
         // 删除点号前后的多余空格

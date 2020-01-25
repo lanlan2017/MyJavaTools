@@ -26,6 +26,7 @@ public class Test {
         //ConfigTools.getInstance().forward("m","table","apim");
         //ConfigTools.getInstance().forward("s","rmsp");
         //ConfigTools.getInstance().forward("s","tlurl");
-        ConfigTools.getInstance().forward("m","table","u");
+        //ConfigTools.getInstance().forward("m","table","u");
+        ConfigTools.getInstance().forward("j","sout","ap");
     }
 }
