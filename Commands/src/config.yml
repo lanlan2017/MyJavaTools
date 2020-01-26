@@ -145,10 +145,11 @@ h:
   fold: tools.html.HtmlTools.flod
 # java代码模板
 j:
-  # 遍历字符串的for语句
-  forstr: tools.java.JavaTools.forString
-  # 遍历数组的for语句
-  forarr: tools.java.JavaTools.forArray
+  for:
+    # 遍历字符串的for语句
+    str: tools.java.JavaTools.forString
+    # 遍历数组的for语句
+    arr: tools.java.JavaTools.forArray
   # 生成switch语句
   switch:
     default: tools.java.JavaTools.switchCaseDefault

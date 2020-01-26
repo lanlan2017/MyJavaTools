@@ -181,8 +181,81 @@ public class MarkdownTools {
     }
 
     public String codeBlockJava(String input) {
+        // 删除无用的\t缩进
+        input = removeExcessIndentation(input);
+        // 将剩下的\t缩进转换成四个空格
         input = input.replaceAll("\t", "    ");
         return "```java\n" + input + "\n```";
+    }
+
+    /**
+     * 删除字符串每行开头多余的\t缩进
+     *
+     * @param code 多行的字符串.
+     * @return 移除多余的缩进后的字符串.
+     */
+    private String removeExcessIndentation(String code) {
+        // 如果字符串以\t开头或者四个空格开头
+        if (code.startsWith("\t") || code.startsWith("    ")) {
+            // 缩进字符
+            final char indentChar;
+            // 如果以\t开头,则使用\t作为缩进
+            if (code.charAt(0) == '\t') {
+                indentChar = '\t';
+            }else {
+                // 使用空格作为缩进
+                indentChar = ' ';
+            }
+            // 按行分割
+            String[] lines = code.split("\n");
+            //---------- 统计每行开头的\t缩进字符数量
+            // 统计每行开头的空格数
+            int[] indentCounter = new int[lines.length];
+            // 遍历所有的行
+            for (int i = 0; i < lines.length; i++) {
+                // 遍历没一行的所有字符
+                String line = lines[i];
+                for (int lineIndex = 0, length = line.length(); lineIndex < length; lineIndex++) {
+
+                    if (line.charAt(lineIndex) == indentChar) {
+                        // 这一行的计数器加一
+                        indentCounter[i]++;
+                    } else {
+                        // 如果不是非缩进字符,则结束循环
+                        break;
+                    }
+                }
+            }
+            //---------------------------------
+            //for (int blanks : indentationCounter) {
+            //    System.out.println(blanks);
+            //}
+            // ------- 查找最小的缩进值
+            // 查找数组中最小的数的下标
+            // 数组中最小的数的下标,默认第一个元素最小
+            int minIndex = 0;
+            // 遍历数组
+            for (int i = 1; i < indentCounter.length; i++) {
+                // 如果找到更小的数
+                if (indentCounter[i] < indentCounter[minIndex]) {
+                    // 记下这个更小的数的下标
+                    minIndex = i;
+                }
+            }
+            // ---------------------------------
+            int minIndentation = indentCounter[minIndex];
+            // System.out.println("开头最少\t数量为:" + min);
+
+            StringBuilder sb = new StringBuilder(code.length());
+            for (int i = 0; i < lines.length; i++) {
+                // 删除开头的无用缩进字符
+                lines[i] = lines[i].substring(minIndentation);
+                //System.out.println(lines[i]);
+                sb.append(lines[i] + "\n");
+            }
+            code = sb.toString();
+        }
+        return code;
     }
 
     public String codeBlockJavaScript(String input) {
