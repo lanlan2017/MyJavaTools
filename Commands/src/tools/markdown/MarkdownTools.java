@@ -185,7 +185,9 @@ public class MarkdownTools {
         input = removeExcessIndentation(input);
         // 将剩下的\t缩进转换成四个空格
         input = input.replaceAll("\t", "    ");
-        return "```java\n" + input + "\n```";
+        input = "```java\n" + input + "\n```";
+        input = input.replaceAll("(?m)^$(?:\\r\\n|\\n)```", "```");
+        return input;
     }
 
     /**
@@ -202,7 +204,7 @@ public class MarkdownTools {
             // 如果以\t开头,则使用\t作为缩进
             if (code.charAt(0) == '\t') {
                 indentChar = '\t';
-            }else {
+            } else {
                 // 使用空格作为缩进
                 indentChar = ' ';
             }
