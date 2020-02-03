@@ -60,14 +60,25 @@ public class FirstComBox {
         ToolBar.getInstance().setSubCombox(MarkdownJComBox.getInstance().getComboBox());
         ToolBar.getInstance().repaintToolBar();
         // 设置默认的格式化器
-        BaiduOcrRunable.setFormatter(new MdInlineCodesOneLine());
+        //BaiduOcrRunable.setFormatter(new MdInlineCodesOneLine());
+        BaiduOcrRunable.setFormatter(MarkdownJComBox.defalutFormatter());
+        if (!MarkdownJComBox.getInstance().isSelected()) {
+            System.out.println("默认格式化为:单行代码");
+            BaiduOcrRunable.setFormatter(MarkdownJComBox.defalutFormatter());
+        }
     }
 
     private void selectBookMark() {
+        // 设置第二个工具条
         ToolBar.getInstance().setSubCombox(BookMarkJComBox.getInstance().getComboBox());
+        // 重绘工具条
         ToolBar.getInstance().repaintToolBar();
         // 设置默认的格式化器
-        BaiduOcrRunable.setFormatter(new PdfBookmarkCmdFormatter("111"));
+        //comboBox.setSelectedIndex(0);
+        if (!BookMarkJComBox.getInstance().isSelected()) {
+            System.out.println("默认格式化为:书签x.x.x");
+            BaiduOcrRunable.setFormatter(BookMarkJComBox.defaultFormatter());
+        }
     }
 
 
