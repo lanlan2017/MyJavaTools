@@ -1,7 +1,5 @@
 package ui.toolbar.combox.first;
 
-import formatter.markdown.MdInlineCodesOneLine;
-import formatter.pdf.PdfBookmarkCmdFormatter;
 import ocr.baidu.BaiduOcrRunable;
 import ui.toolbar.ToolBar;
 import ui.toolbar.combox.second.BookMarkJComBox;
@@ -59,13 +57,9 @@ public class FirstComBox {
     private void selectMarkdown() {
         ToolBar.getInstance().setSubCombox(MarkdownJComBox.getInstance().getComboBox());
         ToolBar.getInstance().repaintToolBar();
-        // 设置默认的格式化器
-        //BaiduOcrRunable.setFormatter(new MdInlineCodesOneLine());
-        BaiduOcrRunable.setFormatter(MarkdownJComBox.defalutFormatter());
-        if (!MarkdownJComBox.getInstance().isSelected()) {
-            System.out.println("默认格式化为:单行代码");
-            BaiduOcrRunable.setFormatter(MarkdownJComBox.defalutFormatter());
-        }
+        // 设置默认的格式器
+        System.out.println("使用默认的 markdown 格式化器");
+        BaiduOcrRunable.setFormatter(MarkdownJComBox.defaultFormatter());
     }
 
     private void selectBookMark() {
@@ -74,11 +68,8 @@ public class FirstComBox {
         // 重绘工具条
         ToolBar.getInstance().repaintToolBar();
         // 设置默认的格式化器
-        //comboBox.setSelectedIndex(0);
-        if (!BookMarkJComBox.getInstance().isSelected()) {
-            System.out.println("默认格式化为:书签x.x.x");
-            BaiduOcrRunable.setFormatter(BookMarkJComBox.defaultFormatter());
-        }
+        System.out.println("使用默认的 书签 格式化器");
+        BaiduOcrRunable.setFormatter(BookMarkJComBox.defaultFormatter());
     }
 
 

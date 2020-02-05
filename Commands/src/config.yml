@@ -143,6 +143,8 @@ h:
   js: tools.html.HtmlTools.importJS
   # 展开/折叠块
   fold: tools.html.HtmlTools.flod
+  # 多行字符串转成html无序列表
+  ul: tools.html.HtmlTools.unorderedList
 # java代码模板
 j:
   for:

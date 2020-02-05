@@ -17,7 +17,6 @@ import java.awt.event.ItemEvent;
 public class MarkdownJComBox {
     private static MarkdownJComBox instance = new MarkdownJComBox();
     private JComboBox<String> comboBox;
-    private boolean isSelected;
     private static Formatter[] formatters = {
             new MdInlineCodesOneLine(),
             new MdInlineCodesMultiLine(),
@@ -25,6 +24,7 @@ public class MarkdownJComBox {
             new MdCbSql(),
             new MdCbJava()
     };
+    private static Formatter defaultFormatter = formatters[0];
 
     private MarkdownJComBox() {
         String[] markdownItems = {"单行代码", "多行代码", "无序列表", "Java代码块", "SQL代码块"};
@@ -32,45 +32,36 @@ public class MarkdownJComBox {
         comboBox.addItemListener(markdownE -> {
             // 如果是选中的话
             if (ItemEvent.SELECTED == markdownE.getStateChange()) {
-                isSelected = true;
                 // 获取列表成员
                 String markdownItem = markdownE.getItem().toString();
                 switch (markdownItem) {
                     // 触发事件的选项
                     case "单行代码":
                         System.out.println("格式化为:Markdown单行");
-                        //BaiduOcrRunable
-                        //        .setFormatter(new MdInlineCodesOneLine());
-                        BaiduOcrRunable
-                                .setFormatter(formatters[0]);
+                        defaultFormatter = formatters[0];
                         break;
                     // 触发事件的选项
                     case "多行代码":
-                        System.out.println("格式化为:Markdown单行");
-                        //BaiduOcrRunable
-                        //        .setFormatter(new MdInlineCodesMultiLine());
-                        BaiduOcrRunable
-                                .setFormatter(formatters[1]);
+                        System.out.println("格式化为:Markdown多行");
+                        defaultFormatter = formatters[1];
                         break;
                     // 触发事件的选项
                     case "无序列表":
                         System.out.println("格式化为:Markdown无序列表");
-                        BaiduOcrRunable
-                                .setFormatter(formatters[2]);
+                        defaultFormatter = formatters[2];
                         break;
                     case "SQL代码块":
                         System.out.println("格式化为:markdown SQL代码块");
-                        BaiduOcrRunable.setFormatter(formatters[3]);
+                        defaultFormatter = formatters[3];
                         break;
                     case "Java代码块":
                         System.out.println("格式化为:markdown Java代码块");
-                        BaiduOcrRunable.setFormatter(formatters[4]);
+                        defaultFormatter = formatters[4];
                         break;
                 }
+                BaiduOcrRunable.setFormatter(defaultFormatter);
             }
         });
-        // 设置默认选项
-        //comboBox.setSelectedIndex(0);
     }
 
     public static MarkdownJComBox getInstance() {
@@ -81,11 +72,7 @@ public class MarkdownJComBox {
         return comboBox;
     }
 
-    public boolean isSelected() {
-        return isSelected;
-    }
-
-    public static Formatter defalutFormatter() {
-        return formatters[0];
+    public static Formatter defaultFormatter() {
+        return defaultFormatter;
     }
 }

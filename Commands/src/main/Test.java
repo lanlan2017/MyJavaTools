@@ -15,7 +15,7 @@ public class Test {
         //ConfigTools.getInstance().forward("file", "utf8gbk");
         //ConfigTools.getInstance().forward("file", "indentBySpaces");
         //ConfigTools.getInstance().forward("m","cb","j","ngs");
-        ConfigTools.getInstance().forward("m","cb","j");
+        //ConfigTools.getInstance().forward("m","cb","j");
         //ConfigTools.getInstance().forward("suanfa", "maopao");
         //ConfigTools.getInstance().forward("suanfa", "xuanzhe");
         //ConfigTools.getInstance().forward("m", "cb","j");
@@ -28,5 +28,6 @@ public class Test {
         //ConfigTools.getInstance().forward("s","tlurl");
         //ConfigTools.getInstance().forward("m","table","u");
         //ConfigTools.getInstance().forward("j","sout","ap");
+        ConfigTools.getInstance().forward("h","ul");
     }
 }

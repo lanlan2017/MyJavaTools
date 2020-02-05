@@ -21,9 +21,11 @@ public class BookMarkJComBox {
             new PdfBookmarkCmdFormatter("22"),
             new PdfBookmarkCmdFormatter("221")
     };
+    /**
+     * 默认的格式化器,刚开始以第一个为准.
+     */
+    private static PdfBookmarkCmdFormatter defaultFormatter = formatters[0];
     private JComboBox<String> comboBox;
-    private boolean isSelected;
-
 
     private BookMarkJComBox() {
         String[] bookMarkItems = {"书签x.x.x", "书签x.xx", "书签x.xx.x", "书签xx.x",
@@ -32,60 +34,43 @@ public class BookMarkJComBox {
         comboBox.addItemListener(markdownE -> {
             // 如果是选中的话
             if (ItemEvent.SELECTED == markdownE.getStateChange()) {
-                isSelected = true;
                 // 获取列表成员
                 String bookMarkItem = markdownE.getItem().toString();
                 switch (bookMarkItem) {
                     // 如果选中的是书签
                     case "书签x.x.x":
                         System.out.println("格式化为:书签x.x.x");
-                        //BaiduOcrRunable.setFormatter(
-                        //        new PdfBookmarkCmdFormatter("111"));
-                        BaiduOcrRunable.setFormatter(formatters[0]);
+                        defaultFormatter = formatters[0];
                         break;
                     case "书签x.xx":
                         System.out.println("格式化为:书签x.xx");
-                        //BaiduOcrRunable.setFormatter(
-                        //        new PdfBookmarkCmdFormatter("12"));
-                        BaiduOcrRunable.setFormatter(formatters[1]);
+                        defaultFormatter = formatters[1];
                         break;
                     case "书签x.xx.x":
                         System.out.println("格式化为:书签x.xx.x");
-                        //BaiduOcrRunable.setFormatter(
-                        //        new PdfBookmarkCmdFormatter("121"));
-                        BaiduOcrRunable.setFormatter(formatters[2]);
+                        defaultFormatter = formatters[2];
                         break;
                     case "书签xx.x":
                         System.out.println("格式化为:书签xx.x");
-                        //BaiduOcrRunable.setFormatter(
-                        //        new PdfBookmarkCmdFormatter("21"));
-                        BaiduOcrRunable.setFormatter(formatters[3]);
+                        defaultFormatter = formatters[3];
                         break;
                     case "书签xx.x.x":
                         System.out.println("格式化为:书签xx.x.x");
-                        //BaiduOcrRunable.setFormatter(
-                        //        new PdfBookmarkCmdFormatter("211"));
-                        BaiduOcrRunable.setFormatter(formatters[4]);
+                        defaultFormatter = formatters[4];
                         break;
                     case "书签xx.xx":
                         System.out.println("格式化为:书签xx.xx");
-                        //BaiduOcrRunable.setFormatter(
-                        //        new PdfBookmarkCmdFormatter("22"));
-                        BaiduOcrRunable.setFormatter(formatters[5]);
+                        defaultFormatter = formatters[5];
                         break;
                     case "书签xx.xx.x":
                         System.out.println("格式化为:书签xx.xx.x");
-                        //BaiduOcrRunable.setFormatter(
-                        //        new PdfBookmarkCmdFormatter("221"));
-                        BaiduOcrRunable.setFormatter(formatters[6]);
+                        defaultFormatter = formatters[6];
                         break;
                 }
+                // 设置选择的格式化器
+                BaiduOcrRunable.setFormatter(defaultFormatter);
             }
         });
-        // 设置默认选项
-        //comboBox.setSelectedIndex(0);
-        //comboBox.actionPerformed();
-        //BaiduOcrRunable.setFormatter(formatters[0]);
     }
 
     public static BookMarkJComBox getInstance() {
@@ -96,11 +81,8 @@ public class BookMarkJComBox {
         return comboBox;
     }
 
-    public boolean isSelected() {
-        return isSelected;
-    }
 
     public static PdfBookmarkCmdFormatter defaultFormatter() {
-        return formatters[0];
+        return defaultFormatter;
     }
 }
