@@ -33,6 +33,7 @@ public class ConfigTools {
     public void forward(String... args) {
         switch (args.length) {
             case 1:
+                // 显示帮助文档
                 Map<String, Object> map = (Map<String, Object>) configMap.get(args[0]);
                 //Set<Map.Entry<String, Object>> entrySet = map.entrySet();
                 //Iterator<Map.Entry<String, Object>> iterator = entrySet.iterator();
@@ -44,7 +45,7 @@ public class ConfigTools {
 
                 break;
             default:
-
+                // 处理命令
                 processHardValue(args);
                 break;
         }
@@ -52,6 +53,7 @@ public class ConfigTools {
 
 
     private void processHardValue(String[] args) {
+        // 获取命令对应的值
         String value = getFinallyValue(args);
         if (value.matches(RegexEnum.FQ_MethodNameUseLastArg.toString())) {
             String fQMethodName = value.substring(0, value.lastIndexOf("_"));

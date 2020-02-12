@@ -28,6 +28,6 @@ public class Test {
         //ConfigTools.getInstance().forward("s","tlurl");
         //ConfigTools.getInstance().forward("m","table","u");
         //ConfigTools.getInstance().forward("j","sout","ap");
-        ConfigTools.getInstance().forward("h","ul");
+        ConfigTools.getInstance().forward("h","code");
     }
 }
