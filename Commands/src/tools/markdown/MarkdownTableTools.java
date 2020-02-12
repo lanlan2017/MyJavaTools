@@ -44,9 +44,9 @@ public class MarkdownTableTools {
      * @param text Java doc表格中复制得到的字符串.
      * @return markdown表格.
      */
-    public String copyMdTableFramJavadoc(String text) {
+    public String methodTable(String text) {
         // 两行之间添加竖杠,然后变成一行
-        text = copyMdTableFramJavadocBody(text);
+        text = generateTableBody(text);
         // 添加表格标题和对齐方式
         return "|方法|描述|\n|:--|:--|\n" + text;
     }
@@ -57,22 +57,30 @@ public class MarkdownTableTools {
      * @param text Java doc表格中复制得到的字符串.
      * @return markdown表格.
      */
-    public String copyMdTableFramJavadocMethod(String text) {
-        text = copyMdTableFramJavadocBody(text);
-        // 第一列作为行内代码
-        text = text.replaceAll("(?m)^\\|(.+?)(\\|.+?\\|)$", "|`$1`$2");
+    public String methodTableHighLight(String text) {
+        text = tableBodyCodeFirst(text);
         // 添加表格标题和对齐方式
         return "|方法|描述|\n|:--|:--|\n" + text;
     }
 
+    public String tableBodyCodeFirst(String text) {
+        text = generateTableBody(text);
+        // 第一列作为行内代码
+        //text = text.replaceAll("(?m)^\\|(.+?)(\\|.+?\\|)$", "|`$1`$2");
+        text=highlightMethod(text);
+        return text;
+    }
+
+    private String highlightMethod(String tableBody){
+        return tableBody.replaceAll("(?m)^\\|(.+?)(\\|.+?\\|)$", "|`$1`$2");
+    }
     /**
      * 生成表格主体.
      *
      * @param text 从java Doc表格中复制过来的文本.
      * @return markdown表格体字符串.
      */
-    private String copyMdTableFramJavadocBody(String text) {
-
+    private String generateTableBody(String text) {
         text = text.replaceAll("Deprecated.\n", "**Deprecated**. ");
         // 两行之间添加竖杠,然后变成一行
         text = text.replaceAll("(.+)\\n(.+)", "$1|$2");

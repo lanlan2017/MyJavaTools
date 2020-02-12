@@ -7,27 +7,8 @@ import tools.config.ConfigTools;
  */
 public class Test {
     public static void main(String[] args) {
-        //ConfigTools.getInstance().forward("j", "forarr");
-        //ConfigTools.getInstance().forward("j", "forstr");
-        //ConfigTools.getInstance().forward("j", "switch");
-        //ConfigTools.getInstance().forward("j", "switch","str");
-        //ConfigTools.getInstance().forward("file", "gbkutf8");
-        //ConfigTools.getInstance().forward("file", "utf8gbk");
-        //ConfigTools.getInstance().forward("file", "indentBySpaces");
-        //ConfigTools.getInstance().forward("m","cb","j","ngs");
-        //ConfigTools.getInstance().forward("m","cb","j");
-        //ConfigTools.getInstance().forward("suanfa", "maopao");
-        //ConfigTools.getInstance().forward("suanfa", "xuanzhe");
-        //ConfigTools.getInstance().forward("m", "cb","j");
-        //ConfigTools.getInstance().forward("m", "cb","xyz");
-        //ConfigTools.getInstance().forward("h", "code");
-        //ConfigTools.getInstance().forward("file");
-        //ConfigTools.getInstance().forward("m");
-        //ConfigTools.getInstance().forward("m","table","apim");
-        //ConfigTools.getInstance().forward("s","rmsp");
-        //ConfigTools.getInstance().forward("s","tlurl");
-        //ConfigTools.getInstance().forward("m","table","u");
-        //ConfigTools.getInstance().forward("j","sout","ap");
-        ConfigTools.getInstance().forward("h","code");
+        //ConfigTools.getInstance().forward("h","code");
+        //ConfigTools.getInstance().forward("m","table","api");
+        ConfigTools.getInstance().forward("m","table","api","m");
     }
 }

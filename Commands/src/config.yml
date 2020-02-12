@@ -57,8 +57,10 @@ m:
     # 将空格分隔的表格格式化为表格,并标出代码
     cphl: tools.markdown.MarkdownTableTools.mdTableCopyHighlight
     # 将java doc文章中复制得到的字符串格式化为表格
-    api: tools.markdown.MarkdownTableTools.copyMdTableFramJavadoc
-    apim: tools.markdown.MarkdownTableTools.copyMdTableFramJavadocMethod
+    api:
+      default: tools.markdown.MarkdownTableTools.methodTable
+      m: tools.markdown.MarkdownTableTools.methodTableHighLight
+      mb: tools.markdown.MarkdownTableTools.tableBodyCodeFirst
     # 将多行分隔的无序列表转成表格
     u: tools.markdown.MarkdownTableTools.multiLine2Table
 # 字符串处理
@@ -160,9 +162,11 @@ j:
     ap: tools.java.JavaTools.sout2Append
 file:
   # 将文件从gbk编码转成utf8编码
-  gbkutf8: tools.file.ConvertProjectEncode.gbkToUtf8
+  gbk:
+    utf8: tools.file.ConvertProjectEncode.gbkToUtf8
   # 将文件从utf8编码转成gbk编码
-  utf8gbk: tools.file.ConvertProjectEncode.utf8ToGbk
+  utf8:
+    gbk: tools.file.ConvertProjectEncode.utf8ToGbk
   # 使用空格缩进
   indentBySpaces: tools.file.FileTools.indentBySpaces
 suanfa:
