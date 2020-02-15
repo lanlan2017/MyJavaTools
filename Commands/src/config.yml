@@ -160,15 +160,7 @@ j:
     str: tools.java.JavaTools.switchCaseString
   sout:
     ap: tools.java.JavaTools.sout2Append
-file:
-  # 将文件从gbk编码转成utf8编码
-  gbk:
-    utf8: tools.file.ConvertProjectEncode.gbkToUtf8
-  # 将文件从utf8编码转成gbk编码
-  utf8:
-    gbk: tools.file.ConvertProjectEncode.utf8ToGbk
-  # 使用空格缩进
-  indentBySpaces: tools.file.FileTools.indentBySpaces
+
 suanfa:
   # 冒泡排序
   maopao:
