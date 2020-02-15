@@ -1,3 +1,3 @@
 @echo off
-java -jar "%~dp0CommandTools.jar" file %1 %2 %3
+java -jar "%~dp0Files.jar" %1 %2 %3
 :: pause

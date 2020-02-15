@@ -5,9 +5,10 @@ import java.io.*;
 /**
  * 项目编码转换器,可以把一个目录下的所有文件从一个编码(如GBK)转换成另一个编码(如UTF-8).<br>
  */
-public class ConvertProjectEncode {
+public class CharacterEncodingConverter {
+
     /**
-     * 转换整个目录的编码.
+     * 转换整个目录树的编码.
      *
      * @param dirFile     目录对应的File对象.
      * @param fromCharset 原来的文件编码.
@@ -34,17 +35,19 @@ public class ConvertProjectEncode {
             }
             return false;
         });
-        // 遍历整个目录列表
-        for (int i = 0; i < dirFileList.length; i++) {
-            // 如果是目录
-            if (dirFileList[i].isDirectory()) {
-                // 递归处理下一级目录
-                convertDirEncode(dirFileList[i], fromCharset, toCharset);
-            }
-            // 如果是文件
-            else if (dirFileList[i].isFile()) {
-                // 转换文件的编码
-                convertFileEncode(dirFileList[i], fromCharset, toCharset);
+        if (dirFileList != null) {
+            // 遍历整个目录列表
+            for (File file : dirFileList) {
+                // 如果是目录
+                if (file.isDirectory()) {
+                    // 递归处理下一级目录
+                    convertDirEncode(file, fromCharset, toCharset);
+                }
+                // 如果是文件
+                else if (file.isFile()) {
+                    // 转换文件的编码
+                    convertFileEncode(file, fromCharset, toCharset);
+                }
             }
         }
     }
@@ -83,10 +86,8 @@ public class ConvertProjectEncode {
         // 读入文件缓存
         try (BufferedReader reader = new BufferedReader(
                 new InputStreamReader(new FileInputStream(file), fromCharset));
-
              BufferedWriter writer = new BufferedWriter(
-                     new OutputStreamWriter(new FileOutputStream(tempFile),
-                             toCharset))) {
+                     new OutputStreamWriter(new FileOutputStream(tempFile), toCharset))) {
 
             int size;
             // 从源文件中读出
@@ -116,61 +117,17 @@ public class ConvertProjectEncode {
     }
 
     /**
-     * 把gbk编码的目录或者文件转换为utf-8编码的.
-     */
-    private static void gbkToUtf8(File file) {
-        if (file.isDirectory()) {
-            convertDirEncode(file, "gbk", "utf-8");
-        } else if (file.isFile()) {
-            convertFileEncode(file, "gbk", "utf-8");
-        }
-    }
-
-    /**
-     * 将文件或者目录树下的所有文件从gbk编码转为utf-8编码.
+     * 将文件或目录树下的所有文件从srcCharset编码转成targetCharset编码。
      *
-     * @param path 文件的字符串路径.
+     * @param file          表示文件或者目录的File对象
+     * @param srcCharset    文件原来的编码
+     * @param targetCharset 要转换后的编码
      */
-    public void gbkToUtf8(String path) {
-        File file = new File(path);
+    public static void transcoding(File file, String srcCharset, String targetCharset) {
         if (file.isDirectory()) {
-            convertDirEncode(file, "gbk", "utf-8");
+            convertDirEncode(file, srcCharset, targetCharset);
         } else if (file.isFile()) {
-            convertFileEncode(file, "gbk", "utf-8");
+            convertFileEncode(file, srcCharset, targetCharset);
         }
     }
-
-    /**
-     * 把utf-8编码的目录或者文件转换为gbk编码的.
-     *
-     * @param file 文件或者目录.
-     */
-    public static void utf8ToGbk(File file) {
-        if (file.isDirectory()) {
-            convertDirEncode(file, "utf-8", "gbk");
-        } else if (file.isFile()) {
-            convertFileEncode(file, "utf-8", "gbk");
-        }
-    }
-
-    /**
-     * 把utf-8编码的目录或者文件转换为gbk编码的.
-     */
-    public void utf8ToGbk(String path) {
-        // String path = SysClipboardUtil.getSysClipboardText();
-        File file = new File(path);
-        if (file.isDirectory()) {
-            convertDirEncode(file, "utf-8", "gbk");
-        } else if (file.isFile()) {
-            convertFileEncode(file, "utf-8", "gbk");
-        }
-    }
-
-    public static void main(String[] args) {
-        String path = "G:\\Desktop\\Vscode测试\\测试.md";
-        ConvertProjectEncode encode = new ConvertProjectEncode();
-        encode.gbkToUtf8(path);
-        //encode.utf8ToGbk(path);
-    }
-
 }
