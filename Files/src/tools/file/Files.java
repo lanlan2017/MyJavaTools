@@ -20,9 +20,13 @@ public class Files {
                 transcoding(path, args[0].toUpperCase(), args[1].toUpperCase());
                 break;
             case 3:
-                final String userDir = System.getProperty("user.dir");
-                System.out.println(userDir);
-                transcoding(userDir, args[0].toUpperCase(), args[1].toUpperCase());
+                if (args[2].equals(".")) {
+                    final String userDir = System.getProperty("user.dir");
+                    System.out.println(userDir);
+                    transcoding(userDir, args[0].toUpperCase(), args[1].toUpperCase());
+                } else {
+                    transcoding(args[2], args[0].toUpperCase(), args[1].toUpperCase());
+                }
                 break;
             default:
                 // 输出合法的JDK字符集名称
