@@ -8,7 +8,6 @@ import tools.config.ConfigTools;
 public class Test {
     public static void main(String[] args) {
         //ConfigTools.getInstance().forward("h","code");
-        //ConfigTools.getInstance().forward("m","table","api");
-        ConfigTools.getInstance().forward("m","table","api","m");
+        ConfigTools.getInstance().forward("m","api","p2u");
     }
 }

@@ -9,7 +9,7 @@ import java.util.List;
  * @author francis
  * create at 2019/12/19-22:32
  */
-public class MarkdownTableTools {
+public class JavaDoc2Markdown {
     /**
      * 将两个一样的空格分隔的表格转成markdown表格.
      *
@@ -126,6 +126,15 @@ public class MarkdownTableTools {
         String result = printListListTable(listRow);
 
         return result;
+    }
+    public String parametersList(String parameterStr){
+        String [] parameters=parameterStr.split(",");
+        int maxLength= (int) (parameterStr.length()*1.5);
+        StringBuilder sb=new StringBuilder(maxLength);
+        for (String parameter : parameters) {
+            sb.append("- `"+parameter.trim()+"`"+":\n");
+        }
+        return sb.toString();
     }
 
     private String printListListTable(List<ArrayList<String>> listRow) {

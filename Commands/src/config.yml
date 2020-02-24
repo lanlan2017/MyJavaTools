@@ -53,16 +53,18 @@ m:
   # 表格
   table:
     # 将空格分隔的表格格式化为表格
-    cp: tools.markdown.MarkdownTableTools.mdTableCopy
+    cp: tools.markdown.JavaDoc2Markdown.mdTableCopy
     # 将空格分隔的表格格式化为表格,并标出代码
-    cphl: tools.markdown.MarkdownTableTools.mdTableCopyHighlight
+    cphl: tools.markdown.JavaDoc2Markdown.mdTableCopyHighlight
     # 将java doc文章中复制得到的字符串格式化为表格
-    api:
-      default: tools.markdown.MarkdownTableTools.methodTable
-      m: tools.markdown.MarkdownTableTools.methodTableHighLight
-      mb: tools.markdown.MarkdownTableTools.tableBodyCodeFirst
     # 将多行分隔的无序列表转成表格
-    u: tools.markdown.MarkdownTableTools.multiLine2Table
+    u: tools.markdown.JavaDoc2Markdown.multiLine2Table
+  api:
+    table:
+      default: tools.markdown.JavaDoc2Markdown.methodTable
+      m: tools.markdown.JavaDoc2Markdown.methodTableHighLight
+      mb: tools.markdown.JavaDoc2Markdown.tableBodyCodeFirst
+    p2u: tools.markdown.JavaDoc2Markdown.parametersList
 # 字符串处理
 s:
   # 删除空行
