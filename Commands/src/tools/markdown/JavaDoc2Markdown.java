@@ -57,23 +57,29 @@ public class JavaDoc2Markdown {
      * @param text Java doc表格中复制得到的字符串.
      * @return markdown表格.
      */
-    public String methodTableHighLight(String text) {
-        text = tableBodyCodeFirst(text);
+    public String docMethodTable2MdTable(String text) {
+        text = docTable2MdTableBody(text);
         // 添加表格标题和对齐方式
         return "|方法|描述|\n|:--|:--|\n" + text;
     }
 
-    public String tableBodyCodeFirst(String text) {
+    public String docFieldTable2MdTable(String text) {
+        text = docTable2MdTableBody(text);
+        return "|属性|描述|\n|:--|:--|\n" + text;
+    }
+
+    public String docTable2MdTableBody(String text) {
         text = generateTableBody(text);
         // 第一列作为行内代码
         //text = text.replaceAll("(?m)^\\|(.+?)(\\|.+?\\|)$", "|`$1`$2");
-        text=highlightMethod(text);
+        text = highlightMethod(text);
         return text;
     }
 
-    private String highlightMethod(String tableBody){
+    private String highlightMethod(String tableBody) {
         return tableBody.replaceAll("(?m)^\\|(.+?)(\\|.+?\\|)$", "|`$1`$2");
     }
+
     /**
      * 生成表格主体.
      *
@@ -127,12 +133,13 @@ public class JavaDoc2Markdown {
 
         return result;
     }
-    public String parametersList(String parameterStr){
-        String [] parameters=parameterStr.split(",");
-        int maxLength= (int) (parameterStr.length()*1.5);
-        StringBuilder sb=new StringBuilder(maxLength);
+
+    public String parametersList(String parameterStr) {
+        String[] parameters = parameterStr.split(",");
+        int maxLength = (int) (parameterStr.length() * 1.5);
+        StringBuilder sb = new StringBuilder(maxLength);
         for (String parameter : parameters) {
-            sb.append("- `"+parameter.trim()+"`"+":\n");
+            sb.append("- `" + parameter.trim() + "`" + ":\n");
         }
         return sb.toString();
     }

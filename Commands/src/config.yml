@@ -61,9 +61,11 @@ m:
     u: tools.markdown.JavaDoc2Markdown.multiLine2Table
   api:
     table:
-      default: tools.markdown.JavaDoc2Markdown.methodTable
-      m: tools.markdown.JavaDoc2Markdown.methodTableHighLight
-      mb: tools.markdown.JavaDoc2Markdown.tableBodyCodeFirst
+      default: tools.markdown.JavaDoc2Markdown.docMethodTable2MdTable
+      # default: tools.markdown.JavaDoc2Markdown.methodTable
+      m: tools.markdown.JavaDoc2Markdown.docMethodTable2MdTable
+      b: tools.markdown.JavaDoc2Markdown.docTable2MdTableBody
+      f: tools.markdown.JavaDoc2Markdown.docFieldTable2MdTable
     p2u: tools.markdown.JavaDoc2Markdown.parametersList
 # 字符串处理
 s:
