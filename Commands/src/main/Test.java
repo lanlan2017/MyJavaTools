@@ -9,6 +9,7 @@ public class Test {
     public static void main(String[] args) {
         //ConfigTools.getInstance().forward("h","code");
         //ConfigTools.getInstance().forward("m","api","table","m");
-        ConfigTools.getInstance().forward("m","api","table","f");
+        //ConfigTools.getInstance().forward("m","api","table","f");
+        ConfigTools.getInstance().forward("m","api","table","nd");
     }
 }

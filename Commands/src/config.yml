@@ -64,6 +64,7 @@ m:
       default: tools.markdown.JavaDoc2Markdown.docMethodTable2MdTable
       # default: tools.markdown.JavaDoc2Markdown.methodTable
       m: tools.markdown.JavaDoc2Markdown.docMethodTable2MdTable
+      nd: tools.markdown.JavaDoc2Markdown.docMethodTable2MdTableNoDescription
       b: tools.markdown.JavaDoc2Markdown.docTable2MdTableBody
       f: tools.markdown.JavaDoc2Markdown.docFieldTable2MdTable
     p2u: tools.markdown.JavaDoc2Markdown.parametersList

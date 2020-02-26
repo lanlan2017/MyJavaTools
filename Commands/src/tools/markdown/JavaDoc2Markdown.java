@@ -62,6 +62,11 @@ public class JavaDoc2Markdown {
         // 添加表格标题和对齐方式
         return "|方法|描述|\n|:--|:--|\n" + text;
     }
+    public String docMethodTable2MdTableNoDescription(String text) {
+        text = generateTableBodyNoDescription(text);
+        // 添加表格标题和对齐方式
+        return "|方法|描述|\n|:--|:--|\n" + text;
+    }
 
     public String docFieldTable2MdTable(String text) {
         text = docTable2MdTableBody(text);
@@ -71,12 +76,11 @@ public class JavaDoc2Markdown {
     public String docTable2MdTableBody(String text) {
         text = generateTableBody(text);
         // 第一列作为行内代码
-        //text = text.replaceAll("(?m)^\\|(.+?)(\\|.+?\\|)$", "|`$1`$2");
-        text = highlightMethod(text);
+        text = highlightFirstColumn(text);
         return text;
     }
 
-    private String highlightMethod(String tableBody) {
+    private String highlightFirstColumn(String tableBody) {
         return tableBody.replaceAll("(?m)^\\|(.+?)(\\|.+?\\|)$", "|`$1`$2");
     }
 
@@ -88,6 +92,7 @@ public class JavaDoc2Markdown {
      */
     private String generateTableBody(String text) {
         text = text.replaceAll("Deprecated.\n", "**Deprecated**. ");
+        text = text.replace("\u200B(", "(");
         // 两行之间添加竖杠,然后变成一行
         text = text.replaceAll("(.+)\\n(.+)", "$1|$2");
         // 行首加竖杠
@@ -102,9 +107,26 @@ public class JavaDoc2Markdown {
         //text = text.replaceAll("\\s+(?=[|(])", "");
         // // 删除多余的空格
         text = text.replaceAll("\\s{2,}", " ");
-        text = text.replace("\u200B(", "(");
         text = text.replace("\t", " ");
 
+        return text;
+    }
+
+    private String generateTableBodyNoDescription(String text) {
+        // 让不建议挪动到描述这行
+        text = text.replaceAll("Deprecated.\n", "**Deprecated**. ");
+        // 删除方法括号前面的空白符
+        text = text.replace("\u200B(", "(");
+        // 制表符换成空格
+        text = text.replace("\t", " ");
+        // 两行之间添加竖杠,然后变成一行
+        text = text.replaceAll("(.+)\\n.+", "|$1||");
+        // 删除分隔符前面的空格.
+        text = text.replaceAll("[ ]+(?=[|])", "");
+        // 行首加竖杠
+        //text = text.replaceAll("(?m)^", "|");
+        // 高亮第一列
+        text=text.replaceAll("(?m)^[|]([^|]+)[|][|]$", "|`$1`||");
         return text;
     }
 
@@ -207,4 +229,19 @@ public class JavaDoc2Markdown {
         }
         return transposedListList;
     }
+
+
+    public static void main(String[] args) {
+        String test = "void\tchangedUpdate\u200B(DocumentEvent e)\t\n" +
+                "Gives notification that an attribute or set of attributes changed.\n" +
+                "void\tinsertUpdate\u200B(DocumentEvent e)\t\n" +
+                "Gives notification that there was an insert into the document.\n" +
+                "void\tremoveUpdate\u200B(DocumentEvent e)\t\n" +
+                "Gives notification that a portion of the document has been removed.";
+        System.out.println(new JavaDoc2Markdown().generateTableBodyNoDescription(test));
+        System.out.println("------------");
+        System.out.println(new JavaDoc2Markdown().docMethodTable2MdTable(test));
+
+    }
+
 }
