@@ -112,7 +112,7 @@ public class JavaDoc2Markdown {
         return text;
     }
 
-    private String generateTableBodyNoDescription(String text) {
+    public String generateTableBodyNoDescription(String text) {
         // 让不建议挪动到描述这行
         text = text.replaceAll("Deprecated.\n", "**Deprecated**. ");
         // 删除方法括号前面的空白符

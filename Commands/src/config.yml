@@ -63,9 +63,12 @@ m:
     table:
       default: tools.markdown.JavaDoc2Markdown.docMethodTable2MdTable
       # default: tools.markdown.JavaDoc2Markdown.methodTable
-      m: tools.markdown.JavaDoc2Markdown.docMethodTable2MdTable
-      nd: tools.markdown.JavaDoc2Markdown.docMethodTable2MdTableNoDescription
-      b: tools.markdown.JavaDoc2Markdown.docTable2MdTableBody
+      m:
+        default: tools.markdown.JavaDoc2Markdown.docMethodTable2MdTable
+        nd: tools.markdown.JavaDoc2Markdown.docMethodTable2MdTableNoDescription
+      b:
+        default: tools.markdown.JavaDoc2Markdown.docTable2MdTableBody
+        nd: tools.markdown.JavaDoc2Markdown.generateTableBodyNoDescription
       f: tools.markdown.JavaDoc2Markdown.docFieldTable2MdTable
     p2u: tools.markdown.JavaDoc2Markdown.parametersList
 # 字符串处理
