@@ -4,8 +4,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 
 /**
- * @author francis
- * create at 2019/12/17-14:37
+ * 目录遍历器
  */
 public abstract class DirProcessor {
     /**
