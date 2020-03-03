@@ -94,40 +94,119 @@ public class MyHexoNextToc extends DirProcessor {
     }
 
     /**
-     * 对章节目录进行排序
+     * 对章节目录和小节目录进行排序
+     *
      * @param dirFileList 目录列表数组
      */
 
     private void sortChapterDirList(File[] dirFileList) {
-        File tmp;
+        // 如果是章节目录
         if (isChapterDir(dirFileList)) {
-            // 冒泡排序
-            // 执行n趟
-            for (int i = 0; i < dirFileList.length; i++) {
-                // 遍历剩下未排序的元素
-                for (int j = 0; j < dirFileList.length - i - 1; j++) {
-                    String numStrI = dirFileList[j].getName().replaceAll("第(\\d+)章 .+", "$1");
-                    String numStrJ = dirFileList[j + 1].getName().replaceAll("第(\\d+)章 .+", "$1");
-                    //System.out.println(numStrI + " " + numStrJ);
-                    ////// 如果前面的大
-                    //if (dirFileList[j] > dirFileList[j + 1])
-                    if (Integer.parseInt(numStrI) > Integer.parseInt(numStrJ)) {
-                        // 保存大的数
-                        tmp = dirFileList[j];
-                        // 小的放前面
-                        dirFileList[j] = dirFileList[j + 1];
-                        // 大的放后面
-                        dirFileList[j + 1] = tmp;
-                    }
+            // 对章节目录进行排序
+            sortChapter(dirFileList);
+        }
+        // 如果是小节目录
+        else if (isSectionDirectory(dirFileList)) {
+            // 对小节目录进行排序
+            sortSectionDir(dirFileList);
+        }
+    }
+
+    /**
+     * 排序小节目录,这些目录一般以\d+(\.\d+)+开头
+     *
+     * @param dirFileList 保存小节目录的数组
+     */
+    private void sortSectionDir(File[] dirFileList) {
+        File tmp;
+        for (int i = 0; i < dirFileList.length; i++) {
+            for (int j = 0; j < dirFileList.length - i - 1; j++) {
+                // 如果前面的小节大
+                if (sectionValues(dirFileList[j].getName()) > sectionValues(dirFileList[j + 1].getName())) {
+                    //    将大的换到后面,实现增序排序
+                    //缓存大的
+                    tmp = dirFileList[j];
+                    //小的换到前面
+                    dirFileList[j] = dirFileList[j + 1];
+                    //大的换到后面
+                    dirFileList[j + 1] = tmp;
                 }
             }
         }
     }
 
     /**
+     * 排序章节目录,这些目录以 第\d+章 开头
+     *
+     * @param dirFileList 保存章节的目录数组
+     */
+    private void sortChapter(File[] dirFileList) {
+        File tmp;// 冒泡排序
+        // 执行n趟
+        for (int i = 0; i < dirFileList.length; i++) {
+            // 遍历剩下未排序的元素
+            for (int j = 0; j < dirFileList.length - i - 1; j++) {
+                String numStrI = dirFileList[j].getName().replaceAll("第(\\d+)章 .+", "$1");
+                String numStrJ = dirFileList[j + 1].getName().replaceAll("第(\\d+)章 .+", "$1");
+                //System.out.println(numStrI + " " + numStrJ);
+                ////// 如果前面的大
+                //if (dirFileList[j] > dirFileList[j + 1])
+                if (Integer.parseInt(numStrI) > Integer.parseInt(numStrJ)) {
+                    // 保存大的数
+                    tmp = dirFileList[j];
+                    // 小的放前面
+                    dirFileList[j] = dirFileList[j + 1];
+                    // 大的放后面
+                    dirFileList[j + 1] = tmp;
+                }
+            }
+        }
+    }
+
+    /**
+     * 计算小节的数字大小
+     *
+     * @param sectionName 小节的名称
+     * @return 小节对应的大小
+     */
+    private static int sectionValues(String sectionName) {
+        // 取得前面的数字"12.12 创建格式文本"中的12.12
+
+        String sectionId = sectionName.substring(0, sectionName.indexOf(" "));
+        //System.out.println(sectionId);
+        // 将12.12分割成{12,12}数组
+        String[] sectionNums = sectionId.split("\\.");
+        int sectionValues = 0;
+        for (String num : sectionNums) {
+            sectionValues = sectionValues * 10 + Integer.valueOf(num);
+        }
+        //System.out.println(sectionValues);
+        return sectionValues;
+    }
+
+    /**
+     * 判断是否是小节目录
+     *
+     * @param dirFileList 保存目录列表的数组
+     * @return 如果是小节目录则返回true, 否则就返回false
+     */
+    private static boolean isSectionDirectory(File[] dirFileList) {
+
+        boolean isSectionDirectory = true;
+        for (File file : dirFileList) {
+            if (!file.getName().matches("\\d+(?:.\\d+)+ .+")) {
+                isSectionDirectory = false;
+                break;
+            }
+        }
+        return isSectionDirectory;
+    }
+
+    /**
      * 判断是否是章节文件夹
+     *
      * @param dirFileList 一个目录下的文件列表数组
-     * @return 如果是文件列表数组的话就返回true
+     * @return 如果是章节目录的话就返回true
      */
     private boolean isChapterDir(File[] dirFileList) {
         boolean isChapterDirectory = true;
