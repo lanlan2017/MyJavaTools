@@ -11,9 +11,18 @@ import java.util.Properties;
  * 生成Hexo Next主题博客的目录文件
  */
 public class MyHexoNextToc extends DirProcessor {
+    /**
+     * 指向_post目录所在的位置
+     */
     File rootDir;
+    /**
+     * 要写入的文件,这个文件用于保存生成网站目录
+     */
     File tocFile;
     boolean isFirst = true;
+    /**
+     * _post目录的相对路径
+     */
     private String rootPath;
     private static StringBuilder tocFileContents = new StringBuilder();
     private String relativeURL;
@@ -33,7 +42,9 @@ public class MyHexoNextToc extends DirProcessor {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        tocFile = new File(rootPath + "/网站目录.md");
+        //tocFile = new File(rootPath + "/网站目录.md");
+        tocFile = new File(dir.getParentFile() + "/dir/index.md");
+        System.out.println("目录文件:"+tocFile.getAbsoluteFile());
     }
 
     @Override
@@ -45,9 +56,9 @@ public class MyHexoNextToc extends DirProcessor {
             // System.out.println(tocFileContents.toString());
             String hexoFrontMatter = "---\n" +
                     "title: 网站目录\n" +
-                    "abbrlink: 508a2e34\n" +
+                    //"abbrlink: 508a2e34\n" +
                     "date: 2019-12-17 04:08:18\n" +
-                    "top: true\n" +
+                    //"top: true\n" +
                     "---\n";
             saveTocFile(hexoFrontMatter + tocFileContents.toString());
         }
@@ -228,31 +239,49 @@ public class MyHexoNextToc extends DirProcessor {
         // 如果是一级目录(根目录下吗的子目录)
         if (dir.getParentFile().equals(rootDir)) {
             // System.out.println("直接子目录:" + file.getAbsolutePath());
-            String directSubDirName = dir.getAbsolutePath().substring(rootPath.length() + 1);
-            // System.out.println("\n# [" + directSubDirName + "](" + "/categories/" + directSubDirName + ")");
+            // 获取一级子目录名称:一级子目录的长度减去上级目录的长度
+            String relativePathToRoot = dir.getAbsolutePath().substring(rootPath.length() + 1);
+            // System.out.println("\n# [" + relativePathToRoot + "](" + "/categories/" + relativePathToRoot + ")");
+            // 如果是文件中的第一行的话
             if (isFirst) {
+                // 则不加换行符
                 isFirst = false;
             } else {
+                // 如果不是文件的第一行,则每次遇到一级目录,都加上换行符
                 tocFileContents.append("\n");
             }
-            tocFileContents.append("# [").append(directSubDirName).append("](").append(relativeURL).append("categories/").append(UrlEscape.escapeURL(directSubDirName)).append(")").append("\n");
+            tocFileContents.append("# [").append(relativePathToRoot).append("](").append(relativeURL).append("categories/").append(UrlEscape.escapeURL(relativePathToRoot)).append(")").append("\n");
 
         }
-        // 如果是二级目录或者更深层数的目录
+        //如果是二级目录
+        else if(dir.getParentFile().getParentFile().equals(rootDir)){
+            // 获取当前目录的名称
+            //String secondSubDirName = dir.getAbsolutePath().substring(dir.getParentFile().getAbsolutePath().length() + 1);
+            String secondSubDirName = dir.getName();
+
+            // 获取相对根目录的路径
+            String relativePathToRoot = dir.getAbsolutePath().substring(rootPath.length() + 1);
+            //System.out.println(secondSubDirName);
+            //tocFileContents.append("\n").append("## [").append(secondSubDirName).append("](").append(relativeURL).append("categories/").append(UrlEscape.escapeURL(secondSubDirName)).append(")").append("\n");
+            tocFileContents.append("\n").append("## [").append(secondSubDirName).append("](").append(relativeURL).append("categories/").append(UrlEscape.escapeURL(relativePathToRoot)).append(")").append("\n");
+        }
+        // 第3层或者层次的目录
         else {
-            // System.out.println("间接子目录:" + file.getAbsolutePath());
-            String indirectSubDirName = dir.getAbsolutePath().substring(rootPath.length() + 1);
-            // System.out.println("间接子目录名称:" + indirectSubDirName);
-            int count = 0;
-            for (int i = 0; i < indirectSubDirName.length(); i++) {
-                if (File.separatorChar == indirectSubDirName.charAt(i)) {
-                    count++;
+            // 获取到根目录的相对路径
+            String relativePathToRoot = dir.getAbsolutePath().substring(rootPath.length() + 1);
+            // 层次计数器
+            int separatorCount = 0;
+            for (int i = 0; i < relativePathToRoot.length(); i++) {
+                if (File.separatorChar == relativePathToRoot.charAt(i)) {
+                    separatorCount++;
                 }
             }
-            String text = indirectSubDirName.substring(indirectSubDirName.lastIndexOf(File.separator) + 1);
-            // String url = indirectSubDirName.replace("\\", "/");
+            String text = relativePathToRoot.substring(relativePathToRoot.lastIndexOf(File.separator) + 1);
+            // String url = relativePathToRoot.replace("\\", "/");
             // url = UrlCheck.checkURL(url);
-            tocFileContents.append(generateTabs(count - 1)).append("- [").append(text).append("](").append(relativeURL).append("categories/").append(UrlEscape.escapeURL(indirectSubDirName)).append(")").append("\n");
+            //tocFileContents.append(generateTabs(separatorCount - 1)).append("- [").append(text).append("](").append(relativeURL).append("categories/").append(UrlEscape.escapeURL(relativePathToRoot)).append(")").append("\n");
+            // 第1层,第2层不需要无序列表,第三次开始无序列表,所以要减去2
+            tocFileContents.append(generateTabs(separatorCount - 2)).append("- [").append(text).append("](").append(relativeURL).append("categories/").append(UrlEscape.escapeURL(relativePathToRoot)).append(")").append("\n");
         }
     }
 

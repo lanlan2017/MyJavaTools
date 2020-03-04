@@ -32,10 +32,12 @@ public class HexoMarkdownFileProcessorTest {
                 if ("toc".equals(args[0])) {
                     System.out.println("生成目录");
                     File dir = new File(args[1]);
+                    // 遍历所有的目录,将一级目录转为1级标题,二级目录站位2级标题,三级以上的目录站位无序列表
                     DirProcessor dirProcessor = new MyHexoNextToc(dir);
                     dirProcessor.processing();
-                    fileProcessor = new HexoMarkdownFileProcessor(args[1] + File.separatorChar + "网站目录.md");
-                    fileProcessor.processing();
+                    // 根据上面生成的markdown文件,生成目录摘要
+                    //fileProcessor = new HexoMarkdownFileProcessor(args[1] + File.separatorChar + "网站目录.md");
+                    //fileProcessor.processing();
                 }
                 break;
         }
