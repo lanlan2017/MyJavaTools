@@ -33,6 +33,8 @@ m:
   o2u: tools.markdown.MardownConverter.orderList2UnorderList
   # 无序列表转有序列表
   u2o: tools.markdown.MardownConverter.unorderList2OrderList
+  # 行内代码转加粗
+  k2b: tools.markdown.MardownConverter.inlineCodeToBold
   # 图片
   img: tools.markdown.MarkdownTools.img
   read: tools.sst.xunfei.XunFeiSstFlag.addSSTFlag

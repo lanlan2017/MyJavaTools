@@ -10,6 +10,8 @@ public class Test {
         //ConfigTools.getInstance().forward("h","code");
         //ConfigTools.getInstance().forward("m","api","table","m");
         //ConfigTools.getInstance().forward("m","api","table","f");
-        ConfigTools.getInstance().forward("m","api","table","b","nd");
+        //ConfigTools.getInstance().forward("m","api","table","b","nd");
+        ConfigTools.getInstance().forward("m","api","table","m","nd");
+        //ConfigTools.getInstance().forward("m","k2b");
     }
 }

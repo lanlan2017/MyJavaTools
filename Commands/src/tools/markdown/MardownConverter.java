@@ -53,4 +53,17 @@ public class MardownConverter {
         matcher.appendTail(sb);
         return sb.toString();
     }
+
+    /**
+     * Markdown行内代码转Markdown加粗
+     *
+     * @param inlineCode markdown行内代码
+     * @return Mardown加粗字符
+     */
+    public String inlineCodeToBold(String inlineCode) {
+        if (inlineCode.matches("`.+`")) {
+            inlineCode=inlineCode.replaceAll("`", "**");
+        }
+        return inlineCode;
+    }
 }
