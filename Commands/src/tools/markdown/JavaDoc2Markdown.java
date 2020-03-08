@@ -92,6 +92,7 @@ public class JavaDoc2Markdown {
      */
     private String generateTableBody(String text) {
         text = text.replaceAll("Deprecated.\n", "**Deprecated**. ");
+        text = text.replaceAll("(?m)>$\\n", "> ");
         text = text.replace("\u200B(", "(");
         // 两行之间添加竖杠,然后变成一行
         text = text.replaceAll("(.+)\\n(.+)", "$1|$2");
