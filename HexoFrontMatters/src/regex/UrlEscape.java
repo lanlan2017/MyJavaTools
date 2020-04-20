@@ -1,8 +1,7 @@
 package regex;
 
 /**
- * @author francis
- * create at 2019/12/17-16:37
+ * 修复URL,对URL中的一些特殊字符进行转义
  */
 public class UrlEscape {
     /**
@@ -14,9 +13,12 @@ public class UrlEscape {
     public static String escapeURL(String headerName) {
         String AnchorName;
         AnchorName = headerName.replace("\\", "/");
-        AnchorName = AnchorName.replaceAll(Regex.HexoNextUrl1.getRegex(), "-");
-        AnchorName = AnchorName.replaceAll(Regex.HexoNextUrl2.getRegex(), "");
-        AnchorName = AnchorName.replaceAll(Regex.HexoNextUrl3.getRegex(), "/");
+        // 一些特殊字符 替换成连字符
+        AnchorName = AnchorName.replaceAll(Regex.ToBeHyphen.toString(), "-");
+        // 连字符和美元符 替换成连字符
+        AnchorName = AnchorName.replaceAll(Regex.HyphenDollar.toString(), "");
+        // 连字符和斜线 替换成斜线
+        AnchorName = AnchorName.replaceAll(Regex.HyphenSlash.toString(), "/");
         return AnchorName;
     }
 }

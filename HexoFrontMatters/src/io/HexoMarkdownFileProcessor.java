@@ -50,9 +50,9 @@ public class HexoMarkdownFileProcessor extends FileProcessor {
     @Override
     protected String processingFileContent(String fileContent) {
         String oldHexoFM;
-        Pattern myFmP = Pattern.compile(Regex.MyFrontMatter.getRegex());
+        Pattern myFmP = Pattern.compile(Regex.MyFrontMatter.toString());
         Matcher myFmM = myFmP.matcher(fileContent);
-        Pattern hexoFmP = Pattern.compile(Regex.HexoFrontMatter.getRegex());
+        Pattern hexoFmP = Pattern.compile(Regex.HexoFrontMatter.toString());
         Matcher hexoFmM = hexoFmP.matcher(fileContent);
         // 这个要放在前面
         if (myFmM.find()) {

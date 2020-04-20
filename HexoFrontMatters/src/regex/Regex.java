@@ -8,16 +8,16 @@ public enum Regex {
 
     MyFrontMatter("^(---(?:\\n|\\r\\n)(?:.+(?:\\n|\\r\\n))+---(?:\\n|\\r\\n))(.*(?:\\n|\\r\\n))+<!--end-->(?:\\n|\\r\\n)"),
     HexoFrontMatter("^---(?:\\n|\\r\\n)(?:.+(?:\\n|\\r\\n))+---(?:\\n|\\r\\n)"),
-    HexoNextUrl1("[ :\\[\\]`\\(\\).+,?]+"),
-    HexoNextUrl2("-$"),
-    HexoNextUrl3("-/");
+    ToBeHyphen("[ :\\[\\]`\\(\\).+,?@]+"),
+    HyphenDollar("-$"),
+    HyphenSlash("-/");
     private String regex;
-
+    
     Regex(String regex) {
         this.regex = regex;
     }
 
-    public String getRegex() {
+    public String toString() {
         return regex;
     }
 }
