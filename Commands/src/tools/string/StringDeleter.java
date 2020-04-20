@@ -1,6 +1,7 @@
 package tools.string;
 
 import regex.RegexEnum;
+import tools.markdown.MarkdownTools;
 
 public class StringDeleter {
     /**
@@ -52,6 +53,7 @@ public class StringDeleter {
     public String cpkd(String text){
         text=text.replaceAll(" ", "");
         text=text.replaceAll("(?m)^$\\n^.+\\(Kindle位置\\d+-\\d+\\)\\..+\\.Kindle版本\\.$", "");
+        text=new MarkdownTools().inlineCodeAuto(text);
         return  text;
     }
 
