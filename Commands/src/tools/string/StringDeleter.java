@@ -49,6 +49,11 @@ public class StringDeleter {
         code = code.replace("___SingleLineComment___", "\n");
         return code;
     }
+    public String cpkd(String text){
+        text=text.replaceAll(" ", "");
+        text=text.replaceAll("(?m)^$\\n^.+\\(Kindle位置\\d+-\\d+\\)\\..+\\.Kindle版本\\.$", "");
+        return  text;
+    }
 
     /**
      * 删除中文之间的空白符.

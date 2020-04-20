@@ -105,6 +105,8 @@ s:
   cvpath: tools.string.StringConverter.convertFilePath
   # 格式化从微信公众号复制来的代码
   weixincode: tools.string.StringDeleter.weixinCode
+  # 修复kindle乱码
+  cpkd: tools.string.StringDeleter.cpkd
   # 中文标点转英文标点
   cy2ey: tools.string.StringReplace.chineseSymbol2EnglishSymbol
   f:
