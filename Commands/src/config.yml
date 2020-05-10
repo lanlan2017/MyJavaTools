@@ -149,6 +149,8 @@ h:
   t: templace/html/Html5Template.html
   # html超链接
   a: tools.html.HtmlTools.a
+  # 锚点
+  ac: tools.html.HtmlTools.anchor
   # html注释
   cm: tools.html.HtmlTools.addComment
   # 导入.css的link标签
@@ -157,6 +159,7 @@ h:
   js: tools.html.HtmlTools.importJS
   # 展开/折叠块
   fold: tools.html.HtmlTools.flod
+  dp: tools.html.HtmlTools.detailsPre
   # 多行字符串转成html无序列表
   ul: tools.html.HtmlTools.unorderedList
 # java代码模板

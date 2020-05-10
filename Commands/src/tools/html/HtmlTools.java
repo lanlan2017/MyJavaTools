@@ -23,6 +23,10 @@ public class HtmlTools {
         }
         return "<a href=\"" + url + "\"></a>";
     }
+    public String anchor(String text) {
+        String url=text.replaceAll("[.、]+", "-");
+        return "<a href=\"#" + url + "\">"+text+"</a>";
+    }
 
     public String htmlDefault(String tagName, String value) {
         return "<" + tagName + ">" + value + "</" + tagName + ">";
@@ -31,6 +35,9 @@ public class HtmlTools {
 
     public String flod(String toFlod) {
         return "<details><summary>展开/折叠</summary>\n\n" + toFlod + "\n\n</details>";
+    }
+    public String detailsPre(String toFlod) {
+        return "<details><summary>展开/折叠</summary><pre>\n" + toFlod + "\n</pre></details>\n";
     }
 
     /**
