@@ -6,6 +6,7 @@ import reader.resouce.ResourceFileReader;
 import regex.RegexEnum;
 import tools.reflect.method.CallInstanceMethod;
 
+import java.io.*;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -33,16 +34,33 @@ public class ConfigTools {
     public void forward(String... args) {
         switch (args.length) {
             case 1:
-                // 显示帮助文档
-                Map<String, Object> map = (Map<String, Object>) configMap.get(args[0]);
-                //Set<Map.Entry<String, Object>> entrySet = map.entrySet();
-                //Iterator<Map.Entry<String, Object>> iterator = entrySet.iterator();
-                Iterator<Map.Entry<String, Object>> iterator = map.entrySet().iterator();
-                while (iterator.hasNext()) {
-                    Map.Entry entry = iterator.next();
-                    System.out.println(entry.getKey());
-                }
+                try {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(ResourceFileReader.getInputStream(this.getClass(), "config.yml")));
+                    String line = null;
+                    String previousLine = null;
+                    boolean isStart = false;
+                    boolean isEnd = false;
+                    while ((line = reader.readLine()) != null) {
+                        if (line.equals(args[0] + ":")) {
+                            isStart = true;
+                        }
+                        if (isStart) {
+                            // 遇到其他的一级命令时结束
+                            if (!line.equals(args[0] + ":") && line.matches("^[a-zA-Z]+\\:")) {
+                                break;
+                            }
+                            // 输出前一行
+                            System.out.println(previousLine);
+                        }
+                        previousLine = line;
+                    }
+                    if(!previousLine.startsWith("#")){
+                        System.out.println(previousLine);
+                    }
 
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
             default:
                 // 处理命令

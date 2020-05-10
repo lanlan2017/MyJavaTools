@@ -58,13 +58,12 @@ m:
     cp: tools.markdown.JavaDoc2Markdown.mdTableCopy
     # 将空格分隔的表格格式化为表格,并标出代码
     cphl: tools.markdown.JavaDoc2Markdown.mdTableCopyHighlight
-    # 将java doc文章中复制得到的字符串格式化为表格
     # 将多行分隔的无序列表转成表格
     u: tools.markdown.JavaDoc2Markdown.multiLine2Table
+  # 从java API中复制
   api:
     table:
       default: tools.markdown.JavaDoc2Markdown.docMethodTable2MdTable
-      # default: tools.markdown.JavaDoc2Markdown.methodTable
       m:
         default: tools.markdown.JavaDoc2Markdown.docMethodTable2MdTable
         nd: tools.markdown.JavaDoc2Markdown.docMethodTable2MdTableNoDescription
@@ -142,6 +141,7 @@ g:
   rs: git restore --staged
   rb: git rebase
   rbi: git rebase -i
+# html命令
 h:
   # 其他命令
   default: tools.html.HtmlTools.htmlDefault_UseLastArg
@@ -175,7 +175,7 @@ j:
     str: tools.java.JavaTools.switchCaseString
   sout:
     ap: tools.java.JavaTools.sout2Append
-
+# 算法
 suanfa:
   # 冒泡排序
   maopao:
