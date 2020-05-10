@@ -4,6 +4,7 @@ import clipboard.swing.SystemClipboard;
 import org.yaml.snakeyaml.Yaml;
 import reader.resouce.ResourceFileReader;
 import regex.RegexEnum;
+import sun.nio.cs.ext.GBK;
 import tools.reflect.method.CallInstanceMethod;
 
 import java.io.*;
@@ -50,11 +51,12 @@ public class ConfigTools {
                                 break;
                             }
                             // 输出前一行
+                            //System.out.println(new String(previousLine.getBytes("utf-8"),"gbk"));
                             System.out.println(previousLine);
                         }
                         previousLine = line;
                     }
-                    if(!previousLine.startsWith("#")){
+                    if (!previousLine.startsWith("#")) {
                         System.out.println(previousLine);
                     }
 
