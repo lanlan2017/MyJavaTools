@@ -5,7 +5,9 @@ import formatter.markdown.MdInlineCodesOneLine;
 import formatter.markdown.multiline.MdInlineCodesMultiLine;
 import formatter.markdown.multiline.MdUnorderList;
 import formatter.markdown.multiline.codeblock.MdCbJava;
+import formatter.markdown.multiline.codeblock.MdCbJsp;
 import formatter.markdown.multiline.codeblock.MdCbSql;
+import formatter.markdown.multiline.codeblock.MdCbHtml;
 import ocr.baidu.BaiduOcrRunable;
 
 import javax.swing.*;
@@ -22,12 +24,14 @@ public class MarkdownJComBox {
             new MdInlineCodesMultiLine(),
             new MdUnorderList(),
             new MdCbSql(),
-            new MdCbJava()
+            new MdCbJava(),
+            new MdCbHtml(),
+            new MdCbJsp()
     };
     private static Formatter defaultFormatter = formatters[0];
 
     private MarkdownJComBox() {
-        String[] markdownItems = {"单行代码", "多行代码", "无序列表", "Java代码块", "SQL代码块"};
+        String[] markdownItems = {"单行代码", "多行代码", "无序列表", "Java代码块", "SQL代码块","html代码块","JSP代码"};
         comboBox = new JComboBox<>(markdownItems);
         comboBox.addItemListener(markdownE -> {
             // 如果是选中的话
@@ -57,6 +61,14 @@ public class MarkdownJComBox {
                     case "Java代码块":
                         System.out.println("格式化为:markdown Java代码块");
                         defaultFormatter = formatters[4];
+                        break;
+                    case "html代码块":
+                        System.out.println("格式化为:markdown html代码块");
+                        defaultFormatter = formatters[5];
+                        break;
+                    case "JSP代码":
+                        System.out.println("格式化为:markdown JSP代码");
+                        defaultFormatter = formatters[6];
                         break;
                 }
                 BaiduOcrRunable.setFormatter(defaultFormatter);
