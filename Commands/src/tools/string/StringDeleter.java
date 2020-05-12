@@ -58,6 +58,8 @@ public class StringDeleter {
         text=text.replaceAll("(?<=[\\u4e00-\\u9fa5]) (?=[\\u4e00-\\u9fa5a-zA-Z])", "");
         // 删除前面是字母 后面是中文 的 空格
         text=text.replaceAll("(?<=[a-zA-Z]) (?=[\\u4e00-\\u9fa5])", "");
+        // 删除点号和数字之间的空格
+        text=text.replaceAll("(?<=\\.) (?=\\d+)", "");
         //text=new MarkdownTools().inlineCodeAuto(text);
         return  text;
     }
