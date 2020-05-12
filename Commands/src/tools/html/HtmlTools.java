@@ -37,7 +37,7 @@ public class HtmlTools {
         return "<details><summary>展开/折叠</summary>\n\n" + toFlod + "\n\n</details>";
     }
     public String detailsPre(String toFlod) {
-        return "<details><summary>展开/折叠</summary><pre>\n" + toFlod + "\n</pre></details>\n";
+        return "<details><summary>展开/折叠</summary><pre>\n" + toFlod + "</pre></details>\n";
     }
 
     /**
@@ -61,5 +61,20 @@ public class HtmlTools {
         //System.out.println(sb.length());
         //System.out.println(optimalLength);
         return ulStart + sb.toString() + ulEnd;
+    }
+
+    /**
+     * 生成<code><pre></pre>代码块</code>
+     * @param code
+     * @return
+     */
+    public String pre(String code){
+
+        return "<pre>\n"+code+"\n</pre>";
+    }
+    public String escape(String code){
+        code=code.replaceAll("<", "&lt;");
+        code=code.replaceAll(">", "&gt;");
+        return code;
     }
 }

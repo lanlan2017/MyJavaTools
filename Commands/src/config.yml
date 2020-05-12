@@ -162,6 +162,10 @@ h:
   dp: tools.html.HtmlTools.detailsPre
   # 多行字符串转成html无序列表
   ul: tools.html.HtmlTools.unorderedList
+  # 生成<pre></pre>代码块
+  pre: tools.html.HtmlTools.pre
+  # 替换成转义字符
+  es: tools.html.HtmlTools.escape
 # java代码模板
 j:
   for:
