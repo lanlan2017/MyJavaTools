@@ -51,8 +51,18 @@ public class StringDeleter {
         return code;
     }
     public String cpkd(String text){
-        text=text.replaceAll(" ", "");
-        text=text.replaceAll("(?m)^$\\n^.+\\(Kindle位置\\d+(?:-\\d+)?\\)\\..+\\.Kindle版本\\.$", "");
+        //text=text.replaceAll(" ", "");
+        // 删除kindle标记
+        text=text.replaceAll("(?m)^$\\n^.+\\(Kindle[ ]?位置 ?\\d+?(?:-\\d+)?\\)\\. ?电子工业出版社\\. ?Kindle ?版本\\. $", "");
+        // 删除中文之间的空格,删除前面是中文,后面是字母 的 空格
+        text=text.replaceAll("(?<=[\\u4e00-\\u9fa5]) (?=[\\u4e00-\\u9fa5a-zA-Z])", "");
+        // 删除前面是字母 后面是中文 的 空格
+        text=text.replaceAll("(?<=[a-zA-Z]) (?=[\\u4e00-\\u9fa5])", "");
+        //text=new MarkdownTools().inlineCodeAuto(text);
+        return  text;
+    }
+    public String cpkdCode(String text){
+        text=cpkd(text);
         text=new MarkdownTools().inlineCodeAuto(text);
         return  text;
     }

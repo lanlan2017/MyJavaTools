@@ -106,6 +106,8 @@ s:
   weixincode: tools.string.StringDeleter.weixinCode
   # 修复kindle乱码
   cpkd: tools.string.StringDeleter.cpkd
+  # 先修复kindle乱码,然后标出代码。
+  cpkdc: tools.string.StringDeleter.cpkdCode
   # 中文标点转英文标点
   cy2ey: tools.string.StringReplace.chineseSymbol2EnglishSymbol
   f:
