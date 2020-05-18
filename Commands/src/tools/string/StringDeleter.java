@@ -35,7 +35,7 @@ public class StringDeleter {
      */
     public String deleteCRLF(String text) {
         // 删除开头空白.
-        text = text.replaceAll("(?m)^[ ]+", " ");
+        text = text.replaceAll("(?m)^[ ]+", "");
         // 删除回车换行符.
         text = text.replaceAll(RegexEnum.CRLF.toString(), "");
         return text;
