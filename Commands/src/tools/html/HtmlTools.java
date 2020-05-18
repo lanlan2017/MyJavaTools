@@ -8,6 +8,16 @@ public class HtmlTools {
         return "<!--  " + code + " -->";
     }
 
+    /**
+     * 将html注释转换成JSP注释
+     * @param htmlCode 包含html注释的html代码
+     * @return 将html注释转换成JSP注释后的html代码
+     */
+    public String htmlComment2JspComment(String htmlCode){
+
+        return htmlCode.replaceAll("(?m)<!--[ ]*(.+)[ ]*-->", "<%-- $1 --%>");
+    }
+
     public String linkCss(String cssUrl) {
         return "<link href=\"" + cssUrl + "\" rel=\"stylesheet\" type=\"text/css\" />";
     }

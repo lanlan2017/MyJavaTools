@@ -35,40 +35,47 @@ public class ConfigTools {
     public void forward(String... args) {
         switch (args.length) {
             case 1:
-                try {
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(ResourceFileReader.getInputStream(this.getClass(), "config.yml")));
-                    String line = null;
-                    String previousLine = null;
-                    boolean isStart = false;
-                    boolean isEnd = false;
-                    while ((line = reader.readLine()) != null) {
-                        if (line.equals(args[0] + ":")) {
-                            isStart = true;
-                        }
-                        if (isStart) {
-                            // 遇到其他的一级命令时结束
-                            if (!line.equals(args[0] + ":") && line.matches("^[a-zA-Z]+\\:")) {
-                                break;
-                            }
-                            // 输出前一行
-                            //System.out.println(new String(previousLine.getBytes("utf-8"),"gbk"));
-                            System.out.println(previousLine);
-                        }
-                        previousLine = line;
-                    }
-                    if (!previousLine.startsWith("#")) {
-                        System.out.println(previousLine);
-                    }
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                // 显示帮助文档
+                help(args);
                 break;
             default:
                 // 处理命令
                 processHardValue(args);
                 break;
         }
+    }
+
+    private void help(String[] args) {
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(ResourceFileReader.getInputStream(this.getClass(), "config.yml")));
+            String line = null;
+            String previousLine = null;
+            boolean isStart = false;
+            boolean isEnd = false;
+            while ((line = reader.readLine()) != null) {
+                if (line.equals(args[0] + ":")) {
+                    isStart = true;
+                }
+                if (isStart) {
+                    // 遇到其他的一级命令时结束
+                    if (!line.equals(args[0] + ":") && line.matches("^[a-zA-Z]+\\:")) {
+                        break;
+                    }
+                    // 输出前一行
+                    //System.out.println(new String(previousLine.getBytes("utf-8"),"gbk"));
+                    System.out.println(previousLine);
+                }
+                previousLine = line;
+            }
+            if (!previousLine.startsWith("#")) {
+                System.out.println(previousLine);
+            }
+            // 延时显示
+            Thread.sleep(1000*10);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 
 

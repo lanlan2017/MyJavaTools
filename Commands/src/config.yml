@@ -155,6 +155,8 @@ h:
   ac: tools.html.HtmlTools.anchor
   # html注释
   cm: tools.html.HtmlTools.addComment
+  # 讲html注释替换成JSP注释
+  2jspcm: tools.html.HtmlTools.htmlComment2JspComment
   # 导入.css的link标签
   linkcss: tools.html.HtmlTools.linkCss
   # 导入.js的标签
