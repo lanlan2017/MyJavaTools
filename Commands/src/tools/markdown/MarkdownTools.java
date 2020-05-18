@@ -36,13 +36,23 @@ public class MarkdownTools {
         return "###### " + input;
     }
 
+    /**
+     * 标题下沉,一级标题变成二级标题,二级标题变成三级标题,以此类推。
+     * @param text
+     * @return
+     */
     public String headerAdd(String text) {
-        text = text.replaceAll("(#+)(.+)\\1", "#$1$2#$1");
+        text = text.replaceAll("(?m)^(#+)( .+)$", "#$1$2");
         return text;
     }
 
+    /**
+     * 标题提升,二级标题变成一级标题,三级标题变成二级标题。
+     * @param text
+     * @return
+     */
     public String headerMinus(String text) {
-        text = text.replaceAll("(#(#+))(.+)\\1", "$2$3$2");
+        text = text.replaceAll("^#(#+)( .+)$", "$1$2");
         return text;
     }
 
