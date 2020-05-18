@@ -170,6 +170,8 @@ h:
   pre: tools.html.HtmlTools.pre
   # 替换成转义字符
   es: tools.html.HtmlTools.escape
+  # 格式化html代码:每个标签占一行
+  fl: tools.html.HtmlTools.formatToLine
 # java代码模板
 j:
   for:

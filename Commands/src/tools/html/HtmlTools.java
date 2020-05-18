@@ -1,5 +1,7 @@
 package tools.html;
 
+import tools.string.StringDeleter;
+
 /**
  * 生成HTML代码.
  */
@@ -82,9 +84,29 @@ public class HtmlTools {
 
         return "<pre>\n"+code+"\n</pre>";
     }
+
+    /**
+     * 对html代码进行转义处理
+     * @param code
+     * @return
+     */
     public String escape(String code){
         code=code.replaceAll("<", "&lt;");
         code=code.replaceAll(">", "&gt;");
         return code;
     }
+
+    /**
+     * 格式化HTML代码,每个html标签占一行
+     * @param htmlCode html代码
+     * @return 格式化后的html代码
+     */
+    public String formatToLine(String htmlCode){
+        // 所有的html代码占用一行
+        htmlCode=htmlCode.replaceAll("(?m)><", ">\n<");
+        // 删除空行
+        htmlCode=new StringDeleter().deleteBlankLine(htmlCode);
+        return htmlCode;
+    }
+
 }
