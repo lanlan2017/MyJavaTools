@@ -26,7 +26,7 @@ public class CharacterEncodingConverter {
                 String suffix = name.substring(name.lastIndexOf("."));
                 // 合法的文件后缀名
                 String[] legalSuffixArr =
-                        {".java", ".md"};
+                        {".java", ".md", ".jsp", ".xml",".html", ".css", ".js"};
                 for (String s : legalSuffixArr) {
                     if (suffix.equals(s)) {
                         return true;
