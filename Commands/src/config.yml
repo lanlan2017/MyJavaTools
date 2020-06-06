@@ -110,6 +110,7 @@ s:
   cpkdc: tools.string.StringDeleter.cpkdCode
   # 中文标点转英文标点
   cy2ey: tools.string.StringReplace.chineseSymbol2EnglishSymbol
+  # 书签
   f:
     shuqian111: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark111
     shuqian12: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark12
@@ -117,6 +118,8 @@ s:
     shuqian211: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark211
     shuqian22: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark22
     shuqian221: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark221
+  # 从文件的绝对路径中 获取文件名
+  filename: tools.string.StringDeleter.getFileName
 # 快捷git命令:当在其他电脑上可能会用到.
 g:
   s: git status
@@ -172,6 +175,8 @@ h:
   es: tools.html.HtmlTools.escape
   # 格式化html代码:每个标签占一行
   fl: tools.html.HtmlTools.formatToLine
+  # 清理HTML文档中没有必要的属性
+  clean: tools.html.HtmlTools.clean
 # java代码模板
 j:
   for:

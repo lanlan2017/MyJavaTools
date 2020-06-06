@@ -109,4 +109,16 @@ public class HtmlTools {
         return htmlCode;
     }
 
+    /**
+     * 清理没有必要的HTML属性
+     * @param str
+     * @return
+     */
+    public String clean(String str){
+        // 清理文件声明
+        str=str.replaceAll("(?m)<!DOCTYPE html.+(\\n[^>]+)+>", "<!DOCTYPE html>");
+        // 精简html标签
+        str=str.replaceAll("(?m)<html.+>", "<html>");
+        return  str;
+    }
 }

@@ -50,23 +50,25 @@ public class StringDeleter {
         code = code.replace("___SingleLineComment___", "\n");
         return code;
     }
-    public String cpkd(String text){
+
+    public String cpkd(String text) {
         //text=text.replaceAll(" ", "");
         // 删除kindle标记
-        text=text.replaceAll("(?m)^$\\n^.+\\(Kindle[ ]?位置 ?\\d+?(?:-\\d+)?\\)\\. ?电子工业出版社\\. ?Kindle ?版本\\. $", "");
+        text = text.replaceAll("(?m)^$\\n^.+\\(Kindle[ ]?位置 ?\\d+?(?:-\\d+)?\\)\\. ?电子工业出版社\\. ?Kindle ?版本\\. $", "");
         // 删除中文之间的空格,删除前面是中文,后面是字母 的 空格
-        text=text.replaceAll("(?<=[\\u4e00-\\u9fa5]) (?=[\\u4e00-\\u9fa5a-zA-Z])", "");
+        text = text.replaceAll("(?<=[\\u4e00-\\u9fa5]) (?=[\\u4e00-\\u9fa5a-zA-Z])", "");
         // 删除前面是字母 后面是中文 的 空格
-        text=text.replaceAll("(?<=[a-zA-Z]) (?=[\\u4e00-\\u9fa5])", "");
+        text = text.replaceAll("(?<=[a-zA-Z]) (?=[\\u4e00-\\u9fa5])", "");
         // 删除点号和数字之间的空格
-        text=text.replaceAll("(?<=\\.) (?=\\d+)", "");
+        text = text.replaceAll("(?<=\\.) (?=\\d+)", "");
         //text=new MarkdownTools().inlineCodeAuto(text);
-        return  text;
+        return text;
     }
-    public String cpkdCode(String text){
-        text=cpkd(text);
-        text=new MarkdownTools().inlineCodeAuto(text);
-        return  text;
+
+    public String cpkdCode(String text) {
+        text = cpkd(text);
+        text = new MarkdownTools().inlineCodeAuto(text);
+        return text;
     }
 
     /**
@@ -101,6 +103,24 @@ public class StringDeleter {
      */
     public String removeSpaces(String str) {
         str = str.replace(" ", "");
+        return str;
+    }
+
+    /**
+     * 获取文件名.
+     * @param str 文件的相对地址或者绝对地址。
+     * @return 文件名
+     */
+
+    public String getFileName(String str) {
+        // 如果包含地址符号
+        if (str.contains("/") || str.contains("\\")) {
+            if (str.contains("/")) {
+                str =str.substring(str.lastIndexOf("/")+1);
+            } else {
+                str =str.substring(str.lastIndexOf("\\")+1);
+            }
+        }
         return str;
     }
 }
