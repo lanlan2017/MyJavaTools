@@ -52,7 +52,7 @@ public class MarkdownTools {
      * @return
      */
     public String headerMinus(String text) {
-        text = text.replaceAll("^#(#+)( .+)$", "$1$2");
+        text = text.replaceAll("(?m)^#(#+)( .+)$", "$1$2");
         return text;
     }
 
