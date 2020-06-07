@@ -119,6 +119,7 @@ public class HtmlTools {
         str=str.replaceAll("(?m)<!DOCTYPE html.+(\\n[^>]+)+>", "<!DOCTYPE html>");
         // 精简html标签
         str=str.replaceAll("(?m)<html.+>", "<html>");
+        str=str.replaceAll("(?m)^[ \\t]+<meta name=\"website\" content=\"http://www\\.crazyit\\.org\" />$\\n", "");
         return  str;
     }
 }
