@@ -14,6 +14,6 @@ public class Test {
         //ConfigTools.getInstance().forward("m","api","table");
         //ConfigTools.getInstance().forward("m","k2b");
         //ConfigTools.getInstance().forward("h","2jspcm");
-        ConfigTools.getInstance().forward("m","h-");
+        ConfigTools.getInstance().forward("h","clean");
     }
 }
