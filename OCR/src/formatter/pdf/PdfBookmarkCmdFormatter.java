@@ -27,6 +27,9 @@ public class PdfBookmarkCmdFormatter implements Formatter {
             case "12":
                 result = corrector.correctBookmark12(str);
                 break;
+            case "121":
+                result = corrector.correctBookmark121(str);
+                break;
             case "21":
                 result = corrector.correctBookmark21(str);
                 break;
