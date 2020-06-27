@@ -149,4 +149,30 @@ public class StringConverter {
         }
         return sb.toString();
     }
+
+    /**
+     * 生成全限定类名
+     *
+     * @param eclipsePath 文件路径字符串
+     * @return 全限定类名
+     */
+    public String fullyQualifiedClassName(String eclipsePath) {
+        eclipsePath = eclipsePath.substring(eclipsePath.indexOf("/src/") + "/src/".length(), eclipsePath.lastIndexOf("."));
+        eclipsePath = eclipsePath.replace("/", ".");
+        //System.out.println(eclipsePath);
+        return eclipsePath;
+    }
+
+    /**
+     * 生成全限定xml文件名
+     *
+     * @param eclipsePath 文件路径字符串
+     * @return 全限定文件名
+     */
+    public String fullyQualifiedXmlName(String eclipsePath) {
+        eclipsePath = eclipsePath.substring(eclipsePath.indexOf("/src/") + "/src/".length());
+        //eclipsePath = eclipsePath.replace("/", ".");
+        //System.out.println(eclipsePath);
+        return eclipsePath;
+    }
 }

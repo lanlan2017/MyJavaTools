@@ -120,6 +120,10 @@ s:
     shuqian221: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark221
   # 从文件的绝对路径中 获取文件名
   filename: tools.string.StringDeleter.getFileName
+  # 全限定类名
+  fqcn: tools.string.StringConverter.fullyQualifiedClassName
+  # 全限定xml文件名
+  fqxn: tools.string.StringConverter.fullyQualifiedXmlName
 # 快捷git命令:当在其他电脑上可能会用到.
 g:
   s: git status
