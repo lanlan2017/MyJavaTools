@@ -61,6 +61,10 @@ public class StringDeleter {
         text = text.replaceAll("(?<=[a-zA-Z]) (?=[\\u4e00-\\u9fa5])", "");
         // 删除点号和数字之间的空格
         text = text.replaceAll("(?<=\\.) (?=\\d+)", "");
+        // 删除中文和标点符号之间的空格
+        text = text.replaceAll("(?<=[，。“])[ ](?=[\\u4e00-\\u9fa5])", "");
+        // 删除中文 数字之间的空格
+        text = text.replaceAll("(?<=[\\u4e00-\\u9fa5])[ ]*(\\d)[ ]*(?=[\\u4e00-\\u9fa5])", "$1");
         //text=new MarkdownTools().inlineCodeAuto(text);
         return text;
     }
