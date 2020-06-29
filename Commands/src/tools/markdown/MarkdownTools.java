@@ -38,6 +38,7 @@ public class MarkdownTools {
 
     /**
      * 标题下沉,一级标题变成二级标题,二级标题变成三级标题,以此类推。
+     *
      * @param text
      * @return
      */
@@ -48,6 +49,7 @@ public class MarkdownTools {
 
     /**
      * 标题提升,二级标题变成一级标题,三级标题变成二级标题。
+     *
      * @param text
      * @return
      */
@@ -153,6 +155,12 @@ public class MarkdownTools {
         return null;
     }
 
+    /**
+     * 格式化为无序列号
+     *
+     * @param text 多行字符串
+     * @return Markdown无序列表
+     */
     public String unorderList(String text) {
         text = new StringDeleter().deleteBlankLine(text);
         // 开头不是字母数字或者中文的一律删除掉.
@@ -160,6 +168,16 @@ public class MarkdownTools {
         // 在每行开头添加上无序列表标记
         text = text.replaceAll(RegexEnum.LineStart.toString(), "- ");
         return text + "\n";
+    }
+
+    /**
+     * Markdown无序列表转换成普通的多行字符串.
+     *
+     * @param text markdown无序列表字符串.
+     * @return 普通文本字符串.
+     */
+    public String cancelUnorderedList(String text) {
+        return text.replaceAll("(?m)^- ", "");
     }
 
     public String orderedList(String text) {

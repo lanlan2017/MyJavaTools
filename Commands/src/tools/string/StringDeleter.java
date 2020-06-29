@@ -62,9 +62,11 @@ public class StringDeleter {
         // 删除点号和数字之间的空格
         text = text.replaceAll("(?<=\\.) (?=\\d+)", "");
         // 删除中文和标点符号之间的空格
-        text = text.replaceAll("(?<=[，。“])[ ](?=[\\u4e00-\\u9fa5])", "");
+        text = text.replaceAll("(?<=[，。（）“”])[ ]+(?=[\\u4e00-\\u9fa5])", "");
         // 删除中文 数字之间的空格
         text = text.replaceAll("(?<=[\\u4e00-\\u9fa5])[ ]*(\\d)[ ]*(?=[\\u4e00-\\u9fa5])", "$1");
+        // 删除文件后缀名之间的空格,如file.   java替换为file.java
+        text = text.replaceAll("([a-z+]\\.)[ ]+([a-z]+)", "$1$2");
         //text=new MarkdownTools().inlineCodeAuto(text);
         return text;
     }
