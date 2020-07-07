@@ -102,6 +102,15 @@ public class StringConverter {
         return "参数错误!";
     }
 
+    /**
+     * 取消驼峰命名法.
+     * @param str 驼峰命名法字符串
+     * @return 正常字符串.
+     */
+    public String cancelCameCase(String str){
+        return  str.replaceAll("(?<=[a-zA-Z])(?=[A-Z])", " ");
+    }
+
     public String convertFilePath(String path) {
         Pattern linuxPath = Pattern.compile("/(.+?)(/.+)");
         Matcher linuxMatcher = linuxPath.matcher(path);
@@ -182,7 +191,7 @@ public class StringConverter {
      * @return 格式化后的字符串
      */
     public String formatWeibo(String weiboContent){
-        weiboContent= weiboContent.replaceAll("\\【.*\\#(.+)\\#.*\\】", "$1\n\n");
+        weiboContent= weiboContent.replaceAll("\\【?\\#(.+)\\#\\】?", "$1\n\n");
         weiboContent="\n\n\n"+weiboContent;
         return weiboContent;
     }

@@ -14,10 +14,15 @@ m:
   q: tools.markdown.MarkdownTools.quote
   # 一级标题
   h1: tools.markdown.MarkdownTools.header1
+  # 二级标题
   h2: tools.markdown.MarkdownTools.header2
+  # 三级标题
   h3: tools.markdown.MarkdownTools.header3
+  # 四级标题
   h4: tools.markdown.MarkdownTools.header4
+  # 五级标题
   h5: tools.markdown.MarkdownTools.header5
+  # 六级标题
   h6: tools.markdown.MarkdownTools.header6
   # 标题降级
   h+: tools.markdown.MarkdownTools.headerAdd
@@ -39,14 +44,18 @@ m:
   k2b: tools.markdown.MardownConverter.inlineCodeToBold
   # 图片
   img: tools.markdown.MarkdownTools.img
+  # 朗读标签
   read: tools.sst.xunfei.XunFeiSstFlag.addSSTFlag
   duyin: tools.sst.xunfei.XunFeiSstFlag.duyin
   # 代码块
   cb:
+    # java代码块
     j:
       default: tools.markdown.MarkdownTools.codeBlockJava
       ngs: tools.markdown.MdJavaCodeBlock.removeGetterSetterDefaultStyle
+    # JavaScript代码块
     js: tools.markdown.MarkdownTools.codeBlockJavaScript
+    # sql代码块
     sql: tools.markdown.MarkdownTools.codeBlockSql
     # default: tools.markdown.MarkdownTools.codeBlockDefault
     default: tools.markdown.MarkdownTools.codeBlock_UseLastArg
@@ -64,14 +73,18 @@ m:
     u: tools.markdown.JavaDoc2Markdown.multiLine2Table
   # 从java API中复制
   api:
+    # 生成表格
     table:
       default: tools.markdown.JavaDoc2Markdown.docMethodTable2MdTable
+      # 方法表格
       m:
         default: tools.markdown.JavaDoc2Markdown.docMethodTable2MdTable
         nd: tools.markdown.JavaDoc2Markdown.docMethodTable2MdTableNoDescription
+      # 只生成表格身体
       b:
         default: tools.markdown.JavaDoc2Markdown.docTable2MdTableBody
         nd: tools.markdown.JavaDoc2Markdown.generateTableBodyNoDescription
+      # 属性表格
       f: tools.markdown.JavaDoc2Markdown.docFieldTable2MdTable
     p2u: tools.markdown.JavaDoc2Markdown.parametersList
 # 字符串处理
@@ -96,12 +109,6 @@ s:
   lcf: tools.string.StringConverter.toLowerCaseFirst
   # 首字母大写
   ucf: tools.string.StringConverter.toUpperCaseFirst
-  # java包名称
-  2ccpn: tools.string.StringConverter.toCameCasePackgeName
-  # 驼峰命名法java类名
-  2cccn: tools.string.StringConverter.toCamelCaseClassName
-  # 驼峰命名法java方法名,属性名
-  2ccmn: tools.string.StringConverter.toCameCaseMethodName
   # Linux地址和windows地址相互转换
   cvpath: tools.string.StringConverter.convertFilePath
   # 格式化从微信公众号复制来的代码
@@ -114,12 +121,28 @@ s:
   cy2ey: tools.string.StringReplace.chineseSymbol2EnglishSymbol
   # 书签
   f:
+    # x.x.x   类型的书签
     shuqian111: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark111
+    # x.xx    类型的书签
     shuqian12: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark12
+    # xx.x    类型的书签
     shuqian21: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark21
+    # xx.x.x  类型的书签
     shuqian211: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark211
+    # xx.xx   类型的书签
     shuqian22: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark22
+    # xx.xx.x 类型的书签
     shuqian221: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark221
+  # 驼峰命名法
+  cc:
+    # java包名称
+    pn: tools.string.StringConverter.toCameCasePackgeName
+    # java类名
+    cn: tools.string.StringConverter.toCamelCaseClassName
+    # java方法名,属性名
+    mn: tools.string.StringConverter.toCameCaseMethodName
+    # 取消驼峰命名法
+    c: tools.string.StringConverter.cancelCameCase
   # 从文件的绝对路径中 获取文件名
   filename: tools.string.StringDeleter.getFileName
   # 全限定类名

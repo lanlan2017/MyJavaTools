@@ -4,13 +4,11 @@ import clipboard.swing.SystemClipboard;
 import org.yaml.snakeyaml.Yaml;
 import reader.resouce.ResourceFileReader;
 import regex.RegexEnum;
-import sun.nio.cs.ext.GBK;
 import tools.reflect.method.CallInstanceMethod;
 
 import java.io.*;
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * 根据配置文件中的全限定方法名,运行方法.
@@ -45,13 +43,38 @@ public class ConfigTools {
         }
     }
 
+    /**
+     * 显示帮助文档.
+     *
+     * @param args 命令列表
+     */
     private void help(String[] args) {
+        //String line = null;
+        //String previousLine = null;
+        //boolean isStart = false;
+        //StringBuilder helpStr = new StringBuilder();
+        //isStart = fileHelp(args, previousLine, isStart, helpStr);
+        String helpStr = fileHelp(args);
+        if (!"".equals(helpStr)) {
+            writeHelp(helpStr);
+            openHelpFile();
+        }
+
+    }
+
+    /**
+     * 查找帮助文档
+     *
+     * @param args 命令参数
+     * @return 帮组文档字符串
+     */
+    private String fileHelp(String[] args) {
+        String line = null;
+        String previousLine = null;
+        StringBuilder helpStr = new StringBuilder();
+        boolean isStart = false;
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(ResourceFileReader.getInputStream(this.getClass(), "config.yml")));
-            String line = null;
-            String previousLine = null;
-            boolean isStart = false;
-            boolean isEnd = false;
             while ((line = reader.readLine()) != null) {
                 if (line.equals(args[0] + ":")) {
                     isStart = true;
@@ -63,21 +86,56 @@ public class ConfigTools {
                     }
                     // 输出前一行
                     //System.out.println(new String(previousLine.getBytes("utf-8"),"gbk"));
-                    System.out.println(previousLine);
+                    //System.out.println(previousLine);
+                    helpStr.append(previousLine).append("\n");
                 }
                 previousLine = line;
             }
             if (!previousLine.startsWith("#")) {
-                System.out.println(previousLine);
+                //System.out.println(previousLine);
+                helpStr.append(previousLine).append("\n");
             }
+
             // 延时显示
-            Thread.sleep(1000*10);
-        } catch (IOException | InterruptedException e) {
+            //Thread.sleep(1000 * 10);
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
+        if (isStart)
+            return helpStr.toString();
+        return "";
+        //return isStart;
     }
 
+    private void writeHelp(String helpStr) {
+        try {
+            BufferedWriter writer = new BufferedWriter(
+                    new OutputStreamWriter(
+                            new FileOutputStream(new File("help.txt"))));
+            writer.write(helpStr.toString());
+            writer.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 显示帮助文档.
+     */
+    private static void openHelpFile() {
+        ArrayList<String> commands = new ArrayList<>();
+        commands.add("notepad.exe");
+        //commands.add("code.exe");
+        commands.add("help.txt");
+        try {
+            ProcessBuilder runner = new ProcessBuilder(commands);
+            runner.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void processHardValue(String[] args) {
         // 获取命令对应的值
