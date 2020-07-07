@@ -126,6 +126,8 @@ s:
   fqcn: tools.string.StringConverter.fullyQualifiedClassName
   # 全限定xml文件名
   fqxn: tools.string.StringConverter.fullyQualifiedXmlName
+  # 格式化微博内容
+  fmwb: tools.string.StringConverter.formatWeibo
 # 快捷git命令:当在其他电脑上可能会用到.
 g:
   s: git status

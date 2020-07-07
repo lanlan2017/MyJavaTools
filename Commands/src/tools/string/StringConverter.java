@@ -175,4 +175,15 @@ public class StringConverter {
         //System.out.println(eclipsePath);
         return eclipsePath;
     }
+
+    /**
+     * 格式化微博内容
+     * @param weiboContent 微博博文
+     * @return 格式化后的字符串
+     */
+    public String formatWeibo(String weiboContent){
+        weiboContent= weiboContent.replaceAll("\\【.*\\#(.+)\\#.*\\】", "$1\n\n");
+        weiboContent="\n\n\n"+weiboContent;
+        return weiboContent;
+    }
 }
