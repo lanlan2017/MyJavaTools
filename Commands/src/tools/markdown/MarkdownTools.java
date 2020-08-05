@@ -102,7 +102,9 @@ public class MarkdownTools {
      */
     private String fixErrors(String result) {
         // 移除markdown行内代码之前的多余空格符
-        result = result.replaceAll("[ ]+`", "`");
+        result = result.replaceAll("[ ]+(?=`)", "");
+        // 移除makrdown行内代码之后,中文字符之前的空格
+        result = result.replaceAll("(?<=`)[ ]+(?=[\\u4e00-\\u9fa5])", "");
         //// 恢复文字识别错误的圆括号
         //result = result.replaceAll("[0oO]`方法", "()`方法");
         return result;
