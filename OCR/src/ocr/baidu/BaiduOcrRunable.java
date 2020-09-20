@@ -108,6 +108,8 @@ public class BaiduOcrRunable implements Runnable {
         // 调用文字识别接口,返回JSON数据
         JSONObject res = client.basicGeneral(imagePath,
                 new HashMap<>());
+
+
         // 取出HashMap
         HashMap<String, Object> resMap = (HashMap<String, Object>) res.toMap();
 

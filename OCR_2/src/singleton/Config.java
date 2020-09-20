@@ -1,4 +1,4 @@
-package ocr.baidu.config;
+package singleton;
 
 import java.io.IOException;
 import java.io.InputStream;

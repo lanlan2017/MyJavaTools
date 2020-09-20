@@ -2,6 +2,8 @@ package tools.java;
 
 import reader.resouce.ResourceFileReader;
 
+import java.lang.annotation.Retention;
+
 public class JavaTools {
     public String forString(String stringName) {
         // 读取模板文件
@@ -66,5 +68,16 @@ public class JavaTools {
         }
         System.out.println("append语句:" + result);
         return result;
+    }
+
+    /**
+     * 格式化Java单行注释,将代码后的单行注释移动到代码的上方.
+     *
+     * @param javaCode java代码.
+     * @return 格式化后的Java代码.
+     */
+    public String formatSingleLineComments(String javaCode) {
+        javaCode = javaCode.replaceAll("([ ]+)(.+)(//.+)", "$1$3\n$1$2");
+        return javaCode;
     }
 }

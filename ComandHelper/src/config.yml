@@ -210,7 +210,6 @@ h:
   clean: tools.html.HtmlTools.clean
 # java代码模板
 j:
-  # 生成for语句
   for:
     # 遍历字符串的for语句
     str: tools.java.JavaTools.forString
@@ -220,13 +219,8 @@ j:
   switch:
     default: tools.java.JavaTools.switchCaseDefault
     str: tools.java.JavaTools.switchCaseString
-  # System.out.println();语句转换成sb.append()语句
   sout:
     ap: tools.java.JavaTools.sout2Append
-  # 格式化代码
-  f:
-    # 格式化单行注释,把放在末尾的单行注释移动到代码行的上方
-    c: tools.java.JavaTools.formatSingleLineComments
 # 算法
 suanfa:
   # 冒泡排序

@@ -12,10 +12,11 @@ public class HtmlTools {
 
     /**
      * 将html注释转换成JSP注释
+     *
      * @param htmlCode 包含html注释的html代码
      * @return 将html注释转换成JSP注释后的html代码
      */
-    public String htmlComment2JspComment(String htmlCode){
+    public String htmlComment2JspComment(String htmlCode) {
 
         return htmlCode.replaceAll("(?m)<!--[ ]*(.+)[ ]*-->", "<%-- $1 --%>");
     }
@@ -35,9 +36,10 @@ public class HtmlTools {
         }
         return "<a href=\"" + url + "\"></a>";
     }
+
     public String anchor(String text) {
-        String url=text.replaceAll("[.、]+", "-");
-        return "<a href=\"#" + url + "\">"+text+"</a>";
+        String url = text.replaceAll("[.、]+", "-");
+        return "<a href=\"#" + url + "\">" + text + "</a>";
     }
 
     public String htmlDefault(String tagName, String value) {
@@ -48,7 +50,18 @@ public class HtmlTools {
     public String flod(String toFlod) {
         return "<details><summary>展开/折叠</summary>\n\n" + toFlod + "\n\n</details>";
     }
+
+
+
+    /**
+     * 生成展开折叠块
+     *
+     * @param toFlod 需要展开折叠的代码
+     * @return 展开折叠Html代码
+     */
     public String detailsPre(String toFlod) {
+        // 将特殊字符转换成HTML转义字符
+        toFlod = escape(toFlod);
         return "<details><summary>展开/折叠</summary><pre>\n" + toFlod + "</pre></details>\n";
     }
 
@@ -77,51 +90,56 @@ public class HtmlTools {
 
     /**
      * 生成<code><pre></pre>代码块</code>
+     *
      * @param code
      * @return
      */
-    public String pre(String code){
-
-        return "<pre>\n"+code+"\n</pre>";
+    public String pre(String code) {
+        //对特殊字符进行转义处理
+        code = escape(code);
+        return "<pre>\n" + code + "\n</pre>";
     }
 
     /**
      * 对html代码进行转义处理
-     * @param code
-     * @return
+     *
+     * @param code 带有特殊字符的HTML代码
+     * @return 经过转义处理后的Html代码
      */
-    public String escape(String code){
-        code=code.replaceAll("<", "&lt;");
-        code=code.replaceAll(">", "&gt;");
+    public String escape(String code) {
+        code = code.replaceAll("<", "&lt;");
+        code = code.replaceAll(">", "&gt;");
+        code = code.replaceAll("#", "&#35;");
         return code;
     }
-
     /**
      * 格式化HTML代码,每个html标签占一行
+     *
      * @param htmlCode html代码
      * @return 格式化后的html代码
      */
-    public String formatToLine(String htmlCode){
+    public String formatToLine(String htmlCode) {
         // 所有的html代码占用一行
-        htmlCode=htmlCode.replaceAll("(?m)><", ">\n<");
+        htmlCode = htmlCode.replaceAll("(?m)><", ">\n<");
         // 删除空行
-        htmlCode=new StringDeleter().deleteBlankLine(htmlCode);
+        htmlCode = new StringDeleter().deleteBlankLine(htmlCode);
         return htmlCode;
     }
 
     /**
      * 清理没有必要的HTML属性
-     * @param str
-     * @return
+     *
+     * @param str 带有疯狂Java联盟版权声明的的代码
+     * @return 没有版权声明的代码
      */
-    public String clean(String str){
+    public String clean(String str) {
         // 清理文件声明
-        str=str.replaceAll("(?m)<!DOCTYPE html.+(\\n[^>]+)+>", "<!DOCTYPE html>");
+        str = str.replaceAll("(?m)<!DOCTYPE html.+(\\n[^>]+)+>", "<!DOCTYPE html>");
         // 精简html标签
-        str=str.replaceAll("(?m)<html.+>", "<html>");
+        str = str.replaceAll("(?m)<html.+>", "<html>");
         // 删除版权
-        str=str.replaceAll("(?m)^[ \\t]+<meta name=\"website\" content=\"http://www\\.crazyit\\.org\" />$\\n", "");
-        str=str.replace("<%--\n" +
+        str = str.replaceAll("(?m)^[ \\t]+<meta name=\"website\" content=\"http://www\\.crazyit\\.org\" />$\\n", "");
+        str = str.replace("<%--\n" +
                 "网站: <a href=\"http://www.crazyit.org\">疯狂Java联盟</a>\n" +
                 "author  yeeku.H.lee kongyeeku@163.com\n" +
                 "version  1.0\n" +
@@ -130,6 +148,6 @@ public class HtmlTools {
                 "Program Name:\n" +
                 "Date: \n" +
                 "--%>\n", "");
-        return  str;
+        return str;
     }
 }
