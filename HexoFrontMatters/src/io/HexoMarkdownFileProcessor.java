@@ -1,7 +1,7 @@
 package io;
 
 import model.HexoFrontMatter;
-import file.processor.FileProcessor;
+import tools.file.processor.FileProcessor;
 import model.MyScript;
 import model.TOC;
 import regex.UrlEscape;

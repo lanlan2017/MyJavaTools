@@ -1,4 +1,4 @@
-package file.processor;
+package tools.file.processor;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;

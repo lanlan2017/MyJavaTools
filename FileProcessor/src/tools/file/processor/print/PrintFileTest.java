@@ -1,6 +1,6 @@
-package file.processor.print;
+package tools.file.processor.print;
 
-import file.processor.FileProcessor;
+import tools.file.processor.FileProcessor;
 
 /**
  * @author francis

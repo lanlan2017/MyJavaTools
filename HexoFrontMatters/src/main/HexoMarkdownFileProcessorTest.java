@@ -2,7 +2,7 @@ package main;
 
 import clipboard.swing.SystemClipboard;
 import dir.processor.DirProcessor;
-import file.processor.FileProcessor;
+import tools.file.processor.FileProcessor;
 import io.HexoMarkdownFileProcessor;
 import io.toc.MyHexoNextToc;
 

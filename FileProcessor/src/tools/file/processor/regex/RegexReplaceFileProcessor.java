@@ -1,6 +1,6 @@
-package file.processor.regex;
+package tools.file.processor.regex;
 
-import file.processor.FileProcessor;
+import tools.file.processor.FileProcessor;
 
 import java.io.File;
 import java.util.regex.Matcher;

@@ -77,7 +77,7 @@ public class JavaTools {
      * @return 格式化后的Java代码.
      */
     public String formatSingleLineComments(String javaCode) {
-        javaCode = javaCode.replaceAll("([ ]+)(.+)(//.+)", "$1$3\n$1$2");
+        javaCode = javaCode.replaceAll("([ \t]+)(.+)(//.+)", "$1$3\n$1$2");
         return javaCode;
     }
 }
