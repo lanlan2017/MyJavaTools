@@ -208,6 +208,11 @@ h:
   fl: tools.html.HtmlTools.formatToLine
   # 清理HTML文档中没有必要的属性
   clean: tools.html.HtmlTools.clean
+  # HTML代码转Markdown
+  2md:
+    # HTML table单行代码 转markdown table
+    table: tools.html.Html2MarkDown.htmlOneLineTable2MdTable
+
 # java代码模板
 j:
   # 生成for语句
@@ -220,8 +225,9 @@ j:
   switch:
     default: tools.java.JavaTools.switchCaseDefault
     str: tools.java.JavaTools.switchCaseString
-  # System.out.println();语句转换成sb.append()语句
+  # 生成System.out.println();
   sout:
+    # System.out.println();语句转换成sb.append()语句
     ap: tools.java.JavaTools.sout2Append
   # 格式化代码
   f:

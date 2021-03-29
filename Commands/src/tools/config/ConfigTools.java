@@ -1,6 +1,6 @@
 package tools.config;
 
-import clipboard.swing.SystemClipboard;
+import tools.copy.SystemClipboard;
 import org.yaml.snakeyaml.Yaml;
 import reader.resouce.ResourceFileReader;
 import regex.RegexEnum;

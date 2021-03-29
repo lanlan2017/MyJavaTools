@@ -2,6 +2,10 @@ package tools.html;
 
 import tools.string.StringDeleter;
 
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * 生成HTML代码.
  */
@@ -50,7 +54,6 @@ public class HtmlTools {
     public String flod(String toFlod) {
         return "<details><summary>展开/折叠</summary>\n\n" + toFlod + "\n\n</details>";
     }
-
 
 
     /**
@@ -112,6 +115,7 @@ public class HtmlTools {
         code = code.replaceAll("#", "&#35;");
         return code;
     }
+
     /**
      * 格式化HTML代码,每个html标签占一行
      *
@@ -150,4 +154,5 @@ public class HtmlTools {
                 "--%>\n", "");
         return str;
     }
+
 }
