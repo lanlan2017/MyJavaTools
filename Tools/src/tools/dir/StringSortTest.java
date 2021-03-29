@@ -1,6 +1,4 @@
-package processor.dir;
-
-import java.util.Arrays;
+package tools.dir;
 
 /**
  * 对字符串数组进行冒泡排序

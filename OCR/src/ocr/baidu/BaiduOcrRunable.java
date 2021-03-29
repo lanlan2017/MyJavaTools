@@ -1,6 +1,6 @@
 package ocr.baidu;
 
-import clipboard.swing.SystemClipboard;
+import tools.copy.SystemClipboard;
 import com.baidu.aip.ocr.AipOcr;
 import net.sf.json.JSONArray;
 import ocr.baidu.config.SingletonAipOcr;

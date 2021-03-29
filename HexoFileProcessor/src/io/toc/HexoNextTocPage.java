@@ -1,6 +1,6 @@
 package io.toc;
 
-import processor.dir.DirProcessor;
+import tools.dir.DirProcessor;
 import regex.UrlEscape;
 
 import java.io.*;
@@ -8,9 +8,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
 /**
- * 生成Hexo Next主题博客的目录文件
+ * 生成Hexo Next主题博客的目录文件(目录页面)
  */
-public class MyHexoNextToc extends DirProcessor {
+public class HexoNextTocPage extends DirProcessor {
     /**
      * 指向_post目录所在的位置
      */
@@ -29,7 +29,7 @@ public class MyHexoNextToc extends DirProcessor {
     // private static StringBuilder toc = new StringBuilder();
 
 
-    public MyHexoNextToc(File dir) {
+    public HexoNextTocPage(File dir) {
         super(dir);
         this.rootDir = dir;
         rootPath = dir.getAbsolutePath();

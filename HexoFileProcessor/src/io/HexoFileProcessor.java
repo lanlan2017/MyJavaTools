@@ -1,7 +1,7 @@
 package io;
 
 import model.HexoFrontMatter;
-import processor.file.FileProcessor;
+import tools.file.processor.FileProcessor;
 import model.MyScript;
 import model.TOC;
 import regex.UrlEscape;
@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
  * @author francis
  * create at 2019/12/16-14:56
  */
-public class HexoMarkdownFileProcessor extends FileProcessor {
+public class HexoFileProcessor extends FileProcessor {
     private File file;
     private StringBuilder toc;
     private String tocModel;
@@ -24,7 +24,7 @@ public class HexoMarkdownFileProcessor extends FileProcessor {
     private String scriptModel;
     HexoFrontMatter hexoFrontMatter;
 
-    public HexoMarkdownFileProcessor(String filePath) {
+    public HexoFileProcessor(String filePath) {
         super(filePath);
         // 取得Hexo站点的路径.
         String hexoRoot = filePath.substring(0, filePath.lastIndexOf(File.separator + "source" + File.separator + "_posts"));
@@ -147,16 +147,4 @@ public class HexoMarkdownFileProcessor extends FileProcessor {
         return content.toString();
     }
 
-    // /**
-    //  * 修复URL.
-    //  *
-    //  * @param headerName
-    //  * @return
-    //  */
-    // private String checkURL(String headerName) {
-    //     String AnchorName;
-    //     AnchorName = headerName.replaceAll(Regex.HexoNextUrl1.getRegex(), "-");
-    //     AnchorName = AnchorName.replaceAll(Regex.HexoNextUrl2.getRegex(), "");
-    //     return AnchorName;
-    // }
 }

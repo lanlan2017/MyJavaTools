@@ -1,6 +1,7 @@
-package tools.string;
+package runable.string;
 
-import tools.copy.SystemClipboard;
+
+import tools.copy.SystemClipboard ;
 
 /**
  * 字符串正则替换器

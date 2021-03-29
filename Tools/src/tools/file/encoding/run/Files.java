@@ -1,6 +1,7 @@
-package tools.file.encoding;
+package tools.file.encoding.run;
 
 import tools.copy.SystemClipboard;
+import tools.file.encoding.CharacterEncodingConverter;
 
 import java.io.File;
 import java.nio.charset.Charset;

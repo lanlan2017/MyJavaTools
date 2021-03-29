@@ -1,6 +1,7 @@
-package processor.file.print;
+package tools.file.print;
 
-import processor.file.FileProcessor;
+
+import tools.file.processor.FileProcessor;
 
 /**
  * 文件处理器:输出文件内容

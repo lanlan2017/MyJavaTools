@@ -1,4 +1,4 @@
-package processor.file.regex.delete.test;
+package tools.file.regex.delete.test;
 
 /**
  * @author francis

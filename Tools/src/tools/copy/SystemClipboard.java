@@ -1,4 +1,4 @@
-package clipboard.swing;
+package tools.copy;
 
 import java.awt.Image;
 import java.awt.Toolkit;

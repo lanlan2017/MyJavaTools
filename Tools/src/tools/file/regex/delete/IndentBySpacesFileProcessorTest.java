@@ -1,6 +1,7 @@
-package processor.file.regex.delete;
+package tools.file.regex.delete;
 
-import processor.file.FileProcessor;
+
+import tools.file.processor.FileProcessor;
 
 /**
  * 文件处理器:使用空格作为缩进.

@@ -1,14 +1,10 @@
-package test;
-
-import tools.ProcessRunner;
+package test.process;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
- * @author francis
- * create at 2020/7/7-23:23
+ * 测试ProcessTools
  */
 public class ProcessToolsTest {
     public static void main(String[] args) {
