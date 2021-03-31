@@ -210,6 +210,8 @@ h:
   clean: tools.html.HtmlTools.clean
   # HTML代码转Markdown
   2md:
+    # HTML文本转换为Markdown文本
+    default: tools.html.Html2MarkDown.toMd
     # HTML table单行代码 转markdown table
     table: tools.html.Html2MarkDown.htmlOneLineTable2MdTable
 

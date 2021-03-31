@@ -77,4 +77,26 @@ public class Html2MarkDown {
         }
         return sb.toString();
     }
+
+    /**
+     * HTML普通文本转换为Markdown文本
+     * @param str
+     * @return
+     */
+    public String toMd(String str) {
+        // 替换换行符
+        str = str.replaceAll("(?:<br>)+", "\n");
+        // 替换加粗标签
+        str = str.replaceAll("</?strong>", "**");
+        // 删除div,span标签
+        str = str.replaceAll("</?(?:div|span)(?: .*?)?>", "");
+        // 替换段落标签
+        str =str.replaceAll("(?:</?p>)+", "\n");
+
+        // 删除多余空格
+        str = str.replaceAll("[ ]+", " ");
+        // 删除多余的空格转义字符
+        str = str.replaceAll("(?:&nbsp;)+", " ");
+        return str;
+    }
 }
