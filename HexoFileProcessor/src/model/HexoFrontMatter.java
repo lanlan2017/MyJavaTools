@@ -15,15 +15,18 @@ public class HexoFrontMatter {
     private String date;
     private String updated;
     private String comments;
-    private String abbrlink;
+    private String abbrlink=null;
     private String mathjax;
     private String top;
 
     public String getAbbrlink() {
-        if (abbrlink == null) {
-            abbrlink = "null";
+        if (abbrlink != null) {
+            abbrlink = abbrlink.replace("'", "");
         }
-        return abbrlink.replace("'", "");
+        //if (abbrlink == null) {
+        //    abbrlink = "null";
+        //}
+        return abbrlink;
     }
 
     public HexoFrontMatter(File file) {
@@ -35,7 +38,7 @@ public class HexoFrontMatter {
         // 设置多级分类
         categories = path.substring(path.lastIndexOf(postFlag) + postFlag.length(), path.lastIndexOf(File.separator)).replace(File.separator, "\n  - ");
         // 设置文章的更新实现
-        updated = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date(file.lastModified()));
+        updated = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(file.lastModified()));
     }
 
     public HexoFrontMatter(File file, String oldFM) {
@@ -73,6 +76,9 @@ public class HexoFrontMatter {
         if (categories != null) {
             hexoFrontMatter.append("categories: ").append(categories).append("\n");
         }
+        if (abbrlink != null) {
+            hexoFrontMatter.append("abbrlink: ").append(abbrlink).append("\n");
+        }
         if (date != null) {
             hexoFrontMatter.append("date: ").append(date).append("\n");
         } else {
@@ -84,9 +90,6 @@ public class HexoFrontMatter {
         }
         if (comments != null) {
             hexoFrontMatter.append("comments: ").append(comments).append("\n");
-        }
-        if (abbrlink != null) {
-            hexoFrontMatter.append("abbrlink: ").append(abbrlink).append("\n");
         }
         if (mathjax != null) {
             hexoFrontMatter.append("mathjax: ").append(mathjax).append("\n");

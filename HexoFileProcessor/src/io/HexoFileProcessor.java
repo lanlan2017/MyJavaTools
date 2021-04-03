@@ -83,6 +83,13 @@ public class HexoFileProcessor extends FileProcessor {
     private String generateContent(String fileContent, String oldHexoFM) {
         hexoFrontMatter = new HexoFrontMatter(file, oldHexoFM);
         // System.out.println(hexoFrontMatter.getAbbrlink());
+        // 如果有没永久链接
+        if (hexoFrontMatter.getAbbrlink() == null) {
+            //System.out.println(hexoFrontMatter.getAbbrlink());
+            // 则不添加自定义的JS脚本
+            return hexoFrontMatter.toString() + "\n" + fileContent;
+        }
+        // 如果存在永久链接,则在FrontMatter和正文之间添加自定义脚本
         String script = this.scriptModel.replace("INSERT_TOC_HERE",
                 toc.toString().replace("Relative__Address", relativeURL + hexoFrontMatter.getAbbrlink() + "/"));
         // System.out.println(script);

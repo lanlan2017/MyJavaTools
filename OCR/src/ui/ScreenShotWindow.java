@@ -200,6 +200,7 @@ public class ScreenShotWindow extends JWindow {
      */
     public void screenshotAgain() {
         ToolsWindow.getInstance().setVisible(false);
+        // 截取屏幕
         createScreenCapture();
         // 显示窗口
         this.setVisible(true);

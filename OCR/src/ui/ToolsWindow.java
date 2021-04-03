@@ -15,6 +15,8 @@ public class ToolsWindow extends JWindow {
     private ToolsWindow(int x, int y) {
         this.init();
         this.setLocation(x, y);
+        // 设置大小
+        //this.setBounds(0, 0, 200, 200);
         this.pack();
         // 永远显示在其他程序上方
         this.setAlwaysOnTop(true);

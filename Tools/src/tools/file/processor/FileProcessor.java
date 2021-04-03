@@ -26,7 +26,10 @@ public abstract class FileProcessor {
         inputFile = new File(filePath);
         // 处理文件或目录
     }
-
+    // 获取输入的文件的File对象
+    public File getInputFile() {
+        return inputFile;
+    }
 
     /**
      * 处理文件或目录中的所有文件.
@@ -56,10 +59,11 @@ public abstract class FileProcessor {
         // 读入文件中的字符串.
         String fileContent = readFile(file);
         // System.out.println("正则处理的文件:"+file.getAbsoluteFile());
-        // 处理文件内容.
+        // 处理读取到的文件内容.
         String processedFileContent = processingFileContent(fileContent);
         // 如果文件内容改变了.
         if (processedFileContent != null) {
+            // 输出提示信息
             System.out.println(message + file.getAbsolutePath());
             // System.out.println(processedFileContent);
             // 写入文件内容.
