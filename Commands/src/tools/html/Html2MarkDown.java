@@ -80,8 +80,9 @@ public class Html2MarkDown {
 
     /**
      * HTML普通文本转换为Markdown文本
-     * @param str
-     * @return
+     *
+     * @param str html文本
+     * @return Markdown文本
      */
     public String toMd(String str) {
         // 替换换行符
@@ -91,12 +92,48 @@ public class Html2MarkDown {
         // 删除div,span标签
         str = str.replaceAll("</?(?:div|span)(?: .*?)?>", "");
         // 替换段落标签
-        str =str.replaceAll("(?:</?p>)+", "\n");
+        str = str.replaceAll("(?:</?p>)+", "\n");
 
         // 删除多余空格
         str = str.replaceAll("[ ]+", " ");
         // 删除多余的空格转义字符
         str = str.replaceAll("(?:&nbsp;)+", " ");
+        if (Pattern.compile("\\<ul\\>").matcher(str).find()) {
+            str = htmlUl2MdUl(str);
+        }
         return str;
+    }
+
+
+    /**
+     * 替换HTML无序列表代码为Markdown无序列表
+     *
+     * @param str 包含html无序列表的文本
+     * @return 包含Markdown无序列表的文本
+     */
+    public String htmlUl2MdUl(String str) {
+        Matcher htmlUlM = Pattern.compile("\\<ul\\>(.+?)\\<\\/ul\\>").matcher(str);
+        StringBuffer sb = new StringBuffer();
+        while (htmlUlM.find()) {
+            htmlUlM.appendReplacement(sb, htmlUlLi2MdUlLi(htmlUlM.group(1)));
+        }
+        htmlUlM.appendTail(sb);
+        return sb.toString();
+    }
+
+    /**
+     * Html 无序列表代码转成Markdown无序列表。
+     *
+     * @param htmlUlCode html无序列表代码。
+     * @return Markdown无序列表代码。
+     */
+    public String htmlUlLi2MdUlLi(String htmlUlCode) {
+        Matcher m = Pattern.compile("\\<li\\>(.+?)\\<\\/li\\>").matcher(htmlUlCode);
+        StringBuilder sb = new StringBuilder(htmlUlCode.length());
+        while (m.find()) {
+            sb.append("- ").append(m.group(1)).append("\n");
+        }
+
+        return sb.toString();
     }
 }

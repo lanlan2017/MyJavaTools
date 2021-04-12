@@ -1,12 +1,6 @@
 package main;
 
-import javafx.beans.binding.When;
 import tools.config.ConfigTools;
-
-import java.io.File;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * 测试类.
@@ -27,7 +21,8 @@ public class Test {
         //ConfigTools.getInstance().forward("s");
         //ConfigTools.getInstance().forward("h","pre");
         //ConfigTools.getInstance().forward("j","f","c");
-        ConfigTools.getInstance().forward("h","2md","table");
+        ConfigTools.getInstance().forward("h","2md");
+        //ConfigTools.getInstance().forward("h","2md","table");
     }
 
 }
