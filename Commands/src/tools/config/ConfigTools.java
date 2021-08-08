@@ -22,7 +22,9 @@ public class ConfigTools {
     // 私有化构造函数
     private ConfigTools() {
         Yaml yaml = new Yaml();
-        configMap = yaml.load(ResourceFileReader.getInputStream(this.getClass(), "config.yml"));
+        configMap = yaml.load(
+                ResourceFileReader.getInputStream(
+                        this.getClass(), "config.yml"));
     }
 
     // 提供获取实例的方法
@@ -69,12 +71,14 @@ public class ConfigTools {
      * @return 帮组文档字符串
      */
     private String fileHelp(String[] args) {
-        String line = null;
+        String line;
         String previousLine = null;
         StringBuilder helpStr = new StringBuilder();
         boolean isStart = false;
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(ResourceFileReader.getInputStream(this.getClass(), "config.yml")));
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(
+                            ResourceFileReader.getInputStream(this.getClass(), "config.yml")));
             while ((line = reader.readLine()) != null) {
                 if (line.equals(args[0] + ":")) {
                     isStart = true;
@@ -204,7 +208,7 @@ public class ConfigTools {
     }
 
     /**
-     * 处理value.
+     * 处理从yml配置文件中读取到的value.
      *
      * @param value 配置文件中的value字符串.
      */

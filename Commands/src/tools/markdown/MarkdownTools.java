@@ -2,7 +2,10 @@ package tools.markdown;
 
 import tools.string.StringDeleter;
 import regex.RegexEnum;
+import tools.web.URLEncode;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -148,13 +151,33 @@ public class MarkdownTools {
         return "[" + input + "](" + input + ")";
     }
 
-    public String img(String text) {
-        if (text.matches(RegexEnum.ImgURL.toString())) {
-            return "![这里有一张图片](" + text + ")";
-        } else if (text.matches(RegexEnum.MdImgNoAlt.toString())) {
-            return text.replaceAll(RegexEnum.MdImgNoAlt.toString(), "![这里有一张图片]($1)");
+    /**
+     * 格式化为markdown图片
+     *
+     * @param url 图片的地址
+     * @return markdown图片
+     */
+    public String img(String url) {
+        if (url.matches(RegexEnum.ImgURL.toString())) {
+            return "![这里有一张图片](" + url + ")";
+        } else if (url.matches(RegexEnum.MdImgNoAlt.toString())) {
+            return url.replaceAll(RegexEnum.MdImgNoAlt.toString(), "![这里有一张图片]($1)");
         }
         return null;
+    }
+
+    /**
+     * 返回g.gravizo.com渲染的markdown图片。
+     *
+     * @param code dot代码
+     * @return markdown图片
+     */
+    public String imgGravizoSvg(String code) {
+        String head = "![图片](https://g.gravizo.com/svg?";
+        String codeInOneLine = new StringDeleter().deleteCRLF(code);
+        String browserUrl = URLEncode.encodeToWebURL(codeInOneLine);
+        String tail = ")";
+        return head + browserUrl + tail;
     }
 
     /**
@@ -301,6 +324,19 @@ public class MarkdownTools {
         if (!code.endsWith(";"))
             code = code + ";";
         return "```sql" + "\r\n" + code + "\r\n```";
+    }
+
+    /**
+     * 生成dot语法的的plantuml代码块。
+     *
+     * @param code dot代码。
+     * @return dot语法的PlantUML代码块
+     */
+    public String codeBlockPlantUmlDot(String code) {
+        code = "```plantuml\n" +
+                "@startdot\n" + code + "\n@enddot\n" +
+                "```";
+        return code;
     }
 
     /**

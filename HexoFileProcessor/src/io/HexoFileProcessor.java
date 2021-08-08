@@ -24,20 +24,28 @@ public class HexoFileProcessor extends FileProcessor {
     private String scriptModel;
     HexoFrontMatter hexoFrontMatter;
 
+    /**
+     * Hexo Markdown文件处理器的构造函数。
+     *
+     * @param filePath 文件的路径
+     */
     public HexoFileProcessor(String filePath) {
         super(filePath);
-        // 取得Hexo站点的路径.
+        // 从该文件的路径中，取得Hexo站点的路径.
         String hexoRoot = filePath.substring(0, filePath.lastIndexOf(File.separator + "source" + File.separator + "_posts"));
         try {
+            // 读取配置文件
             Properties fmPt = new Properties();
+            // 加载Hexo站点下的配置文件“FM.properties”
             fmPt.load(new InputStreamReader(new FileInputStream(hexoRoot + File.separator + "FM.properties"), "gbk"));
-            // 读取配置文件,取得子站点的相对路径.
+            // 从配置文件中 取出 子站点的相对路径.
             relativeURL = fmPt.getProperty("relativeURL");
         } catch (IOException e) {
             e.printStackTrace();
         }
         // 取得JS代码模板
         scriptModel = MyScript.getInstance().getScript();
+        // 取得目录列表项的模板
         tocModel = TOC.getInstance().getToc();
     }
 
@@ -90,58 +98,38 @@ public class HexoFileProcessor extends FileProcessor {
             return hexoFrontMatter.toString() + "\n" + fileContent;
         }
         // 如果存在永久链接,则在FrontMatter和正文之间添加自定义脚本
-        String script = this.scriptModel.replace("INSERT_TOC_HERE",
-                toc.toString().replace("Relative__Address", relativeURL + hexoFrontMatter.getAbbrlink() + "/"));
+        String script = this.scriptModel.replace("INSERT_TOC_HERE", toc.toString().replace("Relative__Address", relativeURL + hexoFrontMatter.getAbbrlink() + "/"));
         // System.out.println(script);
         return hexoFrontMatter.toString() + "\n" + script + fileContent;
     }
 
+    /**
+     * 读取Hexo的Markdown文件
+     *
+     * @param file 要读取的文件.
+     * @return 文件的内容
+     */
     @Override
     public String readFile(File file) {
         this.file = file;
         toc = new StringBuilder();
         StringBuilder content = new StringBuilder();
-        String tocItem;
-        // String hexoFMStr;
-        // boolean isFrontMatter = false;
+
         boolean isCodeBlock = false;
-        String AnchorName;
-        String HeaderName;
-        // boolean isFirstLine = true;
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "utf-8"));) {
             String line;
+            // 逐行扫描文件
             while ((line = reader.readLine()) != null) {
                 // 如果是代码块的话
                 if (line.startsWith("```")) {
-                    //
+                    // 转换
                     isCodeBlock = !isCodeBlock;
                 }
-                // 标题:非代码块中的以井号开头的一行
+                // 如果是标题的话
+                // 非代码块中的以井号开头的一行就是标题
                 if (!isCodeBlock && line.startsWith("#")) {
-
-                    // <a href="#2019年12月15日">2019年12月15日</a>
-                    Pattern headerP = Pattern.compile("^(#+)[ ]+(.+?)(?:[ ]+#+)?$");
-                    Matcher matcher = headerP.matcher(line);
-                    if (matcher.matches()) {
-                        // deep = matcher.group(1).length();
-                        HeaderName = matcher.group(2);
-                        if (HeaderName.matches("\\[(.+?)\\]\\(.+?\\)")) {
-                            // System.out.println("超链接" + HeaderName);
-                            HeaderName = HeaderName.replaceAll("\\[(.+?)\\]\\(.+?\\)", "$1");
-                            // System.out.println("替换为:" + HeaderName);
-                        }
-                        //轻量级Java-EE企业应用实战-第5版-
-                        // AnchorName = HeaderName.replaceAll("[ :\\[\\]`\\(\\)]+", "-");
-                        // AnchorName = AnchorName.replaceAll("-$", "");
-                        AnchorName = UrlEscape.escapeURL(HeaderName);
-                        tocItem = tocModel.replace("Header__Name", HeaderName);
-                        tocItem = tocItem.replace("Anchor__Name", AnchorName);
-                        tocItem = tocItem.replace("Toc_Depth", String.valueOf(matcher.group(1).length()));
-                        // System.out.println(tocItem);
-                        toc.append(tocItem);
-                        // margin
-
-                    }
+                    // 把markdown的标题转为目录项
+                    header2Toc(line);
                 }
                 // 其他的就是文章的主题部分
                 content.append(line + "\n");
@@ -151,7 +139,47 @@ public class HexoFileProcessor extends FileProcessor {
             return null;
         }
         // System.out.println(toc.toString());
+        // 输出文章的内容
         return content.toString();
+    }
+
+    /**
+     * markdown标题转成TOC
+     *
+     * @param header 标题
+     */
+    private void header2Toc(String header) {
+        String tocItem;
+        String HeaderName;
+        String AnchorName;
+        // <a href="#2019年12月15日">2019年12月15日</a>
+        Pattern headerP = Pattern.compile("^(#+)[ ]+(.+?)(?:[ ]+#+)?$");
+        Matcher matcher = headerP.matcher(header);
+        // 如果是markdown的标题的话
+        if (matcher.matches()) {
+            // 获取标题的内容
+            HeaderName = matcher.group(2);
+            // 如果标题是超链接的话
+            if (HeaderName.matches("\\[(.+?)\\]\\(.+?\\)")) {
+                // System.out.println("超链接" + HeaderName);
+                // 取下超链接的文字作为标题
+                HeaderName = HeaderName.replaceAll("\\[(.+?)\\]\\(.+?\\)", "$1");
+                // System.out.println("替换为:" + HeaderName);
+            }
+            //轻量级Java-EE企业应用实战-第5版-
+            // AnchorName = HeaderName.replaceAll("[ :\\[\\]`\\(\\)]+", "-");
+            // AnchorName = AnchorName.replaceAll("-$", "");
+            // 给markdown标题转义
+            AnchorName = UrlEscape.escapeURL(HeaderName);
+            // 替换目录项模板中的标题名
+            tocItem = this.tocModel.replace("Header__Name", HeaderName);
+            // 替换目录项中的链接
+            tocItem = tocItem.replace("Anchor__Name", AnchorName);
+            tocItem = tocItem.replace("Toc_Depth", String.valueOf(matcher.group(1).length()));
+            // 处理好的缓存保存到成员变量中
+            this.toc.append(tocItem);
+
+        }
     }
 
 }

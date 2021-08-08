@@ -33,18 +33,23 @@ public class HexoNextTocPage extends DirProcessor {
         super(dir);
         this.rootDir = dir;
         rootPath = dir.getAbsolutePath();
+        // 摘出hexo站点的根目录
         String hexoRoot = rootPath.substring(0, rootPath.lastIndexOf(File.separator + "source" + File.separator + "_posts"));
         try {
+            // 配置文件对象
             Properties fmPt = new Properties();
+            // 读取配置文件
             fmPt.load(new InputStreamReader(new FileInputStream(hexoRoot + File.separator + "FM.properties"), "gbk"));
             // 读取配置文件,取得子站点的相对路径.
             relativeURL = fmPt.getProperty("relativeURL");
         } catch (IOException e) {
             e.printStackTrace();
         }
+        // 输出文件
         //tocFile = new File(rootPath + "/网站目录.md");
         tocFile = new File(dir.getParentFile() + "/dir/index.md");
-        System.out.println("目录文件:"+tocFile.getAbsoluteFile());
+        // 输出目录文件的地址
+        System.out.println("目录文件:" + tocFile.getAbsoluteFile());
     }
 
     @Override
@@ -54,8 +59,7 @@ public class HexoNextTocPage extends DirProcessor {
             // 遍历目录树,生成目录链接
             processingDir(rootDir);
             // System.out.println(tocFileContents.toString());
-            String hexoFrontMatter = "---\n" +
-                    "title: 网站目录\n" +
+            String hexoFrontMatter = "---\n" + "title: 网站目录\n" +
                     //"abbrlink: 508a2e34\n" +
                     "date: 2019-12-17 04:08:18\n" +
                     //"top: true\n" +
@@ -254,7 +258,7 @@ public class HexoNextTocPage extends DirProcessor {
 
         }
         //如果是二级目录
-        else if(dir.getParentFile().getParentFile().equals(rootDir)){
+        else if (dir.getParentFile().getParentFile().equals(rootDir)) {
             // 获取当前目录的名称
             //String secondSubDirName = dir.getAbsolutePath().substring(dir.getParentFile().getAbsolutePath().length() + 1);
             String secondSubDirName = dir.getName();

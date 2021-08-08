@@ -53,7 +53,8 @@ public enum RegexEnum {
     /**
      * 图片URL
      */
-    ImgURL("https?://.*(?:\\.png|\\.jpg|\\.gif)"),
+//    ImgURL("https?://.*(?:\\.png|\\.jpg|\\.gif)"),
+    ImgURL("https?://.*"),
     /**
      * 匹配没有提示文本的图片:![](https://img-blog.csdnimg.cn/20191101155722848.png)
      */
