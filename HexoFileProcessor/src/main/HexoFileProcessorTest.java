@@ -73,6 +73,27 @@ public class HexoFileProcessorTest {
             // 执行
             doOneArgIsExam();
         }
+        // 
+        else if ("addJS".equals(arg0)) {
+            String path = SystemClipboard.getSysClipboardText();
+            addMyHexoFrontMatter(path);
+        } else if ("help".equals(arg0)) {
+            String help = "";
+            help += "----------------------fm处理文件命令-----------------------------------------------\n";
+            help += "如下命令要求输入文章的决定路径，或者文章所在的目录的绝对路径\n";
+            help += " fm:      \t给文章添加HexoFrontMatter\n";
+            help += " fm addJS:\t给文章添加HexoFrontMatter+通用的TOC脚本\n";
+            help += " fm exam: \t给文章添加HexoFrontMatter+exam定制站点的TOC脚本\n";
+            help += "----------------------fm处理站点命令-----------------------------------------------\n";
+            help += "下面要求保存站点文章的目录的路径(*\\source\\_posts)\n";
+            help += " fm toc:  \t给Hexo站点生成目录页面";
+            System.out.println(help);
+            try {
+                Thread.sleep(1000*30);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         // 如果第一个个命令行参数不是“exam”,那么认为它是文件的路径
         else {
             doOneArgIsFilePath(arg0);
@@ -100,6 +121,24 @@ public class HexoFileProcessorTest {
         FileProcessor fileProcessor;
         // 使用第一个参数作为文件地址，创建Hexo文件处理器
         fileProcessor = new HexoFileProcessor(filePath);
+        // 使用Hexo文件处理器来处理文件
+        fileProcessor.processing();
+    }
+
+    /**
+     * 当第一个参数是文件的地址时，执行
+     *
+     * @param filePath 文件的地址
+     */
+    private static void addMyHexoFrontMatter(String filePath) {
+        // System.out.println("haveMyHexoFrontMatter");
+        FileProcessor fileProcessor;
+        // 使用第一个参数作为文件地址，创建Hexo文件处理器
+        HexoFileProcessor hexoFileProcessor = new HexoFileProcessor(filePath);
+        // 设置标志属性，true表示添加JS脚本
+        hexoFileProcessor.setAddJS(true);
+        // System.out.println(hexoFileProcessor.isAddMyFrontMatter());
+        fileProcessor = hexoFileProcessor;
         // 使用Hexo文件处理器来处理文件
         fileProcessor.processing();
     }

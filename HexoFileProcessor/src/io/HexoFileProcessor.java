@@ -23,6 +23,10 @@ public class HexoFileProcessor extends FileProcessor {
     private String relativeURL;
     private String scriptModel;
     HexoFrontMatter hexoFrontMatter;
+    /**
+     * 如果aisAddMyFM设置为true的话，则不添加自定义的FrontMatter
+     */
+    private boolean addJS = false;
 
     /**
      * Hexo Markdown文件处理器的构造函数。
@@ -39,14 +43,14 @@ public class HexoFileProcessor extends FileProcessor {
             // 加载Hexo站点下的配置文件“FM.properties”
             fmPt.load(new InputStreamReader(new FileInputStream(hexoRoot + File.separator + "FM.properties"), "gbk"));
             // 从配置文件中 取出 子站点的相对路径.
-            relativeURL = fmPt.getProperty("relativeURL");
+            this.relativeURL = fmPt.getProperty("relativeURL");
         } catch (IOException e) {
             e.printStackTrace();
         }
         // 取得JS代码模板
-        scriptModel = MyScript.getInstance().getScript();
+        this.scriptModel = MyScript.getInstance().getScript();
         // 取得目录列表项的模板
-        tocModel = TOC.getInstance().getToc();
+        this.tocModel = TOC.getInstance().getToc();
     }
 
     /**
@@ -57,50 +61,86 @@ public class HexoFileProcessor extends FileProcessor {
      */
     @Override
     protected String processingFileContent(String fileContent) {
+
         String oldHexoFM;
+
         Pattern myFmP = Pattern.compile(Regex.MyFrontMatter.toString());
         Matcher myFmM = myFmP.matcher(fileContent);
         Pattern hexoFmP = Pattern.compile(Regex.HexoFrontMatter.toString());
         Matcher hexoFmM = hexoFmP.matcher(fileContent);
-        // 这个要放在前面
+        // 如果存在自定义的FrontMatter
         if (myFmM.find()) {
-            // System.out.println("=============================MyFM==================================");
+            System.out.println("=============================MyFM==================================");
+            // 获取原来的FrontMatter
             oldHexoFM = myFmM.group(1);
-            fileContent = fileContent.substring(myFmM.end());
-            return generateContent(fileContent, oldHexoFM);
-        } else if (hexoFmM.find()) {
-            // System.out.println("=============================FM==================================");
-            oldHexoFM = fileContent.substring(hexoFmM.start(), hexoFmM.end());
-            fileContent = fileContent.substring(hexoFmM.end());
-
-            return generateContent(fileContent, oldHexoFM);
-        } else {
-            // System.out.println("=============================NoFM==================================");
-            hexoFrontMatter = new HexoFrontMatter(file);
-            return hexoFrontMatter.toString() + "\n" + fileContent;
+            // 从原来的文件内容中删除掉旧的FrontMatter
+            String articleBody = fileContent.substring(myFmM.end());
+            // 根据文章正文和旧的FromMatter生成新的文章
+            return generateContent(articleBody, oldHexoFM);
         }
+        // 如果存在Hexo默认的FrontMatter
+        else if (hexoFmM.find()) {
+            System.out.println("=============================FM==================================");
+            // 截取出旧的FrontMatter
+            oldHexoFM = fileContent.substring(hexoFmM.start(), hexoFmM.end());
+            // 截取出文章的正文
+            String articleBody = fileContent.substring(hexoFmM.end());
+
+            return generateContent(articleBody, oldHexoFM);
+        }
+        // 如果不存在Frontmatter
+        else {
+            System.out.println("=============================NoFM==================================");
+            // 生成FrontMatter
+            this.hexoFrontMatter = new HexoFrontMatter(file);
+            // 返回新文件的内容，FrontMatter加上原来文件的内容
+            return this.hexoFrontMatter.toString() + "\n" + fileContent;
+        }
+    }
+
+    /**
+     * 设置isAddMyFM。
+     * 如果aisAddMyFM设置为true的话，则不添加自定义的FrontMatter
+     *
+     * @param addJS 是否添加自定义脚本
+     */
+    public void setAddJS(boolean addJS) {
+        this.addJS = addJS;
+    }
+
+    /**
+     * 返回addJS成员变量的值。
+     * @return addJS成员变量的值。
+     */
+    public boolean isAddJS() {
+        return addJS;
     }
 
     /**
      * 生成更新后的文章内容.
      *
-     * @param fileContent 文章正文.
+     * @param articleBody 文章正文.
      * @param oldHexoFM   旧的HexoFrontMatter.
      * @return 更新后的HexoFrontMatter和自定义JS+文章正文.
      */
-    private String generateContent(String fileContent, String oldHexoFM) {
-        hexoFrontMatter = new HexoFrontMatter(file, oldHexoFM);
-        // System.out.println(hexoFrontMatter.getAbbrlink());
-        // 如果有没永久链接
-        if (hexoFrontMatter.getAbbrlink() == null) {
-            //System.out.println(hexoFrontMatter.getAbbrlink());
-            // 则不添加自定义的JS脚本
-            return hexoFrontMatter.toString() + "\n" + fileContent;
+    private String generateContent(String articleBody, String oldHexoFM) {
+        // System.out.println("generateContent");
+        this.hexoFrontMatter = new HexoFrontMatter(file, oldHexoFM);
+        // System.out.println(this.hexoFrontMatter.getAbbrlink());
+        // 如果没有永久链接
+        if (this.hexoFrontMatter.getAbbrlink() == null) {
+            // 没有永久链接，无法根据永久链接生成脚本，不加入脚本
+            return this.hexoFrontMatter.toString() + "\n" + articleBody;
         }
-        // 如果存在永久链接,则在FrontMatter和正文之间添加自定义脚本
-        String script = this.scriptModel.replace("INSERT_TOC_HERE", toc.toString().replace("Relative__Address", relativeURL + hexoFrontMatter.getAbbrlink() + "/"));
-        // System.out.println(script);
-        return hexoFrontMatter.toString() + "\n" + script + fileContent;
+        // 如果存在永久链接，并且要加脚本
+        if (this.addJS) {
+            // 生成脚本
+            String script = this.scriptModel.replace("INSERT_TOC_HERE", toc.toString().replace("Relative__Address", relativeURL + hexoFrontMatter.getAbbrlink() + "/"));
+            // 添加脚本
+            return this.hexoFrontMatter.toString() + "\n" + script + articleBody;
+        }
+        // 如果存在永久链接,但是要求不加脚本，那就不加脚本
+        return this.hexoFrontMatter.toString() + "\n" + articleBody;
     }
 
     /**
@@ -112,7 +152,7 @@ public class HexoFileProcessor extends FileProcessor {
     @Override
     public String readFile(File file) {
         this.file = file;
-        toc = new StringBuilder();
+        this.toc = new StringBuilder();
         StringBuilder content = new StringBuilder();
 
         boolean isCodeBlock = false;
@@ -138,7 +178,6 @@ public class HexoFileProcessor extends FileProcessor {
             e.printStackTrace();
             return null;
         }
-        // System.out.println(toc.toString());
         // 输出文章的内容
         return content.toString();
     }
@@ -178,8 +217,6 @@ public class HexoFileProcessor extends FileProcessor {
             tocItem = tocItem.replace("Toc_Depth", String.valueOf(matcher.group(1).length()));
             // 处理好的缓存保存到成员变量中
             this.toc.append(tocItem);
-
         }
     }
-
 }

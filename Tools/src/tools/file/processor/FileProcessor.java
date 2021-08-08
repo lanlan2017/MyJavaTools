@@ -23,9 +23,10 @@ public abstract class FileProcessor {
      * @param filePath 文件的路径字符串
      */
     public FileProcessor(String filePath) {
-        inputFile = new File(filePath);
         // 处理文件或目录
+        this.inputFile = new File(filePath);
     }
+
     // 获取输入的文件的File对象
     public File getInputFile() {
         return inputFile;
@@ -35,16 +36,13 @@ public abstract class FileProcessor {
      * 处理文件或目录中的所有文件.
      */
     public void processing() {
-        // File file = new File(path);
         // 如果是文件的话
         if (inputFile.isFile()) {
             // 处理这个文件.
-            // System.out.println("文件:"+inputFile.getAbsoluteFile());
             processingFile(inputFile);
         }
         // 如果是目录的话
         else if (inputFile.isDirectory()) {
-            // System.out.println("目录:"+inputFile.getAbsoluteFile());
             // 处理这个目录.
             processingDir(inputFile, filenameFilter);
         }
@@ -56,16 +54,14 @@ public abstract class FileProcessor {
      * @param file 要处理的文件.
      */
     private void processingFile(File file) {
-        // 读入文件中的字符串.
+        // 读入文件中的内容
         String fileContent = readFile(file);
-        // System.out.println("正则处理的文件:"+file.getAbsoluteFile());
-        // 处理读取到的文件内容.
+        // 处理文件中的内容
         String processedFileContent = processingFileContent(fileContent);
         // 如果文件内容改变了.
         if (processedFileContent != null) {
             // 输出提示信息
             System.out.println(message + file.getAbsolutePath());
-            // System.out.println(processedFileContent);
             // 写入文件内容.
             writeFile(file, processedFileContent);
         }
@@ -126,7 +122,9 @@ public abstract class FileProcessor {
      */
     private void writeFile(File file, String fileContent) {
         try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))) {
+            // 写入文件
             writer.write(fileContent);
+            // 刷新缓冲
             writer.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -142,8 +140,7 @@ public abstract class FileProcessor {
     protected String readFile(File file) {
         StringBuilder sb = new StringBuilder(10240);
         char[] timeChs = new char[1024];
-        try (BufferedReader reader = new BufferedReader(
-                new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))) {
             int size;
             // 读入整个数组
             while ((size = reader.read(timeChs)) != -1) {
@@ -153,7 +150,6 @@ public abstract class FileProcessor {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        // System.out.println(sb.toString());
         return sb.toString();
     }
 }
