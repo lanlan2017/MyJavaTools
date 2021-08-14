@@ -52,7 +52,7 @@ public class TestMarkdown {
                     System.out.println("方法名:" + methodName);
                     // String input = SystemClipboard.getSysClipboardText();
                     String input = "xxxx";
-                    CallInstanceMethod.oneArgMethod(className, methodName, input);
+                    CallInstanceMethod.runClassNameMethodName(className, methodName, input);
                 }
             }
         }

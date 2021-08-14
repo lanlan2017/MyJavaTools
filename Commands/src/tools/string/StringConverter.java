@@ -104,11 +104,12 @@ public class StringConverter {
 
     /**
      * 取消驼峰命名法.
+     *
      * @param str 驼峰命名法字符串
      * @return 正常字符串.
      */
-    public String cancelCameCase(String str){
-        return  str.replaceAll("(?<=[a-zA-Z])(?=[A-Z])", " ");
+    public String cancelCameCase(String str) {
+        return str.replaceAll("(?<=[a-zA-Z])(?=[A-Z])", " ");
     }
 
     public String convertFilePath(String path) {
@@ -187,12 +188,20 @@ public class StringConverter {
 
     /**
      * 格式化微博内容
+     *
      * @param weiboContent 微博博文
      * @return 格式化后的字符串
      */
-    public String formatWeibo(String weiboContent){
-        weiboContent= weiboContent.replaceAll("\\【?\\#(.+)\\#\\】?", "$1\n\n");
-        weiboContent="\n\n\n"+weiboContent;
+    public String formatWeibo(String weiboContent) {
+        weiboContent = weiboContent.replaceAll("\\【?\\#(.+)\\#\\】?", "$1\n\n");
+        weiboContent = "\n\n\n" + weiboContent;
         return weiboContent;
+    }
+
+    /**
+     * 生成格式化的日期
+     */
+    public String dateStr() {
+        return null;
     }
 }

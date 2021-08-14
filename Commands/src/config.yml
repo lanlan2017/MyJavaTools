@@ -159,6 +159,8 @@ s:
   fqxn: tools.string.StringConverter.fullyQualifiedXmlName
   # 格式化微博内容
   fmwb: tools.string.StringConverter.formatWeibo
+  # date
+  date:
 # 快捷git命令:当在其他电脑上可能会用到.
 g:
   s: git status
@@ -205,6 +207,7 @@ h:
   js: tools.html.HtmlTools.importJS
   # 展开/折叠块
   fold: tools.html.HtmlTools.flod
+  # 展开/折叠块 折叠内容我<pre>...</pre>
   dp: tools.html.HtmlTools.detailsPre
   # 多行字符串转成html无序列表
   ul: tools.html.HtmlTools.unorderedList

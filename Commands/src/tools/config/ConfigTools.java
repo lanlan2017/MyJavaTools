@@ -22,9 +22,7 @@ public class ConfigTools {
     // 私有化构造函数
     private ConfigTools() {
         Yaml yaml = new Yaml();
-        configMap = yaml.load(
-                ResourceFileReader.getInputStream(
-                        this.getClass(), "config.yml"));
+        configMap = yaml.load(ResourceFileReader.getInputStream(this.getClass(), "config.yml"));
     }
 
     // 提供获取实例的方法
@@ -33,14 +31,17 @@ public class ConfigTools {
     }
 
     public void forward(String... args) {
+        // 根据参数的长度
         switch (args.length) {
+            // 当只有一个参数的时候
             case 1:
                 // 显示帮助文档
                 help(args);
                 break;
+            // 其他情况
             default:
                 // 处理命令
-                processHardValue(args);
+                runByArgs(args);
                 break;
         }
     }
@@ -56,9 +57,13 @@ public class ConfigTools {
         //boolean isStart = false;
         //StringBuilder helpStr = new StringBuilder();
         //isStart = fileHelp(args, previousLine, isStart, helpStr);
+        // 读取配置文件
         String helpStr = fileHelp(args);
+        // 如果读取到内容
         if (!"".equals(helpStr)) {
+            // 把帮助信息写入帮助文档
             writeHelp(helpStr);
+            // 打开帮助文档
             openHelpFile();
         }
 
@@ -73,13 +78,12 @@ public class ConfigTools {
     private String fileHelp(String[] args) {
         String line;
         String previousLine = null;
-        StringBuilder helpStr = new StringBuilder();
+        StringBuilder helpBuff = new StringBuilder();
         boolean isStart = false;
         try {
-            BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(
-                            ResourceFileReader.getInputStream(this.getClass(), "config.yml")));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(ResourceFileReader.getInputStream(this.getClass(), "config.yml")));
             while ((line = reader.readLine()) != null) {
+                // 如果遇到"第一个参数:"开头
                 if (line.equals(args[0] + ":")) {
                     isStart = true;
                 }
@@ -91,13 +95,16 @@ public class ConfigTools {
                     // 输出前一行
                     //System.out.println(new String(previousLine.getBytes("utf-8"),"gbk"));
                     //System.out.println(previousLine);
-                    helpStr.append(previousLine).append("\n");
+                    // 记录下前一行
+                    helpBuff.append(previousLine).append("\n");
                 }
+                // 记录当前行，作为下一行
                 previousLine = line;
             }
+            // 最后一行的情况
             if (!previousLine.startsWith("#")) {
                 //System.out.println(previousLine);
-                helpStr.append(previousLine).append("\n");
+                helpBuff.append(previousLine).append("\n");
             }
 
             // 延时显示
@@ -106,17 +113,22 @@ public class ConfigTools {
             e.printStackTrace();
         }
         if (isStart)
-            return helpStr.toString();
+            return helpBuff.toString();
         return "";
         //return isStart;
     }
 
+    /**
+     * 把帮助文档写入文件中
+     *
+     * @param helpStr 帮助文档字符串
+     */
     private void writeHelp(String helpStr) {
         try {
-            BufferedWriter writer = new BufferedWriter(
-                    new OutputStreamWriter(
-                            new FileOutputStream(new File("help.txt"))));
-            writer.write(helpStr.toString());
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("help.txt"))));
+            // 写入文件
+            writer.write(helpStr);
+            // 把缓存刷入文件，关闭输出流
             writer.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -129,31 +141,72 @@ public class ConfigTools {
      * 显示帮助文档.
      */
     private static void openHelpFile() {
+        // 命令列表
         ArrayList<String> commands = new ArrayList<>();
+        // 要执行的命令
         commands.add("notepad.exe");
         //commands.add("code.exe");
         commands.add("help.txt");
         try {
+            // 创建进程
             ProcessBuilder runner = new ProcessBuilder(commands);
+            // 执行命令
             runner.start();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void processHardValue(String[] args) {
+    /**
+     * 根据参数执行方法
+     * @param args 命令行参数
+     */
+    private void runByArgs(String[] args) {
         // 获取命令对应的值
-        String value = getFinallyValue(args);
-        if (value.matches(RegexEnum.FQ_MethodNameUseLastArg.toString())) {
-            String fQMethodName = value.substring(0, value.lastIndexOf("_"));
+        String configValue = getFinallyValue(args);
+        // 如果 "全限定方法名_UseLastArg"的话
+        if (configValue.matches(RegexEnum.FQ_MethodNameUseLastArg.toString())) {
+            // 摘出全限定方法名
+            String fQMethodName = configValue.substring(0, configValue.lastIndexOf("_"));
+            // 获取最后的一个参数
             String lastArg = args[args.length - 1];
-            if ("cb".equals(lastArg))
-                callMethod(fQMethodName, "");
-            else
-                callMethod(fQMethodName, lastArg);
-        } else {
-            processValue(value);
+            // 如果最后一个参数时cb的话
+            if ("cb".equals(lastArg)) {
+                // 执行方法
+                // callMethod(fQMethodName, "");
+                String clipboardText = SystemClipboard.getSysClipboardText();
+                // String result = MethodCall.getInstance().callByfQMethodName(fQMethodName, "", clipboardText);
+                String result = CallInstanceMethod.runFQMethodName(fQMethodName, "", clipboardText);
+                showResult(result);
+            } else {
+                String clipboardText = SystemClipboard.getSysClipboardText();
+                // String result = MethodCall.getInstance().callByfQMethodName(fQMethodName, lastArg, clipboardText);
+                String result = CallInstanceMethod.runFQMethodName(fQMethodName, lastArg, clipboardText);
+                showResult(result);
+            }
         }
+        // 如果是全限定方法名
+        else if (configValue.matches(RegexEnum.FQ_MethodName.toString())) {
+            // System.out.println("调用方法");
+            String input = SystemClipboard.getSysClipboardText();
+            // String result = MethodCall.getInstance().callByfQMethodName(value, input);
+            String result = CallInstanceMethod.runFQMethodName(configValue, input);
+            showResult(result);
+        }
+        // 如果是地址
+        else if (configValue.matches("(?:.+?\\/)+.+?\\.[a-zA-Z]+")) {
+            // System.out.println("输出模板文件:");
+            String code = ResourceFileReader.getFileContent(this.getClass(), configValue);
+            // String code = ResourceFileReader.getFileContent(ConfigTools.class, value);
+            System.out.println(code);
+            SystemClipboard.setSysClipboardText(code);
+        }
+        // 如果都不是直接返回值
+        else {
+            SystemClipboard.setSysClipboardText(configValue);
+            System.out.println(configValue);
+        }
+
     }
 
     /**
@@ -206,62 +259,17 @@ public class ConfigTools {
         return resutl;
         //System.out.println(value);
     }
-
     /**
-     * 处理从yml配置文件中读取到的value.
+     * 显示运行结果
      *
-     * @param value 配置文件中的value字符串.
+     * @param result 运行的结果
      */
-    private void processValue(String value) {
-        // 如果是全限定方法名
-        if (value.matches(RegexEnum.FQ_MethodName.toString())) {
-            // System.out.println("调用方法");
-            callMethod(value);
-        }
-        // 如果是地址
-        else if (value.matches("(?:.+?\\/)+.+?\\.[a-zA-Z]+")) {
-            // System.out.println("输出模板文件:");
-            String code = ResourceFileReader.getFileContent(this.getClass(), value);
-            // String code = ResourceFileReader.getFileContent(ConfigTools.class, value);
-            System.out.println(code);
-            SystemClipboard.setSysClipboardText(code);
-        }
-        // 如果都不是直接返回值
-        else {
-            SystemClipboard.setSysClipboardText(value);
-            System.out.println(value);
-        }
-    }
-
-
-    private void callMethod(String fQMethodName) {
-        String className = fQMethodName.substring(0, fQMethodName.lastIndexOf("."));
-        String methodName = fQMethodName.substring(fQMethodName.lastIndexOf(".") + 1);
-        // System.out.println("类名:" + className);
-        // System.out.println("方法名:" + methodName);
-        String input = SystemClipboard.getSysClipboardText();
-        // String input = "xxxx";
-        String result = CallInstanceMethod.oneArgMethod(className, methodName, input);
-        // 如果有返回值的话就输出返回值
-        showResult(result);
-    }
-
-    private void callMethod(String fQMethodName, String arg) {
-        String className = fQMethodName.substring(0, fQMethodName.lastIndexOf("."));
-        String methodName = fQMethodName.substring(fQMethodName.lastIndexOf(".") + 1);
-        // System.out.println("类名:" + className);
-        // System.out.println("方法名:" + methodName);
-        // 获取剪贴板数据
-        String clipboardText = SystemClipboard.getSysClipboardText();
-        // String input = "xxxx";
-        String result = CallInstanceMethod.twoArgMethod(className, methodName, arg, clipboardText);
-        showResult(result);
-    }
-
     private void showResult(String result) {
         // 如果有返回值的话就输出返回值
         if (result != null) {
+            // 输出到系统剪贴板
             SystemClipboard.setSysClipboardText(result);
+            // 输出到控制台
             System.out.println(result);
         }
     }

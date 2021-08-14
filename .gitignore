@@ -9,3 +9,4 @@ out/
 *.txt
 *.png
 /OCR/src/config.properties
+Commands/src/main/Test.java
