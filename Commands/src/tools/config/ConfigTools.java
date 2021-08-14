@@ -14,14 +14,17 @@ import java.util.Map;
  * 根据配置文件中的全限定方法名,运行方法.
  */
 public class ConfigTools {
-    // 获取配置文件内容.
-    private Map<String, Object> configMap;
+    /**
+     * 配置文件得到的Map
+     */
+    private final Map<String, Object> configMap;
     // 直接创建实例
-    private static ConfigTools instance = new ConfigTools();
+    private static final ConfigTools instance = new ConfigTools();
 
     // 私有化构造函数
     private ConfigTools() {
         Yaml yaml = new Yaml();
+        // 配置文件解析为map
         configMap = yaml.load(ResourceFileReader.getInputStream(this.getClass(), "config.yml"));
     }
 
@@ -30,6 +33,11 @@ public class ConfigTools {
         return instance;
     }
 
+    /**
+     * 程序入口
+     *
+     * @param args 命令行参数
+     */
     public void forward(String... args) {
         // 根据参数的长度
         switch (args.length) {
@@ -130,8 +138,6 @@ public class ConfigTools {
             writer.write(helpStr);
             // 把缓存刷入文件，关闭输出流
             writer.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -159,106 +165,119 @@ public class ConfigTools {
 
     /**
      * 根据参数执行方法
+     *
      * @param args 命令行参数
      */
     private void runByArgs(String[] args) {
-        // 获取命令对应的值
-        String configValue = getFinallyValue(args);
-        // 如果 "全限定方法名_UseLastArg"的话
-        if (configValue.matches(RegexEnum.FQ_MethodNameUseLastArg.toString())) {
+        // 查询命令行参数中这一长串key对应的value值
+        String valueOfKeys = keySequenceValue(args);
+        // 如果value"全限定方法名_UseLastArg"的话
+        if (valueOfKeys.matches(RegexEnum.FQ_MethodNameUseLastArg.toString())) {
             // 摘出全限定方法名
-            String fQMethodName = configValue.substring(0, configValue.lastIndexOf("_"));
-            // 获取最后的一个参数
-            String lastArg = args[args.length - 1];
-            // 如果最后一个参数时cb的话
-            if ("cb".equals(lastArg)) {
-                // 执行方法
-                // callMethod(fQMethodName, "");
-                String clipboardText = SystemClipboard.getSysClipboardText();
-                // String result = MethodCall.getInstance().callByfQMethodName(fQMethodName, "", clipboardText);
-                String result = CallInstanceMethod.runFQMethodName(fQMethodName, "", clipboardText);
-                showResult(result);
-            } else {
-                String clipboardText = SystemClipboard.getSysClipboardText();
-                // String result = MethodCall.getInstance().callByfQMethodName(fQMethodName, lastArg, clipboardText);
-                String result = CallInstanceMethod.runFQMethodName(fQMethodName, lastArg, clipboardText);
+            String fQMethodName = valueOfKeys.substring(0, valueOfKeys.lastIndexOf("_"));
+            // 摘出控制串
+            String controlStr = valueOfKeys.substring(valueOfKeys.lastIndexOf("_") + 1);
+            // System.out.println("controlStr = " + controlStr);
+            // 如果控制串是
+            if ("UseLastArg".equals(controlStr)) {
+                // 获取最后的一个参数
+                String lastArg = args[args.length - 1];
+                // 如果最后一个参数时cb的话
+                if ("cb".equals(lastArg)) {
+                    // 读取剪贴板中的数据
+                    String clipboardText = SystemClipboard.getSysClipboardText();
+                    // 执行方法
+                    String result = CallInstanceMethod.runFQMethodName(fQMethodName, "", clipboardText);
+                    // 显示运行结果
+                    showResult(result);
+                } else {
+                    // 读取剪贴板中的数据
+                    String clipboardText = SystemClipboard.getSysClipboardText();
+                    // 执行方法，最后一个命令行参数作为方法的第1个参数，剪贴板中的内容作为方法的第2个参数
+                    String result = CallInstanceMethod.runFQMethodName(fQMethodName, lastArg, clipboardText);
+                    // 显示运行结果
+                    showResult(result);
+                }
+            }
+            // 如果控制串是"Parameterless"
+            else if ("Parameterless".equals(controlStr)) {
+                // System.out.println("Parameterless");
+                // 运行无参数的方法
+                String result = CallInstanceMethod.runFQMethodName(fQMethodName);
                 showResult(result);
             }
         }
         // 如果是全限定方法名
-        else if (configValue.matches(RegexEnum.FQ_MethodName.toString())) {
-            // System.out.println("调用方法");
-            String input = SystemClipboard.getSysClipboardText();
-            // String result = MethodCall.getInstance().callByfQMethodName(value, input);
-            String result = CallInstanceMethod.runFQMethodName(configValue, input);
+        else if (valueOfKeys.matches(RegexEnum.FQ_MethodName.toString())) {
+            // 读取剪贴板中的内容
+            String clipboardText = SystemClipboard.getSysClipboardText();
+            // 执行该方法，剪贴中的字符串作为该方法的第1个参数
+            String result = CallInstanceMethod.runFQMethodName(valueOfKeys, clipboardText);
+            // 显示运行结果
             showResult(result);
         }
-        // 如果是地址
-        else if (configValue.matches("(?:.+?\\/)+.+?\\.[a-zA-Z]+")) {
-            // System.out.println("输出模板文件:");
-            String code = ResourceFileReader.getFileContent(this.getClass(), configValue);
-            // String code = ResourceFileReader.getFileContent(ConfigTools.class, value);
-            System.out.println(code);
-            SystemClipboard.setSysClipboardText(code);
+        // 如果value是地址
+        else if (valueOfKeys.matches("(?:.+?\\/)+.+?\\.[a-zA-Z]+")) {
+            // 读取资源文件中的内容
+            String code = ResourceFileReader.getFileContent(this.getClass(), valueOfKeys);
+            showResult(code);
         }
-        // 如果都不是直接返回值
+        // 如果查到的value是普通字符串
         else {
-            SystemClipboard.setSysClipboardText(configValue);
-            System.out.println(configValue);
+            // 直接输出配置命令行参数对应的值
+            showResult(valueOfKeys);
         }
 
     }
 
     /**
-     * 取出嵌套map中最深的一层map的值.
+     * 在嵌套map中取出key序列对应的value值。
      *
-     * @param args 命令行参数.对应map的key.
-     * @return 配置文件中对应的value.
+     * @param args 保存key序列的数组，第一个key作为最外层map的key,最后的key是最里层map的key
+     * @return 嵌套map中，这一长串key定位到的value值
      */
-    private String getFinallyValue(String[] args) {
-        // 最后一个命令所对的value
-        Object lastArgValue;
+    private String keySequenceValue(String[] args) {
+        // 最后一个命令作为key的value
+        Object objectOfLastKey;
         // 返回值
-        String resutl = null;
-        // 缓存map
+        String valueOfLastKey = null;
+        // 配置文件对应的Map
         Map<String, Object> map = configMap;
-        // 最后一个命令所对的下标
+        // 最后一个命令行参数的下标
         final int lastArgIndex = args.length - 1;
-        // 根据前n-1个命令查找map
+        // 逐层向下取出map,取出最后一层的map
         for (int i = 0; i < lastArgIndex; i++) {
             map = (Map<String, Object>) map.get(args[i]);
-            //System.out.println("key:" + args[i] + "|value:" + map);
         }
-        // 如果存在最后一个参数
+        // 如果最后一层的map的key中找到最后一个命令行参数
+        String defaultLastKey = "default";
         if (map.containsKey(args[lastArgIndex])) {
-            // 获取最后一个参数的value
-            lastArgValue = map.get(args[lastArgIndex]);
-            //System.out.println(args[lastArgsIndex] + ":" + value);
-            // 如果最后一个参数为map
-            if (lastArgValue instanceof Map) {
-                map = (Map<String, Object>) lastArgValue;
+            // 取出最后一个命令行参数作为key时的value
+            objectOfLastKey = map.get(args[lastArgIndex]);
+            // 如果最后一个key得到的value,依然是map
+            if (objectOfLastKey instanceof Map) {
+                // 再次把value转换成map
+                map = (Map<String, Object>) objectOfLastKey;
                 // 获取default
-                if (map.containsKey("default")) {
-                    //object = map.get("default");
-                    //System.out.println("User Default|" + value);
-                    resutl = (String) map.get("default");
+                if (map.containsKey(defaultLastKey)) {
+                    // 使用最后一层的map的default键的值作为最深层的值。
+                    valueOfLastKey = (String) map.get(defaultLastKey);
                 }
             }
-            // 如果最后一个参数是字符串
-            else if (lastArgValue instanceof String) {
-                //System.out.println("User Last arg:key" + args[lastArgsIndex] + "|" + object);
-                resutl = (String) lastArgValue;
+            //  如果最后一个key得到的value,是字符串
+            else if (objectOfLastKey instanceof String) {
+                //
+                valueOfLastKey = (String) objectOfLastKey;
             }
         }
-        // 如果不存在最后一个参数,则取默认
-        else if (map.containsKey("default")) {
-            //object = map.get("default");
-            //System.out.println("default|" + object);
-            resutl = (String) map.get("default");
+        // 如果在map中的key中 找不到 最后一个命令行参数
+        else if (map.containsKey(defaultLastKey)) {
+            // 使用当前map中的default的key对应的值
+            valueOfLastKey = (String) map.get(defaultLastKey);
         }
-        return resutl;
-        //System.out.println(value);
+        return valueOfLastKey;
     }
+
     /**
      * 显示运行结果
      *

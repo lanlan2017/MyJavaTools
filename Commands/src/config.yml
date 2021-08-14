@@ -110,7 +110,7 @@ s:
   # 翻译为URL
   tlurl: tools.string.StringConverter.translateToURL
   # 大写
-  uc: tools.string.StringConverter.toUppperCase
+  uc: tools.string.StringConverter.toUpperCase
   # 小写
   lc: tools.string.StringConverter.toLowerCase
   # 首字母小写
@@ -159,8 +159,8 @@ s:
   fqxn: tools.string.StringConverter.fullyQualifiedXmlName
   # 格式化微博内容
   fmwb: tools.string.StringConverter.formatWeibo
-  # date
-  date:
+  # 生成日期字符串：yyyy年MM月dd日
+  date: tools.string.StringConverter.dateStr_Parameterless
 # 快捷git命令:当在其他电脑上可能会用到.
 g:
   s: git status

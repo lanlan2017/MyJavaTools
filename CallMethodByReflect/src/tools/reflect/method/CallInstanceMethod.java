@@ -13,13 +13,23 @@ public class CallInstanceMethod {
      * 反射运行方法
      *
      * @param fQMethodName 全限定方法名
+     */
+    public static String runFQMethodName(String fQMethodName) {
+        String className = fQMethodName.substring(0, fQMethodName.lastIndexOf("."));
+        String methodName = fQMethodName.substring(fQMethodName.lastIndexOf(".") + 1);
+        return CallInstanceMethod.runClassMethod(className, methodName);
+    }
+
+    /**
+     * 反射运行方法
+     *
+     * @param fQMethodName 全限定方法名
      * @param arg1         方法的第一个参数
      */
     public static String runFQMethodName(String fQMethodName, String arg1) {
         String className = fQMethodName.substring(0, fQMethodName.lastIndexOf("."));
         String methodName = fQMethodName.substring(fQMethodName.lastIndexOf(".") + 1);
-        String result = CallInstanceMethod.runClassNameMethodName(className, methodName, arg1);
-        return result;
+        return CallInstanceMethod.runClassMethod(className, methodName, arg1);
     }
 
     /**
@@ -35,9 +45,8 @@ public class CallInstanceMethod {
         // 从全限定方法名中取出方法名
         String methodName = fQMethodName.substring(fQMethodName.lastIndexOf(".") + 1);
         // 执行方法，传入两个参数
-        String result = CallInstanceMethod.runClassNameMethodName(className, methodName, arg1, arg2);
         // 显示运行结果
-        return result;
+        return CallInstanceMethod.runClassMethod(className, methodName, arg1, arg2);
     }
 
     /**
@@ -46,7 +55,7 @@ public class CallInstanceMethod {
      * @param className  类的全限定名.
      * @param methodName 方法名.
      */
-    public static String runClassNameMethodName(String className, String methodName) {
+    public static String runClassMethod(String className, String methodName) {
         try {
             // 生成class对象
             Class<?> class1 = Class.forName(className);
@@ -59,17 +68,8 @@ public class CallInstanceMethod {
             // 设置可以访问私有方法
             method.setAccessible(true);
             // 调用该方法
-            String result = (String) method.invoke(object);
-            return result;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+            return (String) method.invoke(object);
+        } catch (ClassNotFoundException | InvocationTargetException | IllegalAccessException | InstantiationException | NoSuchMethodException e) {
             e.printStackTrace();
         }
         return null;
@@ -82,7 +82,7 @@ public class CallInstanceMethod {
      * @param methodName 方法名.
      * @param arg        方法的形参.
      */
-    public static String runClassNameMethodName(String className, String methodName, String arg) {
+    public static String runClassMethod(String className, String methodName, String arg) {
 
         try {
             String result;
@@ -97,15 +97,7 @@ public class CallInstanceMethod {
             // invoke方法的第一个参数是要调用方法的拥有者,后面剩下的参数是该方法的实参列表
             result = (String) method.invoke(object, arg);
             return result;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+        } catch (ClassNotFoundException | InvocationTargetException | IllegalAccessException | InstantiationException | NoSuchMethodException e) {
             e.printStackTrace();
         }
         return null;
@@ -119,7 +111,7 @@ public class CallInstanceMethod {
      * @param arg1       参数1
      * @param arg2       参数2
      */
-    public static String runClassNameMethodName(String className, String methodName, String arg1, String arg2) {
+    public static String runClassMethod(String className, String methodName, String arg1, String arg2) {
 
         try {
             String result;
@@ -136,15 +128,7 @@ public class CallInstanceMethod {
             result = (String) method.invoke(object, arg1, arg2);
             // 返回运行结果
             return result;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+        } catch (ClassNotFoundException | InvocationTargetException | IllegalAccessException | InstantiationException | NoSuchMethodException e) {
             e.printStackTrace();
         }
         return null;

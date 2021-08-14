@@ -11,11 +11,11 @@ public class CallInstanceMethodTest {
     }
 
     private static void testCallNoArgMethod() {
-        CallInstanceMethod.runClassNameMethodName("Markdown","bold");
+        CallInstanceMethod.runClassMethod("Markdown","bold");
     }
 
     private static void testCallOneArgMethod() {
-        String result = CallInstanceMethod.runClassNameMethodName("Markdown", "bold", "xxxxx");
+        String result = CallInstanceMethod.runClassMethod("Markdown", "bold", "xxxxx");
         System.out.println(result);
     }
 }

@@ -25,8 +25,9 @@ public class Test {
         // ConfigTools.getInstance().forward("m", "cb", "plantuml");
         // ConfigTools.getInstance().forward("suanfa", "2qq", "c");
         // ConfigTools.getInstance().forward("suanfa", "2qq");
-        // ConfigTools.getInstance().forward("m", "cb","j");
-        ConfigTools.getInstance().forward("h", "t");
+        // ConfigTools.getInstance().forward("m", "cb");
+        // ConfigTools.getInstance().forward("h", "t");
+        ConfigTools.getInstance().forward("s", "date");
 
     }
 }

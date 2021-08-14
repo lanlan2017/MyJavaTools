@@ -1,5 +1,7 @@
 package tools.string;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,7 +16,7 @@ public class StringConverter {
      * @param input 需要转换的字符串.
      * @return 全部变成大写后的字符串.
      */
-    public String toUppperCase(String input) {
+    public String toUpperCase(String input) {
         return input.toUpperCase();
     }
 
@@ -202,6 +204,7 @@ public class StringConverter {
      * 生成格式化的日期
      */
     public String dateStr() {
-        return null;
+        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
+        return format.format(new Date());
     }
 }
