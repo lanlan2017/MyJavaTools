@@ -5,7 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * 通过反射调用方法.
+ * 通过反射调用对象的方法
  */
 public class CallInstanceMethod {
 
