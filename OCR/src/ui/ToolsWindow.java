@@ -1,6 +1,7 @@
 package ui;
 
 import ui.toolbar.ToolBar;
+import ui.toolbar.buttons.MoveLabel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,6 +11,7 @@ import java.awt.*;
  */
 public class ToolsWindow extends JWindow {
     private static final ToolsWindow instance = new ToolsWindow(0, 0);
+    private JPanel toolPanel;
     private static final long serialVersionUID = 1L;
 
     private ToolsWindow(int x, int y) {
@@ -38,6 +40,20 @@ public class ToolsWindow extends JWindow {
      */
     private void init() {
         this.setLayout(new BorderLayout());
-        this.add(ToolBar.getInstance().getToolBar(), BorderLayout.NORTH);
+        // 创建面板
+        toolPanel = new JPanel();
+        // 面板中加入标签
+        toolPanel.add(MoveLabel.getInstance().getLabel());
+        // 面板中加入工具条
+        toolPanel.add(ToolBar.getInstance().getToolBar());
+        // 把面板放到窗口中
+        this.add(toolPanel, BorderLayout.NORTH);
+    }
+
+    /**
+     * 设置窗体的默认位置
+     */
+    public static void defaultLocation() {
+        ToolsWindow.getInstance().setLocation(80, 0);
     }
 }

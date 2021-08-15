@@ -11,14 +11,24 @@ import javax.swing.*;
  */
 public class ToolBar {
     private static ToolBar instance = new ToolBar();
+    // 工具条
     private JToolBar toolBar;
+    /**
+     * 二级选择框
+     */
     private JComboBox<String> subCombox;
 
     private ToolBar() {
+        // panel=new JPanel();
+        // panel.add(MoveLabel.getInstance().getLabel());
+        // moveLable=MoveLabel.getInstance().getLabel();
+        // moveLable.setVisible(true);
         toolBar = new JToolBar("Java 截图");
         // 设置工具条不可拖动
         toolBar.setFloatable(false);
+        // 添加按钮到工具条上
         addToolBarButtons();
+        // panel.setVisible(true);
     }
 
     /**
@@ -36,7 +46,7 @@ public class ToolBar {
      */
     public void addToolBarButtons() {
         // 添加 移动 标签
-        toolBar.add(MoveLabel.getInstance().getLabel());
+        // toolBar.add(MoveLabel.getInstance().getLabel());
         // 添加 截屏 按钮
         toolBar.add(SreenShotButtons.getInstance().getStartButton());
         // 添加 取消截屏 按钮
@@ -52,6 +62,7 @@ public class ToolBar {
         }
         // 添加 退出 按钮
         toolBar.add(ExitButton.getInstance().getExitButton());
+        // panel.add(toolBar);
     }
 
     public static ToolBar getInstance() {

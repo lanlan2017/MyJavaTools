@@ -20,7 +20,7 @@ public class SreenShotButtons {
             // 不显示截屏窗口
             ScreenShotWindow.getInstance().setVisible(false);
             // 移动窗体到最左边
-            ToolsWindow.getInstance().setLocation(0, 0);
+            ToolsWindow.defaultLocation();
         });
         startButton = new JButton("截屏");
         startButton.addActionListener(e -> {

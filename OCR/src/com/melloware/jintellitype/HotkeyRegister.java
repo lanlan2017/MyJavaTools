@@ -68,7 +68,7 @@ public class HotkeyRegister
                     // 让窗口不显示
                     ScreenShotWindow.getInstance().setVisible(false);
                     // 将工具条移动到左上角
-                    ToolsWindow.getInstance().setLocation(0, 0);
+                    ToolsWindow.defaultLocation();
                     break;
                 // 百度文字识别
                 case BAIDUOCR_HOT_KEY :

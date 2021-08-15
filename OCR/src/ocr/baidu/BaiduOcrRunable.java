@@ -65,8 +65,9 @@ public class BaiduOcrRunable implements Runnable {
         // 将按钮设置成原来的颜色
         baiduOCRButton.setBackground(defaultColor);
         // 移动工具栏到左上角，避免挡住屏幕不好阅读
-        ToolsWindow.getInstance().setLocation(0, 0);
+        ToolsWindow.defaultLocation();
     }
+
 
     /**
      * 格式化OCR得到的字符串.
