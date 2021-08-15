@@ -1,6 +1,7 @@
 package ui.toolbar;
 
 import ui.ToolsWindow;
+import ui.setting.FontTools;
 import ui.toolbar.buttons.*;
 import ui.toolbar.combox.first.FirstComBox;
 
@@ -24,6 +25,7 @@ public class ToolBar {
         // moveLable=MoveLabel.getInstance().getLabel();
         // moveLable.setVisible(true);
         toolBar = new JToolBar("Java 截图");
+        toolBar.setFont(FontTools.f1);
         // 设置工具条不可拖动
         toolBar.setFloatable(false);
         // 添加按钮到工具条上
@@ -36,6 +38,7 @@ public class ToolBar {
      */
 
     public void repaintToolBar() {
+        // FontTools.initGobalFont(FontTools.f1);
         ToolBar.getInstance().getToolBar().removeAll();
         ToolBar.getInstance().addToolBarButtons();
         ToolsWindow.getInstance().pack();

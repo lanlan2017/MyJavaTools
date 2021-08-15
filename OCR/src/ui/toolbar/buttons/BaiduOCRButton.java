@@ -1,6 +1,7 @@
 package ui.toolbar.buttons;
 
 import ocr.baidu.BaiduOcrRunable;
+import ui.setting.FontTools;
 
 import javax.swing.*;
 
@@ -14,6 +15,7 @@ public class BaiduOCRButton {
 
     private BaiduOCRButton() {
         baiduOCRButton = new JButton("OCR");
+        baiduOCRButton.setFont(FontTools.f1);
         baiduOCRButton.addActionListener(e -> {
             // 使用百度文字识别
             BaiduOcrRunable.startBaiduOCR();

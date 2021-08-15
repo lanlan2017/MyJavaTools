@@ -1,5 +1,6 @@
 package ui;
 
+import ocr.baidu.config.Config;
 import ui.toolbar.ToolBar;
 import ui.toolbar.buttons.MoveLabel;
 
@@ -10,7 +11,7 @@ import java.awt.*;
  * 操作窗口
  */
 public class ToolsWindow extends JWindow {
-    private static final ToolsWindow instance = new ToolsWindow(0, 0);
+    private static final ToolsWindow instance = new ToolsWindow(80, 0);
     private JPanel toolPanel;
     private static final long serialVersionUID = 1L;
 
@@ -22,6 +23,8 @@ public class ToolsWindow extends JWindow {
         this.pack();
         // 永远显示在其他程序上方
         this.setAlwaysOnTop(true);
+        // // 设置透明度
+        this.setOpacity(Config.getInstance().getOpacity());
         // 显示窗体
         this.setVisible(true);
     }

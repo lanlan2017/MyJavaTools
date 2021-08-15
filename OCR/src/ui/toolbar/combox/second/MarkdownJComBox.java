@@ -11,6 +11,7 @@ import formatter.markdown.multiline.codeblock.MdCbJsp;
 import formatter.markdown.multiline.codeblock.MdCbSql;
 import formatter.markdown.multiline.codeblock.MdCbHtml;
 import ocr.baidu.BaiduOcrRunable;
+import ui.setting.FontTools;
 
 import javax.swing.*;
 import java.awt.event.ItemEvent;
@@ -37,6 +38,7 @@ public class MarkdownJComBox {
     private MarkdownJComBox() {
         String[] markdownItems = {"单行代码", "多行代码","加粗", "无序列表","有序列表", "Java代码块", "SQL代码块","html代码块","JSP代码"};
         comboBox = new JComboBox<>(markdownItems);
+        comboBox.setFont(FontTools.f1);
         comboBox.addItemListener(markdownE -> {
             // 如果是选中的话
             if (ItemEvent.SELECTED == markdownE.getStateChange()) {

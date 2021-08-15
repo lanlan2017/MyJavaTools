@@ -2,6 +2,7 @@ package ui.toolbar.combox.second;
 
 import formatter.pdf.PdfBookmarkCmdFormatter;
 import ocr.baidu.BaiduOcrRunable;
+import ui.setting.FontTools;
 
 import javax.swing.*;
 import java.awt.event.ItemEvent;
@@ -31,6 +32,7 @@ public class BookMarkJComBox {
         String[] bookMarkItems = {"书签x.x.x", "书签x.xx", "书签x.xx.x", "书签xx.x",
                 "书签xx.x.x", "书签xx.xx", "书签xx.xx.x"};
         comboBox = new JComboBox<>(bookMarkItems);
+        comboBox.setFont(FontTools.f1);
         comboBox.addItemListener(markdownE -> {
             // 如果是选中的话
             if (ItemEvent.SELECTED == markdownE.getStateChange()) {

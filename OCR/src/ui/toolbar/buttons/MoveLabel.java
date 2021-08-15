@@ -1,6 +1,7 @@
 package ui.toolbar.buttons;
 
 import ui.ToolsWindow;
+import ui.setting.FontTools;
 import ui.toolbar.ToolBar;
 
 import javax.swing.*;
@@ -21,6 +22,7 @@ public class MoveLabel {
 
     private MoveLabel() {
         label = new JLabel("移动");
+        label.setFont(FontTools.f1);
         // 监听事件,移动窗体
         label.addMouseListener(new MouseAdapter() {
             @Override

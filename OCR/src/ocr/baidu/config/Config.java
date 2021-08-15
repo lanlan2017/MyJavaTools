@@ -8,6 +8,7 @@ public class Config {
     private final String APP_ID;
     private final String API_KEY;
     private final String SECRET_KEY;
+    private final  float opacity;
     private static Config instance = new Config();
 
     private Config() {
@@ -22,6 +23,7 @@ public class Config {
         APP_ID = properties.getProperty("APP_ID");
         API_KEY = properties.getProperty("API_KEY");
         SECRET_KEY = properties.getProperty("SECRET_KEY");
+        opacity= Float.parseFloat(properties.getProperty("opacity", "0.1f"));
 //		System.out.println(APP_ID);
 //		System.out.println(API_KEY);
 //		System.out.println(SECRET_KEY);
@@ -43,4 +45,7 @@ public class Config {
         return SECRET_KEY;
     }
 
+    public float getOpacity() {
+        return opacity;
+    }
 }
