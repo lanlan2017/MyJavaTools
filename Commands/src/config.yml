@@ -42,6 +42,8 @@ m:
   u2o: tools.markdown.MardownConverter.unorderList2OrderList
   # 行内代码转加粗
   k2b: tools.markdown.MardownConverter.inlineCodeToBold
+  # 高亮，对应<mark></mark>标签
+  mark: tools.markdown.MarkdownTools.mark
   # 图片
   img:
     # markdown图片
@@ -161,6 +163,8 @@ s:
   fmwb: tools.string.StringConverter.formatWeibo
   # 生成日期字符串：yyyy年MM月dd日
   date: tools.string.StringConverter.dateStr_Parameterless
+  # 生成连接手机的adb命令
+  adb: tools.string.StringConverter.adb
 # 快捷git命令:当在其他电脑上可能会用到.
 g:
   s: git status

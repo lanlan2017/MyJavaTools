@@ -207,4 +207,15 @@ public class StringConverter {
         SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
         return format.format(new Date());
     }
+
+    /**
+     * 生成开启手机WiFi调试的adb命令
+     *
+     * @param ip 手机的ip地址
+     * @return 开启WiFi调试的adb命令
+     */
+    public String adb(String ip) {
+        return "adb connect " + ip + ":5555";
+
+    }
 }

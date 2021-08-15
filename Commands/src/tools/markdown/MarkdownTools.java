@@ -333,10 +333,18 @@ public class MarkdownTools {
      * @return dot语法的PlantUML代码块
      */
     public String codeBlockPlantUmlDot(String code) {
-        code = "```plantuml\n" +
-                "@startdot\n" + code + "\n@enddot\n" +
-                "```";
+        code = "```plantuml\n" + "@startdot\n" + code + "\n@enddot\n" + "```";
         return code;
+    }
+
+    /**
+     * 生成markdown高亮标签
+     *
+     * @param str 要标记的内容
+     * @return markdown标记代码
+     */
+    public String mark(String str) {
+        return "==" + str + "==";
     }
 
     /**
