@@ -143,16 +143,20 @@ public class HtmlTools {
         str = str.replaceAll("(?m)<html.+>", "<html>");
         // 删除版权
         str = str.replaceAll("(?m)^[ \\t]+<meta name=\"website\" content=\"http://www\\.crazyit\\.org\" />$\\n", "");
-        str = str.replace("<%--\n" +
-                "网站: <a href=\"http://www.crazyit.org\">疯狂Java联盟</a>\n" +
-                "author  yeeku.H.lee kongyeeku@163.com\n" +
-                "version  1.0\n" +
-                "Copyright (C), 2001-2018, yeeku.H.Lee\n" +
-                "This program is protected by copyright laws.\n" +
-                "Program Name:\n" +
-                "Date: \n" +
-                "--%>\n", "");
+        str = str.replace("<%--\n" + "网站: <a href=\"http://www.crazyit.org\">疯狂Java联盟</a>\n" + "author  yeeku.H.lee kongyeeku@163.com\n" + "version  1.0\n" + "Copyright (C), 2001-2018, yeeku.H.Lee\n" + "This program is protected by copyright laws.\n" + "Program Name:\n" + "Date: \n" + "--%>\n", "");
         return str;
     }
 
+    /**
+     * html代码转txt
+     *
+     * @param html html代码
+     * @return 纯文本
+     */
+    public String toTxt(String html) {
+        // html="<mark>settings设置</mark>";
+        String txtRegex = "\\<([a-z]+)\\>(.+?)\\<\\/\\1\\>";
+        html = html.replaceAll(txtRegex, "$2");
+        return html;
+    }
 }

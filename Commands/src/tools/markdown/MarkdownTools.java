@@ -348,6 +348,19 @@ public class MarkdownTools {
     }
 
     /**
+     * markdown转成html代码
+     *
+     * @return html代码。
+     */
+    public String toHtml(String markdownCode) {
+        // markdownCode = "`properties`属性";
+        String codeRegex = "\\`(.+?)\\`";
+        markdownCode = markdownCode.replaceAll(codeRegex, "<code>$1</code>");
+
+        return markdownCode;
+    }
+
+    /**
      * 中文标点符号转成英文标点符号.
      *
      * @param code 可能有中文表单符号的字符串.

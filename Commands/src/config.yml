@@ -44,6 +44,8 @@ m:
   k2b: tools.markdown.MardownConverter.inlineCodeToBold
   # 高亮，对应<mark></mark>标签
   mark: tools.markdown.MarkdownTools.mark
+  # markdown代码转成html
+  2html: tools.markdown.MarkdownTools.toHtml
   # 图片
   img:
     # markdown图片
@@ -229,7 +231,8 @@ h:
     default: tools.html.Html2MarkDown.toMd
     # HTML table单行代码 转markdown table
     table: tools.html.Html2MarkDown.htmlOneLineTable2MdTable
-
+  # 移除html标签，转成纯文本
+  2txt: tools.html.HtmlTools.toTxt
 # java代码模板
 j:
   # 生成for语句

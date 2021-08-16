@@ -27,7 +27,8 @@ public class Test {
         // ConfigTools.getInstance().forward("suanfa", "2qq");
         // ConfigTools.getInstance().forward("m", "cb");
         // ConfigTools.getInstance().forward("h", "t");
-        ConfigTools.getInstance().forward("s", "date");
+        // ConfigTools.getInstance().forward("s", "date");
+        ConfigTools.getInstance().forward("m", "2html");
 
     }
 }
