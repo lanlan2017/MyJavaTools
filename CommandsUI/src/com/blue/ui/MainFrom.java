@@ -1,5 +1,9 @@
 package com.blue.ui;
 
+import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatIntelliJLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 import tools.config.ConfigTools;
 
 import javax.swing.*;
@@ -176,8 +180,22 @@ public class MainFrom {
         frame.pack();
     }
 
+    /**
+     * 设置窗口初始界面
+     *
+     * @param mainFrom 主界面
+     * @param frame    窗体
+     */
+    private static void mainFromSetting(MainFrom mainFrom, JFrame frame) {
+        // 记下窗体的引用
+        mainFrom.frame = frame;
+        // 该开始的时候不要显示文本域
+        mainFrom.textArea.setVisible(false);
+    }
+
     public static void main(String[] args) {
         MainFrom mainFrom = new MainFrom();
+
         JFrame frame = new JFrame("MainFrom");
         // 设置面板到窗体上
         frame.setContentPane(mainFrom.panel);
@@ -193,26 +211,17 @@ public class MainFrom {
         // 永远置顶
         frame.setAlwaysOnTop(true);
 
-
         // 设置初始界面
         mainFromSetting(mainFrom, frame);
-
+        // 设置主题
+        // FlatDarkLaf.setup();
+        FlatLightLaf.setup();
+        // 给所有的组件都使用该主题
+        SwingUtilities.updateComponentTreeUI(frame);
         // 最合适的方式显示
         frame.pack();
         // 显示窗体
         frame.setVisible(true);
     }
 
-    /**
-     * 设置窗口初始界面
-     *
-     * @param mainFrom 主界面
-     * @param frame    窗体
-     */
-    private static void mainFromSetting(MainFrom mainFrom, JFrame frame) {
-        // 记下窗体的引用
-        mainFrom.frame = frame;
-        // 该开始的时候不要显示文本域
-        mainFrom.textArea.setVisible(false);
-    }
 }
