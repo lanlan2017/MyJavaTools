@@ -7,6 +7,7 @@ import tools.config.ConfigTools;
  */
 public class Main {
     public static void main(String[] args) {
-        ConfigTools.getInstance().forward(args);
+        String result = ConfigTools.getInstance().forward(args);
+        ConfigTools.getInstance().showResult(result);
     }
 }

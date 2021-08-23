@@ -194,7 +194,8 @@ g:
   rb: git rebase
   rbi: git rebase -i
 # html命令
-h:
+#h:
+html:
   # 其他命令
   default: tools.html.HtmlTools.htmlDefault_UseLastArg
   # html5模板
