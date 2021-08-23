@@ -28,7 +28,8 @@ public class Test {
         // ConfigTools.getInstance().forward("m", "cb");
         // ConfigTools.getInstance().forward("h", "t");
         // ConfigTools.getInstance().forward("s", "date");
-        ConfigTools.getInstance().forward("m", "2html");
+        String result = ConfigTools.getInstance().forward("g", "s");
+        ConfigTools.getInstance().showResult(result);
 
     }
 }
