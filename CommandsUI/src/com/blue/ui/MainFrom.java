@@ -6,7 +6,9 @@ import tools.config.ConfigTools;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class MainFrom {
@@ -135,19 +137,21 @@ public class MainFrom {
                     if (!"".equals(input) && input != null) {
                         // 处理输入的文本
                         String output = doTextField(input);
-                        // 统计结果有多少行
-                        int[] line = countRows(output);
-                        // 设置文本框的行数和结果一样
-                        textArea.setRows(line[0]);
-                        textArea.setColumns(line[1]);
-                        // 重绘UI
-                        // panel.repaint();
-                        textArea.repaint();
-                        // 显示最合适的大小
-                        frame.pack();
-                        // textArea.repaint();
-                        // 处理结果写到文本域中
-                        textArea.setText(output);
+                        if(output!=null){
+                            // 统计结果有多少行
+                            int[] line = countRows(output);
+                            // 设置文本框的行数和结果一样
+                            textArea.setRows(line[0]);
+                            textArea.setColumns(line[1]);
+                            // 重绘UI
+                            // panel.repaint();
+                            textArea.repaint();
+                            // 显示最合适的大小
+                            frame.pack();
+                            // textArea.repaint();
+                            // 处理结果写到文本域中
+                            textArea.setText(output);
+                        }
                     }
                 }
             }
@@ -171,8 +175,8 @@ public class MainFrom {
                     rowColLength[0]++;
                 }
                 scanner.close();
-                System.out.println("行数："+rowColLength[0]);
-                System.out.println("列数："+rowColLength[1]);
+                System.out.println("行数：" + rowColLength[0]);
+                System.out.println("列数：" + rowColLength[1]);
                 return rowColLength;
             }
         });
@@ -227,6 +231,7 @@ public class MainFrom {
         // 整个窗体最小显示
         frame.pack();
     }
+
     /**
      * 初始化系统托盘
      */
@@ -243,8 +248,19 @@ public class MainFrom {
             ImageIcon icon = new ImageIcon(resource);
             // 创建弹出式菜单
             PopupMenu pop = new PopupMenu();
+
+            String str = "显示主界面";
+            // try {
+            //     // byte[] b ="显示主界面".getBytes("UTF-8");
+            //     // String s1 = new String(b, "GBK"); // 按GBK转换
+            //     str = new String(str.getBytes("GBK"), "UTF-8");
+            // } catch (UnsupportedEncodingException e) {
+            //     e.printStackTrace();
+            // }
+
+
             // 创建 显示菜单项
-            MenuItem displayJFrameItem = new MenuItem("Show Frame");
+            MenuItem displayJFrameItem = new MenuItem(str);
             // 给 显示窗体菜单项 添加事件处理程序
             displayJFrameItem.addActionListener(new ActionListener() {
                 @Override
@@ -256,7 +272,7 @@ public class MainFrom {
             pop.add(displayJFrameItem);
 
             // 创建 退出菜单项
-            MenuItem exitItem = new MenuItem("exit");
+            MenuItem exitItem = new MenuItem("退出");
             // 给 退出菜单项 添加事件监听器，单击时退出系统
             exitItem.addActionListener(new ActionListener() {
                 @Override

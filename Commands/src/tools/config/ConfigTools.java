@@ -90,7 +90,7 @@ public class ConfigTools {
         StringBuilder helpBuff = new StringBuilder();
         boolean isStart = false;
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(ResourceFileReader.getInputStream(this.getClass(), "config.yml")));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(ResourceFileReader.getInputStream(this.getClass(), "config.yml"), "UTF-8"));
             while ((line = reader.readLine()) != null) {
                 // 如果遇到"第一个参数:"开头
                 if (line.equals(args[0] + ":")) {
@@ -134,7 +134,7 @@ public class ConfigTools {
      */
     private void writeHelp(String helpStr) {
         try {
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("help.txt"))));
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("help.txt")), "UTF-8"));
             // 写入文件
             writer.write(helpStr);
             // 把缓存刷入文件，关闭输出流
@@ -299,6 +299,7 @@ public class ConfigTools {
             System.out.println(result);
         }
     }
+
     /**
      * 显示运行结果
      *

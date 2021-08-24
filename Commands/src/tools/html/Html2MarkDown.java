@@ -1,5 +1,7 @@
 package tools.html;
 
+import tools.string.StringDeleter;
+
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -98,9 +100,14 @@ public class Html2MarkDown {
         str = str.replaceAll("[ ]+", " ");
         // 删除多余的空格转义字符
         str = str.replaceAll("(?:&nbsp;)+", " ");
+        // 删除多余的连续的空白行
+        str = str.replaceAll("(?m)(^ *?$\\r?\\n)+", "\n");
+
+        //替换无序列表
         if (Pattern.compile("\\<ul\\>").matcher(str).find()) {
             str = htmlUl2MdUl(str);
         }
+        // 替换行内代码
         if (Pattern.compile("\\<code\\>").matcher(str).find()) {
             str = htmlCode2MdCode(str);
         }
