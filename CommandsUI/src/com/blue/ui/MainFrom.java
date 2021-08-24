@@ -130,6 +130,8 @@ public class MainFrom {
                     // 获取文本框的内容
                     String input = textField.getText();
                     if (!"".equals(input) && input != null) {
+                        // 设置标题的名称作为提示信息
+                        frame.setTitle(input);
                         // 处理输入的文本
                         String output = doTextField(input);
                         // System.out.println(output);
