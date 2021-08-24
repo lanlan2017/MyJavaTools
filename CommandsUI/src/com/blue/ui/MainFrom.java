@@ -1,14 +1,12 @@
 package com.blue.ui;
 
-import com.formdev.flatlaf.FlatDarculaLaf;
-import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import tools.config.ConfigTools;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Scanner;
 
 public class MainFrom {
 
@@ -18,9 +16,10 @@ public class MainFrom {
     private JTextField textField;
     private JTextArea textArea;
     private JLabel lable;
+    private JScrollPane scrollPane;
 
-    public MainFrom() {
-
+    public MainFrom(JFrame frame) {
+        this.frame = frame;
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -29,7 +28,8 @@ public class MainFrom {
         });
 
         // 监听面板事件
-        panel.addMouseMotionListener(new MouseAdapter() {
+        // panel.addMouseMotionListener(new MouseAdapter() {
+        frame.addMouseMotionListener(new MouseAdapter() {
             private boolean isNearTop = false;
             private boolean isNearBottom = false;
             private boolean isNearLeft = false;
@@ -131,10 +131,45 @@ public class MainFrom {
                     if (!"".equals(input) && input != null) {
                         // 处理输入的文本
                         String output = doTextField(input);
+                        // 统计结果有多少行
+                        int[] line = countRows(output);
+                        // 设置文本框的行数和结果一样
+                        textArea.setRows(line[0]);
+                        textArea.setColumns(line[1]);
+                        // 重绘UI
+                        // panel.repaint();
+                        textArea.repaint();
+                        // 显示最合适的大小
+                        frame.pack();
+                        // textArea.repaint();
                         // 处理结果写到文本域中
                         textArea.setText(output);
                     }
                 }
+            }
+
+            private int[] countRows(String output) {
+                int[] rowColLength = new int[2];
+                // int maxLenth = 0;
+                // int rowColLength[0] = 0;
+                String lineStr;
+                int lineLength;
+                Scanner scanner = new Scanner(output);
+                while (scanner.hasNext()) {
+                    // 读取行
+                    lineStr = scanner.nextLine();
+                    // 获取行的长度
+                    lineLength = lineStr.length();
+                    // 记下最长的行的长度
+                    if (lineLength > rowColLength[1]) {
+                        rowColLength[1] = lineLength;
+                    }
+                    rowColLength[0]++;
+                }
+                scanner.close();
+                System.out.println("行数："+rowColLength[0]);
+                System.out.println("列数："+rowColLength[1]);
+                return rowColLength;
             }
         });
     }
@@ -161,11 +196,19 @@ public class MainFrom {
      * 显示文本域
      */
     private void showTextArea() {
+        // // 如果textArea不可见
+        // if (!textArea.isVisible()) {
+        //     // 设置为可见
+        //     // textArea.setVisible(true);
+        // }
+        //
         // 如果textArea不可见
-        if (!textArea.isVisible()) {
+        if (!scrollPane.isVisible()) {
             // 设置为可见
-            textArea.setVisible(true);
+            // textArea.setVisible(true);
+            scrollPane.setVisible(true);
         }
+
         // 重绘组件
         repaint();
     }
@@ -175,7 +218,8 @@ public class MainFrom {
      */
     private void repaint() {
         // 重绘面板
-        panel.repaint();
+        // panel.repaint();
+        frame.repaint();
         // 整个窗体最小显示
         frame.pack();
     }
@@ -188,15 +232,16 @@ public class MainFrom {
      */
     private static void mainFromSetting(MainFrom mainFrom, JFrame frame) {
         // 记下窗体的引用
-        mainFrom.frame = frame;
+        // mainFrom.frame = frame;
         // 该开始的时候不要显示文本域
-        mainFrom.textArea.setVisible(false);
+        // mainFrom.textArea.setVisible(false);
+        mainFrom.scrollPane.setVisible(false);
     }
 
     public static void main(String[] args) {
-        MainFrom mainFrom = new MainFrom();
-
         JFrame frame = new JFrame("MainFrom");
+        MainFrom mainFrom = new MainFrom(frame);
+
         // 设置面板到窗体上
         frame.setContentPane(mainFrom.panel);
         // // 设置关闭按钮功能
@@ -210,6 +255,8 @@ public class MainFrom {
         frame.setUndecorated(true);
         // 永远置顶
         frame.setAlwaysOnTop(true);
+        // 设置透明度
+        frame.setOpacity(0.5f);
 
         // 设置初始界面
         mainFromSetting(mainFrom, frame);
