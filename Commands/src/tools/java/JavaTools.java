@@ -80,4 +80,41 @@ public class JavaTools {
         javaCode = javaCode.replaceAll("([ \t]+)(.+)(//.+)", "$1$3\n$1$2");
         return javaCode;
     }
+
+    /**
+     * 交换参数的位置
+     *
+     * @param parametersStr 两个参数字符串，以逗号作为分隔
+     * @return 交换位置后的参数字符串
+     */
+    public String exchangeParameterOrder(String parametersStr) {
+        // parametersStr = "property = \"id\",column = \"id\"";
+        if (parametersStr.matches("^[^,]+?,[^,]+?$")) {
+            String[] parameters = parametersStr.split(",");
+            return parameters[1] + "," + parameters[0];
+        }
+        return "参数错误，请输入`参数1,参数2`形式的字符串！";
+    }
+
+    /**
+     * 格式化mybatis，的@Results注解
+     *
+     * @param resultsAn 注解字符串
+     * @return 格式化后的字符串。
+     */
+    public String mybatisResultsFormat(String resultsAn) {
+        String input = "    @Results({ @Result(property = \"id\", column = \"id\", id = true), @Result(property = \"name\", column = \"name\"),\n" + "            @Result(property = \"sex\", column = \"sex\"), @Result(property = \"age\", column = \"age\"),\n" + "            @Result(property = \"card\", column = \"card_id\", one = @One(select = \"mapper.CardMapper.selectCardByCardID\", fetchType = FetchType.EAGER)) })\n";
+        // 制表符转换为空格
+        resultsAn = resultsAn.replaceAll("\t", "    ");
+        // 交换@Result中property和column的位置，把column放到property的前面
+        resultsAn = resultsAn.replaceAll("\\((property[ ]?=[ ]?\".+?\"),[ ]?(column[ ]?=[ ]?\".+?\")", "($2,$1");
+        // 两个以上的空格转换为一个空格
+        resultsAn = resultsAn.replaceAll("[ ]{2,}", " ");
+        // 删除多余的换行符
+        resultsAn = resultsAn.replaceAll("(?m)\\r?\\n", "");
+        //  每个@Result()占据一行，并缩进四个空格
+        resultsAn = resultsAn.replaceAll(" @Result\\(", "\n    @Result(");
+        resultsAn = resultsAn.replaceAll("\\}\\)", "\n})");
+        return resultsAn;
+    }
 }

@@ -254,6 +254,10 @@ j:
   f:
     # 格式化单行注释,把放在末尾的单行注释移动到代码行的上方
     c: tools.java.JavaTools.formatSingleLineComments
+    # 格式化mybatis注解的@Results标签
+    myrs: tools.java.JavaTools.mybatisResultsFormat
+  # 交换参数的顺序(Exchange parameter order)，例如:`int a,int b`交换后变成`int b,int a`
+  ecpo: tools.java.JavaTools.exchangeParameterOrder
 # 算法
 suanfa:
   # 冒泡排序
