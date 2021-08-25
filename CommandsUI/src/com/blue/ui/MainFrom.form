@@ -62,6 +62,7 @@
             <constraints/>
             <properties>
               <columns value="25"/>
+              <font name="YaHeiConsola"/>
               <rows value="3"/>
             </properties>
           </component>

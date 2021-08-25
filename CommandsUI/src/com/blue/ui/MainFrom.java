@@ -1,11 +1,13 @@
 package com.blue.ui;
 
+import com.blue.demo.ToolIsChinese;
 import com.formdev.flatlaf.FlatLightLaf;
 import tools.config.ConfigTools;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.Scanner;
 
@@ -137,8 +139,10 @@ public class MainFrom {
                         // System.out.println(output);
                         // System.out.println(output == null);
                         if (output != null) {
+                            // StringBuilder longestLine = new StringBuilder(500);
                             // 统计结果有多少行
                             int[] line = countRows(output);
+                            // System.out.println(longestLine);
                             // 设置文本框的行数和结果一样
                             textArea.setRows(line[0]);
                             textArea.setColumns(line[1]);
@@ -161,6 +165,7 @@ public class MainFrom {
             private int[] countRows(String output) {
                 int[] rowColLength = new int[2];
                 String lineStr;
+                String longestLine = null;
                 int lineLength;
                 Scanner scanner = new Scanner(output);
                 while (scanner.hasNext()) {
@@ -170,13 +175,44 @@ public class MainFrom {
                     lineLength = lineStr.length();
                     // 记下最长的行的长度
                     if (lineLength > rowColLength[1]) {
+                        // 记录行的长度
                         rowColLength[1] = lineLength;
+                        longestLine = lineStr;
+                        // 清空缓存
+                        // longestLine.delete(0, longestLine.length());
+                        // longestLine.append(lineStr);
                     }
                     rowColLength[0]++;
                 }
                 scanner.close();
-                // System.out.println("行数：" + rowColLength[0]);
-                // System.out.println("列数：" + rowColLength[1]);
+                if (longestLine != null) {
+                    // System.out.println("行数：" + rowColLength[0]);
+                    // System.out.println("字符数量：" + rowColLength[1]);
+                    char ch;
+                    double count = 0;
+                    for (int i = 0; i < longestLine.length(); i++) {
+                        ch = longestLine.charAt(i);
+
+                        if (ToolIsChinese.isContainChinese(ch)) {
+                            System.out.println(ch+"是否中文:true");
+                            count++;
+                        } else {
+                            System.out.println(ch+"是否中文:false");
+                            count += 0.5;
+                        }
+                    }
+                    rowColLength[1] = (int) count;
+                    // rowColLength[1] = (int) count+2+1;
+                    // System.out.println("最长的长度:"+rowColLength[1]);
+                    // try {
+                    //
+                    //     rowColLength[1] = new String(longestLine.getBytes("UTF-16be"), "UTF-8").length();
+                    // } catch (UnsupportedEncodingException e) {
+                    //     e.printStackTrace();
+                    // }
+                }
+
+                // System.out.println("中英文列长度:" + rowColLength[1]);
                 return rowColLength;
             }
         });
