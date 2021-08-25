@@ -7,7 +7,6 @@ import tools.config.ConfigTools;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.Scanner;
 
@@ -146,6 +145,7 @@ public class MainFrom {
                             // 设置文本框的行数和结果一样
                             textArea.setRows(line[0]);
                             textArea.setColumns(line[1]);
+
                             // 处理结果写到文本域中
                             textArea.setText(output);
                             // 显示textArea面板
@@ -189,15 +189,15 @@ public class MainFrom {
                     // System.out.println("行数：" + rowColLength[0]);
                     // System.out.println("字符数量：" + rowColLength[1]);
                     char ch;
-                    double count = 0;
+                    double count = 1;
                     for (int i = 0; i < longestLine.length(); i++) {
                         ch = longestLine.charAt(i);
 
                         if (ToolIsChinese.isContainChinese(ch)) {
-                            System.out.println(ch+"是否中文:true");
+                            // System.out.println(ch+"|是否中文:true");
                             count++;
                         } else {
-                            System.out.println(ch+"是否中文:false");
+                            // System.out.println(ch+"|是否中文:false");
                             count += 0.5;
                         }
                     }
@@ -212,10 +212,49 @@ public class MainFrom {
                     // }
                 }
 
-                // System.out.println("中英文列长度:" + rowColLength[1]);
+                System.out.println("中英文列长度:" + rowColLength[1]);
                 return rowColLength;
             }
         });
+        // // 注意，好像只有文本框，等输入组件才能得到焦点，窗体，面板都不能得到焦点
+        textField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                show(frame);
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                hide(frame);
+            }
+        });
+        textArea.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                show(frame);
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                hide(frame);
+            }
+        });
+    }
+
+    /**
+     * 隐藏窗体，把窗体设置为半透明
+     * @param frame 窗体
+     */
+    private void hide(JFrame frame) {
+        frame.setOpacity(0.5f);
+        frame.pack();
+    }
+
+    /**
+     * 显示窗体，把窗体设置为不透明
+     * @param frame 窗体
+     */
+    private void show(JFrame frame) {
+        frame.setOpacity(1.0f);
+        frame.pack();
     }
 
     /**
@@ -239,8 +278,6 @@ public class MainFrom {
      * 重绘组件
      */
     private void repaint() {
-        // 重绘面板
-        // panel.repaint();
         // 重绘窗体
         frame.repaint();
         // 整个窗体最小显示
@@ -253,8 +290,6 @@ public class MainFrom {
     private void initSystemTray() {
         // 判断系统是否支持托盘图标
         if (SystemTray.isSupported()) {
-            // 如果系统支持系统托盘，那么不显示任务栏
-            // frame.setType(Window.Type.UTILITY);
 
             // // 获取托盘图标,图片请放在 当前包 下
             // URL resource = this.getClass().getResource("/com/blue/ico/草莓_16.png");
@@ -289,28 +324,6 @@ public class MainFrom {
             // 添加 退出菜单项 到弹出框中
             pop.add(exitItem);
 
-
-            // // 创建 退出菜单项
-            // MenuItem exitItem2 = new MenuItem("任务栏");
-            // // 给 退出菜单项 添加事件监听器，单击时退出系统
-            // exitItem2.addActionListener(new ActionListener() {
-            //     @Override
-            //     public void actionPerformed(ActionEvent e) {
-            //         if(frame.isVisible()){
-            //             frame.setState(Frame.ICONIFIED);
-            //             frame.setVisible(false);
-            //             frame.setType(Window.Type.UTILITY);
-            //         }else {
-            //             frame.setState(Frame.NORMAL);
-            //             frame.setVisible(true);
-            //         }
-            //         // frame.setState(Frame.ICONIFIED);
-            //     }
-            // });
-            // // 添加 退出菜单项 到弹出框中
-            // pop.add(exitItem2);
-
-
             // 创建托盘图标程序
             TrayIcon tray = new TrayIcon(icon.getImage(), "CommandsUI", pop);
             // 获得系统托盘对象
@@ -324,14 +337,12 @@ public class MainFrom {
         }
     }
 
-
     /**
      * 设置窗口初始界面
      *
      * @param mainFrom 主界面
-     * @param frame    窗体
      */
-    private static void mainFromSetting(MainFrom mainFrom, JFrame frame) {
+    private static void mainFromSetting(MainFrom mainFrom) {
         // 该开始的时候不要显示文本域
         mainFrom.scrollPane.setVisible(false);
     }
@@ -342,6 +353,7 @@ public class MainFrom {
         if (args.length > 0) {
             // 不显示任务栏的情况
             if ("notaskbar".equals(args[0]) || "no".equals(args[0])) {
+                // 设置窗体不显示任务栏
                 frame.setType(Window.Type.UTILITY);
             }
         }
@@ -364,7 +376,7 @@ public class MainFrom {
         frame.setOpacity(0.5f);
 
         // 设置初始界面
-        mainFromSetting(mainFrom, frame);
+        mainFromSetting(mainFrom);
         // 设置主题
         // FlatDarkLaf.setup();
         FlatLightLaf.setup();
@@ -375,5 +387,4 @@ public class MainFrom {
         // 显示窗体
         frame.setVisible(true);
     }
-
 }
