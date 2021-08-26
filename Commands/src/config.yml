@@ -59,7 +59,9 @@ m:
   cb:
     # java代码块
     j:
+      # 生成默认代码块
       default: tools.markdown.MarkdownTools.codeBlockJava
+      # 生成没有getter和setter方法的java代码块
       ngs: tools.markdown.MdJavaCodeBlock.removeGetterSetterDefaultStyle
     # JavaScript代码块
     js: tools.markdown.MarkdownTools.codeBlockJavaScript
@@ -83,12 +85,13 @@ m:
     cphl: tools.markdown.JavaDoc2Markdown.mdTableCopyHighlight
     # 将多行分隔的无序列表转成表格
     u: tools.markdown.JavaDoc2Markdown.multiLine2Table
-  # 从java API中复制
+  # 从java API中复制表格转markdown表格
   api:
     # 生成表格
     table:
+      # 默认表格
       default: tools.markdown.JavaDoc2Markdown.docMethodTable2MdTable
-      # 方法表格
+      # 生成方法表格
       m:
         default: tools.markdown.JavaDoc2Markdown.docMethodTable2MdTable
         nd: tools.markdown.JavaDoc2Markdown.docMethodTable2MdTableNoDescription
@@ -98,6 +101,7 @@ m:
         nd: tools.markdown.JavaDoc2Markdown.generateTableBodyNoDescription
       # 属性表格
       f: tools.markdown.JavaDoc2Markdown.docFieldTable2MdTable
+    # API中的属性列表
     p2u: tools.markdown.JavaDoc2Markdown.parametersList
 # 字符串处理
 s:
@@ -194,7 +198,6 @@ g:
   rb: git rebase
   rbi: git rebase -i
 # html命令
-#h:
 html:
   # 其他命令
   default: tools.html.HtmlTools.htmlDefault_UseLastArg
@@ -244,7 +247,9 @@ j:
     arr: tools.java.JavaTools.forArray
   # 生成switch语句
   switch:
+    # 生成默认的switch语句
     default: tools.java.JavaTools.switchCaseDefault
+    # 生成条件为String的Switch语句
     str: tools.java.JavaTools.switchCaseString
   # 生成System.out.println();
   sout:
