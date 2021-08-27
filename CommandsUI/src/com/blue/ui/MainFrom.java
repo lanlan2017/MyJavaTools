@@ -27,10 +27,10 @@ public class MainFrom {
         this.frame = frame;
         // 初始化系统托盘
         new ToolUiSystemTray(frame);
+        // 程序刚开始，还没输入内容，不会有输出，隐藏用来显示输出的文本域
+        scrollPane.setVisible(false);
         exitButton.addActionListener(e -> System.exit(0));
-
         // 监听面板事件
-        // panel.addMouseMotionListener(new MouseAdapter() {
         frame.addMouseMotionListener(new MouseAdapter() {
             private boolean isNearTop = false;
             private boolean isNearBottom = false;
@@ -177,9 +177,8 @@ public class MainFrom {
                     double count = 1;
                     for (int i = 0; i < longestLine.length(); i++) {
                         ch = longestLine.charAt(i);
-
                         if (ToolIsChinese.isContainChinese(ch)) {
-                            count++;
+                            count += 1.0;
                         } else {
                             count += 0.5;
                         }
