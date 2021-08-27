@@ -1,6 +1,7 @@
 package com.blue.ui;
 
 import com.blue.demo.ToolIsChinese;
+import com.blue.tool.IsHideJFrameThread;
 import com.formdev.flatlaf.FlatLightLaf;
 import tools.config.ConfigTools;
 
@@ -48,7 +49,6 @@ public class MainFrom {
             public void mouseMoved(MouseEvent e) {
                 // 精度，距离窗体边框多少距离时可以拖动来调整窗体的大小。
                 int jingDu = 5;
-                // if (e.getPoint().getY() == 0) {
                 if (Math.abs(e.getPoint().getY() - 0) <= jingDu) {
                     // 设置拖动光标
                     frame.setCursor(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR));
@@ -58,9 +58,7 @@ public class MainFrom {
                     frame.setCursor(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR));
                     isNearBottom = true;
                     // System.out.println("Cursor is near Bottom");
-                }
-                // else if (e.getPoint().getX() == 0) {
-                else if (Math.abs(e.getPoint().getX() - 0) <= jingDu) {
+                } else if (Math.abs(e.getPoint().getX() - 0) <= jingDu) {
                     frame.setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));
                     isNearLeft = true;
                     // System.out.println("Cursor is near left");
@@ -220,39 +218,36 @@ public class MainFrom {
         textField.addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
-                show(frame);
-            }
-            @Override
-            public void focusLost(FocusEvent e) {
-                hide(frame);
+                // System.out.println(textArea.getText());
+                // 如果文本域中有内容的话
+                if (!"".equals(textArea.getText())) {
+                    // 显示文本域面板
+                    scrollPane.setVisible(true);
+                }
+                show();
             }
         });
+        //
         textArea.addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
-                show(frame);
-            }
-            @Override
-            public void focusLost(FocusEvent e) {
-                hide(frame);
+                show();
             }
         });
     }
 
-    /**
-     * 隐藏窗体，把窗体设置为半透明
-     * @param frame 窗体
-     */
-    private void hide(JFrame frame) {
-        frame.setOpacity(0.5f);
-        frame.pack();
+    public JFrame getFrame() {
+        return frame;
+    }
+
+    public JScrollPane getScrollPane() {
+        return scrollPane;
     }
 
     /**
      * 显示窗体，把窗体设置为不透明
-     * @param frame 窗体
      */
-    private void show(JFrame frame) {
+    private void show() {
         frame.setOpacity(1.0f);
         frame.pack();
     }
@@ -337,16 +332,6 @@ public class MainFrom {
         }
     }
 
-    /**
-     * 设置窗口初始界面
-     *
-     * @param mainFrom 主界面
-     */
-    private static void mainFromSetting(MainFrom mainFrom) {
-        // 该开始的时候不要显示文本域
-        mainFrom.scrollPane.setVisible(false);
-    }
-
     public static void main(String[] args) {
         JFrame frame = new JFrame("MainFrom");
         // 如果有传入参数的话
@@ -362,21 +347,13 @@ public class MainFrom {
         // 设置面板到窗体上
         frame.setContentPane(mainFrom.panel);
         // // 设置关闭按钮功能
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // frame.setType(Window.Type.NORMAL);
-        // frame.setType(Window.Type.POPUP);
+        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // 不显示任务栏
-        // frame.setType(Window.Type.UTILITY);
         // 不显示标题栏，最小化，关闭按钮
         frame.setUndecorated(true);
         // 永远置顶
         frame.setAlwaysOnTop(true);
-        // 设置透明度
-        frame.setOpacity(0.5f);
 
-        // 设置初始界面
-        mainFromSetting(mainFrom);
         // 设置主题
         // FlatDarkLaf.setup();
         FlatLightLaf.setup();
@@ -386,5 +363,8 @@ public class MainFrom {
         frame.pack();
         // 显示窗体
         frame.setVisible(true);
+        // 创建线程
+        Thread thread = new Thread(new IsHideJFrameThread(mainFrom));
+        thread.start();
     }
 }
