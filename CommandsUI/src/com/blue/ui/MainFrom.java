@@ -2,6 +2,7 @@ package com.blue.ui;
 
 import com.blue.demo.ToolIsChinese;
 import com.blue.tool.IsHideJFrameThread;
+import com.blue.tool.ui.ToolUiSystemTray;
 import com.formdev.flatlaf.FlatLightLaf;
 import tools.config.ConfigTools;
 
@@ -25,13 +26,8 @@ public class MainFrom {
         // 记下Frame
         this.frame = frame;
         // 初始化系统托盘
-        initSystemTray();
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
+        new ToolUiSystemTray(frame);
+        exitButton.addActionListener(e -> System.exit(0));
 
         // 监听面板事件
         // panel.addMouseMotionListener(new MouseAdapter() {
@@ -134,16 +130,12 @@ public class MainFrom {
                         // 处理输入的文本
                         String output = doTextField(input);
                         // System.out.println(output);
-                        // System.out.println(output == null);
                         if (output != null) {
-                            // StringBuilder longestLine = new StringBuilder(500);
                             // 统计结果有多少行
                             int[] line = countRows(output);
-                            // System.out.println(longestLine);
                             // 设置文本框的行数和结果一样
                             textArea.setRows(line[0]);
                             textArea.setColumns(line[1]);
-
                             // 处理结果写到文本域中
                             textArea.setText(output);
                             // 显示textArea面板
@@ -176,49 +168,33 @@ public class MainFrom {
                         // 记录行的长度
                         rowColLength[1] = lineLength;
                         longestLine = lineStr;
-                        // 清空缓存
-                        // longestLine.delete(0, longestLine.length());
-                        // longestLine.append(lineStr);
                     }
                     rowColLength[0]++;
                 }
                 scanner.close();
                 if (longestLine != null) {
-                    // System.out.println("行数：" + rowColLength[0]);
-                    // System.out.println("字符数量：" + rowColLength[1]);
                     char ch;
                     double count = 1;
                     for (int i = 0; i < longestLine.length(); i++) {
                         ch = longestLine.charAt(i);
 
                         if (ToolIsChinese.isContainChinese(ch)) {
-                            // System.out.println(ch+"|是否中文:true");
                             count++;
                         } else {
-                            // System.out.println(ch+"|是否中文:false");
                             count += 0.5;
                         }
                     }
                     rowColLength[1] = (int) count;
-                    // rowColLength[1] = (int) count+2+1;
-                    // System.out.println("最长的长度:"+rowColLength[1]);
-                    // try {
-                    //
-                    //     rowColLength[1] = new String(longestLine.getBytes("UTF-16be"), "UTF-8").length();
-                    // } catch (UnsupportedEncodingException e) {
-                    //     e.printStackTrace();
-                    // }
                 }
 
                 System.out.println("中英文列长度:" + rowColLength[1]);
                 return rowColLength;
             }
         });
-        // // 注意，好像只有文本框，等输入组件才能得到焦点，窗体，面板都不能得到焦点
+        // 注意，好像只有文本框，等输入组件才能得到焦点，窗体，面板都不能得到焦点
         textField.addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
-                // System.out.println(textArea.getText());
                 // 如果文本域中有内容的话
                 if (!"".equals(textArea.getText())) {
                     // 显示文本域面板
@@ -279,58 +255,6 @@ public class MainFrom {
         frame.pack();
     }
 
-    /**
-     * 初始化系统托盘
-     */
-    private void initSystemTray() {
-        // 判断系统是否支持托盘图标
-        if (SystemTray.isSupported()) {
-
-            // // 获取托盘图标,图片请放在 当前包 下
-            // URL resource = this.getClass().getResource("/com/blue/ico/草莓_16.png");
-            URL resource = this.getClass().getResource("/com/blue/ico/工具_16.png");
-            // 创建图标
-            ImageIcon icon = new ImageIcon(resource);
-            // 创建弹出式菜单
-            PopupMenu pop = new PopupMenu();
-
-            String str = "显示主界面";
-            // 创建 显示菜单项
-            MenuItem displayJFrameItem = new MenuItem(str);
-            // 给 显示窗体菜单项 添加事件处理程序
-            displayJFrameItem.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    frame.setVisible(true);
-                }
-            });
-            // 显示菜单项 添加到 弹出式菜单中
-            pop.add(displayJFrameItem);
-
-            // 创建 退出菜单项
-            MenuItem exitItem = new MenuItem("退出");
-            // 给 退出菜单项 添加事件监听器，单击时退出系统
-            exitItem.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    System.exit(0);
-                }
-            });
-            // 添加 退出菜单项 到弹出框中
-            pop.add(exitItem);
-
-            // 创建托盘图标程序
-            TrayIcon tray = new TrayIcon(icon.getImage(), "CommandsUI", pop);
-            // 获得系统托盘对象
-            SystemTray systemTray = SystemTray.getSystemTray();
-            try {
-                // 将托盘图标添加到系统托盘中
-                systemTray.add(tray);
-            } catch (AWTException e1) {
-                e1.printStackTrace();
-            }
-        }
-    }
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("MainFrom");
