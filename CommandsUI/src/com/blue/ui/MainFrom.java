@@ -23,6 +23,7 @@ public class MainFrom {
     private JTextArea textArea;
     private JLabel lable;
     private JScrollPane scrollPane;
+    private JPanel scrollPaneFather;
 
     public MainFrom(JFrame frame) {
         // 记下Frame
@@ -30,7 +31,8 @@ public class MainFrom {
         // 初始化系统托盘
         new ToolUiSystemTray(frame);
         // 程序刚开始，还没输入内容，不会有输出，隐藏用来显示输出的文本域
-        scrollPane.setVisible(false);
+        // scrollPane.setVisible(false);
+        scrollPaneFather.setVisible(false);
         // 设置退出按钮的功能
         exitButtonSetting();
         // 窗体功能
@@ -61,12 +63,15 @@ public class MainFrom {
                             // 处理结果写到文本域中
                             textArea.setText(output);
                             // 显示textArea面板
-                            scrollPane.setVisible(true);
+                            // scrollPane.setVisible(true);
+                            scrollPaneFather.setVisible(true);
+
                             // 重绘UI
                             repaint();
                         } else {
                             // 隐藏textArea面板
-                            scrollPane.setVisible(false);
+                            // scrollPane.setVisible(false);
+                            scrollPaneFather.setVisible(false);
                             // 重绘UI
                             repaint();
                         }
@@ -121,7 +126,8 @@ public class MainFrom {
                     // 当文本框获得焦点的时候，关闭透明检查
                     ThreadAutoSetFrameOpacity.isSetOpacity = false;
                     // 显示文本域面板
-                    scrollPane.setVisible(true);
+                    // scrollPane.setVisible(true);
+                    scrollPaneFather.setVisible(true);
                     // 最小化显示组件
                     frame.pack();
                 }
@@ -281,9 +287,13 @@ public class MainFrom {
     public JFrame getFrame() {
         return frame;
     }
+    //
+    // public JScrollPane getScrollPane() {
+    //     return scrollPane;
+    // }
 
-    public JScrollPane getScrollPane() {
-        return scrollPane;
+    public JPanel getScrollPaneFather() {
+        return scrollPaneFather;
     }
 
     /**

@@ -21,7 +21,8 @@ public class ThreadAutoSetFrameOpacity implements Runnable {
                 if(!mainFrom.getFrame().isActive()){
                     System.out.println("调整");
                     // 隐藏输出面板
-                    mainFrom.getScrollPane().setVisible(false);
+                    // mainFrom.getScrollPane().setVisible(false);
+                    mainFrom.getScrollPaneFather().setVisible(false);
                     // 并设置半透明
                     mainFrom.getFrame().setOpacity(0.5f);
                     // 调整大小

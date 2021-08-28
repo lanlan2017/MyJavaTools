@@ -47,28 +47,37 @@
           </component>
         </children>
       </grid>
-      <scrollpane id="3926b" binding="scrollPane">
+      <grid id="70c51" binding="scrollPaneFather" layout-manager="BorderLayout" hgap="0" vgap="0">
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="2" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties>
-          <enabled value="false"/>
-          <font/>
-        </properties>
+        <properties/>
         <border type="line">
           <color color="-16311877"/>
         </border>
         <children>
-          <component id="9805e" class="javax.swing.JTextArea" binding="textArea" default-binding="true">
-            <constraints/>
+          <scrollpane id="3926b" binding="scrollPane">
+            <constraints border-constraint="Center"/>
             <properties>
-              <columns value="25"/>
+              <enabled value="false"/>
               <font/>
-              <rows value="3"/>
             </properties>
-          </component>
+            <border type="none">
+              <color color="-16311877"/>
+            </border>
+            <children>
+              <component id="9805e" class="javax.swing.JTextArea" binding="textArea" default-binding="true">
+                <constraints/>
+                <properties>
+                  <columns value="25"/>
+                  <font/>
+                  <rows value="3"/>
+                </properties>
+              </component>
+            </children>
+          </scrollpane>
         </children>
-      </scrollpane>
+      </grid>
     </children>
   </grid>
 </form>
