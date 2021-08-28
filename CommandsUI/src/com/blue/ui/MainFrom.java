@@ -1,7 +1,7 @@
 package com.blue.ui;
 
 import com.blue.demo.ToolIsChinese;
-import com.blue.tool.IsHideJFrameThread;
+import com.blue.tool.ThreadAutoSetFrameOpacity;
 import com.blue.tool.ui.ToolUiSystemTray;
 import com.formdev.flatlaf.FlatLightLaf;
 import tools.config.ConfigTools;
@@ -12,7 +12,6 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.Document;
 import java.awt.*;
 import java.awt.event.*;
-import java.net.URL;
 import java.util.Scanner;
 
 public class MainFrom {
@@ -38,59 +37,7 @@ public class MainFrom {
         frameSetting();
         // 文本框功能
         textFieldSetting();
-        scrollPaneSetting();
     }
-
-    private void scrollPaneSetting() {
-        // 监听面板事件
-        scrollPane.addMouseMotionListener(new MouseAdapter() {
-            // private boolean isNearTop = false;
-            // private boolean isNearBottom = false;
-            // private boolean isNearLeft = false;
-            private boolean isNearRight = false;
-            private boolean drag = false;
-            // 移动的位置
-            private Point draggingAnchor = null;
-
-            // 监听鼠标移动事件
-            @Override
-            public void mouseMoved(MouseEvent e) {
-                // 精度，距离窗体边框多少距离时可以拖动来调整窗体的大小。
-                int jingDu = 5;
-                if (Math.abs(e.getPoint().getX() - frame.getSize().getWidth()) <= jingDu) {
-                    scrollPane.setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));
-                    isNearRight = true;
-                    // System.out.println("Cursor is near right");
-                } else {
-                    scrollPane.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-                    draggingAnchor = new Point(e.getX() + panel.getX(), e.getY() + panel.getY());
-                    // isNearTop = false;
-                    // isNearBottom = false;
-                    // isNearLeft = false;
-                    isNearRight = false;
-                    drag = true;
-                    // System.out.println("is near center");
-                }
-            }
-
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                // 获取窗体的大小
-                Dimension dimension = scrollPane.getSize();
-                if (isNearRight) {
-                    dimension.setSize(e.getX(), dimension.getHeight());
-                    // 设置窗体的大小
-                    scrollPane.setSize(dimension);
-                }
-                // 当鼠标指针在中间时
-                else if (drag) {
-                    // 移动窗体的位置
-                    scrollPane.setLocation(e.getLocationOnScreen().x - draggingAnchor.x, e.getLocationOnScreen().y - draggingAnchor.y);
-                }
-            }
-        });
-    }
-
     private void textFieldSetting() {
         textField.addKeyListener(new KeyAdapter() {
             @Override
@@ -171,12 +118,15 @@ public class MainFrom {
             public void focusGained(FocusEvent e) {
                 // 如果文本域中有内容的话
                 if (!"".equals(textArea.getText())) {
+                    // 当文本框获得焦点的时候，关闭透明检查
+                    ThreadAutoSetFrameOpacity.isSetOpacity = false;
                     // 显示文本域面板
                     scrollPane.setVisible(true);
-                    // 关闭自动半透明
-                    IsHideJFrameThread.isSetOpacity = false;
+                    // 最小化显示组件
+                    frame.pack();
                 }
-                show();
+                // 窗体不透明
+                frame.setOpacity(1.0f);
             }
         });
         Document document = textField.getDocument();
@@ -209,14 +159,12 @@ public class MainFrom {
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                // System.out.println("有更新内容啦");
             }
         });
     }
 
     private void frameSetting() {
         // 监听面板事件
-        // frame.addMouseMotionListener(new MouseAdapter() {
         panel.addMouseMotionListener(new MouseAdapter() {
             private boolean isNearTop = false;
             private boolean isNearBottom = false;
@@ -264,8 +212,6 @@ public class MainFrom {
             public void mouseDragged(MouseEvent e) {
                 // 获取窗体的大小
                 Dimension dimension = frame.getSize();
-                // 拖动窗体的时候不调整大小
-                IsHideJFrameThread.isPack=false;
                 // 当鼠标指针在顶部的时候
                 if (isNearTop) {
                     // 设置高度减去鼠标移动后的坐标
@@ -302,21 +248,19 @@ public class MainFrom {
 
             }
         });
-        // frame.addMouseListener(new MouseAdapter() {
         panel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                // super.mouseEntered(e);
-                // 当鼠标进入窗体时，线程不检查窗体的活动状态
-                IsHideJFrameThread.isSetOpacity = false;
-                show();
+                // 当鼠标进入窗体时，不自动设置透明对
+                ThreadAutoSetFrameOpacity.isSetOpacity = false;
+                // 不透明
+                frame.setOpacity(1.0f);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                // super.mouseExited(e);
-                // 当鼠标离开窗体时，线程开始检查窗体的活动状态
-                IsHideJFrameThread.isSetOpacity = true;
+                // 当鼠标离开窗体时，线程检查透明度
+                ThreadAutoSetFrameOpacity.isSetOpacity = true;
             }
         });
     }
@@ -331,10 +275,6 @@ public class MainFrom {
         // 退出按钮的功能
         exitButton.addActionListener(e -> {
             System.exit(0);
-            // // 停止线程
-            // IsHideJFrameThread.runing=false;
-            // // 销毁窗体
-            // frame.dispose();
         });
     }
 
@@ -344,14 +284,6 @@ public class MainFrom {
 
     public JScrollPane getScrollPane() {
         return scrollPane;
-    }
-
-    /**
-     * 显示窗体，把窗体设置为不透明
-     */
-    private void show() {
-        frame.setOpacity(1.0f);
-        frame.pack();
     }
 
     /**
@@ -405,7 +337,6 @@ public class MainFrom {
         frame.setAlwaysOnTop(true);
 
         // 设置主题
-        // FlatDarkLaf.setup();
         FlatLightLaf.setup();
         // 给所有的组件都使用该主题
         SwingUtilities.updateComponentTreeUI(frame);
@@ -414,7 +345,7 @@ public class MainFrom {
         // 显示窗体
         frame.setVisible(true);
         // 创建线程
-        Thread thread = new Thread(new IsHideJFrameThread(mainFrom));
+        Thread thread = new Thread(new ThreadAutoSetFrameOpacity(mainFrom));
         thread.start();
     }
 }
