@@ -26,8 +26,8 @@ public class Test {
         // ConfigTools.getInstance().forward("suanfa", "2qq", "c");
         // ConfigTools.getInstance().forward("suanfa", "2qq");
         // ConfigTools.getInstance().forward("m", "cb");
-        // String result = ConfigTools.getInstance().forward("html");
-        String result = ConfigTools.getInstance().forward("j","f","myrs");
+        String result = ConfigTools.getInstance().forward("html","2md");
+        // String result = ConfigTools.getInstance().forward("j","f","myrs");
         // ConfigTools.getInstance().forward("s", "date");
         // String result = ConfigTools.getInstance().forward("g", "s");
         ConfigTools.getInstance().showResult(result);

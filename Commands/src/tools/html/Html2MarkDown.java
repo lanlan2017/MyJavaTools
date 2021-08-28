@@ -111,6 +111,8 @@ public class Html2MarkDown {
         if (Pattern.compile("\\<code\\>").matcher(str).find()) {
             str = htmlCode2MdCode(str);
         }
+        // 删除行开头的多余空格符
+        str=str.replaceAll("^ +", "");
         return str;
     }
 
