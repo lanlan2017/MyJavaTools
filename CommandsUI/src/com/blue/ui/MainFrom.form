@@ -33,7 +33,8 @@
           <component id="1d42d" class="javax.swing.JTextField" binding="textField" default-binding="true">
             <constraints/>
             <properties>
-              <columns value="15"/>
+              <columns value="5"/>
+              <editable value="true"/>
             </properties>
           </component>
           <component id="fa694" class="javax.swing.JButton" binding="exitButton">

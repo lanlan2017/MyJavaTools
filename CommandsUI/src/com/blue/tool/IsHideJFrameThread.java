@@ -6,6 +6,9 @@ import javax.swing.*;
 
 public class IsHideJFrameThread implements Runnable {
     private MainFrom mainFrom;
+    public static boolean isSetOpacity = true;
+    public static boolean runing = true;
+    public static boolean isPack=true;
 
     public IsHideJFrameThread(MainFrom mainFrom) {
         this.mainFrom = mainFrom;
@@ -13,12 +16,18 @@ public class IsHideJFrameThread implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
-            if (!mainFrom.getFrame().isActive()) {
+        while (runing) {
+            if (isSetOpacity && !mainFrom.getFrame().isActive()) {
+                System.out.println("调整");
                 // System.out.println("线程检测到，窗体已经不活动，透明化窗体");
                 mainFrom.getScrollPane().setVisible(false);
                 mainFrom.getFrame().setOpacity(0.5f);
-                mainFrom.getFrame().pack();
+                if(isPack){
+                    // 自动调整大小
+                    mainFrom.getFrame().pack();
+                }
+            }else {
+                System.out.println("不调整");
             }
             try {
                 int millis = 500;
