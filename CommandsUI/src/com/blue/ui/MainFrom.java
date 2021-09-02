@@ -57,9 +57,9 @@ public class MainFrom {
                         if (output != null) {
                             // 统计结果有多少行
                             int[] line = countRows(output);
-                            // 设置文本框的行数和结果一样
-                            textArea.setRows(line[0]);
-                            textArea.setColumns(line[1]);
+                            // 设置文本框的行数
+                            textArea.setRows(line[0]+1);
+                            textArea.setColumns(line[1]+1);
                             // 处理结果写到文本域中
                             textArea.setText(output);
                             // 显示textArea面板
