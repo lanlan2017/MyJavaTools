@@ -269,6 +269,8 @@ j:
   ecpo: tools.java.JavaTools.exchangeParameterOrder
   # 获取jar包的名称和版本，artifactId version
   jarName: tools.java.JavaTools.jarArtifactIdAndVersion
+  # 隐藏方法实现，（Hidden method implementation） `public synchronized boolean contains(Object value) {...}`
+  hmi: tools.java.JavaTools.hiddenMethodImplementation
 # 算法
 suanfa:
   # 冒泡排序

@@ -1,6 +1,8 @@
 package tools.java;
 
 import reader.resouce.ResourceFileReader;
+import tools.string.StringConverter;
+import tools.string.StringDeleter;
 
 import java.lang.annotation.Retention;
 
@@ -117,6 +119,7 @@ public class JavaTools {
         resultsAn = resultsAn.replaceAll("\\}\\)", "\n})");
         return resultsAn;
     }
+
     /**
      * 获取一个jar包的名称和版本
      *
@@ -135,5 +138,18 @@ public class JavaTools {
             result = artifactId + "\n" + version;
         }
         return result;
+    }
+
+    /**
+     * 隐藏java方法实现
+     *
+     * @param methodCode java方法源码
+     * @return 保留java方法的定义，隐藏方法体重的实现。
+     */
+    public String hiddenMethodImplementation(String methodCode) {
+        // 编程一行
+        methodCode = new StringDeleter().deleteCRLF(methodCode);
+        methodCode = methodCode.replaceAll("\\{.+\\}", "{...}");
+        return methodCode;
     }
 }

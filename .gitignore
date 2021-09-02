@@ -11,3 +11,4 @@ out/
 /OCR/src/config.properties
 Commands/src/main/Test.java
 *.log
+/RunableTools/src/base/
