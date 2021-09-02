@@ -62,8 +62,19 @@ public class MardownConverter {
      */
     public String inlineCodeToBold(String inlineCode) {
         if (inlineCode.matches("`.+`")) {
-            inlineCode=inlineCode.replaceAll("`", "**");
+            inlineCode = inlineCode.replaceAll("`", "**");
         }
         return inlineCode;
+    }
+
+    /**
+     * @param chioce
+     * @return
+     */
+    public String nikeInlineCodeChoice(String chioce) {
+        chioce = new MarkdownTools().inlineCodeUndo(chioce);
+        chioce = chioce.replaceAll("(?m)$", "`");
+        chioce = chioce.replaceAll("(?m)^- [A-Z] ", "$0`");
+        return chioce;
     }
 }

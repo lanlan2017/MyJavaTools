@@ -55,6 +55,10 @@ m:
   # 朗读标签
   read: tools.sst.xunfei.XunFeiSstFlag.addSSTFlag
   duyin: tools.sst.xunfei.XunFeiSstFlag.duyin
+  # 牛客网行内代码选择题
+  nike:
+    # 行内代码选择题。
+    choice: tools.markdown.MardownConverter.nikeInlineCodeChoice
   # 代码块
   cb:
     # java代码块
@@ -193,7 +197,7 @@ g:
   plom: git pull origin master
   plos: git pull origin src
   r: git restore
-  ra:  git restore .
+  ra: git restore .
   rs: git restore --staged
   rb: git rebase
   rbi: git rebase -i

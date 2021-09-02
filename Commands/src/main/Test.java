@@ -23,14 +23,16 @@ public class Test {
         //ConfigTools.getInstance().forward("h","2md","table");
         //ConfigTools.getInstance().forward("h","2md");
         // ConfigTools.getInstance().forward("m", "cb", "plantuml");
-        // ConfigTools.getInstance().forward("suanfa", "2qq", "c");
-        // ConfigTools.getInstance().forward("suanfa", "2qq");
+        // ConfigTools.getInstance().forward("html2md.suanfa", "2qq", "c");
+        // ConfigTools.getInstance().forward("html2md.suanfa", "2qq");
         // ConfigTools.getInstance().forward("m", "cb");
         // String result = ConfigTools.getInstance().forward("html","2md");
         // String result = ConfigTools.getInstance().forward("j","f","myrs");
         // ConfigTools.getInstance().forward("s", "date");
         // String result = ConfigTools.getInstance().forward("g", "s");
-        String result = ConfigTools.getInstance().forward("j", "jarName");
+        // String result = ConfigTools.getInstance().forward("j", "jarName");
+        // String result = ConfigTools.getInstance().forward("m", "nike", "choice");
+        String result = ConfigTools.getInstance().forward("html", "2md");
         ConfigTools.getInstance().showResult(result);
 
     }
