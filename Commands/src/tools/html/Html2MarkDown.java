@@ -1,8 +1,5 @@
 package tools.html;
 
-import tools.html2md.Html2Md;
-import tools.string.PrintStr;
-
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -109,54 +106,19 @@ public class Html2MarkDown {
         if (Pattern.compile("\\<ul\\>").matcher(str).find()) {
             // 替换无序列号
             // str = htmlUl2MdUl(str);
-            str= Html2Md.htmlUnOrderListToMd(str);
+            str = HtmlUnOrderListToMd.htmlUnOrderListToMd(str);
         }
         // PrintStr.printStr(str);
         // 替换行内代码
         if (Pattern.compile("\\<code\\>").matcher(str).find()) {
             str = htmlCode2MdCode(str);
         }
-        // 删除行开头的多余空格符
+        // 删除整行字符串开头的多余空格符
         str = str.replaceAll("^ +", "");
+        // 多行模式，删除每行末尾多余的空格符
+        str = str.replaceAll("(?m) +$", "");
         return str;
     }
-
-
-
-
-    // /**
-    //  * 替换HTML无序列表代码为Markdown无序列表
-    //  *
-    //  * @param str 包含html无序列表的文本
-    //  * @return 包含Markdown无序列表的文本
-    //  */
-    // public String htmlUl2MdUl(String str) {
-    //     Matcher htmlUlM = Pattern.compile("\\<ul\\>(.+?)\\<\\/ul\\>").matcher(str);
-    //     StringBuffer sb = new StringBuffer();
-    //     // 如果找到无序列表
-    //     while (htmlUlM.find()) {
-    //         // 替换无序列表
-    //         htmlUlM.appendReplacement(sb, htmlUlLi2MdUlLi(htmlUlM.group(1)));
-    //     }
-    //     htmlUlM.appendTail(sb);
-    //     return sb.toString();
-    // }
-
-    // /**
-    //  * Html 无序列表代码转成Markdown无序列表。
-    //  *
-    //  * @param htmlUlCode html无序列表代码。
-    //  * @return Markdown无序列表代码。
-    //  */
-    // public String htmlUlLi2MdUlLi(String htmlUlCode) {
-    //     Matcher m = Pattern.compile("\\<li\\>(.+?)\\<\\/li\\>").matcher(htmlUlCode);
-    //     StringBuilder sb = new StringBuilder(htmlUlCode.length());
-    //     while (m.find()) {
-    //         sb.append("- ").append(m.group(1)).append("\n");
-    //     }
-    //
-    //     return sb.toString();
-    // }
 
     /**
      * html code代码转换为Markdown code
