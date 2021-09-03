@@ -106,7 +106,12 @@ public class Html2MarkDown {
         if (Pattern.compile("\\<ul\\>").matcher(str).find()) {
             // 替换无序列号
             // str = htmlUl2MdUl(str);
-            str = HtmlUnOrderListToMd.htmlUnOrderListToMd(str);
+            str = HtmlListToMd.htmlUnOrderListToMd(str);
+        }
+        //如果共有有序列表
+        if(Pattern.compile("\\<ol\\>").matcher(str).find()){
+            // 替换有序列表
+            str = HtmlListToMd.htmlOrderList2Md(str);
         }
         // PrintStr.printStr(str);
         // 替换行内代码

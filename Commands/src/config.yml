@@ -224,7 +224,7 @@ html:
   # 展开/折叠块 折叠内容我<pre>...</pre>
   dp: tools.html.HtmlTools.detailsPre
   # 多行字符串转成html无序列表
-  ul: tools.html.HtmlTools.unorderedList
+  ul: tools.html.HtmlTools.multiLineToUnorderedList
   # 生成<pre></pre>代码块
   pre: tools.html.HtmlTools.pre
   # 替换成转义字符

@@ -33,7 +33,7 @@ public class Test {
         // String result = ConfigTools.getInstance().forward("j", "jarName");
         // String result = ConfigTools.getInstance().forward("m", "nike", "choice");
         // String result = ConfigTools.getInstance().forward("j", "hmi");
-        String result = ConfigTools.getInstance().forward("html", "unes");
+        String result = ConfigTools.getInstance().forward("html", "2md");
         ConfigTools.getInstance().showResult(result);
 
     }

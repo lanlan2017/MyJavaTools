@@ -70,8 +70,11 @@ public class HtmlTools {
 
     /**
      * 将多行字符串转成html无序列表.
+     * <p>
+     * multiLineToUnorderedList
+     * tools.html.HtmlTools#multiLineToUnorderedList
      */
-    public String unorderedList(String str) {
+    public String multiLineToUnorderedList(String str) {
         String liStart = "<li>";
         String liEnd = "</li>";
         String ulStart = "<ul>";
@@ -90,6 +93,7 @@ public class HtmlTools {
         //System.out.println(optimalLength);
         return ulStart + sb.toString() + ulEnd;
     }
+
 
     /**
      * 生成<code><pre></pre>代码块</code>
