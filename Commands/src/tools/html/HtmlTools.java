@@ -117,6 +117,19 @@ public class HtmlTools {
     }
 
     /**
+     * 撤销html转义
+     *
+     * @param escapedHtml 转义过的HTML代码
+     * @return 撤销html转义后的代码
+     */
+    public String undoEscape(String escapedHtml) {
+        escapedHtml = escapedHtml.replace("&lt;", "<");
+        escapedHtml = escapedHtml.replace("&gt;", ">");
+        escapedHtml = escapedHtml.replace("&#35;", "#");
+        return escapedHtml;
+    }
+
+    /**
      * 格式化HTML代码,每个html标签占一行
      *
      * @param htmlCode html代码

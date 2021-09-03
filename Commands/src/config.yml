@@ -229,6 +229,8 @@ html:
   pre: tools.html.HtmlTools.pre
   # 替换成转义字符
   es: tools.html.HtmlTools.escape
+  # 撤销html转义
+  unes: tools.html.HtmlTools.undoEscape
   # 格式化html代码:每个标签占一行
   fl: tools.html.HtmlTools.formatToLine
   # 清理HTML文档中没有必要的属性
