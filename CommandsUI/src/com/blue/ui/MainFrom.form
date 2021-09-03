@@ -71,7 +71,9 @@
                 <properties>
                   <columns value="25"/>
                   <font/>
+                  <lineWrap value="true"/>
                   <rows value="3"/>
+                  <wrapStyleWord value="true"/>
                 </properties>
               </component>
             </children>

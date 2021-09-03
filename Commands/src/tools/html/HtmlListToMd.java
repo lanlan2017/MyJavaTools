@@ -100,11 +100,18 @@ public class HtmlListToMd {
         return tab;
     }
 
+    /**
+     * html有序列表转换成markdown有序列表
+     *
+     * @param htmlCode html代码
+     * @return 把html代码中的有序列表转换为markdown有序列表之后的代码。
+     */
     public static String htmlOrderList2Md(String htmlCode) {
         StringBuffer sb = new StringBuffer(htmlCode.length());
         Matcher htmlTagMatcher = Pattern.compile("\\</?[a-z]+.*?\\>").matcher(htmlCode);
         Stack<String> stack = new Stack<>();
-        int lineCounter = 0;
+        // 有序列表行计数器。
+        int counter = 0;
         while (htmlTagMatcher.find()) {
             // 取出标签
             String tag = htmlTagMatcher.group();
@@ -117,12 +124,12 @@ public class HtmlListToMd {
                         // 如果这个列表元素是<li>
                         if ("<li>".equals(tag)) {
                             // <li>替换为`\n- `
-                            htmlTagMatcher.appendReplacement(sb, "\n" + tabs(stack.size() - 1) + (++lineCounter) + ". ");
+                            htmlTagMatcher.appendReplacement(sb, "\n" + tabs(stack.size() - 1) + (++counter) + ". ");
                         }
                         // 如果这个列表元素<ol>
                         else {
-                            // 遇到<ol>元素表示无序列表开始，把行计数器清零0。
-                            lineCounter = 0;
+                            // 遇到<ol>元素表示有一个无序列表开始了，把计数器清零0。
+                            counter = 0;
                             // 删除这个这个<ol>
                             htmlTagMatcher.appendReplacement(sb, "");
                         }
@@ -150,7 +157,7 @@ public class HtmlListToMd {
                         if ("</ol>".equals(tag)) {
                             // 如果是</ol>,则替换为两个换行符
                             htmlTagMatcher.appendReplacement(sb, "\n\n");
-                        }else {
+                        } else {
                             //如果是</li>,则删除掉该元素
                             htmlTagMatcher.appendReplacement(sb, "");
                         }
@@ -166,8 +173,6 @@ public class HtmlListToMd {
         }
         // 保留剩下的没有经过处理的字符
         htmlTagMatcher.appendTail(sb);
-        // PrintStr.printStr(sb.toString());
         return sb.toString();
-        // return "";
     }
 }

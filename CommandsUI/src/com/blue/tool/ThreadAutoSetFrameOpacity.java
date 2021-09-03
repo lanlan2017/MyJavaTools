@@ -3,7 +3,7 @@ package com.blue.tool;
 import com.blue.ui.MainFrom;
 
 public class ThreadAutoSetFrameOpacity implements Runnable {
-    private MainFrom mainFrom;
+    private final MainFrom mainFrom;
     public static boolean isSetOpacity = true;
     public static boolean runing = true;
 
