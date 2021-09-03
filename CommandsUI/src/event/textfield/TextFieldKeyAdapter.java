@@ -1,4 +1,4 @@
-package event;
+package event.textfield;
 
 import com.blue.demo.ToolIsChinese;
 import tools.config.ConfigTools;
@@ -8,13 +8,16 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Scanner;
 
-public class MyKeyAdapter extends KeyAdapter {
+/**
+ * 文本框键盘事件适配器
+ */
+public class TextFieldKeyAdapter extends KeyAdapter {
     JFrame frame;
     JTextField textField;
     JTextArea textArea;
     JPanel scrollPaneFather;
 
-    public MyKeyAdapter(JFrame frame, JTextField textField, JTextArea textArea, JPanel scrollPaneFather) {
+    public TextFieldKeyAdapter(JFrame frame, JTextField textField, JTextArea textArea, JPanel scrollPaneFather) {
         this.frame = frame;
         this.textField = textField;
         this.textArea = textArea;
