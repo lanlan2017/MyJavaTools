@@ -17,6 +17,7 @@ public class JavaDoc2Markdown {
      * @return markdown表格.
      */
     public String mdTableCopy(String tableStrFromWeb) {
+        tableStrFromWeb = tableStrFromWeb.replaceAll("\t", "    ");
         // 行首添加表格分隔符
         tableStrFromWeb = tableStrFromWeb.replaceAll("(?m)^(?:\\s{2,})?", "|");
         // 在行尾添加表格分割符
@@ -24,8 +25,7 @@ public class JavaDoc2Markdown {
         tableStrFromWeb = tableStrFromWeb.replaceAll("\\s{2,}", "|");
         // 在两个空格以上的地方替换成表格分割符
         // 获取第一行
-        String firstLine = tableStrFromWeb.substring(0,
-                tableStrFromWeb.indexOf("\n"));
+        String firstLine = tableStrFromWeb.substring(0, tableStrFromWeb.indexOf("\n"));
         // 把第一行替换成markdown表格的对齐方式
         firstLine = firstLine.replaceAll("([^|]+?\\|)", ":---|");
         // 在第一行末尾添加表格对齐方式
@@ -62,6 +62,7 @@ public class JavaDoc2Markdown {
         // 添加表格标题和对齐方式
         return "|方法|描述|\n|:--|:--|\n" + text;
     }
+
     public String docMethodTable2MdTableNoDescription(String text) {
         text = generateTableBodyNoDescription(text);
         // 添加表格标题和对齐方式
@@ -127,7 +128,7 @@ public class JavaDoc2Markdown {
         // 行首加竖杠
         //text = text.replaceAll("(?m)^", "|");
         // 高亮第一列
-        text=text.replaceAll("(?m)^[|]([^|]+)[|][|]$", "|`$1`||");
+        text = text.replaceAll("(?m)^[|]([^|]+)[|][|]$", "|`$1`||");
         return text;
     }
 
@@ -233,12 +234,7 @@ public class JavaDoc2Markdown {
 
 
     public static void main(String[] args) {
-        String test = "void\tchangedUpdate\u200B(DocumentEvent e)\t\n" +
-                "Gives notification that an attribute or set of attributes changed.\n" +
-                "void\tinsertUpdate\u200B(DocumentEvent e)\t\n" +
-                "Gives notification that there was an insert into the document.\n" +
-                "void\tremoveUpdate\u200B(DocumentEvent e)\t\n" +
-                "Gives notification that a portion of the document has been removed.";
+        String test = "void\tchangedUpdate\u200B(DocumentEvent e)\t\n" + "Gives notification that an attribute or set of attributes changed.\n" + "void\tinsertUpdate\u200B(DocumentEvent e)\t\n" + "Gives notification that there was an insert into the document.\n" + "void\tremoveUpdate\u200B(DocumentEvent e)\t\n" + "Gives notification that a portion of the document has been removed.";
         System.out.println(new JavaDoc2Markdown().generateTableBodyNoDescription(test));
         System.out.println("------------");
         System.out.println(new JavaDoc2Markdown().docMethodTable2MdTable(test));
