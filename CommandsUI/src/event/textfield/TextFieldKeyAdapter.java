@@ -6,6 +6,7 @@ import tools.config.ConfigTools;
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -28,35 +29,64 @@ public class TextFieldKeyAdapter extends KeyAdapter {
     public void keyPressed(KeyEvent e) {
         // 如果按下回车键
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            // 获取文本框的内容
-            String input = textField.getText();
-            if (!"".equals(input) && input != null) {
-                // 设置标题的名称作为提示信息
-                frame.setTitle(input);
-                // 处理输入的文本
-                String output = doTextField(input);
-                // System.out.println(output);
-                if (output != null) {
-                    // 统计结果有多少行
-                    int[] line = countRows(output);
-                    // 设置文本框的行数
-                    textArea.setRows(line[0] + 1);
-                    textArea.setColumns(line[1] + 1);
-                    // 处理结果写到文本域中
-                    textArea.setText(output);
-                    // 显示textArea面板
-                    // scrollPane.setVisible(true);
-                    scrollPaneFather.setVisible(true);
+            pressedEnter();
+        }
+        // 按下Ctrl+Z快捷键时
+        else if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_Z) {
+            pressedCtrlZ();
+        }
+    }
 
-                    // 重绘UI
-                } else {
-                    // 隐藏textArea面板
-                    // scrollPane.setVisible(false);
-                    scrollPaneFather.setVisible(false);
-                    // 重绘UI
-                }
-                repaint();
+    /**
+     * 在文本框中按下Ctrl+Z的处理方式
+     */
+    private void pressedCtrlZ() {
+        // 获取之前输入的缓存列表
+        ArrayList<String> list = TextFieldDocumentListener.previousInput;
+        // 如果列表中的长度大于1
+        if (list.size() > 1) {
+            // 删除最后一个元素
+            TextFieldDocumentListener.previousInput.remove(list.size() - 1);
+            // 设置删除后的最后一个元素为当前文本框的内容
+            // 注意，这两句不可颠倒位置
+            textField.setText(list.get(list.size() - 1));
+        }
+        // 打印删除后list中的内容
+        list.forEach(text -> System.out.println("'" + text + "'"));
+    }
+
+    /**
+     * 按下回车键时的处理方式
+     */
+    private void pressedEnter() {
+        // 获取文本框的内容
+        String input = textField.getText();
+        if (!"".equals(input) && input != null) {
+            // 设置标题的名称作为提示信息
+            frame.setTitle(input);
+            // 处理输入的文本
+            String output = doTextField(input);
+            // System.out.println(output);
+            if (output != null) {
+                // 统计结果有多少行
+                int[] line = countRows(output);
+                // 设置文本框的行数
+                textArea.setRows(line[0] + 1);
+                textArea.setColumns(line[1] + 1);
+                // 处理结果写到文本域中
+                textArea.setText(output);
+                // 显示textArea面板
+                // scrollPane.setVisible(true);
+                scrollPaneFather.setVisible(true);
+
+                // 重绘UI
+            } else {
+                // 隐藏textArea面板
+                // scrollPane.setVisible(false);
+                scrollPaneFather.setVisible(false);
+                // 重绘UI
             }
+            repaint();
         }
     }
 
