@@ -130,6 +130,7 @@ public class HtmlTools {
         escapedHtml = escapedHtml.replace("&lt;", "<");
         escapedHtml = escapedHtml.replace("&gt;", ">");
         escapedHtml = escapedHtml.replace("&#35;", "#");
+        escapedHtml = escapedHtml.replace("&amp;", "&");
         return escapedHtml;
     }
 
