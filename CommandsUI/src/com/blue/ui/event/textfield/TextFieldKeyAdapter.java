@@ -1,4 +1,4 @@
-package event.textfield;
+package com.blue.ui.event.textfield;
 
 import com.blue.demo.ToolIsChinese;
 import tools.config.ConfigTools;

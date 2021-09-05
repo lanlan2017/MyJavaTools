@@ -1,4 +1,4 @@
-package event.panel;
+package com.blue.ui.event.panel;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,4 +1,4 @@
-package event.textfield;
+package com.blue.ui.event.textfield;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;

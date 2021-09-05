@@ -2,16 +2,21 @@ package com.blue.ui;
 
 import com.blue.tool.ThreadAutoSetFrameOpacity;
 import com.blue.tool.ui.ToolUiSystemTray;
+import com.blue.ui.event.textfield.TextAreaMouseListener;
 import com.formdev.flatlaf.FlatLightLaf;
-import event.textfield.TextFieldDocumentListener;
-import event.textfield.TextFieldFocusAdapter;
-import event.textfield.TextFieldKeyAdapter;
-import event.panel.PanelMouseListener;
-import event.panel.PanelMouseMotionListener;
+import com.blue.ui.event.textfield.TextFieldDocumentListener;
+import com.blue.ui.event.textfield.TextFieldFocusAdapter;
+import com.blue.ui.event.textfield.TextFieldKeyAdapter;
+import com.blue.ui.event.panel.PanelMouseListener;
+import com.blue.ui.event.panel.PanelMouseMotionListener;
 
 import javax.swing.*;
 import javax.swing.text.Document;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseWheelListener;
 
 public class MainFrom {
 
@@ -38,6 +43,8 @@ public class MainFrom {
         frameSetting();
         // 文本框功能
         textFieldSetting();
+        // 监听文本域鼠标事件，右键点击文本域，将会清空文本域。
+        textArea.addMouseListener(new TextAreaMouseListener(frame, textArea));
     }
 
     private void textFieldSetting() {
