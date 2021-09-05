@@ -66,15 +66,19 @@ public class TextFieldKeyAdapter extends KeyAdapter {
             frame.setTitle(input);
             // 处理输入的文本
             String output = doTextField(input);
-            // System.out.println(output);
             if (output != null) {
-                // 统计结果有多少行
+                // // 统计结果有多少行
                 int[] line = countRows(output);
-                // 设置文本框的行数
-                textArea.setRows(line[0] + 1);
-                textArea.setColumns(line[1] + 1);
+                // // 设置文本框的行数
+                textArea.setRows(line[0]);
+                textArea.setColumns(line[1]);
                 // 处理结果写到文本域中
                 textArea.setText(output);
+                // System.out.println("行数:"+line[0]);
+                // System.out.println("=================================");
+                // System.out.println(output);
+                // System.out.println("=================================");
+
                 // 设置选择区域的开始和结束都为0，
                 // 这样textarea显示的时候就显示第一行，而不是显示最后一行
                 // 设置选择光标的位置为开头
@@ -82,16 +86,13 @@ public class TextFieldKeyAdapter extends KeyAdapter {
                 textArea.setSelectionEnd(0);
 
                 // 显示textArea面板
-                // scrollPane.setVisible(true);
                 scrollPaneFather.setVisible(true);
 
-                // 重绘UI
             } else {
                 // 隐藏textArea面板
-                // scrollPane.setVisible(false);
                 scrollPaneFather.setVisible(false);
-                // 重绘UI
             }
+            // 重绘UI
             repaint();
         }
     }
@@ -101,27 +102,37 @@ public class TextFieldKeyAdapter extends KeyAdapter {
         String lineStr;
         String longestLine = null;
         int lineLength;
+
         Scanner scanner = new Scanner(output);
-        while (scanner.hasNext()) {
+        // 记录最长的一行的长度
+        int longestLineLength = 0;
+        while (scanner.hasNextLine()) {
             // 读取行
             lineStr = scanner.nextLine();
             // 获取行的长度
             lineLength = lineStr.length();
             // 记下最长的行的长度
-            if (lineLength > rowColLength[1]) {
+            if (lineLength > longestLineLength) {
                 // 记录行的长度
-                rowColLength[1] = lineLength;
+                longestLineLength = lineLength;
+                // 记录最长行的位置
                 longestLine = lineStr;
             }
+            // 行数加一
             rowColLength[0]++;
         }
+        // 最后一行可能没有换行符，所以这里多加上一行。
+        rowColLength[0]++;
         scanner.close();
+
         if (longestLine != null) {
             char ch;
             double count = 1;
             for (int i = 0; i < longestLine.length(); i++) {
                 ch = longestLine.charAt(i);
                 if (ToolIsChinese.isContainChinese(ch)) {
+                    count += 1.0;
+                } else if (ch >= 'A' && ch <= 'Z') {
                     count += 1.0;
                 } else {
                     count += 0.5;

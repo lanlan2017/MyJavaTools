@@ -19,7 +19,7 @@ public class ThreadAutoSetFrameOpacity implements Runnable {
             if (isSetOpacity) {
                 // 当窗口不活动的时候
                 if(!mainFrom.getFrame().isActive()){
-                    System.out.println("调整");
+                    // System.out.println("调整");
                     // 隐藏输出面板
                     // mainFrom.getScrollPane().setVisible(false);
                     mainFrom.getScrollPaneFather().setVisible(false);
