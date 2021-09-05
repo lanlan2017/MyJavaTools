@@ -87,17 +87,17 @@ public class Html2MarkDown {
     public String toMd(String str) {
         // 替换换行符
         str = str.replaceAll("(?:<br>)+", "\n");
+        // div结束标签替换为换行符
+        str = str.replaceAll("</div>", "\n");
+        // 删除div开始标签
+        str = str.replaceAll("<div(?: .*?)?>", "");
+
         // 替换加粗标签<strong> <b>
         str = str.replaceAll("</?(?:strong|b)>", "**");
         // 删除pre,span标签
         str = str.replaceAll("</?(?:pre|span)(?: .*?)?>", "");
-        // 删除div开始标签
-        str = str.replaceAll("<div(?: .*?)?>", "");
-        // div结束标签替换为换行符
-        str = str.replaceAll("</div>", "\n");
         // 替换段落标签
         str = str.replaceAll("(?:</?p>)+", "\n");
-
         // 删除多余空格
         str = str.replaceAll("[ ]+", " ");
         // 删除多余的空格转义字符

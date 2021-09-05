@@ -6,8 +6,6 @@ m:
   l: tools.markdown.MarkdownTools.hyperLinks
   # 无序列表
   u: tools.markdown.MarkdownTools.unorderList
-  # 取消无序列表
-  nu: tools.markdown.MarkdownTools.cancelUnorderedList
   # 有序列表
   o: tools.markdown.MarkdownTools.orderedList
   # 引用
@@ -32,8 +30,14 @@ m:
   k: tools.markdown.MarkdownTools.inlineCode
   # 多个行内代码
   ks: tools.markdown.MarkdownTools.inlineCodeAuto
-  # 移除行内代码
-  nks: tools.markdown.MarkdownTools.inlineCodeUndo
+  # 撤销markdown操作
+  undo:
+    # 撤销多个行内代码操作
+    ks: tools.markdown.MarkdownTools.inlineCodeUndo
+    # 取消无序列表
+    u: tools.markdown.MarkdownTools.cancelUnorderedList
+    # 取消markdown加粗
+    b: tools.markdown.MarkdownTools.boldUndo
   # 无序列表转表格
   u2t: tools.markdown.MardownConverter.unorderList2Table
   # 有序列表转无序列表

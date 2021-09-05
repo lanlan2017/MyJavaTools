@@ -61,12 +61,35 @@ public class MarkdownTools {
         return text;
     }
 
-    public String bold(String input) {
-        return "**" + input + "**";
+    /**
+     * 生成markdown加粗代码
+     *
+     * @param text 普通文本
+     * @return markdown加粗代码
+     */
+    public String bold(String text) {
+        return "**" + text + "**";
     }
 
-    public String inlineCode(String input) {
-        return "`" + input + "`";
+    /**
+     * 撤销Markdown加粗
+     *
+     * @param markdownCode 有加粗的markdown代码
+     * @return 取消markdown加粗后的markdown代码。
+     */
+    public String boldUndo(String markdownCode) {
+        markdownCode = markdownCode.replace("**", "");
+        return markdownCode;
+    }
+
+    /**
+     * 生成markdown行内代码
+     *
+     * @param text 普通文本
+     * @return markdown行内代码
+     */
+    public String inlineCode(String text) {
+        return "`" + text + "`";
     }
 
     public String inlineCodeAuto(String text) {
@@ -98,6 +121,17 @@ public class MarkdownTools {
     }
 
     /**
+     * 移除markdown行内代码.
+     *
+     * @param mdCodes 包含markdown行内代码的字符串.
+     * @return 没有markdown行内代码的字符串.
+     */
+    public String inlineCodeUndo(String mdCodes) {
+        mdCodes = mdCodes.replaceAll("`([^`]+?)`", "$1");
+        return mdCodes;
+    }
+
+    /**
      * 修复Markdown行内代码中的错误字符串.
      *
      * @param result 包含markdown行内代码的字符串.
@@ -113,16 +147,6 @@ public class MarkdownTools {
         return result;
     }
 
-    /**
-     * 移除markdown行内代码.
-     *
-     * @param mdCodes 包含markdown行内代码的字符串.
-     * @return 没有markdown行内代码的字符串.
-     */
-    public String inlineCodeUndo(String mdCodes) {
-        mdCodes = mdCodes.replaceAll("`([^`]+?)`", "$1");
-        return mdCodes;
-    }
 
     /**
      * 转成markdown行内代码.

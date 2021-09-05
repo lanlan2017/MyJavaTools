@@ -34,7 +34,7 @@ public class Test {
         // String result = ConfigTools.getInstance().forward("m", "nike", "choice");
         // String result = ConfigTools.getInstance().forward("j", "hmi");
         // String result = ConfigTools.getInstance().forward("m", "table","cp");
-        String result = ConfigTools.getInstance().forward("html", "2md");
+        String result = ConfigTools.getInstance().forward("m", "undo","b");
         ConfigTools.getInstance().showResult(result);
 
     }
