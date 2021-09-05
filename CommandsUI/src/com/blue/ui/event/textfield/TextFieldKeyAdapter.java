@@ -75,6 +75,12 @@ public class TextFieldKeyAdapter extends KeyAdapter {
                 textArea.setColumns(line[1] + 1);
                 // 处理结果写到文本域中
                 textArea.setText(output);
+                // 设置选择区域的开始和结束都为0，
+                // 这样textarea显示的时候就显示第一行，而不是显示最后一行
+                // 设置选择光标的位置为开头
+                textArea.setSelectionStart(0);
+                textArea.setSelectionEnd(0);
+
                 // 显示textArea面板
                 // scrollPane.setVisible(true);
                 scrollPaneFather.setVisible(true);
