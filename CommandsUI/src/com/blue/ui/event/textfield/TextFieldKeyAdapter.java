@@ -71,7 +71,9 @@ public class TextFieldKeyAdapter extends KeyAdapter {
                 int[] line = countRows(output);
                 // // 设置文本框的行数
                 textArea.setRows(line[0]);
-                textArea.setColumns(line[1]);
+                // 设置textArea的列数，最高不超过80列。
+                int maxColumns = 80;
+                textArea.setColumns(line[1] < maxColumns ? line[1] : maxColumns);
                 // 处理结果写到文本域中
                 textArea.setText(output);
                 // System.out.println("行数:"+line[0]);
