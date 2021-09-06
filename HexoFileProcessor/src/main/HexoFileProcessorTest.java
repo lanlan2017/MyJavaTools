@@ -1,11 +1,11 @@
 package main;
 
+import io.HexoFileProcessor;
 import io.exam.ExamHexoMore;
+import io.toc.HexoNextTocPage;
 import tools.copy.SystemClipboard;
 import tools.dir.DirProcessor;
 import tools.file.processor.FileProcessor;
-import io.HexoFileProcessor;
-import io.toc.HexoNextTocPage;
 
 import java.io.File;
 
@@ -73,7 +73,7 @@ public class HexoFileProcessorTest {
             // 执行
             doOneArgIsExam();
         }
-        // 
+        //
         else if ("addJS".equals(arg0)) {
             String path = SystemClipboard.getSysClipboardText();
             addMyHexoFrontMatter(path);
@@ -89,7 +89,7 @@ public class HexoFileProcessorTest {
             help += " fm toc:  \t给Hexo站点生成目录页面";
             System.out.println(help);
             try {
-                Thread.sleep(1000*30);
+                Thread.sleep(1000 * 30);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
