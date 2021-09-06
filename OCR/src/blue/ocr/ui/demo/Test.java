@@ -1,4 +1,4 @@
-package blue.ocr.ui.text2;
+package blue.ocr.ui.demo;
 
 /**
  * @author francis

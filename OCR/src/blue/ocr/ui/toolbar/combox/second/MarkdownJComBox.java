@@ -1,17 +1,16 @@
 package blue.ocr.ui.toolbar.combox.second;
 
+import blue.ocr.baidu.BaiduOcrRunable;
 import blue.ocr.formatter.Formatter;
 import blue.ocr.formatter.markdown.MdBold;
 import blue.ocr.formatter.markdown.MdInlineCodesOneLine;
 import blue.ocr.formatter.markdown.multiline.MdInlineCodesMultiLine;
 import blue.ocr.formatter.markdown.multiline.MdOrderList;
 import blue.ocr.formatter.markdown.multiline.MdUnorderList;
+import blue.ocr.formatter.markdown.multiline.codeblock.MdCbHtml;
 import blue.ocr.formatter.markdown.multiline.codeblock.MdCbJava;
 import blue.ocr.formatter.markdown.multiline.codeblock.MdCbJsp;
 import blue.ocr.formatter.markdown.multiline.codeblock.MdCbSql;
-import blue.ocr.formatter.markdown.multiline.codeblock.MdCbHtml;
-import blue.ocr.baidu.BaiduOcrRunable;
-import blue.ocr.ui.setting.FontTools;
 
 import javax.swing.*;
 import java.awt.event.ItemEvent;
@@ -28,7 +27,7 @@ public class MarkdownJComBox {
     private MarkdownJComBox() {
         String[] markdownItems = {"单行代码", "多行代码", "加粗", "无序列表", "有序列表", "Java代码块", "SQL代码块", "html代码块", "JSP代码"};
         comboBox = new JComboBox<>(markdownItems);
-        comboBox.setFont(FontTools.f1);
+        // comboBox.setFont(FontTools.f1);
         comboBox.addItemListener(markdownE -> {
             // 如果是选中的话
             if (ItemEvent.SELECTED == markdownE.getStateChange()) {

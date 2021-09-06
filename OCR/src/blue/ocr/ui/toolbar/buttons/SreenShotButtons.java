@@ -2,7 +2,6 @@ package blue.ocr.ui.toolbar.buttons;
 
 import blue.ocr.ui.ScreenShotWindow;
 import blue.ocr.ui.ToolsWindow;
-import blue.ocr.ui.setting.FontTools;
 
 import javax.swing.*;
 
@@ -17,7 +16,7 @@ public class SreenShotButtons {
 
     private SreenShotButtons() {
         cancelButton = new JButton("取消截屏");
-        cancelButton.setFont(FontTools.f1);
+        // cancelButton.setFont(FontTools.f1);
         cancelButton.addActionListener(e -> {
             // 不显示截屏窗口
             ScreenShotWindow.getInstance().setVisible(false);
@@ -25,7 +24,6 @@ public class SreenShotButtons {
             ToolsWindow.defaultLocation();
         });
         startButton = new JButton("截屏");
-        startButton.setFont(FontTools.f1);
         startButton.addActionListener(e -> {
             // 再次截屏
             ScreenShotWindow.getInstance().screenshotAgain();

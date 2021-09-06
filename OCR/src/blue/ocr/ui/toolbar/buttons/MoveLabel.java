@@ -1,7 +1,6 @@
 package blue.ocr.ui.toolbar.buttons;
 
 import blue.ocr.ui.ToolsWindow;
-import blue.ocr.ui.setting.FontTools;
 import blue.ocr.ui.toolbar.ToolBar;
 
 import javax.swing.*;
@@ -22,38 +21,14 @@ public class MoveLabel {
 
     private MoveLabel() {
         label = new JLabel("移动");
-        label.setFont(FontTools.f1);
+        // label.setFont(FontTools.f1);
         // 监听事件,移动窗体
         label.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 mousePressedPoint.x = e.getX();
                 mousePressedPoint.y = e.getY();
-                // if (isHideToolBar == true) {
-                //     ToolBar.getInstance().getToolBar().removeAll();
-                //     ToolsWindow.getInstance().pack();
-                //     System.out.println("隐藏工具条");
-                //     isHideToolBar = false;
-                // } else {
-                //     ToolBar.getInstance().addToolBarButtons();
-                //     ToolsWindow.getInstance().pack();
-                //     System.out.println("显示工具条");
-                //     isHideToolBar = true;
-                // }
-                // // String outStr = "";
-                // if (e.getButton() == e.BUTTON1) {
-                //     // outStr = "左键";
-                // } else if (e.getButton() == e.BUTTON3) {
-                //     // outStr = "右键";
-                // } else {
-                //     // outStr = "中键";
-                // }
-                // if (e.getClickCount() == 2) {
-                //     // outStr = outStr + "双击";
-                // } else {
-                //     // outStr = outStr + "点击";
-                // }
-                // // System.out.println(outStr);
+
                 // 如果是右键双击的话
                 if (e.getButton() == e.BUTTON3 && e.getClickCount() == 2) {
                     if (isHideToolBar == true) {

@@ -1,7 +1,6 @@
 package blue.ocr.ui.toolbar.combox.first;
 
 import blue.ocr.baidu.BaiduOcrRunable;
-import blue.ocr.ui.setting.FontTools;
 import blue.ocr.ui.toolbar.ToolBar;
 import blue.ocr.ui.toolbar.combox.second.BookMarkJComBox;
 import blue.ocr.ui.toolbar.combox.second.MarkdownJComBox;
@@ -20,7 +19,6 @@ public class FirstComBox {
         String[] items = {"不格式化", "Markdown", "书签"};
         // 创建下拉选择框
         comboBox = new JComboBox<>(items);
-        comboBox.setFont(FontTools.f1);
         // 注册下拉列表框事件监听器
         comboBox.addItemListener(e -> {
             // 如果是选中的话

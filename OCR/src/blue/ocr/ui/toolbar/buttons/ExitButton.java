@@ -1,7 +1,5 @@
 package blue.ocr.ui.toolbar.buttons;
 
-import blue.ocr.ui.setting.FontTools;
-
 import javax.swing.*;
 
 /**
@@ -14,7 +12,6 @@ public class ExitButton {
 
     private ExitButton() {
         exitButton = new JButton("退出");
-        exitButton.setFont(FontTools.f1);
         exitButton.addActionListener(e -> System.exit(0));
     }
 

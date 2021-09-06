@@ -26,22 +26,24 @@ public class ScreenShotWindow extends JWindow {
     // 鼠标按下的坐标
     Point mousePressedPoint = new Point();
     // 鼠标拖动时的坐标
-    Point mouseDraggePoint = new Point();
+    Point mouseDraggedPoint = new Point();
+
     private BufferedImage image = null;
     private BufferedImage tempImage = null;
     private BufferedImage saveImage = null;
     // 保存屏幕宽度
-    static final Dimension screenSize = Toolkit.getDefaultToolkit()
-            .getScreenSize();
+    static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     // 单例模式定义开始
     private static final ScreenShotWindow instance = new ScreenShotWindow();
 
+    // 获取单例类
     public static ScreenShotWindow getInstance() {
         return instance;
     }
 
     // 构造函数
-    private ScreenShotWindow() {   // 截屏窗体永远在其他程序上显示,这样才能在上面画出要截取的部分
+    private ScreenShotWindow() {
+        // 截屏窗体永远在其他程序上显示,这样才能在上面画出要截取的部分
         this.setAlwaysOnTop(true);
         // 截取屏幕保存图片
         createScreenCapture();
@@ -76,14 +78,17 @@ public class ScreenShotWindow extends JWindow {
             public void mousePressed(MouseEvent e) {
                 // 鼠标按下时，表明截屏开始，记录开始点坐标，并隐藏操作窗口
                 mousePressedPoint.setLocation(e.getX(), e.getY());
+                // 隐藏工具面板
                 ToolsWindow.getInstance().setVisible(false);
             }
 
             // 鼠标松开
             @Override
             public void mouseReleased(MouseEvent e) {
+                // 获取鼠标松开的坐标
                 int x = e.getX();
                 int y = e.getY();
+                // 保证工具条不超出屏幕之外
                 noOverflowScreen(e, x, y);
                 // 显示窗体
                 ToolsWindow.getInstance().setVisible(true);
@@ -99,28 +104,22 @@ public class ScreenShotWindow extends JWindow {
              */
             public void noOverflowScreen(MouseEvent e, int x, int y) {
                 ToolsWindowSize = ToolsWindow.getInstance().getSize();
-                boolean overX = x + ToolsWindowSize.getWidth() + 1 > screenSize
-                        .getWidth();
-                boolean overY = y + ToolsWindowSize.getHeight() + 1 > screenSize
-                        .getHeight();
+                boolean overX = x + ToolsWindowSize.getWidth() + 1 > screenSize.getWidth();
+                boolean overY = y + ToolsWindowSize.getHeight() + 1 > screenSize.getHeight();
                 // 如果同时超出了宽度和高度 11
                 if (overX && overY) {
-                    ToolsWindow.getInstance().setLocation(
-                            (int) (x - ToolsWindowSize.getWidth()),
-                            (int) (y - ToolsWindowSize.getHeight()));
+                    ToolsWindow.getInstance().setLocation((int) (x - ToolsWindowSize.getWidth()), (int) (y - ToolsWindowSize.getHeight()));
                 }
                 // 10或者01宽度超出了屏幕宽度，或者高度，这里不能匹配到同时的情况，如果同时的话会走上面的分支
                 else if (overX || overY) {
                     // 如果是高度超出 01
                     if (overY) {
                         // 显示在屏幕上
-                        ToolsWindow.getInstance().setLocation(x,
-                                (int) (y - ToolsWindowSize.getHeight()));
+                        ToolsWindow.getInstance().setLocation(x, (int) (y - ToolsWindowSize.getHeight()));
                     }
                     // 如果不是高度的话，那只能是宽度了 10
                     else {
-                        ToolsWindow.getInstance().setLocation(
-                                (int) (x - ToolsWindowSize.getWidth()), y);
+                        ToolsWindow.getInstance().setLocation((int) (x - ToolsWindowSize.getWidth()), y);
                     }
                 }
                 // 如果都没有超出宽度 00
@@ -137,22 +136,18 @@ public class ScreenShotWindow extends JWindow {
     private void addMouseMotionListenerInThis() {
         // 鼠标移动和拖动监听事件处理函数
         this.addMouseMotionListener(new MouseMotionAdapter() {
-
             @Override
             public void mouseDragged(MouseEvent e) {
                 // 鼠标拖动时，记录坐标并重绘窗口
-                mouseDraggePoint.setLocation(e.getX(), e.getY());
+                mouseDraggedPoint.setLocation(e.getX(), e.getY());
                 // 临时图像，用于缓冲屏幕区域放置屏幕闪烁
-                Image tempImage2 = createImage(ScreenShotWindow.this.getWidth(),
-                        ScreenShotWindow.this.getHeight());
+                Image tempImage2 = createImage(ScreenShotWindow.this.getWidth(), ScreenShotWindow.this.getHeight());
                 Graphics g = tempImage2.getGraphics();
                 g.drawImage(tempImage, 0, 0, null);
-                int x = Math.min(mousePressedPoint.x, mouseDraggePoint.x);
-                int y = Math.min(mousePressedPoint.y, mouseDraggePoint.y);
-                int width = Math.abs(mouseDraggePoint.x - mousePressedPoint.x)
-                        + 1;
-                int height = Math.abs(mouseDraggePoint.y - mousePressedPoint.y)
-                        + 1;
+                int x = Math.min(mousePressedPoint.x, mouseDraggedPoint.x);
+                int y = Math.min(mousePressedPoint.y, mouseDraggedPoint.y);
+                int width = Math.abs(mouseDraggedPoint.x - mousePressedPoint.x) + 1;
+                int height = Math.abs(mouseDraggedPoint.y - mousePressedPoint.y) + 1;
 
                 // 设置截屏矩形边框的颜色
                 g.setColor(Color.RED);
@@ -160,10 +155,10 @@ public class ScreenShotWindow extends JWindow {
                 g.drawRect(x - 1, y - 1, width + 1, height + 1);
                 // 保存图片
                 saveImage = image.getSubimage(x, y, width, height);
+                // 绘制图片
                 g.drawImage(saveImage, x, y, null);
-
-                ScreenShotWindow.getInstance().getGraphics().drawImage(
-                        tempImage2, 0, 0, ScreenShotWindow.getInstance());
+                //
+                ScreenShotWindow.getInstance().getGraphics().drawImage(tempImage2, 0, 0, ScreenShotWindow.getInstance());
             }
         });
     }
@@ -188,8 +183,7 @@ public class ScreenShotWindow extends JWindow {
         try {
             robot = new Robot();
             // 截取整个屏幕,保存在BufferedImage中
-            image = robot.createScreenCapture(
-                    new Rectangle(0, 0, screenSize.width, screenSize.height));
+            image = robot.createScreenCapture(new Rectangle(0, 0, screenSize.width, screenSize.height));
         } catch (AWTException e) {
             e.printStackTrace();
         }

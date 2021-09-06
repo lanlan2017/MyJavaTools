@@ -1,7 +1,6 @@
 package blue.ocr.ui.toolbar;
 
 import blue.ocr.ui.ToolsWindow;
-import blue.ocr.ui.setting.FontTools;
 import blue.ocr.ui.toolbar.buttons.*;
 import blue.ocr.ui.toolbar.combox.first.FirstComBox;
 
@@ -25,7 +24,6 @@ public class ToolBar {
         // moveLable=MoveLabel.getInstance().getLabel();
         // moveLable.setVisible(true);
         toolBar = new JToolBar("Java 截图");
-        toolBar.setFont(FontTools.f1);
         // 设置工具条不可拖动
         toolBar.setFloatable(false);
         // 添加按钮到工具条上

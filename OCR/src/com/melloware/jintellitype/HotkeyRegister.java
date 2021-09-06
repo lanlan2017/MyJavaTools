@@ -44,6 +44,9 @@ public class HotkeyRegister {
         JIntellitype.getInstance().registerHotKey(BAIDUOCR_HOT_KEY, JIntellitype.MOD_ALT, 'S');
     }
 
+    /**
+     * 快捷键注册函数
+     */
     private static void kuaiJieJianHanShu() {
         // 第3步：添加热键监听器JIntellitype
         JIntellitype.getInstance().addHotKeyListener(markCode -> {

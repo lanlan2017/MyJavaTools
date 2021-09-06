@@ -2,7 +2,9 @@ package blue.ocr.main;
 
 import blue.ocr.ui.ScreenShotWindow;
 import blue.ocr.ui.ToolsWindow;
+import com.formdev.flatlaf.FlatLightLaf;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class ScreenShotOcr {
@@ -12,6 +14,10 @@ public class ScreenShotOcr {
             ScreenShotWindow.getInstance();
             // 实例化共具体窗体
             ToolsWindow.getInstance();
+            // 设置主题
+            FlatLightLaf.setup();
+            // 给所有的组件都使用该主题
+            SwingUtilities.updateComponentTreeUI(ToolsWindow.getInstance());
         });
     }
 }

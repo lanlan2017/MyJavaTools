@@ -175,8 +175,11 @@ public class BaiduOcrRunable implements Runnable {
      * 启动文字识别
      */
     public static void startBaiduOCR() {
+        // 图片的路径
         String imagePath = "1.png";
+        // 截图，并保存
         try {
+            // 截图，并获得图片
             ImageIO.write(ScreenShotWindow.getInstance().getSaveImage(), "png", new File(imagePath));
         } catch (IOException e) {
             e.printStackTrace();
