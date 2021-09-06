@@ -1,4 +1,4 @@
-package blue.commands.ui.event.textfield;
+package blue.commands.ui.event.textarea;
 
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
@@ -15,9 +15,10 @@ public class TextAreaMouseListener extends MouseAdapter {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        // 如果按下的是鼠标右键
-        if (e.getButton() == MouseEvent.BUTTON3) {
-            System.out.println("鼠标右键按下");
+        // 如果按下的是鼠标右键,并且按下两次
+        // 也就是右键双击
+        if (e.getButton() == MouseEvent.BUTTON3 && e.getClickCount() == 2) {
+            System.out.println("鼠标右键双击");
             // 情况内容
             textArea.setText("");
             // 设置行数

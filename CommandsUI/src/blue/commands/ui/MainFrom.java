@@ -4,7 +4,7 @@ import blue.commands.ui.event.panel.PanelMouseListener;
 import blue.commands.ui.event.panel.PanelMouseMotionListener;
 import blue.commands.tool.ThreadAutoSetFrameOpacity;
 import blue.commands.tool.ui.ToolUiSystemTray;
-import blue.commands.ui.event.textfield.TextAreaMouseListener;
+import blue.commands.ui.event.textarea.TextAreaMouseListener;
 import com.formdev.flatlaf.FlatLightLaf;
 import blue.commands.ui.event.textfield.TextFieldDocumentListener;
 import blue.commands.ui.event.textfield.TextFieldFocusAdapter;
