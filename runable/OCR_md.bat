@@ -1,5 +1,7 @@
 @echo off
-start javaw -jar "%~dp0OCR.jar"
-REM javaw -jar "%~dp0OCR.jar"
+@REM start javaw -jar "%~dp0OCR.jar"
+@REM start G:\java\java8\jdk-8u221\bin\javaw.exe -jar "%~dp0OCR.jar"
+start %JAVA_HOME_8%\bin\javaw.exe -jar "%~dp0OCR.jar"
+@REM javaw -jar "%~dp0OCR.jar"
 exit
 :: pause

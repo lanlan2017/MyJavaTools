@@ -18,18 +18,6 @@ public class ScreenShotOcr
             ScreenShotWindow.getInstance();
             // 实例化共具体窗体
             ToolsWindow.getInstance();
-            // initGobalFont(FontTools.f2);
         });
     }
-    // public static void initGobalFont(Font font) {
-    //     FontUIResource fontResource = new FontUIResource(font);
-    //     for(Enumeration<Object> keys = UIManager.getDefaults().keys(); keys.hasMoreElements();) {
-    //         Object key = keys.nextElement();
-    //         Object value = UIManager.get(key);
-    //         if(value instanceof FontUIResource) {
-    //             System.out.println(key);
-    //             UIManager.put(key, fontResource);
-    //         }
-    //     }
-    // }
 }
