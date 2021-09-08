@@ -8,5 +8,7 @@ echo 当前工作目录:%cd%
 cd %~dp0
 echo 进入程序所在目录:%cd%
 echo ==========================================================
-start javaw -Dfile.encoding=GBK -jar "%~dp0CommandsUI.jar" %*
+@REM start javaw -Dfile.encoding=GBK -jar "%~dp0CommandsUI.jar" %*
+@REM -Duser.dir=%~dp0表示jar包的工作路径为当前文件的路径
+start javaw -Duser.dir=%~dp0 -Dfile.encoding=GBK -jar "%~dp0CommandsUI.jar" %*
 exit
