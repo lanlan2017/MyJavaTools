@@ -51,7 +51,7 @@ public class NiukeConfig {
      * 重置习题编号
      */
     public static int reset() {
-        setNumber(1);
+        setNumber(2);
         return 1;
     }
 
