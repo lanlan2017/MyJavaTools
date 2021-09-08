@@ -61,8 +61,15 @@ m:
   duyin: tools.sst.xunfei.XunFeiSstFlag.duyin
   # 牛客网行内代码选择题
   niuke:
-    # 行内代码选择题。
-    choice: tools.markdown.MardownConverter.nikeInlineCodeChoice
+    # 生成牛客笔记_题目编号自增
+    default: tools.markdown.MardownConverter.niuke
+    # 生成牛客笔记_重置题目编号
+    reset: tools.markdown.MardownConverter.niukeReset
+    # 格式化生成的牛客笔记的_行内代码选择题。
+    choice: tools.markdown.MardownConverter.niukeInlineCodeChoice
+#    # 使用输入的数字
+#    num:
+#      default: tools.markdown.MardownConverter.niuke_UseLastArg
   # 代码块
   cb:
     # java代码块

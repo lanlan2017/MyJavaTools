@@ -1,6 +1,7 @@
 package tools.markdown;
 
 import regex.RegexEnum;
+import tools.markdown.niuke.NiukeQuestionNumberConfig;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -68,10 +69,37 @@ public class MardownConverter {
     }
 
     /**
+     * @param copyText
+     * @return
+     */
+    public String niuke(String copyText) {
+        int number = NiukeQuestionNumberConfig.getNumber();
+        return niuke(copyText, number);
+    }
+
+    // public String niuke(String copyText, String numberStr) {
+    //     int number = Integer.parseInt(numberStr);
+    //     return niuke(copyText, number);
+    // }
+
+    public String niuke(String copyText, int number) {
+        copyText = "# 考点" + number + ":\n" + copyText;
+        // 替换选项
+        copyText = copyText.replaceAll("(?m)^([A-Z])$\\n^(.+)$", "- $1 $2");
+        copyText = copyText.replaceAll("(?m)^正确答案: [A-Z]+$", "\n<details><summary>显示答案/隐藏答案</summary>$0</details>");
+        return copyText;
+    }
+
+    public String niukeReset(String copyText) {
+        int number = NiukeQuestionNumberConfig.reset();
+        return niuke(copyText, number);
+    }
+
+    /**
      * @param chioce
      * @return
      */
-    public String nikeInlineCodeChoice(String chioce) {
+    public String niukeInlineCodeChoice(String chioce) {
         chioce = new MarkdownTools().inlineCodeUndo(chioce);
         chioce = chioce.replaceAll("(?m)$", "`");
         chioce = chioce.replaceAll("(?m)^- [A-Z] ", "$0`");

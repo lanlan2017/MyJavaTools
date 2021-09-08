@@ -121,6 +121,7 @@ public class CallInstanceMethod {
             Constructor<?> constructor = class1.getConstructor();
             // 创建对象
             Object object = constructor.newInstance();
+
             // 根据方法名和参数列表获取要调用的方法
             Method method = class1.getMethod(methodName, String.class, String.class);
             // invoke的调用者method是要运行的方法
