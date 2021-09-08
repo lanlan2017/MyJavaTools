@@ -200,13 +200,7 @@ public class StringConverter {
         return weiboContent;
     }
 
-    /**
-     * 生成格式化的日期
-     */
-    public String dateStr() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
-        return format.format(new Date());
-    }
+
 
     /**
      * 生成开启手机WiFi调试的adb命令

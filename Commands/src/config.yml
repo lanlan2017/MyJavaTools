@@ -67,9 +67,9 @@ m:
     reset: tools.markdown.MardownConverter.niukeReset
     # 格式化生成的牛客笔记的_行内代码选择题。
     choice: tools.markdown.MardownConverter.niukeInlineCodeChoice
-#    # 使用输入的数字
-#    num:
-#      default: tools.markdown.MardownConverter.niuke_UseLastArg
+  #    # 使用输入的数字
+  #    num:
+  #      default: tools.markdown.MardownConverter.niuke_UseLastArg
   # 代码块
   cb:
     # java代码块
@@ -182,10 +182,14 @@ s:
   fqxn: tools.string.StringConverter.fullyQualifiedXmlName
   # 格式化微博内容
   fmwb: tools.string.StringConverter.formatWeibo
-  # 生成日期字符串：yyyy年MM月dd日
-  date: tools.string.StringConverter.dateStr_Parameterless
   # 生成连接手机的adb命令
   adb: tools.string.StringConverter.adb
+  # 生成日期字符串：yyyy年MM月dd日
+  #  date: tools.string.StringConverter.dateStr_Parameterless
+  date: tools.string.StringGenerator.dateStr_Parameterless
+  # 打印出字母表
+  zimu:
+    default: tools.string.StringGenerator.alphabet_Parameterless
 # 快捷git命令:当在其他电脑上可能会用到.
 g:
   s: git status
@@ -284,6 +288,8 @@ j:
   jarName: tools.java.JavaTools.jarArtifactIdAndVersion
   # 隐藏方法实现，（Hidden method implementation） `public synchronized boolean contains(Object value) {...}`
   hmi: tools.java.JavaTools.hiddenMethodImplementation
+  # Eclipse java代码辅助 自动补全，设置
+  自动补全: tools.string.StringGenerator.javaCodeAssist_Parameterless
 # 算法
 suanfa:
   # 冒泡排序
