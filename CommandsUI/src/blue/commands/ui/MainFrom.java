@@ -9,6 +9,7 @@ import com.formdev.flatlaf.FlatLightLaf;
 import blue.commands.ui.event.textfield.TextFieldDocumentListener;
 import blue.commands.ui.event.textfield.TextFieldFocusAdapter;
 import blue.commands.ui.event.textfield.TextFieldKeyAdapter;
+import tools.markdown.niuke.ToolsJarPath;
 
 import javax.swing.*;
 import javax.swing.text.Document;
@@ -83,6 +84,8 @@ public class MainFrom {
     }
 
     public static void main(String[] args) {
+        // 设置工作目录为可执行.jar所在的目录
+        System.setProperty("user.dir", ToolsJarPath.getPath());
         JFrame frame = new JFrame("MainFrom");
         // 如果有传入参数的话
         if (args.length > 0) {
