@@ -13,3 +13,4 @@ Commands/src/main/Test.java
 *.log
 /RunableTools/src/base/
 */niuke.properties
+runable/niuke.properties
