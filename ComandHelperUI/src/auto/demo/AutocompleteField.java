@@ -1,4 +1,6 @@
-package test;
+package auto.demo;
+
+import ui.key.MapKeyList;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -10,15 +12,9 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-/**
- * @author Mikle Garin
- * @see https://stackoverflow.com/questions/45439231/implementing-autocomplete-with-jtextfield-and-jpopupmenu
- */
 
 public final class AutocompleteField extends JTextField implements FocusListener, DocumentListener, KeyListener {
     /**
@@ -212,27 +208,36 @@ public final class AutocompleteField extends JTextField implements FocusListener
      * @param args run arguments
      */
     public static void main(final String[] args) {
+        // 创建窗体
         final JFrame frame = new JFrame("Sample autocomplete field");
 
         // Sample data list
-        final List<String> values = Arrays.asList("Frame", "Dialog", "Label", "Tree", "Table", "List", "Field");
+        // final List<String> values = Arrays.asList("Frame", "Dialog 嘻嘻嘻", "Label", "Tree", "Table", "List", "Field");
+        final List<String> values = new ArrayList<>(MapKeyList.getKeysList());
 
+        // // Simple lookup based on our data list
+        // final Function<String, List<String>> lookup = text -> values.stream().filter(
+        //         v -> !text.isEmpty() && v.toLowerCase().contains(text.toLowerCase()) && !v.equals(text)).collect(Collectors.toList()
+        // );
         // Simple lookup based on our data list
-        final Function<String, List<String>> lookup = text -> values.stream()
-                .filter(v -> !text.isEmpty() && v.toLowerCase().contains(text.toLowerCase()) && !v.equals(text))
-                .collect(Collectors.toList());
+        final Function<String, List<String>> lookup = text -> values.stream().filter(v -> !text.isEmpty() && v.toLowerCase().startsWith(text.toLowerCase()) && !v.equals(text)).collect(Collectors.toList());
 
         // Autocomplete field itself
         final AutocompleteField field = new AutocompleteField(lookup);
         field.setColumns(15);
 
-        final JPanel border = new JPanel(new BorderLayout());
-        border.setBorder(new EmptyBorder(50, 50, 50, 50));
-        border.add(field);
-        frame.add(border);
+        // 创建面板
+        final JPanel panel = new JPanel(new BorderLayout());
+        // 设置大小
+        panel.setBorder(new EmptyBorder(50, 50, 50, 50));
+        // 添加到面板中
+        panel.add(field);
+        // 添加面板到窗体中
+        frame.add(panel);
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();
+        // 设置面板的位置
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
