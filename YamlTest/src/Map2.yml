@@ -1,6 +1,5 @@
 # markdown命令
 m:
-  b: tools.markdown.MarkdownTools.bold
   k: tools.markdown.MarkdownTools.inlineCode
   img: 30
   l: 40
@@ -11,3 +10,18 @@ m:
     h4: tools.markdown.MarkdownTools.header4
     h5: tools.markdown.MarkdownTools.header5
     h6: tools.markdown.MarkdownTools.header6
+  cb:
+    j: tools.markdown.JavaTools.javaCodeBlock
+    js: tools.markdown.JavaTools.javaScriptCodeBlock
+    c: tools.markdown.JavaTools.cCodeBlock
+    sql: tools.markdown.JavaTools.sqlCodeBlock
+  b: tools.markdown.MarkdownTools.bold
+s:
+  lc: tools.string.StringTools.lowercase
+  uc: tools.string.StringTools.uppercase
+  lcf: tools.string.StringTools.lowercaseFirstLetter
+  ucf: tools.string.StringTools.uppercaseFirstLetter
+g:
+  gs: git status #查看在你上次提交之后是否有对文件进行再次修改
+  ga: git add . #将修改添加到暂存区
+  gcm: git commit #将暂存区内容添加到本地仓库中

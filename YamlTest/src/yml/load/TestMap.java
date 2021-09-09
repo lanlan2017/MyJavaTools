@@ -9,13 +9,12 @@ import java.util.Map;
  * @author francis
  * create at 2019/12/18-22:18
  */
-public class TestMarkdown {
+public class TestMap {
     Map<String, Object> map;
 
-    public TestMarkdown() {
+    public TestMap() {
         Yaml yaml = new Yaml();
-        map = yaml.load(
-                this.getClass().getClassLoader().getResourceAsStream("Map2.yml"));
+        map = yaml.load(this.getClass().getClassLoader().getResourceAsStream("Map2.yml"));
     }
 
     public void testMap2(String... args) {
@@ -75,9 +74,9 @@ public class TestMarkdown {
     }
 
     public static void main(String[] args) {
-        TestMarkdown test = new TestMarkdown();
-        // test.testMap2("m", "b");
+        TestMap test = new TestMap();
+        test.testMap2("m", "b");
         // test.testMap2("m", "k");
-        test.testMap2("m", "h", "h1");
+        // test.testMap2("m", "cb", "j");
     }
 }
