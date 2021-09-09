@@ -1,6 +1,7 @@
 package yml.load.map;
 
 import org.yaml.snakeyaml.Yaml;
+import yml.load.map.key.MapKeyList;
 
 import java.util.*;
 
@@ -18,39 +19,61 @@ public class TestMapHelp {
 
     public static void main(String[] args) {
         Map<String, Object> mapTemp = map;
-        String[] keyStrs = {"m", "cb"};
-
-        Collection<String> items = getKeySets(mapTemp, keyStrs);
-
-        System.out.println(printCollection(items));
-        // System.out.println(son);
-
-        // findLastValue(mapTemp);
-
-
-        // // 查找keySet
-        // Set<String> keySetTemp = getKeySetTemp(mapTemp, key);
-        // if (keySetTemp != null) {
-        //     Iterator it = keySetTemp.iterator();
-        //     while (it.hasNext()) {
-        //         String key1 = (String) it.next();
-        //         System.out.println("    " + key1);
-        //     }
-        // }
-        // 查找keyList
-        // Collection<String> keys = getKeyList(mapTemp, key);
-        // Collection<String>
-        // keys = getKeySet(mapTemp, key);
-        // if (keys != null) {
-        //     // Iterator
-        //     it = keys.iterator();
-        //     while (it.hasNext()) {
-        //         String key1 = (String) it.next();
-        //         System.out.println("    " + key1);
-        //     }
-        // }
+        // String[] keyStrs = {"m", "cb"};
+        Collection<String> items = MapKeyList.getKeysList();
+        Iterator<String> it = items.iterator();
+        while (it.hasNext()) {
+            System.out.println("|" + it.next() + "|");
+        }
         System.out.println();
     }
+
+    private static void printOneKeyset(Map<String, Object> mapTemp, String before) {
+        Set<String> keySet = mapTemp.keySet();
+        Iterator<String> it = keySet.iterator();
+        while (it.hasNext()) {
+            String key = it.next();
+            Object value = mapTemp.get(key);
+            if (value instanceof Map) {
+                Map next = (Map<String, Object>) value;
+                if ("".equals(before)) {
+                    printOneKeyset(next, key);
+                } else {
+                    printOneKeyset(next, before + " " + key);
+                }
+            }
+            if ("".equals(before)) {
+                System.out.println("|" + key + "|");
+            } else {
+                System.out.println("|" + before + " " + key + "|");
+            }
+        }
+    }
+
+    // static List<String> keysList = new ArrayList<>();
+    // public static void getKeys(Map<String, Object> mapTemp, String before) {
+    //     Set<String> keySet = mapTemp.keySet();
+    //     Iterator<String> it = keySet.iterator();
+    //     while (it.hasNext()) {
+    //         String key = it.next();
+    //         Object value = mapTemp.get(key);
+    //         if (value instanceof Map) {
+    //             Map next = (Map<String, Object>) value;
+    //             if ("".equals(before)) {
+    //                 getKeys(next, key);
+    //             } else {
+    //                 getKeys(next, before + " " + key);
+    //             }
+    //         }
+    //         if ("".equals(before)) {
+    //             // System.out.println("|" + key + "|");
+    //             keysList.add(key);
+    //         } else {
+    //             // System.out.println("|" + before + " " + key + "|");
+    //             keysList.add(before + " " + key);
+    //         }
+    //     }
+    // }
 
     public static Collection<String> getKeySets(Map<String, Object> mapTemp, String[] keyStrs) {
         Collection<String> items = null;

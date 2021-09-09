@@ -1,4 +1,7 @@
-package yml.load.map;
+package yml.load.map.key;
+
+import yml.load.map.TestMapHelp;
+import yml.load.map.key.MapKeyList;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -6,7 +9,7 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
-public class AutocompleteField2 {
+public class AutocompleteField {
     static Map<String, Object> mapTemp = TestMapHelp.map;
 
     public static void main(String[] args) throws Exception {
@@ -19,21 +22,8 @@ public class AutocompleteField2 {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBounds(200, 200, 500, 400);
 
-        // // 设置帮助内容
-        // Collection<String> items = new ArrayList<>();
-        // items.add("m");
-        // items.add("s");
-        // items.add("m");
-        // items.add("m cb");
-        // items.add("m cb c");
-        // items.add("m cb j");
-        // items.add("m cb sql");
-        // items.add("h");
-        // items.add("g");
-        // Map<String, Object> mapTemp = TestMapHelp.map;
         // 设置帮助内容
-        // Collection<String> items = TestMapHelp.map.keySet();
-        Collection<String> items = mapTemp.keySet();
+        Collection<String> items = MapKeyList.getKeysList();
 
         // 创建文本框
         JTextField txtInput = new JTextField();
@@ -159,13 +149,8 @@ public class AutocompleteField2 {
                 String input = txtInput.getText();
                 // 如果文本框中有内容的话
                 if (!input.isEmpty()) {
-                    String inputTemp = input.trim();
-                    String[] keyStrs = inputTemp.split(" ");
-
-                    // 重新生成items
-                    // items = TestMapHelp.getKeySets(items,keyStrs);
-                    // items = TestMapHelp.getKeySets(mapTemp, keyStrs);
-
+                    // String inputTemp = input.trim();
+                    // String[] keyStrs = inputTemp.split(" ");
                     Iterator<String> it = items.iterator();
                     while (it.hasNext()) {
                         String item = it.next();
