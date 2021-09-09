@@ -33,7 +33,7 @@
           <component id="1d42d" class="javax.swing.JTextField" binding="textField" default-binding="true">
             <constraints/>
             <properties>
-              <columns value="5"/>
+              <columns value="12"/>
               <editable value="true"/>
             </properties>
           </component>
