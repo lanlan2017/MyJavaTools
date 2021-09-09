@@ -46,12 +46,12 @@ public class MapKeyList {
         }
     }
 
-    // public static void main(String[] args) {
-    //     Collection<String> items = MapKeyList.getKeysList();
-    //     Iterator<String> it = items.iterator();
-    //     while (it.hasNext()) {
-    //         System.out.println("|" + it.next() + "|");
-    //     }
-    //     System.out.println();
-    // }
+    public static void main(String[] args) {
+        Collection<String> items = MapKeyList.getKeysList();
+        Iterator<String> it = items.iterator();
+        while (it.hasNext()) {
+            System.out.println(it.next());
+        }
+        System.out.println();
+    }
 }
