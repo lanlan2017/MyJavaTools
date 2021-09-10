@@ -17,6 +17,12 @@ import javax.swing.text.Document;
 import java.awt.*;
 
 public class MainFrom {
+    static {
+        // 设置外观,先设置外观，再创建UI。
+        // 为了保证创建UI时，已经设置好外观，设置外观的代码最好写在静态块中，
+        // 并且把这个静态块写在类定义的最前面。
+        FlatLightLaf.setup();
+    }
 
     private JFrame frame;
     private JPanel panel;
@@ -88,8 +94,8 @@ public class MainFrom {
      * 退出按钮设置
      */
     private void exitButtonSetting() {
-        // 设置按钮的大小
-        Dimension preferredSize = new Dimension(55, 22);
+        // // 设置按钮的大小
+        Dimension preferredSize = new Dimension(50, 22);
         exitButton.setPreferredSize(preferredSize);
         // 退出按钮的功能
         exitButton.addActionListener(e -> {
@@ -128,12 +134,6 @@ public class MainFrom {
         frame.setUndecorated(true);
         // 永远置顶
         frame.setAlwaysOnTop(true);
-
-        // 这种方式不想
-        // lookAndFeelBetter(mainFrom);
-        // 设置外观
-        lookAndFeel();
-
         // 最合适的方式显示
         frame.pack();
         // 显示窗体
@@ -141,30 +141,5 @@ public class MainFrom {
         // 创建线程
         Thread thread = new Thread(new ThreadAutoSetFrameOpacity(mainFrom));
         thread.start();
-    }
-
-    private static void lookAndFeel() {
-        // 设置外观
-        try {
-            // 跨平台外观
-            // UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-            // 和系统一样的外观
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void lookAndFeelBetter(MainFrom mainFrom) {
-        // 设置外观
-        FlatLightLaf.setup();
-        SwingUtilities.updateComponentTreeUI(mainFrom.frame);
     }
 }
