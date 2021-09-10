@@ -20,11 +20,10 @@ public class JComboBoxActionListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         //
         if (!AutoField.isAdjusting(jComboBox)) {
-
+            // 如果有选项被选中
             if (jComboBox.getSelectedItem() != null) {
-                // 文本框中填写JComboBox的内容。
+                // 文本框中填写选项的内容。
                 textField.setText(jComboBox.getSelectedItem().toString());
-
             }
         }
     }

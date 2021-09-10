@@ -2,18 +2,14 @@ package blue.commands.ui;
 
 import blue.commands.tool.ThreadAutoSetFrameOpacity;
 import blue.commands.tool.ui.ToolUiSystemTray;
-import com.formdev.flatlaf.FlatLightLaf;
 import blue.commands.ui.event.panel.PanelMouseListener;
 import blue.commands.ui.event.panel.PanelMouseMotionListener;
 import blue.commands.ui.event.textarea.TextAreaMouseListener;
 import blue.commands.ui.event.textfield.auto.AutoField;
-import blue.commands.ui.event.textfield.TextFieldDocumentListener;
-import blue.commands.ui.event.textfield.TextFieldFocusAdapter;
-import blue.commands.ui.event.textfield.TextFieldKeyAdapter;
+import com.formdev.flatlaf.FlatLightLaf;
 import tools.markdown.niuke.ToolsJarPath;
 
 import javax.swing.*;
-import javax.swing.text.Document;
 import java.awt.*;
 
 public class MainFrom {
@@ -52,7 +48,6 @@ public class MainFrom {
     }
 
     private void textFieldSetting() {
-        // setting();
         autoSetting();
     }
 
@@ -70,18 +65,6 @@ public class MainFrom {
         // 给文本框设置自动内容提示
         // AutoField.setupAutoComplete(textField, jComboBox);
         AutoField.setupAutoComplete2(frame, textField, jComboBox, textArea, scrollPaneFather);
-    }
-
-    private void setting() {
-        // 注册键盘事件监听器
-        textField.addKeyListener(new TextFieldKeyAdapter(frame, textField, textArea, scrollPaneFather));
-        // 注意，好像只有文本框，等输入组件才能得到焦点，窗体，面板都不能得到焦点
-        textField.addFocusListener(new TextFieldFocusAdapter(frame, scrollPaneFather, textArea));
-
-        Document document = textField.getDocument();
-        int defalutCols = textField.getColumns();
-        // 监听文本框内容变化
-        document.addDocumentListener(new TextFieldDocumentListener(frame, textField));
     }
 
     private void frameSetting() {

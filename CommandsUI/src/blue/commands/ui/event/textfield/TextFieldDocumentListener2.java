@@ -10,26 +10,48 @@ import java.util.Iterator;
 
 
 public class TextFieldDocumentListener2 implements DocumentListener {
+    JFrame frame;
     DefaultComboBoxModel model;
     JTextField textField;
     JComboBox jComboBox;
     Collection<String> items;
 
-    public TextFieldDocumentListener2(DefaultComboBoxModel model, JTextField textField, JComboBox jComboBox, Collection<String> items) {
+    int defaultCols;
+
+    public TextFieldDocumentListener2(JFrame frame,DefaultComboBoxModel model, JTextField textField, JComboBox jComboBox, Collection<String> items) {
+        this.frame=frame;
         this.model = model;
         this.textField = textField;
         this.jComboBox = jComboBox;
         this.items = items;
+        this.defaultCols = textField.getColumns();
     }
 
     // 当有内容插入的时候
     @Override
     public void insertUpdate(DocumentEvent e) {
         updateList();
+        int textAreaLen = textField.getText().length();
+        // 当输入的内容比文本框的默认列数大时
+        if (textAreaLen >= textField.getColumns()) {
+            // 增加文本框的列数
+            textField.setColumns(textAreaLen + 1);
+            // textField.setColumns(textAreaLen);
+            frame.pack();
+        }
     }
 
     public void removeUpdate(DocumentEvent e) {
         updateList();
+
+        int textAreaLen = textField.getText().length();
+        // 文本的字数大于默认的宽度并小于
+        if (textField.getColumns() > defaultCols) {
+            // 设置列数问字符数字+1
+            textField.setColumns(textAreaLen + 1);
+            // textField.setColumns(textAreaLen);
+            frame.pack();
+        }
     }
 
     public void changedUpdate(DocumentEvent e) {
