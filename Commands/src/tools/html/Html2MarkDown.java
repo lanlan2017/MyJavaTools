@@ -91,6 +91,13 @@ public class Html2MarkDown {
         str = str.replaceAll("</div>", "\n");
         // 删除div开始标签
         str = str.replaceAll("<div(?: .*?)?>", "");
+        // 替换页面标题
+        str = str.replaceAll("<h1>(.+?)</h1>", "# $1\n");
+        str = str.replaceAll("<h2>(.+?)</h2>", "## $1\n");
+        str = str.replaceAll("<h3>(.+?)</h3>", "### $1\n");
+        str = str.replaceAll("<h4>(.+?)</h4>", "#### $1\n");
+        str = str.replaceAll("<h5>(.+?)</h5>", "##### $1\n");
+        str = str.replaceAll("<h6>(.+?)</h6>", "###### $1\n");
 
         // 替换加粗标签<strong> <b>
         str = str.replaceAll("</?(?:strong|b)>", "**");

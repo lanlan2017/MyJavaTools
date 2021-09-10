@@ -38,7 +38,7 @@ public class ConfigTools {
      *
      * @param args 命令行参数
      */
-    public String forward(String... args) {
+    public String forward(String ... args) {
         // 根据参数的长度
         switch (args.length) {
             // 当只有一个参数的时候
