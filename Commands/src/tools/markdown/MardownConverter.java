@@ -2,6 +2,7 @@ package tools.markdown;
 
 import regex.RegexEnum;
 import tools.markdown.niuke.NiukeConfig;
+import tools.string.PrintStr;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -83,10 +84,20 @@ public class MardownConverter {
     // }
 
     public String niuke(String copyText, int number) {
-        copyText = "# 考点" + number + ":\n" + copyText;
-        // 替换选项
-        copyText = copyText.replaceAll("(?m)^([A-Z])$\\n^(.+)$", "- $1 $2");
-        copyText = copyText.replaceAll("(?m)^正确答案: [A-Z]+$", "\n<details><summary>显示答案/隐藏答案</summary>$0</details>\n\n");
+        // System.out.println(copyText.startsWith("# 考点"));
+        // 如果是已经格式化好的题目
+        if (copyText.startsWith("# 考点")) {
+            // PrintStr.printStr(copyText);
+            copyText = copyText.replaceAll("# 考点[0-9]+:", "# 考点" + number + ":");
+        }
+        // 如果不是已经格式化的题目
+        else {
+            // 格式化为题目
+            copyText = "# 考点" + number + ":\n" + copyText;
+            // 替换选项
+            copyText = copyText.replaceAll("(?m)^([A-Z])$\\n^(.+)$", "- $1 $2");
+            copyText = copyText.replaceAll("(?m)^正确答案: [A-Z]+$", "\n<details><summary>显示答案/隐藏答案</summary>$0</details>\n\n");
+        }
         return copyText;
     }
 
