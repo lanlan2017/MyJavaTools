@@ -3,6 +3,9 @@ package tools.markdown.niuke;
 import java.io.File;
 import java.net.URL;
 
+/**
+ * 获取.jar文件所在的目录路径
+ */
 public class ToolsJarPath {
     /**
      * 获取当前可执行的jar包的路径。

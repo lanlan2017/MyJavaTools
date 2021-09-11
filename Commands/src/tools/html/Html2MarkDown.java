@@ -1,5 +1,7 @@
 package tools.html;
 
+import tools.string.PrintStr;
+
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,10 +17,14 @@ public class Html2MarkDown {
      * @return Markdown表格
      */
     public String htmlOneLineTable2MdTable(String str) {
+        // PrintStr.printStr(str);
         //删除td标签之间的加粗标签
         str = str.replaceAll("</?strong>", "**");
+        // 删除表格中的换行符
+        str = str.replaceAll("<br>", "");
         //散开标签
-        str = str.replaceAll("\\>(?:[ ])?\\<", ">\n<");
+        str = str.replaceAll("\\>(?:[ ]*)?\\<", ">\n<");
+        str = str.replaceAll("<td>[ ]+([^ ]+)[ ]+</td>", "<td>$1</td>");
         //System.out.println(str);
         return htmlMultiLineTable2MdTable(str);
     }
@@ -30,6 +36,7 @@ public class Html2MarkDown {
      * @return Markdown表格
      */
     public String htmlMultiLineTable2MdTable(String str) {
+        // PrintStr.printStr(str);
         //Scanner scanner = new Scanner(Test.class.getResourceAsStream("/tools/html/toMdTable.html"));
         Scanner scanner = new Scanner(str);
         String line;
@@ -120,7 +127,7 @@ public class Html2MarkDown {
             str = HtmlListToMd.htmlUnOrderListToMd(str);
         }
         //如果共有有序列表
-        if(Pattern.compile("\\<ol\\>").matcher(str).find()){
+        if (Pattern.compile("\\<ol\\>").matcher(str).find()) {
             // 替换有序列表
             str = HtmlListToMd.htmlOrderList2Md(str);
         }
