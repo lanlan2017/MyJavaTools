@@ -45,7 +45,6 @@ public class TextFieldKeyListener2 extends KeyAdapter {
                 textField.setText(jComboBox.getSelectedItem().toString());
                 // 隐藏文本框
                 jComboBox.setPopupVisible(false);
-
                 // 执行命令，打印结果
                 pressedEnter();
             }
@@ -88,10 +87,21 @@ public class TextFieldKeyListener2 extends KeyAdapter {
                 // 设置选择光标的位置为开头
                 textArea.setSelectionStart(0);
                 textArea.setSelectionEnd(0);
-
                 // 显示textArea面板
                 scrollPaneFather.setVisible(true);
-
+                if (input.endsWith(" reset")) {
+                    // System.out.println("|" + input + "|");
+                    input = input.substring(0, input.lastIndexOf(" reset"));
+                    // System.out.println("|" + input + "|");
+                    try {
+                        Thread.sleep(1000 * 3);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    textField.setText(input);
+                    // 隐藏文本框
+                    jComboBox.setPopupVisible(false);
+                }
             } else {
                 // 隐藏textArea面板
                 scrollPaneFather.setVisible(false);

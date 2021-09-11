@@ -96,7 +96,7 @@ public class MainFrom {
 
     public static void main(String[] args) {
         // 设置工作目录为可执行.jar所在的目录
-        System.setProperty("user.dir", ToolsJarPath.getPath());
+        // System.setProperty("user.dir", ToolsJarPath.getPath(MainFrom.class));
         JFrame frame = new JFrame("MainFrom");
         // 如果有传入参数的话
         if (args.length > 0) {
