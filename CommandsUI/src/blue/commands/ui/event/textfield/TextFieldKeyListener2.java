@@ -93,11 +93,11 @@ public class TextFieldKeyListener2 extends KeyAdapter {
                     // System.out.println("|" + input + "|");
                     input = input.substring(0, input.lastIndexOf(" reset"));
                     // System.out.println("|" + input + "|");
-                    try {
-                        Thread.sleep(1000 * 3);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    // try {
+                    //     Thread.sleep(1000 * 3);
+                    // } catch (InterruptedException e) {
+                    //     e.printStackTrace();
+                    // }
                     textField.setText(input);
                     // 隐藏文本框
                     jComboBox.setPopupVisible(false);

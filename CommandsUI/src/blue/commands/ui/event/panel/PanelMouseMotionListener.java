@@ -94,7 +94,5 @@ public class PanelMouseMotionListener implements MouseMotionListener {
             // 移动窗体的位置
             frame.setLocation(e.getLocationOnScreen().x - draggingAnchor.x, e.getLocationOnScreen().y - draggingAnchor.y);
         }
-
     }
-
 }
