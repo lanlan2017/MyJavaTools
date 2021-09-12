@@ -23,7 +23,9 @@
           </component>
           <toolbar id="de6ab" binding="toolBar">
             <constraints/>
-            <properties/>
+            <properties>
+              <floatable value="false"/>
+            </properties>
             <border type="none"/>
             <children>
               <component id="a1b69" class="javax.swing.JButton" binding="screenshotButton">
