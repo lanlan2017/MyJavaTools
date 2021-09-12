@@ -21,40 +21,47 @@
               <text value="移动"/>
             </properties>
           </component>
-          <component id="a1b69" class="javax.swing.JButton" binding="screenshotButton">
+          <toolbar id="de6ab" binding="toolBar">
             <constraints/>
-            <properties>
-              <text value="截屏"/>
-            </properties>
-          </component>
-          <component id="c86fc" class="javax.swing.JButton" binding="cancelScreenshotButton">
-            <constraints/>
-            <properties>
-              <text value="取消截屏"/>
-            </properties>
-          </component>
-          <component id="3b1a6" class="javax.swing.JButton" binding="ocrButton">
-            <constraints/>
-            <properties>
-              <text value="OCR"/>
-            </properties>
-          </component>
-          <component id="5b148" class="javax.swing.JComboBox" binding="firstComboBox">
-            <constraints/>
-            <properties>
-              <model>
-                <item value="不格式化"/>
-                <item value="markdown"/>
-                <item value="书签"/>
-              </model>
-            </properties>
-          </component>
-          <component id="cea03" class="javax.swing.JButton" binding="exitButton">
-            <constraints/>
-            <properties>
-              <text value="退出"/>
-            </properties>
-          </component>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="a1b69" class="javax.swing.JButton" binding="screenshotButton">
+                <constraints/>
+                <properties>
+                  <text value="截屏"/>
+                </properties>
+              </component>
+              <component id="c86fc" class="javax.swing.JButton" binding="cancelScreenshotButton">
+                <constraints/>
+                <properties>
+                  <text value="取消截屏"/>
+                </properties>
+              </component>
+              <component id="3b1a6" class="javax.swing.JButton" binding="ocrButton">
+                <constraints/>
+                <properties>
+                  <text value="OCR"/>
+                </properties>
+              </component>
+              <component id="5b148" class="javax.swing.JComboBox" binding="firstComboBox">
+                <constraints/>
+                <properties>
+                  <model>
+                    <item value="不格式化"/>
+                    <item value="markdown"/>
+                    <item value="书签"/>
+                  </model>
+                </properties>
+              </component>
+              <component id="cea03" class="javax.swing.JButton" binding="exitButton">
+                <constraints/>
+                <properties>
+                  <text value="退出"/>
+                </properties>
+              </component>
+            </children>
+          </toolbar>
         </children>
       </grid>
     </children>

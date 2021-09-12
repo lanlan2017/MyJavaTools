@@ -24,6 +24,7 @@ public class OCR2Form {
     private JComboBox firstComboBox;
     private JButton exitButton;
     private JButton cancelScreenshotButton;
+    private JToolBar toolBar;
 
 
     // 鼠标按下的坐标
@@ -42,7 +43,7 @@ public class OCR2Form {
                 System.exit(0);
             }
         };
-        keyRegister.addkeysToButton(exitButton, exitButtonAction, KeyEvent.ALT_DOWN_MASK, KeyEvent.VK_Q);
+        keyRegister.keysToButton(exitButton, exitButtonAction, KeyEvent.ALT_DOWN_MASK, KeyEvent.VK_Q);
 
         // 截屏按钮事件处理程序
         AbstractAction sstButtonAction = new AbstractAction() {
@@ -55,7 +56,7 @@ public class OCR2Form {
             }
         };
         // screenshotButton.addActionListener(sstButtonAction);
-        keyRegister.addkeysToButton(screenshotButton, sstButtonAction, KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_W);
+        keyRegister.keysToButton(screenshotButton, sstButtonAction, KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_W);
 
         AbstractAction cancelSstAction = new AbstractAction() {
             @Override
@@ -65,7 +66,7 @@ public class OCR2Form {
             }
         };
         // cancelScreenshotButton.addActionListener(cancelSstAction);
-        keyRegister.addkeysToButton(cancelScreenshotButton, cancelSstAction, KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_E);
+        keyRegister.keysToButton(cancelScreenshotButton, cancelSstAction, KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_E);
 
         AbstractAction ocrAction = new AbstractAction() {
             @Override
@@ -75,7 +76,7 @@ public class OCR2Form {
             }
         };
         // OcrButton.addActionListener(ocrAction);
-        keyRegister.addkeysToButton(ocrButton, ocrAction, KeyEvent.ALT_DOWN_MASK, KeyEvent.VK_B);
+        keyRegister.keysToButton(ocrButton, ocrAction, KeyEvent.ALT_DOWN_MASK, KeyEvent.VK_B);
 
 
         moveLable.addMouseListener(new MouseAdapter() {

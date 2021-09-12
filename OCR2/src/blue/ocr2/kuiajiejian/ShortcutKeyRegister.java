@@ -1,7 +1,6 @@
 package blue.ocr2.kuiajiejian;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
 
 /**
  * 快捷键注册器。
@@ -23,7 +22,7 @@ public final class ShortcutKeyRegister {
      * @param modifiers 功能键，ctrl,alt,shift等按键
      * @param keyCode 普通键 a-z，enter等。
      */
-    public void addkeysToButton(JButton button, AbstractAction actionListener, int modifiers, int keyCode) {
+    public void keysToButton(JButton button, AbstractAction actionListener, int modifiers, int keyCode) {
         // 给按钮设置时间监听器
         button.addActionListener(actionListener);
         // System.out.println("按钮文字="+button.getText());
@@ -35,7 +34,7 @@ public final class ShortcutKeyRegister {
         // 使用按钮的文字作为key
         String key = button.getText();
         // 讲key关联到action监听器
-        rootPanel.getActionMap().put(key, (Action) actionListener);
+        rootPanel.getActionMap().put(key, actionListener);
         // 讲快捷键关联到key
         rootPanel.getInputMap().put(KeyStroke.getKeyStroke(keyCode, modifiers), key);
 
