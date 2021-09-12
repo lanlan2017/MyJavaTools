@@ -4,14 +4,15 @@ import blue.ocr2.baidu.BaiduOcrRunable;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.*;
 
 public class OCR2Form {
     static {
         // 设置外观
         FlatLightLaf.setup();
     }
+
     private static OCR2Form instance = new OCR2Form();
     private JFrame frame;
     private JPanel rootPanel;
@@ -22,6 +23,10 @@ public class OCR2Form {
     private JComboBox firstComboBox;
     private JButton exitButton;
     private JButton cancelScreenshotButton;
+
+
+    // 鼠标按下的坐标
+    Point mousePressedPoint = new Point();
 
     // public OCR2Form() {
     private OCR2Form() {
@@ -54,6 +59,26 @@ public class OCR2Form {
             public void actionPerformed(ActionEvent e) {
                 // 使用百度文字识别
                 BaiduOcrRunable.startBaiduOCR();
+            }
+        });
+        moveLable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                mousePressedPoint.x = e.getX();
+                mousePressedPoint.y = e.getY();
+            }
+        });
+        moveLable.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                super.mouseDragged(e);
+                // Point point = ToolsWindow.getInstance().getLocation();
+                // Point point = ToolsWindow.getInstance().getLocation();
+                Point point = frame.getLocation();
+                // 计算位置
+                // ToolsWindow.getInstance().setLocation(point.x + e.getX() - (int) mousePressedPoint.getX(), point.y + e.getY() - (int) mousePressedPoint.getY());
+                frame.setLocation(point.x + e.getX() - (int) mousePressedPoint.getX(), point.y + e.getY() - (int) mousePressedPoint.getY());
             }
         });
     }
