@@ -1,6 +1,7 @@
 package blue.ocr2;
 
 import blue.ocr2.baidu.BaiduOcrRunable;
+import blue.ocr2.kuiajiejian.ShortcutKeyRegister;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
@@ -19,7 +20,7 @@ public class OCR2Form {
     private JPanel toolPenal;
     private JLabel moveLable;
     private JButton screenshotButton;
-    private JButton OcrButton;
+    private JButton ocrButton;
     private JComboBox firstComboBox;
     private JButton exitButton;
     private JButton cancelScreenshotButton;
@@ -28,39 +29,55 @@ public class OCR2Form {
     // 鼠标按下的坐标
     Point mousePressedPoint = new Point();
 
-    // public OCR2Form() {
     private OCR2Form() {
-        exitButton.addActionListener(new ActionListener() {
+
+        // 快捷键注册器
+        ShortcutKeyRegister keyRegister = new ShortcutKeyRegister(rootPanel);
+        /**
+         * 退出按钮事件处理程序
+         */
+        AbstractAction exitButtonAction = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
             }
-        });
-        screenshotButton.addActionListener(new ActionListener() {
+        };
+        keyRegister.addkeysToButton(exitButton, exitButtonAction, KeyEvent.ALT_DOWN_MASK, KeyEvent.VK_Q);
+
+        // 截屏按钮事件处理程序
+        AbstractAction sstButtonAction = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // 截屏之前先隐藏窗体
-                // ScreenShotWindow.getInstance().setVisible(false);
                 // 再次截屏
                 ScreenShotWindow.getInstance().screenshotAgain();
                 // 显示窗口
                 ScreenShotWindow.getInstance().setVisible(true);
             }
-        });
-        cancelScreenshotButton.addActionListener(new ActionListener() {
+        };
+        // screenshotButton.addActionListener(sstButtonAction);
+        keyRegister.addkeysToButton(screenshotButton, sstButtonAction, KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_W);
+
+        AbstractAction cancelSstAction = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // 不显示截屏窗口
                 ScreenShotWindow.getInstance().setVisible(false);
             }
-        });
-        OcrButton.addActionListener(new ActionListener() {
+        };
+        // cancelScreenshotButton.addActionListener(cancelSstAction);
+        keyRegister.addkeysToButton(cancelScreenshotButton, cancelSstAction, KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_E);
+
+        AbstractAction ocrAction = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // 使用百度文字识别
                 BaiduOcrRunable.startBaiduOCR();
             }
-        });
+        };
+        // OcrButton.addActionListener(ocrAction);
+        keyRegister.addkeysToButton(ocrButton, ocrAction, KeyEvent.ALT_DOWN_MASK, KeyEvent.VK_B);
+
+
         moveLable.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -81,7 +98,21 @@ public class OCR2Form {
                 frame.setLocation(point.x + e.getX() - (int) mousePressedPoint.getX(), point.y + e.getY() - (int) mousePressedPoint.getY());
             }
         });
+
+
+        rootPanel.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                if (e.isAltDown() && e.getKeyCode() == KeyEvent.VK_Q) {
+                    System.exit(0);
+                }
+                System.out.println("=========================");
+            }
+        });
+
     }
+
 
     public static OCR2Form getInstance() {
         return instance;
@@ -92,7 +123,7 @@ public class OCR2Form {
     }
 
     public JButton getOcrButton() {
-        return OcrButton;
+        return ocrButton;
     }
 
     public static void main(String[] args) {
