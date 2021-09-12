@@ -199,5 +199,4 @@ public class ScreenShotWindow extends JWindow {
         // 显示窗口
         this.setVisible(true);
     }
-
 }

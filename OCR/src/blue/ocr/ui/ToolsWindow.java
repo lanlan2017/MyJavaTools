@@ -52,7 +52,6 @@ public class ToolsWindow extends JWindow {
         // 把面板放到窗口中
         this.add(toolPanel, BorderLayout.NORTH);
     }
-
     /**
      * 设置窗体的默认位置
      */

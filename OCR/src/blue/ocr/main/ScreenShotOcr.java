@@ -9,15 +9,17 @@ import java.awt.*;
 
 public class ScreenShotOcr {
     public static void main(String[] args) {
+        // 设置外观
+        FlatLightLaf.setup();
         EventQueue.invokeLater(() -> {
             // 实例化截屏窗体
             ScreenShotWindow.getInstance();
             // 实例化共具体窗体
             ToolsWindow.getInstance();
             // 设置主题
-            FlatLightLaf.setup();
+            // FlatLightLaf.setup();
             // 给所有的组件都使用该主题
-            SwingUtilities.updateComponentTreeUI(ToolsWindow.getInstance());
+            // SwingUtilities.updateComponentTreeUI(ToolsWindow.getInstance());
         });
     }
 }
