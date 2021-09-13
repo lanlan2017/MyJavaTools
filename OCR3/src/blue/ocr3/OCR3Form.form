@@ -40,7 +40,7 @@
                   <text value="取消截屏"/>
                 </properties>
               </component>
-              <component id="f256b" class="javax.swing.JButton" binding="ocrButton">
+              <component id="f256b" class="javax.swing.JButton" binding="ocrButton" custom-create="true">
                 <constraints/>
                 <properties>
                   <text value="OCR"/>

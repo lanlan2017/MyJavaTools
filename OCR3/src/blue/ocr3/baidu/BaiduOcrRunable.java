@@ -11,6 +11,7 @@ package blue.ocr3.baidu;
 // import blue.ocr2.baidu.config.SingletonAipOcr;
 // import blue.ocr2.formatter.Formatter;
 // import blue.ocr2.formatter.FormatterMultiLine;
+
 import blue.ocr3.ScreenShotWindow;
 import blue.ocr3.baidu.config.SingletonAipOcr;
 import blue.ocr3.buttons.BaiduOCRButton;
@@ -20,6 +21,7 @@ import com.baidu.aip.ocr.AipOcr;
 import net.sf.json.JSONArray;
 import org.json.JSONObject;
 import tools.copy.SystemClipboard;
+import tools.string.PrintStr;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -34,7 +36,8 @@ public class BaiduOcrRunable implements Runnable {
     /**
      * 触发的按钮
      */
-    private JButton baiduOCRButton = BaiduOCRButton.getInstance().getBaiduOCRButton();
+    // private JButton baiduOCRButton = BaiduOCRButton.getInstance().getBaiduOCRButton();
+    private JButton baiduOCRButton = BaiduOCRButton.getInstance().getButton();
     // private JButton baiduOCRButton = OCR2Form.getInstance().getOcrButton();
     /**
      * 图片文件路径
@@ -60,9 +63,9 @@ public class BaiduOcrRunable implements Runnable {
 
     @Override
     public void run() {
-        // 保存下原来的按钮颜色
+        // // 保存下原来的按钮颜色
         Color defaultColor = baiduOCRButton.getBackground();
-        // 设置按钮颜色，表示开始处理
+        // // 设置按钮颜色，表示开始处理
         baiduOCRButton.setBackground(Color.pink);
         // 让截屏的窗体不可以见
         ScreenShotWindow.getInstance().setVisible(false);
@@ -73,7 +76,7 @@ public class BaiduOcrRunable implements Runnable {
         System.out.println(orcStr);
         // 将识别结果写到剪贴板中.
         SystemClipboard.setSysClipboardText(orcStr);
-        // 将按钮设置成原来的颜色
+        // // 将按钮设置成原来的颜色
         baiduOCRButton.setBackground(defaultColor);
 
         // 移动工具栏到左上角，避免挡住屏幕不好阅读
@@ -120,7 +123,6 @@ public class BaiduOcrRunable implements Runnable {
         AipOcr client = SingletonAipOcr.getAipOcr();
         // 调用文字识别接口,返回JSON数据
         JSONObject res = client.basicGeneral(imagePath, new HashMap<>());
-
 
         // 取出HashMap
         HashMap<String, Object> resMap = (HashMap<String, Object>) res.toMap();
@@ -187,6 +189,7 @@ public class BaiduOcrRunable implements Runnable {
      * 启动文字识别
      */
     public static void startBaiduOCR() {
+        // PrintStr.printStr("进入");
         // 图片的路径
         String imagePath = "1.png";
         // 截图，并保存

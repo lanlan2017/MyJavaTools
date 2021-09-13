@@ -1,13 +1,9 @@
 package blue.ocr3;
 
-import blue.ocr3.buttons.ExitButton;
-import blue.ocr3.buttons.MovelLabel;
-import blue.ocr3.buttons.SreenShotButtons;
-import blue.ocr3.kuiajiejian.ShortcutKeyRegister;
+import blue.ocr3.buttons.*;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
-import java.awt.event.KeyEvent;
 
 public class OCR3Form {
     static {
@@ -42,10 +38,6 @@ public class OCR3Form {
         JFrame frame = new JFrame("OCR3Form");
         ocr3Form.frame = frame;
         frame.setContentPane(ocr3Form.rootPanel);
-        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // frame.pack();
-        // frame.setVisible(true);
-
 
         // 不显示标题栏，最小化，关闭按钮
         frame.setUndecorated(true);
@@ -58,16 +50,12 @@ public class OCR3Form {
     }
 
     private void createUIComponents() {
-        toolPanel = new JPanel();
         // TODO: place custom component creation code here
-        exitButton = ExitButton.getInstance().getExitButton();
-        sstButton = SreenShotButtons.getInstance().getStartButton();
-        cacelSstButton = SreenShotButtons.getInstance().getCancelButton();
+        toolPanel = new JPanel();
+        sstButton = SstButton.getInstance(toolPanel).getButton();
+        cacelSstButton = CancelButton.getInstance(toolPanel).getButton();
+        ocrButton=BaiduOCRButton.getInstance(toolPanel).getButton();
+        exitButton = ExitButton.getInstance(toolPanel).getButton();
         moveLabel = MovelLabel.getInstance().getMoveLable();
-        ExitButton.getInstance().setKeys(toolPanel);
-        // ShortcutKeyRegister keyRegister = new ShortcutKeyRegister(toolPanel);
-        // keyRegister.keysToButton(exitButton, ExitButton.getInstance().getExitButtonAction(), KeyEvent.ALT_DOWN_MASK, KeyEvent.VK_Q);
-        // keyRegister.keysToButton(ExitButton.getInstance(), KeyEvent.ALT_DOWN_MASK, KeyEvent.VK_Q);
-        // 明天，使用抽象类，有两个属性，一个按钮，以及该按钮的处理器，
     }
 }
