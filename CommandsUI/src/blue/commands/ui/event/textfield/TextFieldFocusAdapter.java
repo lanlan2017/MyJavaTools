@@ -1,6 +1,6 @@
 package blue.commands.ui.event.textfield;
 
-import blue.commands.tool.ThreadAutoSetFrameOpacity;
+// import blue.commands.tool.ThreadAutoSetFrameOpacity;
 
 import javax.swing.*;
 import java.awt.event.FocusAdapter;
@@ -22,7 +22,7 @@ public class TextFieldFocusAdapter extends FocusAdapter {
         // 如果文本域中有内容的话
         if (!"".equals(textArea.getText())) {
             // 当文本框获得焦点的时候，关闭透明检查
-            ThreadAutoSetFrameOpacity.isSetOpacity = false;
+            // ThreadAutoSetFrameOpacity.isSetOpacity = false;
             // 显示文本域面板
             // scrollPane.setVisible(true);
             scrollPaneFather.setVisible(true);

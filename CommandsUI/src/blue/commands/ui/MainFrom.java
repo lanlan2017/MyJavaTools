@@ -1,6 +1,6 @@
 package blue.commands.ui;
 
-import blue.commands.tool.ThreadAutoSetFrameOpacity;
+// import blue.commands.tool.ThreadAutoSetFrameOpacity;
 import blue.commands.tool.ui.ToolUiSystemTray;
 import blue.commands.ui.event.panel.PanelMouseListener;
 import blue.commands.ui.event.panel.PanelMouseMotionListener;
@@ -11,6 +11,8 @@ import tools.markdown.niuke.ToolsJarPath;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
 
 public class MainFrom {
     static {
@@ -29,7 +31,12 @@ public class MainFrom {
     private JScrollPane scrollPane;
     private JPanel scrollPaneFather;
 
+    private JButton sstButton;
+    private JButton cancelSstButton;
+    private JButton ocrButton;
+
     public MainFrom(JFrame frame) {
+        // textField.requestFocus();
         // 记下Frame
         this.frame = frame;
         // 初始化系统托盘
@@ -71,6 +78,23 @@ public class MainFrom {
         // 监听面板事件
         panel.addMouseMotionListener(new PanelMouseMotionListener(frame, panel));
         panel.addMouseListener(new PanelMouseListener(frame));
+        // 监听窗体焦点事件
+        frame.addWindowFocusListener(new WindowFocusListener() {
+            // 当窗体获得焦点是
+            @Override
+            public void windowGainedFocus(WindowEvent e) {
+                // 设置不透明
+                frame.setOpacity(1.0f);
+                // 让文本框获得焦点
+                textField.requestFocus();
+            }
+            // 当窗体失去焦点时
+            @Override
+            public void windowLostFocus(WindowEvent e) {
+                // 设置半透明
+                frame.setOpacity(0.5f);
+            }
+        });
     }
 
     /**
@@ -122,7 +146,7 @@ public class MainFrom {
         // 显示窗体
         frame.setVisible(true);
         // 创建线程
-        Thread thread = new Thread(new ThreadAutoSetFrameOpacity(mainFrom));
-        thread.start();
+        // Thread thread = new Thread(new ThreadAutoSetFrameOpacity(mainFrom));
+        // thread.start();
     }
 }
