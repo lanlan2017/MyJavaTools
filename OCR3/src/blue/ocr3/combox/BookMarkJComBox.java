@@ -59,7 +59,6 @@ public class BookMarkJComBox {
                         defaultFormatter = formatters[6];
                         break;
                 }
-                // frame.pack();
                 // 如果不重绘工具条的话，讲无法响应键盘事件
                 OCR3Form.getInstance().redrawToolbar();
                 // 设置选择的格式化器

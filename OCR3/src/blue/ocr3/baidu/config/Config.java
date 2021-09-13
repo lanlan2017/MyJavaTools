@@ -47,4 +47,7 @@ public class Config {
     public float getOpacity() {
         return opacity;
     }
+    // public static void main(String[] args) {
+    //     System.out.println(Config.getInstance().API_KEY);
+    // }
 }

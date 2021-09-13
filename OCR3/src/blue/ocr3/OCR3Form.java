@@ -18,10 +18,20 @@ public class OCR3Form {
 
     private static OCR3Form instance = new OCR3Form();
     private JFrame frame;
+    private JPanel rootPanel;
+    private JLabel moveLabel;
+    private JButton sstButton;
+    private JPanel toolPanel;
+    private JToolBar toolBar;
+    private JButton cacelSstButton;
+    private JButton ocrButton;
+    private JComboBox firstComboBox;
+    private JButton exitButton;
     /**
      * 二级选择框
      */
     private JComboBox<String> subCombox;
+
 
     public OCR3Form() {
         firstComboBox.addItemListener(new ItemListener() {
@@ -105,16 +115,6 @@ public class OCR3Form {
         return frame;
     }
 
-    private JPanel rootPanel;
-    private JLabel moveLabel;
-    private JButton sstButton;
-    private JPanel toolPanel;
-    private JToolBar toolBar;
-    private JButton cacelSstButton;
-    private JButton ocrButton;
-    private JComboBox firstComboBox;
-    private JButton exitButton;
-
     public static void main(String[] args) {
 
         OCR3Form ocr3Form = OCR3Form.getInstance();
@@ -135,9 +135,11 @@ public class OCR3Form {
     private void createUIComponents() {
         // TODO: place custom component creation code here
         rootPanel = new JPanel();
+
         sstButton = SstButton.getInstance(rootPanel).getButton();
         cacelSstButton = CancelButton.getInstance(rootPanel).getButton();
         ocrButton = BaiduOCRButton.getInstance(rootPanel).getButton();
+
         exitButton = ExitButton.getInstance(rootPanel).getButton();
         moveLabel = MovelLabel.getInstance().getMoveLable();
     }
