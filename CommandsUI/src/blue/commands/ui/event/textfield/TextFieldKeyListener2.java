@@ -1,8 +1,10 @@
 package blue.commands.ui.event.textfield;
 
 import blue.commands.demo.ToolIsChinese;
+import blue.commands.ui.MainFrom;
 import blue.commands.ui.event.textfield.auto.AutoField;
 import tools.config.ConfigTools;
+import tools.string.PrintStr;
 
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
@@ -67,6 +69,7 @@ public class TextFieldKeyListener2 extends KeyAdapter {
             frame.setTitle(input);
             // 处理输入的文本
             String output = doTextField(input);
+
             if (output != null) {
                 // // 统计结果有多少行
                 int[] line = countRows(output);
@@ -167,6 +170,15 @@ public class TextFieldKeyListener2 extends KeyAdapter {
      */
     private String doTextField(String input) {
         String output;
+        JTextArea inputTextArea = MainFrom.getInstance().getInputTextArea();
+        if(inputTextArea.isVisible()&&!inputTextArea.getText().equals("")){
+            inputTextArea.selectAll();
+            inputTextArea.copy();
+            // PrintStr.printStr("复制输入文本域的内容");
+            // inputTextArea.
+        }
+
+        // if()
         // 按空格分隔得到命令
         String[] args = input.split(" ");
         // 执行命令，返回执行结果

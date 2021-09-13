@@ -13,6 +13,8 @@ import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
 
@@ -49,6 +51,10 @@ public class MainFrom {
     private JPanel ocrToolPanel;
     private JToolBar ocrToolBar;
     private JPanel commandPanel;
+    /**
+     * 输入文本域控制器
+     */
+    private JButton inputTextAreaController;
 
     public JTextArea getInputTextArea() {
         return inputTextArea;
@@ -75,6 +81,21 @@ public class MainFrom {
         outputTextArea.addMouseListener(new TextAreaMouseListener(frame, outputTextArea));
         // 当按钮状态改变时
         radioButton.addItemListener(new RadioButtonItemListener(frame, ocrPanel));
+        inputTextAreaController.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (inputTextArea.isVisible()) {
+                    inputTextAreaController.setText("显示");
+                    inputTextArea.setText("");
+                    inputTextArea.setVisible(false);
+                } else {
+                    inputTextAreaController.setText("隐藏");
+                    inputTextArea.setVisible(true);
+                }
+                frame.pack();
+
+            }
+        });
     }
 
     private void textFieldSetting() {
@@ -114,7 +135,8 @@ public class MainFrom {
             @Override
             public void windowLostFocus(WindowEvent e) {
                 // 设置半透明
-                frame.setOpacity(0.5f);
+                // frame.setOpacity(0.5f);
+                frame.setOpacity(0.3f);
             }
         });
     }

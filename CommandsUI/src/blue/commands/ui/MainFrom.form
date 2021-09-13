@@ -124,6 +124,12 @@
                       <text value="OCR"/>
                     </properties>
                   </component>
+                  <component id="58169" class="javax.swing.JButton" binding="inputTextAreaController">
+                    <constraints/>
+                    <properties>
+                      <text value="隐藏"/>
+                    </properties>
+                  </component>
                 </children>
               </toolbar>
             </children>
