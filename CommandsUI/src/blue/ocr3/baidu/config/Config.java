@@ -8,7 +8,6 @@ public class Config {
     private final String APP_ID;
     private final String API_KEY;
     private final String SECRET_KEY;
-    // private final float opacity;
     private static Config instance = new Config();
 
     private Config() {

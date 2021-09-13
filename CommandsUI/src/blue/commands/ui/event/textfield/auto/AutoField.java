@@ -12,6 +12,9 @@ import java.awt.*;
 import java.util.Collection;
 import java.util.Iterator;
 
+/**
+ * 自动提示文本框功能
+ */
 public class AutoField {
 
     public static boolean isAdjusting(JComboBox jComboBox) {

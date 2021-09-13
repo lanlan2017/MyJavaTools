@@ -15,8 +15,8 @@ package blue.ocr3.baidu;
 import blue.ocr3.ScreenShotWindow;
 import blue.ocr3.baidu.config.SingletonAipOcr;
 import blue.ocr3.buttons.BaiduOCRButton;
-import blue.ocr3.formatter.Formatter;
-import blue.ocr3.formatter.FormatterMultiLine;
+// import blue.ocr3.formatter.Formatter;
+// import blue.ocr3.formatter.FormatterMultiLine;
 import com.baidu.aip.ocr.AipOcr;
 import net.sf.json.JSONArray;
 import org.json.JSONObject;
@@ -42,19 +42,19 @@ public class BaiduOcrRunable implements Runnable {
      * 图片文件路径
      */
     private String path;
-    /**
-     * 格式化工具
-     */
-    private static Formatter formatter;
+    // /**
+    //  * 格式化工具
+    //  */
+    // private static Formatter formatter;
 
-    /**
-     * 设置格式化器
-     *
-     * @param formatter 格式化器.
-     */
-    public static void setFormatter(Formatter formatter) {
-        BaiduOcrRunable.formatter = formatter;
-    }
+    // /**
+    //  * 设置格式化器
+    //  *
+    //  * @param formatter 格式化器.
+    //  */
+    // public static void setFormatter(Formatter formatter) {
+    //     BaiduOcrRunable.formatter = formatter;
+    // }
 
     public BaiduOcrRunable(String path) {
         this.path = path;
@@ -82,9 +82,6 @@ public class BaiduOcrRunable implements Runnable {
             // 将按钮设置成原来的颜色
             baiduOCRButton.setBackground(defaultColor);
         }
-
-        // 移动工具栏到左上角，避免挡住屏幕不好阅读
-        // ToolsWindow.defaultLocation();
     }
 
 
@@ -96,23 +93,25 @@ public class BaiduOcrRunable implements Runnable {
     private String formattedOcrString() {
         String orcStr;
         // 如果设置了格式化器
-        if (formatter != null) {
-            // 如果是多行的格式化器
-            if (formatter instanceof FormatterMultiLine) {
-                // 这识别为多行,保留换行符
-                orcStr = baiduOCRMultiLine(path);
-            }
-            // 如果是不是多行的格式化器
-            else {
-                // 则合并为一行
-                orcStr = baiduOCRToOneLine(path);
-            }
-            orcStr = formatter.format(orcStr);
-        } else {
-            //System.out.println("xxxx");
-            // 默认识别为单行模式
-            orcStr = baiduOCRToOneLine(path);
-        }
+        // if (formatter != null) {
+        //     // 如果是多行的格式化器
+        //     if (formatter instanceof FormatterMultiLine) {
+        //         // 这识别为多行,保留换行符
+        //         orcStr = baiduOCRMultiLine(path);
+        //     }
+        //     // 如果是不是多行的格式化器
+        //     else {
+        //         // 则合并为一行
+        //         orcStr = baiduOCRToOneLine(path);
+        //     }
+        //     orcStr = formatter.format(orcStr);
+        // } else {
+        //     //System.out.println("xxxx");
+        //     // 默认识别为单行模式
+        //     orcStr = baiduOCRToOneLine(path);
+        // }
+        // 这识别为多行,保留换行符
+        orcStr = baiduOCRMultiLine(path);
         return orcStr;
     }
 
@@ -193,7 +192,6 @@ public class BaiduOcrRunable implements Runnable {
      * 启动文字识别
      */
     public static void startBaiduOCR() {
-        // PrintStr.printStr("进入");
         // 图片的路径
         String imagePath = "1.png";
         // 截图，并保存
