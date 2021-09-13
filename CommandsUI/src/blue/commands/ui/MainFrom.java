@@ -5,6 +5,7 @@ package blue.commands.ui;
 import blue.commands.tool.ui.ToolUiSystemTray;
 // import blue.commands.ui.event.panel.PanelMouseListener;
 import blue.commands.ui.event.panel.PanelMouseMotionListener;
+import blue.commands.ui.event.radiobutton.RadioButtonItemListener;
 import blue.commands.ui.event.textarea.TextAreaMouseListener;
 import blue.commands.ui.event.textfield.auto.AutoField;
 import blue.ocr3.buttons.BaiduOCRButton;
@@ -54,6 +55,7 @@ public class MainFrom {
     private JPanel ocrPanel;
     private JPanel ocrToolPanel;
     private JToolBar ocrToolBar;
+    private JPanel commandPanel;
 
     public MainFrom(JFrame frame) {
         // 记下Frame
@@ -64,6 +66,8 @@ public class MainFrom {
         scrollPaneFather.setVisible(false);
         // 程序刚开始隐藏OCR面板
         ocrPanel.setVisible(false);
+        inputTextArea.setVisible(false);
+
         // 设置退出按钮的功能
         exitButtonSetting();
         // 窗体功能
@@ -73,15 +77,7 @@ public class MainFrom {
         // 监听文本域鼠标事件，右键点击文本域，将会清空文本域。
         textArea.addMouseListener(new TextAreaMouseListener(frame, textArea));
         // 当按钮状态改变时
-        radioButton.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                // 显示或隐藏OCR面板
-                ocrPanel.setVisible(!ocrPanel.isVisible());
-                // 以合适大小显示窗体
-                frame.pack();
-            }
-        });
+        radioButton.addItemListener(new RadioButtonItemListener(frame, ocrPanel));
     }
 
     private void textFieldSetting() {
@@ -106,7 +102,6 @@ public class MainFrom {
     private void frameSetting() {
         // 监听面板事件
         panel.addMouseMotionListener(new PanelMouseMotionListener(frame, panel));
-        // panel.addMouseListener(new PanelMouseListener(frame));
         // 监听窗体焦点事件
         frame.addWindowFocusListener(new WindowFocusListener() {
             // 当窗体获得焦点是
@@ -150,7 +145,7 @@ public class MainFrom {
 
     public static void main(String[] args) {
         MainFrom mainFrom = MainFrom.getInstance();
-        JFrame frame= mainFrom.frame;
+        JFrame frame = mainFrom.frame;
         frame.setContentPane(mainFrom.panel);
         // 设置工作目录为可执行.jar所在的目录
         // 如果有传入参数的话
@@ -173,9 +168,10 @@ public class MainFrom {
     }
 
     private void createUIComponents() {
-        panel=new JPanel();
-        sstButton = SstButton.getInstance(panel).getButton();
-        cancelSstButton = CancelButton.getInstance(panel).getButton();
-        ocrButton = BaiduOCRButton.getInstance(panel).getButton();
+        commandPanel = new JPanel();
+        sstButton = SstButton.getInstance(commandPanel).getButton();
+        cancelSstButton = CancelButton.getInstance(commandPanel).getButton();
+        ocrButton = BaiduOCRButton.getInstance(commandPanel).getButton();
+
     }
 }
