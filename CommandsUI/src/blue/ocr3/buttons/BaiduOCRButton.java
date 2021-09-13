@@ -1,7 +1,7 @@
 package blue.ocr3.buttons;
 
 import blue.ocr3.baidu.BaiduOcrCallable;
-import blue.ocr3.baidu.BaiduOcrRunable;
+// import blue.ocr3.baidu.BaiduOcrRunable;
 import tools.copy.SystemClipboard;
 import tools.string.PrintStr;
 
