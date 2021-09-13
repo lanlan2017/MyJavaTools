@@ -14,8 +14,11 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 
-public class BaiduOcrRunable implements Runnable {
+public class BaiduOcrCallable implements Callable<String> {
     /**
      * 触发的按钮
      */
@@ -25,12 +28,12 @@ public class BaiduOcrRunable implements Runnable {
      */
     private String path;
 
-    public BaiduOcrRunable(String path) {
+    public BaiduOcrCallable(String path) {
         this.path = path;
     }
 
     @Override
-    public void run() {
+    public String call() throws Exception {
         Color defaultColor = null;
         if (baiduOCRButton != null) {
             // // 保存下原来的按钮颜色
@@ -43,17 +46,20 @@ public class BaiduOcrRunable implements Runnable {
         // 获取图片中的文字
         String orcStr = getOcrString();
 
-        // 输出处理结果
-        System.out.println("--------------处理结果---------------");
-        System.out.println(orcStr);
+        // // 输出处理结果
+        // System.out.println("--------------处理结果---------------");
+        // System.out.println(orcStr);
 
-        // 将识别结果写到剪贴板中.
-        SystemClipboard.setSysClipboardText(orcStr);
+        // // 将识别结果写到剪贴板中.
+        // SystemClipboard.setSysClipboardText(orcStr);
 
         if (defaultColor != null) {
             // 将按钮设置成原来的颜色
             baiduOCRButton.setBackground(defaultColor);
         }
+
+        return orcStr;
+        // return null;
     }
 
     /**
@@ -97,11 +103,10 @@ public class BaiduOcrRunable implements Runnable {
         return BaiduOCRModelTools.toLines(res.toString());
     }
 
-
     /**
      * 启动文字识别
      */
-    public static void startBaiduOCR() {
+    public static String startBaiduOCR() {
         // 图片的路径
         String imagePath = "1.png";
         // 截图，并保存
@@ -112,8 +117,30 @@ public class BaiduOcrRunable implements Runnable {
             e.printStackTrace();
         }
         // 创建线程执行体
-        BaiduOcrRunable baiduOCRunable = new BaiduOcrRunable(imagePath);
+        // BaiduOcrRunable baiduOCRunable = new BaiduOcrRunable(imagePath);
         // 传入执行体,启动线程
-        new Thread(baiduOCRunable).start();
+        // new Thread(baiduOCRunable).start();
+
+
+        FutureTask<String> futureTask = new FutureTask<>(new BaiduOcrCallable(imagePath));
+        /***
+         * futureTask 实现了 Runnable接口
+         * 所以新建线程的时候可以传入futureTask
+         * FutureTask重写的run方法中实际是调用了Callable接口在call()方法
+         * 所以执行线程的时候回执行call方法的内容
+         */
+        Thread thread = new Thread(futureTask);
+        thread.start();
+        String value = null;
+        try {
+            value = futureTask.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return value;
+        // return null;
     }
 }

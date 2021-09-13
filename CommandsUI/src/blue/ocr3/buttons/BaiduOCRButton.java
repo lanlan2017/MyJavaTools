@@ -1,6 +1,9 @@
 package blue.ocr3.buttons;
 
+import blue.ocr3.baidu.BaiduOcrCallable;
 import blue.ocr3.baidu.BaiduOcrRunable;
+import tools.copy.SystemClipboard;
+import tools.string.PrintStr;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -18,7 +21,12 @@ public class BaiduOCRButton extends ButtonKeyAction {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // 使用百度文字识别
-                BaiduOcrRunable.startBaiduOCR();
+                // BaiduOcrRunable.startBaiduOCR();
+                String ocrStr = BaiduOcrCallable.startBaiduOCR();
+                System.out.println("使用Callable");
+                // 将识别结果写到剪贴板中.
+                SystemClipboard.setSysClipboardText(ocrStr);
+                PrintStr.printStr(ocrStr);
             }
         };
         this.modifiers = KeyEvent.ALT_DOWN_MASK;
