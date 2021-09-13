@@ -6,7 +6,6 @@ import blue.ocr3.baidu.model.BaiduOCRModelTools;
 import blue.ocr3.buttons.BaiduOCRButton;
 import com.baidu.aip.ocr.AipOcr;
 import org.json.JSONObject;
-import tools.copy.SystemClipboard;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

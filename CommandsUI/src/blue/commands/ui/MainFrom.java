@@ -50,6 +50,10 @@ public class MainFrom {
     private JToolBar ocrToolBar;
     private JPanel commandPanel;
 
+    public JTextArea getInputTextArea() {
+        return inputTextArea;
+    }
+
     public MainFrom(JFrame frame) {
         // 记下Frame
         this.frame = frame;

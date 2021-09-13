@@ -1,5 +1,6 @@
 package blue.ocr3.buttons;
 
+import blue.commands.ui.MainFrom;
 import blue.ocr3.baidu.BaiduOcrCallable;
 // import blue.ocr3.baidu.BaiduOcrRunable;
 import tools.copy.SystemClipboard;
@@ -21,12 +22,20 @@ public class BaiduOCRButton extends ButtonKeyAction {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // 使用百度文字识别
-                // BaiduOcrRunable.startBaiduOCR();
                 String ocrStr = BaiduOcrCallable.startBaiduOCR();
-                System.out.println("使用Callable");
+                // System.out.println("使用Callable");
+                // PrintStr.printStr(ocrStr);
+
+                JTextArea inputTextArea = MainFrom.getInstance().getInputTextArea();
+                // 显示输入文本域
+                inputTextArea.setVisible(true);
+                // 把文字识别的结果写入到输入文本域中
+                inputTextArea.setText(ocrStr);
+                // 调整窗体的大小
+                MainFrom.getInstance().getFrame().pack();
                 // 将识别结果写到剪贴板中.
                 SystemClipboard.setSysClipboardText(ocrStr);
-                PrintStr.printStr(ocrStr);
+
             }
         };
         this.modifiers = KeyEvent.ALT_DOWN_MASK;
