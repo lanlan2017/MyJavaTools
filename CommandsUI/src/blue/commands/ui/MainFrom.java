@@ -1,9 +1,7 @@
 package blue.commands.ui;
 
-// import blue.commands.tool.ThreadAutoSetFrameOpacity;
 
 import blue.commands.tool.ui.ToolUiSystemTray;
-// import blue.commands.ui.event.panel.PanelMouseListener;
 import blue.commands.ui.event.panel.PanelMouseMotionListener;
 import blue.commands.ui.event.radiobutton.RadioButtonItemListener;
 import blue.commands.ui.event.textarea.TextAreaMouseListener;
@@ -12,14 +10,9 @@ import blue.ocr3.buttons.BaiduOCRButton;
 import blue.ocr3.buttons.CancelButton;
 import blue.ocr3.buttons.SstButton;
 import com.formdev.flatlaf.FlatLightLaf;
-import tools.markdown.niuke.ToolsJarPath;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
 
@@ -31,7 +24,6 @@ public class MainFrom {
         FlatLightLaf.setup();
     }
 
-    // private static MainFrom instance = new MainFrom();
     private static MainFrom instance = new MainFrom(new JFrame("OCR3Form"));
 
     public static MainFrom getInstance() {
@@ -39,10 +31,11 @@ public class MainFrom {
     }
 
     private JFrame frame;
+    // cammands面板组件
     private JPanel panel;
     private JButton exitButton;
     private JTextField textField;
-    private JTextArea textArea;
+    private JTextArea outputTextArea;
     private JLabel lable;
     private JScrollPane scrollPane;
     private JPanel scrollPaneFather;
@@ -75,7 +68,7 @@ public class MainFrom {
         // 文本框功能
         textFieldSetting();
         // 监听文本域鼠标事件，右键点击文本域，将会清空文本域。
-        textArea.addMouseListener(new TextAreaMouseListener(frame, textArea));
+        outputTextArea.addMouseListener(new TextAreaMouseListener(frame, outputTextArea));
         // 当按钮状态改变时
         radioButton.addItemListener(new RadioButtonItemListener(frame, ocrPanel));
     }
@@ -96,7 +89,7 @@ public class MainFrom {
             }
         };
         // 给文本框设置自动内容提示
-        AutoField.setupAutoComplete2(frame, textField, jComboBox, textArea, scrollPaneFather);
+        AutoField.setupAutoComplete2(frame, textField, jComboBox, outputTextArea, scrollPaneFather);
     }
 
     private void frameSetting() {

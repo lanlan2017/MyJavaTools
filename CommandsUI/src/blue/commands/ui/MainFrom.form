@@ -73,7 +73,7 @@
               <color color="-16311877"/>
             </border>
             <children>
-              <component id="9805e" class="javax.swing.JTextArea" binding="textArea" default-binding="true">
+              <component id="9805e" class="javax.swing.JTextArea" binding="outputTextArea">
                 <constraints/>
                 <properties>
                   <columns value="25"/>
@@ -94,7 +94,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <grid id="7b008" binding="ocrToolPanel" layout-manager="FlowLayout" hgap="1" vgap="1" flow-align="0">
+          <grid id="7b008" binding="ocrToolPanel" layout-manager="FlowLayout" hgap="-1" vgap="-1" flow-align="0">
             <constraints border-constraint="North"/>
             <properties/>
             <border type="none"/>
