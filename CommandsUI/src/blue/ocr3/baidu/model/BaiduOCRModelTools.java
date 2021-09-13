@@ -1,6 +1,7 @@
 package blue.ocr3.baidu.model;
 
 import com.alibaba.fastjson.JSON;
+import tools.string.PrintStr;
 
 import java.util.Iterator;
 import java.util.List;
@@ -47,8 +48,10 @@ public class BaiduOCRModelTools {
             BaiduOCRModel.WordsResultDTO wordsResultDTO = iterator.next();
             // 输出词语
             // System.out.println(wordsResultDTO.getWords());
-            sb.append(wordsResultDTO.getWords()).append("\n");
+            sb.append("\n").append(wordsResultDTO.getWords());
         }
-        return sb.toString();
+        // sb.delete(sb.length()-1, sb.length())
+        // PrintStr.printStr(sb.toString().substring(1));
+        return sb.toString().substring(1);
     }
 }

@@ -136,7 +136,7 @@ public class MainFrom {
             public void windowLostFocus(WindowEvent e) {
                 // 设置半透明
                 // frame.setOpacity(0.5f);
-                frame.setOpacity(0.3f);
+                frame.setOpacity(0.5f);
             }
         });
     }
