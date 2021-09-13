@@ -1,6 +1,7 @@
 package blue.ocr3.buttons;
 
 import blue.ocr3.baidu.BaiduOcrRunable;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;

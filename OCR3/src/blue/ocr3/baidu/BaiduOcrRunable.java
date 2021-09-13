@@ -63,10 +63,13 @@ public class BaiduOcrRunable implements Runnable {
 
     @Override
     public void run() {
-        // // 保存下原来的按钮颜色
-        Color defaultColor = baiduOCRButton.getBackground();
-        // // 设置按钮颜色，表示开始处理
-        baiduOCRButton.setBackground(Color.pink);
+        Color defaultColor = null;
+        if (baiduOCRButton != null) {
+            // // 保存下原来的按钮颜色
+            defaultColor = baiduOCRButton.getBackground();
+            // // 设置按钮颜色，表示开始处理
+            baiduOCRButton.setBackground(Color.pink);
+        }
         // 让截屏的窗体不可以见
         ScreenShotWindow.getInstance().setVisible(false);
         // 获取图片中的文字
@@ -76,8 +79,10 @@ public class BaiduOcrRunable implements Runnable {
         System.out.println(orcStr);
         // 将识别结果写到剪贴板中.
         SystemClipboard.setSysClipboardText(orcStr);
-        // // 将按钮设置成原来的颜色
-        baiduOCRButton.setBackground(defaultColor);
+        if (defaultColor != null) {
+            // 将按钮设置成原来的颜色
+            baiduOCRButton.setBackground(defaultColor);
+        }
 
         // 移动工具栏到左上角，避免挡住屏幕不好阅读
         // ToolsWindow.defaultLocation();

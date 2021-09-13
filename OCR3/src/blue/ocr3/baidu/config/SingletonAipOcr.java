@@ -1,7 +1,5 @@
 package blue.ocr3.baidu.config;
 
-// import com.baidu.aip.ocr.AipOcr;
-
 import com.baidu.aip.ocr.AipOcr;
 
 /**

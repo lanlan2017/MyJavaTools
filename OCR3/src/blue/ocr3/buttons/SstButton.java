@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 public class SstButton extends ButtonKeyAction {
-    // private static SstButton instance = new SstButton();
     private static SstButton instance;
 
     private SstButton() {
