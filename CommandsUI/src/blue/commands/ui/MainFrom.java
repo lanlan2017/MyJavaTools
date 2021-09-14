@@ -104,6 +104,7 @@ public class MainFrom {
             public void actionPerformed(ActionEvent e) {
                 JTextField jTextField2 = new JTextField(8);
                 // textFieldToolBar.removeAll();
+                textFieldAutoSetting(jTextField2);
                 textFieldToolBar.add(jTextField2);
                 frame.pack();
             }
@@ -121,10 +122,24 @@ public class MainFrom {
     }
 
     private void textFieldSetting() {
-        autoSetting();
+        textFieldAutoSetting();
     }
 
-    private void autoSetting() {
+    private void textFieldAutoSetting() {
+        // 创建JComboBox模型
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        // 使用JComboBox模型创建JComboBox
+        JComboBox jComboBox = new JComboBox(model) {
+            @Override
+            public Dimension getPreferredSize() {
+                // 设置位置
+                return new Dimension(super.getPreferredSize().width, 0);
+            }
+        };
+        // 给文本框设置自动内容提示
+        AutoField.setupAutoComplete2(frame, textField, jComboBox, outputTextArea, scrollPaneFather);
+    }
+    private void textFieldAutoSetting(JTextField textField) {
         // 创建JComboBox模型
         DefaultComboBoxModel model = new DefaultComboBoxModel();
         // 使用JComboBox模型创建JComboBox
