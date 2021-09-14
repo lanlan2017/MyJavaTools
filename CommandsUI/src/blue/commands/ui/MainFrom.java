@@ -55,8 +55,17 @@ public class MainFrom {
      * 输入文本域控制器
      */
     private JButton inputTextAreaController;
+    /**
+     * 输入文本框增加按钮
+     */
     private JButton addTextFieldButton;
+    /**
+     * 输入文本框减少按钮
+     */
     private JButton removeTextFieldButton;
+    /**
+     * 输入文本框的父容器，工具条
+     */
     private JToolBar textFieldToolBar;
 
     public JTextArea getInputTextArea() {
@@ -72,7 +81,10 @@ public class MainFrom {
         scrollPaneFather.setVisible(false);
         // 程序刚开始隐藏OCR面板
         ocrPanel.setVisible(false);
+        // 程序刚开始，隐藏输入文本域
         inputTextArea.setVisible(false);
+        // 程序刚开始隐藏文本框减少按钮
+        removeTextFieldButton.setVisible(false);
 
         // 设置退出按钮的功能
         exitButtonSetting();
@@ -106,6 +118,11 @@ public class MainFrom {
                 // textFieldToolBar.removeAll();
                 textFieldAutoSetting(jTextField2);
                 textFieldToolBar.add(jTextField2);
+                // 如果有两个元素
+                if (textFieldToolBar.getComponentCount() > 1) {
+                    // 可以减去其中一个元素
+                    removeTextFieldButton.setVisible(true);
+                }
                 frame.pack();
             }
         });
@@ -113,8 +130,11 @@ public class MainFrom {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int lastIndex = textFieldToolBar.getComponentCount() - 1;
-                if (lastIndex >= 0) {
+                if (lastIndex >= 1) {
                     textFieldToolBar.remove(lastIndex);
+                    if (lastIndex == 1) {
+                        removeTextFieldButton.setVisible(false);
+                    }
                     frame.pack();
                 }
             }
@@ -139,6 +159,7 @@ public class MainFrom {
         // 给文本框设置自动内容提示
         AutoField.setupAutoComplete2(frame, textField, jComboBox, outputTextArea, scrollPaneFather);
     }
+
     private void textFieldAutoSetting(JTextField textField) {
         // 创建JComboBox模型
         DefaultComboBoxModel model = new DefaultComboBoxModel();

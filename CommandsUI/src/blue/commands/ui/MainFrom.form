@@ -30,33 +30,44 @@
               <text value="命令"/>
             </properties>
           </component>
-          <component id="1d42d" class="javax.swing.JTextField" binding="textField" default-binding="true">
+          <toolbar id="f3418" binding="textFieldToolBar">
             <constraints/>
             <properties>
-              <columns value="8"/>
-              <editable value="true"/>
+              <floatable value="false"/>
+              <orientation value="1"/>
             </properties>
-          </component>
-          <toolbar id="f3418" binding="textFieldToolBar">
+            <border type="none"/>
+            <children>
+              <component id="1d42d" class="javax.swing.JTextField" binding="textField" default-binding="true">
+                <constraints/>
+                <properties>
+                  <columns value="8"/>
+                  <editable value="true"/>
+                </properties>
+              </component>
+            </children>
+          </toolbar>
+          <toolbar id="41b45">
             <constraints/>
             <properties>
               <floatable value="false"/>
             </properties>
             <border type="none"/>
-            <children/>
+            <children>
+              <component id="ceadd" class="javax.swing.JButton" binding="addTextFieldButton">
+                <constraints/>
+                <properties>
+                  <text value="+"/>
+                </properties>
+              </component>
+              <component id="35dd4" class="javax.swing.JButton" binding="removeTextFieldButton">
+                <constraints/>
+                <properties>
+                  <text value="-"/>
+                </properties>
+              </component>
+            </children>
           </toolbar>
-          <component id="ceadd" class="javax.swing.JButton" binding="addTextFieldButton">
-            <constraints/>
-            <properties>
-              <text value="+"/>
-            </properties>
-          </component>
-          <component id="35dd4" class="javax.swing.JButton" binding="removeTextFieldButton">
-            <constraints/>
-            <properties>
-              <text value="-"/>
-            </properties>
-          </component>
           <component id="1ac9c" class="javax.swing.JRadioButton" binding="radioButton">
             <constraints/>
             <properties>
