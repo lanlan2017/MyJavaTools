@@ -4,7 +4,6 @@ import blue.commands.demo.ToolIsChinese;
 import blue.commands.ui.MainFrom;
 import blue.commands.ui.event.textfield.auto.AutoField;
 import tools.config.ConfigTools;
-import tools.string.PrintStr;
 
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
@@ -171,14 +170,14 @@ public class TextFieldKeyListener2 extends KeyAdapter {
     private String doTextField(String input) {
         String output;
         JTextArea inputTextArea = MainFrom.getInstance().getInputTextArea();
+        // 如果输入文本域有内容
         if(inputTextArea.isVisible()&&!inputTextArea.getText().equals("")){
+            // 全选输入文本域
             inputTextArea.selectAll();
+            // 复制输入文本域到剪贴板，覆盖原来剪贴板的内容
             inputTextArea.copy();
-            // PrintStr.printStr("复制输入文本域的内容");
-            // inputTextArea.
         }
 
-        // if()
         // 按空格分隔得到命令
         String[] args = input.split(" ");
         // 执行命令，返回执行结果

@@ -114,8 +114,9 @@ public class MainFrom {
         addTextFieldButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // 创建文本框
                 JTextField jTextField2 = new JTextField(8);
-                // textFieldToolBar.removeAll();
+                // 给文本框设置自动提示信息
                 textFieldAutoSetting(jTextField2);
                 textFieldToolBar.add(jTextField2);
                 // 如果有两个元素
@@ -129,12 +130,16 @@ public class MainFrom {
         removeTextFieldButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int lastIndex = textFieldToolBar.getComponentCount() - 1;
-                if (lastIndex >= 1) {
-                    textFieldToolBar.remove(lastIndex);
-                    if (lastIndex == 1) {
+                // 如果有两个或两个以上的组件
+                if (textFieldToolBar.getComponentCount() >= 2) {
+                    // 移除最后一个组件
+                    textFieldToolBar.remove(textFieldToolBar.getComponentCount() - 1);
+                    //如果，移除最后一个组件之后，只剩一个组件。
+                    if (textFieldToolBar.getComponentCount() == 1) {
+                        // 那么隐藏移除按钮，免得最后一个组件被移除
                         removeTextFieldButton.setVisible(false);
                     }
+                    // 刷新组件
                     frame.pack();
                 }
             }
