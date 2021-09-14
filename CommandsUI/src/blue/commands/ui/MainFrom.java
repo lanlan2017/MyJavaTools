@@ -55,6 +55,9 @@ public class MainFrom {
      * 输入文本域控制器
      */
     private JButton inputTextAreaController;
+    private JButton addTextFieldButton;
+    private JButton removeTextFieldButton;
+    private JToolBar textFieldToolBar;
 
     public JTextArea getInputTextArea() {
         return inputTextArea;
@@ -94,6 +97,25 @@ public class MainFrom {
                 }
                 frame.pack();
 
+            }
+        });
+        addTextFieldButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JTextField jTextField2 = new JTextField(8);
+                // textFieldToolBar.removeAll();
+                textFieldToolBar.add(jTextField2);
+                frame.pack();
+            }
+        });
+        removeTextFieldButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int lastIndex = textFieldToolBar.getComponentCount() - 1;
+                if (lastIndex >= 0) {
+                    textFieldToolBar.remove(lastIndex);
+                    frame.pack();
+                }
             }
         });
     }

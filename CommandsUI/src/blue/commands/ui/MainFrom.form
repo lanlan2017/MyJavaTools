@@ -37,6 +37,26 @@
               <editable value="true"/>
             </properties>
           </component>
+          <toolbar id="f3418" binding="textFieldToolBar">
+            <constraints/>
+            <properties>
+              <floatable value="false"/>
+            </properties>
+            <border type="none"/>
+            <children/>
+          </toolbar>
+          <component id="ceadd" class="javax.swing.JButton" binding="addTextFieldButton">
+            <constraints/>
+            <properties>
+              <text value="+"/>
+            </properties>
+          </component>
+          <component id="35dd4" class="javax.swing.JButton" binding="removeTextFieldButton">
+            <constraints/>
+            <properties>
+              <text value="-"/>
+            </properties>
+          </component>
           <component id="1ac9c" class="javax.swing.JRadioButton" binding="radioButton">
             <constraints/>
             <properties>
