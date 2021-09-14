@@ -51,6 +51,7 @@
             <constraints/>
             <properties>
               <floatable value="false"/>
+              <orientation value="1"/>
             </properties>
             <border type="none"/>
             <children>
