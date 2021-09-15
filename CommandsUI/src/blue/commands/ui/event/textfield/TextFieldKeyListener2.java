@@ -42,8 +42,13 @@ public class TextFieldKeyListener2 extends KeyAdapter {
             e.setSource(jComboBox);
             jComboBox.dispatchEvent(e);
             if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                // 填充选项到文本框
-                textField.setText(jComboBox.getSelectedItem().toString());
+                // 获取选择项
+                Object selectedItem = jComboBox.getSelectedItem();
+                // 如果存在选择项
+                if (selectedItem != null){
+                    // 把选项的文本作为文本框的内容
+                    textField.setText(selectedItem.toString());
+                }
                 // 隐藏文本框
                 jComboBox.setPopupVisible(false);
                 // 执行命令，打印结果
@@ -171,7 +176,7 @@ public class TextFieldKeyListener2 extends KeyAdapter {
         String output;
         JTextArea inputTextArea = MainFrom.getInstance().getInputTextArea();
         // 如果输入文本域有内容
-        if(inputTextArea.isVisible()&&!inputTextArea.getText().equals("")){
+        if (inputTextArea.isVisible() && !inputTextArea.getText().equals("")) {
             // 全选输入文本域
             inputTextArea.selectAll();
             // 复制输入文本域到剪贴板，覆盖原来剪贴板的内容
