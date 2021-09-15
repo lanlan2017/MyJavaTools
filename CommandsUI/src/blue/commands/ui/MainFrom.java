@@ -191,7 +191,7 @@ public class MainFrom {
                 // 设置不透明
                 frame.setOpacity(1.0f);
                 // 让文本框获得焦点
-                textField.requestFocus();
+                // textField.requestFocus();
             }
 
             // 当窗体失去焦点时
