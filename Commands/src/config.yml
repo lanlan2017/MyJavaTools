@@ -118,6 +118,8 @@ m:
       f: tools.markdown.JavaDoc2Markdown.docFieldTable2MdTable
     # API中的属性列表
     p2u: tools.markdown.JavaDoc2Markdown.parametersList
+  # 修正错误的脚注格式
+  footnote: tools.markdown.MarkdownTools.repairFootnoteFormat
 # 字符串处理
 s:
   # 删除空行

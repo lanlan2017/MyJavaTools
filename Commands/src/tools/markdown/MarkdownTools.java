@@ -401,4 +401,40 @@ public class MarkdownTools {
         code = code.replace("）", ")");
         return code;
     }
+
+    // /**
+    //  * 格式化正文里的markdown脚注。
+    //  *
+    //  * @param text 包含脚注的文本。
+    //  * @return 包含正确脚注格式的文本。
+    //  */
+    // public String footnoteInText(String text) {
+    //     text = text.replaceAll("\\[(\\d+)\\]", "[^$1]");
+    //     return text;
+    // }
+    //
+    // /**
+    //  * 写在末尾的脚注
+    //  *
+    //  * @param text 包含末尾脚注的文本。
+    //  * @return 包含正确末尾脚注格式的文本。
+    //  */
+    // pub修正错误脚注格式lic String footnoteInTail(String text) {
+    //     text = text.replaceAll("\\[(\\d+)\\] ", "\n[^$1]: ");
+    //     return text;
+    // }
+
+    /**
+     * 修复文章中脚注和脚注的引用的格式不正确的问题。
+     *
+     * @param text 带有脚注或者脚注引用的文章的内容
+     * @return 带有格式正确的脚注或脚注引用的文本。
+     */
+    public String repairFootnoteFormat(String text) {
+        // 先替换尾部的脚注
+        text = text.replaceAll("\\[(\\d+)\\] ", "\n[^$1]: ");
+        // 再替换正文中的脚注
+        text = text.replaceAll("\\[(\\d+)\\]", "[^$1]");
+        return text;
+    }
 }
