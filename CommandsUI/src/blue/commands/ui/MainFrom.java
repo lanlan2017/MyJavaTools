@@ -192,6 +192,7 @@ public class MainFrom {
                 frame.setOpacity(1.0f);
                 // 让文本框获得焦点
                 // textField.requestFocus();
+                // frame.setAlwaysOnTop(true);
             }
 
             // 当窗体失去焦点时
@@ -200,6 +201,8 @@ public class MainFrom {
                 // 设置半透明
                 // frame.setOpacity(0.5f);
                 frame.setOpacity(0.5f);
+                // 别置顶了
+                // frame.setAlwaysOnTop(false);
             }
         });
     }

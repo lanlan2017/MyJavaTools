@@ -28,7 +28,9 @@ public class PanelMouseMotionListener implements MouseMotionListener {
     public void mouseMoved(MouseEvent e) {
         // 精度，距离窗体边框多少距离时可以拖动来调整窗体的大小。
         int jingDu = 5;
-        if (Math.abs(e.getPoint().getY() - 0) <= jingDu) {
+        // 窗体的顶部带有OCR面板的按钮,减少精度，免得干扰到按钮
+        if (Math.abs(e.getPoint().getY() - 0) <= jingDu-2) {
+        // if (Math.abs(e.getPoint().getY() - 0) <= jingDu) {
             // 设置拖动光标
             frame.setCursor(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR));
             isNearTop = true;
