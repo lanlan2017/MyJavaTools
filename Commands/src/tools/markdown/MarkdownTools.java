@@ -211,12 +211,15 @@ public class MarkdownTools {
      * @return Markdown无序列表
      */
     public String unorderList(String text) {
+        // 把word里面的的无序列表标记替换成换行符
+        text=text.replaceAll(" ?·","\n");
+        // 删除空行
         text = new StringDeleter().deleteBlankLine(text);
         // 开头不是字母数字或者中文的一律删除掉.
         text = text.replaceAll("(?m)^[^a-zA-Z0-9\\u4e00-\\u9fa5][ ]+", "");
         // 在每行开头添加上无序列表标记
         text = text.replaceAll(RegexEnum.LineStart.toString(), "- ");
-        return text + "\n";
+        return text + "\n\n";
     }
 
     /**
