@@ -21,8 +21,10 @@ public class TextAreaMouseListener extends MouseAdapter {
             System.out.println("鼠标右键双击");
             // 情况内容
             textArea.setText("");
-            // 设置行数
+            // 设置默认行数
             textArea.setRows(0);
+            // 设置默认列数
+            textArea.setColumns(25);
             // 调整窗体大小
             frame.pack();
         }
