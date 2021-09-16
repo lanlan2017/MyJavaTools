@@ -97,7 +97,7 @@ public class Html2MarkDown {
         // div结束标签替换为换行符
         str = str.replaceAll("</div>", "\n");
         // 删除div开始标签
-        str = str.replaceAll("<div(?: .*?)?>", "");
+        str = str.replaceAll("<(?:div|p)(?: .*?)?>", "");
         // 替换页面标题
         str = str.replaceAll("<h1>(.+?)</h1>", "# $1\n");
         str = str.replaceAll("<h2>(.+?)</h2>", "## $1\n");
