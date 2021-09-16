@@ -258,6 +258,8 @@ html:
     default: tools.html.Html2MarkDown.toMd
     # HTML table单行代码 转markdown table
     table: tools.html.Html2MarkDown.htmlOneLineTable2MdTable
+    # 华章在线书籍代码
+    hzpc: tools.html.Html2MarkDown.toHuaZhangPreCode
   # 移除html标签，转成纯文本
   2txt: tools.html.HtmlTools.toTxt
 # java代码模板

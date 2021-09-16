@@ -99,12 +99,12 @@ public class Html2MarkDown {
         // 删除div开始标签
         str = str.replaceAll("<(?:div|p)(?: .*?)?>", "");
         // 替换页面标题
-        str = str.replaceAll("<h1>(.+?)</h1>", "# $1\n");
-        str = str.replaceAll("<h2>(.+?)</h2>", "## $1\n");
-        str = str.replaceAll("<h3>(.+?)</h3>", "### $1\n");
-        str = str.replaceAll("<h4>(.+?)</h4>", "#### $1\n");
-        str = str.replaceAll("<h5>(.+?)</h5>", "##### $1\n");
-        str = str.replaceAll("<h6>(.+?)</h6>", "###### $1\n");
+        str = str.replaceAll("<h1(?: .*?)?>(.+?)</h1>", "# $1\n");
+        str = str.replaceAll("<h2(?: .*?)?>(.+?)</h2>", "## $1\n");
+        str = str.replaceAll("<h3(?: .*?)?>(.+?)</h3>", "### $1\n");
+        str = str.replaceAll("<h4(?: .*?)?>(.+?)</h4>", "#### $1\n");
+        str = str.replaceAll("<h5(?: .*?)?>(.+?)</h5>", "##### $1\n");
+        str = str.replaceAll("<h6(?: .*?)?>(.+?)</h6>", "###### $1\n");
 
         // 替换加粗标签<strong> <b>
         str = str.replaceAll("</?(?:strong|b)>", "**");
@@ -114,6 +114,63 @@ public class Html2MarkDown {
         str = str.replaceAll("(?:</?p>)+", "\n");
         // 删除多余空格
         str = str.replaceAll("[ ]+", " ");
+        // 删除多余的空格转义字符
+        str = str.replaceAll("(?:&nbsp;)+", " ");
+        // 删除多余的连续的空白行
+        str = str.replaceAll("(?m)(^ *?$\\r?\\n)+", "\n");
+        // PrintStr.printStr(str);
+        //替换无序列表
+        // 如果有无序列表
+        if (Pattern.compile("\\<ul\\>").matcher(str).find()) {
+            // 替换无序列号
+            // str = htmlUl2MdUl(str);
+            str = HtmlListToMd.htmlUnOrderListToMd(str);
+        }
+        //如果共有有序列表
+        if (Pattern.compile("\\<ol\\>").matcher(str).find()) {
+            // 替换有序列表
+            str = HtmlListToMd.htmlOrderList2Md(str);
+        }
+        // PrintStr.printStr(str);
+        // 替换行内代码
+        if (Pattern.compile("\\<code\\>").matcher(str).find()) {
+            str = htmlCode2MdCode(str);
+        }
+        // 删除整行字符串开头的多余空格符
+        str = str.replaceAll("^ +", "");
+        // 多行模式，删除每行末尾多余的空格符
+        str = str.replaceAll("(?m) +$", "");
+        return str;
+    }
+    /**
+     * HTML普通文本转换为Markdown文本
+     *
+     * @param str html文本
+     * @return Markdown文本
+     */
+    public String toHuaZhangPreCode(String str) {
+        // 替换换行符
+        str = str.replaceAll("(?:<br>)+", "\n");
+        // div结束标签替换为换行符
+        str = str.replaceAll("</div>", "\n");
+        // 删除div开始标签
+        str = str.replaceAll("<(?:div|p)(?: .*?)?>", "");
+        // 替换页面标题
+        str = str.replaceAll("<h1(?: .*?)?>(.+?)</h1>", "# $1\n");
+        str = str.replaceAll("<h2(?: .*?)?>(.+?)</h2>", "## $1\n");
+        str = str.replaceAll("<h3(?: .*?)?>(.+?)</h3>", "### $1\n");
+        str = str.replaceAll("<h4(?: .*?)?>(.+?)</h4>", "#### $1\n");
+        str = str.replaceAll("<h5(?: .*?)?>(.+?)</h5>", "##### $1\n");
+        str = str.replaceAll("<h6(?: .*?)?>(.+?)</h6>", "###### $1\n");
+
+        // 替换加粗标签<strong> <b>
+        str = str.replaceAll("</?(?:strong|b)>", "**");
+        // 删除pre,span标签
+        str = str.replaceAll("</?(?:pre|span)(?: .*?)?>", "");
+        // 替换段落标签
+        str = str.replaceAll("(?:</?p>)+", "\n");
+        // 删除多余空格
+        // str = str.replaceAll("[ ]+", " ");
         // 删除多余的空格转义字符
         str = str.replaceAll("(?:&nbsp;)+", " ");
         // 删除多余的连续的空白行
