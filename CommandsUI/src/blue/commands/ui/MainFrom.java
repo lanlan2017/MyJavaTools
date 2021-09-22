@@ -97,7 +97,14 @@ public class MainFrom {
         inputTextAreaControllerSetting(frame);
         // 添加或减少输入文本框按钮设置
         textFieldController(frame);
+        // 设置全局键盘事件处理程序
+        keyEventSetting();
+    }
 
+    /**
+     * 全局键盘事件处理设置
+     */
+    private void keyEventSetting() {
         Toolkit.getDefaultToolkit().addAWTEventListener(new AWTEventListener() {
             public void eventDispatched(AWTEvent event) {
 
@@ -112,12 +119,15 @@ public class MainFrom {
                     if (ocrPanel.isVisible()) {
                         if (keyEvent.isControlDown() && keyEvent.getKeyCode() == KeyEvent.VK_W) {
                             System.out.println("按下ctrl+W");
+                            SstButton.getInstance().sstButtonAction();
                         }
                         if (keyEvent.isControlDown() && keyEvent.getKeyCode() == KeyEvent.VK_E) {
                             System.out.println("按下ctrl+e");
+                            CancelButton.getInstance().cancelButtonAction();
                         }
                         if (keyEvent.isAltDown() && keyEvent.getKeyCode() == KeyEvent.VK_B) {
                             System.out.println("按下ALT+B");
+                            BaiduOCRButton.getInstance().baiduOCRButtonAction();
                         }
                     }
                 }
@@ -239,16 +249,6 @@ public class MainFrom {
                 frame.setOpacity(0.5f);
             }
         });
-        // textFieldToolBar.addKeyListener(new KeyAdapter() {
-        //     @Override
-        //     public void keyPressed(KeyEvent e) {
-        //         super.keyPressed(e);
-        //         System.out.println(e.getKeyCode());
-        //         if (e.getKeyCode() == KeyEvent.VK_1 && e.isControlDown()) {
-        //             System.out.println("按下了Ctrl+1");
-        //         }
-        //     }
-        // });
     }
 
     /**
@@ -297,13 +297,9 @@ public class MainFrom {
     }
 
     private void createUIComponents() {
-        commandPanel = new JPanel();
-        // sstButton = SstButton.getInstance(commandPanel).getButton();
+        // commandPanel = new JPanel();
         sstButton = SstButton.getInstance().getButton();
-        // cancelSstButton = CancelButton.getInstance(commandPanel).getButton();
         cancelSstButton = CancelButton.getInstance().getButton();
-        // ocrButton = BaiduOCRButton.getInstance(commandPanel).getButton();
         ocrButton = BaiduOCRButton.getInstance().getButton();
-
     }
 }

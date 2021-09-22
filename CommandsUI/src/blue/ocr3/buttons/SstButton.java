@@ -13,43 +13,20 @@ public class SstButton extends ButtonKeyAction {
         this.abstractAction = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // 再次截屏
-                ScreenShotWindow.getInstance().screenshotAgain();
-                // 显示窗口
-                ScreenShotWindow.getInstance().setVisible(true);
+                sstButtonAction();
             }
         };
-        // this.modifiers = KeyEvent.CTRL_DOWN_MASK;
-        // this.keyCode = KeyEvent.VK_W;
         setAction();
-        // setKeys();
     }
 
-    // private SstButton(JPanel fatherPanel) {
-    //     this.button = new JButton("截屏");
-    //     this.abstractAction = new AbstractAction() {
-    //         @Override
-    //         public void actionPerformed(ActionEvent e) {
-    //             // 再次截屏
-    //             ScreenShotWindow.getInstance().screenshotAgain();
-    //             // 显示窗口
-    //             ScreenShotWindow.getInstance().setVisible(true);
-    //         }
-    //     };
-    //     this.modifiers = KeyEvent.CTRL_DOWN_MASK;
-    //     this.keyCode = KeyEvent.VK_W;
-    //     this.fatherPanel = fatherPanel;
-    //     setAction();
-    //     // setKeys();
-    // }
+    public void sstButtonAction() {
+        // 再次截屏
+        ScreenShotWindow.getInstance().screenshotAgain();
+        // 显示窗口
+        ScreenShotWindow.getInstance().setVisible(true);
+    }
 
-    // public static SstButton getInstance(JPanel fatherPanel) {
-    //     if (instance == null) {
-    //         instance = new SstButton(fatherPanel);
-    //     }
-    //     return instance;
-    // }
-    public static SstButton getInstance(){
+    public static SstButton getInstance() {
         if (instance == null) {
             instance = new SstButton();
         }
