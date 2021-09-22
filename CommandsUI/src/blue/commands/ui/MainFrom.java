@@ -114,37 +114,53 @@ public class MainFrom {
                     //放入自己的键盘监听事件
                     //((KeyEvent) event).getKeyCode();// 获取按键的code
                     //((KeyEvent) event).getKeyChar();// 获取按键的字符
-                    KeyEvent keyEvent = ((KeyEvent) event);
-                    // 按下alt+数字键
-                    if (keyEvent.isAltDown()) {
-                        // 根据数字键计算索引
-                        int index = keyEvent.getKeyCode() - KeyEvent.VK_1;
-                        // 让ToolBar中索引为index的组件得到焦点
-                        requestFocusInToolBar(index);
-                        // 当成回车键
-                        // keyEvent.setKeyCode(KeyEvent.VK_ENTER);
+                    KeyEvent e = ((KeyEvent) event);
+                    // 按下ALT键
+                    int keyCode = e.getKeyCode();
+                    if (e.isAltDown()) {
+                        // 按下ALT+1~9数字键
+                        if (keyCode >= KeyEvent.VK_1 && keyCode <= KeyEvent.VK_9) {
+                            // 根据数字键计算索引
+                            int index = keyCode - KeyEvent.VK_1;
+                            // 让ToolBar中索引为index的组件得到焦点
+                            requestFocusInToolBar(index);
+                        }
+                        // ALT+Q：退出程序
+                        else if (keyCode == KeyEvent.VK_Q) {
+                            System.exit(0);
+                        }
+                        //https://www.apiref.com/java11-zh/java.desktop/java/awt/event/KeyEvent.html
+                        // Alt+'+'，KeyEvent.VK_EQUALS：backspace左侧的那个键
+                        // Alt+'='，KeyEvent.VK_PLUS：backspace左侧的那个键
+                        //keyCode==KeyEvent.VK_ADD：小键盘上的加法键
+                        else if (keyCode == KeyEvent.VK_PLUS || keyCode == KeyEvent.VK_EQUALS || keyCode == KeyEvent.VK_ADD) {
+                            // System.out.println(e.getKeyChar());
+                            addTextFieldButtonAction(frame);
+                        }
+                        // alt+'减号键'，bacespace左侧第2个键
+                        // https://www.apiref.com/java11-zh/java.desktop/java/awt/event/KeyEvent.html#VK_SUBTRACT
+                        else if (keyCode == KeyEvent.VK_MINUS || keyCode == KeyEvent.VK_UNDERSCORE || keyCode == KeyEvent.VK_SUBTRACT) {
+                            removeTextFieldButtonAction(frame);
+                        }
+
+                        // OCR面板可见时，按下ALT+B键
+                        if (ocrPanel.isVisible() && keyCode == KeyEvent.VK_B) {
+                            // System.out.println("按下ALT+B");
+                            BaiduOCRButton.getInstance().baiduOCRButtonAction();
+                        }
                     }
-                    // ALT+Q：退出程序
-                    if (keyEvent.isAltDown() && keyEvent.getKeyCode() == KeyEvent.VK_Q) {
-                        System.exit(0);
-                    }
-                    // 如果文字识别面板可见的话
-                    if (ocrPanel.isVisible()) {
-                        // 按下ctrl键
-                        if (keyEvent.isControlDown()) {
+                    // 按下ctrl键
+                    if (e.isControlDown()) {
+                        //OCR面板可见时
+                        if (ocrPanel.isVisible()) {
                             // Ctrl+W：截屏
-                            if (keyEvent.getKeyCode() == KeyEvent.VK_W) {
+                            if (keyCode == KeyEvent.VK_W) {
                                 SstButton.getInstance().sstButtonAction();
                             }
                             // Ctrl+E：取消截屏
-                            else if (keyEvent.getKeyCode() == KeyEvent.VK_E) {
+                            else if (keyCode == KeyEvent.VK_E) {
                                 CancelButton.getInstance().cancelButtonAction();
                             }
-                        }
-                        // Alt+B：OCR 文字识别
-                        if (keyEvent.isAltDown() && keyEvent.getKeyCode() == KeyEvent.VK_B) {
-                            // System.out.println("按下ALT+B");
-                            BaiduOCRButton.getInstance().baiduOCRButtonAction();
                         }
                     }
                 }
@@ -208,66 +224,84 @@ public class MainFrom {
         addTextFieldButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // 创建文本框
-                JTextField jTextField2 = new JTextField(8);
-                // 给文本框设置自动提示信息
-                textFieldAutoSetting(jTextField2);
-                // 文本框工具条添加一个文本框
-                textFieldToolBar.add(jTextField2);
-                // 创建行号文本提示框
-                JTextField lineNumTextField = new JTextField(String.valueOf(textFieldToolBar.getComponentCount()));
-                lineNumTextField.setColumns(1);
-                // 设置不可编辑
-                lineNumTextField.setEditable(false);
-                lineNumBar.add(lineNumTextField);
-                // 当编号文本框的个数大于9，并且编号文本框的默认列数为1时
-                if (lineNumBar.getComponentCount() > 9 && lineNumTextField.getColumns() == 1) {
-                    // 遍历所有的文本框
-                    for (int i = 0; i < lineNumBar.getComponentCount(); i++) {
-                        JTextField jTextField = (JTextField) lineNumBar.getComponent(i);
-                        // 把这些文本框的列数都设置为2
-                        jTextField.setColumns(2);
-                        frame.pack();
-                    }
-                }
-                // 如果有两个元素
-                if (textFieldToolBar.getComponentCount() > 1) {
-                    // 可以减去其中一个元素
-                    removeTextFieldButton.setVisible(true);
-                }
-                frame.pack();
+                addTextFieldButtonAction(frame);
             }
         });
         removeTextFieldButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // 如果有两个或两个以上的组件
-                if (textFieldToolBar.getComponentCount() >= 2) {
-                    // 移除最后一个组件
-                    textFieldToolBar.remove(textFieldToolBar.getComponentCount() - 1);
-                    // 移除该组件对应的行号
-                    lineNumBar.remove(lineNumBar.getComponentCount() - 1);
-                    // 当行号小于10，并且行号文本框的列数为2时
-                    if (lineNumBar.getComponentCount() < 10 && ((JTextField) lineNumBar.getComponent(0)).getColumns() == 2) {
-                        // 遍历所有的行号文本框
-                        for (int i = 0; i < lineNumBar.getComponentCount(); i++) {
-                            JTextField jTextField = (JTextField) lineNumBar.getComponent(i);
-                            // 把这些文本框的列数设置为1
-                            jTextField.setColumns(1);
-                            frame.pack();
-                        }
-                    }
+                removeTextFieldButtonAction(frame);
+            }
+        });
+    }
 
-                    //如果，移除最后一个组件之后，只剩一个组件。
-                    if (textFieldToolBar.getComponentCount() == 1) {
-                        // 那么隐藏移除按钮，免得最后一个组件被移除
-                        removeTextFieldButton.setVisible(false);
-                    }
-                    // 刷新组件
+    /**
+     * 移除最后一个文本输入框和编号
+     *
+     * @param frame 面板
+     */
+    private void removeTextFieldButtonAction(JFrame frame) {
+        // 如果有两个或两个以上的组件
+        if (textFieldToolBar.getComponentCount() >= 2) {
+            // 移除最后一个组件
+            textFieldToolBar.remove(textFieldToolBar.getComponentCount() - 1);
+            // 移除该组件对应的行号
+            lineNumBar.remove(lineNumBar.getComponentCount() - 1);
+            // 当行号小于10，并且行号文本框的列数为2时
+            if (lineNumBar.getComponentCount() < 10 && ((JTextField) lineNumBar.getComponent(0)).getColumns() == 2) {
+                // 遍历所有的行号文本框
+                for (int i = 0; i < lineNumBar.getComponentCount(); i++) {
+                    JTextField jTextField = (JTextField) lineNumBar.getComponent(i);
+                    // 把这些文本框的列数设置为1
+                    jTextField.setColumns(1);
                     frame.pack();
                 }
             }
-        });
+
+            //如果，移除最后一个组件之后，只剩一个组件。
+            if (textFieldToolBar.getComponentCount() == 1) {
+                // 那么隐藏移除按钮，免得最后一个组件被移除
+                removeTextFieldButton.setVisible(false);
+            }
+            // 刷新组件
+            frame.pack();
+        }
+    }
+
+    /**
+     * 添加文本框按钮事件处理功能
+     *
+     * @param frame 面板
+     */
+    private void addTextFieldButtonAction(JFrame frame) {
+        // 创建文本框
+        JTextField jTextField2 = new JTextField(8);
+        // 给文本框设置自动提示信息
+        textFieldAutoSetting(jTextField2);
+        // 文本框工具条添加一个文本框
+        textFieldToolBar.add(jTextField2);
+        // 创建行号文本提示框
+        JTextField lineNumTextField = new JTextField(String.valueOf(textFieldToolBar.getComponentCount()));
+        lineNumTextField.setColumns(1);
+        // 设置不可编辑
+        lineNumTextField.setEditable(false);
+        lineNumBar.add(lineNumTextField);
+        // 当编号文本框的个数大于9，并且编号文本框的默认列数为1时
+        if (lineNumBar.getComponentCount() > 9 && lineNumTextField.getColumns() == 1) {
+            // 遍历所有的文本框
+            for (int i = 0; i < lineNumBar.getComponentCount(); i++) {
+                JTextField jTextField = (JTextField) lineNumBar.getComponent(i);
+                // 把这些文本框的列数都设置为2
+                jTextField.setColumns(2);
+                frame.pack();
+            }
+        }
+        // 如果有两个元素
+        if (textFieldToolBar.getComponentCount() > 1) {
+            // 可以减去其中一个元素
+            removeTextFieldButton.setVisible(true);
+        }
+        frame.pack();
     }
 
     private void textFieldSetting() {
