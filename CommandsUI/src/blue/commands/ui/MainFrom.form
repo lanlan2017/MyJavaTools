@@ -47,6 +47,24 @@
               </component>
             </children>
           </toolbar>
+          <toolbar id="f0e3d" binding="lineNumBar">
+            <constraints/>
+            <properties>
+              <floatable value="false"/>
+              <orientation value="1"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="89fd7" class="javax.swing.JTextField" binding="a1TextField" default-binding="true">
+                <constraints/>
+                <properties>
+                  <columns value="1"/>
+                  <editable value="false"/>
+                  <text value="1"/>
+                </properties>
+              </component>
+            </children>
+          </toolbar>
           <toolbar id="41b45">
             <constraints/>
             <properties>

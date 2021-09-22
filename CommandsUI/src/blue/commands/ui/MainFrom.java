@@ -64,6 +64,8 @@ public class MainFrom {
      * 输入文本框的父容器，工具条
      */
     private JToolBar textFieldToolBar;
+    private JToolBar lineNumBar;
+    private JTextField a1TextField;
 
     public JTextArea getInputTextArea() {
         return inputTextArea;
@@ -210,7 +212,24 @@ public class MainFrom {
                 JTextField jTextField2 = new JTextField(8);
                 // 给文本框设置自动提示信息
                 textFieldAutoSetting(jTextField2);
+                // 文本框工具条添加一个文本框
                 textFieldToolBar.add(jTextField2);
+                // 创建行号文本提示框
+                JTextField lineNumTextField = new JTextField(String.valueOf(textFieldToolBar.getComponentCount()));
+                lineNumTextField.setColumns(1);
+                // 设置不可编辑
+                lineNumTextField.setEditable(false);
+                lineNumBar.add(lineNumTextField);
+                // 当编号文本框的个数大于9，并且编号文本框的默认列数为1时
+                if (lineNumBar.getComponentCount() > 9 && lineNumTextField.getColumns() == 1) {
+                    // 遍历所有的文本框
+                    for (int i = 0; i < lineNumBar.getComponentCount(); i++) {
+                        JTextField jTextField = (JTextField) lineNumBar.getComponent(i);
+                        // 把这些文本框的列数都设置为2
+                        jTextField.setColumns(2);
+                        frame.pack();
+                    }
+                }
                 // 如果有两个元素
                 if (textFieldToolBar.getComponentCount() > 1) {
                     // 可以减去其中一个元素
@@ -226,6 +245,19 @@ public class MainFrom {
                 if (textFieldToolBar.getComponentCount() >= 2) {
                     // 移除最后一个组件
                     textFieldToolBar.remove(textFieldToolBar.getComponentCount() - 1);
+                    // 移除该组件对应的行号
+                    lineNumBar.remove(lineNumBar.getComponentCount() - 1);
+                    // 当行号小于10，并且行号文本框的列数为2时
+                    if (lineNumBar.getComponentCount() < 10 && ((JTextField) lineNumBar.getComponent(0)).getColumns() == 2) {
+                        // 遍历所有的行号文本框
+                        for (int i = 0; i < lineNumBar.getComponentCount(); i++) {
+                            JTextField jTextField = (JTextField) lineNumBar.getComponent(i);
+                            // 把这些文本框的列数设置为1
+                            jTextField.setColumns(1);
+                            frame.pack();
+                        }
+                    }
+
                     //如果，移除最后一个组件之后，只剩一个组件。
                     if (textFieldToolBar.getComponentCount() == 1) {
                         // 那么隐藏移除按钮，免得最后一个组件被移除
