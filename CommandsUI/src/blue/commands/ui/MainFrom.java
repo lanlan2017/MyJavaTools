@@ -116,17 +116,24 @@ public class MainFrom {
                     if (keyEvent.isControlDown() && keyEvent.getKeyCode() == KeyEvent.VK_1) {
                         System.out.println("按下ctrl+1");
                     }
+
+                    // ALT+Q：退出程序
+                    if (keyEvent.isAltDown() && keyEvent.getKeyCode() == KeyEvent.VK_Q) {
+                        // System.out.println("按下alt+q");
+                        System.exit(0);
+                    }
+
                     if (ocrPanel.isVisible()) {
                         if (keyEvent.isControlDown() && keyEvent.getKeyCode() == KeyEvent.VK_W) {
-                            System.out.println("按下ctrl+W");
+                            // System.out.println("按下ctrl+W");
                             SstButton.getInstance().sstButtonAction();
                         }
                         if (keyEvent.isControlDown() && keyEvent.getKeyCode() == KeyEvent.VK_E) {
-                            System.out.println("按下ctrl+e");
+                            // System.out.println("按下ctrl+e");
                             CancelButton.getInstance().cancelButtonAction();
                         }
                         if (keyEvent.isAltDown() && keyEvent.getKeyCode() == KeyEvent.VK_B) {
-                            System.out.println("按下ALT+B");
+                            // System.out.println("按下ALT+B");
                             BaiduOCRButton.getInstance().baiduOCRButtonAction();
                         }
                     }
