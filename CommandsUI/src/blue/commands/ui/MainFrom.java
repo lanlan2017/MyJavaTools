@@ -142,7 +142,6 @@ public class MainFrom {
                         else if (keyCode == KeyEvent.VK_MINUS || keyCode == KeyEvent.VK_UNDERSCORE || keyCode == KeyEvent.VK_SUBTRACT) {
                             removeTextFieldButtonAction(frame);
                         }
-
                         // OCR面板可见时，按下ALT+B键
                         if (ocrPanel.isVisible() && keyCode == KeyEvent.VK_B) {
                             // System.out.println("按下ALT+B");
