@@ -20,31 +20,11 @@ public class CancelButton extends ButtonKeyAction {
                 //     // ToolsWindow.defaultLocation();
             }
         };
-        modifiers = KeyEvent.CTRL_DOWN_MASK;
-        keyCode = KeyEvent.VK_E;
-    }
-
-    private CancelButton(JPanel fatherPane) {
-        this.button = new JButton("取消截屏");
-        this.abstractAction = new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //     // 不显示截屏窗口
-                ScreenShotWindow.getInstance().setVisible(false);
-                //     // 移动窗体到最左边
-                //     // ToolsWindow.defaultLocation();
-            }
-        };
-        this.modifiers = KeyEvent.CTRL_DOWN_MASK;
-        this.keyCode = KeyEvent.VK_E;
-        this.fatherPanel = fatherPane;
         setAction();
-        setKeys();
     }
-
-    public static CancelButton getInstance(JPanel fatherPanel) {
+    public static CancelButton getInstance() {
         if (instance == null) {
-            instance = new CancelButton(fatherPanel);
+            instance = new CancelButton();
         } return instance;
     }
 }

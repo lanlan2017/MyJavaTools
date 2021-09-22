@@ -3,8 +3,7 @@ package blue.commands.ui.event.textfield.auto;
 import blue.commands.ui.event.textfield.JComboBoxActionListener;
 import blue.commands.ui.event.textfield.TextFieldDocumentListener2;
 import blue.commands.ui.event.textfield.TextFieldFocusAdapter;
-import blue.commands.ui.event.textfield.TextFieldKeyListener2;
-import com.formdev.flatlaf.FlatLightLaf;
+import blue.commands.ui.event.textfield.TextFieldKeyListener;
 import ui.key.MapKeyList;
 
 import javax.swing.*;
@@ -15,7 +14,7 @@ import java.util.Iterator;
 /**
  * 自动提示文本框功能
  */
-public class AutoField {
+public class AutoFieldSetting {
 
     public static boolean isAdjusting(JComboBox jComboBox) {
         if (jComboBox.getClientProperty("is_adjusting") instanceof Boolean) {
@@ -39,7 +38,6 @@ public class AutoField {
         Collection<String> items = MapKeyList.getKeysList();
         DefaultComboBoxModel model = (DefaultComboBoxModel) jComboBox.getModel();
         // 设置JComboBox
-        // setAdjusting(jComboBox, false);
         setAdjusting(jComboBox, true);
         // 给JComBox添加选项
         Iterator<String> it = items.iterator();
@@ -52,12 +50,11 @@ public class AutoField {
         jComboBox.addActionListener(new JComboBoxActionListener(jComboBox, textField));
 
         // 文本框 注册键盘事件处理器
-        // textField.addKeyListener(new TextFieldKeyListener(jComboBox, textField));
-        textField.addKeyListener(new TextFieldKeyListener2(frame, textField, jComboBox, textArea, scrollPaneFather));
+        textField.addKeyListener(new TextFieldKeyListener(frame, textField, jComboBox, textArea, scrollPaneFather));
         // 文本框 得到焦点时的操作
         textField.addFocusListener(new TextFieldFocusAdapter(frame, scrollPaneFather, textArea));
         // 文本框 内容变化
-        textField.getDocument().addDocumentListener(new TextFieldDocumentListener2(frame,model, textField, jComboBox, items));
+        textField.getDocument().addDocumentListener(new TextFieldDocumentListener2(frame, model, textField, jComboBox, items));
 
         // 设置文本框的布局管理器
         textField.setLayout(new BorderLayout());

@@ -20,7 +20,6 @@ public class TextFieldFocusAdapter extends FocusAdapter {
         // 如果文本域中有内容的话
         if (!"".equals(textArea.getText())) {
             // 显示文本域面板
-            // scrollPane.setVisible(true);
             scrollPaneFather.setVisible(true);
             // 最小化显示组件
             frame.pack();

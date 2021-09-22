@@ -5,7 +5,7 @@ import blue.commands.tool.ui.ToolUiSystemTray;
 import blue.commands.ui.event.panel.PanelMouseMotionListener;
 import blue.commands.ui.event.radiobutton.RadioButtonItemListener;
 import blue.commands.ui.event.textarea.TextAreaMouseListener;
-import blue.commands.ui.event.textfield.auto.AutoField;
+import blue.commands.ui.event.textfield.auto.AutoFieldSetting;
 import blue.ocr3.buttons.BaiduOCRButton;
 import blue.ocr3.buttons.CancelButton;
 import blue.ocr3.buttons.SstButton;
@@ -13,10 +13,7 @@ import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowFocusListener;
+import java.awt.event.*;
 
 public class MainFrom {
     static {
@@ -96,6 +93,39 @@ public class MainFrom {
         outputTextArea.addMouseListener(new TextAreaMouseListener(frame, outputTextArea));
         // 当按钮状态改变时
         radioButton.addItemListener(new RadioButtonItemListener(frame, ocrPanel));
+        // 输入文本域事件监听器
+        inputTextAreaControllerSetting(frame);
+        // 添加或减少输入文本框按钮设置
+        textFieldController(frame);
+
+        Toolkit.getDefaultToolkit().addAWTEventListener(new AWTEventListener() {
+            public void eventDispatched(AWTEvent event) {
+
+                if (((KeyEvent) event).getID() == KeyEvent.KEY_PRESSED) {
+                    //放入自己的键盘监听事件
+                    //((KeyEvent) event).getKeyCode();// 获取按键的code
+                    //((KeyEvent) event).getKeyChar();// 获取按键的字符
+                    KeyEvent keyEvent = ((KeyEvent) event);
+                    if (keyEvent.isControlDown() && keyEvent.getKeyCode() == KeyEvent.VK_1) {
+                        System.out.println("按下ctrl+1");
+                    }
+                    if (ocrPanel.isVisible()) {
+                        if (keyEvent.isControlDown() && keyEvent.getKeyCode() == KeyEvent.VK_W) {
+                            System.out.println("按下ctrl+W");
+                        }
+                        if (keyEvent.isControlDown() && keyEvent.getKeyCode() == KeyEvent.VK_E) {
+                            System.out.println("按下ctrl+e");
+                        }
+                        if (keyEvent.isAltDown() && keyEvent.getKeyCode() == KeyEvent.VK_B) {
+                            System.out.println("按下ALT+B");
+                        }
+                    }
+                }
+            }
+        }, AWTEvent.KEY_EVENT_MASK);
+    }
+
+    private void inputTextAreaControllerSetting(JFrame frame) {
         inputTextAreaController.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -108,9 +138,16 @@ public class MainFrom {
                     inputTextArea.setVisible(true);
                 }
                 frame.pack();
-
             }
         });
+    }
+
+    /**
+     * 输入文本框控制设置。
+     *
+     * @param frame 窗体
+     */
+    private void textFieldController(JFrame frame) {
         addTextFieldButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -162,7 +199,7 @@ public class MainFrom {
             }
         };
         // 给文本框设置自动内容提示
-        AutoField.setupAutoComplete2(frame, textField, jComboBox, outputTextArea, scrollPaneFather);
+        AutoFieldSetting.setupAutoComplete2(frame, textField, jComboBox, outputTextArea, scrollPaneFather);
     }
 
     private void textFieldAutoSetting(JTextField textField) {
@@ -177,9 +214,12 @@ public class MainFrom {
             }
         };
         // 给文本框设置自动内容提示
-        AutoField.setupAutoComplete2(frame, textField, jComboBox, outputTextArea, scrollPaneFather);
+        AutoFieldSetting.setupAutoComplete2(frame, textField, jComboBox, outputTextArea, scrollPaneFather);
     }
 
+    /**
+     * 窗体设置
+     */
     private void frameSetting() {
         // 监听面板事件
         panel.addMouseMotionListener(new PanelMouseMotionListener(frame, panel));
@@ -190,21 +230,25 @@ public class MainFrom {
             public void windowGainedFocus(WindowEvent e) {
                 // 设置不透明
                 frame.setOpacity(1.0f);
-                // 让文本框获得焦点
-                // textField.requestFocus();
-                // frame.setAlwaysOnTop(true);
             }
 
             // 当窗体失去焦点时
             @Override
             public void windowLostFocus(WindowEvent e) {
                 // 设置半透明
-                // frame.setOpacity(0.5f);
                 frame.setOpacity(0.5f);
-                // 别置顶了
-                // frame.setAlwaysOnTop(false);
             }
         });
+        // textFieldToolBar.addKeyListener(new KeyAdapter() {
+        //     @Override
+        //     public void keyPressed(KeyEvent e) {
+        //         super.keyPressed(e);
+        //         System.out.println(e.getKeyCode());
+        //         if (e.getKeyCode() == KeyEvent.VK_1 && e.isControlDown()) {
+        //             System.out.println("按下了Ctrl+1");
+        //         }
+        //     }
+        // });
     }
 
     /**
@@ -254,9 +298,12 @@ public class MainFrom {
 
     private void createUIComponents() {
         commandPanel = new JPanel();
-        sstButton = SstButton.getInstance(commandPanel).getButton();
-        cancelSstButton = CancelButton.getInstance(commandPanel).getButton();
-        ocrButton = BaiduOCRButton.getInstance(commandPanel).getButton();
+        // sstButton = SstButton.getInstance(commandPanel).getButton();
+        sstButton = SstButton.getInstance().getButton();
+        // cancelSstButton = CancelButton.getInstance(commandPanel).getButton();
+        cancelSstButton = CancelButton.getInstance().getButton();
+        // ocrButton = BaiduOCRButton.getInstance(commandPanel).getButton();
+        ocrButton = BaiduOCRButton.getInstance().getButton();
 
     }
 }

@@ -2,7 +2,7 @@ package blue.commands.ui.event.textfield;
 
 import blue.commands.demo.ToolIsChinese;
 import blue.commands.ui.MainFrom;
-import blue.commands.ui.event.textfield.auto.AutoField;
+import blue.commands.ui.event.textfield.auto.AutoFieldSetting;
 import tools.config.ConfigTools;
 
 import javax.swing.*;
@@ -10,20 +10,23 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Scanner;
 
-public class TextFieldKeyListener2 extends KeyAdapter {
+/**
+ * 文本框键盘事件监听器
+ */
+public class TextFieldKeyListener extends KeyAdapter {
     JFrame frame;
     JTextField textField;
     JComboBox jComboBox;
     JTextArea textArea;
     JPanel scrollPaneFather;
 
-    public TextFieldKeyListener2(JComboBox jComboBox, JTextField textField) {
+    public TextFieldKeyListener(JComboBox jComboBox, JTextField textField) {
         this.jComboBox = jComboBox;
         this.textField = textField;
     }
 
 
-    public TextFieldKeyListener2(JFrame frame, JTextField textField, JComboBox jComboBox, JTextArea textArea, JPanel scrollPaneFather) {
+    public TextFieldKeyListener(JFrame frame, JTextField textField, JComboBox jComboBox, JTextArea textArea, JPanel scrollPaneFather) {
         this.frame = frame;
         this.textField = textField;
         this.jComboBox = jComboBox;
@@ -34,18 +37,19 @@ public class TextFieldKeyListener2 extends KeyAdapter {
     @Override
     public void keyPressed(KeyEvent e) {
         // 设置JComboBox为真
-        AutoField.setAdjusting(jComboBox, true);
+        AutoFieldSetting.setAdjusting(jComboBox, true);
 
         // 如果是回车键，或者上箭头 或者下箭头
         if (e.getKeyCode() == KeyEvent.VK_ENTER || e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_DOWN) {
             //
             e.setSource(jComboBox);
             jComboBox.dispatchEvent(e);
+            // 在文本框中按下回车键时
             if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                 // 获取选择项
                 Object selectedItem = jComboBox.getSelectedItem();
                 // 如果存在选择项
-                if (selectedItem != null){
+                if (selectedItem != null) {
                     // 把选项的文本作为文本框的内容
                     textField.setText(selectedItem.toString());
                 }
@@ -59,7 +63,7 @@ public class TextFieldKeyListener2 extends KeyAdapter {
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             jComboBox.setPopupVisible(false);
         }
-        AutoField.setAdjusting(jComboBox, false);
+        AutoFieldSetting.setAdjusting(jComboBox, false);
     }
 
     /**
@@ -84,10 +88,6 @@ public class TextFieldKeyListener2 extends KeyAdapter {
                 textArea.setColumns(line[1] < maxColumns ? line[1] : maxColumns);
                 // 处理结果写到文本域中
                 textArea.setText(output);
-                // System.out.println("行数:"+line[0]);
-                // System.out.println("=================================");
-                // System.out.println(output);
-                // System.out.println("=================================");
 
                 // 设置选择区域的开始和结束都为0，
                 // 这样textarea显示的时候就显示第一行，而不是显示最后一行
@@ -97,14 +97,7 @@ public class TextFieldKeyListener2 extends KeyAdapter {
                 // 显示textArea面板
                 scrollPaneFather.setVisible(true);
                 if (input.endsWith(" reset")) {
-                    // System.out.println("|" + input + "|");
                     input = input.substring(0, input.lastIndexOf(" reset"));
-                    // System.out.println("|" + input + "|");
-                    // try {
-                    //     Thread.sleep(1000 * 3);
-                    // } catch (InterruptedException e) {
-                    //     e.printStackTrace();
-                    // }
                     textField.setText(input);
                     // 隐藏文本框
                     jComboBox.setPopupVisible(false);

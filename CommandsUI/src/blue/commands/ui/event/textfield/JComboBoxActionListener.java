@@ -1,6 +1,6 @@
 package blue.commands.ui.event.textfield;
 
-import blue.commands.ui.event.textfield.auto.AutoField;
+import blue.commands.ui.event.textfield.auto.AutoFieldSetting;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -19,7 +19,7 @@ public class JComboBoxActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         //
-        if (!AutoField.isAdjusting(jComboBox)) {
+        if (!AutoFieldSetting.isAdjusting(jComboBox)) {
             // 如果有选项被选中
             if (jComboBox.getSelectedItem() != null) {
                 // 文本框中填写选项的内容。

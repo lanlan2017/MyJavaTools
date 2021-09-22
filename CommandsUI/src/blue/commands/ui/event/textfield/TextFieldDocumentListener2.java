@@ -1,6 +1,6 @@
 package blue.commands.ui.event.textfield;
 
-import blue.commands.ui.event.textfield.auto.AutoField;
+import blue.commands.ui.event.textfield.auto.AutoFieldSetting;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -59,7 +59,7 @@ public class TextFieldDocumentListener2 implements DocumentListener {
     }
 
     private void updateList() {
-        AutoField.setAdjusting(jComboBox, true);
+        AutoFieldSetting.setAdjusting(jComboBox, true);
         // 移除JComboBox中的全部内容
         model.removeAllElements();
         // 读取文本框中的全部内容
@@ -83,6 +83,6 @@ public class TextFieldDocumentListener2 implements DocumentListener {
         // jComboBox.updateUI();
         // textField.updateUI();
         // 不调整
-        AutoField.setAdjusting(jComboBox, false);
+        AutoFieldSetting.setAdjusting(jComboBox, false);
     }
 }
