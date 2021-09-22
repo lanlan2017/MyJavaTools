@@ -6,8 +6,9 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class SstButton extends ButtonKeyAction {
-    private static SstButton instance;
-
+    // 单例模式2，创建类的唯一实例，饿汉式，不管怎样先创建好
+    private static final SstButton instance=new SstButton();
+    // 单例模式：1私有化构造器
     private SstButton() {
         this.button = new JButton("截屏");
         this.abstractAction = new AbstractAction() {
@@ -18,19 +19,15 @@ public class SstButton extends ButtonKeyAction {
         };
         setAction();
     }
+    // 单例模式3:给出返回唯一实例的public方法
+    public static SstButton getInstance() {
+        return instance;
+    }
 
     public void sstButtonAction() {
         // 再次截屏
         ScreenShotWindow.getInstance().screenshotAgain();
         // 显示窗口
         ScreenShotWindow.getInstance().setVisible(true);
-    }
-
-    public static SstButton getInstance() {
-        if (instance == null) {
-            instance = new SstButton();
-        }
-        return instance;
-
     }
 }

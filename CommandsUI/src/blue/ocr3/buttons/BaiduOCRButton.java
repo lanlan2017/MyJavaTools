@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
  * OCR按钮
  */
 public class BaiduOCRButton extends ButtonKeyAction {
-    private static BaiduOCRButton instance;
+    private static final BaiduOCRButton  instance = new BaiduOCRButton();
 
     private BaiduOCRButton() {
         this.button = new JButton("OCR");
@@ -27,8 +27,6 @@ public class BaiduOCRButton extends ButtonKeyAction {
     public void baiduOCRButtonAction() {
         // 使用百度文字识别
         String ocrStr = BaiduOcrCallable.startBaiduOCR();
-        // System.out.println("使用Callable");
-        // PrintStr.printStr(ocrStr);
 
         JTextArea inputTextArea = MainFrom.getInstance().getInputTextArea();
         // 显示输入文本域
@@ -42,9 +40,6 @@ public class BaiduOCRButton extends ButtonKeyAction {
     }
 
     public static BaiduOCRButton getInstance() {
-        if (instance == null) {
-            instance = new BaiduOCRButton();
-        }
         return instance;
     }
 }

@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class CancelButton extends ButtonKeyAction {
-    private static CancelButton instance;
+    private static final CancelButton instance = new CancelButton();;
 
     private CancelButton() {
         button = new JButton("取消截屏");
@@ -27,8 +27,9 @@ public class CancelButton extends ButtonKeyAction {
     }
 
     public static CancelButton getInstance() {
-        if (instance == null) {
-            instance = new CancelButton();
-        } return instance;
+        // if (instance == null) {
+        //     instance = new CancelButton();
+        // }
+        return instance;
     }
 }
