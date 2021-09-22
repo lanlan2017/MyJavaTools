@@ -106,38 +106,76 @@ public class MainFrom {
      */
     private void keyEventSetting() {
         Toolkit.getDefaultToolkit().addAWTEventListener(new AWTEventListener() {
+            @Override
             public void eventDispatched(AWTEvent event) {
-
                 if (((KeyEvent) event).getID() == KeyEvent.KEY_PRESSED) {
                     //放入自己的键盘监听事件
                     //((KeyEvent) event).getKeyCode();// 获取按键的code
                     //((KeyEvent) event).getKeyChar();// 获取按键的字符
                     KeyEvent keyEvent = ((KeyEvent) event);
-                    if (keyEvent.isControlDown() && keyEvent.getKeyCode() == KeyEvent.VK_1) {
-                        System.out.println("按下ctrl+1");
+                    // 按下alt+数字键
+                    if (keyEvent.isAltDown()) {
+                        // 根据数字键计算索引
+                        int index = keyEvent.getKeyCode() - KeyEvent.VK_1;
+                        // 让ToolBar中索引为index的组件得到焦点
+                        requestFocusInToolBar(index);
+                        // 当成回车键
+                        // keyEvent.setKeyCode(KeyEvent.VK_ENTER);
                     }
-
                     // ALT+Q：退出程序
                     if (keyEvent.isAltDown() && keyEvent.getKeyCode() == KeyEvent.VK_Q) {
-                        // System.out.println("按下alt+q");
                         System.exit(0);
                     }
-
+                    // 如果文字识别面板可见的话
                     if (ocrPanel.isVisible()) {
-                        if (keyEvent.isControlDown() && keyEvent.getKeyCode() == KeyEvent.VK_W) {
-                            // System.out.println("按下ctrl+W");
-                            SstButton.getInstance().sstButtonAction();
+                        // 按下ctrl键
+                        if (keyEvent.isControlDown()) {
+                            // Ctrl+W：截屏
+                            if (keyEvent.getKeyCode() == KeyEvent.VK_W) {
+                                SstButton.getInstance().sstButtonAction();
+                            }
+                            // Ctrl+E：取消截屏
+                            else if (keyEvent.getKeyCode() == KeyEvent.VK_E) {
+                                CancelButton.getInstance().cancelButtonAction();
+                            }
                         }
-                        if (keyEvent.isControlDown() && keyEvent.getKeyCode() == KeyEvent.VK_E) {
-                            // System.out.println("按下ctrl+e");
-                            CancelButton.getInstance().cancelButtonAction();
-                        }
+                        // Alt+B：OCR 文字识别
                         if (keyEvent.isAltDown() && keyEvent.getKeyCode() == KeyEvent.VK_B) {
                             // System.out.println("按下ALT+B");
                             BaiduOCRButton.getInstance().baiduOCRButtonAction();
                         }
                     }
                 }
+            }
+
+            /**
+             * 让ToolBar中索引为index的组件获取焦点。
+             * @param index ToolBar中组件的索引
+             */
+            private void requestFocusInToolBar(int index) {
+                // 如果ToolBar中有该索引的组件
+                if (isAValidComponentIndexInTheToolbar(textFieldToolBar, index)) {
+                    // 获取该索引的组件
+                    JTextField textField = (JTextField) textFieldToolBar.getComponent(index);
+                    // 让该组件获得焦点
+                    textField.requestFocus();
+                    // 通过代码来触发键盘事件
+                    try {
+                        Robot robot = new Robot();
+                        robot.keyPress(KeyEvent.VK_ENTER);
+                    } catch (AWTException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            /**
+             * 是否是ToolBar中的有效的组件的索引。
+             * @param index Toolbar中组件的索引
+             * @return 如果ToolBar中有该索引的组件，则返回true,否则返回false。
+             */
+            private boolean isAValidComponentIndexInTheToolbar(JToolBar toolBar, int index) {
+                return index >= 0 && index < toolBar.getComponentCount();
             }
         }, AWTEvent.KEY_EVENT_MASK);
     }
