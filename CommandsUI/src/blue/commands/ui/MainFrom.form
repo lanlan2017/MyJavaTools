@@ -33,6 +33,7 @@
           <toolbar id="f0e3d" binding="lineNumBar">
             <constraints/>
             <properties>
+              <enabled value="true"/>
               <floatable value="false"/>
               <orientation value="1"/>
             </properties>
@@ -43,6 +44,7 @@
                 <properties>
                   <columns value="1"/>
                   <editable value="false"/>
+                  <enabled value="false"/>
                   <text value="1"/>
                 </properties>
               </component>

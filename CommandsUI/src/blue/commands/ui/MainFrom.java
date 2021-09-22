@@ -283,7 +283,8 @@ public class MainFrom {
         JTextField lineNumTextField = new JTextField(String.valueOf(textFieldToolBar.getComponentCount()));
         lineNumTextField.setColumns(1);
         // 设置不可编辑
-        lineNumTextField.setEditable(false);
+        // lineNumTextField.setEditable(false);
+        lineNumTextField.setEnabled(false);
         lineNumBar.add(lineNumTextField);
         // 当编号文本框的个数大于9，并且编号文本框的默认列数为1时
         if (lineNumBar.getComponentCount() > 9 && lineNumTextField.getColumns() == 1) {
