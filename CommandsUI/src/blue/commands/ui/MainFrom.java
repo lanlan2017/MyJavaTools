@@ -279,12 +279,42 @@ public class MainFrom {
         textFieldAutoSetting(jTextField2);
         // 文本框工具条添加一个文本框
         textFieldToolBar.add(jTextField2);
+        // 新创建的命令输入框获得焦点
+        jTextField2.requestFocus();
         // 创建行号文本提示框
         JTextField lineNumTextField = new JTextField(String.valueOf(textFieldToolBar.getComponentCount()));
         lineNumTextField.setColumns(1);
         // 设置不可编辑
         // lineNumTextField.setEditable(false);
         lineNumTextField.setEnabled(false);
+        lineNumTextField.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+                // super.mouseClicked(e);
+                int index = Integer.parseInt(lineNumTextField.getText()) - 1;
+                System.out.println(index);
+                textFieldToolBar.remove(index);
+                // 移除该组件对应的行号
+                lineNumBar.remove(index);
+                //如果，移除最后一个组件之后，只剩一个组件。
+                if (textFieldToolBar.getComponentCount() == 1) {
+                    // 那么隐藏移除按钮，免得最后一个组件被移除
+                    removeTextFieldButton.setVisible(false);
+                }
+                // 遍历所有的编号文本框
+                for (int i = 1; i < lineNumBar.getComponentCount(); i++) {
+                    JTextField jTextField = (JTextField) lineNumBar.getComponent(i);
+                    // 重新编号
+                    jTextField.setText("" + (i + 1));
+                    // frame.pack();
+                }
+
+                frame.pack();
+            }
+        });
+
+
         lineNumBar.add(lineNumTextField);
         // 当编号文本框的个数大于9，并且编号文本框的默认列数为1时
         if (lineNumBar.getComponentCount() > 9 && lineNumTextField.getColumns() == 1) {
@@ -293,7 +323,7 @@ public class MainFrom {
                 JTextField jTextField = (JTextField) lineNumBar.getComponent(i);
                 // 把这些文本框的列数都设置为2
                 jTextField.setColumns(2);
-                frame.pack();
+                // frame.pack();
             }
         }
         // 如果有两个元素
@@ -301,6 +331,7 @@ public class MainFrom {
             // 可以减去其中一个元素
             removeTextFieldButton.setVisible(true);
         }
+
         frame.pack();
     }
 
