@@ -42,8 +42,6 @@ public class ScreenShotWindow extends JWindow {
         // 注册鼠标事件处理函数
         addMouseListenerInThis();
         addMouseMotionListenerInThis();
-        // 注册快捷键
-        // HotkeyRegister.getInstance();
     }
     // 单例模式结束.
 
@@ -62,8 +60,9 @@ public class ScreenShotWindow extends JWindow {
     private void addMouseListenerInThis() {
         // 设置鼠标监听事件
         this.addMouseListener(new MouseAdapter() {
+            private final JFrame frame = MainFrom.getInstance().getFrame();
             // 保存工具条宽度
-            Dimension ToolsWindowSize;
+            Dimension frameSize;
 
             // 鼠标按下
             @Override
@@ -71,10 +70,7 @@ public class ScreenShotWindow extends JWindow {
                 // 鼠标按下时，表明截屏开始，记录开始点坐标，并隐藏操作窗口
                 mousePressedPoint.setLocation(e.getX(), e.getY());
                 // 隐藏工具面板
-                // ToolsWindow.getInstance().setVisible(false);
-                // OCR3Form.getInstance().getFrame().setVisible(false);
-                // OCR3Form.getInstance().getFrame().setVisible(false);
-                MainFrom.getInstance().getFrame().setVisible(false);
+                frame.setVisible(false);
             }
 
             // 鼠标松开
@@ -84,52 +80,56 @@ public class ScreenShotWindow extends JWindow {
                 int x = e.getX();
                 int y = e.getY();
                 // 保证工具条不超出屏幕之外
-                // noOverflowScreen(e, x, y);
+                noOverflowScreen(e, x, y);
+                // 窗体显示在截图窗口前面
+                frame.toFront();
                 // 显示窗体
-                // ToolsWindow.getInstance().setVisible(true);
-                // // 让窗体置顶,这样才能操作
-                // ToolsWindow.getInstance().toFront();
-                // OCR3Form.getInstance().getFrame().setVisible(true);
-                // OCR3Form.getInstance().getFrame().toFront();
-                MainFrom.getInstance().getFrame().setVisible(true);
-                MainFrom.getInstance().getFrame().toFront();
-                // OCR3Form.getFrame().setVisible(true);
-                // OCR3Form.getFrame().toFront();
+                frame.setVisible(true);
             }
-            //
-            // /**
-            //  * 保证工具栏不超出屏幕之外。
-            //  * @param e 鼠标事件
-            //  * @param x 横坐标
-            //  * @param y 纵坐标
-            //  */
-            // public void noOverflowScreen(MouseEvent e, int x, int y) {
-            //     // ToolsWindowSize = ToolsWindow.getInstance().getSize();
-            //     boolean overX = x + ToolsWindowSize.getWidth() + 1 > screenSize.getWidth();
-            //     boolean overY = y + ToolsWindowSize.getHeight() + 1 > screenSize.getHeight();
-            //     // 如果同时超出了宽度和高度 11
-            //     if (overX && overY) {
-            //         ToolsWindow.getInstance().setLocation((int) (x - ToolsWindowSize.getWidth()), (int) (y - ToolsWindowSize.getHeight()));
-            //     }
-            //     // 10或者01宽度超出了屏幕宽度，或者高度，这里不能匹配到同时的情况，如果同时的话会走上面的分支
-            //     else if (overX || overY) {
-            //         // 如果是高度超出 01
-            //         if (overY) {
-            //             // 显示在屏幕上
-            //             ToolsWindow.getInstance().setLocation(x, (int) (y - ToolsWindowSize.getHeight()));
-            //         }
-            //         // 如果不是高度的话，那只能是宽度了 10
-            //         else {
-            //             ToolsWindow.getInstance().setLocation((int) (x - ToolsWindowSize.getWidth()), y);
-            //         }
-            //     }
-            //     // 如果都没有超出宽度 00
-            //     else {
-            //         ToolsWindow.getInstance().setLocation(e.getX(), e.getY());
-            //     }
-            // }
 
+            /**
+             * 保证工具栏不超出屏幕之外。
+             * @param e 鼠标事件
+             * @param x 横坐标
+             * @param y 纵坐标
+             */
+            public void noOverflowScreen(MouseEvent e, int x, int y) {
+                int jingdu = 2;
+                frameSize = frame.getSize();
+                // 获取屏幕的宽度
+                int screenWidth = screenSize.width;
+                // 获取屏幕的高度
+                int screenHeight = screenSize.height;
+                // 获取窗体的宽度
+                int frameWidth = frameSize.width;
+                // 获取窗体的高度
+                int frameHeight = frameSize.height;
 
+                int xx = Math.max(x, mousePressedPoint.x);
+                int yy = Math.max(y, mousePressedPoint.y);
+
+                // 当前的x坐标加上窗体的宽度是否大于屏幕的宽度
+                boolean overX = xx + frameWidth + 1 > screenWidth;
+                // 当前的y坐标加上窗体的高度，是否大于屏幕的高度
+                boolean overY = yy + frameHeight + 1 > screenHeight;
+                if (overX && overY) {
+                    // xx = Math.min(x, mousePressedPoint.x);
+                    yy = Math.min(y, mousePressedPoint.y) - frameHeight;
+                    // yy = yy - frameHeight + jingdu;
+                    xx = screenWidth - (xx + frameWidth - screenWidth);
+                    // yy = screenHeight - (yy + frameHeight - screenHeight);
+                    // JOptionPane.showMessageDialog(frame, "overX and overY");
+                } else if (overX) {
+                    // 屏幕的宽度减去窗体的宽度，就得到窗体不超出屏幕的x坐标
+                    xx = screenWidth - frameWidth - jingdu;
+                    // JOptionPane.showMessageDialog(frame, "overX");
+                } else if (overY) {
+                    // 屏幕的高度，减去窗体的高度，就得到窗体不超出屏幕的x坐标
+                    yy = screenHeight - frameHeight - jingdu;
+                    // JOptionPane.showMessageDialog(frame, "overY");
+                }
+                frame.setLocation(xx, yy);
+            }
         });
     }
 
