@@ -61,8 +61,6 @@ public class ScreenShotWindow extends JWindow {
         // 设置鼠标监听事件
         this.addMouseListener(new MouseAdapter() {
             private final JFrame frame = MainFrom.getInstance().getFrame();
-            // 保存工具条宽度
-            Dimension frameSize;
 
             // 鼠标按下
             @Override
@@ -95,38 +93,62 @@ public class ScreenShotWindow extends JWindow {
              */
             public void noOverflowScreen(MouseEvent e, int x, int y) {
                 int jingdu = 2;
-                frameSize = frame.getSize();
                 // 获取屏幕的宽度
                 int screenWidth = screenSize.width;
                 // 获取屏幕的高度
                 int screenHeight = screenSize.height;
+                Dimension frameSize = frame.getSize();
                 // 获取窗体的宽度
                 int frameWidth = frameSize.width;
                 // 获取窗体的高度
                 int frameHeight = frameSize.height;
-
+                // 默认使用右下角的点横坐标作为横坐标
                 int xx = Math.max(x, mousePressedPoint.x);
+                // 默认使用右下角的点的纵坐标作为纵坐标
                 int yy = Math.max(y, mousePressedPoint.y);
 
                 // 当前的x坐标加上窗体的宽度是否大于屏幕的宽度
                 boolean overX = xx + frameWidth + 1 > screenWidth;
                 // 当前的y坐标加上窗体的高度，是否大于屏幕的高度
                 boolean overY = yy + frameHeight + 1 > screenHeight;
+
                 if (overX && overY) {
-                    // xx = Math.min(x, mousePressedPoint.x);
+                    // 使用最上方的点的纵坐标作为纵坐标，并前去窗体的高度，这样窗体讲显示在正上方
                     yy = Math.min(y, mousePressedPoint.y) - frameHeight;
-                    // yy = yy - frameHeight + jingdu;
-                    xx = screenWidth - (xx + frameWidth - screenWidth);
-                    // yy = screenHeight - (yy + frameHeight - screenHeight);
+                    yy = yy - jingdu;
+                    // 使用最上方的点的横坐标作为横坐标
+                    xx = Math.min(x, mousePressedPoint.x);
+                    // 如果横坐标加上窗体的宽度大于屏幕的看宽度
+                    if (xx + frameWidth > screenWidth) {
+                        // 屏幕的宽度减去面板的宽度，得到横坐标
+                        xx = screenWidth - frameWidth;
+                    }
                     // JOptionPane.showMessageDialog(frame, "overX and overY");
                 } else if (overX) {
-                    // 屏幕的宽度减去窗体的宽度，就得到窗体不超出屏幕的x坐标
-                    xx = screenWidth - frameWidth - jingdu;
+                    // 使用左侧的点作为横坐标
+                    xx = Math.min(x, mousePressedPoint.x);
+                    // 如果横坐标加上窗体的宽度大于屏幕的宽度，则有部分窗体超出屏幕外
+                    if (xx + frameWidth > screenWidth) {
+                        // 窗体的横坐标设置为屏幕的宽度减去窗体的宽度，也就是不让窗体在横坐标超出屏幕外。
+                        xx = screenWidth - frameWidth;
+                    }
+                    yy = yy + jingdu;
                     // JOptionPane.showMessageDialog(frame, "overX");
                 } else if (overY) {
-                    // 屏幕的高度，减去窗体的高度，就得到窗体不超出屏幕的x坐标
-                    yy = screenHeight - frameHeight - jingdu;
+                    // 使用上面的点作为纵坐标
+                    yy = Math.min(y, mousePressedPoint.y);
+                    // 如果纵坐标加上窗体的高度大于屏幕的高度，则有部分窗体超出屏幕外
+                    if (yy + frameHeight > screenHeight) {
+                        // 窗体的纵坐标作设置位屏幕的高度减去窗体的高度，也就是不让窗体在纵坐标超出屏幕外。
+                        yy = screenHeight - frameHeight;
+                        yy = yy - jingdu;
+                    }
+                    xx = xx + jingdu;
                     // JOptionPane.showMessageDialog(frame, "overY");
+                } else {
+                    xx = (xx - frameWidth) > 0 ? xx - frameWidth : 0;
+                    yy = yy + jingdu;
+                    // JOptionPane.showMessageDialog(frame, "其他");
                 }
                 frame.setLocation(xx, yy);
             }
@@ -196,10 +218,7 @@ public class ScreenShotWindow extends JWindow {
      * 再次截屏.
      */
     public void screenshotAgain() {
-        // ToolsWindow.getInstance().setVisible(false);
         // 截屏之前先隐藏工具窗体
-        // OCR3Form.getInstance().getFrame().setVisible(false);
-        // OCR3Form.getFrame().setVisible(false);
         MainFrom.getInstance().getFrame().setVisible(false);
         // 截取屏幕
         createScreenCapture();
