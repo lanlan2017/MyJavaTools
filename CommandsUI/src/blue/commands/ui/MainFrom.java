@@ -1,7 +1,7 @@
 package blue.commands.ui;
 
 
-import blue.commands.thread.S_DSBC_Runnable;
+import blue.commands.thread.CommandsRunnable;
 import blue.commands.tool.ui.ToolUiSystemTray;
 import blue.commands.ui.event.panel.PanelMouseMotionListener;
 import blue.commands.ui.event.radiobutton.RadioButtonItemListener;
@@ -290,12 +290,13 @@ public class MainFrom {
         lineNumTextField.setEnabled(false);
         lineNumTextField.addMouseListener(new MouseAdapter() {
             Color defaultColor;
+            CommandsRunnable runnable = CommandsRunnable.getInstance();
+            // Thread thread;
 
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) {
                     System.out.println("左键双击行号框");
-                    // super.mouseClicked(e);
                     int index = Integer.parseInt(lineNumTextField.getText()) - 1;
                     System.out.println(index);
                     textFieldToolBar.remove(index);
@@ -318,27 +319,70 @@ public class MainFrom {
                 // 如果是右键点击 行号文本框
                 else if (e.getButton() == MouseEvent.BUTTON3 && e.getClickCount() == 2) {
                     if (lineNumTextField.getBackground() == Color.PINK) {
-                        String text = lineNumTextField.getText();
-                        text = text.substring(0, text.indexOf("|监听"));
-                        lineNumTextField.setText(text);
-                        lineNumTextField.setColumns(text.length());
+                        //
+                        String lineNumStr = lineNumTextField.getText();
+                        lineNumStr = lineNumStr.substring(0, lineNumStr.indexOf("|监听"));
+                        lineNumTextField.setText(lineNumStr);
+                        lineNumTextField.setColumns(lineNumStr.length());
                         lineNumTextField.setBackground(defaultColor);
                         lineNumTextField.setEnabled(false);
-                        S_DSBC_Runnable.getInstance().setStop(true);
+
+                        // 根据行号查找对应的命令输入文本框
+                        JTextField inputTextFiled = (JTextField) textFieldToolBar.getComponent(Integer.parseInt(lineNumStr) - 1);
+                        // 获取名命令文本框中的命令
+                        String commandStr = inputTextFiled.getText();
+                        runnable.removeCommand(commandStr);
+
                     } else {
                         lineNumTextField.setEnabled(true);
                         lineNumTextField.setEnabled(false);
                         defaultColor = lineNumTextField.getBackground();
                         lineNumTextField.setBackground(Color.PINK);
-                        String text = lineNumTextField.getText() + "|监听";
+                        // 读取行号
+                        String lineNum = lineNumTextField.getText();
+                        // 在行号文本框中添加提示信息
+                        String text = lineNum + "|监听";
                         lineNumTextField.setText(text);
                         lineNumTextField.setColumns(text.length());
-                        S_DSBC_Runnable runnable = S_DSBC_Runnable.getInstance();
-                        runnable.setStop(false);
-                        runnable.setTextArea(outputTextArea);
-                        Thread thread = new Thread(runnable);
-                        thread.start();
+
+                        // 根据行号查找对应的命令输入文本框
+                        JTextField inputTextFiled = (JTextField) textFieldToolBar.getComponent(Integer.parseInt(lineNum) - 1);
+                        // 获取名命令文本框中的命令
+                        String commandStr = inputTextFiled.getText();
+                        runnable.addCommand(commandStr);
+
+                        // 设置给线程指定输出的文本框
+                        runnable.setOutputTextArea(outputTextArea);
                     }
+                    // 如果没有命令,则停止线程
+                    if (runnable.getCommandList().size() == 0) {
+                        // 不再循环执行线程体，线程结束
+                        runnable.setCanRunning(false);
+                        // 可以再次启动线程
+                        runnable.setCanStarting(true);
+                        System.out.println("线程停止");
+                    }
+                    // 如果存在命令
+                    else {
+                        // System.out.println("==============================");
+                        // System.out.println(runnable.getCommandList().size());
+                        // System.out.println("runnable.isRun()= " + runnable.isCanRunning());
+                        // System.out.println("runnable.isCanStarting() = " + runnable.isCanStarting());
+                        // 如果线程可以启动
+                        if (runnable.isCanStarting()) {
+                            Thread thread;
+                            // 重新创建一个线程
+                            thread = new Thread(runnable);
+                            // 设置线程体可运行
+                            runnable.setCanRunning(true);
+                            // 启动线程
+                            thread.start();
+                            // 不可再次启动线程
+                            runnable.setCanStarting(false);
+                            System.out.println("线程启动");
+                        }
+                    }
+
                     frame.pack();
                 }
             }
