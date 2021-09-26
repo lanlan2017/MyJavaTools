@@ -1,6 +1,7 @@
 package blue.commands.ui;
 
 
+import blue.commands.thread.S_DSBC_Runnable;
 import blue.commands.tool.ui.ToolUiSystemTray;
 import blue.commands.ui.event.panel.PanelMouseMotionListener;
 import blue.commands.ui.event.radiobutton.RadioButtonItemListener;
@@ -215,7 +216,7 @@ public class MainFrom {
     }
 
     /**
-     * 输入文本框控制设置。
+     * 输入文本框增加或减少按钮监听器
      *
      * @param frame 窗体
      */
@@ -288,29 +289,58 @@ public class MainFrom {
         // lineNumTextField.setEditable(false);
         lineNumTextField.setEnabled(false);
         lineNumTextField.addMouseListener(new MouseAdapter() {
+            Color defaultColor;
+
             @Override
             public void mouseClicked(MouseEvent e) {
-
-                // super.mouseClicked(e);
-                int index = Integer.parseInt(lineNumTextField.getText()) - 1;
-                System.out.println(index);
-                textFieldToolBar.remove(index);
-                // 移除该组件对应的行号
-                lineNumBar.remove(index);
-                //如果，移除最后一个组件之后，只剩一个组件。
-                if (textFieldToolBar.getComponentCount() == 1) {
-                    // 那么隐藏移除按钮，免得最后一个组件被移除
-                    removeTextFieldButton.setVisible(false);
+                if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) {
+                    System.out.println("左键双击行号框");
+                    // super.mouseClicked(e);
+                    int index = Integer.parseInt(lineNumTextField.getText()) - 1;
+                    System.out.println(index);
+                    textFieldToolBar.remove(index);
+                    // 移除该组件对应的行号
+                    lineNumBar.remove(index);
+                    //如果，移除最后一个组件之后，只剩一个组件。
+                    if (textFieldToolBar.getComponentCount() == 1) {
+                        // 那么隐藏移除按钮，免得最后一个组件被移除
+                        removeTextFieldButton.setVisible(false);
+                    }
+                    // 遍历所有的编号文本框
+                    for (int i = 1; i < lineNumBar.getComponentCount(); i++) {
+                        JTextField jTextField = (JTextField) lineNumBar.getComponent(i);
+                        // 重新编号
+                        jTextField.setText("" + (i + 1));
+                        // frame.pack();
+                    }
+                    frame.pack();
                 }
-                // 遍历所有的编号文本框
-                for (int i = 1; i < lineNumBar.getComponentCount(); i++) {
-                    JTextField jTextField = (JTextField) lineNumBar.getComponent(i);
-                    // 重新编号
-                    jTextField.setText("" + (i + 1));
-                    // frame.pack();
+                // 如果是右键点击 行号文本框
+                else if (e.getButton() == MouseEvent.BUTTON3 && e.getClickCount() == 2) {
+                    if (lineNumTextField.getBackground() == Color.PINK) {
+                        String text = lineNumTextField.getText();
+                        text = text.substring(0, text.indexOf("|监听"));
+                        lineNumTextField.setText(text);
+                        lineNumTextField.setColumns(text.length());
+                        lineNumTextField.setBackground(defaultColor);
+                        lineNumTextField.setEnabled(false);
+                        S_DSBC_Runnable.getInstance().setStop(true);
+                    } else {
+                        lineNumTextField.setEnabled(true);
+                        lineNumTextField.setEnabled(false);
+                        defaultColor = lineNumTextField.getBackground();
+                        lineNumTextField.setBackground(Color.PINK);
+                        String text = lineNumTextField.getText() + "|监听";
+                        lineNumTextField.setText(text);
+                        lineNumTextField.setColumns(text.length());
+                        S_DSBC_Runnable runnable = S_DSBC_Runnable.getInstance();
+                        runnable.setStop(false);
+                        runnable.setTextArea(outputTextArea);
+                        Thread thread = new Thread(runnable);
+                        thread.start();
+                    }
+                    frame.pack();
                 }
-
-                frame.pack();
             }
         });
 
