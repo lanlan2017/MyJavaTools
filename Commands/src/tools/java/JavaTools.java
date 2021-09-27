@@ -1,10 +1,12 @@
 package tools.java;
 
 import reader.resouce.ResourceFileReader;
+import tools.java.formatter.JavaFormatter;
 import tools.string.StringConverter;
 import tools.string.StringDeleter;
 
 import java.lang.annotation.Retention;
+import java.util.Stack;
 
 public class JavaTools {
     public String forString(String stringName) {
@@ -81,6 +83,15 @@ public class JavaTools {
     public String formatSingleLineComments(String javaCode) {
         javaCode = javaCode.replaceAll("([ \t]+)(.+)(//.+)", "$1$3\n$1$2");
         return javaCode;
+    }
+
+    public String formatFromPDF(String codeInOneLine) {
+        // 替换中文单行注释
+        String regex = " ?(//[\\u4e00-\\u9fa5–—‘’“”…、。〈〉《》「」『』【】〔〕！（），．：；？]+) ";
+        // codeInOneLine = codeInOneLine.replaceAll(regex, "__LF__$1__LF__");
+        codeInOneLine = codeInOneLine.replaceAll(regex, "$1\n");
+        // 格式化java代码
+        return JavaFormatter.formatJavaCodeInOneLine(codeInOneLine);
     }
 
     /**
