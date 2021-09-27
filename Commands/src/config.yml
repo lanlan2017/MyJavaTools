@@ -30,6 +30,8 @@ m:
   k: tools.markdown.MarkdownTools.inlineCode
   # 多个行内代码
   ks: tools.markdown.MarkdownTools.inlineCodeAuto
+  # 水平分割线块，与<hr>标签功能
+  hr: tools.markdown.MarkdownTools.horizontalRule
   # 撤销markdown操作
   undo:
     # 撤销多个行内代码操作

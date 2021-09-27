@@ -72,6 +72,17 @@ public class MarkdownTools {
     }
 
     /**
+     * 生成markdown水平分割线块
+     * 水平分隔线（horizontal rule）
+     * https://www.w3school.com.cn/tags/tag_hr.asp
+     * @param code 水平分割线内的内容
+     * @return markdown水平分割线块
+     */
+    public String horizontalRule(String code) {
+        return "___\n" + code + "\n___\n";
+    }
+
+    /**
      * 撤销Markdown加粗
      *
      * @param markdownCode 有加粗的markdown代码
@@ -212,8 +223,8 @@ public class MarkdownTools {
      */
     public String unorderList(String text) {
         // 把word里面的的无序列表标记替换成换行符
-        text=text.replaceAll(" ?·","\n");
-        text=text.replaceAll(" ?● ","\n");
+        text = text.replaceAll(" ?·", "\n");
+        text = text.replaceAll(" ?● ", "\n");
         // 删除空行
         text = new StringDeleter().deleteBlankLine(text);
         // 开头不是字母数字或者中文的一律删除掉.
