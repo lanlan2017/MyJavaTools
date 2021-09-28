@@ -15,7 +15,7 @@ public class JavaFormatter {
         input = input.replaceAll("([{};]) ", "$1");
         // input = input.replaceAll(" ", "}");
         String input2 = toLines(input);
-        System.out.println(input2);
+        // System.out.println(input2);
         // System.out.println(addTabs(input2));
         return addTabs(input2);
     }

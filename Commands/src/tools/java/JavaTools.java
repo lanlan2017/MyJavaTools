@@ -87,7 +87,9 @@ public class JavaTools {
 
     public String formatFromPDF(String codeInOneLine) {
         // 替换中文单行注释
-        String regex = " ?(//[a-zA-Z0-9\\u4e00-\\u9fa5–—‘’“”…、。〈〉《》「」『』【】〔〕！（），．：；？]+) ";
+        // String regex = " ?(//[a-zA-Z0-9\\u4e00-\\u9fa5–—‘’“”…、。〈〉《》「」『』【】〔〕！（），．：；？～]+) ";
+        // 替换单行注释
+        String regex = " ?(//.+?) ";
         // codeInOneLine = codeInOneLine.replaceAll(regex, "__LF__$1__LF__");
         codeInOneLine = codeInOneLine.replaceAll(regex, "$1\n");
         // 格式化java代码
