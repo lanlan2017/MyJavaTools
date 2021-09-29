@@ -75,6 +75,7 @@ public class MarkdownTools {
      * 生成markdown水平分割线块
      * 水平分隔线（horizontal rule）
      * https://www.w3school.com.cn/tags/tag_hr.asp
+     *
      * @param code 水平分割线内的内容
      * @return markdown水平分割线块
      */
@@ -273,6 +274,11 @@ public class MarkdownTools {
     }
 
     public String codeBlockJava(String input) {
+        // 如果已经是代码块了，则不进行处理
+        if (input.startsWith("```")) {
+            // 直接返回原来的代码块即可
+            return input;
+        }
         // 删除无用的\t缩进
         input = removeExcessIndentation(input);
         // 将剩下的\t缩进转换成四个空格
