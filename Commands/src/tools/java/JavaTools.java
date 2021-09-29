@@ -92,6 +92,7 @@ public class JavaTools {
         String regex = " ?(//.+?) ";
         // codeInOneLine = codeInOneLine.replaceAll(regex, "__LF__$1__LF__");
         codeInOneLine = codeInOneLine.replaceAll(regex, "$1\n");
+        codeInOneLine=codeInOneLine.replaceAll(" ?(/\\*\\*.+?\\*/) ", "$1\n");
         // 格式化java代码
         return JavaFormatter.formatJavaCodeInOneLine(codeInOneLine);
     }
