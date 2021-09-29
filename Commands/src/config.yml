@@ -154,8 +154,9 @@ s:
   cpkdc: tools.string.StringDeleter.cpkdCode
   # 中文标点转英文标点
   cy2ey: tools.string.StringReplace.chineseSymbol2EnglishSymbol
-  # 书签
-  f:
+  # 格式化字符串
+  format:
+    # 格式化为书签
     # x.x.x   类型的书签
     shuqian111: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark111
     # x.xx    类型的书签
@@ -168,6 +169,8 @@ s:
     shuqian22: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark22
     # xx.xx.x 类型的书签
     shuqian221: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark221
+    # 格式化从pdf中复制的内容
+    pdf: tools.string.formatter.PdfFormatter.format
   # 驼峰命名法
   cc:
     # java包名称
