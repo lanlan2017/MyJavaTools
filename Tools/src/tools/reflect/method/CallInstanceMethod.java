@@ -3,11 +3,16 @@ package tools.reflect.method;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 
 /**
  * 通过反射调用对象的方法
  */
 public class CallInstanceMethod {
+    /**
+     * 对象缓存，已经创建过的对象将会保存在这里。
+     */
+    private static HashMap<String, Object> objectMap = new HashMap<>();
 
     /**
      * 反射运行方法
@@ -27,8 +32,11 @@ public class CallInstanceMethod {
      * @param arg1         方法的第一个参数
      */
     public static String runFQMethodName(String fQMethodName, String arg1) {
+        // 从全限定方法名中取出全限定类名
         String className = fQMethodName.substring(0, fQMethodName.lastIndexOf("."));
+        // 从全限定方法名中取出方法名
         String methodName = fQMethodName.substring(fQMethodName.lastIndexOf(".") + 1);
+        // 根据全限定类名，方法命令，参数
         return CallInstanceMethod.runClassMethod(className, methodName, arg1);
     }
 
@@ -50,7 +58,7 @@ public class CallInstanceMethod {
     }
 
     /**
-     * 通过反射调用对象的方法.
+     * 通过反射调用对象的无参方法.
      *
      * @param className  类的全限定名.
      * @param methodName 方法名.
@@ -59,10 +67,8 @@ public class CallInstanceMethod {
         try {
             // 生成class对象
             Class<?> class1 = Class.forName(className);
-            // 根据参数列表获取构造器
-            Constructor<?> constructor = class1.getConstructor();
-            // 创建对象
-            Object object = constructor.newInstance();
+            // 从map中获取对象，或者创建对象
+            Object object = getObjectFromMap(class1);
             // 获取内中的方法
             Method method = class1.getDeclaredMethod(methodName);
             // 设置可以访问私有方法
@@ -76,7 +82,7 @@ public class CallInstanceMethod {
     }
 
     /**
-     * 通过反射调用形参列表是一个String返回值是String的方法.
+     * 通过反射调用形参列表是一个String，返回值是String的方法.
      *
      * @param className  全限定类名.
      * @param methodName 方法名.
@@ -86,14 +92,14 @@ public class CallInstanceMethod {
 
         try {
             String result;
-            // 获取类
+            // 根据全限定方法名字创建Class对象
             Class<?> class1 = Class.forName(className);
-            // 根据参数列表获取构造器
-            Constructor<?> constructor = class1.getConstructor();
-            // 创建对象
-            Object object = constructor.newInstance();
-            // 根据方法名和参数列表获取要调用的方法
+            // 从Map中获取对象或者创建对象
+            Object object = getObjectFromMap(class1);
+
+            // 根据方法名和参数列表获取要类的方法
             Method method = class1.getMethod(methodName, String.class);
+            // 执行该方法,并获得返回值
             // invoke方法的第一个参数是要调用方法的拥有者,后面剩下的参数是该方法的实参列表
             result = (String) method.invoke(object, arg);
             return result;
@@ -102,6 +108,7 @@ public class CallInstanceMethod {
         }
         return null;
     }
+
 
     /**
      * 通过反射执行两个参数的方法。
@@ -117,10 +124,13 @@ public class CallInstanceMethod {
             String result;
             // 获取类
             Class<?> class1 = Class.forName(className);
-            // 根据参数列表获取构造器
-            Constructor<?> constructor = class1.getConstructor();
-            // 创建对象
-            Object object = constructor.newInstance();
+            // // 根据参数列表获取构造器
+            // Constructor<?> constructor = class1.getConstructor();
+            // // 创建对象
+            // Object object = constructor.newInstance();
+
+            // 创建全限定类名的对象，或者从Map中获取
+            Object object = getObjectFromMap(class1);
 
             // 根据方法名和参数列表获取要调用的方法
             Method method = class1.getMethod(methodName, String.class, String.class);
@@ -134,4 +144,36 @@ public class CallInstanceMethod {
         }
         return null;
     }
+
+    /**
+     * 从Map中获取对象，如果没有，则创建一个
+     *
+     * @param class1 要获取的对象的Class对象
+     * @return Class对象对应的实例对象。
+     * @throws NoSuchMethodException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     * @throws InvocationTargetException
+     */
+    private static Object getObjectFromMap(Class<?> class1) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+        String className = class1.getName();
+        Object object;
+        // 如果Map中有这个对象了
+        if (objectMap.containsKey(className)) {
+            // System.out.println("从HashMap中获取要运行的对象");
+            object = objectMap.get(className);
+        }
+        // 如果Map中没有这个对象
+        else {
+            // System.out.println("通过反射创建对象");
+            // 获取类的无参构造器
+            Constructor<?> constructor = class1.getConstructor();
+            // 通过构造器创建对象
+            object = constructor.newInstance();
+            // 把这个对象放到Map中
+            objectMap.put(className, object);
+        }
+        return object;
+    }
+
 }
