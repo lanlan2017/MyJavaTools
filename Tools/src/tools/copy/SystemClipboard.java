@@ -29,8 +29,7 @@ public class SystemClipboard {
             if (clipTf.isDataFlavorSupported(DataFlavor.stringFlavor)) {
                 try {
                     // 转换为文本
-                    text = (String) clipTf
-                            .getTransferData(DataFlavor.stringFlavor);
+                    text = (String) clipTf.getTransferData(DataFlavor.stringFlavor);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -60,11 +59,12 @@ public class SystemClipboard {
         try {
             Clipboard sysc = Toolkit.getDefaultToolkit().getSystemClipboard();
             Transferable cc = sysc.getContents(null);
-            if (cc == null)
+            if (cc == null) {
                 return null;
+            }
+            // 检查内容是否是图片类型
             else if (cc.isDataFlavorSupported(DataFlavor.imageFlavor))
-                return (BufferedImage) cc
-                        .getTransferData(DataFlavor.imageFlavor);
+                return (BufferedImage) cc.getTransferData(DataFlavor.imageFlavor);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -79,24 +79,21 @@ public class SystemClipboard {
     public static void setClipboardImage(final Image image) {
         Transferable trans = new Transferable() {
             public DataFlavor[] getTransferDataFlavors() {
-                return new DataFlavor[]
-                        {DataFlavor.imageFlavor};
+                return new DataFlavor[]{DataFlavor.imageFlavor};
             }
 
             public boolean isDataFlavorSupported(DataFlavor flavor) {
                 return DataFlavor.imageFlavor.equals(flavor);
             }
 
-            public Object getTransferData(DataFlavor flavor)
-                    throws UnsupportedFlavorException, IOException {
+            public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException, IOException {
                 if (isDataFlavorSupported(flavor))
                     return image;
                 throw new UnsupportedFlavorException(flavor);
             }
 
         };
-        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(trans,
-                null);
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(trans, null);
     }
 
 }

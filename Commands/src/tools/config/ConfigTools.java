@@ -38,7 +38,7 @@ public class ConfigTools {
      *
      * @param args 命令行参数
      */
-    public String forward(String ... args) {
+    public String forward(String... args) {
         // 根据参数的长度
         switch (args.length) {
             // 当只有一个参数的时候
@@ -46,12 +46,10 @@ public class ConfigTools {
                 // 显示帮助文档
                 help(args);
                 return null;
-            // break;
             // 其他情况
             default:
                 // 处理命令
                 return runByArgs(args);
-            // break;
         }
     }
 
@@ -169,7 +167,6 @@ public class ConfigTools {
      *
      * @param args 命令行参数
      */
-    // private void runByArgs(String[] args) {
     private String runByArgs(String[] args) {
         // 查询命令行参数中这一长串key对应的value值
         String valueOfKeys = keySequenceValue(args);
@@ -179,7 +176,6 @@ public class ConfigTools {
             String fQMethodName = valueOfKeys.substring(0, valueOfKeys.lastIndexOf("_"));
             // 摘出控制串
             String controlStr = valueOfKeys.substring(valueOfKeys.lastIndexOf("_") + 1);
-            // System.out.println("controlStr = " + controlStr);
             // 如果控制串是
             if ("UseLastArg".equals(controlStr)) {
                 // 获取最后的一个参数
@@ -190,51 +186,48 @@ public class ConfigTools {
                     String clipboardText = SystemClipboard.getSysClipboardText();
                     // 执行方法
                     String result = CallInstanceMethod.runFQMethodName(fQMethodName, "", clipboardText);
-                    // // 显示运行结果
-                    // showResult(result);
                     return result;
                 } else {
                     // 读取剪贴板中的数据
                     String clipboardText = SystemClipboard.getSysClipboardText();
                     // 执行方法，最后一个命令行参数作为方法的第1个参数，剪贴板中的内容作为方法的第2个参数
                     String result = CallInstanceMethod.runFQMethodName(fQMethodName, lastArg, clipboardText);
-                    // // 显示运行结果
-                    // showResult(result);
                     return result;
                 }
             }
             // 如果控制串是"Parameterless"
             else if ("Parameterless".equals(controlStr)) {
-                // System.out.println("Parameterless");
                 // 运行无参数的方法
                 String result = CallInstanceMethod.runFQMethodName(fQMethodName);
-                // showResult(result);
                 return result;
             }
         }
         // 如果是全限定方法名
         else if (valueOfKeys.matches(RegexEnum.FQ_MethodName.toString())) {
-            // 读取剪贴板中的内容
-            String clipboardText = SystemClipboard.getSysClipboardText();
-            // 执行该方法，剪贴中的字符串作为该方法的第1个参数
-            String result = CallInstanceMethod.runFQMethodName(valueOfKeys, clipboardText);
-            // 显示运行结果
-            // showResult(result);
-            return result;
+            return runFqMethod(valueOfKeys);
         }
         // 如果value是地址
         else if (valueOfKeys.matches("(?:.+?\\/)+.+?\\.[a-zA-Z]+")) {
             // 读取资源文件中的内容
             String code = ResourceFileReader.getFileContent(this.getClass(), valueOfKeys);
-            // showResult(code);
             return code;
         }
         // 如果查到的value是普通字符串
-        // else {
-        // 直接输出配置命令行参数对应的值
-        // showResult(valueOfKeys);
         return valueOfKeys;
-        // }
+    }
+
+    /**
+     * 执行全限定方法名对应的方法
+     *
+     * @param fQMethodName 全限定方法名
+     * @return 全限定方法名的运行结果
+     */
+    private String runFqMethod(String fQMethodName) {
+        // 读取剪贴板中的内容
+        String clipboardText = SystemClipboard.getSysClipboardText();
+        // 执行该方法，剪贴中的字符串作为该方法的第1个参数
+        String result = CallInstanceMethod.runFQMethodName(fQMethodName, clipboardText);
+        return result;
     }
 
     /**

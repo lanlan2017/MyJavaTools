@@ -27,7 +27,6 @@ public class CommandsRunnable implements Runnable {
     private static final CommandsRunnable instance = new CommandsRunnable();
 
     private final ArrayList<String> commandList = new ArrayList<>();
-    // private String commandStr = "s dsbc";
 
     public static CommandsRunnable getInstance() {
         return instance;

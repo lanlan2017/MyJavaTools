@@ -4,6 +4,7 @@ import regex.RegexEnum;
 import tools.markdown.MarkdownTools;
 
 public class StringDeleter {
+
     /**
      * 删除空行
      *

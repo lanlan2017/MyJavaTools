@@ -1,7 +1,5 @@
 package tools.markdown.niuke;
 
-import tools.string.PrintStr;
-
 import java.io.*;
 import java.net.URL;
 import java.util.Properties;
