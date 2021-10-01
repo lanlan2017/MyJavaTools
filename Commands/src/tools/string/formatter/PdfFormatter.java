@@ -17,8 +17,8 @@ public class PdfFormatter {
 
     public String format(String sysClipboardText) {
         String reuslt = sysClipboardText;
-        if (Pattern.compile("^[a-zA-Z@]+ .+").matcher(reuslt).find()) {
-            // PrintStr.printStr("是代码耶");
+        if (isJavaCode(reuslt)) {
+            // PrintStr.printStr("是java代码耶");
             reuslt = javaTools.formatFromPDF(reuslt);
             reuslt = markdownTools.codeBlockJava(reuslt);
         }
@@ -40,6 +40,19 @@ public class PdfFormatter {
             reuslt = markdownTools.unorderList(reuslt);
         }
         return reuslt;
+    }
+
+    /**
+     * 判断给定的字符串是否是java代码
+     *
+     * @param reuslt 字符串
+     * @return 如果这串字符是java代码的话，返回ture,否则返回false.
+     */
+    private boolean isJavaCode(String reuslt) {
+        // 以字母或`@`开头
+        // 或者以单行注释`//`开头
+        // 则返回ture
+        return Pattern.compile("^[a-zA-Z@]+ .+").matcher(reuslt).find() || reuslt.startsWith("//");
     }
 
     public static void main(String[] args) {
