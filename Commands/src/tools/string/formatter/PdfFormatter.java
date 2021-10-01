@@ -17,16 +17,16 @@ public class PdfFormatter {
 
     public String format(String sysClipboardText) {
         String reuslt = sysClipboardText;
-        if (Pattern.compile("^[a-z]+ .+").matcher(reuslt).find()) {
-            PrintStr.printStr("是代码耶");
+        if (Pattern.compile("^[a-zA-Z@]+ .+").matcher(reuslt).find()) {
+            // PrintStr.printStr("是代码耶");
             reuslt = javaTools.formatFromPDF(reuslt);
             reuslt = markdownTools.codeBlockJava(reuslt);
         }
         // 如果是多行的话
         else if (Pattern.compile("^[\u4e00-\u9fa5]+.+").matcher(reuslt).find()) {
-            PrintStr.printStr("是中文耶");
+            // PrintStr.printStr("是中文耶");
             if (reuslt.matches("图\\d+-\\d+ .+")) {
-                PrintStr.printStr("是图片提示");
+                // PrintStr.printStr("是图片提示");
                 reuslt = ConfigTools.getInstance().forward("html center".split(" "));
             } else {
                 // 删除中文之间的空白符
