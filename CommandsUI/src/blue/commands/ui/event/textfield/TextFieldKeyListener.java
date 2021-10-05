@@ -4,6 +4,7 @@ import blue.commands.demo.ToolIsChinese;
 import blue.commands.ui.MainFrom;
 import blue.commands.ui.event.textfield.auto.AutoFieldSetting;
 import tools.config.ConfigTools;
+import ui.key.YamlTools;
 
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
@@ -180,6 +181,21 @@ public class TextFieldKeyListener extends KeyAdapter {
         String[] args = input.split(" ");
         // 执行命令，返回执行结果
         output = ConfigTools.getInstance().forward(args);
+        // 如果该命令可以正常运行，得到结果
+        if (output != null && !"".equals(output)) {
+            // 如果该命令在命令列表中
+            if (AutoFieldSetting.items.contains(input)) {
+                System.out.println("不添加命令:" + input);
+            }
+            // 如果该命令不再命令列表中
+            else {
+                System.out.println("添加命令:" + input);
+                // 添加该命令到命令列表中
+                AutoFieldSetting.items.add(input);
+                // 添加该命令到命令缓存中
+                YamlTools.addCacheCommands(input);
+            }
+        }
         // 复制到系统剪贴板
         ConfigTools.getInstance().copyToSysClipboard(output);
         return output;

@@ -226,6 +226,7 @@ public class MarkdownTools {
         // 把word里面的的无序列表标记替换成换行符
         text = text.replaceAll(" ?·", "\n");
         text = text.replaceAll(" ?● ", "\n");
+        text = text.replaceAll("•", "\n");
         // 删除空行
         text = new StringDeleter().deleteBlankLine(text);
         // 开头不是字母数字或者中文的一律删除掉.

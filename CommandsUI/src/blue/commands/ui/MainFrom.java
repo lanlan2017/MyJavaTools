@@ -3,6 +3,7 @@ package blue.commands.ui;
 
 import blue.commands.thread.CommandsRunnable;
 import blue.commands.tool.ui.ToolUiSystemTray;
+import blue.commands.ui.event.button.ExitButtonListener;
 import blue.commands.ui.event.panel.PanelMouseMotionListener;
 import blue.commands.ui.event.radiobutton.RadioButtonItemListener;
 import blue.commands.ui.event.textarea.TextAreaMouseListener;
@@ -96,7 +97,7 @@ public class MainFrom {
         outputTextArea.addMouseListener(new TextAreaMouseListener(frame, outputTextArea));
         // 当按钮状态改变时
         radioButton.addItemListener(new RadioButtonItemListener(frame, ocrPanel));
-        // 输入文本域事件监听器
+        // OCR面板的输入文本域事件监听器
         inputTextAreaControllerSetting(frame);
         // 添加或减少输入文本框按钮设置
         textFieldController(frame);
@@ -475,9 +476,7 @@ public class MainFrom {
         Dimension preferredSize = new Dimension(50, 22);
         exitButton.setPreferredSize(preferredSize);
         // 退出按钮的功能
-        exitButton.addActionListener(e -> {
-            System.exit(0);
-        });
+        exitButton.addActionListener(new ExitButtonListener());
     }
 
     public JFrame getFrame() {

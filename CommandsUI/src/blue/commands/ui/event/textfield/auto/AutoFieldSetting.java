@@ -1,10 +1,10 @@
 package blue.commands.ui.event.textfield.auto;
 
 import blue.commands.ui.event.textfield.JComboBoxActionListener;
-import blue.commands.ui.event.textfield.TextFieldDocumentListener2;
+import blue.commands.ui.event.textfield.TextFieldDocumentListener;
 import blue.commands.ui.event.textfield.TextFieldFocusAdapter;
 import blue.commands.ui.event.textfield.TextFieldKeyListener;
-import ui.key.MapKeyList;
+import ui.key.YamlTools;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +15,11 @@ import java.util.Iterator;
  * 自动提示文本框功能
  */
 public class AutoFieldSetting {
+    /**
+     * 加载命令列表
+     */
+    public static final Collection<String> items = YamlTools.getCommands();
+
 
     public static boolean isAdjusting(JComboBox jComboBox) {
         if (jComboBox.getClientProperty("is_adjusting") instanceof Boolean) {
@@ -34,8 +39,6 @@ public class AutoFieldSetting {
      * @param jComboBox
      */
     public static void setupAutoComplete2(JFrame frame, JTextField textField, JComboBox jComboBox, JTextArea textArea, JPanel scrollPaneFather) {
-        // 设置帮助内容
-        Collection<String> items = MapKeyList.getKeysList();
         DefaultComboBoxModel model = (DefaultComboBoxModel) jComboBox.getModel();
         // 设置JComboBox
         setAdjusting(jComboBox, true);
@@ -54,7 +57,7 @@ public class AutoFieldSetting {
         // 文本框 得到焦点时的操作
         textField.addFocusListener(new TextFieldFocusAdapter(frame, scrollPaneFather, textArea));
         // 文本框 内容变化
-        textField.getDocument().addDocumentListener(new TextFieldDocumentListener2(frame, model, textField, jComboBox, items));
+        textField.getDocument().addDocumentListener(new TextFieldDocumentListener(frame, model, textField, jComboBox, items));
 
         // 设置文本框的布局管理器
         textField.setLayout(new BorderLayout());

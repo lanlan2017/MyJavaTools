@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 
-public class TextFieldDocumentListener2 implements DocumentListener {
+public class TextFieldDocumentListener implements DocumentListener {
     JFrame frame;
     DefaultComboBoxModel model;
     JTextField textField;
@@ -18,7 +18,7 @@ public class TextFieldDocumentListener2 implements DocumentListener {
 
     int defaultCols;
 
-    public TextFieldDocumentListener2(JFrame frame,DefaultComboBoxModel model, JTextField textField, JComboBox jComboBox, Collection<String> items) {
+    public TextFieldDocumentListener(JFrame frame, DefaultComboBoxModel model, JTextField textField, JComboBox jComboBox, Collection<String> items) {
         this.frame=frame;
         this.model = model;
         this.textField = textField;
