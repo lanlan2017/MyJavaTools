@@ -1,6 +1,6 @@
 package auto.demo2;
 
-import ui.key.MapKeyList;
+import ui.key.YamlTools;
 
 import javax.swing.*;
 
@@ -9,7 +9,7 @@ public class ComboTest {
         JFrame frame = new JFrame("auto");
         JPanel panel = new JPanel();
         AutoJTextField autoJTextField = new AutoJTextField();
-        autoJTextField.addItem(MapKeyList.getKeysList());
+        autoJTextField.addItem(YamlTools.getCommands());
         autoJTextField.setColumns(30);
         panel.add(autoJTextField);
         frame.add(panel);

@@ -1,6 +1,6 @@
 package auto.demo;
 
-import ui.key.MapKeyList;
+import ui.key.YamlTools;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -213,7 +213,7 @@ public final class AutocompleteField extends JTextField implements FocusListener
 
         // Sample data list
         // final List<String> values = Arrays.asList("Frame", "Dialog 嘻嘻嘻", "Label", "Tree", "Table", "List", "Field");
-        final List<String> values = new ArrayList<>(MapKeyList.getKeysList());
+        final List<String> values = new ArrayList<>(YamlTools.getCommands());
 
         // // Simple lookup based on our data list
         // final Function<String, List<String>> lookup = text -> values.stream().filter(
