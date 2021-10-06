@@ -122,6 +122,8 @@ m:
     p2u: tools.markdown.JavaDoc2Markdown.parametersList
   # 修正错误的脚注格式
   footnote: tools.markdown.MarkdownTools.repairFootnoteFormat
+  # 从微信读书赋值的有图片或者代码块的多行内容
+  weixin: tools.markdown.MarkdownTools.weixinDuShu
 # 字符串处理
 s:
   # 删除空行

@@ -114,7 +114,8 @@ public class YamlTools {
         }
         collection = yaml.load(reader);
         if (collection == null) {
-            return new ArrayList<>();
+            // return new ArrayList<>();
+            return new HashSet<String>();
         }
         return collection;
     }
@@ -125,10 +126,12 @@ public class YamlTools {
      * @param command 要缓存的非配置文件中的命令
      */
     public static void addCacheCommands(String command) {
+        // if (!cacheCommands.contains(command)) {
         // 添加命令到非配置文件命令列表
         cacheCommands.add(command);
         // 改变标记
         isCacheCommandsChage = true;
+        // }
     }
 
     /**

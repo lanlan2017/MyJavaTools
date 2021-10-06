@@ -459,4 +459,16 @@ public class MarkdownTools {
         text = text.replaceAll("\\[(\\d+)\\]", "[^$1]");
         return text;
     }
+
+    /**
+     * 格式化从微信读书赋值的带有图片或代码的多行文本。
+     *
+     * @param duoHangStr 复制得到的单行文本。
+     * @return 拆分成多行的文本
+     */
+    public String weixinDuShu(String duoHangStr) {
+        duoHangStr = duoHangStr.replace("[插图]", "\n\n[插图]\n\n");
+        duoHangStr = duoHangStr.replaceAll("<[a-z]+?>", "`$0`");
+        return duoHangStr;
+    }
 }
