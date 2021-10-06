@@ -469,9 +469,10 @@ public class MarkdownTools {
     public String weixinDuShu(String duoHangStr) {
         duoHangStr = duoHangStr.replace("[插图]", "\n\n[插图]\n\n");
         duoHangStr = duoHangStr.replaceAll("<[a-z]+?>", "`$0`");
-        duoHangStr = duoHangStr.replaceAll("(?m)程序清单[\\d]+\\.\\d+ .+$", "\n$0");
+        duoHangStr = duoHangStr.replaceAll("(?m)程序清单[\\d]+\\.\\d+ .+$", "\n\n$0");
         duoHangStr = duoHangStr.replaceAll("图[\\d+]\\.[\\d]+ .+", "<center>$0</center>\n");
         duoHangStr = duoHangStr.replaceAll("•", "\n- ");
+        duoHangStr = duoHangStr.replaceAll("@[a-zA-Z]+", "`$0`");
         return duoHangStr;
     }
 }
