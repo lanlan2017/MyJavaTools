@@ -189,12 +189,82 @@ public class HtmlTools {
     }
 
     /**
-     * 生成带实线边框边框的div标签
+     * 生成带 虚线边框 的div标签
+     *
+     * @param str div标签中的内容
+     * @return
+     */
+    public String divBorderDashed(String str) {
+        return "\n<div style=\" border-style:dashed;\">" + str + "</div>\n";
+    }
+
+    /**
+     * 生成带 实线边框 的div标签
      *
      * @param str div标签中的内容
      * @return
      */
     public String divBorderSolid(String str) {
         return "\n<div style=\" border-style:solid;\">" + str + "</div>\n";
+    }
+
+    /**
+     * 生成带 点线边框 边框的div标签
+     *
+     * @param str div标签中的内容
+     * @return
+     */
+    public String divBorderDotted(String str) {
+        return "\n<div style=\" border-style:dotted;\">" + str + "</div>\n";
+    }
+
+    /**
+     * 生成带 两个边框 边框的div标签
+     *
+     * @param str div标签中的内容
+     * @return
+     */
+    public String divBorderDouble(String str) {
+        return "\n<div style=\" border-style:double;\">" + str + "</div>\n";
+    }
+
+    /**
+     * 生成带 3D沟槽边框 边框的div标签
+     *
+     * @param str div标签中的内容
+     * @return
+     */
+    public String divBorderGroove(String str) {
+        return "\n<div style=\" border-style:groove;\">" + str + "</div>\n";
+    }
+
+    /**
+     * 生成带 3D脊边框 边框的div标签
+     *
+     * @param str div标签中的内容
+     * @return
+     */
+    public String divBorderGidge(String str) {
+        return "\n<div style=\" border-style:ridge;\">" + str + "</div>\n";
+    }
+
+    /**
+     * 生成带 3D的嵌入边框 边框的div标签
+     *
+     * @param str div标签中的内容
+     * @return
+     */
+    public String divBorderInset(String str) {
+        return "\n<div style=\" border-style:inset;\">" + str + "</div>\n";
+    }
+
+    /**
+     * 生成带 3D突出边框 边框的div标签
+     *
+     * @param str div标签中的内容
+     * @return
+     */
+    public String divBorderOutset(String str) {
+        return "\n<div style=\" border-style:outset;\">" + str + "</div>\n";
     }
 }

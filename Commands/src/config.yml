@@ -273,8 +273,26 @@ html:
   div:
     # 生成div标签
     default: tools.html.HtmlTools.div
-    # 生成带实线边框的div标签
-    border: tools.html.HtmlTools.divBorderSolid
+    # 生成带边框的div标签
+    border:
+      # 默认生成带实线边框的div标签
+      default: tools.html.HtmlTools.divBorderSolid
+      # 生成带 虚线边框 的div标签
+      dashed: tools.html.HtmlTools.divBorderDashed
+      # 生成带 实线边框 的div标签
+      solid: tools.html.HtmlTools.divBorderSolid
+      # 生成带 点线边框 的div标签
+      dotted: tools.html.HtmlTools.divBorderDotted
+      # 生成带 两个边框 的div标签
+      double: tools.html.HtmlTools.divBorderDouble
+      # 生成带 3D沟槽边框 的div标签
+      groove: tools.html.HtmlTools.divBorderGroove
+      # 生成带 3D脊边框 的div标签
+      gidge: tools.html.HtmlTools.divBorderGidge
+      # 生成带 3D的嵌入边框 的div标签
+      inset: tools.html.HtmlTools.divBorderInset
+      # 生成带 3D突出边框 的div标签
+      outset: tools.html.HtmlTools.divBorderOutset
 # java代码模板
 j:
   # 生成for语句
