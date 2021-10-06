@@ -155,8 +155,7 @@ public class TextFieldKeyListener extends KeyAdapter {
             }
             rowColLength[1] = (int) count;
         }
-
-        System.out.println("中英文列长度:" + rowColLength[1]);
+        // System.out.println("中英文列长度:" + rowColLength[1]);
         return rowColLength;
     }
 
