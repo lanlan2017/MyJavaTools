@@ -177,4 +177,24 @@ public class HtmlTools {
         html = html.replaceAll(txtRegex, "$2");
         return html;
     }
+
+    /**
+     * 生成div标签
+     *
+     * @param str div标签中的内容
+     * @return html的div标签
+     */
+    public String div(String str) {
+        return "\n<div>" + str + "</div>\n";
+    }
+
+    /**
+     * 生成带实线边框边框的div标签
+     *
+     * @param str div标签中的内容
+     * @return
+     */
+    public String divBorderSolid(String str) {
+        return "\n<div style=\" border-style:solid;\">" + str + "</div>\n";
+    }
 }

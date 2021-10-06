@@ -269,6 +269,12 @@ html:
     hzpc: tools.html.Html2MarkDown.toHuaZhangPreCode
   # 移除html标签，转成纯文本
   2txt: tools.html.HtmlTools.toTxt
+  # 生成div标签
+  div:
+    # 生成div标签
+    default: tools.html.HtmlTools.div
+    # 生成带实线边框的div标签
+    border: tools.html.HtmlTools.divBorderSolid
 # java代码模板
 j:
   # 生成for语句
