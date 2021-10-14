@@ -18,10 +18,16 @@ public class Html2MarkDown {
      */
     public String htmlOneLineTable2MdTable(String str) {
         // PrintStr.printStr(str);
+        str = str.replaceAll("<(table|td)(?:[ ].*?)>", "<$1>");
+        str = str.replaceAll("<(table|td)(?:[ ].*?)>", "<$1>");
+        PrintStr.printStr(str);
         //删除td标签之间的加粗标签
         str = str.replaceAll("</?strong>", "**");
+        PrintStr.printStr(str);
         // 删除表格中的换行符
+        str = str.replaceAll("</?(span|p)>", "");
         str = str.replaceAll("<br>", "");
+        PrintStr.printStr(str);
         //散开标签
         str = str.replaceAll("\\>(?:[ ]*)?\\<", ">\n<");
         str = str.replaceAll("<td>[ ]+([^ ]+)[ ]+</td>", "<td>$1</td>");
@@ -142,6 +148,7 @@ public class Html2MarkDown {
         str = str.replaceAll("(?m) +$", "");
         return str;
     }
+
     /**
      * HTML普通文本转换为Markdown文本
      *
@@ -197,7 +204,7 @@ public class Html2MarkDown {
         // str = str.replaceAll("^ +", "");
         // // 多行模式，删除每行末尾多余的空格符
         // str = str.replaceAll("(?m) +$", "");
-        return "```\n"+str+"\n```";
+        return "```\n" + str + "\n```";
     }
 
     /**

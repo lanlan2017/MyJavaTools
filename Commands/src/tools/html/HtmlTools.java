@@ -75,6 +75,11 @@ public class HtmlTools {
      * tools.html.HtmlTools#multiLineToUnorderedList
      */
     public String multiLineToUnorderedList(String str) {
+        // 如果是markdown无序列表的话
+        if (str.startsWith("- ")) {
+            // 删除markdown无序列表标志
+            str = str.replaceAll("(?m)^- ", "");
+        }
         String liStart = "<li>";
         String liEnd = "</li>";
         String ulStart = "<ul>";
