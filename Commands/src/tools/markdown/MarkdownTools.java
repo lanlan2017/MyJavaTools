@@ -470,9 +470,13 @@ public class MarkdownTools {
         duoHangStr = duoHangStr.replace("[插图]", "\n\n[插图]\n\n");
         duoHangStr = duoHangStr.replaceAll("<[a-z]+?>", "`$0`");
         duoHangStr = duoHangStr.replaceAll("(?m)程序清单[\\d]+\\.\\d+ .+$", "\n\n$0");
-        duoHangStr = duoHangStr.replaceAll("图[\\d+]\\.[\\d]+ .+", "<center>$0</center>\n");
+        duoHangStr = duoHangStr.replaceAll("(?m)^图\\d+\\.\\d+ .+$", "<center>$0</center>\n");
+        // 转换无序列表
         duoHangStr = duoHangStr.replaceAll("•", "\n- ");
+        // 注解包装成Markdown行内代码
         duoHangStr = duoHangStr.replaceAll("@[a-zA-Z]+", "`$0`");
+        // Resources<Resource<Taco>>类似的代码转换成Markdown代码
+        duoHangStr = duoHangStr.replaceAll("(?<!`)[a-zA-Z]+<[a-zA-Z<>]+>(?!`)", "`$0`");
         return duoHangStr;
     }
 }
