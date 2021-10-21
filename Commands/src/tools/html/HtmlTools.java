@@ -80,6 +80,10 @@ public class HtmlTools {
             // 删除markdown无序列表标志
             str = str.replaceAll("(?m)^- ", "");
         }
+        // •在Spring Boot项目中启用Actuator•探索Actuator的端点•自定义Actuator•保护Actuator
+        if(str.startsWith("•")){
+            str=str.replace("•","\n");
+        }
         String liStart = "<li>";
         String liEnd = "</li>";
         String ulStart = "<ul>";
