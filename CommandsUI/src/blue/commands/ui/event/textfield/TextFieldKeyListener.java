@@ -53,12 +53,21 @@ public class TextFieldKeyListener extends KeyAdapter {
                 if (selectedItem != null) {
                     // 把选项的文本作为文本框的内容
                     textField.setText(selectedItem.toString());
+                    // System.out.println("哈哈哈哈哈哈");
                 }
+                // System.out.println("嘻嘻嘻嘻");
                 // 隐藏文本框
                 jComboBox.setPopupVisible(false);
                 // 执行命令，打印结果
                 pressedEnter();
             }
+        }
+        // 按下Ctrl+S键，
+        else if(e.isControlDown()&&e.getKeyCode()==KeyEvent.VK_S){
+            // 隐藏提示框
+            jComboBox.setPopupVisible(false);
+            // 执行命令，打印结果
+            pressedEnter();
         }
         // 如果按下esc键
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
