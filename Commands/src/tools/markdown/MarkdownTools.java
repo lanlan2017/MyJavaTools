@@ -481,4 +481,18 @@ public class MarkdownTools {
         duoHangStr = duoHangStr.replaceAll("(?<!`)[a-zA-Z]+<[a-zA-Z<>]+>(?!`)", "`$0`");
         return duoHangStr;
     }
+
+    /**
+     * @param input
+     * @return
+     */
+    public String weixinDuShuBenZhangNeiRong(String input) {
+        //本章内容：•使用Actuator端点的MBean•将Spring bean暴露为MBean•发布通知
+        input = input.replaceAll("本章内容：", "<strong>本章内容：</strong>");
+        input = input.replaceAll("•([^•]+)", "<li>$1</li>");
+        input = input.replace("</strong>", "</strong><ul>");
+        input = input + "</ul>";
+        input = "<div style=\"border-style:solid;\">" + input + "</div>";
+        return input;
+    }
 }

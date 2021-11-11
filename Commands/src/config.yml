@@ -69,9 +69,8 @@ m:
     reset: tools.markdown.MardownConverter.niukeReset
     # 格式化生成的牛客笔记的_行内代码选择题。
     choice: tools.markdown.MardownConverter.niukeInlineCodeChoice
-  #    # 使用输入的数字
-  #    num:
-  #      default: tools.markdown.MardownConverter.niuke_UseLastArg
+    # 格式化编程题
+    programing: tools.markdown.MardownConverter.niukePrograming
   # 代码块
   cb:
     # java代码块
@@ -123,7 +122,11 @@ m:
   # 修正错误的脚注格式
   footnote: tools.markdown.MarkdownTools.repairFootnoteFormat
   # 从微信读书赋值的有图片或者代码块的多行内容
-  weixin: tools.markdown.MarkdownTools.weixinDuShu
+  weixin:
+    # 默认格式化方式
+    default: tools.markdown.MarkdownTools.weixinDuShu
+    # 本章内容
+    bznr: tools.markdown.MarkdownTools.weixinDuShuBenZhangNeiRong
 # 字符串处理
 s:
   # 删除空行
@@ -347,3 +350,12 @@ suanfa:
     default: tools.string.StringReplace.qqShuRuFa
     # 转换成QQ输入法的注释
     c: tools.string.StringReplace.qqShuRuFaZhuShi
+# LaTeX公式
+latex:
+  # 默认生成行内公式
+  default: tools.markdown.math.LaTeX.s
+  # 生成行内公式
+  s: tools.markdown.math.LaTeX.s
+  # 生成行间公式
+  ss: tools.markdown.math.LaTeX.ss
+

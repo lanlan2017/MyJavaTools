@@ -70,7 +70,9 @@ public class MardownConverter {
     }
 
     /**
-     * @param copyText
+     * 生成markdown格式的牛客网选择题和答案。
+     *
+     * @param copyText 从牛客网手机端网页复制得到的选择题和答案
      * @return
      */
     public String niuke(String copyText) {
@@ -78,11 +80,13 @@ public class MardownConverter {
         return niuke(copyText, number);
     }
 
-    // public String niuke(String copyText, String numberStr) {
-    //     int number = Integer.parseInt(numberStr);
-    //     return niuke(copyText, number);
-    // }
-
+    /**
+     * 生成markdown格式的牛客网选择题和答案。
+     *
+     * @param copyText 选择题和答案内容
+     * @param number   题号
+     * @return
+     */
     public String niuke(String copyText, int number) {
         // System.out.println(copyText.startsWith("# 考点"));
         // 如果是已经格式化好的题目
@@ -101,12 +105,20 @@ public class MardownConverter {
         return copyText;
     }
 
+    /**
+     * 重置牛客网选择题编号
+     *
+     * @param copyText
+     * @return
+     */
     public String niukeReset(String copyText) {
         int number = NiukeConfig.reset();
         return niuke(copyText, number);
     }
 
     /**
+     * 格式化选择题的选项
+     *
      * @param chioce
      * @return
      */
@@ -116,4 +128,18 @@ public class MardownConverter {
         chioce = chioce.replaceAll("(?m)^- [A-Z] ", "$0`");
         return chioce;
     }
+
+    /**
+     * 格式化从牛客网编程题复制的题目描述信息。
+     * @param str 从牛客网编程题复制来的描述文本。
+     * @return markdown代码
+     */
+    public String niukePrograming(String str) {
+        str = str.replaceAll("(?m)(^输入：|返回值：$)\\n(^[^`\\n]+$)", "$1\n```\n$2\n```");
+        str = str.replaceAll("复制", "");
+        str = str.replaceAll("示例\\d", "## $0");
+        str = str.replaceAll("备注：", "## $0");
+        return str;
+    }
+
 }

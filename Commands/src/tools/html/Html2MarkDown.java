@@ -1,6 +1,8 @@
 package tools.html;
 
+import tools.reflect.method.ObjectMap;
 import tools.string.PrintStr;
+import tools.string.StringDeleter;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -18,15 +20,22 @@ public class Html2MarkDown {
      */
     public String htmlOneLineTable2MdTable(String str) {
         // PrintStr.printStr(str);
-        str = str.replaceAll("<(table|td)(?:[ ].*?)>", "<$1>");
+        // 删除table,td标签上的所有属性
         str = str.replaceAll("<(table|td)(?:[ ].*?)>", "<$1>");
         PrintStr.printStr(str);
-        //删除td标签之间的加粗标签
+        //替换加粗标签
         str = str.replaceAll("</?strong>", "**");
         PrintStr.printStr(str);
-        // 删除表格中的换行符
-        str = str.replaceAll("</?(span|p)>", "");
+        // 删除表格中的其他双标签
+        str = str.replaceAll("</?(span|p|b)( .+)?>", "");
+        // 删除换行符
         str = str.replaceAll("<br>", "");
+        PrintStr.printStr(str);
+        //
+        // str = new StringDeleter().deleteCRLF(str);
+        StringDeleter stringDeleter = ObjectMap.getObjectFromMap(StringDeleter.class);
+        // StringBuilder stringDeleter = ObjectMap.getObjectFromMap(StringDeleter.class);
+        str = stringDeleter.deleteCRLF(str);
         PrintStr.printStr(str);
         //散开标签
         str = str.replaceAll("\\>(?:[ ]*)?\\<", ">\n<");
