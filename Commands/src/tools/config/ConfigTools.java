@@ -176,7 +176,7 @@ public class ConfigTools {
             String fQMethodName = valueOfKeys.substring(0, valueOfKeys.lastIndexOf("_"));
             // 摘出控制串
             String controlStr = valueOfKeys.substring(valueOfKeys.lastIndexOf("_") + 1);
-            // 如果控制串是
+            // 如果控制串是"UseLastArg"
             if ("UseLastArg".equals(controlStr)) {
                 // 获取最后的一个参数
                 String lastArg = args[args.length - 1];
