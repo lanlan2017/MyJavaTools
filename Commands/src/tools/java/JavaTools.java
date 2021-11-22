@@ -2,11 +2,11 @@ package tools.java;
 
 import reader.resouce.ResourceFileReader;
 import tools.java.formatter.JavaFormatter;
-import tools.string.StringConverter;
+import tools.string.PrintStr;
 import tools.string.StringDeleter;
 
-import java.lang.annotation.Retention;
-import java.util.Stack;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class JavaTools {
     public String forString(String stringName) {
@@ -93,10 +93,28 @@ public class JavaTools {
         // codeInOneLine = codeInOneLine.replaceAll(regex, "__LF__$1__LF__");
         codeInOneLine = codeInOneLine.replaceAll(regex, "$1\n");
         // 文档注释单独一行显示
-        codeInOneLine=codeInOneLine.replaceAll(" ?(/\\*\\*.+?\\*/) ", "$1\n");
-        codeInOneLine=codeInOneLine.replaceAll("(@[a-zA-Z]+) ", "$1\n");
+        codeInOneLine = codeInOneLine.replaceAll(" ?(/\\*\\*.+?\\*/) ", "$1\n");
+        codeInOneLine = codeInOneLine.replaceAll("(@[a-zA-Z]+) ", "$1\n");
         // 格式化java代码
-        return JavaFormatter.formatJavaCodeInOneLine(codeInOneLine);
+        codeInOneLine = JavaFormatter.formatJavaCodeInOneLine(codeInOneLine);
+        Matcher matcher = Pattern.compile("(?m)^/\\*\\*\\*.+\\*\\*/$").matcher(codeInOneLine);
+        if(matcher.find()){
+            PrintStr.printStr("哈哈");
+            // if条件已经匹配过一次了，重置匹配器，从头开始开始匹配。
+            matcher.reset();
+            int length = codeInOneLine.length();
+            StringBuffer sb = new StringBuffer(length + length >> 2);
+            // 如果存在没有格式化的JavaDoc
+            while (matcher.find()) {
+                String javaDoc = matcher.group(0);
+                matcher.appendReplacement(sb, formatJavaDocStr(javaDoc));
+            }
+            matcher.appendTail(sb);
+            // 使用格式化JavaDoc后的代码作为处理结果
+            codeInOneLine=sb.toString();
+        }
+
+        return codeInOneLine;
     }
 
     /**
@@ -167,5 +185,34 @@ public class JavaTools {
         methodCode = new StringDeleter().deleteCRLF(methodCode);
         methodCode = methodCode.replaceAll("\\{.+\\}", "{...}");
         return methodCode;
+    }
+
+    public static void main(String[] args) {
+        String str="/*** 被动使用类字段演示三： * 常量在编译阶段会存入调用类的常量池中，本质上没有直接引用到定义常量的类，因此不会触发定义常量的 类的初始化 **/";
+        // String str = "/*** 非主动使用类字段演示 **/";
+        if (str.matches("^/\\*\\*\\*.+\\*\\*/$")) {
+            str = formatJavaDocStr(str);
+        }
+        System.out.println(str);
+    }
+
+    /**
+     * 格式化JavaDoc
+     *
+     * @param javaDocStr 错误的写在一行中的JavaDoc（从PDF中复制来的JavaDoc）
+     * @return 修复后的javaDoc
+     */
+    private static String formatJavaDocStr(String javaDocStr) {
+        // 替换JavaDoc的开始标记
+        javaDocStr = javaDocStr.replaceFirst("^/\\*\\*", "__JavaDoc_Start__");
+        // 替换JavaDoc的开始结束
+        javaDocStr = javaDocStr.replaceAll("\\*\\*/$", "__JavaDoc_End__");
+        // 分行
+        javaDocStr = javaDocStr.replaceAll("\\* ", "\n $0");
+        // 恢复JavaDoc的开始标记
+        javaDocStr = javaDocStr.replace("__JavaDoc_Start__", "/**");
+        // 恢复JavaDoc的结束标记
+        javaDocStr = javaDocStr.replace("__JavaDoc_End__", "\n */");
+        return javaDocStr;
     }
 }
