@@ -85,8 +85,9 @@ m:
     sql: tools.markdown.MarkdownTools.codeBlockSql
     # PlantUML代码块
     plantuml:
+      default: tools.markdown.MarkdownTools.codeBlockPlantUml
       # 生成dot语法的PlantUML代码块。
-      default: tools.markdown.MarkdownTools.codeBlockPlantUmlDot
+      dot: tools.markdown.MarkdownTools.codeBlockPlantUmlDot
     # default: tools.markdown.MarkdownTools.codeBlockDefault
     default: tools.markdown.MarkdownTools.codeBlock_UseLastArg
   # 删除块中的一些代码

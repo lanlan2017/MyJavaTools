@@ -378,6 +378,22 @@ public class MarkdownTools {
      * @param code dot代码。
      * @return dot语法的PlantUML代码块
      */
+    public String codeBlockPlantUml(String code) {
+        if (code.startsWith("```\n")) {
+            // System.out.println("真的吗");
+            return code.replaceFirst("```", "```plantuml");
+        } else if (code.startsWith("```plantuml\n")) {
+            return code;
+        }
+        return "```plantuml\n" + code + "\n" + "```";
+    }
+
+    /**
+     * 生成dot语法的的plantuml代码块。
+     *
+     * @param code dot代码。
+     * @return dot语法的PlantUML代码块
+     */
     public String codeBlockPlantUmlDot(String code) {
         code = "```plantuml\n" + "@startdot\n" + code + "\n@enddot\n" + "```";
         return code;
