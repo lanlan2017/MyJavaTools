@@ -14,10 +14,15 @@ public class JavaFormatter {
     public static String formatJavaCodeInOneLine(String input) {
         input = input.replaceAll("([{};]) ", "$1");
         // input = input.replaceAll(" ", "}");
+        // 变成多行代码
         String input2 = toLines(input);
         // System.out.println(input2);
         // System.out.println(addTabs(input2));
-        return addTabs(input2);
+        // 在每行前面添加换行符
+        String javaCode = addTabs(input2);
+        //匿名内部类有大括号后面的分号放在一行
+        javaCode = javaCode.replaceAll("(?m)^([ ]+)\\}$\\n\\1;", "$1};");
+        return javaCode;
     }
 
     /**
