@@ -178,4 +178,17 @@ public class JavaTools {
         methodCode = methodCode.replaceAll("\\{.+\\}", "{...}");
         return methodCode;
     }
+
+    /**
+     * 格式化字节码源代码
+     *
+     * @param classCode
+     * @return 格式化后的字节码。
+     */
+    public String formatJavaClassCode(String classCode) {
+        classCode = classCode.replaceAll("Code:", "\n\tCode:\n\t\t");
+        classCode = classCode.replaceAll(" (\\d+:) ", "\n\t\t$1\t");
+
+        return "\n```\n"+classCode+"\n```\n";
+    }
 }

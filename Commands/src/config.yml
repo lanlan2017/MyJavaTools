@@ -322,7 +322,11 @@ j:
     # 格式化mybatis注解的@Results标签
     myrs: tools.java.JavaTools.mybatisResultsFormat
     # 从PDF复制来的代码
-    pdf: tools.java.JavaTools.formatFromPDF
+    pdf:
+      # 格式化从PDF复制来的java代码
+      default: tools.java.JavaTools.formatFromPDF
+      # 格式化从PDF复制来的字节码
+      class: tools.java.JavaTools.formatJavaClassCode
   # 交换参数的顺序(Exchange parameter order)，例如:`int a,int b`交换后变成`int b,int a`
   ecpo: tools.java.JavaTools.exchangeParameterOrder
   # 获取jar包的名称和版本，artifactId version
