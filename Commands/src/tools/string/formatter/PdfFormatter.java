@@ -49,10 +49,10 @@ public class PdfFormatter {
      * @return 如果这串字符是java代码的话，返回ture,否则返回false.
      */
     private boolean isJavaCode(String reuslt) {
-        // 以字母或`@`开头
+        // 以两个或两个以上单词，或`@`开头
         // 或者以单行注释`//`开头
         // 则返回ture
-        return Pattern.compile("^[a-zA-Z@]+ .+").matcher(reuslt).find() || reuslt.startsWith("//");
+        return Pattern.compile("^[a-zA-Z@]+ [a-zA-Z@]+ .+").matcher(reuslt).find() || reuslt.startsWith("//");
     }
 
     public static void main(String[] args) {
