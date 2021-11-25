@@ -13,9 +13,10 @@ import java.util.regex.Pattern;
 public class PdfFormatter {
     public String format(String sysClipboardText) {
         String reuslt = sysClipboardText;
+        // System.out.println("进入方法了");
         // 如果是java代码的话
         if (isJavaCode(reuslt)) {
-            PrintStr.printStr("是java代码耶");
+            // System.out.println("是java代码耶");
             // 从对象池中的获取JavaTools对象，免得重复创建对象。
             JavaTools javaTools = ObjectMap.getObjectFromMap(JavaTools.class);
             // 从对象池中的获取MarkdownTools对象，免得重复创建对象。
@@ -28,7 +29,7 @@ public class PdfFormatter {
         }
         // 如果开头是中文的话,或者开头有一个英文单词，后面都是中文
         else if (Pattern.compile("^(?:[a-zA-Z]+)?[\u4e00-\u9fa5]+.+").matcher(reuslt).find()) {
-            // PrintStr.printStr("是中文耶");
+            // System.out.println("是中文耶");
             // 如果是图片描述信息，如果是代码清单描述信息
             if (reuslt.matches("图\\d+-\\d+ .+") || reuslt.matches("代码清单\\d+-\\d+ .+")) {
                 // PrintStr.printStr("是图片提示");
@@ -44,7 +45,8 @@ public class PdfFormatter {
             }
         }
         // 如果以小圆点开头的话（Office的无序列表标志）
-        else if (reuslt.contains("(·|•|●) ")) {
+        else if (reuslt.startsWith("·") || reuslt.startsWith("•") || reuslt.startsWith("●")) {
+            // System.out.println("是无序列表");
             // 使用对象池中的对象，免得重复创建对象。
             MarkdownTools markdownTools = ObjectMap.getObjectFromMap(MarkdownTools.class);
             reuslt = markdownTools.unorderList(reuslt);
