@@ -1,5 +1,6 @@
 package tools.markdown;
 
+import tools.reflect.method.ObjectMap;
 import tools.string.StringDeleter;
 import regex.RegexEnum;
 import tools.web.URLEncode;
@@ -210,7 +211,10 @@ public class MarkdownTools {
      */
     public String imgGravizoSvg(String code) {
         String head = "![图片](https://g.gravizo.com/svg?";
-        String codeInOneLine = new StringDeleter().deleteCRLF(code);
+        // 从对象池中获取StringDeleter对象，免得重复创建对象。
+        StringDeleter stringDeleter = ObjectMap.getObjectFromMap(StringDeleter.class);
+        // 删除换行符
+        String codeInOneLine = stringDeleter.deleteCRLF(code);
         String browserUrl = URLEncode.encodeToWebURL(codeInOneLine);
         String tail = ")";
         return head + browserUrl + tail;
@@ -227,8 +231,11 @@ public class MarkdownTools {
         text = text.replaceAll(" ?·", "\n");
         text = text.replaceAll(" ?● ", "\n");
         text = text.replaceAll("•", "\n");
+        // 从对象池中获取StringDeleter对象，免得重复创建对象。
+        StringDeleter stringDeleter = ObjectMap.getObjectFromMap(StringDeleter.class);
+
         // 删除空行
-        text = new StringDeleter().deleteBlankLine(text);
+        text = stringDeleter.deleteBlankLine(text);
         // 开头不是字母数字或者中文的一律删除掉.
         text = text.replaceAll("(?m)^[^a-zA-Z0-9\\u4e00-\\u9fa5][ ]+", "");
         // 在每行开头添加上无序列表标记
@@ -247,7 +254,11 @@ public class MarkdownTools {
     }
 
     public String orderedList(String text) {
-        text = new StringDeleter().deleteBlankLine(text);
+        //从对象池中获取StringDeleter对象，免得重复创建对象。
+        StringDeleter stringDeleter = ObjectMap.getObjectFromMap(StringDeleter.class);
+        // 删除空行
+        text = stringDeleter.deleteBlankLine(text);
+
         int i = 1;
         String[] lines = text.split("\\n");
         StringBuilder buf = new StringBuilder();
@@ -258,7 +269,10 @@ public class MarkdownTools {
     }
 
     public String quote(String text) {
-        text = new StringDeleter().deleteBlankLine(text);
+        // 从对象池中获取StringDeleter对象，免得重复创建对象。
+        StringDeleter stringDeleter = ObjectMap.getObjectFromMap(StringDeleter.class);
+        // 删除空行
+        text = stringDeleter.deleteBlankLine(text);
         // 在多行文本的每一个行开头添加引用标记
         text = text.replaceAll(RegexEnum.LineStart.toString(), "> ");
         return text;

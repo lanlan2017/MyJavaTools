@@ -186,7 +186,8 @@ public class JavaTools {
      * @return 格式化后的字节码。
      */
     public String formatJavaClassCode(String classCode) {
-        classCode = classCode.replaceAll("Code:", "\n\tCode:\n\t\t");
+        classCode = classCode.replaceAll("Constant pool: ", "Constant pool:\n\t");
+        classCode = classCode.replaceAll("Code: ", "\n\tCode:\n\t\t");
         classCode = classCode.replaceAll(" (\\d+:) ", "\n\t\t$1\t");
 
         return "\n```\n"+classCode+"\n```\n";

@@ -1,5 +1,7 @@
 package tools.java.formatter;
 
+import tools.string.PrintStr;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
@@ -16,7 +18,7 @@ public class JavaFormatter {
         // String str = "/*** 非主动使用类字段演示 **/";
         String str = "/*** 类加载器与instanceof关键字演示 ** @author zzm */";
         if (str.matches("^/\\*\\*\\*.+\\*/$")) {
-            str = formatJavaDocStr(str);
+            str = formatJavaDocStr(str,"");
         }
         System.out.println(str);
     }
@@ -130,18 +132,21 @@ public class JavaFormatter {
      * @return 恢复JavaDoc后的java代码。
      */
     private static String formatAllJavaDoc(String codeInOneLine) {
-        Matcher matcher = Pattern.compile("(?m)^/\\*\\*\\*.+\\*/$").matcher(codeInOneLine);
+        // Matcher matcher = Pattern.compile("(?m)^/\\*\\*\\*.+\\*/$").matcher(codeInOneLine);
+        Matcher matcher = Pattern.compile("(?m)^([ |\t]*)/\\*\\*\\*.+\\*/$").matcher(codeInOneLine);
         // Matcher matcher = Pattern.compile("/\\*\\*\\*.+\\*/").matcher(codeInOneLine);
         if (matcher.find()) {
-            // PrintStr.printStr("哈哈");
+            PrintStr.printStr("哈哈");
             // if条件已经匹配过一次了，重置匹配器，从头开始开始匹配。
             matcher.reset();
             int length = codeInOneLine.length();
             StringBuffer sb = new StringBuffer(length + length >> 2);
             // 如果存在没有格式化的JavaDoc
             while (matcher.find()) {
+                //取下整个内容
                 String javaDoc = matcher.group(0);
-                matcher.appendReplacement(sb, formatJavaDocStr(javaDoc));
+                String tabs=matcher.group(1);
+                matcher.appendReplacement(sb, formatJavaDocStr(javaDoc,tabs));
             }
             matcher.appendTail(sb);
             // 使用格式化JavaDoc后的代码作为处理结果
@@ -156,15 +161,15 @@ public class JavaFormatter {
      * @param javaDocStr 错误的写在一行中的JavaDoc（从PDF中复制来的JavaDoc）
      * @return 修复后的javaDoc
      */
-    private static String formatJavaDocStr(String javaDocStr) {
+    private static String formatJavaDocStr(String javaDocStr,String tabs) {
         // 替换JavaDoc的开始标记
-        javaDocStr = javaDocStr.replaceFirst("^/\\*\\*", "__JavaDoc_Start__");
+        javaDocStr = javaDocStr.replaceFirst("^([ |\t]*)/\\*\\*", "__JavaDoc_Start__");
         // 替换JavaDoc的开始结束
         javaDocStr = javaDocStr.replaceAll("\\*\\*/$", "__JavaDoc_End__");
         // 分行
-        javaDocStr = javaDocStr.replaceAll("\\* ?", "\n $0");
+        javaDocStr = javaDocStr.replaceAll("\\* ?", "\n"+tabs+" $0");
         // 恢复JavaDoc的开始标记
-        javaDocStr = javaDocStr.replace("__JavaDoc_Start__", "/**");
+        javaDocStr = javaDocStr.replace("__JavaDoc_Start__", tabs+"/**");
         // 恢复JavaDoc的结束标记
         javaDocStr = javaDocStr.replace("__JavaDoc_End__", "\n */");
         return javaDocStr;
