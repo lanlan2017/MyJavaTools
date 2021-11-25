@@ -31,7 +31,7 @@ public class TextFieldDocumentListener implements DocumentListener {
     @Override
     public void insertUpdate(DocumentEvent e) {
         updateList();
-        System.out.println("插入命令输出框");
+        // System.out.println("插入命令输出框");
         int textAreaLen = textField.getText().length();
         // 当输入的内容比文本框的默认列数大时
         if (textAreaLen >= textField.getColumns()) {
@@ -46,7 +46,7 @@ public class TextFieldDocumentListener implements DocumentListener {
 
     public void removeUpdate(DocumentEvent e) {
         updateList();
-        System.out.println("删除命令输出框");
+        // System.out.println("删除命令输出框");
         int textAreaLen = textField.getText().length();
         // 文本的字数大于默认的宽度
         if (textField.getColumns() > defaultCols) {
