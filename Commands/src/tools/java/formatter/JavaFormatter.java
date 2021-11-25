@@ -166,7 +166,7 @@ public class JavaFormatter {
         javaDocStr = javaDocStr.replaceFirst("^([ |\t]*)/\\*\\*", "__JavaDoc_Start__");
         // 替换JavaDoc的开始结束
         javaDocStr = javaDocStr.replaceAll("\\*\\*/$", "__JavaDoc_End__");
-        // 分行
+        // 恢复JavaDoc的各行
         javaDocStr = javaDocStr.replaceAll("\\* ?", "\n"+tabs+" $0");
         // 恢复JavaDoc的开始标记
         javaDocStr = javaDocStr.replace("__JavaDoc_Start__", tabs+"/**");

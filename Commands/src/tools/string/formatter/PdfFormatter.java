@@ -15,7 +15,7 @@ public class PdfFormatter {
         String reuslt = sysClipboardText;
         // 如果是java代码的话
         if (isJavaCode(reuslt)) {
-            // PrintStr.printStr("是java代码耶");
+            PrintStr.printStr("是java代码耶");
             // 从对象池中的获取JavaTools对象，免得重复创建对象。
             JavaTools javaTools = ObjectMap.getObjectFromMap(JavaTools.class);
             // 从对象池中的获取MarkdownTools对象，免得重复创建对象。
@@ -24,6 +24,7 @@ public class PdfFormatter {
             reuslt = javaTools.formatFromPDF(reuslt);
             // 生成markdown的java代码块
             reuslt = markdownTools.codeBlockJava(reuslt);
+            // reuslt = "\n```java\n" + reuslt + "\n```\n";
         }
         // 如果开头是中文的话,或者开头有一个英文单词，后面都是中文
         else if (Pattern.compile("^(?:[a-zA-Z]+)?[\u4e00-\u9fa5]+.+").matcher(reuslt).find()) {
@@ -61,7 +62,7 @@ public class PdfFormatter {
         // 以两个或两个以上单词，或`@`开头
         // 或者以单行注释`//`开头
         // 则返回ture
-        return Pattern.compile("^[a-zA-Z@]+ [a-zA-Z@]+ .+").matcher(reuslt).find() || reuslt.startsWith("//");
+        return Pattern.compile("^[a-zA-Z@]+ [a-zA-Z@]+ .+").matcher(reuslt).find() || reuslt.startsWith("//") || reuslt.startsWith("/**");
     }
 
     public static void main(String[] args) {
