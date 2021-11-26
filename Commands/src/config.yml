@@ -176,7 +176,11 @@ s:
     # xx.xx.x 类型的书签
     shuqian221: tools.string.PdfBookmarkOcrStrCorrector.correctBookmark221
     # 格式化从pdf中复制的内容
-    pdf: tools.string.formatter.PdfFormatter.format
+    pdf:
+      # 默认格式化功能
+      default: tools.string.formatter.PdfFormatter.format
+      # 格式化 段落 代码描述 Java代码 这三个混合的文本
+      mixed: tools.string.formatter.PdfFormatter.formatPdjMixed
   # 驼峰命名法
   cc:
     # java包名称
