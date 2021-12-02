@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 public class PdfFormatter {
     /**
      * 格式化,段落，java代码描述，java代码，三段信息的混合信息。
+     *
      * @param
      * @return
      */
@@ -59,7 +60,8 @@ public class PdfFormatter {
         else if (Pattern.compile("^(?:[a-zA-Z]+)?[\u4e00-\u9fa5]+.+").matcher(reuslt).find()) {
             // System.out.println("是中文耶");
             // 如果是图片描述信息，如果是代码清单描述信息
-            if (reuslt.matches("图\\d+-\\d+ .+") || reuslt.matches("代码清单\\d+-\\d+ .+")) {
+            // if (reuslt.matches("(?:图|表|代码清单)\\d+-\\d+ .+") || reuslt.matches("代码清单\\d+-\\d+ .+") || reuslt.matches("表\\d+-\\d+ .+")) {
+            if (reuslt.matches("(?:图|表|代码清单)[0-9a-zA-Z]+-\\d+ .+")) {
                 reuslt = formatCenter(reuslt);
             } else {
                 // 格式化段落
@@ -111,8 +113,8 @@ public class PdfFormatter {
      * @return markdown格式的无序列表
      */
     private String formatUnorderedList(String reuslt) {
-        StringDeleter stringDeleter=ObjectMap.getObjectFromMap(StringDeleter.class);
-        reuslt=stringDeleter.deleteSpaces(reuslt);
+        StringDeleter stringDeleter = ObjectMap.getObjectFromMap(StringDeleter.class);
+        reuslt = stringDeleter.deleteSpaces(reuslt);
         // System.out.println("是无序列表");
         // 使用对象池中的对象，免得重复创建对象。
         MarkdownTools markdownTools = ObjectMap.getObjectFromMap(MarkdownTools.class);
