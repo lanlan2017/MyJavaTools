@@ -230,6 +230,7 @@ public class MarkdownTools {
         // 把word里面的的无序列表标记替换成换行符
         text = text.replaceAll(" ?·", "\n");
         text = text.replaceAll(" ?● ", "\n");
+        text = text.replaceAll(" ?❑ ", "\n");
         text = text.replaceAll("•", "\n");
         // 从对象池中获取StringDeleter对象，免得重复创建对象。
         StringDeleter stringDeleter = ObjectMap.getObjectFromMap(StringDeleter.class);
@@ -498,13 +499,18 @@ public class MarkdownTools {
      */
     public String weixinDuShu(String duoHangStr) {
         duoHangStr = duoHangStr.replace("[插图]", "\n\n[插图]\n\n");
+        // 格式化Html代码
         duoHangStr = duoHangStr.replaceAll("<[a-z]+?>", "`$0`");
-        duoHangStr = duoHangStr.replaceAll("(?m)程序清单\\d+\\.\\d+ .+$", "\n\n<center>$0</center>");
+        //格式化代码描述信息
+        duoHangStr = duoHangStr.replaceAll("(?m)(?:程序|代码)清单\\d+[.-]\\d+ .+$", "\n\n<center>$0</center>");
+        //格式化表格描述信息
         duoHangStr = duoHangStr.replaceAll("(?m)表\\d+.\\d+ .+$", "\n\n<center>$0</center>\n");
-
-        duoHangStr = duoHangStr.replaceAll("(?m)^图\\d+\\.\\d+ .+$", "<center>$0</center>\n");
+        // 格式化图片描述信息
+        duoHangStr = duoHangStr.replaceAll("(?m)^图\\d+[.-]\\d+ .+$", "<center>$0</center>\n");
         // 转换无序列表
-        duoHangStr = duoHangStr.replaceAll("•", "\n- ");
+        duoHangStr = duoHangStr.replaceAll("(?:❑ |•)", "\n- ");
+        // 格式化中文列表
+        duoHangStr=duoHangStr.replaceAll("\\d+）", "\n$0");
         // 注解包装成Markdown行内代码
         duoHangStr = duoHangStr.replaceAll("@[a-zA-Z]+", "`$0`");
         // Resources<Resource<Taco>>类似的代码转换成Markdown代码
