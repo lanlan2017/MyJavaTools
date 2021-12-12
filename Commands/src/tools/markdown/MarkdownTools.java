@@ -498,6 +498,10 @@ public class MarkdownTools {
      * @return 拆分成多行的文本
      */
     public String weixinDuShu(String duoHangStr) {
+        if (duoHangStr.startsWith("注意：")) {
+            duoHangStr.replaceFirst("注意：", "<strong>注意</strong>：");
+            return "<div style=\"border-style:solid;\">" + duoHangStr + "</div>";
+        }
         duoHangStr = duoHangStr.replace("[插图]", "\n\n[插图]\n\n");
         // 格式化Html代码
         duoHangStr = duoHangStr.replaceAll("<[a-z]+?>", "`$0`");
@@ -510,7 +514,7 @@ public class MarkdownTools {
         // 转换无序列表
         duoHangStr = duoHangStr.replaceAll("(?:❑ |•)", "\n- ");
         // 格式化中文列表
-        duoHangStr=duoHangStr.replaceAll("\\d+）", "\n$0");
+        duoHangStr = duoHangStr.replaceAll("（?\\d+）", "\n$0");
         // 注解包装成Markdown行内代码
         duoHangStr = duoHangStr.replaceAll("@[a-zA-Z]+", "`$0`");
         // Resources<Resource<Taco>>类似的代码转换成Markdown代码
