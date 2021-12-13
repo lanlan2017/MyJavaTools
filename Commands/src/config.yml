@@ -128,6 +128,8 @@ m:
     default: tools.markdown.MarkdownTools.weixinDuShu
     # 本章内容
     bznr: tools.markdown.MarkdownTools.weixinDuShuBenZhangNeiRong
+    # 以插图作为标识的无序列表
+    u: tools.markdown.MarkdownTools.weixinDuShuUnorderedList
 # 字符串处理
 s:
   # 删除空行

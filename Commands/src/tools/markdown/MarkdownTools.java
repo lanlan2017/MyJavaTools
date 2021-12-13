@@ -498,8 +498,8 @@ public class MarkdownTools {
      * @return 拆分成多行的文本
      */
     public String weixinDuShu(String duoHangStr) {
-        if (duoHangStr.startsWith("注意：")) {
-            duoHangStr.replaceFirst("注意：", "<strong>注意</strong>：");
+        if (duoHangStr.startsWith("注意：")||duoHangStr.startsWith("注：")||duoHangStr.startsWith("说明：")) {
+            duoHangStr = duoHangStr.replaceFirst("(注意|注|说明)：", "<strong>$1</strong>：");
             return "<div style=\"border-style:solid;\">" + duoHangStr + "</div>";
         }
         duoHangStr = duoHangStr.replace("[插图]", "\n\n[插图]\n\n");
@@ -508,7 +508,7 @@ public class MarkdownTools {
         //格式化代码描述信息
         duoHangStr = duoHangStr.replaceAll("(?m)(?:程序|代码)清单\\d+[.-]\\d+ .+$", "\n\n<center>$0</center>");
         //格式化表格描述信息
-        duoHangStr = duoHangStr.replaceAll("(?m)表\\d+.\\d+ .+$", "\n\n<center>$0</center>\n");
+        duoHangStr = duoHangStr.replaceAll("(?m)表[0-9a-zA-Z]+[.-]\\d+ .+$", "\n\n<center>$0</center>\n");
         // 格式化图片描述信息
         duoHangStr = duoHangStr.replaceAll("(?m)^图\\d+[.-]\\d+ .+$", "<center>$0</center>\n");
         // 转换无序列表
@@ -520,6 +520,16 @@ public class MarkdownTools {
         // Resources<Resource<Taco>>类似的代码转换成Markdown代码
         duoHangStr = duoHangStr.replaceAll("(?<!`)[a-zA-Z]+<[a-zA-Z<>]+>(?!`)", "`$0`");
         return duoHangStr;
+    }
+
+    /**
+     * 格式化微信读书以图片作为无序列表标志的文本。
+     * @param text
+     * @return
+     */
+    public String weixinDuShuUnorderedList(String text){
+        text=text.replaceAll("\\[插图\\] ", "\n- ");
+        return text;
     }
 
     /**
