@@ -498,7 +498,7 @@ public class MarkdownTools {
      * @return 拆分成多行的文本
      */
     public String weixinDuShu(String duoHangStr) {
-        if (duoHangStr.startsWith("注意：")||duoHangStr.startsWith("注：")||duoHangStr.startsWith("说明：")) {
+        if (duoHangStr.startsWith("注意：") || duoHangStr.startsWith("注：") || duoHangStr.startsWith("说明：")) {
             duoHangStr = duoHangStr.replaceFirst("(注意|注|说明)：", "<strong>$1</strong>：");
             return "<div style=\"border-style:solid;\">" + duoHangStr + "</div>";
         }
@@ -524,12 +524,25 @@ public class MarkdownTools {
 
     /**
      * 格式化微信读书以图片作为无序列表标志的文本。
+     *
      * @param text
      * @return
      */
-    public String weixinDuShuUnorderedList(String text){
-        text=text.replaceAll("\\[插图\\] ", "\n- ");
+    public String weixinDuShuUnorderedList(String text) {
+        text = text.replaceAll("\\[插图\\] ", "\n- ");
         return text;
+    }
+
+    /**
+     * 把从微信读书中复制来的问题代码进行处理，讲中文标点符号转为英文标点符号。
+     * @param code 微信读书网页版中复制来的代码
+     * @return 正确的代码
+     */
+    public String weixinDuShuCode(String code) {
+        code = code.replace("；", ";");
+        code = code.replace("（", "(");
+        code = code.replace("）", ")");
+        return code;
     }
 
     /**

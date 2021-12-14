@@ -130,6 +130,8 @@ m:
     bznr: tools.markdown.MarkdownTools.weixinDuShuBenZhangNeiRong
     # 以插图作为标识的无序列表
     u: tools.markdown.MarkdownTools.weixinDuShuUnorderedList
+    # 将代码中的中文标点符号替换成对应的英文标点
+    code: tools.markdown.MarkdownTools.weixinDuShuCode
 # 字符串处理
 s:
   # 删除空行
@@ -303,6 +305,8 @@ html:
       inset: tools.html.HtmlTools.divBorderInset
       # 生成带 3D突出边框 的div标签
       outset: tools.html.HtmlTools.divBorderOutset
+  # 包装js代码成script标签
+  script: tools.html.HtmlTools.script
 # java代码模板
 j:
   # 生成for语句

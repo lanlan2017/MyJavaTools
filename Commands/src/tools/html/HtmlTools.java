@@ -81,8 +81,8 @@ public class HtmlTools {
             str = str.replaceAll("(?m)^- ", "");
         }
         // •在Spring Boot项目中启用Actuator•探索Actuator的端点•自定义Actuator•保护Actuator
-        if(str.startsWith("•")){
-            str=str.replace("•","\n");
+        if (str.startsWith("•")) {
+            str = str.replace("•", "\n");
         }
         String liStart = "<li>";
         String liEnd = "</li>";
@@ -275,5 +275,14 @@ public class HtmlTools {
      */
     public String divBorderOutset(String str) {
         return "\n<div style=\"border-style:outset;\">" + str + "</div>\n";
+    }
+
+    /**
+     * 返回<code>&lt;script&gt;&lt;/script&gt;</code>标签
+     * @param jsCode
+     * @return
+     */
+    public String script(String jsCode) {
+        return "\n<script>\n" + jsCode + "\n</script>\n";
     }
 }
