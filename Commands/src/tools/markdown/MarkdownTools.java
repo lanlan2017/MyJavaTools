@@ -542,6 +542,7 @@ public class MarkdownTools {
         code = code.replace("；", ";");
         code = code.replace("（", "(");
         code = code.replace("）", ")");
+        code = code.replace("～", "~");
         return code;
     }
 
