@@ -204,7 +204,7 @@ public class HtmlTools {
      * @return
      */
     public String divBorderDashed(String str) {
-        return "\n<div style=\"border-style:dashed;\">" + str + "</div>\n";
+        return "\n<div style=\"border:1px dashed;\">" + str + "</div>\n";
     }
 
     /**
@@ -214,7 +214,7 @@ public class HtmlTools {
      * @return
      */
     public String divBorderSolid(String str) {
-        return "\n<div style=\"border-style:solid;\">" + str + "</div>\n";
+        return "\n<div style=\"border:1px solid;\">" + str + "</div>\n";
     }
 
     /**
@@ -224,7 +224,7 @@ public class HtmlTools {
      * @return
      */
     public String divBorderDotted(String str) {
-        return "\n<div style=\"border-style:dotted;\">" + str + "</div>\n";
+        return "\n<div style=\"border:1px dotted;\">" + str + "</div>\n";
     }
 
     /**
@@ -234,7 +234,7 @@ public class HtmlTools {
      * @return
      */
     public String divBorderDouble(String str) {
-        return "\n<div style=\"border-style:double;\">" + str + "</div>\n";
+        return "\n<div style=\"border:1px double;\">" + str + "</div>\n";
     }
 
     /**
@@ -244,7 +244,7 @@ public class HtmlTools {
      * @return
      */
     public String divBorderGroove(String str) {
-        return "\n<div style=\"border-style:groove;\">" + str + "</div>\n";
+        return "\n<div style=\"border:1px groove;\">" + str + "</div>\n";
     }
 
     /**
@@ -254,7 +254,7 @@ public class HtmlTools {
      * @return
      */
     public String divBorderGidge(String str) {
-        return "\n<div style=\"border-style:ridge;\">" + str + "</div>\n";
+        return "\n<div style=\"border:1px ridge;\">" + str + "</div>\n";
     }
 
     /**
@@ -264,7 +264,7 @@ public class HtmlTools {
      * @return
      */
     public String divBorderInset(String str) {
-        return "\n<div style=\"border-style:inset;\">" + str + "</div>\n";
+        return "\n<div style=\"border:1px inset;\">" + str + "</div>\n";
     }
 
     /**
@@ -274,7 +274,7 @@ public class HtmlTools {
      * @return
      */
     public String divBorderOutset(String str) {
-        return "\n<div style=\"border-style:outset;\">" + str + "</div>\n";
+        return "\n<div style=\"border:1px outset;\">" + str + "</div>\n";
     }
 
     /**
