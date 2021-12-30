@@ -60,12 +60,23 @@ public class HtmlTools {
      * 生成展开折叠块
      *
      * @param toFlod 需要展开折叠的代码
-     * @return 展开折叠Html代码
+     * @return 展开折叠Html pre代码
      */
     public String detailsPre(String toFlod) {
         // 将特殊字符转换成HTML转义字符
         toFlod = escape(toFlod);
         return "<details><summary>展开/折叠</summary><pre>\n" + toFlod + "</pre></details>\n";
+    }
+    /**
+     * 生成展开折叠块
+     *
+     * @param toFlod 需要展开/折叠的html标签
+     * @return 展开折叠Html代码
+     */
+    public String details(String toFlod) {
+        // 将特殊字符转换成HTML转义字符
+        toFlod = escape(toFlod);
+        return "<details><summary>展开/折叠</summary>\n" + toFlod + "</details>\n";
     }
 
     /**

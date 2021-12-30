@@ -257,8 +257,12 @@ html:
   js: tools.html.HtmlTools.importJS
   # 展开/折叠块
   fold: tools.html.HtmlTools.flod
-  # 展开/折叠块 折叠内容我<pre>...</pre>
-  dp: tools.html.HtmlTools.detailsPre
+  # 展开/折叠块<details>代码
+  details:
+    # 生成<details>...............</details>代码
+    default: tools.html.HtmlTools.details
+    # 生成<details><pre>...........</pre></details>
+    pre: tools.html.HtmlTools.detailsPre
   # 多行字符串转成html无序列表
   ul: tools.html.HtmlTools.multiLineToUnorderedList
   # 生成<pre></pre>代码块
