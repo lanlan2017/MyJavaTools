@@ -201,7 +201,6 @@ public class StringConverter {
     }
 
 
-
     /**
      * 生成开启手机WiFi调试的adb命令
      *
@@ -210,6 +209,18 @@ public class StringConverter {
      */
     public String adb(String ip) {
         return "adb connect " + ip + ":5555";
+    }
 
+    /**
+     * 生成完整的pronhub视频名称
+     * 视频的标题+上传者的用户名
+     *
+     * @return
+     */
+    public String PHFullVideoName(String copyText) {
+        String title = copyText.substring(0, copyText.indexOf("翻译"));
+        String userNameFlag = "头像 \n";
+        String userName = copyText.substring(copyText.lastIndexOf(userNameFlag) + userNameFlag.length());
+        return userName + "__" + title;
     }
 }

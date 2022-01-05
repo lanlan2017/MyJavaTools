@@ -185,6 +185,8 @@ s:
       default: tools.string.formatter.PdfFormatter.format
       # 格式化 段落 代码描述 Java代码 这三个混合的文本
       mixed: tools.string.formatter.PdfFormatter.formatPdjMixed
+    # P站视频名称:标题+用户名
+    ph: tools.string.StringConverter.PHFullVideoName
   # 驼峰命名法
   cc:
     # java包名称
