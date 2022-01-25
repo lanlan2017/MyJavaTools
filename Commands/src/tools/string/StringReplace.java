@@ -40,7 +40,7 @@ public class StringReplace {
         code = code.replaceAll("\\n", "\\$(CRLF)");
         System.out.println("--------------------------------------------------");
         comment = qqShuRuFaZhuShi(comment);
-        return code + "\n" + comment+"\n";
+        return code + "\n" + comment + "\n";
     }
 
     /**
@@ -56,5 +56,24 @@ public class StringReplace {
         code = code.replaceAll("(?m)^ \\* $(?:\\r)?\\n", "");
         // 在行首添加注释
         return code.replaceAll("(?m)^", ";");
+    }
+
+    /**
+     * 字符替换
+     *
+     * @param replacementRule 替换规则
+     * @return
+     */
+    public String characterReplacement(String source, String oldChar, String newChar) {
+        // System.out.println("source = " + source);
+        // System.out.println("oldChar = " + oldChar);
+        // System.out.println("newChar = " + newChar);
+        if("space".equals(oldChar)){
+            oldChar=" ";
+        }
+        if ("underscore".equals(newChar)){
+            newChar="_";
+        }
+        return source.replace(oldChar, newChar);
     }
 }

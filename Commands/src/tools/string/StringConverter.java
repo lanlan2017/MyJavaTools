@@ -221,6 +221,9 @@ public class StringConverter {
         String title = copyText.substring(0, copyText.indexOf("翻译"));
         String userNameFlag = "头像 \n";
         String userName = copyText.substring(copyText.lastIndexOf(userNameFlag) + userNameFlag.length());
-        return userName + "__" + title;
+        String fullName = userName + "__" + title;
+        fullName = fullName.replace(",", "，");
+        fullName = fullName.replace(",", "，");
+        return fullName;
     }
 }

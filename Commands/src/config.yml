@@ -89,7 +89,7 @@ m:
       # 生成dot语法的PlantUML代码块。
       dot: tools.markdown.MarkdownTools.codeBlockPlantUmlDot
     # default: tools.markdown.MarkdownTools.codeBlockDefault
-    default: tools.markdown.MarkdownTools.codeBlock_UseLastArg
+    default: tools.markdown.MarkdownTools.codeBlock_ControlCodeIsLastArg
   # 删除块中的一些代码
   dcb:
     gsvc: tools.markdown.MdJavaCodeBlock.romoveGetterSetterLikeVC
@@ -213,6 +213,11 @@ s:
   # 打印出字母表
   zimu:
     default: tools.string.StringGenerator.alphabet_Parameterless
+  # 字符替换
+  replace:
+    space:
+      underscore: tools.string.StringReplace.characterReplacement_ControlCodeIsLastTwoArgs
+    lastTwodefault: tools.string.StringReplace.characterReplacement_ControlCodeIsLastTwoArgs
 # 快捷git命令:当在其他电脑上可能会用到.
 g:
   s: git status
@@ -242,7 +247,7 @@ g:
 # html命令
 html:
   # 其他命令
-  default: tools.html.HtmlTools.htmlDefault_UseLastArg
+  default: tools.html.HtmlTools.htmlDefault_ControlCodeIsLastArg
   # html5模板
   t: templace/html/Html5Template.html
   # html超链接
