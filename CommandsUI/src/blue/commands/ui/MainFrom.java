@@ -277,6 +277,9 @@ public class MainFrom {
     private void addTextFieldButtonAction(JFrame frame) {
         // 创建文本框
         JTextField jTextField2 = new JTextField(8);
+        // 使用等宽字体"Courier New"
+        jTextField2.setFont(new Font("Courier New", Font.BOLD, 12));
+        // jTextField2.setFont(new Font("Consolas", Font.PLAIN, 12));
         // 给文本框设置自动提示信息
         textFieldAutoSetting(jTextField2);
         // 文本框工具条添加一个文本框

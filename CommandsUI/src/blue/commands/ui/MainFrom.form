@@ -63,7 +63,7 @@
                 <properties>
                   <columns value="8"/>
                   <editable value="true"/>
-                  <font name="Consolas"/>
+                  <font name="Courier New" size="12" style="1"/>
                 </properties>
               </component>
             </children>
