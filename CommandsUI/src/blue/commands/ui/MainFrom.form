@@ -63,6 +63,7 @@
                 <properties>
                   <columns value="8"/>
                   <editable value="true"/>
+                  <font name="Consolas"/>
                 </properties>
               </component>
             </children>
