@@ -19,7 +19,7 @@ public class ObjectMap {
      * @param class_ 要获取的对象的Class对象
      * @return Class对象对应的实例对象。
      */
-    public static <T> T getObjectFromMap(Class<T> class_) {
+    public static <T> T get(Class<T> class_) {
         String className = class_.getName();
         Object object = null;
         // 如果Map中有这个对象了
