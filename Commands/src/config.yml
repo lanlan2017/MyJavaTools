@@ -217,7 +217,7 @@ s:
   replace:
     space:
       underscore: tools.string.StringReplace.characterReplacement_ControlCodeIsLastTwoArgs
-    lastTwodefault: tools.string.StringReplace.characterReplacement_ControlCodeIsLastTwoArgs
+    lastTwoDefault: tools.string.StringReplace.characterReplacement_ControlCodeIsLastTwoArgs
 # 快捷git命令:当在其他电脑上可能会用到.
 g:
   s: git status

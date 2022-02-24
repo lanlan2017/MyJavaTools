@@ -2,6 +2,7 @@ package tools.markdown;
 
 import regex.RegexEnum;
 import tools.markdown.niuke.NiukeConfig;
+import tools.reflect.method.ObjectMap;
 import tools.string.PrintStr;
 
 import java.util.regex.Matcher;
@@ -123,7 +124,8 @@ public class MardownConverter {
      * @return
      */
     public String niukeInlineCodeChoice(String chioce) {
-        chioce = new MarkdownTools().inlineCodeUndo(chioce);
+        // chioce = new MarkdownTools().inlineCodeUndo(chioce);
+        chioce = ObjectMap.get(MarkdownTools.class).inlineCodeUndo(chioce);
         chioce = chioce.replaceAll("(?m)$", "`");
         chioce = chioce.replaceAll("(?m)^- [A-Z] ", "$0`");
         return chioce;

@@ -1,5 +1,6 @@
 package tools.markdown;
 
+import tools.reflect.method.ObjectMap;
 import tools.string.StringDeleter;
 import regex.RegexEnum;
 
@@ -56,7 +57,8 @@ public class MdJavaCodeBlock {
         // 剩下没有匹配的也追加到sb之中.
         getterSetterMatcher.appendTail(sb);
         // 删除空行
-        input = new StringDeleter().deleteBlankLine(sb.toString());
+        // input = new StringDeleter().deleteBlankLine(sb.toString());
+        input = ObjectMap.get(StringDeleter.class).deleteBlankLine(sb.toString());
         return "```java\r\n" + input + "\r\n```";
     }
 }

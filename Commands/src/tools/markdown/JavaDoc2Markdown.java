@@ -1,5 +1,7 @@
 package tools.markdown;
 
+import tools.reflect.method.ObjectMap;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -34,7 +36,8 @@ public class JavaDoc2Markdown {
 
     public String mdTableCopyHighlight(String tableStrFromWeb) {
         tableStrFromWeb = mdTableCopy(tableStrFromWeb);
-        tableStrFromWeb = new MarkdownTools().inlineCodeAuto(tableStrFromWeb);
+        // tableStrFromWeb = new MarkdownTools().inlineCodeAuto(tableStrFromWeb);
+        tableStrFromWeb = ObjectMap.get(MarkdownTools.class).inlineCodeAuto(tableStrFromWeb);
         return tableStrFromWeb;
     }
 

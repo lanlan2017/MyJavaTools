@@ -1,5 +1,7 @@
 package tools.string;
 
+import tools.reflect.method.ObjectMap;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -224,6 +226,10 @@ public class StringConverter {
         String fullName = userName + "__" + title;
         fullName = fullName.replace(",", "，");
         fullName = fullName.replace(",", "，");
+        // 删除多余的空行，防止错误输入。
+        fullName = ObjectMap.get(StringDeleter.class).deleteBlankLine(fullName);
+        // 删除行结束符前面的多余空格
+        fullName=fullName.replaceAll("[ ]+$", "");
         return fullName;
     }
 }

@@ -1,7 +1,6 @@
 package tools.string;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import tools.reflect.method.ObjectMap;
 
 /**
  * @author francis
@@ -33,7 +32,8 @@ public class StringReplace {
     public String qqShuRuFa(String code) {
         // 注释
         String comment = new String(code);
-        code = new StringDeleter().deleteBlankLine(code);
+        // code = new StringDeleter().deleteBlankLine(code);
+        code = ObjectMap.get(StringDeleter.class).deleteBlankLine(code);
         // 删除多余的文档注释行
         code = code.replaceAll("(?m)^ \\* $(?:\\r)?\\n", "");
         // 把换行符替换成QQ输入法的换行符
@@ -51,7 +51,8 @@ public class StringReplace {
      */
     public String qqShuRuFaZhuShi(String code) {
         // 删除空行
-        code = new StringDeleter().deleteBlankLine(code);
+        // code = new StringDeleter().deleteBlankLine(code);
+        code = ObjectMap.get(StringDeleter.class).deleteBlankLine(code);
         // 删除多余的文档注释行
         code = code.replaceAll("(?m)^ \\* $(?:\\r)?\\n", "");
         // 在行首添加注释

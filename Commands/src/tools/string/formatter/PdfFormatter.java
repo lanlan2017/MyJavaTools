@@ -85,9 +85,9 @@ public class PdfFormatter {
     private String formatJavaCode(String javaCode) {
         // System.out.println("是java代码耶");
         // 从对象池中的获取JavaTools对象，免得重复创建对象。
-        JavaTools javaTools = ObjectMap.getObjectFromMap(JavaTools.class);
+        JavaTools javaTools = ObjectMap.get(JavaTools.class);
         // 从对象池中的获取MarkdownTools对象，免得重复创建对象。
-        MarkdownTools markdownTools = ObjectMap.getObjectFromMap(MarkdownTools.class);
+        MarkdownTools markdownTools = ObjectMap.get(MarkdownTools.class);
         // 格式化java代码
         javaCode = javaTools.formatFromPDF(javaCode);
         // 生成markdown的java代码块
@@ -113,11 +113,11 @@ public class PdfFormatter {
      * @return markdown格式的无序列表
      */
     private String formatUnorderedList(String reuslt) {
-        StringDeleter stringDeleter = ObjectMap.getObjectFromMap(StringDeleter.class);
+        StringDeleter stringDeleter = ObjectMap.get(StringDeleter.class);
         reuslt = stringDeleter.deleteSpaces(reuslt);
         // System.out.println("是无序列表");
         // 使用对象池中的对象，免得重复创建对象。
-        MarkdownTools markdownTools = ObjectMap.getObjectFromMap(MarkdownTools.class);
+        MarkdownTools markdownTools = ObjectMap.get(MarkdownTools.class);
         reuslt = markdownTools.unorderList(reuslt);
         return reuslt;
     }
@@ -130,7 +130,7 @@ public class PdfFormatter {
      */
     private String formatParagraph(String paragraphText) {
         // 从对象池中获取对象，免得重复创建对象。
-        StringDeleter stringDeleter = ObjectMap.getObjectFromMap(StringDeleter.class);
+        StringDeleter stringDeleter = ObjectMap.get(StringDeleter.class);
         // 删除中文之间的空白符
         paragraphText = stringDeleter.deleteSpaces(paragraphText);
         // 删除换行符

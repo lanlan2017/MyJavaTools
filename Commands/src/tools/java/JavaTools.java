@@ -2,6 +2,7 @@ package tools.java;
 
 import reader.resouce.ResourceFileReader;
 import tools.java.formatter.JavaFormatter;
+import tools.reflect.method.ObjectMap;
 import tools.string.PrintStr;
 import tools.string.StringDeleter;
 
@@ -174,7 +175,8 @@ public class JavaTools {
      */
     public String hiddenMethodImplementation(String methodCode) {
         // 编程一行
-        methodCode = new StringDeleter().deleteCRLF(methodCode);
+        // methodCode = new StringDeleter().deleteCRLF(methodCode);
+        methodCode = ObjectMap.get(StringDeleter.class).deleteCRLF(methodCode);
         methodCode = methodCode.replaceAll("\\{.+\\}", "{...}");
         return methodCode;
     }
@@ -190,6 +192,6 @@ public class JavaTools {
         classCode = classCode.replaceAll("Code: ", "\n\tCode:\n\t\t");
         classCode = classCode.replaceAll(" (\\d+:) ", "\n\t\t$1\t");
 
-        return "\n```\n"+classCode+"\n```\n";
+        return "\n```\n" + classCode + "\n```\n";
     }
 }

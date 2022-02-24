@@ -39,10 +39,10 @@ public class ConfigTools2 {
             map = (Map<String, Object>) map.get(args[i]);
         }
         // 如果倒数第2层的map存在"lastTwodefault"这个key
-        if (map.containsKey("lastTwodefault")) {
-            System.out.println("倒数第2个命令所在层存在lastTwodefault");
+        if (map.containsKey("lastTwoDefault")) {
+            System.out.println("倒数第2个命令所在层存在lastTwoDefault");
             // 取出对应的value
-            Object valueObject = map.get("lastTwodefault");
+            Object valueObject = map.get("lastTwoDefault");
             // 如果这个value是字符串
             if (valueObject instanceof String) {
                 // 强制转换为字符串，并返回
@@ -52,7 +52,7 @@ public class ConfigTools2 {
         }
         // 否则，如果倒数第2层的map存在
         else {
-            System.out.println("倒数第2个命令所在层不存在lastTwodefault");
+            System.out.println("倒数第2个命令所在层不存在lastTwoDefault");
             // System.out.println(args[lastTwoArgIndex+1]);
             // 取出倒数第个2命令对应的map,进入下一层Map
             String lastTwoArg = args[lastTwoArgIndex];

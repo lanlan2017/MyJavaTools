@@ -2,6 +2,7 @@ package tools.string;
 
 import regex.RegexEnum;
 import tools.markdown.MarkdownTools;
+import tools.reflect.method.ObjectMap;
 
 public class StringDeleter {
 
@@ -74,7 +75,8 @@ public class StringDeleter {
 
     public String cpkdCode(String text) {
         text = cpkd(text);
-        text = new MarkdownTools().inlineCodeAuto(text);
+        // text = new MarkdownTools().inlineCodeAuto(text);
+        text = ObjectMap.get(MarkdownTools.class).inlineCodeAuto(text);
         return text;
     }
 

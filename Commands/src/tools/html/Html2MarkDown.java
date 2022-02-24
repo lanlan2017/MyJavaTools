@@ -33,7 +33,7 @@ public class Html2MarkDown {
         PrintStr.printStr(str);
         //
         // str = new StringDeleter().deleteCRLF(str);
-        StringDeleter stringDeleter = ObjectMap.getObjectFromMap(StringDeleter.class);
+        StringDeleter stringDeleter = ObjectMap.get(StringDeleter.class);
         // StringBuilder stringDeleter = ObjectMap.getObjectFromMap(StringDeleter.class);
         str = stringDeleter.deleteCRLF(str);
         PrintStr.printStr(str);

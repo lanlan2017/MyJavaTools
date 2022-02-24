@@ -1,5 +1,6 @@
 package tools.html;
 
+import tools.reflect.method.ObjectMap;
 import tools.string.StringDeleter;
 
 import java.util.Scanner;
@@ -67,6 +68,7 @@ public class HtmlTools {
         toFlod = escape(toFlod);
         return "<details><summary>展开/折叠</summary><pre>\n" + toFlod + "</pre></details>\n";
     }
+
     /**
      * 生成展开折叠块
      *
@@ -164,7 +166,8 @@ public class HtmlTools {
         // 所有的html代码占用一行
         htmlCode = htmlCode.replaceAll("(?m)><", ">\n<");
         // 删除空行
-        htmlCode = new StringDeleter().deleteBlankLine(htmlCode);
+        // htmlCode = new StringDeleter().deleteBlankLine(htmlCode);
+        htmlCode = ObjectMap.get(StringDeleter.class).deleteBlankLine(htmlCode);
         return htmlCode;
     }
 
@@ -290,6 +293,7 @@ public class HtmlTools {
 
     /**
      * 返回<code>&lt;script&gt;&lt;/script&gt;</code>标签
+     *
      * @param jsCode
      * @return
      */

@@ -5,8 +5,6 @@ import tools.string.StringDeleter;
 import regex.RegexEnum;
 import tools.web.URLEncode;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -212,7 +210,7 @@ public class MarkdownTools {
     public String imgGravizoSvg(String code) {
         String head = "![图片](https://g.gravizo.com/svg?";
         // 从对象池中获取StringDeleter对象，免得重复创建对象。
-        StringDeleter stringDeleter = ObjectMap.getObjectFromMap(StringDeleter.class);
+        StringDeleter stringDeleter = ObjectMap.get(StringDeleter.class);
         // 删除换行符
         String codeInOneLine = stringDeleter.deleteCRLF(code);
         String browserUrl = URLEncode.encodeToWebURL(codeInOneLine);
@@ -233,8 +231,7 @@ public class MarkdownTools {
         text = text.replaceAll(" ?❑ ", "\n");
         text = text.replaceAll("•", "\n");
         // 从对象池中获取StringDeleter对象，免得重复创建对象。
-        StringDeleter stringDeleter = ObjectMap.getObjectFromMap(StringDeleter.class);
-
+        StringDeleter stringDeleter = ObjectMap.get(StringDeleter.class);
         // 删除空行
         text = stringDeleter.deleteBlankLine(text);
         // 开头不是字母数字或者中文的一律删除掉.
@@ -256,7 +253,7 @@ public class MarkdownTools {
 
     public String orderedList(String text) {
         //从对象池中获取StringDeleter对象，免得重复创建对象。
-        StringDeleter stringDeleter = ObjectMap.getObjectFromMap(StringDeleter.class);
+        StringDeleter stringDeleter = ObjectMap.get(StringDeleter.class);
         // 删除空行
         text = stringDeleter.deleteBlankLine(text);
 
@@ -271,7 +268,7 @@ public class MarkdownTools {
 
     public String quote(String text) {
         // 从对象池中获取StringDeleter对象，免得重复创建对象。
-        StringDeleter stringDeleter = ObjectMap.getObjectFromMap(StringDeleter.class);
+        StringDeleter stringDeleter = ObjectMap.get(StringDeleter.class);
         // 删除空行
         text = stringDeleter.deleteBlankLine(text);
         // 在多行文本的每一个行开头添加引用标记
