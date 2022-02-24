@@ -1,6 +1,7 @@
 package blue.ocr.formatter.markdown.multiline.codeblock;
 
 import blue.ocr.formatter.FormatterMultiLine;
+import tools.reflect.method.ObjectMap;
 import tools.string.StringDeleter;
 
 /**
@@ -10,7 +11,8 @@ import tools.string.StringDeleter;
 public class MdCbJsp  implements FormatterMultiLine {
     @Override
     public String format(String str) {
-        str = new StringDeleter().deleteBlankLine(str);
+        // str = new StringDeleter().deleteBlankLine(str);
+        str = ObjectMap.get(StringDeleter.class).deleteBlankLine(str);
         //str = JavaCorrector.correctJava(str);
         return "```jsp\n" + str + "\n```";
     }
