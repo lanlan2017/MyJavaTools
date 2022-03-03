@@ -1,9 +1,9 @@
 package tools.config;
 
-import tools.copy.SystemClipboard;
 import org.yaml.snakeyaml.Yaml;
-import reader.resouce.ResourceFileReader;
 import regex.RegexEnum;
+import tools.copy.SystemClipboard;
+import tools.file.reader.resouce.ResourceFileReader;
 import tools.reflect.method.CallInstanceMethod;
 
 import java.io.*;

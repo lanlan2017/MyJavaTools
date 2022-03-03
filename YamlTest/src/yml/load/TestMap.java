@@ -51,7 +51,9 @@ public class TestMap {
                     System.out.println("方法名:" + methodName);
                     // String input = SystemClipboard.getSysClipboardText();
                     String input = "xxxx";
-                    CallInstanceMethod.runClassMethod(className, methodName, input);
+                    // CallInstanceMethod.runClassMethod(className, methodName, input);
+                    CallInstanceMethod.runFQMethodName(className, methodName, input);
+
                 }
             }
         }

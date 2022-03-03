@@ -1,13 +1,9 @@
 package tools.java;
 
-import reader.resouce.ResourceFileReader;
+import tools.file.reader.resouce.ResourceFileReader;
 import tools.java.formatter.JavaFormatter;
 import tools.reflect.method.ObjectMap;
-import tools.string.PrintStr;
 import tools.string.StringDeleter;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class JavaTools {
     public String forString(String stringName) {

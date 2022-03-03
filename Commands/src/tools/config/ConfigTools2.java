@@ -1,7 +1,7 @@
 package tools.config;
 
 import org.yaml.snakeyaml.Yaml;
-import reader.resouce.ResourceFileReader;
+import tools.file.reader.resouce.ResourceFileReader;
 
 import java.util.Map;
 

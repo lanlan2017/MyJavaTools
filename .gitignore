@@ -15,3 +15,7 @@ Commands/src/main/Test.java
 /RunableTools/src/demo/
 */niuke.properties
 runable/niuke.properties
+/runable/commands.yml
+/commands.yml
+/RunableTools/src/niuke/
+/CommandsWeb/

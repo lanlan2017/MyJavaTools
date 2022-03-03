@@ -1,7 +1,7 @@
 package tools.sst.xunfei;
 
 
-import reader.resouce.ResourceFileReader;
+import tools.file.reader.resouce.ResourceFileReader;
 
 /**
  * 添加讯飞语音合成标记
