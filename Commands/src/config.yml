@@ -88,6 +88,8 @@ m:
       default: tools.markdown.MarkdownTools.codeBlockPlantUml
       # 生成dot语法的PlantUML代码块。
       dot: tools.markdown.MarkdownTools.codeBlockPlantUmlDot
+      # 思维导图语法的PlantUML代码块
+      mindmap: tools.markdown.MarkdownTools.codeBlockPlantUmlMindmap
     # default: tools.markdown.MarkdownTools.codeBlockDefault
     default: tools.markdown.MarkdownTools.codeBlock_ControlCodeIsLastArg
   # 删除块中的一些代码

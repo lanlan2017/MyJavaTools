@@ -410,6 +410,16 @@ public class MarkdownTools {
         code = "```plantuml\n" + "@startdot\n" + code + "\n@enddot\n" + "```";
         return code;
     }
+    /**
+     * 生成mindmap语法的的plantuml代码块。
+     *
+     * @param code mindmap代码。
+     * @return dot语法的PlantUML代码块
+     */
+    public String codeBlockPlantUmlMindmap(String code) {
+        code = "```plantuml\n" + "@startmindmap\n" + code + "\n@startmindmap\n" + "```";
+        return code;
+    }
 
     /**
      * 生成markdown高亮标签
