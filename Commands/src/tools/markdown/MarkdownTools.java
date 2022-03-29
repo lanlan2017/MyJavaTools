@@ -1,5 +1,6 @@
 package tools.markdown;
 
+import tools.html.HtmlTools;
 import tools.reflect.method.ObjectMap;
 import tools.string.StringDeleter;
 import regex.RegexEnum;
@@ -410,6 +411,7 @@ public class MarkdownTools {
         code = "```plantuml\n" + "@startdot\n" + code + "\n@enddot\n" + "```";
         return code;
     }
+
     /**
      * 生成mindmap语法的的plantuml代码块。
      *
@@ -417,7 +419,30 @@ public class MarkdownTools {
      * @return dot语法的PlantUML代码块
      */
     public String codeBlockPlantUmlMindmap(String code) {
-        code = "```plantuml\n" + "@startmindmap\n" + code + "\n@startmindmap\n" + "```";
+        code = "```plantuml\n" + "@startmindmap\n" + "* " + code + "\n@endmindmap\n" + "```";
+        return code;
+    }
+
+    /**
+     * 生成mindmap语法的的plantuml代码块中的多行方框。
+     * 生成mindmap语法的的plantuml代码块中的MultiLineBox。
+     *
+     * @param code mindmap的多行方框代码。
+     * @return dot语法的PlantUML代码块
+     */
+    public String codeBlockPlantUmlMindmapMultiLine(String code) {
+        code = ":"+code+"\n" + "Line1\nLine2\n" + ";";
+        return code;
+    }
+    /**
+     * 生成mindmap语法的的plantuml代码块中的多行方框。
+     * 生成mindmap语法的的plantuml代码块中的MultiLineBox。
+     *
+     * @param code mindmap的多行方框代码。
+     * @return dot语法的PlantUML代码块
+     */
+    public String codeBlockPlantUmlMindmapMultiLineCode(String code) {
+        code = ":"+code+"\n" + "<code>\nLine1\nLine2\n</code>\n" + ";";
         return code;
     }
 
@@ -542,6 +567,7 @@ public class MarkdownTools {
 
     /**
      * 把从微信读书中复制来的问题代码进行处理，讲中文标点符号转为英文标点符号。
+     *
      * @param code 微信读书网页版中复制来的代码
      * @return 正确的代码
      */

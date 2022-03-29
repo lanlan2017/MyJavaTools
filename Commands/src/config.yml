@@ -89,7 +89,11 @@ m:
       # 生成dot语法的PlantUML代码块。
       dot: tools.markdown.MarkdownTools.codeBlockPlantUmlDot
       # 思维导图语法的PlantUML代码块
-      mindmap: tools.markdown.MarkdownTools.codeBlockPlantUmlMindmap
+      mindmap:
+        default: tools.markdown.MarkdownTools.codeBlockPlantUmlMindmap
+        multiLine:
+          default: tools.markdown.MarkdownTools.codeBlockPlantUmlMindmapMultiLine
+          code: tools.markdown.MarkdownTools.codeBlockPlantUmlMindmapMultiLineCode
     # default: tools.markdown.MarkdownTools.codeBlockDefault
     default: tools.markdown.MarkdownTools.codeBlock_ControlCodeIsLastArg
   # 删除块中的一些代码
