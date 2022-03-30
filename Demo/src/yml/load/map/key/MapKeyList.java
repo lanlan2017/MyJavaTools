@@ -10,7 +10,7 @@ public class MapKeyList {
 
     static {
         Yaml yaml = new Yaml();
-        map = yaml.load(MapKeyList.class.getClassLoader().getResourceAsStream("Map2.yml"));
+        map = yaml.load(MapKeyList.class.getClassLoader().getResourceAsStream("yml/Map2.yml"));
     }
 
     public static Collection<String> getKeysList() {

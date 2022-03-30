@@ -1,6 +1,7 @@
 package yml.load;
 
 import org.yaml.snakeyaml.Yaml;
+import tools.reflect.classs.Resource2InputStream;
 import tools.reflect.method.CallInstanceMethod;
 
 import java.util.Map;
@@ -14,7 +15,8 @@ public class TestMap {
 
     public TestMap() {
         Yaml yaml = new Yaml();
-        map = yaml.load(this.getClass().getClassLoader().getResourceAsStream("Map2.yml"));
+        // map = yaml.load(this.getClass().getClassLoader().getResourceAsStream("yml/Map2.yml"));
+        map = yaml.load(Resource2InputStream.relativePath(this.getClass(), "yml/Map2.yml"));
     }
 
     public void testMap2(String... args) {

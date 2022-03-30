@@ -1,6 +1,7 @@
 package yml.load;
 
 import org.yaml.snakeyaml.Yaml;
+import tools.reflect.classs.Resource2InputStream;
 
 import java.io.*;
 import java.util.*;
@@ -9,16 +10,17 @@ public class YmlTest {
     public static void main(String[] args) {
         YmlTest test = new YmlTest();
         test.testLoad();
-        // test.testList();
-        // test.testMap();
-        // test.testFragment();
-        //
-        // test.yamlToString();
-        // test.mapToYmlFile();
-        // test.collectionToYmlFile();
-        // test.loadCollection();
+        test.testList();
+        test.testMap();
+        test.testFragment();
+
+        test.yamlToString();
+        test.mapToYmlFile();
+        test.collectionToYmlFile();
+        test.loadCollection();
 
     }
+
 
     public void testLoad() {
         String yamlStr = "key: hello yaml";
@@ -31,7 +33,8 @@ public class YmlTest {
     public void testList() {
         System.out.println("----------testList-----------");
         Yaml yaml = new Yaml();
-        List<String> ret = (List<String>) yaml.load(this.getClass().getClassLoader().getResourceAsStream("list.yml"));
+        // List<String> ret = (List<String>) yaml.load(this.getClass().getClassLoader().getResourceAsStream("list.yml"));
+        List<String> ret = (List<String>) yaml.load(Resource2InputStream.relativePath(this.getClass(), "yml/list.yml"));
         System.out.println(ret);
         // yaml.
         System.out.println("----------testList-----------");
@@ -41,7 +44,7 @@ public class YmlTest {
     public void testMap() {
         System.out.println("----------testMap-----------");
         Yaml yaml = new Yaml();
-        Map<String, Object> ret = (Map<String, Object>) yaml.load(this.getClass().getClassLoader().getResourceAsStream("map.yml"));
+        Map<String, Object> ret = (Map<String, Object>) yaml.load(Resource2InputStream.relativePath(this.getClass(), "yml/map.yml"));
         System.out.println(ret);
         System.out.println("----------testMap-----------");
     }
@@ -49,7 +52,7 @@ public class YmlTest {
     public void testFragment() {
         System.out.println("----------testFragment-----------");
         Yaml yaml = new Yaml();
-        Iterable<Object> ret = yaml.loadAll(this.getClass().getClassLoader().getResourceAsStream("fragment.yml"));
+        Iterable<Object> ret = yaml.loadAll(Resource2InputStream.relativePath(this.getClass(), "yml/fragment.yml"));
         for (Object o : ret) {
             System.out.println(o);
         }
