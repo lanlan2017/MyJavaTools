@@ -33,7 +33,7 @@ public abstract class FileProcessor {
     }
 
     /**
-     * 处理文件或目录中的所有文件.
+     * 递归处理文件或目录中的所有文件.
      */
     public void processing() {
         // 如果是文件的话
