@@ -77,8 +77,8 @@ public class TestMap {
 
     public static void main(String[] args) {
         TestMap test = new TestMap();
-        test.testMap2("m", "b");
-        // test.testMap2("m", "k");
+        // test.testMap2("m", "b");
+        test.testMap2("m", "k");
         // test.testMap2("m", "cb", "j");
     }
 }

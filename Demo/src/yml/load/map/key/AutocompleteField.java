@@ -1,13 +1,18 @@
 package yml.load.map.key;
 
 import yml.load.map.TestMapHelp;
-import yml.load.map.key.MapKeyList;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
 import javax.swing.*;
-import javax.swing.event.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map;
 
 public class AutocompleteField {
     static Map<String, Object> mapTemp = TestMapHelp.map;

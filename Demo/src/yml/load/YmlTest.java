@@ -8,15 +8,15 @@ import java.util.*;
 public class YmlTest {
     public static void main(String[] args) {
         YmlTest test = new YmlTest();
-        // test.testLoad();
+        test.testLoad();
         // test.testList();
         // test.testMap();
         // test.testFragment();
-
+        //
         // test.yamlToString();
         // test.mapToYmlFile();
-        test.collectionToYmlFile();
-        test.loadCollection();
+        // test.collectionToYmlFile();
+        // test.loadCollection();
 
     }
 
