@@ -1,5 +1,7 @@
 package model;
 
+import tools.reflect.classs.Resource2InputStream;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
@@ -16,7 +18,8 @@ public class MyScript {
     private MyScript() {
         StringBuilder sb = new StringBuilder();
         String line;
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("MyScript.html"), StandardCharsets.UTF_8))) {
+        // try (BufferedReader reader = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("MyScript.html"), StandardCharsets.UTF_8))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(Resource2InputStream.relativePath(this.getClass(), "MyScript.html"), StandardCharsets.UTF_8))) {
             while ((line = reader.readLine()) != null) {
                 sb.append(line + "\n");
             }

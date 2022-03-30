@@ -1,5 +1,7 @@
 package blue.ocr3.baidu.config;
 
+import tools.reflect.classs.Resource2InputStream;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -12,7 +14,8 @@ public class Config {
     private static Config instance = new Config();
 
     private Config() {
-        InputStream in = this.getClass().getClassLoader().getResourceAsStream("config.properties");
+        // InputStream in = this.getClass().getClassLoader().getResourceAsStream("config.properties");
+        InputStream in = Resource2InputStream.relativePath(this.getClass(), "config.properties");
         Properties properties = new Properties();
         try {
             properties.load(in);
