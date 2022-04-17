@@ -1,6 +1,7 @@
 package yml.load.map.key;
 
 import org.yaml.snakeyaml.Yaml;
+import tools.reflect.classs.Resource2InputStream;
 
 import java.util.*;
 
@@ -10,7 +11,8 @@ public class MapKeyList {
 
     static {
         Yaml yaml = new Yaml();
-        map = yaml.load(MapKeyList.class.getClassLoader().getResourceAsStream("yml/Map2.yml"));
+        // map = yaml.load(MapKeyList.class.getClassLoader().getResourceAsStream("yml/Map2.yml"));
+        map = yaml.load(Resource2InputStream.relativePath(MapKeyList.class, "yml/Map2.yml"));
     }
 
     public static Collection<String> getKeysList() {
