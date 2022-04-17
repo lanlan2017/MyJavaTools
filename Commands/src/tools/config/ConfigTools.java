@@ -8,6 +8,7 @@ import tools.reflect.method.CallInstanceMethod;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -196,6 +197,14 @@ public class ConfigTools {
             // 运行无参数的方法
             result = CallInstanceMethod.runFQMethodName(fqMethodName);
             // return result;
+        }
+        // 如果控制串是
+        else if ("LastArgIsMethodInput".equals(controlCode)) {
+            //
+            // System.out.println("使用最后一个命令行作为参数");
+            // System.out.println(Arrays.toString(args));
+            // 使用最后一个命令行参数作为方法的输入参数
+            result = CallInstanceMethod.runFQMethodName(fqMethodName, args[args.length-1]);
         }
         // 如果控制串是"ControlCodeIsLastArg"
         else if ("ControlCodeIsLastArg".equals(controlCode)) {

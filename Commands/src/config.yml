@@ -140,10 +140,12 @@ m:
     code: tools.markdown.MarkdownTools.weixinDuShuCode
 # 字符串处理
 s:
-  # 删除空行
-  dbl: tools.string.StringDeleter.deleteBlankLine
-  # 删除多余空白符
-  dsbc: tools.string.StringDeleter.deleteSpaces
+  delete:
+    default: tools.string.StringDeleter.deleteBlankLine
+    # 删除空行
+    BlankLine: tools.string.StringDeleter.deleteBlankLine
+    # 删除中英文之间的空格
+    SpacesChEn: tools.string.StringDeleter.deleteSpacesBetweenChineseAndEnglish
   # 删除markdown代码块
   dcb: tools.string.StringDeleter.deleteMdCodeBlock
   # 删除空格
@@ -391,3 +393,19 @@ latex:
   # 生成行间公式
   ss: tools.markdown.math.LaTeX.ss
 
+hexo:
+  frontmatter:
+    # 生成FrontMatter
+    default: tools.markdown.hexo.frontmatter.FrontMatterGenerator.doOneArgIsFilePath
+    # 生成exam站点定制的FrontMatter
+    exam: tools.markdown.hexo.frontmatter.FrontMatterGenerator.doOneArgIsExam
+    addJS: tools.markdown.hexo.frontmatter.FrontMatterGenerator.addMyHexoFrontMatter
+  # 生成站点目录文件
+  toc:
+    # 使用剪贴板中的内容作为方法的输入
+    clipboard: tools.markdown.hexo.frontmatter.FrontMatterGenerator.siteTOC
+    # defalut: tools.markdown.hexo.frontmatter.FrontMatterGenerator.siteTOC
+    # 使用最后一个命令行参数作为方法的输入
+    default: tools.markdown.hexo.frontmatter.FrontMatterGenerator.siteTOC_LastArgIsMethodInput
+    # # default: tools.markdown.MarkdownTools.codeBlockDefault
+    # default: tools.markdown.MarkdownTools.codeBlock_ControlCodeIsLastArg

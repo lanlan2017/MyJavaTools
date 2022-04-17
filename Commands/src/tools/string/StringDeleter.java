@@ -88,10 +88,10 @@ public class StringDeleter {
      */
     public String deleteSpaces(String text) {
         // 删除中文之间的空格
-        text = text.replaceAll("([\\u4e00-\\u9fa5])[ ]+([\\u4e00-\\u9fa5])",
-                "$1$2");
+        text = text.replaceAll("([\\u4e00-\\u9fa5])[ ]+([\\u4e00-\\u9fa5])", "$1$2");
         // 删除前面是中文,后面是英文之间的空格.
         text = text.replaceAll("([\\u4e00-\\u9fa5]+)[ ]+(\\w+)", "$1$2");
+        // 删除前面有@.字符的空格
         text = text.replaceAll("(?<=[@.])[ ]", "");
         // 多个空格,替换为一个空格
         text = text.replaceAll("[ ]{2,}", " ");
@@ -102,6 +102,20 @@ public class StringDeleter {
         // 删除开头的空格
         text = text.replaceAll("(?m)^[ ]", "");
         return text;
+    }
+
+    /**
+     * 删除中英文之间的空格
+     *
+     * @param str
+     * @return
+     */
+    public String deleteSpacesBetweenChineseAndEnglish(String str) {
+        // 删除前面是英文后面是中文的空格
+        // 或者删除前面是中文后面是英文的空格
+        str = str.replaceAll("(?m)(?:(?<=[a-zA-Z])[ ](?=[\\u4e00-\\u9fa5])|(?<=[\\u4e00-\\u9fa5])[ ](?=[a-zA-Z]))", "");
+        // 删除前面是中文后面是英文的空格
+        return str;
     }
 
     /**
@@ -117,6 +131,7 @@ public class StringDeleter {
 
     /**
      * 获取文件名.
+     *
      * @param str 文件的相对地址或者绝对地址。
      * @return 文件名
      */
@@ -125,9 +140,9 @@ public class StringDeleter {
         // 如果包含地址符号
         if (str.contains("/") || str.contains("\\")) {
             if (str.contains("/")) {
-                str =str.substring(str.lastIndexOf("/")+1);
+                str = str.substring(str.lastIndexOf("/") + 1);
             } else {
-                str =str.substring(str.lastIndexOf("\\")+1);
+                str = str.substring(str.lastIndexOf("\\") + 1);
             }
         }
         return str;

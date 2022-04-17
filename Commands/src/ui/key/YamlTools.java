@@ -1,6 +1,7 @@
 package ui.key;
 
 import org.yaml.snakeyaml.Yaml;
+import tools.reflect.classs.Resource2InputStream;
 
 import java.io.*;
 import java.util.*;
@@ -21,7 +22,8 @@ public class YamlTools {
 
     // 初始化块，要写在commandsNotInConfig定义语句的前面
     static {
-        configMap = yaml.load(YamlTools.class.getClassLoader().getResourceAsStream("config.yml"));
+        // configMap = yaml.load(YamlTools.class.getClassLoader().getResourceAsStream("config.yml"));
+        configMap = yaml.load(Resource2InputStream.relativePath(YamlTools.class, "config.yml"));
         // 保存不再配置文件中的命令的文件
         cacheCommandFile = new File("commands.yml");
         // 如果这个文件不存在

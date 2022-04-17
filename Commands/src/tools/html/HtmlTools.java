@@ -139,6 +139,8 @@ public class HtmlTools {
         code = code.replaceAll("<", "&lt;");
         code = code.replaceAll(">", "&gt;");
         code = code.replaceAll("#", "&#35;");
+        //Unicode转义
+        code = code.replaceAll("`", "&#96;");
         return code;
     }
 
