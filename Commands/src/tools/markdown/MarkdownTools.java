@@ -277,9 +277,9 @@ public class MarkdownTools {
         return text;
     }
 
-    public String codeBlock(String language, String input) {
+    public String codeBlock(String lastArg, String input) {
         input = input.replaceAll("\t", "    ");
-        return "```" + language + "\n" + input + "\n```";
+        return "```" + lastArg + "\n" + input + "\n```";
     }
 
     public String codeBlockDefault(String input) {

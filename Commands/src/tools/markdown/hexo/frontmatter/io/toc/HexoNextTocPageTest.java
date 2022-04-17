@@ -1,4 +1,4 @@
-package io.toc;
+package tools.markdown.hexo.frontmatter.io.toc;
 
 /**
  * @author francis

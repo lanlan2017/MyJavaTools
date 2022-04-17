@@ -1,4 +1,4 @@
-package model;
+package tools.markdown.hexo.frontmatter.model;
 
 import tools.reflect.classs.Resource2InputStream;
 

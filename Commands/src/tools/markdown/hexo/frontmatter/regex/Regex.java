@@ -1,4 +1,4 @@
-package regex;
+package tools.markdown.hexo.frontmatter.regex;
 
 /**
  * @author francis

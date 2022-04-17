@@ -1,4 +1,4 @@
-package regex;
+package tools.markdown.hexo.frontmatter.regex;
 
 /**
  * 修复URL,对URL中的一些特殊字符进行转义

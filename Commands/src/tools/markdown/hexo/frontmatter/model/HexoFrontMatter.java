@@ -1,4 +1,4 @@
-package model;
+package tools.markdown.hexo.frontmatter.model;
 
 import java.io.File;
 import java.text.SimpleDateFormat;

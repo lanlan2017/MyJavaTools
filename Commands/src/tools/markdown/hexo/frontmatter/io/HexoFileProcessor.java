@@ -1,11 +1,11 @@
-package io;
+package tools.markdown.hexo.frontmatter.io;
 
-import model.HexoFrontMatter;
+import tools.markdown.hexo.frontmatter.model.HexoFrontMatter;
 import tools.file.processor.FileProcessor;
-import model.MyScript;
-import model.TOC;
-import regex.UrlEscape;
-import regex.Regex;
+import tools.markdown.hexo.frontmatter.model.MyScript;
+import tools.markdown.hexo.frontmatter.model.TOC;
+import tools.markdown.hexo.frontmatter.regex.UrlEscape;
+import tools.markdown.hexo.frontmatter.regex.Regex;
 
 import java.io.*;
 import java.util.Properties;

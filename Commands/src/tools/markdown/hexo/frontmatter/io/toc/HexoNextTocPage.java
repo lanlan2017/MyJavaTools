@@ -1,10 +1,12 @@
-package io.toc;
+package tools.markdown.hexo.frontmatter.io.toc;
 
 import tools.dir.DirProcessor;
-import regex.UrlEscape;
+import tools.markdown.hexo.frontmatter.regex.UrlEscape;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 
 /**
@@ -12,34 +14,36 @@ import java.util.Properties;
  */
 public class HexoNextTocPage extends DirProcessor {
     /**
-     * 指向_post目录所在的位置
+     * 指向_post目录所在的位置,例如：G:\Blog\exam_new\source\_posts
      */
-    File rootDir;
+    File postDirFile;
     /**
      * 要写入的文件,这个文件用于保存生成网站目录
      */
     File tocFile;
     boolean isFirst = true;
     /**
-     * _post目录的相对路径
+     * _post目录的绝对路径名
      */
-    private String rootPath;
+    private String postPath;
     private static StringBuilder tocFileContents = new StringBuilder();
     private String relativeURL;
     // private static StringBuilder toc = new StringBuilder();
 
-
+    /**
+     * @param dir
+     */
     public HexoNextTocPage(File dir) {
         super(dir);
-        this.rootDir = dir;
-        rootPath = dir.getAbsolutePath();
+        this.postDirFile = dir;
+        postPath = dir.getAbsolutePath();
         // 摘出hexo站点的根目录
-        String hexoRoot = rootPath.substring(0, rootPath.lastIndexOf(File.separator + "source" + File.separator + "_posts"));
+        String hexoRootPath = postPath.substring(0, postPath.lastIndexOf(File.separator + "source" + File.separator + "_posts"));
         try {
             // 配置文件对象
             Properties fmPt = new Properties();
-            // 读取配置文件
-            fmPt.load(new InputStreamReader(new FileInputStream(hexoRoot + File.separator + "FM.properties"), "gbk"));
+            // 读取Hexo根目录下的配置文件
+            fmPt.load(new InputStreamReader(new FileInputStream(hexoRootPath + File.separator + "FM.properties"), "gbk"));
             // 读取配置文件,取得子站点的相对路径.
             relativeURL = fmPt.getProperty("relativeURL");
         } catch (IOException e) {
@@ -47,23 +51,29 @@ public class HexoNextTocPage extends DirProcessor {
         }
         // 输出文件
         //tocFile = new File(rootPath + "/网站目录.md");
-        tocFile = new File(dir.getParentFile() + "/dir/index.md");
+        // 获取_posts目录的上一级目录，source目录的File对象
+        File sourceDirFile = postDirFile.getParentFile();
+        // 拼接dir页面的index.md文件路径
+        tocFile = new File(sourceDirFile + "/dir/index.md");
         // 输出目录文件的地址
         System.out.println("目录文件:" + tocFile.getAbsoluteFile());
     }
 
     @Override
     public void processing() {
-        if (rootDir.isDirectory()) {
+        if (postDirFile.isDirectory()) {
             // HexoFrontMatter hexoFrontMatter = new HexoFrontMatter(tocFile);
             // 遍历目录树,生成目录链接
-            processingDir(rootDir);
+            processingDir(postDirFile);
+            // Date date=new Date();
+            // SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             // System.out.println(tocFileContents.toString());
-            String hexoFrontMatter = "---\n" + "title: 网站目录\n" +
-                    //"abbrlink: 508a2e34\n" +
-                    "date: 2019-12-17 04:08:18\n" +
-                    //"top: true\n" +
-                    "---\n";
+            String hexoFrontMatter = "---\n"
+                    + "title: 网站目录\n"
+                    + "date: 2019-12-17 04:08:18\n"
+                    // + "update: " + format.format(new Date()) + "\n"
+                    + "comments: false\n"
+                    + "---\n";
             saveTocFile(hexoFrontMatter + tocFileContents.toString());
         }
     }
@@ -241,10 +251,10 @@ public class HexoNextTocPage extends DirProcessor {
      */
     private void generateLink(File dir) {
         // 如果是一级目录(根目录下吗的子目录)
-        if (dir.getParentFile().equals(rootDir)) {
+        if (dir.getParentFile().equals(postDirFile)) {
             // System.out.println("直接子目录:" + file.getAbsolutePath());
             // 获取一级子目录名称:一级子目录的长度减去上级目录的长度
-            String relativePathToRoot = dir.getAbsolutePath().substring(rootPath.length() + 1);
+            String relativePathToRoot = dir.getAbsolutePath().substring(postPath.length() + 1);
             // System.out.println("\n# [" + relativePathToRoot + "](" + "/categories/" + relativePathToRoot + ")");
             // 如果是文件中的第一行的话
             if (isFirst) {
@@ -258,13 +268,13 @@ public class HexoNextTocPage extends DirProcessor {
 
         }
         //如果是二级目录
-        else if (dir.getParentFile().getParentFile().equals(rootDir)) {
+        else if (dir.getParentFile().getParentFile().equals(postDirFile)) {
             // 获取当前目录的名称
             //String secondSubDirName = dir.getAbsolutePath().substring(dir.getParentFile().getAbsolutePath().length() + 1);
             String secondSubDirName = dir.getName();
 
             // 获取相对根目录的路径
-            String relativePathToRoot = dir.getAbsolutePath().substring(rootPath.length() + 1);
+            String relativePathToRoot = dir.getAbsolutePath().substring(postPath.length() + 1);
             //System.out.println(secondSubDirName);
             //tocFileContents.append("\n").append("## [").append(secondSubDirName).append("](").append(relativeURL).append("categories/").append(UrlEscape.escapeURL(secondSubDirName)).append(")").append("\n");
             tocFileContents.append("\n").append("## [").append(secondSubDirName).append("](").append(relativeURL).append("categories/").append(UrlEscape.escapeURL(relativePathToRoot)).append(")").append("\n");
@@ -272,7 +282,7 @@ public class HexoNextTocPage extends DirProcessor {
         // 第3层或者层次的目录
         else {
             // 获取到根目录的相对路径
-            String relativePathToRoot = dir.getAbsolutePath().substring(rootPath.length() + 1);
+            String relativePathToRoot = dir.getAbsolutePath().substring(postPath.length() + 1);
             // 层次计数器
             int separatorCount = 0;
             for (int i = 0; i < relativePathToRoot.length(); i++) {
