@@ -24,18 +24,18 @@ public class Resource2InputStream {
         return c.getClassLoader().getResourceAsStream(relativePath);
     }
 
-    /**
-     * 调用class.getResourceAsStream(absolutePath);方法来获取Sources，Resource资源文件。
-     * class.getResourceAsStream(String path) 是采用绝对路径，
-     * 绝对路径是相对于 classpath 根目录的路径，"/" 就代表着 classpath，
-     * 所以 path 属性需要前面加上 "/"；
-     *
-     * @param c            Class对象，一般传入this.getClass()
-     * @param absolutePath 相对于classpath的绝对路径，该路径必须以"/"开头
-     * @return 资源文件的InputStream对象
-     */
-
-    public static InputStream absolutePath(Class<?> c, String absolutePath) {
-        return c.getResourceAsStream(absolutePath);
-    }
+    // /**
+    //  * 调用class.getResourceAsStream(absolutePath);方法来获取Sources，Resource资源文件。
+    //  * class.getResourceAsStream(String path) 是采用绝对路径，
+    //  * 绝对路径是相对于 classpath 根目录的路径，"/" 就代表着 classpath，
+    //  * 所以 path 属性需要前面加上 "/"；
+    //  *
+    //  * @param c            Class对象，一般传入this.getClass()
+    //  * @param absolutePath 相对于classpath的绝对路径，该路径必须以"/"开头
+    //  * @return 资源文件的InputStream对象
+    //  */
+    //
+    // public static InputStream absolutePath(Class<?> c, String absolutePath) {
+    //     return c.getResourceAsStream(absolutePath);
+    // }
 }
