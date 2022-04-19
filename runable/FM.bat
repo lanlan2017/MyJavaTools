@@ -11,5 +11,5 @@ echo Current working directory:%cd%
 @REM echo %~dp0FM.jar
 @REM java -jar "%~dp0FM.jar" %1 %2 %3
 @REM java -Dfile.encoding=utf-8 -jar "%~dp0FM.jar" %1 %2 %3
-java -Dfile.encoding=utf-8 -jar "%~dp0Commands.jar" hexo %*
+java -Dfile.encoding=utf-8 -jar "%~dp0Commands.jar" hexo frontmatter %*
 @REM pause
