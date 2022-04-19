@@ -1,4 +1,4 @@
-package qq.input.method;
+package tools.qq.input.method;
 
 import tools.file.Files;
 import tools.print.Print;
@@ -11,15 +11,20 @@ import java.util.List;
 /**
  * 生成QQ输入法自定义短语汇总文件
  */
-public class GenerateCustomPhraseSummaryFile {
+public class CustomPhraseSummaryFile {
     /**
      * 汇总文件，以"0_"开头
      */
     private static File summaryFile;
 
     public static void main(String[] args) {
+        new CustomPhraseSummaryFile().generate();
+    }
+
+    public String generate() {
         // 自定义短语系列文件所在目录
-        File dir = new File("G:\\Blog\\blogRoot\\source\\download\\QQ输入法\\qq自定义短语");
+        String pathname = "G:\\Blog\\blogRoot\\source\\download\\QQ输入法\\qq自定义短语";
+        File dir = new File(pathname);
         //如果是目录的话
         if (dir.isDirectory()) {
             // 筛选出子文件序列
@@ -31,6 +36,7 @@ public class GenerateCustomPhraseSummaryFile {
             System.out.println("------------------- 合并完成 --------------");
             writeSummaryFile(fileList);
         }
+        return pathname;
     }
 
     /**
