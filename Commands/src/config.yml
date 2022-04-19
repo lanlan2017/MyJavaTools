@@ -422,3 +422,6 @@ mytree:
   java: tools.cmd.tree.MyTree.mytreeJava_Parameterless
   dir: tools.cmd.tree.MyTree.mytreeDir_Parameterless
   dir2: tools.cmd.tree.MyTree.mytreeDir
+qq:
+  # 生成自定义短语汇总文件
+  duanyu: tools.qq.input.method.CustomPhraseSummaryFile.generate_Parameterless
