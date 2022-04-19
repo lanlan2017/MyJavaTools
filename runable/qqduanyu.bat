@@ -7,7 +7,8 @@ cd %~dp0
 echo Current working directory:%cd%
 echo ----------------------------------------------------------------------
 @REM 运行程序
-java -Dfile.encoding=utf-8 -jar QqDuanYu.jar
+@REM java -Dfile.encoding=utf-8 -jar QqDuanYu.jar
+java -Dfile.encoding=utf-8 -jar "%~dp0Commands.jar" qq duanyu
 echo ----------------------------------------------------------------------
 @REM 延时
 choice /t 8 /d y /n >nul
