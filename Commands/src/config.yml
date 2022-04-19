@@ -51,7 +51,10 @@ m:
   # 高亮，对应<mark></mark>标签
   mark: tools.markdown.MarkdownTools.mark
   # markdown代码转成html
-  2html: tools.markdown.MarkdownTools.toHtml
+  2html:
+#    code: tools.markdown.MarkdownTools.toHtmlCode
+    code: tools.markdown.Markdown2Html.toHtmlCode
+#    img:
   # 图片
   img:
     # markdown图片
