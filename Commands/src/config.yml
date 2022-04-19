@@ -267,7 +267,10 @@ html:
   # 讲html注释替换成JSP注释
   2jspcm: tools.html.HtmlTools.htmlComment2JspComment
   # 导入.css的link标签
-  linkcss: tools.html.HtmlTools.linkCss
+  link:
+    css: tools.html.HtmlTools.linkCss
+  # 生成html图片标签
+  img: tools.html.HtmlTools.image
   # 导入.js的标签
   js: tools.html.HtmlTools.importJS
   # 展开/折叠块

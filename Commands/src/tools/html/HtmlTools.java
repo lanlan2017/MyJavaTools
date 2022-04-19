@@ -302,4 +302,14 @@ public class HtmlTools {
     public String script(String jsCode) {
         return "\n<script>\n" + jsCode + "\n</script>\n";
     }
+
+    /**
+     * 生成图片连接
+     * @param url 图片的地址
+     * @return html图片标签
+     */
+    public String image(String url) {
+        // <img src="smiley-2.gif" alt="Smiley face" width="42" height="42">
+        return "<img src=\"" + url + "\" alt=\"\" width=\"\">";
+    }
 }
