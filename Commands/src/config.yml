@@ -417,3 +417,8 @@ hexo:
     default: tools.markdown.hexo.frontmatter.FrontMatterGenerator.siteTOC_LastArgIsMethodInput
     # # default: tools.markdown.MarkdownTools.codeBlockDefault
     # default: tools.markdown.MarkdownTools.codeBlock_ControlCodeIsLastArg
+mytree:
+  f: tools.cmd.tree.MyTree.mytreeF_Parameterless
+  java: tools.cmd.tree.MyTree.mytreeJava_Parameterless
+  dir: tools.cmd.tree.MyTree.mytreeDir_Parameterless
+  dir2: tools.cmd.tree.MyTree.mytreeDir
