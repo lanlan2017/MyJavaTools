@@ -135,13 +135,13 @@ public class Html2MarkDown {
         str = str.replaceAll("(?m)(^ *?$\\r?\\n)+", "\n");
         // PrintStr.printStr(str);
         //替换无序列表
-        // 如果有无序列表
+        // 如果有 无序列表
         if (Pattern.compile("\\<ul\\>").matcher(str).find()) {
             // 替换无序列号
             // str = htmlUl2MdUl(str);
             str = HtmlListToMd.htmlUnOrderListToMd(str);
         }
-        //如果共有有序列表
+        //如果有 有序列表
         if (Pattern.compile("\\<ol\\>").matcher(str).find()) {
             // 替换有序列表
             str = HtmlListToMd.htmlOrderList2Md(str);
@@ -231,4 +231,5 @@ public class Html2MarkDown {
         m.appendTail(sb);
         return sb.toString();
     }
+    // public String htmlImage
 }
