@@ -15,4 +15,15 @@ public class Markdown2Html {
         return markdownCode;
     }
 
+    public String toHtmlImage(String markdownImg) {
+        //![image-20220419154248077](https://raw.githubusercontent.com/lanlan2017/images/master/Blog/2022/04/20220419154248.png)
+        // System.out.println("markdownImg = " + markdownImg);
+        String alt = markdownImg.substring(2, markdownImg.indexOf("]("));
+        String url = markdownImg.substring(markdownImg.indexOf("](") + 2, markdownImg.lastIndexOf(")"));
+        // System.out.println("alt = " + alt);
+        // System.out.println("url = " + url);
+        //<img src="https://raw.githubusercontent.com/lanlan2017/images/master/Blog/2022/04/20220419154205.png" alt="image-20220419154204870" width="50%">
+        return "<img src=\""+url+"\" alt=\""+alt+"\" width=\"100%\">";
+    }
+
 }

@@ -53,8 +53,10 @@ m:
   # markdown代码转成html
   2html:
 #    code: tools.markdown.MarkdownTools.toHtmlCode
+    # markdown行内代码转成html code标签
     code: tools.markdown.Markdown2Html.toHtmlCode
-#    img:
+    # markdown图片转成html img标签
+    img: tools.markdown.Markdown2Html.toHtmlImage
   # 图片
   img:
     # markdown图片
