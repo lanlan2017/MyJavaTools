@@ -205,15 +205,15 @@ s:
     # P站视频名称:标题+用户名
     ph: tools.string.StringConverter.PHFullVideoName
   # 驼峰命名法
-  cc:
+  CameCase:
     # java包名称
-    pn: tools.string.StringConverter.toCameCasePackgeName
+    PackgeName: tools.string.StringConverter.toCameCasePackgeName
     # java类名
-    cn: tools.string.StringConverter.toCamelCaseClassName
+    ClassName: tools.string.StringConverter.toCamelCaseClassName
     # java方法名,属性名
-    mn: tools.string.StringConverter.toCameCaseMethodName
+    MethodName: tools.string.StringConverter.toCameCaseMethodName
     # 取消驼峰命名法
-    c: tools.string.StringConverter.cancelCameCase
+    cancel: tools.string.StringConverter.cancelCameCase
   # 从文件的绝对路径中 获取文件名
   filename: tools.string.StringDeleter.getFileName
   # 全限定类名
