@@ -1,5 +1,7 @@
 package tools.markdown.table;
 
+import java.math.BigDecimal;
+
 /**
  * markdown表格列计算
  */
@@ -18,34 +20,42 @@ public class TableColumnCalculations {
     /**
      * markdown表格列求和。
      * 要求表格中只有数据列只有一列。
+     *
      * @param tableStr 带有一列数据的markdown表格字符串。
      */
     public String tableColumnSum(String tableStr) {
         // 移除开头的换行符
-        tableStr=tableStr.replaceAll("^\n+","");
+        tableStr = tableStr.replaceAll("^\n+", "");
         // 移除结尾的换行符
-        tableStr=tableStr.replaceAll("\n+$","");
+        tableStr = tableStr.replaceAll("\n+$", "");
+        // 按行拆分
         String tableLines[] = tableStr.split("\n");
         String line;
-        double sum = 0.0;
+        // double sum = 0.0;
+        BigDecimal sum = new BigDecimal("0.0");
         StringBuilder sb = new StringBuilder(tableStr.length() + tableLines[tableLines.length - 1].length() + 4);
         for (int i = 0; i < tableLines.length; i++) {
             // 从第3行开始计算，markdown前两行为表格的标题和对齐方式
             if (i >= 2) {
                 // System.out.println(tableLines[i]);
                 line = tableLines[i];
+                // 摘下数据列单元格中的数据
                 line = line.replaceAll(".*\\|([0-9]+[.][0-9]+)\\|.*", "$1");
                 // System.out.println(line);
-                sum += Double.valueOf(line);
+                // sum += Double.valueOf(line);
+                sum = sum.add(new BigDecimal(line));
             }
         }
         // System.out.println("sum = " + sum);
         // System.out.println(tableStr);
         sb.append(tableStr + "\n");
-        String sumLine = tableLines[tableLines.length - 1].replaceAll("(?<=\\|)([0-9]+[.][0-9]+)(?=\\|)", String.valueOf(sum));
+        // 复制表格最后一行作为统计行,并将数据列的单元格的数值，替换为求和得到的数值
+        // String sumLine = tableLines[tableLines.length - 1].replaceAll("(?<=\\|)([0-9]+[.][0-9]+)(?=\\|)", String.valueOf(sum));
+        String sumLine = tableLines[tableLines.length - 1].replaceAll("(?<=\\|)([0-9]+[.][0-9]+)(?=\\|)", sum.toString());
         // System.out.println();
         // System.out.println(sumLine);
-        sumLine = sumLine.replaceAll("[a-zA-Z\u4e00-\u9fa5_][0-9a-zA-Z\u4e00-\u9fa5 _]+\\|", "...|");
+        // 删除所有非数字的单元格中的字符串
+        sumLine = sumLine.replaceAll("[a-zA-Z\u4e00-\u9fa5_][0-9a-zA-Z\u4e00-\u9fa5 _]+\\|", "|");
         // System.out.println();
         // System.out.println(sumLine);
         sb.append(sumLine + "\n");
