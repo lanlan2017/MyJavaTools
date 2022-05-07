@@ -113,6 +113,10 @@ m:
     cphl: tools.markdown.JavaDoc2Markdown.mdTableCopyHighlight
     # 将多行分隔的无序列表转成表格
     u: tools.markdown.JavaDoc2Markdown.multiLine2Table
+    # 对Markdown表格列计算
+    column:
+      # 对数据列求和，要求表格中的数据列只有一列
+      sum: tools.markdown.table.TableColumnCalculations.tableColumnSum
   # 从java API中复制表格转markdown表格
   api:
     # 生成表格
