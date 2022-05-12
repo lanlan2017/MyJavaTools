@@ -2,7 +2,9 @@ package blue.commands.tool.ui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 public class ToolUiSystemTray {
     private JFrame frame;
@@ -32,7 +34,9 @@ public class ToolUiSystemTray {
             // 创建弹出式菜单
             PopupMenu pop = new PopupMenu();
 
-            String str = "显示主界面";
+            // String str = "显示主界面";
+            // String str = "显示主窗体";
+            String str = "show main form";
             // 创建 显示菜单项
             MenuItem displayJFrameItem = new MenuItem(str);
             // 给 显示窗体菜单项 添加事件处理程序
@@ -41,7 +45,10 @@ public class ToolUiSystemTray {
             pop.add(displayJFrameItem);
 
             // 创建 退出菜单项
-            MenuItem exitItem = new MenuItem("退出");
+            // String exitLabel = "退出";
+            // String exitLabel = "\\u9000\\u51fa";
+            String exitLabel = "exit";
+            MenuItem exitItem = new MenuItem(exitLabel);
             // 给 退出菜单项 添加事件监听器，单击时退出系统
             exitItem.addActionListener(e -> System.exit(0));
             // 添加 退出菜单项 到弹出框中
