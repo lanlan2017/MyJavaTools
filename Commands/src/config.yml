@@ -376,6 +376,11 @@ j:
   hmi: tools.java.JavaTools.hiddenMethodImplementation
   # Eclipse java代码辅助 自动补全，设置
   自动补全: tools.string.StringGenerator.javaCodeAssist_Parameterless
+py:
+  # 生成print(x)语句
+  print: tools.PythonTools.print
+  # 生成print("x =",x)语句
+  printv: tools.PythonTools.printv
 # 算法
 suanfa:
   # 冒泡排序
