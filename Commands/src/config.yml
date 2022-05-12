@@ -52,7 +52,7 @@ m:
   mark: tools.markdown.MarkdownTools.mark
   # markdown代码转成html
   2html:
-#    code: tools.markdown.MarkdownTools.toHtmlCode
+    #    code: tools.markdown.MarkdownTools.toHtmlCode
     # markdown行内代码转成html code标签
     code: tools.markdown.Markdown2Html.toHtmlCode
     # markdown图片转成html img标签
@@ -147,6 +147,8 @@ m:
     u: tools.markdown.MarkdownTools.weixinDuShuUnorderedList
     # 将代码中的中文标点符号替换成对应的英文标点
     code: tools.markdown.MarkdownTools.weixinDuShuCode
+  # 生成赚钱统计信息
+  money: tools.markdown.make.money.MakeMoney.todaySStatistics_Parameterless
 # 字符串处理
 s:
   delete:
