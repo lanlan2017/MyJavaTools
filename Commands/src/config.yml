@@ -237,6 +237,11 @@ s:
     space:
       underscore: tools.string.StringReplace.characterReplacement_ControlCodeIsLastTwoArgs
     lastTwoDefault: tools.string.StringReplace.characterReplacement_ControlCodeIsLastTwoArgs
+
+# 学习强国App相关命令
+qg:
+  # 获取PDF课件的真实地址
+  pdf: tools.url.XueXiQiangGuoTools.pdfAddress
 # 快捷git命令:当在其他电脑上可能会用到.
 g:
   s: git status
