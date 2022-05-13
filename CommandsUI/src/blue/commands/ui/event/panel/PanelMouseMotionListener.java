@@ -24,7 +24,8 @@ public class PanelMouseMotionListener implements MouseMotionListener {
 
 
     /**
-     * 监听鼠标移动事件
+     * 监听鼠标移动事件。
+     * 当鼠标移动到窗体边框时，显示箭头。
      *
      * @param e 鼠标事件
      */
@@ -72,10 +73,10 @@ public class PanelMouseMotionListener implements MouseMotionListener {
     public void mouseDragged(MouseEvent e) {
         // 获取窗体的最小大小
         Dimension frameMinimumSize = frame.getMinimumSize();
-        System.out.println("容器的 最小 大小为：" + frameMinimumSize);
+        // System.out.println("容器的 最小 大小为：" + frameMinimumSize);
         // 获取窗体的大小
         Dimension frameSize = frame.getSize();
-        System.out.println("容器的 当前 大小为：" + frameSize);
+        // System.out.println("容器的 当前 大小为：" + frameSize);
 
         // 当鼠标指针在顶部的时候
         if (isNearTop) {

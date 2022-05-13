@@ -18,7 +18,7 @@ public class TextAreaMouseListener extends MouseAdapter {
         // 如果按下的是鼠标右键,并且按下两次
         // 也就是右键双击
         if (e.getButton() == MouseEvent.BUTTON3 && e.getClickCount() == 2) {
-            System.out.println("鼠标右键双击");
+            System.out.println("鼠标右键双击文本域");
             // 情况内容
             textArea.setText("");
             // 设置默认行数
