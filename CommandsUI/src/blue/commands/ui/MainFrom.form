@@ -33,7 +33,7 @@
           <toolbar id="f0e3d" binding="lineNumBar">
             <constraints/>
             <properties>
-              <enabled value="true"/>
+              <enabled value="false"/>
               <floatable value="false"/>
               <orientation value="1"/>
             </properties>
@@ -45,6 +45,8 @@
                   <columns value="1"/>
                   <editable value="false"/>
                   <enabled value="false"/>
+                  <font name="Courier New" size="12" style="1"/>
+                  <horizontalAlignment value="2"/>
                   <text value="1"/>
                 </properties>
               </component>
@@ -63,7 +65,9 @@
                 <properties>
                   <columns value="8"/>
                   <editable value="true"/>
+                  <enabled value="true"/>
                   <font name="Courier New" size="12" style="1"/>
+                  <horizontalAlignment value="2"/>
                 </properties>
               </component>
             </children>
@@ -100,6 +104,7 @@
           <component id="fa694" class="javax.swing.JButton" binding="exitButton">
             <constraints/>
             <properties>
+              <enabled value="true"/>
               <font/>
               <horizontalTextPosition value="0"/>
               <text value="exit"/>
@@ -129,7 +134,7 @@
               <component id="9805e" class="javax.swing.JTextArea" binding="outputTextArea">
                 <constraints/>
                 <properties>
-                  <columns value="25"/>
+                  <columns value="30"/>
                   <font/>
                   <lineWrap value="true"/>
                   <rows value="3"/>

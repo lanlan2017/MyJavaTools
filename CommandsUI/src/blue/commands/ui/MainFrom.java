@@ -4,6 +4,7 @@ package blue.commands.ui;
 import blue.commands.thread.CommandsRunnable;
 import blue.commands.tool.ui.ToolUiSystemTray;
 import blue.commands.ui.event.button.ExitButtonListener;
+import blue.commands.ui.event.panel.PanelMouseListener;
 import blue.commands.ui.event.panel.PanelMouseMotionListener;
 import blue.commands.ui.event.radiobutton.RadioButtonItemListener;
 import blue.commands.ui.event.textarea.TextAreaMouseListener;
@@ -279,6 +280,7 @@ public class MainFrom {
         JTextField jTextField2 = new JTextField(8);
         // 使用等宽字体"Courier New"
         jTextField2.setFont(new Font("Courier New", Font.BOLD, 12));
+
         // jTextField2.setFont(new Font("Consolas", Font.PLAIN, 12));
         // 给文本框设置自动提示信息
         textFieldAutoSetting(jTextField2);
@@ -288,6 +290,8 @@ public class MainFrom {
         jTextField2.requestFocus();
         // 创建行号文本提示框
         JTextField lineNumTextField = new JTextField(String.valueOf(textFieldToolBar.getComponentCount()));
+        lineNumTextField.setFont(new Font("Courier New", Font.BOLD, 12));
+
         lineNumTextField.setColumns(1);
         // 设置不可编辑
         // lineNumTextField.setEditable(false);
@@ -451,8 +455,10 @@ public class MainFrom {
      * 窗体设置
      */
     private void frameSetting() {
-        // 监听面板事件
+        // 监听面板事件移动拖动事件
         panel.addMouseMotionListener(new PanelMouseMotionListener(frame, panel));
+        // 监听面板右键双击事件
+        panel.addMouseListener(new PanelMouseListener(frame));
         // 监听窗体焦点事件
         frame.addWindowFocusListener(new WindowFocusListener() {
             // 当窗体获得焦点是
