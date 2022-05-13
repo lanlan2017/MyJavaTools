@@ -23,14 +23,18 @@ public class PanelMouseMotionListener implements MouseMotionListener {
     private Point draggingAnchor = null;
 
 
-    // 监听鼠标移动事件
+    /**
+     * 监听鼠标移动事件
+     *
+     * @param e 鼠标事件
+     */
     @Override
     public void mouseMoved(MouseEvent e) {
         // 精度，距离窗体边框多少距离时可以拖动来调整窗体的大小。
         int jingDu = 5;
         // 窗体的顶部带有OCR面板的按钮,减少精度，免得干扰到按钮
-        if (Math.abs(e.getPoint().getY() - 0) <= jingDu-2) {
-        // if (Math.abs(e.getPoint().getY() - 0) <= jingDu) {
+        if (Math.abs(e.getPoint().getY() - 0) <= jingDu - 2) {
+            // if (Math.abs(e.getPoint().getY() - 0) <= jingDu) {
             // 设置拖动光标
             frame.setCursor(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR));
             isNearTop = true;
@@ -59,37 +63,56 @@ public class PanelMouseMotionListener implements MouseMotionListener {
         }
     }
 
+    /**
+     * 鼠标拖动时间处理，调整窗体的大小
+     *
+     * @param e 鼠标事件
+     */
     @Override
     public void mouseDragged(MouseEvent e) {
+        // 获取窗体的最小大小
+        Dimension frameMinimumSize = frame.getMinimumSize();
+        System.out.println("容器的 最小 大小为：" + frameMinimumSize);
         // 获取窗体的大小
-        Dimension dimension = frame.getSize();
+        Dimension frameSize = frame.getSize();
+        System.out.println("容器的 当前 大小为：" + frameSize);
+
         // 当鼠标指针在顶部的时候
         if (isNearTop) {
             // 设置高度减去鼠标移动后的坐标
-            dimension.setSize(dimension.getWidth(), dimension.getHeight() - e.getY());
-            // 设置窗体的大小
-            frame.setSize(dimension);
-            // 移动变大后的窗体到原来的坐标
-            frame.setLocation(frame.getLocationOnScreen().x, frame.getLocationOnScreen().y + e.getY());
+            frameSize.setSize(frameSize.getWidth(), frameSize.getHeight() - e.getY());
+            // 窗体的高度 不能小于 最新窗体的高度
+            if (frameSize.getHeight() > frameMinimumSize.getHeight()) {
+                // 设置窗体的大小
+                frame.setSize(frameSize);
+                // 移动变大后的窗体到原来的坐标
+                frame.setLocation(frame.getLocationOnScreen().x, frame.getLocationOnScreen().y + e.getY());
+            }
         }
         // 鼠标指针在底部时
         else if (isNearBottom) {
-            dimension.setSize(dimension.getWidth(), e.getY());
-            // 设置窗体的大小
-            frame.setSize(dimension);
+            frameSize.setSize(frameSize.getWidth(), e.getY());
+            if (frameSize.getHeight() > frameMinimumSize.getHeight()) {
+                // 设置窗体的大小
+                frame.setSize(frameSize);
+            }
         }
         // 当鼠标指针在左边时
         else if (isNearLeft) {
-            dimension.setSize(dimension.getWidth() - e.getX(), dimension.getHeight());
-            frame.setSize(dimension);
-            // 移动窗体的坐标
-            frame.setLocation(frame.getLocationOnScreen().x + e.getX(), frame.getLocationOnScreen().y);
+            frameSize.setSize(frameSize.getWidth() - e.getX(), frameSize.getHeight());
+            if (frameSize.getWidth() > frameMinimumSize.getWidth()) {
+                frame.setSize(frameSize);
+                // 移动窗体的坐标
+                frame.setLocation(frame.getLocationOnScreen().x + e.getX(), frame.getLocationOnScreen().y);
+            }
         }
         // 当鼠标指针在右边时
         else if (isNearRight) {
-            dimension.setSize(e.getX(), dimension.getHeight());
-            // 设置窗体的大小
-            frame.setSize(dimension);
+            frameSize.setSize(e.getX(), frameSize.getHeight());
+            if (frameSize.getWidth() > frameMinimumSize.getWidth()) {
+                // 设置窗体的大小
+                frame.setSize(frameSize);
+            }
         }
         // 当鼠标指针在中间时
         else if (drag) {
