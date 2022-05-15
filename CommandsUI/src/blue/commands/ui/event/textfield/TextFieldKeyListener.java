@@ -119,6 +119,7 @@ public class TextFieldKeyListener extends KeyAdapter {
                     // 隐藏文本框
                     jComboBox.setPopupVisible(false);
                 }
+                MainFrom.getInstance().getJSplitPane().setVisible(true);
             } else {
                 // 隐藏textArea面板
                 // scrollPaneFather.setVisible(false);

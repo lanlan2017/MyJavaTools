@@ -80,10 +80,14 @@ public class MainFrom {
         new ToolUiSystemTray(frame);
         // 程序刚开始，隐藏ocr输出文本域，命令输出文本域
         jSplitPane.setVisible(false);
+        // 程序刚开始，隐藏分割面板左侧
+        jSplitPane.setDividerLocation(0);
+
         // 程序刚开始隐藏OCR面板
         ocrPanel.setVisible(false);
         // 程序刚开始，隐藏输入文本域
         ocrTextArea.setVisible(false);
+
         // 程序刚开始隐藏文本框减少按钮
         removeTextFieldButton.setVisible(false);
 
@@ -108,7 +112,7 @@ public class MainFrom {
                 // System.out.println("分隔条位置：" + jSplitPane.getDividerLocation());
                 // 如果分割条的位置为0，则说明分隔条左侧的组件被隐藏了
                 if (jSplitPane.getDividerLocation() == 0) {
-                    System.out.println("分隔条左侧被隐藏");
+                    System.out.println("分隔条左侧面板被隐藏");
                 }
             }
         });

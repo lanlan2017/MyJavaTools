@@ -28,12 +28,13 @@ public class BaiduOCRButton extends ButtonKeyAction {
         // 使用百度文字识别
         String ocrStr = BaiduOcrCallable.startBaiduOCR();
 
-        JTextArea inputTextArea = MainFrom.getInstance().getOcrTextArea();
+        JTextArea ocrTextArea = MainFrom.getInstance().getOcrTextArea();
         // 显示输入文本域
-        inputTextArea.setVisible(true);
+        ocrTextArea.setVisible(true);
         // 显示ocr输出Pane
         JScrollPane ocrScrollPane = MainFrom.getInstance().getOcrScrollPane();
         ocrScrollPane.setVisible(true);
+
         // 获取OCR输出文本域所在的分割面板
         JSplitPane jSplitPane = MainFrom.getInstance().getJSplitPane();
         // 如果OCR输出文本域的顶级面板不可见的话，就显示，并且调整窗体大小
@@ -50,7 +51,7 @@ public class BaiduOCRButton extends ButtonKeyAction {
         }
 
         // 把文字识别的结果写入到输入文本域中
-        inputTextArea.setText(ocrStr);
+        ocrTextArea.setText(ocrStr);
         // 调整窗体的大小
         // 将识别结果写到剪贴板中.
         SystemClipboard.setSysClipboardText(ocrStr);

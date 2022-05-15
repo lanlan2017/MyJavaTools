@@ -19,12 +19,6 @@ public class RadioButtonItemListener implements ItemListener {
     public void itemStateChanged(ItemEvent e) {
         // 显示或隐藏 OCR面板
         ocrPanel.setVisible(!ocrPanel.isVisible());
-        // 隐藏输入文本域
-        // JTextArea ocrTextArea = MainFrom.getInstance().getOcrTextArea();
-        // ocrTextArea.setText("");
-        // ocrTextArea.setVisible(false);
-        //隐藏ocr文本域的父容器
-        // MainFrom.getInstance().getOcrScrollPane().setVisible(false);
         // 以合适大小显示窗体
         frame.pack();
     }

@@ -157,16 +157,16 @@
       </grid>
       <splitpane id="661a1" binding="jSplitPane">
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="200" height="200"/>
           </grid>
         </constraints>
         <properties>
-          <dividerLocation value="50"/>
+          <dividerLocation value="-1"/>
           <dividerSize value="5"/>
           <oneTouchExpandable value="true"/>
           <orientation value="1"/>
-          <resizeWeight value="0.4"/>
+          <resizeWeight value="0.5"/>
         </properties>
         <border type="none"/>
         <children>
@@ -185,9 +185,9 @@
               <component id="c9d66" class="javax.swing.JTextArea" binding="ocrTextArea">
                 <constraints/>
                 <properties>
-                  <columns value="10"/>
+                  <columns value="30"/>
                   <lineWrap value="true"/>
-                  <rows value="10"/>
+                  <rows value="3"/>
                 </properties>
               </component>
             </children>
