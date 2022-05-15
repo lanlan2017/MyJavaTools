@@ -157,12 +157,12 @@
       </grid>
       <splitpane id="661a1" binding="jSplitPane">
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="1" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="200" height="200"/>
           </grid>
         </constraints>
         <properties>
-          <dividerLocation value="-1"/>
+          <dividerLocation value="252"/>
           <dividerSize value="5"/>
           <oneTouchExpandable value="true"/>
           <orientation value="1"/>
