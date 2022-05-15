@@ -70,7 +70,7 @@ public class TextFieldKeyListener extends KeyAdapter {
             }
         }
         // 按下Ctrl+S键，
-        else if(e.isControlDown()&&e.getKeyCode()==KeyEvent.VK_S){
+        else if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_S) {
             // 隐藏提示框
             jComboBox.setPopupVisible(false);
             // 执行命令，打印结果
@@ -184,13 +184,18 @@ public class TextFieldKeyListener extends KeyAdapter {
      */
     private String doTextField(String input) {
         String output;
-        JTextArea inputTextArea = MainFrom.getInstance().getOcrTextArea();
-        // 如果输入文本域有内容
-        if (inputTextArea.isVisible() && !inputTextArea.getText().equals("")) {
+        // 获取ocr输出文本域
+        JTextArea ocrTextArea = MainFrom.getInstance().getOcrTextArea();
+        // if(MainFrom.getInstance().getJSplitPane().getDividerLocation() == 0){
+        //     System.out.println("ocr输出已经被隐藏，不使用OCR输出域作为命令输入");
+        // }
+        // 是否使用OCR输出作为命令的输入
+        // isUseOcrOutputForCommandInput
+        if (isUseOcrOutputForCommandInput(ocrTextArea)) {
             // 全选输入文本域
-            inputTextArea.selectAll();
+            ocrTextArea.selectAll();
             // 复制输入文本域到剪贴板，覆盖原来剪贴板的内容
-            inputTextArea.copy();
+            ocrTextArea.copy();
         }
 
         // 按空格分隔得到命令
@@ -215,6 +220,18 @@ public class TextFieldKeyListener extends KeyAdapter {
         // 复制到系统剪贴板
         ConfigTools.getInstance().copyToSysClipboard(output);
         return output;
+    }
+
+    /**
+     * 判断是否使用OCR输出文本域的内容作为命令的输入。
+     *
+     * @param ocrTextArea ocr输出文本域
+     * @return 如果ocr输出文本域可见，并且内容不是空字符串，并且分割面板左侧没有被隐藏的话。<br>
+     * 就返回ture，表示使用OCR文本域中的结果作为命令的输入<br>
+     * 否则返回false。
+     */
+    private boolean isUseOcrOutputForCommandInput(JTextArea ocrTextArea) {
+        return ocrTextArea.isVisible() && !ocrTextArea.getText().equals("") && MainFrom.getInstance().getJSplitPane().getDividerLocation() != 0;
     }
 
     /**

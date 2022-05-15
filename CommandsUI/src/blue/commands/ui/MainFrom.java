@@ -17,6 +17,8 @@ import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 public class MainFrom {
     static {
@@ -107,6 +109,22 @@ public class MainFrom {
         textFieldController(frame);
         // 设置全局键盘事件处理程序
         keyEventSetting();
+
+        //
+        // jSplitPane.addPropertyChangeListener("test");
+
+
+        jSplitPane.addPropertyChangeListener("dividerLocation", new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                // TODO Auto-generated method stub
+                System.out.println("分隔条位置：" + jSplitPane.getDividerLocation());
+                // 如果分割条的位置为0，则说明分隔条左侧的组件被隐藏了
+                if (jSplitPane.getDividerLocation() == 0) {
+                    System.out.println("分隔条左侧被隐藏");
+                }
+            }
+        });
     }
 
     /**
@@ -208,14 +226,15 @@ public class MainFrom {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (ocrTextArea.isVisible()) {
-                    inputTextAreaController.setText("显示");
+                    inputTextAreaController.setText("显示ocr结果");
                     ocrTextArea.setText("");
                     ocrTextArea.setVisible(false);
                     ocrScrollPane.setVisible(false);
-                    jSplitPane.setResizeWeight(0.3);
-                    jSplitPane.repaint();
+                    // jSplitPane.setResizeWeight(0.3);
+                    // jSplitPane.setDividerLocation(50);
+                    // jSplitPane.repaint();
                 } else {
-                    inputTextAreaController.setText("隐藏");
+                    inputTextAreaController.setText("隐藏ocr结果");
                     ocrTextArea.setVisible(true);
                     ocrScrollPane.setVisible(true);
                     // jSplitPane.repaint();
