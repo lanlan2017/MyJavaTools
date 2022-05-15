@@ -42,7 +42,6 @@ public class MainFrom {
     private JTextArea outputTextArea;
     private JLabel lable;
     private JScrollPane outputScrollPane;
-    // private JPanel scrollPaneFather;
     // OCR面板组件
     private JButton sstButton;
     private JButton cancelSstButton;
@@ -54,10 +53,7 @@ public class MainFrom {
     private JPanel ocrToolPanel;
     private JToolBar ocrToolBar;
     private JPanel commandPanel;
-    /**
-     * 输入文本域控制器
-     */
-    private JButton inputTextAreaController;
+
     /**
      * 输入文本框增加按钮
      */
@@ -82,9 +78,7 @@ public class MainFrom {
         this.frame = frame;
         // 初始化系统托盘
         new ToolUiSystemTray(frame);
-        // 程序刚开始，还没输入内容，不会有输出，隐藏用来显示输出的文本域
-        // scrollPaneFather.setVisible(false);
-        // 程序刚开始，隐藏
+        // 程序刚开始，隐藏ocr输出文本域，命令输出文本域
         jSplitPane.setVisible(false);
         // 程序刚开始隐藏OCR面板
         ocrPanel.setVisible(false);
@@ -103,22 +97,15 @@ public class MainFrom {
         outputTextArea.addMouseListener(new TextAreaMouseListener(frame, outputTextArea));
         // 当按钮状态改变时
         radioButton.addItemListener(new RadioButtonItemListener(frame, ocrPanel));
-        // OCR面板的输入文本域事件监听器
-        inputTextAreaControllerSetting(frame);
         // 添加或减少输入文本框按钮设置
         textFieldController(frame);
         // 设置全局键盘事件处理程序
         keyEventSetting();
 
-        //
-        // jSplitPane.addPropertyChangeListener("test");
-
-
         jSplitPane.addPropertyChangeListener("dividerLocation", new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                // TODO Auto-generated method stub
-                System.out.println("分隔条位置：" + jSplitPane.getDividerLocation());
+                // System.out.println("分隔条位置：" + jSplitPane.getDividerLocation());
                 // 如果分割条的位置为0，则说明分隔条左侧的组件被隐藏了
                 if (jSplitPane.getDividerLocation() == 0) {
                     System.out.println("分隔条左侧被隐藏");
@@ -221,29 +208,6 @@ public class MainFrom {
         }, AWTEvent.KEY_EVENT_MASK);
     }
 
-    private void inputTextAreaControllerSetting(JFrame frame) {
-        inputTextAreaController.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (ocrTextArea.isVisible()) {
-                    inputTextAreaController.setText("显示ocr结果");
-                    ocrTextArea.setText("");
-                    ocrTextArea.setVisible(false);
-                    ocrScrollPane.setVisible(false);
-                    // jSplitPane.setResizeWeight(0.3);
-                    // jSplitPane.setDividerLocation(50);
-                    // jSplitPane.repaint();
-                } else {
-                    inputTextAreaController.setText("隐藏ocr结果");
-                    ocrTextArea.setVisible(true);
-                    ocrScrollPane.setVisible(true);
-                    // jSplitPane.repaint();
-                }
-                frame.pack();
-            }
-        });
-    }
-
     /**
      * 输入文本框增加或减少按钮监听器
      *
@@ -321,12 +285,10 @@ public class MainFrom {
 
         lineNumTextField.setColumns(1);
         // 设置不可编辑
-        // lineNumTextField.setEditable(false);
         lineNumTextField.setEnabled(false);
         lineNumTextField.addMouseListener(new MouseAdapter() {
             Color defaultColor;
             CommandsRunnable runnable = CommandsRunnable.getInstance();
-            // Thread thread;
 
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -521,9 +483,6 @@ public class MainFrom {
         return frame;
     }
 
-    // public JPanel getScrollPaneFather() {
-    //     return scrollPaneFather;
-    // }
     public JTextArea getOcrTextArea() {
         return ocrTextArea;
     }
@@ -561,7 +520,6 @@ public class MainFrom {
     }
 
     private void createUIComponents() {
-        // commandPanel = new JPanel();
         sstButton = SstButton.getInstance().getButton();
         cancelSstButton = CancelButton.getInstance().getButton();
         ocrButton = BaiduOCRButton.getInstance().getButton();
