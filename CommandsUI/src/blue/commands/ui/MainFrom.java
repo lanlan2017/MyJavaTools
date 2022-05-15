@@ -4,6 +4,7 @@ package blue.commands.ui;
 import blue.commands.thread.CommandsRunnable;
 import blue.commands.tool.ui.ToolUiSystemTray;
 import blue.commands.ui.event.button.ExitButtonListener;
+import blue.commands.ui.event.jsplitpane.JSplitPanePropertyChangeListener;
 import blue.commands.ui.event.panel.PanelMouseListener;
 import blue.commands.ui.event.panel.PanelMouseMotionListener;
 import blue.commands.ui.event.radiobutton.RadioButtonItemListener;
@@ -86,7 +87,7 @@ public class MainFrom {
         // 程序刚开始隐藏OCR面板
         ocrPanel.setVisible(false);
         // 程序刚开始，隐藏输入文本域
-        ocrTextArea.setVisible(false);
+        // ocrTextArea.setVisible(false);
 
         // 程序刚开始隐藏文本框减少按钮
         removeTextFieldButton.setVisible(false);
@@ -105,17 +106,8 @@ public class MainFrom {
         textFieldController(frame);
         // 设置全局键盘事件处理程序
         keyEventSetting();
-
-        jSplitPane.addPropertyChangeListener("dividerLocation", new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                // System.out.println("分隔条位置：" + jSplitPane.getDividerLocation());
-                // 如果分割条的位置为0，则说明分隔条左侧的组件被隐藏了
-                if (jSplitPane.getDividerLocation() == 0) {
-                    System.out.println("分隔条左侧面板被隐藏");
-                }
-            }
-        });
+        // 测试监听分隔条
+        // jSplitPane.addPropertyChangeListener("dividerLocation",new JSplitPanePropertyChangeListener());
     }
 
     /**
