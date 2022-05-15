@@ -39,13 +39,14 @@ public class MainFrom {
     private JTextField textField;
     private JTextArea outputTextArea;
     private JLabel lable;
-    private JScrollPane scrollPane;
+    private JScrollPane outputScrollPane;
     private JPanel scrollPaneFather;
     // OCR面板组件
     private JButton sstButton;
     private JButton cancelSstButton;
     private JButton ocrButton;
-    private JTextArea inputTextArea;
+    // OCR输出文本域
+    private JTextArea ocrTextArea;
     private JRadioButton radioButton;
     private JPanel ocrPanel;
     private JPanel ocrToolPanel;
@@ -69,10 +70,9 @@ public class MainFrom {
     private JToolBar textFieldToolBar;
     private JToolBar lineNumBar;
     private JTextField a1TextField;
+    private JScrollPane ocrScrollPane;
 
-    public JTextArea getInputTextArea() {
-        return inputTextArea;
-    }
+
 
     public MainFrom(JFrame frame) {
         // 记下Frame
@@ -84,7 +84,7 @@ public class MainFrom {
         // 程序刚开始隐藏OCR面板
         ocrPanel.setVisible(false);
         // 程序刚开始，隐藏输入文本域
-        inputTextArea.setVisible(false);
+        ocrTextArea.setVisible(false);
         // 程序刚开始隐藏文本框减少按钮
         removeTextFieldButton.setVisible(false);
 
@@ -204,13 +204,15 @@ public class MainFrom {
         inputTextAreaController.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (inputTextArea.isVisible()) {
+                if (ocrTextArea.isVisible()) {
                     inputTextAreaController.setText("显示");
-                    inputTextArea.setText("");
-                    inputTextArea.setVisible(false);
+                    ocrTextArea.setText("");
+                    ocrTextArea.setVisible(false);
+                    ocrScrollPane.setVisible(false);
                 } else {
                     inputTextAreaController.setText("隐藏");
-                    inputTextArea.setVisible(true);
+                    ocrTextArea.setVisible(true);
+                    ocrScrollPane.setVisible(true);
                 }
                 frame.pack();
             }
@@ -494,6 +496,13 @@ public class MainFrom {
 
     public JPanel getScrollPaneFather() {
         return scrollPaneFather;
+    }
+    public JTextArea getOcrTextArea() {
+        return ocrTextArea;
+    }
+
+    public JScrollPane getOcrScrollPane() {
+        return ocrScrollPane;
     }
 
     public static void main(String[] args) {

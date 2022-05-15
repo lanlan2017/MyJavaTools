@@ -176,7 +176,7 @@ public class TextFieldKeyListener extends KeyAdapter {
      */
     private String doTextField(String input) {
         String output;
-        JTextArea inputTextArea = MainFrom.getInstance().getInputTextArea();
+        JTextArea inputTextArea = MainFrom.getInstance().getOcrTextArea();
         // 如果输入文本域有内容
         if (inputTextArea.isVisible() && !inputTextArea.getText().equals("")) {
             // 全选输入文本域
