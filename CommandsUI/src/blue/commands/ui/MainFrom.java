@@ -40,7 +40,7 @@ public class MainFrom {
     private JTextArea outputTextArea;
     private JLabel lable;
     private JScrollPane outputScrollPane;
-    private JPanel scrollPaneFather;
+    // private JPanel scrollPaneFather;
     // OCR面板组件
     private JButton sstButton;
     private JButton cancelSstButton;
@@ -71,7 +71,8 @@ public class MainFrom {
     private JToolBar lineNumBar;
     private JTextField a1TextField;
     private JScrollPane ocrScrollPane;
-
+    // ocr输出和命令输出分隔面板
+    private JSplitPane jSplitPane;
 
 
     public MainFrom(JFrame frame) {
@@ -80,7 +81,9 @@ public class MainFrom {
         // 初始化系统托盘
         new ToolUiSystemTray(frame);
         // 程序刚开始，还没输入内容，不会有输出，隐藏用来显示输出的文本域
-        scrollPaneFather.setVisible(false);
+        // scrollPaneFather.setVisible(false);
+        // 程序刚开始，隐藏
+        jSplitPane.setVisible(false);
         // 程序刚开始隐藏OCR面板
         ocrPanel.setVisible(false);
         // 程序刚开始，隐藏输入文本域
@@ -209,10 +212,13 @@ public class MainFrom {
                     ocrTextArea.setText("");
                     ocrTextArea.setVisible(false);
                     ocrScrollPane.setVisible(false);
+                    jSplitPane.setResizeWeight(0.3);
+                    jSplitPane.repaint();
                 } else {
                     inputTextAreaController.setText("隐藏");
                     ocrTextArea.setVisible(true);
                     ocrScrollPane.setVisible(true);
+                    // jSplitPane.repaint();
                 }
                 frame.pack();
             }
@@ -435,7 +441,8 @@ public class MainFrom {
             }
         };
         // 给文本框设置自动内容提示
-        AutoFieldSetting.setupAutoComplete2(frame, textField, jComboBox, outputTextArea, scrollPaneFather);
+        // AutoFieldSetting.setupAutoComplete2(frame, textField, jComboBox, outputTextArea, scrollPaneFather);
+        AutoFieldSetting.setupAutoComplete2(frame, textField, jComboBox, outputTextArea);
     }
 
     private void textFieldAutoSetting(JTextField textField) {
@@ -450,7 +457,8 @@ public class MainFrom {
             }
         };
         // 给文本框设置自动内容提示
-        AutoFieldSetting.setupAutoComplete2(frame, textField, jComboBox, outputTextArea, scrollPaneFather);
+        // AutoFieldSetting.setupAutoComplete2(frame, textField, jComboBox, outputTextArea, scrollPaneFather);
+        AutoFieldSetting.setupAutoComplete2(frame, textField, jComboBox, outputTextArea);
     }
 
     /**
@@ -494,15 +502,19 @@ public class MainFrom {
         return frame;
     }
 
-    public JPanel getScrollPaneFather() {
-        return scrollPaneFather;
-    }
+    // public JPanel getScrollPaneFather() {
+    //     return scrollPaneFather;
+    // }
     public JTextArea getOcrTextArea() {
         return ocrTextArea;
     }
 
     public JScrollPane getOcrScrollPane() {
         return ocrScrollPane;
+    }
+
+    public JSplitPane getJSplitPane() {
+        return jSplitPane;
     }
 
     public static void main(String[] args) {

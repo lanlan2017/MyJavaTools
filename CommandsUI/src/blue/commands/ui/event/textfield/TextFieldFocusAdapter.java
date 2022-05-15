@@ -6,12 +6,17 @@ import java.awt.event.FocusEvent;
 
 public class TextFieldFocusAdapter extends FocusAdapter {
     JFrame frame;
-    JPanel scrollPaneFather;
+    // JPanel scrollPaneFather;
     JTextArea textArea;
 
-    public TextFieldFocusAdapter(JFrame frame, JPanel scrollPaneFather, JTextArea textArea) {
+    // public TextFieldFocusAdapter(JFrame frame, JPanel scrollPaneFather, JTextArea textArea) {
+    //     this.frame = frame;
+    //     // this.scrollPaneFather = scrollPaneFather;
+    //     this.textArea = textArea;
+    // }
+    public TextFieldFocusAdapter(JFrame frame, JTextArea textArea) {
         this.frame = frame;
-        this.scrollPaneFather = scrollPaneFather;
+        // this.scrollPaneFather = scrollPaneFather;
         this.textArea = textArea;
     }
 
@@ -20,7 +25,7 @@ public class TextFieldFocusAdapter extends FocusAdapter {
         // 如果文本域中有内容的话
         if (!"".equals(textArea.getText())) {
             // 显示文本域面板
-            scrollPaneFather.setVisible(true);
+            // scrollPaneFather.setVisible(true);
             // 最小化显示组件
             frame.pack();
         }

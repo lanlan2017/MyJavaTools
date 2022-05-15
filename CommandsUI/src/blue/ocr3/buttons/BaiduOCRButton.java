@@ -35,7 +35,10 @@ public class BaiduOCRButton extends ButtonKeyAction {
         JScrollPane ocrScrollPane = MainFrom.getInstance().getOcrScrollPane();
         ocrScrollPane.setVisible(true);
         // 显示滚动面板的顶级Pane
-        MainFrom.getInstance().getScrollPaneFather().setVisible(true);
+        // MainFrom.getInstance().getScrollPaneFather().setVisible(true);
+        // 显示分割面板
+        MainFrom.getInstance().getJSplitPane().setVisible(true);
+
         // 把文字识别的结果写入到输入文本域中
         inputTextArea.setText(ocrStr);
         // 调整窗体的大小

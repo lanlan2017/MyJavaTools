@@ -38,7 +38,8 @@ public class AutoFieldSetting {
      * @param textField
      * @param jComboBox
      */
-    public static void setupAutoComplete2(JFrame frame, JTextField textField, JComboBox jComboBox, JTextArea textArea, JPanel scrollPaneFather) {
+    // public static void setupAutoComplete2(JFrame frame, JTextField textField, JComboBox jComboBox, JTextArea textArea, JPanel scrollPaneFather) {
+    public static void setupAutoComplete2(JFrame frame, JTextField textField, JComboBox jComboBox, JTextArea textArea) {
         DefaultComboBoxModel model = (DefaultComboBoxModel) jComboBox.getModel();
         // 设置JComboBox
         setAdjusting(jComboBox, true);
@@ -53,9 +54,11 @@ public class AutoFieldSetting {
         jComboBox.addActionListener(new JComboBoxActionListener(jComboBox, textField));
 
         // 文本框 注册键盘事件处理器
-        textField.addKeyListener(new TextFieldKeyListener(frame, textField, jComboBox, textArea, scrollPaneFather));
+        // textField.addKeyListener(new TextFieldKeyListener(frame, textField, jComboBox, textArea, scrollPaneFather));
+        textField.addKeyListener(new TextFieldKeyListener(frame, textField, jComboBox, textArea));
         // 文本框 得到焦点时的操作
-        textField.addFocusListener(new TextFieldFocusAdapter(frame, scrollPaneFather, textArea));
+        // textField.addFocusListener(new TextFieldFocusAdapter(frame, scrollPaneFather, textArea));
+        textField.addFocusListener(new TextFieldFocusAdapter(frame, textArea));
         // 文本框 内容变化
         textField.getDocument().addDocumentListener(new TextFieldDocumentListener(frame, model, textField, jComboBox, items));
 

@@ -19,7 +19,7 @@ public class TextFieldKeyListener extends KeyAdapter {
     JTextField textField;
     JComboBox jComboBox;
     JTextArea textArea;
-    JPanel scrollPaneFather;
+    // JPanel scrollPaneFather;
 
     public TextFieldKeyListener(JComboBox jComboBox, JTextField textField) {
         this.jComboBox = jComboBox;
@@ -27,12 +27,19 @@ public class TextFieldKeyListener extends KeyAdapter {
     }
 
 
-    public TextFieldKeyListener(JFrame frame, JTextField textField, JComboBox jComboBox, JTextArea textArea, JPanel scrollPaneFather) {
+    // public TextFieldKeyListener(JFrame frame, JTextField textField, JComboBox jComboBox, JTextArea textArea, JPanel scrollPaneFather) {
+    //     this.frame = frame;
+    //     this.textField = textField;
+    //     this.jComboBox = jComboBox;
+    //     this.textArea = textArea;
+    //     this.scrollPaneFather = scrollPaneFather;
+    // }
+    public TextFieldKeyListener(JFrame frame, JTextField textField, JComboBox jComboBox, JTextArea textArea) {
         this.frame = frame;
         this.textField = textField;
         this.jComboBox = jComboBox;
         this.textArea = textArea;
-        this.scrollPaneFather = scrollPaneFather;
+        // this.scrollPaneFather = scrollPaneFather;
     }
 
     @Override
@@ -105,7 +112,7 @@ public class TextFieldKeyListener extends KeyAdapter {
                 textArea.setSelectionStart(0);
                 textArea.setSelectionEnd(0);
                 // 显示textArea面板
-                scrollPaneFather.setVisible(true);
+                // scrollPaneFather.setVisible(true);
                 if (input.endsWith(" reset")) {
                     input = input.substring(0, input.lastIndexOf(" reset"));
                     textField.setText(input);
@@ -114,7 +121,8 @@ public class TextFieldKeyListener extends KeyAdapter {
                 }
             } else {
                 // 隐藏textArea面板
-                scrollPaneFather.setVisible(false);
+                // scrollPaneFather.setVisible(false);
+
             }
             // 重绘UI
             repaint();
