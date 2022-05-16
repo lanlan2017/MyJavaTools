@@ -27,7 +27,7 @@ public class Model {
 
     @Override
     public String toString() {
-        String table = "\n|软件|金额|提现账户|\n|---:|:---|:---|\n";
+        String table = "\n|软件|提现账户|金额|\n|---:|:---|:---|\n";
         StringBuilder sb = new StringBuilder();
         sb.append(table);
         tableLines.forEach(line -> {
@@ -42,8 +42,8 @@ public class Model {
                 sb.append("|");
                 sb.append(software);
                 sb.append("|");
-                sb.append("|");
                 sb.append(withdrawalAccount);
+                sb.append("|");
                 sb.append("|");
                 sb.append("\n");
             } else {
