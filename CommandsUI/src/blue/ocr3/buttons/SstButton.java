@@ -1,6 +1,6 @@
 package blue.ocr3.buttons;
 
-import blue.ocr3.ScreenShotWindow;
+import blue.ocr3.screenshot.ScreenShotWindow;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

@@ -1,6 +1,6 @@
 package blue.ocr3.baidu;
 
-import blue.ocr3.ScreenShotWindow;
+import blue.ocr3.screenshot.ScreenShotWindow;
 import blue.ocr3.baidu.config.SingletonAipOcr;
 import blue.ocr3.baidu.model.BaiduOCRModelTools;
 import blue.ocr3.buttons.BaiduOCRButton;
