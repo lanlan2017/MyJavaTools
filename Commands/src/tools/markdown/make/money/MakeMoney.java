@@ -64,7 +64,9 @@ public class MakeMoney {
                 // 如果表格开始了，并且是二级标题
                 if (line.matches("^## ([^#]+)$")) {
                     // System.out.println(line.replaceAll("^## ([^#]+)$", "$1"));
-                    model.getTableLines().add(line.replaceAll("^## ([^#]+)$", "$1"));
+                    // 取出二级标题的内容
+                    String h2 = line.replaceAll("^## ([^#]+)$", "$1");
+                    model.getTableLines().add(h2);
                 }
             }
 

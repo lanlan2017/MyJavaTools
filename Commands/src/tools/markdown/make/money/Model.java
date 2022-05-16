@@ -27,20 +27,35 @@ public class Model {
 
     @Override
     public String toString() {
-        String table="\n|软件|金额|提现账户|\n|---:|:---|:---|\n";
-        StringBuilder sb=new StringBuilder();
+        String table = "\n|软件|金额|提现账户|\n|---:|:---|:---|\n";
+        StringBuilder sb = new StringBuilder();
         sb.append(table);
-        tableLines.forEach(line->{
-            sb.append("|");
-            sb.append(line);
-            sb.append("|");
-            sb.append("|");
-            sb.append("|");
-            sb.append("\n");
-
+        tableLines.forEach(line -> {
+            if(line.contains("_")){
+                int splitIndex = line.lastIndexOf("_");
+                // 截取出软件名称
+                String software=line.substring(0, splitIndex);
+                // 截取出提现账户
+                String withdrawalAccount=line.substring(splitIndex+1);
+                // System.out.println("software = " + software);
+                // System.out.println("withdrawalAccount = " + withdrawalAccount);
+                sb.append("|");
+                sb.append(software);
+                sb.append("|");
+                sb.append("|");
+                sb.append(withdrawalAccount);
+                sb.append("|");
+                sb.append("\n");
+            } else {
+                sb.append("|");
+                sb.append(line);
+                sb.append("|");
+                sb.append("|");
+                sb.append("|");
+                sb.append("\n");
+            }
         });
 
-        // return "\n## " + title + "\n" + "lines:{" + tableLines + '}';
-        return "\n## " + title + "\n" + sb.toString();
+        return "\n## " + title + "\n" + sb;
     }
 }
