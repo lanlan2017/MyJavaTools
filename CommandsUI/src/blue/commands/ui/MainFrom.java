@@ -13,6 +13,7 @@ import blue.commands.ui.event.textfield.auto.AutoFieldSetting;
 import blue.ocr3.buttons.BaiduOCRButton;
 import blue.ocr3.buttons.CancelButton;
 import blue.ocr3.buttons.SstButton;
+import blue.ocr3.screenshot.ScreenShotWindow;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
@@ -72,6 +73,7 @@ public class MainFrom {
     private JScrollPane ocrScrollPane;
     // ocr输出和命令输出分隔面板
     private JSplitPane jSplitPane;
+    private JButton button1;
 
 
     public MainFrom(JFrame frame) {
@@ -108,6 +110,22 @@ public class MainFrom {
         keyEventSetting();
         // 测试监听分隔条
         // jSplitPane.addPropertyChangeListener("dividerLocation",new JSplitPanePropertyChangeListener());
+        button1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JButton button=(JButton) e.getSource();
+                String buttonText = button.getText();
+                if("跟随".equals(buttonText)){
+                    System.out.println("主窗体 不再 靠近截图方框显示");
+                    button.setText("不跟随");
+                    ScreenShotWindow.getInstance().setFrameNextToScreenshot(false);
+                }else if("不跟随".equals(buttonText)){
+                    button.setText("跟随");
+                    System.out.println("主窗体 将会 靠近截图方框显示");
+                    ScreenShotWindow.getInstance().setFrameNextToScreenshot(true);
+                }
+            }
+        });
     }
 
     /**

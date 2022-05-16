@@ -15,6 +15,19 @@ import java.awt.image.RescaleOp;
  */
 public class ScreenShotWindow extends JWindow {
     private static final long serialVersionUID = 1L;
+    /**
+     * 主窗体是否在截图方框旁边显示
+     */
+    private boolean isFrameNextToScreenshot = true;
+
+    public boolean isFrameNextToScreenshot() {
+        return isFrameNextToScreenshot;
+    }
+
+    public void setFrameNextToScreenshot(boolean frameNextToScreenshot) {
+        isFrameNextToScreenshot = frameNextToScreenshot;
+    }
+
     // 鼠标按下的坐标
     Point mousePressedPoint = new Point();
     // 鼠标拖动时的坐标
@@ -114,8 +127,11 @@ public class ScreenShotWindow extends JWindow {
             // 获取鼠标松开的坐标
             int x = e.getX();
             int y = e.getY();
-            // 保证工具条不超出屏幕之外
-            noOverflowScreen(x, y);
+            // 如果设置主窗体在截图方框旁边显示的话
+            if(isFrameNextToScreenshot()){
+                // 保证工具条不超出屏幕之外
+                noOverflowScreen(x, y);
+            }
             // 窗体显示在截图窗口前面
             frame.toFront();
             // 显示窗体

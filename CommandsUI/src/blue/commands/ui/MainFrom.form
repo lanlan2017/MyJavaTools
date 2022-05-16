@@ -149,6 +149,12 @@
                       <text value="OCR"/>
                     </properties>
                   </component>
+                  <component id="8c2a3" class="javax.swing.JButton" binding="button1">
+                    <constraints/>
+                    <properties>
+                      <text value="跟随"/>
+                    </properties>
+                  </component>
                 </children>
               </toolbar>
             </children>
