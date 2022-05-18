@@ -138,8 +138,19 @@ public class BaiduOcrCallable implements Callable<String> {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
+        value = fixOCRResults(value);
         return value;
         // return null;
+    }
+
+    /**
+     * 修复文字识别常见错误字符串。
+     * 。
+     * @param value
+     * @return
+     */
+    private static String fixOCRResults(String value) {
+        value = value.replace("1ong", "long");
+        return value;
     }
 }
