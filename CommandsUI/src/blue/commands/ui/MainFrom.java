@@ -510,6 +510,7 @@ public class MainFrom {
     }
 
     public static void main(String[] args) {
+
         MainFrom mainFrom = MainFrom.getInstance();
         JFrame frame = mainFrom.frame;
         frame.setContentPane(mainFrom.panel);
@@ -522,7 +523,6 @@ public class MainFrom {
                 frame.setType(Window.Type.UTILITY);
             }
         }
-
         // 不显示标题栏，最小化，关闭按钮
         frame.setUndecorated(true);
         // 永远置顶
