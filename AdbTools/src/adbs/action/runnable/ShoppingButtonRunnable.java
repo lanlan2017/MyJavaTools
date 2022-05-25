@@ -1,7 +1,7 @@
 package adbs.action.runnable;
 
 import adbs.cmd.AdbCommands;
-import adbs.test.DeviceRadioButtonActionListener;
+import adbs.test.DeviceRadioBtAcListener;
 import adbs.ui.AdbTools;
 import tools.thead.Threads;
 
@@ -9,7 +9,6 @@ import javax.swing.*;
 
 public class ShoppingButtonRunnable implements Runnable {
     private JLabel output;
-    // private String id=D;
     private static boolean stop = false;
 
 
@@ -28,7 +27,7 @@ public class ShoppingButtonRunnable implements Runnable {
     @Override
     public void run() {
         stop = false;
-        String id = DeviceRadioButtonActionListener.getId();
+        String id = DeviceRadioBtAcListener.getId();
         // 告诉主线程当前线程正在运行
         AdbTools.setIsRunning(this);
         output.setText("逛街线程：已经开始");

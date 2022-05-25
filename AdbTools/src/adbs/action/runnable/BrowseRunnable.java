@@ -1,7 +1,7 @@
 package adbs.action.runnable;
 
 import adbs.cmd.AdbCommands;
-import adbs.test.DeviceRadioButtonActionListener;
+import adbs.test.DeviceRadioBtAcListener;
 import adbs.ui.AdbTools;
 import tools.thead.Threads;
 
@@ -11,7 +11,7 @@ public class BrowseRunnable implements Runnable {
     private JLabel output;
     private static boolean stop = false;
     // 手机设备的ID
-    private String id = DeviceRadioButtonActionListener.getId();
+    private String id = DeviceRadioBtAcListener.getId();
 
     public BrowseRunnable(JLabel output) {
         this.output = output;

@@ -3,26 +3,56 @@
   <grid id="27dc6" binding="topPanel" layout-manager="GridLayoutManager" row-count="5" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="656" height="400"/>
+      <xy x="20" y="20" width="741" height="400"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
-      <grid id="364a0" binding="devicePanel" layout-manager="FlowLayout" hgap="0" vgap="0" flow-align="1">
+      <grid id="67fba" binding="adbPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
         <border type="none"/>
         <children>
-          <component id="c86d1" class="javax.swing.JLabel" binding="deviceLabel">
+          <grid id="364a0" binding="devicePanel" layout-manager="FlowLayout" hgap="0" vgap="0" flow-align="1">
             <constraints/>
-            <properties>
-              <horizontalAlignment value="2"/>
-              <horizontalTextPosition value="0"/>
-              <text value="选择设备"/>
-            </properties>
-          </component>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="c86d1" class="javax.swing.JLabel" binding="deviceLabel">
+                <constraints/>
+                <properties>
+                  <horizontalAlignment value="2"/>
+                  <horizontalTextPosition value="0"/>
+                  <text value="选择设备"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="ec5ef" binding="adbControlPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+            <constraints/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="c2d46" class="javax.swing.JButton" binding="openButton">
+                <constraints/>
+                <properties>
+                  <alignmentY value="0.0"/>
+                  <autoscrolls value="true"/>
+                  <borderPainted value="true"/>
+                  <contentAreaFilled value="true"/>
+                  <hideActionText value="false"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <iconTextGap value="0"/>
+                  <text value="打开"/>
+                  <verticalAlignment value="0"/>
+                  <verticalTextPosition value="0"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
         </children>
       </grid>
       <grid id="6ff82" binding="inputPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
@@ -38,7 +68,7 @@
               <text value="时间(s)"/>
             </properties>
           </component>
-          <grid id="c1b53" binding="timeRadioPanel" layout-manager="FlowLayout" hgap="0" vgap="0" flow-align="1">
+          <grid id="c1b53" binding="timeRadioPanel" layout-manager="FlowLayout" hgap="0" vgap="0" flow-align="0">
             <constraints/>
             <properties/>
             <border type="none"/>
@@ -58,31 +88,68 @@
               <component id="b2e78" class="javax.swing.JRadioButton" binding="radioButton75s">
                 <constraints/>
                 <properties>
+                  <horizontalAlignment value="2"/>
+                  <horizontalTextPosition value="11"/>
                   <text value="75s"/>
+                  <verticalAlignment value="0"/>
                 </properties>
               </component>
             </children>
           </grid>
-          <component id="1d58e" class="javax.swing.JTextField" binding="input">
+          <component id="1d58e" class="javax.swing.JTextField" binding="input1">
             <constraints/>
             <properties>
               <columns value="3"/>
+              <horizontalAlignment value="2"/>
+            </properties>
+          </component>
+          <component id="a6a8c" class="javax.swing.JTextField" binding="input2">
+            <constraints/>
+            <properties>
+              <columns value="1"/>
+              <visible value="false"/>
             </properties>
           </component>
           <component id="27ac7" class="javax.swing.JButton" binding="inputOkButton">
             <constraints/>
             <properties>
+              <horizontalTextPosition value="0"/>
               <text value="确认"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="a4768" binding="specificPanel" layout-manager="FlowLayout" hgap="1" vgap="1" flow-align="1">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="line" title="定制功能">
+          <color color="-2914806"/>
+        </border>
+        <children>
+          <component id="d640a" class="javax.swing.JButton" binding="kuaiShouReadButton">
+            <constraints/>
+            <properties>
+              <text value="快手阅读"/>
+            </properties>
+          </component>
+          <component id="9a75e" class="javax.swing.JButton" binding="wuKongGuanBiBtn">
+            <constraints/>
+            <properties>
+              <text value="悟空看视频"/>
             </properties>
           </component>
         </children>
       </grid>
       <grid id="4a7a3" binding="buttonPanel" layout-manager="FlowLayout" hgap="1" vgap="1" flow-align="1">
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
-        <border type="none"/>
+        <border type="line" title="通用功能">
+          <color color="-16467081"/>
+        </border>
         <children>
           <component id="1bc83" class="javax.swing.JButton" binding="videoButton">
             <constraints/>
@@ -90,22 +157,10 @@
               <text value="刷视频"/>
             </properties>
           </component>
-          <component id="d640a" class="javax.swing.JButton" binding="readButton">
+          <component id="96389" class="javax.swing.JButton" binding="readButton">
             <constraints/>
             <properties>
               <text value="阅读"/>
-            </properties>
-          </component>
-          <component id="f312" class="javax.swing.JButton" binding="readAdvButton">
-            <constraints/>
-            <properties>
-              <text value="阅读广告"/>
-            </properties>
-          </component>
-          <component id="e0064" class="javax.swing.JButton" binding="browseButton">
-            <constraints/>
-            <properties>
-              <text value="浏览"/>
             </properties>
           </component>
           <component id="99ba9" class="javax.swing.JButton" binding="shoppingButton">
@@ -114,19 +169,16 @@
               <text value="逛街"/>
             </properties>
           </component>
-        </children>
-      </grid>
-      <grid id="b480f" binding="controlPanel" layout-manager="FlowLayout" hgap="0" vgap="0" flow-align="1">
-        <constraints>
-          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties/>
-        <border type="none"/>
-        <children>
-          <component id="c2d46" class="javax.swing.JButton" binding="openButton">
+          <component id="9179" class="javax.swing.JButton" binding="waitReturnButton">
             <constraints/>
             <properties>
-              <text value="打开"/>
+              <text value="等待后返回"/>
+            </properties>
+          </component>
+          <component id="e0064" class="javax.swing.JButton" binding="browseButton">
+            <constraints/>
+            <properties>
+              <text value="浏览后返回"/>
             </properties>
           </component>
           <component id="2531f" class="javax.swing.JButton" binding="stopButton">

@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class DeviceRadioButtonActionListener implements ActionListener {
+public class DeviceRadioBtAcListener implements ActionListener {
     private static String id;
     // DeviceRadioButtonActionListener()
 
@@ -13,7 +13,7 @@ public class DeviceRadioButtonActionListener implements ActionListener {
     }
 
     public static void setId(String id) {
-        DeviceRadioButtonActionListener.id = id;
+        DeviceRadioBtAcListener.id = id;
     }
 
     @Override
