@@ -11,14 +11,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class InputOkButtonActionListener implements ActionListener {
-    // private JTextField input;
     private JPanel inputPanel;
     private JLabel output;
     private BrowseRunnable browseRunnable;
     private ShoppingButtonRunnable shoppingButtonRunnable;
     private WaitReturnButtonRunnable waitReturnButtonRunnable;
     private VideoButtonRunnable videoButtonRunnable;
-    // private JButton okButton;
 
     public InputOkButtonActionListener(JPanel inputPanel, JTextField input1, JLabel output) {
         this.output = output;
@@ -32,7 +30,7 @@ public class InputOkButtonActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         JButton ok = (JButton) e.getSource();
-        // okButton = ok;
+
         if ("开始浏览".equals(ok.getText())) {
             output.setText("浏览线程：开始浏览");
             new Thread(browseRunnable).start();
@@ -45,10 +43,8 @@ public class InputOkButtonActionListener implements ActionListener {
             waitReturnButtonRunnable.setStartButton(ok);
         } else if ("开始刷视频".equals(ok.getText())) {
             output.setText("刷视频线程：开始等待");
-
-            new Thread(waitReturnButtonRunnable).start();
+            // new Thread(waitReturnButtonRunnable).start();
             int count = inputPanel.getComponentCount();
-            // JTextField input1 = new JTextField("75");
             if (count > 3) {
                 // 获取倒数第2个组件
                 Component comp1 = inputPanel.getComponent(count - 2);
@@ -59,9 +55,6 @@ public class InputOkButtonActionListener implements ActionListener {
                     if (input2.isVisible()) {
                         Component component2 = inputPanel.getComponent(count - 3);
                         if (component2 instanceof JTextField) {
-                            // String text = input2.getText();
-                            // System.out.println("input2 = " + text);
-
                             JTextField input1 = (JTextField) component2;
                             VideoButtonRunnable.setMin(Integer.parseInt(input1.getText()));
                             VideoButtonRunnable.setMax(Integer.parseInt(input2.getText()));
@@ -69,11 +62,7 @@ public class InputOkButtonActionListener implements ActionListener {
                     }
                 }
             }
-
-
-            Thread thread = new Thread(videoButtonRunnable);
-
-            thread.start();
+            new Thread(videoButtonRunnable).start();
         }
     }
 }

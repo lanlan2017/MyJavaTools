@@ -1,10 +1,5 @@
 package adbs.action.listener;
 
-import adbs.action.runnable.WaitReturnButtonRunnable;
-import adbs.cmd.AdbCommands;
-import adbs.test.DeviceRadioBtAcListener;
-import tools.thead.Threads;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
