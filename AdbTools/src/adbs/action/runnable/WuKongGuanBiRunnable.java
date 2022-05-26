@@ -21,7 +21,7 @@ public class WuKongGuanBiRunnable extends ClosableRunnable {
     protected void running() {
         AdbTools.setIsRunning(this);
         // python文件
-        String pyFilePath = "G:\\dev2\\idea_workspace\\MyJavaTools\\Pythons\\WuKongLiuLanQi\\GuangGao.py";
+        String pyFilePath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\WuKongLiuLanQi\\GuangGao.py";
         // 执行python文件获取要操作的坐标点
         Point point = PyAutoGui.getPoint(pyFilePath);
         Robots.leftClickThenRightClick(point, 40 * 1000);

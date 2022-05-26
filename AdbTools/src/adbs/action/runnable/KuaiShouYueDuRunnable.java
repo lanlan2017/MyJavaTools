@@ -62,7 +62,7 @@ public class KuaiShouYueDuRunnable extends ClosableRunnable {
      */
     public void yueDu() {
         // python文件
-        String pyFilePath = "G:\\dev2\\idea_workspace\\MyJavaTools\\Pythons\\KuaiShou\\YueDu.py";
+        String pyFilePath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\KuaiShou\\YueDu.py";
         // 执行python文件获取要操作的坐标点
         Point point = PyAutoGui.getPoint(pyFilePath);
         // 停止阅读进程
