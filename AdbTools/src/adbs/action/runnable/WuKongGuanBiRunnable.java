@@ -11,6 +11,7 @@ import java.awt.*;
 import java.io.File;
 
 public class WuKongGuanBiRunnable extends ClosableRunnable {
+
     @Override
     public void setMsg() {
         this.msg = "悟空浏览器 看视频监听线程";

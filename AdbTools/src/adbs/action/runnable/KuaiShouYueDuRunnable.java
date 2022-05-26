@@ -11,12 +11,23 @@ import java.awt.*;
 import java.io.File;
 
 public class KuaiShouYueDuRunnable extends ClosableRunnable {
-    private JButton readButton;
-    private JButton stopButton;
 
-    public KuaiShouYueDuRunnable(JButton readButton, JButton stopButton) {
+    private static KuaiShouYueDuRunnable instance = new KuaiShouYueDuRunnable();
+
+    private JButton readButton;
+
+    private KuaiShouYueDuRunnable(){}
+
+    public JButton getReadButton() {
+        return readButton;
+    }
+
+    public void setReadButton(JButton readButton) {
         this.readButton = readButton;
-        this.stopButton = stopButton;
+    }
+
+    public KuaiShouYueDuRunnable(JButton readButton) {
+        this.readButton = readButton;
     }
 
     @Override
@@ -31,6 +42,7 @@ public class KuaiShouYueDuRunnable extends ClosableRunnable {
         // 给父类的
         ClosableRunnable.setStop(stop);
         if (stop) {
+            // 读取python的输出文件，该输出文件存放当前启动的python进程的pid
             String yueDuPidStr = Files.readFile(new File("G:\\dev2\\idea_workspace\\MyJavaTools\\Pythons\\KuaiShou\\YueDuPid.txt"));
             if (yueDuPidStr.matches("\\d+")) {
                 System.out.println("python进程pid=" + yueDuPidStr);
@@ -53,14 +65,13 @@ public class KuaiShouYueDuRunnable extends ClosableRunnable {
         String pyFilePath = "G:\\dev2\\idea_workspace\\MyJavaTools\\Pythons\\KuaiShou\\YueDu.py";
         // 执行python文件获取要操作的坐标点
         Point point = PyAutoGui.getPoint(pyFilePath);
-        // 当找到广告按钮时触发关闭按钮时间
-        // stopButton.doClick();
+        // 停止阅读进程
+        // ReadButtonRunnable.setStop(true);
         ReadButtonRunnable.setStop(true);
         // 先点击鼠标左键 ，等待一定时间后 ，点击鼠标右键
         Robots.leftClickThenRightClick(point, 30 * 1000);
         // 退出广告界面之后，开启阅读线程
         readButton.doClick();
-
         // 等待一小段时间，让解锁界面打开
         Robots.delay(1000);
     }

@@ -1,35 +1,37 @@
 package adbs.action.listener;
 
+import adbs.action.model.InputOutputModel;
 import adbs.action.runnable.BrowseRunnable;
 import adbs.action.runnable.ShoppingButtonRunnable;
 import adbs.action.runnable.VideoButtonRunnable;
 import adbs.action.runnable.WaitReturnButtonRunnable;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class InputOkButtonActionListener implements ActionListener {
-    private JPanel inputPanel;
-    private JLabel output;
+    private InputOutputModel inputOutputModel;
+
+
     private BrowseRunnable browseRunnable;
     private ShoppingButtonRunnable shoppingButtonRunnable;
     private WaitReturnButtonRunnable waitReturnButtonRunnable;
     private VideoButtonRunnable videoButtonRunnable;
 
-    public InputOkButtonActionListener(JPanel inputPanel, JTextField input1, JLabel output) {
-        this.output = output;
-        this.inputPanel = inputPanel;
-        this.browseRunnable = new BrowseRunnable(output);
-        this.shoppingButtonRunnable = new ShoppingButtonRunnable(output);
-        this.waitReturnButtonRunnable = new WaitReturnButtonRunnable(input1, output);
-        this.videoButtonRunnable = new VideoButtonRunnable(output);
+    public InputOkButtonActionListener(InputOutputModel inputOutputModel) {
+        this.inputOutputModel = inputOutputModel;
+        this.browseRunnable = new BrowseRunnable(inputOutputModel);
+        this.shoppingButtonRunnable = new ShoppingButtonRunnable(inputOutputModel);
+        this.waitReturnButtonRunnable = new WaitReturnButtonRunnable(inputOutputModel);
+        this.videoButtonRunnable = new VideoButtonRunnable(inputOutputModel);
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         JButton ok = (JButton) e.getSource();
+        JLabel output = inputOutputModel.getOutput();
 
         if ("开始浏览".equals(ok.getText())) {
             output.setText("浏览线程：开始浏览");
@@ -43,26 +45,14 @@ public class InputOkButtonActionListener implements ActionListener {
             waitReturnButtonRunnable.setStartButton(ok);
         } else if ("开始刷视频".equals(ok.getText())) {
             output.setText("刷视频线程：开始等待");
-            // new Thread(waitReturnButtonRunnable).start();
-            int count = inputPanel.getComponentCount();
-            if (count > 3) {
-                // 获取倒数第2个组件
-                Component comp1 = inputPanel.getComponent(count - 2);
-                // 如果第2个组件是文本框的话
-                if (comp1 instanceof JTextField) {
-                    JTextField input2 = (JTextField) comp1;
-                    // 如果第2个输入框可见的话
-                    if (input2.isVisible()) {
-                        Component component2 = inputPanel.getComponent(count - 3);
-                        if (component2 instanceof JTextField) {
-                            JTextField input1 = (JTextField) component2;
-                            VideoButtonRunnable.setMin(Integer.parseInt(input1.getText()));
-                            VideoButtonRunnable.setMax(Integer.parseInt(input2.getText()));
-                        }
-                    }
-                }
+            String input1Str = inputOutputModel.getInputPanelModel().getInput1().getText();
+            String input2Str = inputOutputModel.getInputPanelModel().getInput2().getText();
+            // 如果输入的都是数字
+            if (input1Str.matches("\\d+") && input2Str.matches("\\d+")) {
+                videoButtonRunnable.setMin(Integer.parseInt(input1Str));
+                videoButtonRunnable.setMax(Integer.parseInt(input2Str));
+                new Thread(videoButtonRunnable).start();
             }
-            new Thread(videoButtonRunnable).start();
         }
     }
 }

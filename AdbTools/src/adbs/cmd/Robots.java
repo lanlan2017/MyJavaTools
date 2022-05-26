@@ -61,6 +61,7 @@ public class Robots {
             clickLeftButton(robot);
 
             // 进入广告界面之后，关闭阅读线程
+            // ReadButtonRunnable.setStop(true);
             ReadButtonRunnable.setStop(true);
             // 等待30秒
             // robot.delay(30 * 1000);

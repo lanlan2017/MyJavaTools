@@ -1,5 +1,6 @@
 package adbs.action.runnable;
 
+import adbs.action.model.InputOutputModel;
 import adbs.cmd.AdbCommands;
 import adbs.test.DeviceRadioBtAcListener;
 import adbs.ui.AdbTools;
@@ -11,9 +12,17 @@ import java.util.Random;
 public class VideoButtonRunnable implements Runnable {
 
     private static boolean stop = false;
-    private static int min = 0;
-    private static int max = 0;
-    private JLabel output;
+    private int min = 0;
+    private int max = 0;
+    /**
+     * 输入输出汇总模型
+     */
+    private InputOutputModel model;
+
+
+    public VideoButtonRunnable(InputOutputModel model) {
+        this.model = model;
+    }
 
     public static boolean isStop() {
         return stop;
@@ -23,24 +32,20 @@ public class VideoButtonRunnable implements Runnable {
         VideoButtonRunnable.stop = stop;
     }
 
-    public static int getMin() {
+    public int getMin() {
         return min;
     }
 
-    public static void setMin(int min) {
-        VideoButtonRunnable.min = min;
+    public void setMin(int min) {
+        this.min = min;
     }
 
-    public static int getMax() {
+    public int getMax() {
         return max;
     }
 
-    public static void setMax(int max) {
-        VideoButtonRunnable.max = max;
-    }
-
-    public VideoButtonRunnable(JLabel output) {
-        this.output = output;
+    public void setMax(int max) {
+        this.max = max;
     }
 
     @Override
@@ -48,6 +53,8 @@ public class VideoButtonRunnable implements Runnable {
         String id = DeviceRadioBtAcListener.getId();
         // 告诉主线程当前线程正在运行
         AdbTools.setIsRunning(this);
+
+        JLabel output = model.getOutput();
 
         // 每次默认不停止循环
         setStop(false);

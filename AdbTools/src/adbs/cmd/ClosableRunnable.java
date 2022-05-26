@@ -4,12 +4,12 @@ package adbs.cmd;
  * 可关闭的Runnable
  */
 public abstract class ClosableRunnable implements Runnable {
-    // ClosableRunnable
+
     private static boolean stop = false;
     protected String msg;
 
 
-    public static boolean isStop() {
+    public boolean isStop() {
         return stop;
     }
 
@@ -26,7 +26,6 @@ public abstract class ClosableRunnable implements Runnable {
 
     @Override
     public void run() {
-        //
         stop = false;
         if (msg != null) {
             System.out.println(msg + " 已进入");

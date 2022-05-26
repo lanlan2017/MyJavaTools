@@ -1,5 +1,6 @@
 package adbs.action.runnable;
 
+import adbs.action.model.InputOutputModel;
 import adbs.cmd.AdbCommands;
 import adbs.test.DeviceRadioBtAcListener;
 import adbs.ui.AdbTools;
@@ -8,12 +9,14 @@ import tools.thead.Threads;
 import javax.swing.*;
 
 public class ShoppingButtonRunnable implements Runnable {
-    private JLabel output;
+    /**
+     * 输入输出汇总模型
+     */
+    private InputOutputModel model;
     private static boolean stop = false;
 
-
-    public ShoppingButtonRunnable(JLabel output) {
-        this.output = output;
+    public ShoppingButtonRunnable(InputOutputModel model) {
+        this.model = model;
     }
 
     public static boolean isStop() {
@@ -30,6 +33,7 @@ public class ShoppingButtonRunnable implements Runnable {
         String id = DeviceRadioBtAcListener.getId();
         // 告诉主线程当前线程正在运行
         AdbTools.setIsRunning(this);
+        JLabel output = model.getOutput();
         output.setText("逛街线程：已经开始");
         output.setText("逛街线程: 在左侧 从下向上滑动3次");
         // 在左侧，从下向上滑动三次
@@ -40,7 +44,7 @@ public class ShoppingButtonRunnable implements Runnable {
         Threads.sleep(1000);
         AdbCommands.swipeBottom2TopOnLeft(id);
 
-        while (!stop) {
+        while (!isStop()) {
             output.setText("逛街线程: 在左侧 从下向上滑动1次");
             Threads.sleep(1000);
             AdbCommands.swipeBottom2TopOnLeft(id);

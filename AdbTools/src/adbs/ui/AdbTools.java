@@ -1,6 +1,8 @@
 package adbs.ui;
 
 import adbs.action.listener.*;
+import adbs.action.model.InputOutputModel;
+import adbs.action.model.InputPanelModel;
 import adbs.action.runnable.*;
 import adbs.action.runnable.KuaiShouYueDuRunnable;
 import adbs.test.AdbDi;
@@ -10,8 +12,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class AdbTools {
     static {
@@ -19,18 +19,6 @@ public class AdbTools {
         // 为了保证创建UI时，已经设置好外观，设置外观的代码最好写在静态块中，
         // 并且把这个静态块写在类定义的最前面。
         FlatLightLaf.setup();
-    }
-
-    // 当前正在执行的线程
-    private static Runnable isRunning;
-    private final JFrame frame;
-
-    public static Runnable getIsRunning() {
-        return isRunning;
-    }
-
-    public static void setIsRunning(Runnable isRunning) {
-        AdbTools.isRunning = isRunning;
     }
 
     private JPanel topPanel;
@@ -61,41 +49,46 @@ public class AdbTools {
     private JButton wuKongGuanBiBtn;
     private JButton readButton;
 
-    public AdbTools() {
+    // 当前正在执行的线程
+    private static Runnable isRunning;
+    private final JFrame frame;
+    // 输入输出汇总
+    private InputOutputModel inputOutputModel;
+
+    private static AdbTools instance = new AdbTools();
+
+    public static AdbTools getInstance() {
+        return instance;
+    }
+
+    public InputOutputModel getInputOutputModel() {
+        return inputOutputModel;
+    }
+
+    private AdbTools() {
         frame = new JFrame();
         frame.setTitle("adb工具箱");
         // 禁止调整窗体大小
         frame.setResizable(false);
         frame.setContentPane(topPanel);
+        // 窗体内容面板监听鼠标事件
+        topPanel.addMouseListener(new TopPanelMouseAdapter(frame));
         // 添加当前设备面板
         devicePanel.add(new AdbDi().createDevicesPanel());
+        // 打开（设备）按钮
+        openButton.addActionListener(new OpenButtonListener());
 
-        topPanel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                // super.mouseClicked(e);
-                if (e.getButton() == MouseEvent.BUTTON3 && e.getClickCount() == 2) {
-                    frame.pack();
-                }
-            }
-        });
-        // 使用网格布局
+        // 创建输入面板的模型
+        InputPanelModel inputPanelModel = new InputPanelModel(inputPanel, timeLable, timeRadioPanel, radioButton15s, radioButton35s, radioButton75s, input1, input2, inputOkButton);
+        inputOutputModel = new InputOutputModel(inputPanelModel, output);
+
+        // 通用按钮面板 使用网格布局
         buttonPanel.setLayout(new GridLayout(2, 4, 1, 1));
+        // 输入面板等待按钮
+        inputOkButton.addActionListener(new InputOkButtonActionListener(inputOutputModel));
 
         // 不显示标题栏，最小化，关闭按钮
         // frame.setUndecorated(true);
-        ButtonGroup bg = new ButtonGroup();
-        bg.add(radioButton15s);
-        bg.add(radioButton35s);
-        bg.add(radioButton75s);
-        radioButton15s.addActionListener(e -> input1.setText(String.valueOf(15)));
-        radioButton35s.addActionListener(e -> input1.setText(String.valueOf(35)));
-        radioButton75s.addActionListener(e -> input1.setText(String.valueOf(75)));
-
-        inputOkButton.addActionListener(new InputOkButtonActionListener(inputPanel, input1, output));
-        // 刚开始,隐藏输入面板
-        inputPanel.setVisible(false);
-
         // 点击关闭按钮时退出程序
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         // 永远置顶
@@ -105,32 +98,13 @@ public class AdbTools {
         // 显示窗体
         frame.setVisible(true);
 
-        // 添加事件处理程序
-        videoButton.addActionListener(new VideoButtonActionListener(frame, inputPanel, output));
-        kuaiShouReadButton.addActionListener(new ReadButtonActionListener(kuaiShouReadButton, stopButton, output));
-
-
-        browseButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                inputPanel.setVisible(true);
-                input1.setText(String.valueOf(35));
-                // 默认75秒
-                radioButton75s.doClick();
-                inputOkButton.setText("开始浏览");
-                frame.pack();
-            }
-        });
-        shoppingButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                inputPanel.setVisible(true);
-                // 逛街20分钟
-                input1.setText(String.valueOf(20 * 60));
-                inputOkButton.setText("开始逛街");
-                frame.pack();
-            }
-        });
+        // 刷视频按钮
+        videoButton.addActionListener(new VideoButtonActionListener(frame, inputPanelModel));
+        kuaiShouReadButton.addActionListener(new ReadButtonActionListener(kuaiShouReadButton, inputOutputModel));
+        // 浏览后返回按钮事件处理程序
+        browseButton.addActionListener(new BrowseButtonActionListener(frame, inputPanelModel));
+        // 逛街按钮
+        shoppingButton.addActionListener(new ShoppingButtonActionListener(frame, inputPanelModel));
 
         stopButton.addActionListener(new ActionListener() {
             @Override
@@ -139,64 +113,46 @@ public class AdbTools {
                 // 如果是视频线程正在运行的话
                 if (isRunning instanceof BrowseRunnable) {
                     BrowseRunnable.setStop(true);
-                    closeInputPanel();
+                    // closeInputPanel();
                 } else if (isRunning instanceof ReadButtonRunnable || isRunning instanceof KuaiShouYueDuRunnable) {
                     // 如果当前正在运行的线程是 阅读线程的话，就停止阅读线程
                     // 或者当前正在运行的线程是 快手阅读广告监听线程 的话
                     ReadButtonRunnable.setStop(true);
                     // 停止阅读广告监听线程
                     KuaiShouYueDuRunnable.setStop(true);
-                    // AdbCommands.runAbdCmd("taskkill /F /IM python.exe");
-                    // System.out.println(AdbCommands.runAbdCmd("tasklist |findstr python"));
                 } else if (isRunning instanceof ShoppingButtonRunnable) {
                     // 如果是逛街线程
                     ShoppingButtonRunnable.setStop(true);
-                    closeInputPanel();
                 } else if (isRunning instanceof VideoButtonRunnable) {
                     // 如果是刷视频线程在运行
                     // 关闭刷视频线程
                     VideoButtonRunnable.setStop(true);
-                    input2.setVisible(false);
-                    closeInputPanel();
                 } else if (isRunning instanceof WaitReturnButtonRunnable) {
                     // 如果是等待后返回线程
                     WaitReturnButtonRunnable.setStop(true);
-                    closeInputPanel();
                 } else if (isRunning instanceof WuKongGuanBiRunnable) {
                     // 如果是等待后返回线程
                     WuKongGuanBiRunnable.setStop(true);
-                    // closeInputPanel();
                 }
             }
         });
-        openButton.addActionListener(new OpenButtonListener());
-        waitReturnButton.addActionListener(new WaitReturnButtonActionListener(frame, inputPanel, input1, inputOkButton));
-        // 悟空浏览器广告关闭监听
-        wuKongGuanBiBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new Thread(new WuKongGuanBiRunnable()).start();
-            }
-        });
-        readButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new Thread(new ReadButtonRunnable(output)).start();
-            }
+        // 等待后返回按钮
+        waitReturnButton.addActionListener(new WaitReturnButtonActionListener(frame, inputPanelModel));
+        // 悟空看视频按钮
+        wuKongGuanBiBtn.addActionListener(e -> new Thread(new WuKongGuanBiRunnable()).start());
+        // 阅读按钮
+        readButton.addActionListener(e -> {
+            ReadButtonRunnable readButtonRunnable = new ReadButtonRunnable(inputOutputModel);
+            new Thread(readButtonRunnable).start();
         });
     }
 
-    /**
-     * 关闭输入面板
-     */
-    private void closeInputPanel() {
-        inputPanel.setVisible(false);
-        inputOkButton.setText("确认");
-        frame.pack();
+    public static void setIsRunning(Runnable isRunning) {
+        AdbTools.isRunning = isRunning;
     }
-
 
     public static void main(String[] args) {
-        AdbTools adbTools = new AdbTools();
+        // new AdbTools();
+        AdbTools.getInstance();
     }
 }

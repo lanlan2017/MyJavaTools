@@ -1,54 +1,41 @@
 package adbs.action.listener;
 
+import adbs.action.model.InputPanelModel;
+
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class VideoButtonActionListener implements ActionListener {
-    // private VideoButtonRunnable videoButtonRunnable;
     private JFrame frame;
-    private JPanel inputPanel;
-    private JTextField input;
-    // private JButton stopButton;
+    private InputPanelModel inputPanelModel;
 
-    public VideoButtonActionListener(JFrame frame, JPanel inputPanel, JLabel output) {
+    public VideoButtonActionListener(JFrame frame, InputPanelModel inputPanelModel) {
         this.frame = frame;
-        this.inputPanel = inputPanel;
+        this.inputPanelModel = inputPanelModel;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        inputPanel.setVisible(true);
-        Component[] components = inputPanel.getComponents();
-        Component[] newComp = new Component[components.length + 1];
-        for (int i = 0; i < components.length; i++) {
-            newComp[i] = components[i];
-        }
-        int count = inputPanel.getComponentCount();
-        if (count > 0) {
-            // 获取面板最后一个元素
-            Component comp = inputPanel.getComponent(count - 1);
-            if (comp instanceof JButton) {
-                JButton btn = (JButton) comp;
-                btn.setText("开始刷视频");
-            }
-            // 获取面板倒数第3个元素
-            comp = inputPanel.getComponent(count - 2);
-            if (comp instanceof JTextField) {
-                JTextField input2 = (JTextField) comp;
-                input2.setColumns(2);
-                input2.setText(String.valueOf(14));
-                input2.setVisible(true);
-            }
-            // 获取面板倒数第3个元素
-            comp = inputPanel.getComponent(count - 3);
-            if (comp instanceof JTextField) {
-                JTextField input1 = (JTextField) comp;
-                input1.setColumns(2);
-                input1.setText(String.valueOf(7));
-            }
-        }
+        // 显示输入界面
+        inputPanelModel.getInputPanel().setVisible(true);
+        // 设置标签
+        inputPanelModel.getTimeLable().setText("随机间隔(s):");
+        // 隐藏单选按钮组
+        inputPanelModel.getTimeRadioPanel().setVisible(false);
+        // 显示输入框1
+        JTextField input1 = inputPanelModel.getInput1();
+        input1.setVisible(true);
+        input1.setColumns(2);
+        input1.setText(String.valueOf(7));
+        // 显示输入框2
+        JTextField input2 = inputPanelModel.getInput2();
+        input2.setVisible(true);
+        input2.setColumns(2);
+        input2.setText(String.valueOf(14));
+        // 设置按钮文字
+        inputPanelModel.getInputOkButton().setText("开始刷视频");
+
         frame.pack();
     }
 }

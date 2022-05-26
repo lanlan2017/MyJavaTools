@@ -1,5 +1,6 @@
 package adbs.action.listener;
 
+import adbs.action.model.InputOutputModel;
 import adbs.action.runnable.ReadButtonRunnable;
 import adbs.action.runnable.KuaiShouYueDuRunnable;
 
@@ -8,16 +9,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ReadButtonActionListener implements ActionListener {
-    private JButton readButton;
     private final ReadButtonRunnable readButtonRunnable;
     private KuaiShouYueDuRunnable kuaiShouYueDuRunnable;
     private Thread kuaiShouYueDuThread;
 
 
-    public ReadButtonActionListener(JButton readButton, JButton stopButton, JLabel output) {
-        this.readButtonRunnable = new ReadButtonRunnable(output);
-        this.readButton = readButton;
-        this.kuaiShouYueDuRunnable = new KuaiShouYueDuRunnable(readButton, stopButton);
+    public ReadButtonActionListener(JButton readButton, InputOutputModel model) {
+        this.readButtonRunnable = new ReadButtonRunnable(model);
+
+        this.kuaiShouYueDuRunnable = new KuaiShouYueDuRunnable(readButton);
+
         this.kuaiShouYueDuThread = new Thread(kuaiShouYueDuRunnable);
     }
 

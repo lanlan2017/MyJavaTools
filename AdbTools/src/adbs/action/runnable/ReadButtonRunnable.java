@@ -1,5 +1,6 @@
 package adbs.action.runnable;
 
+import adbs.action.model.InputOutputModel;
 import adbs.cmd.AdbCommands;
 import adbs.test.DeviceRadioBtAcListener;
 import adbs.ui.AdbTools;
@@ -9,17 +10,17 @@ import javax.swing.*;
 import java.util.Random;
 
 public class ReadButtonRunnable implements Runnable {
-    private JLabel output;
+    // 输入输出汇总Model
+    private InputOutputModel model;
     private static boolean isStop = false;
 
-    public ReadButtonRunnable(JLabel output) {
-        this.output = output;
+    public ReadButtonRunnable(InputOutputModel model) {
+        this.model = model;
     }
 
-    public static boolean isStop() {
+    public boolean isStop() {
         return isStop;
     }
-
 
     public static void setStop(boolean stop) {
         isStop = stop;
@@ -27,8 +28,10 @@ public class ReadButtonRunnable implements Runnable {
 
     @Override
     public void run() {
-        isStop=false;
+        isStop = false;
         String id = DeviceRadioBtAcListener.getId();
+        JLabel output = model.getOutput();
+
         // 告诉主线程当前线程正在运行
         AdbTools.setIsRunning(this);
         // 先等待1秒

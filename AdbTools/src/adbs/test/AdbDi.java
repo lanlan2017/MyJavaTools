@@ -9,19 +9,17 @@ import java.util.LinkedHashSet;
 import java.util.Scanner;
 
 public class AdbDi {
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("测试自动生成设备列表");
-        JPanel panel = new AdbDi().createDevicesPanel();
-        if (panel != null) {
-            frame.add(panel);
-            frame.pack();
-            frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-            frame.setAlwaysOnTop(true);
-            frame.setVisible(true);
-        }
-
-
-    }
+    // public static void main(String[] args) {
+    //     JFrame frame = new JFrame("测试自动生成设备列表");
+    //     JPanel panel = new AdbDi().createDevicesPanel();
+    //     if (panel != null) {
+    //         frame.add(panel);
+    //         frame.pack();
+    //         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    //         frame.setAlwaysOnTop(true);
+    //         frame.setVisible(true);
+    //     }
+    // }
 
     /**
      * 执行adb devices -l命令，如果存在设备的话，则生成存放这些设备的单选按钮组
@@ -29,7 +27,8 @@ public class AdbDi {
      * @return 如果存在设置，则返回包含这些设备的JPanel
      */
     public JPanel createDevicesPanel() {
-        JPanel panel = null;
+        // JPanel panel = null;
+        JPanel panel = new JPanel();
         String devicesListStr = AdbCommands.runAbdCmd("adb devices -l");
         Collection<Device> devices = new LinkedHashSet<>();
         Scanner scanner = new Scanner(devicesListStr);
