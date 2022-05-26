@@ -1,5 +1,7 @@
 package adbs.cmd;
 
+import adbs.ui.AdbTools;
+
 /**
  * 可关闭的Runnable
  */
@@ -26,6 +28,7 @@ public abstract class ClosableRunnable implements Runnable {
 
     @Override
     public void run() {
+        AdbTools.setIsRunning(this);
         stop = false;
         if (msg != null) {
             System.out.println(msg + " 已进入");

@@ -1,11 +1,12 @@
 package adbs.action.model;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * 输入输出组件模型
  */
-public class InputOutputModel {
+public class InOutputModel {
     /**
      * 输入组件
      */
@@ -15,7 +16,7 @@ public class InputOutputModel {
      */
     private JLabel output;
 
-    public InputOutputModel(InputPanelModel inputPanelModel, JLabel output) {
+    public InOutputModel(InputPanelModel inputPanelModel, JLabel output) {
         this.inputPanelModel = inputPanelModel;
         this.output = output;
     }
@@ -27,4 +28,5 @@ public class InputOutputModel {
     public JLabel getOutput() {
         return output;
     }
+
 }

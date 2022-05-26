@@ -1,6 +1,6 @@
 package adbs.action.runnable;
 
-import adbs.action.model.InputOutputModel;
+import adbs.action.model.InOutputModel;
 import adbs.cmd.AdbCommands;
 import adbs.test.DeviceRadioBtAcListener;
 import adbs.ui.AdbTools;
@@ -10,29 +10,16 @@ import javax.swing.*;
 import java.awt.*;
 
 public class WaitReturnButtonRunnable implements Runnable {
-    private static JButton startButton;
+    // private static JButton startButton;
     /**
      * 输入输出汇总对象
      */
-    private InputOutputModel inputOutputModel;
+    private InOutputModel inOutputModel;
 
     private static boolean stop = false;
 
-    // private WaitReturnButtonRunnable() {
-    // }
-
-    // private static WaitReturnButtonRunnable instance = new WaitReturnButtonRunnable();
-    //
-    // public static WaitReturnButtonRunnable getInstance() {
-    //     return instance;
-    // }
-    //
-    // public void setInputOutputModel(InputOutputModel inputOutputModel) {
-    //     this.inputOutputModel = inputOutputModel;
-    // }
-
-    public WaitReturnButtonRunnable(InputOutputModel inputOutputModel) {
-        this.inputOutputModel = inputOutputModel;
+    public WaitReturnButtonRunnable(InOutputModel inOutputModel) {
+        this.inOutputModel = inOutputModel;
     }
 
 
@@ -44,19 +31,19 @@ public class WaitReturnButtonRunnable implements Runnable {
         WaitReturnButtonRunnable.stop = stop;
     }
 
-    public void setStartButton(JButton startButton) {
-        this.startButton = startButton;
-    }
+    // public void setStartButton(JButton startButton) {
+    //     this.startButton = startButton;
+    // }
 
     @Override
     public void run() {
         stop = false;
         // 获取输入文本框1
-        JTextField input1 = inputOutputModel.getInputPanelModel().getInput1();
+        JTextField input1 = inOutputModel.getInputPanelModel().getInput1();
         // 解析输入文本1中的数字,并计算得到毫秒数
         int millisecond = Integer.parseInt(input1.getText()) * 1000;
         // 获取输入标签
-        JLabel output = inputOutputModel.getOutput();
+        JLabel output = inOutputModel.getOutput();
 
         AdbTools.setIsRunning(this);
         int count = 0;
@@ -82,27 +69,6 @@ public class WaitReturnButtonRunnable implements Runnable {
         // 触发返回键
         AdbCommands.returnButton(DeviceRadioBtAcListener.getId());
         output.setText("等待后返回：已停止");
-        showConfirmDialog();
-    }
-
-    private void showConfirmDialog() {
-        // 得到窗体的内容面板
-        Container parent = inputOutputModel.getInputPanelModel().getInputPanel().getParent();
-        // System.out.println(parent);
-        int returnVal;
-        if (parent instanceof Component) {
-            System.out.println("是组件");
-            Component comp = parent;
-            returnVal = JOptionPane.showConfirmDialog(comp, "等待后返回已结束，是否再次执行");
-        } else {
-            returnVal = JOptionPane.showConfirmDialog(null, "等待后返回已结束，是否再次执行");
-        }
-        // 如果选择的是确认按键
-        if (returnVal == JOptionPane.OK_OPTION) {
-            if (startButton != null && startButton instanceof JButton) {
-                // 触发按钮
-                startButton.doClick();
-            }
-        }
+        inOutputModel.getInputPanelModel().showConfirmDialog();
     }
 }

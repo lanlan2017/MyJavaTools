@@ -4,6 +4,7 @@ import adbs.cmd.CmdRun;
 import adbs.cmd.PyAutoGui;
 import adbs.cmd.Robots;
 import adbs.cmd.ClosableRunnable;
+import adbs.ui.AdbTools;
 import tools.file.Files;
 
 import javax.swing.*;
@@ -11,20 +12,7 @@ import java.awt.*;
 import java.io.File;
 
 public class KuaiShouYueDuRunnable extends ClosableRunnable {
-
-    private static KuaiShouYueDuRunnable instance = new KuaiShouYueDuRunnable();
-
     private JButton readButton;
-
-    private KuaiShouYueDuRunnable(){}
-
-    public JButton getReadButton() {
-        return readButton;
-    }
-
-    public void setReadButton(JButton readButton) {
-        this.readButton = readButton;
-    }
 
     public KuaiShouYueDuRunnable(JButton readButton) {
         this.readButton = readButton;
@@ -32,18 +20,20 @@ public class KuaiShouYueDuRunnable extends ClosableRunnable {
 
     @Override
     protected void running() {
-        System.out.println("本次阅读广告监听 开始");
+        // AdbTools.setIsRunning(this);
+        System.out.println("本次 快手阅读广告监听 开始");
         yueDu();
-        System.out.println("本次阅读广告监听 结束");
+        System.out.println("本次 快手阅读广告监听 结束");
     }
 
 
     public static void setStop(boolean stop) {
-        // 给父类的
+        // 调用父类的关闭方法
         ClosableRunnable.setStop(stop);
         if (stop) {
             // 读取python的输出文件，该输出文件存放当前启动的python进程的pid
-            String yueDuPidStr = Files.readFile(new File("G:\\dev2\\idea_workspace\\MyJavaTools\\Pythons\\KuaiShou\\YueDuPid.txt"));
+            String pathname = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\KuaiShou\\YueDuPid.txt";
+            String yueDuPidStr = Files.readFile(new File(pathname));
             if (yueDuPidStr.matches("\\d+")) {
                 System.out.println("python进程pid=" + yueDuPidStr);
                 // 关闭python进程

@@ -140,6 +140,12 @@
               <text value="悟空看视频"/>
             </properties>
           </component>
+          <component id="696a1" class="javax.swing.JButton" binding="douyinSeeVideoBtn">
+            <constraints/>
+            <properties>
+              <text value="抖音刷视频"/>
+            </properties>
+          </component>
         </children>
       </grid>
       <grid id="4a7a3" binding="buttonPanel" layout-manager="FlowLayout" hgap="1" vgap="1" flow-align="1">

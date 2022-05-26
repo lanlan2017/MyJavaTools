@@ -1,6 +1,6 @@
 package adbs.action.runnable;
 
-import adbs.action.model.InputOutputModel;
+import adbs.action.model.InOutputModel;
 import adbs.cmd.AdbCommands;
 import adbs.test.DeviceRadioBtAcListener;
 import adbs.ui.AdbTools;
@@ -12,10 +12,10 @@ public class ShoppingButtonRunnable implements Runnable {
     /**
      * 输入输出汇总模型
      */
-    private InputOutputModel model;
+    private InOutputModel model;
     private static boolean stop = false;
 
-    public ShoppingButtonRunnable(InputOutputModel model) {
+    public ShoppingButtonRunnable(InOutputModel model) {
         this.model = model;
     }
 

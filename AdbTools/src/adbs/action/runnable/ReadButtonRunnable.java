@@ -1,6 +1,6 @@
 package adbs.action.runnable;
 
-import adbs.action.model.InputOutputModel;
+import adbs.action.model.InOutputModel;
 import adbs.cmd.AdbCommands;
 import adbs.test.DeviceRadioBtAcListener;
 import adbs.ui.AdbTools;
@@ -11,10 +11,10 @@ import java.util.Random;
 
 public class ReadButtonRunnable implements Runnable {
     // 输入输出汇总Model
-    private InputOutputModel model;
+    private InOutputModel model;
     private static boolean isStop = false;
 
-    public ReadButtonRunnable(InputOutputModel model) {
+    public ReadButtonRunnable(InOutputModel model) {
         this.model = model;
     }
 

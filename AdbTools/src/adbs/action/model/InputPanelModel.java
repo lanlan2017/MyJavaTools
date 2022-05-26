@@ -1,6 +1,7 @@
 package adbs.action.model;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * 定义输入面板模型
@@ -31,9 +32,10 @@ public class InputPanelModel {
         bg.add(radioButton15s);
         bg.add(radioButton35s);
         bg.add(radioButton75s);
+
         radioButton15s.addActionListener(e -> input1.setText(String.valueOf(15)));
-        radioButton35s.addActionListener(e -> input1.setText(String.valueOf(35)));
-        radioButton75s.addActionListener(e -> input1.setText(String.valueOf(75)));
+        radioButton35s.addActionListener(e -> input1.setText(String.valueOf(30)));
+        radioButton75s.addActionListener(e -> input1.setText(String.valueOf(60)));
 
         // 刚开始,隐藏输入面板
         inputPanel.setVisible(false);
@@ -74,5 +76,25 @@ public class InputPanelModel {
 
     public JButton getInputOkButton() {
         return inputOkButton;
+    }
+
+    public void showConfirmDialog() {
+        // 得到窗体的内容面板
+        Container parent = inputPanel.getParent();
+        int returnVal;
+        if (parent instanceof Component) {
+            System.out.println("是组件");
+            Component comp = parent;
+            returnVal = JOptionPane.showConfirmDialog(comp, "是否再次执行");
+        } else {
+            returnVal = JOptionPane.showConfirmDialog(null, "是否再次执行");
+        }
+        // 如果选择的是确认按键
+        if (returnVal == JOptionPane.OK_OPTION) {
+            if (inputOkButton != null && inputOkButton instanceof JButton) {
+                // 触发按钮
+                inputOkButton.doClick();
+            }
+        }
     }
 }
