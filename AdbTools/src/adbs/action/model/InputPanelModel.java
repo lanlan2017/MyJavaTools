@@ -12,18 +12,18 @@ public class InputPanelModel {
     private JPanel timeRadioPanel;
     private JRadioButton radioButton15s;
     private JRadioButton radioButton35s;
-    private JRadioButton radioButton75s;
+    private JRadioButton radioButton70s;
     private JTextField input1;
     private JTextField input2;
     private JButton inputOkButton;
 
-    public InputPanelModel(JPanel inputPanel, JLabel timeLable, JPanel timeRadioPanel, JRadioButton radioButton15s, JRadioButton radioButton35s, JRadioButton radioButton75s, JTextField input1, JTextField input2, JButton inputOkButton) {
+    public InputPanelModel(JPanel inputPanel, JLabel timeLable, JPanel timeRadioPanel, JRadioButton radioButton15s, JRadioButton radioButton35s, JRadioButton radioButton70s, JTextField input1, JTextField input2, JButton inputOkButton) {
         this.inputPanel = inputPanel;
         this.timeLable = timeLable;
         this.timeRadioPanel = timeRadioPanel;
         this.radioButton15s = radioButton15s;
         this.radioButton35s = radioButton35s;
-        this.radioButton75s = radioButton75s;
+        this.radioButton70s = radioButton70s;
         this.input1 = input1;
         this.input2 = input2;
         this.inputOkButton = inputOkButton;
@@ -31,11 +31,11 @@ public class InputPanelModel {
         ButtonGroup bg = new ButtonGroup();
         bg.add(radioButton15s);
         bg.add(radioButton35s);
-        bg.add(radioButton75s);
+        bg.add(radioButton70s);
 
         radioButton15s.addActionListener(e -> input1.setText(String.valueOf(15)));
-        radioButton35s.addActionListener(e -> input1.setText(String.valueOf(30)));
-        radioButton75s.addActionListener(e -> input1.setText(String.valueOf(60)));
+        radioButton35s.addActionListener(e -> input1.setText(String.valueOf(35)));
+        radioButton70s.addActionListener(e -> input1.setText(String.valueOf(70)));
 
         // 刚开始,隐藏输入面板
         inputPanel.setVisible(false);
@@ -52,18 +52,6 @@ public class InputPanelModel {
 
     public JPanel getTimeRadioPanel() {
         return timeRadioPanel;
-    }
-
-    public JRadioButton getRadioButton15s() {
-        return radioButton15s;
-    }
-
-    public JRadioButton getRadioButton35s() {
-        return radioButton35s;
-    }
-
-    public JRadioButton getRadioButton75s() {
-        return radioButton75s;
     }
 
     public JTextField getInput1() {

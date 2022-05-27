@@ -35,7 +35,7 @@ public class ReadButtonRunnable implements Runnable {
         // 告诉主线程当前线程正在运行
         AdbTools.setIsRunning(this);
         // 先等待1秒
-        Threads.sleep(800);
+        Threads.sleep(500);
         // 先等待一会 再开始执行命令
         Random random = new Random();
         int min = 5;

@@ -27,19 +27,11 @@ public class PythonRun {
         return runCmd();
     }
 
-    // public static Point getPoint(String pyFilePath) {
-    //     // command.set(command.size() - 1, pyFilePath);
-    //     // return runCmd();
-    //     // String pointStr = runPython("D:\\Desktop\\test\\Python\\auto\\kuaishou\\kuaishou_yuedu_jieshuo.py");
-    //
-    // }
-
     private static String runCmd() {
         ProcessBuilder processBuilder = new ProcessBuilder(command);
         ProcessRunner processRunner = new ProcessRunner();
         // 执行进程，并返回进程的标准输出
         return processRunner.runProcess(processBuilder);
-        // System.out.println("adbResult = " + adbResult);
     }
 
     public static void main(String[] args) {
@@ -48,7 +40,4 @@ public class PythonRun {
 
     }
 
-    // private static void jieSuoZhangJiePoint() {
-    //
-    // }
 }

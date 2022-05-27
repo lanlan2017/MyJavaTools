@@ -1,9 +1,6 @@
 package adbs.action.runnable;
 
-import adbs.cmd.CmdRun;
-import adbs.cmd.PyAutoGui;
-import adbs.cmd.Robots;
-import adbs.cmd.ClosableRunnable;
+import adbs.cmd.*;
 import adbs.ui.AdbTools;
 import tools.file.Files;
 
@@ -20,7 +17,7 @@ public class KuaiShouYueDuRunnable extends ClosableRunnable {
 
     @Override
     protected void running() {
-        // AdbTools.setIsRunning(this);
+        AdbTools.setIsRunning(this);
         System.out.println("本次 快手阅读广告监听 开始");
         yueDu();
         System.out.println("本次 快手阅读广告监听 结束");
@@ -54,15 +51,16 @@ public class KuaiShouYueDuRunnable extends ClosableRunnable {
         // python文件
         String pyFilePath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\KuaiShou\\YueDu.py";
         // 执行python文件获取要操作的坐标点
-        Point point = PyAutoGui.getPoint(pyFilePath);
+        // 运行python进程，获取进程的标准输出
+        String pyOutput = PythonRun.runPython(pyFilePath);
+        Point point = PyAutoGui.getPoint(pyOutput);
         // 停止阅读进程
-        // ReadButtonRunnable.setStop(true);
         ReadButtonRunnable.setStop(true);
         // 先点击鼠标左键 ，等待一定时间后 ，点击鼠标右键
         Robots.leftClickThenRightClick(point, 30 * 1000);
         // 退出广告界面之后，开启阅读线程
         readButton.doClick();
         // 等待一小段时间，让解锁界面打开
-        Robots.delay(1000);
+        Robots.delay(1500);
     }
 }

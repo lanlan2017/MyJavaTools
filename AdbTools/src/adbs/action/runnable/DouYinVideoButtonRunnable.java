@@ -1,10 +1,7 @@
 package adbs.action.runnable;
 
 import adbs.action.model.InOutputModel;
-import adbs.cmd.ClosableRunnable;
-import adbs.cmd.CmdRun;
-import adbs.cmd.PyAutoGui;
-import adbs.cmd.Robots;
+import adbs.cmd.*;
 import adbs.ui.AdbTools;
 import tools.file.Files;
 
@@ -37,7 +34,9 @@ public class DouYinVideoButtonRunnable extends ClosableRunnable {
         // python文件
         String pyFilePath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\DouYin\\DouYinVideoAdv.py";
         // 执行python文件获取要操作的坐标点
-        Point point = PyAutoGui.getPoint(pyFilePath);
+        // 运行python进程，获取进程的标准输出
+        String pyOutput = PythonRun.runPython(pyFilePath);
+        Point point = PyAutoGui.getPoint(pyOutput);
         // 停止刷视频进程
         // VideoButtonRunnable.setStop(true);
         // 先点击鼠标左键 ，等待一定时间后 ，点击鼠标右键
