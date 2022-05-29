@@ -46,6 +46,8 @@ public class BrowseRunnable implements Runnable {
             count += 1000;
             if (count <= s * 1000) {
                 AdbCommands.swipeBottom2TopOnLeft(id);
+            } else {
+                break;
             }
             output.setText("浏览线程:" + (s * 1000 - count) / 1000 + "s");
         }
