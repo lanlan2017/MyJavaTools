@@ -86,12 +86,15 @@ public class ProcessRunner {
             // 进程结束了,关闭接收流.
             reader.close();
             // 如果线程返回值不是0则表示线程执行失败.
-            if (exitCode != 0)
-                return null;
+            if (exitCode != 0) {
+                // return null;
+                return "Error!ExitCode=" + exitCode;
+            }
 
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
+        // 返回进程的标准输出
         return sb.toString();
     }
 }
