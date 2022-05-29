@@ -5,10 +5,6 @@ import adbs.cmd.Robots;
 import java.awt.*;
 
 public class AiQiYiRunnable extends PyImgFinderCloseRunnable {
-    @Override
-    protected void setPyOutputPath() {
-        pyOutputPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\AiQiYi\\AiQiYi.txt";
-    }
 
     @Override
     protected void setPyPath() {
@@ -16,7 +12,7 @@ public class AiQiYiRunnable extends PyImgFinderCloseRunnable {
     }
 
     @Override
-    protected void imageMappingOperation(String img, Point point) {
+    protected void performAction(String img, Point point) {
         switch (img) {
             case "ZaiZhuan.png":
             case "ZaiZhuan1.png":

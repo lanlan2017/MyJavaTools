@@ -13,104 +13,87 @@ import java.io.File;
 public abstract class PyImgFinderCloseRunnable extends ClosableRunnable {
 
     /**
-     * python输出文件的绝对路径，txt文件，里面存放当前python进程的pid
-     */
-    protected static String pyOutputPath;
-    /**
      * python文件的绝对路径
      */
     protected static String pyPath;
 
-    // @Override
-    // public void setMsg() {
-    //     msg = "拼多多开红包线程";
-    // }
-
-    protected abstract void setPyOutputPath();
-
+    /**
+     * 设置要执行的Python文件的绝对路径
+     */
     protected abstract void setPyPath();
 
     @Override
     protected void running() {
         AdbTools.setIsRunning(this);
-
-        setPyOutputPath();
+        // 调用子类的方法
         setPyPath();
+        // 调用子类的方法
         setMsg();
         System.out.println(msg);
-        // this.pyPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\WuKongLiuLanQi\\GuangGao.py";
-        // String pyPath = this.pyPath;
         // 运行python文件
         runPython(pyPath);
     }
 
+    /**
+     * 执行Python文件
+     *
+     * @param pyFilePath python文件的绝对路径
+     */
     private void runPython(String pyFilePath) {
-        // python文件
         // 运行python进程，获取进程的标准输出
         String pyOutput = PythonRun.runPython(pyFilePath);
+        // 如果python输出中有.png的话
         if (pyOutput.contains(".png")) {
+            // 处理带图片的输出
             haveFoundPictures(pyOutput);
         }
     }
 
     /**
-     * 如果找到特定的图片
+     * 如果python找到特定的图片
      *
-     * @param pyOutput
+     * @param pyOutput python输出（带有图片的输出）
      */
     private void haveFoundPictures(String pyOutput) {
         // 打印进程输出
         // System.out.println("pyOutput=" + pyOutput);
+        // 截取出图片的完整名称
         String img = pyOutput.substring(0, pyOutput.indexOf(".png") + ".png".length());
         System.out.println("匹配到：img='" + img + "'");
         // 从输出中获取坐标点
-        Point point1 = PyAutoGui.getPoint(pyOutput);
-        imageMappingOperation(img, point1);
+        Point point = PyAutoGui.getPoint(pyOutput);
+        // 根据图片名称和坐标执行操作
+        // 根据img和point执行操作
+        performAction(img, point);
     }
 
     /**
-     * 根据图片执行操作
+     * 根据图片名称和坐标执行操作
      *
-     * @param img
-     * @param point
+     * @param img   图片名称
+     * @param point 图片的坐标
      */
-    protected abstract void imageMappingOperation(String img, Point point);
+    protected abstract void performAction(String img, Point point);
 
-    // /**
-    //  * 根据图片执行操作
-    //  *
-    //  * @param img
-    //  * @param point1
-    //  */
-    // protected void imageMappingOperation(String img, Point point1) {
-    //     switch (img) {
-    //         case "WuKong_DaCha.png":
-    //         case "WuKong_DaCha0.png":
-    //         case "WuKong_DaCha1.png":
-    //         case "WuKong_DaCha2.png":
-    //         case "WuKong_GuanBi1.png":
-    //         case "WuKong_GuanBi2.png":
-    //             System.out.println("只单击左键");
-    //             Robots.clickLeftButton(point1);
-    //             break;
-    //         default:
-    //             System.out.println("先单击左键，等待，再单击右键");
-    //             // 点击左键（进入广告），然后点击右键（返回）
-    //             Robots.leftClickThenRightClick(point1, 35 * 1000);
-    //             break;
-    //     }
-    // }
     public static void setStop(boolean stop) {
         // 给父类的
         ClosableRunnable.setStop(stop);
         if (stop) {
-            String yueDuPidStr = Files.readFile(new File(pyOutputPath));
-            if (yueDuPidStr.matches("\\d+")) {
-                System.out.println(yueDuPidStr);
-                // AdbCommands.runAbdCmd("taskkill /F /IM python.exe");
-                CmdRun.run("taskkill -f -pid " + yueDuPidStr);
+            // 获取与python文件同名的txt文件
+            String pyOutputPath = pyPath.replace(".py", ".txt");
+            File file = new File(pyOutputPath);
+            // 如果文件存在
+            if (file.exists()) {
+                // 读取文件内容
+                String yueDuPidStr = Files.readFile(file);
+                // 如果文件内容都是数字
+                if (yueDuPidStr.matches("\\d+")) {
+                    // 输出内容
+                    System.out.println("杀死pid=" + yueDuPidStr + "的进程（python）");
+                    // AdbCommands.runAbdCmd("taskkill /F /IM python.exe");
+                    CmdRun.run("taskkill -f -pid " + yueDuPidStr);
+                }
             }
         }
     }
-
 }
