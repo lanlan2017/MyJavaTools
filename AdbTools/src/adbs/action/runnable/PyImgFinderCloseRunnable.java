@@ -12,6 +12,13 @@ import java.io.File;
  */
 public abstract class PyImgFinderCloseRunnable extends ClosableRunnable {
 
+    /**
+     * python输出文件的绝对路径，txt文件，里面存放当前python进程的pid
+     */
+    protected static String pyOutputPath;
+    /**
+     * python文件的绝对路径
+     */
     protected static String pyPath;
 
     // @Override
@@ -19,13 +26,21 @@ public abstract class PyImgFinderCloseRunnable extends ClosableRunnable {
     //     msg = "拼多多开红包线程";
     // }
 
+    protected abstract void setPyOutputPath();
+
     protected abstract void setPyPath();
 
     @Override
     protected void running() {
         AdbTools.setIsRunning(this);
+
+        setPyOutputPath();
+        setPyPath();
+        setMsg();
+        System.out.println(msg);
         // this.pyPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\WuKongLiuLanQi\\GuangGao.py";
         // String pyPath = this.pyPath;
+        // 运行python文件
         runPython(pyPath);
     }
 
@@ -57,9 +72,10 @@ public abstract class PyImgFinderCloseRunnable extends ClosableRunnable {
      * 根据图片执行操作
      *
      * @param img
-     * @param point1
+     * @param point
      */
-    protected abstract void imageMappingOperation(String img, Point point1);
+    protected abstract void imageMappingOperation(String img, Point point);
+
     // /**
     //  * 根据图片执行操作
     //  *
@@ -88,7 +104,7 @@ public abstract class PyImgFinderCloseRunnable extends ClosableRunnable {
         // 给父类的
         ClosableRunnable.setStop(stop);
         if (stop) {
-            String yueDuPidStr = Files.readFile(new File(pyPath));
+            String yueDuPidStr = Files.readFile(new File(pyOutputPath));
             if (yueDuPidStr.matches("\\d+")) {
                 System.out.println(yueDuPidStr);
                 // AdbCommands.runAbdCmd("taskkill /F /IM python.exe");

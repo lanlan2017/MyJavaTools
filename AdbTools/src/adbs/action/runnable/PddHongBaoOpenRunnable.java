@@ -5,12 +5,18 @@ import adbs.cmd.Robots;
 import java.awt.*;
 
 public class PddHongBaoOpenRunnable extends PyImgFinderCloseRunnable {
-    public PddHongBaoOpenRunnable() {
-        setPyPath();
-    }
+    // public PddHongBaoOpenRunnable() {
+    //     setPyOutputPath();
+    //     setPyPath();
+    // }
 
     public static void setStop(boolean stop) {
         PyImgFinderCloseRunnable.setStop(stop);
+    }
+
+    @Override
+    protected void setPyOutputPath() {
+        pyOutputPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\PinDuoDuo\\PinDuoDuoKaiHongBao.txt";
     }
 
     @Override
@@ -19,17 +25,17 @@ public class PddHongBaoOpenRunnable extends PyImgFinderCloseRunnable {
     }
 
     @Override
-    protected void imageMappingOperation(String img, Point point1) {
+    protected void imageMappingOperation(String img, Point point) {
         switch (img) {
             case "JiXuKai.png":
             case "Kai.png":
                 // 点击鼠标左键
-                Robots.leftMouseButtonClick(point1);
+                Robots.leftMouseButtonClick(point);
                 Robots.delay(1000);
                 break;
-            default:
-                System.out.println("拼多多开红包");
-                break;
+            // default:
+            //     System.out.println("拼多多开红包");
+            //     break;
         }
     }
 

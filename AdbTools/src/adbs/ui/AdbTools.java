@@ -65,6 +65,7 @@ public class AdbTools {
     private JLabel dormantJLable2;
     private JLabel dormantJLable1;
     private JButton pddKaiHongBaoBtn;
+    private JButton aiQiYiBtn;
 
     // 当前正在执行的线程
     // private static Runnable isRunning;
@@ -155,9 +156,10 @@ public class AdbTools {
                     } else if (isRunning instanceof DouYinVideoButtonRunnable) {
                         // 结束抖音看视频红包监听线程
                         DouYinVideoButtonRunnable.setStop(true);
-                    }
-                    else if(isRunning instanceof PddHongBaoOpenRunnable){
+                    } else if (isRunning instanceof PddHongBaoOpenRunnable) {
                         PddHongBaoOpenRunnable.setStop(true);
+                    } else if (isRunning instanceof AiQiYiRunnable) {
+                        AiQiYiRunnable.setStop(true);
                     }
 
                     iterator.remove();
@@ -215,7 +217,6 @@ public class AdbTools {
                         CmdRun.run("adb shell am force-stop com.kuaishou.nebula");
                         // // 杀死抖音极速版
                         // CmdRun.run("adb shell am force-stop com.ss.android.ugc.aweme.lite");
-
                         // 息屏，并且休眠电脑
                         CmdRun.run("adb shell input keyevent 223 && shutdown /h");
                         // CmdRun.run("adb shell input keyevent 223");
@@ -224,6 +225,7 @@ public class AdbTools {
 
                 long ms = Long.parseLong(text) * 60 * 1000;
                 // timer.schedule(task, 5 * 1000);
+                // 等待指定毫秒后执行任务
                 timer.schedule(task, ms);
             }
         });
@@ -233,7 +235,6 @@ public class AdbTools {
                 new Thread(new PddHongBaoOpenRunnable()).start();
             }
         });
-
 
 
         // 不显示标题栏，最小化，关闭按钮
@@ -248,6 +249,12 @@ public class AdbTools {
         dormantPanel.setVisible(false);
         // 显示窗体
         frame.setVisible(true);
+        aiQiYiBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new Thread(new AiQiYiRunnable()).start();
+            }
+        });
     }
 
     public static void setIsRunning(Runnable isRunning) {

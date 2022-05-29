@@ -18,7 +18,7 @@ public class WaitReturnButtonActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         inputPanelModel.getInputPanel().setVisible(true);
-        inputPanelModel.getTimeLable().setText("等待时间(s):");
+        inputPanelModel.getTimeLable().setText("等待时间:");
         inputPanelModel.getTimeRadioPanel().setVisible(true);
         inputPanelModel.getInputOkButton().setText("开始等待");
         inputPanelModel.getInput1().setColumns(2);

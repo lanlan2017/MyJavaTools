@@ -34,7 +34,7 @@ public class Robots {
     /**
      * 点击鼠标右键
      */
-    public static void clickRightButton(Point point) {
+    public static void rightClickButton(Point point) {
         // 鼠标移动到之前的位置（防止等待的时候，鼠标被移开了）
         robot.mouseMove(point.x, point.y);
         System.out.println("机器人，单击右键");
@@ -64,7 +64,7 @@ public class Robots {
             System.out.println("机器人,等待:" + millisecond + "毫秒");
             robot.delay(millisecond);
             // 点击鼠标右键，（触发返回功能）退出广告界面。
-            clickRightButton(point);
+            rightClickButton(point);
         }
     }
 

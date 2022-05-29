@@ -154,6 +154,12 @@
               <text value="拼多多开红包"/>
             </properties>
           </component>
+          <component id="a797a" class="javax.swing.JButton" binding="aiQiYiBtn">
+            <constraints/>
+            <properties>
+              <text value="爱奇艺金币"/>
+            </properties>
+          </component>
         </children>
       </grid>
       <grid id="6ff82" binding="inputPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
