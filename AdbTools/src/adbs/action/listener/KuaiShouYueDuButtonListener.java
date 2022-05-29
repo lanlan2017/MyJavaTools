@@ -16,9 +16,7 @@ public class KuaiShouYueDuButtonListener implements ActionListener {
 
     public KuaiShouYueDuButtonListener(JButton readButton, InOutputModel model) {
         this.readButtonRunnable = new ReadButtonRunnable(model);
-
         this.kuaiShouYueDuRunnable = new KuaiShouYueDuRunnable(readButton);
-
         this.kuaiShouYueDuThread = new Thread(kuaiShouYueDuRunnable);
     }
 

@@ -4,6 +4,7 @@ import adbs.action.listener.*;
 import adbs.action.model.InOutputModel;
 import adbs.action.model.InputPanelModel;
 import adbs.action.runnable.*;
+// import adbs.action.runnable.KuaiShouYueDuRunnable;
 import adbs.action.runnable.KuaiShouYueDuRunnable;
 import adbs.cmd.CmdRun;
 import adbs.test.AdbDi;
@@ -137,7 +138,12 @@ public class AdbTools {
                         // 如果当前正在运行的线程是 阅读线程的话，就停止阅读线程
                         // 或者当前正在运行的线程是 快手阅读广告监听线程 的话
                         ReadButtonRunnable.setStop(true);
-                    } else if (isRunning instanceof KuaiShouYueDuRunnable) {
+                    }
+                    // else if (isRunning instanceof KuaiShouYueDuRunnable) {
+                    //     // 停止阅读广告监听线程
+                    //     KuaiShouYueDuRunnable.setStop(true);
+                    // }
+                    else if (isRunning instanceof KuaiShouYueDuRunnable) {
                         // 停止阅读广告监听线程
                         KuaiShouYueDuRunnable.setStop(true);
                     } else if (isRunning instanceof ShoppingButtonRunnable) {
@@ -153,9 +159,9 @@ public class AdbTools {
                     } else if (isRunning instanceof WuKongGuanBiRunnable) {
                         // 如果是等待后返回线程
                         WuKongGuanBiRunnable.setStop(true);
-                    } else if (isRunning instanceof DouYinVideoButtonRunnable) {
+                    } else if (isRunning instanceof DouYinVideoButtonRunnable2) {
                         // 结束抖音看视频红包监听线程
-                        DouYinVideoButtonRunnable.setStop(true);
+                        DouYinVideoButtonRunnable2.setStop(true);
                     } else if (isRunning instanceof PddHongBaoOpenRunnable) {
                         PddHongBaoOpenRunnable.setStop(true);
                     } else if (isRunning instanceof AiQiYiRunnable) {
@@ -259,7 +265,6 @@ public class AdbTools {
 
     public static void setIsRunning(Runnable isRunning) {
         isRunningSet.add(isRunning);
-        // AdbTools.isRunning = isRunning;
     }
 
     public static void main(String[] args) {

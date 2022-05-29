@@ -7,7 +7,8 @@ import java.io.File;
  */
 public class PythonImageArrayGenerator {
     public static void main(String[] args) {
-        String pathname = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\KuaiShou";
+        // String pathname = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\KuaiShou";
+        String pathname = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\DouYin";
         imagesInDir2Array(pathname);
     }
 

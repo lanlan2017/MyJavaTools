@@ -7,7 +7,6 @@ import adbs.ui.AdbTools;
 import tools.thead.Threads;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class BrowseRunnable implements Runnable {
 
@@ -35,7 +34,7 @@ public class BrowseRunnable implements Runnable {
         stop = false;
         JLabel output = model.getOutput();
         String text = model.getInputPanelModel().getInput1().getText();
-        int s = Integer.parseInt(text);
+        int s = Integer.parseInt(text) * 1000;
         int count = 0;
         // 如果stop为false，则一直执行。
         output.setText("浏览线程：在手机左侧，从下向上滑动");
@@ -44,15 +43,15 @@ public class BrowseRunnable implements Runnable {
             // output.setText("浏览线程：在手机左侧，从下向上滑动");
             Threads.sleep(1000);
             count += 1000;
-            if (count <= s * 1000) {
+            if (count <= s) {
                 AdbCommands.swipeBottom2TopOnLeft(id);
             } else {
                 break;
             }
-            output.setText("浏览线程:" + (s * 1000 - count) / 1000 + "s");
+            output.setText("浏览线程:" + (s - count) / 1000 + "s");
         }
         output.setText("浏览线程：已结束");
-        // showConfirmDialog();
+        // 弹出确认框
         model.getInputPanelModel().showConfirmDialog();
     }
 }

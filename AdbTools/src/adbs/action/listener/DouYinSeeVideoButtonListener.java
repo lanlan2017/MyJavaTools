@@ -2,7 +2,8 @@ package adbs.action.listener;
 
 import adbs.action.model.InOutputModel;
 import adbs.action.model.InputPanelModel;
-import adbs.action.runnable.DouYinVideoButtonRunnable;
+// import adbs.action.runnable.DouYinVideoButtonRunnable;
+import adbs.action.runnable.DouYinVideoButtonRunnable2;
 import adbs.action.runnable.VideoButtonRunnable;
 
 import javax.swing.*;
@@ -12,14 +13,17 @@ import java.awt.event.ActionListener;
 public class DouYinSeeVideoButtonListener implements ActionListener {
     private JFrame frame;
     private InOutputModel inOutputModel;
-    private DouYinVideoButtonRunnable douYinVideoButtonRunnable;
+    // private DouYinVideoButtonRunnable douYinVideoButtonRunnable;
+    private DouYinVideoButtonRunnable2 douYinVideoButtonRunnable2;
     private Thread douYinVideoThread;
 
     public DouYinSeeVideoButtonListener(JFrame frame, InOutputModel inOutputModel) {
         this.frame = frame;
         this.inOutputModel = inOutputModel;
-        this.douYinVideoButtonRunnable = new DouYinVideoButtonRunnable(inOutputModel);
-        this.douYinVideoThread = new Thread(douYinVideoButtonRunnable);
+        // this.douYinVideoButtonRunnable = new DouYinVideoButtonRunnable(inOutputModel);
+        // this.douYinVideoButtonRunnable = new DouYinVideoButtonRunnable(inOutputModel);
+        this.douYinVideoButtonRunnable2 = new DouYinVideoButtonRunnable2();
+        this.douYinVideoThread = new Thread(douYinVideoButtonRunnable2);
     }
 
     @Override
@@ -58,7 +62,8 @@ public class DouYinSeeVideoButtonListener implements ActionListener {
         if (!douYinVideoThread.isAlive()) {
             System.out.println("抖音视频置顶红包 监听线程已经死掉，重新创建一个线程");
             // 重现创建一个线程，并执行
-            douYinVideoThread = new Thread(douYinVideoButtonRunnable);
+            // douYinVideoThread = new Thread(douYinVideoButtonRunnable);
+            douYinVideoThread = new Thread(douYinVideoButtonRunnable2);
             douYinVideoThread.start();
         } else {
             System.out.println("抖音视频置顶红包 监听线程还在活动中");
