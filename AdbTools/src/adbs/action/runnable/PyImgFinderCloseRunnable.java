@@ -2,6 +2,7 @@ package adbs.action.runnable;
 
 import adbs.cmd.*;
 import adbs.ui.AdbTools;
+import python.PythonGenerator;
 import tools.file.Files;
 
 import java.awt.*;
@@ -22,16 +23,28 @@ public abstract class PyImgFinderCloseRunnable extends ClosableRunnable {
      */
     protected abstract void setPyPath();
 
+    private boolean isPythonFileUpdate = false;
+
     @Override
     protected void running() {
         AdbTools.setIsRunning(this);
-        // 调用子类的方法
-        setPyPath();
+        updatePythonFile();
         // 调用子类的方法
         setMsg();
         System.out.println(msg);
         // 运行python文件
         runPython(pyPath);
+    }
+
+    private void updatePythonFile() {
+        // 调用子类的方法
+        setPyPath();
+        if (!isPythonFileUpdate && pyPath != null && !"".equals(pyPath)) {
+            System.out.println("更新要运行的Python文件：" + pyPath);
+            // 自动生成Python文件
+            PythonGenerator.updatePythonFile(pyPath);
+            isPythonFileUpdate = true;
+        }
     }
 
     /**
