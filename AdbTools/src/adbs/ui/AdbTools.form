@@ -160,6 +160,12 @@
               <text value="爱奇艺金币"/>
             </properties>
           </component>
+          <component id="44721" class="javax.swing.JButton" binding="jinRiTouTiaoBtn">
+            <constraints/>
+            <properties>
+              <text value="今日头条"/>
+            </properties>
+          </component>
         </children>
       </grid>
       <grid id="6ff82" binding="inputPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">

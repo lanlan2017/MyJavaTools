@@ -67,6 +67,7 @@ public class AdbTools {
     private JLabel dormantJLable1;
     private JButton pddKaiHongBaoBtn;
     private JButton aiQiYiBtn;
+    private JButton jinRiTouTiaoBtn;
 
     // 当前正在执行的线程
     // private static Runnable isRunning;
@@ -164,8 +165,12 @@ public class AdbTools {
                         DouYinVideoButtonRunnable2.setStop(true);
                     } else if (isRunning instanceof PddHongBaoOpenRunnable) {
                         PddHongBaoOpenRunnable.setStop(true);
-                    } else if (isRunning instanceof AiQiYiRunnable) {
+                    }
+                    else if (isRunning instanceof AiQiYiRunnable) {
                         AiQiYiRunnable.setStop(true);
+                    }
+                    else if (isRunning instanceof JinRiTouTiaoRunnable) {
+                        JinRiTouTiaoRunnable.setStop(true);
                     }
 
                     iterator.remove();
@@ -259,6 +264,12 @@ public class AdbTools {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new Thread(new AiQiYiRunnable()).start();
+            }
+        });
+        jinRiTouTiaoBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new Thread(new JinRiTouTiaoRunnable()).start();
             }
         });
     }
