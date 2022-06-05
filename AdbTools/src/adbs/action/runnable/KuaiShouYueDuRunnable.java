@@ -22,7 +22,7 @@ public class KuaiShouYueDuRunnable extends PyImgFinderCloseRunnable {
         // 停止阅读进程
         ReadButtonRunnable.setStop(true);
         // 先点击鼠标左键 ，等待一定时间后 ，点击鼠标右键
-        Robots.leftClickThenRightClick(point, 30 * 1000);
+        Robots.leftClickThenRightClick(point, 40 * 1000);
         // 退出广告界面之后，开启阅读线程
         readButton.doClick();
         // 等待一小段时间，让解锁界面打开

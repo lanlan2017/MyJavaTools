@@ -30,6 +30,10 @@ public class ReadButtonRunnable implements Runnable {
     public void run() {
         isStop = false;
         String id = DeviceRadioBtAcListener.getId();
+        if (id == null) {
+            JOptionPane.showConfirmDialog(null, "请勾选要操作的设备");
+            return;
+        }
         JLabel output = model.getOutput();
 
         // 告诉主线程当前线程正在运行

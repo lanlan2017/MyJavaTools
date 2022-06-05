@@ -30,8 +30,8 @@ public abstract class PyImgFinderCloseRunnable extends ClosableRunnable {
         AdbTools.setIsRunning(this);
         updatePythonFile();
         // 调用子类的方法
-        setMsg();
-        System.out.println(msg);
+        // setMsg();
+        // System.out.println(msg);
         // 运行python文件
         runPython(pyPath);
     }
@@ -44,6 +44,8 @@ public abstract class PyImgFinderCloseRunnable extends ClosableRunnable {
             // 自动生成Python文件
             PythonGenerator.updatePythonFile(pyPath);
             isPythonFileUpdate = true;
+            setMsg();
+            System.out.println(msg);
         }
     }
 

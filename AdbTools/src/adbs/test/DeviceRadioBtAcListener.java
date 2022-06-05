@@ -6,7 +6,11 @@ import java.awt.event.ActionListener;
 
 public class DeviceRadioBtAcListener implements ActionListener {
     private static String id;
-    // DeviceRadioButtonActionListener()
+    JFrame frame;
+
+    public DeviceRadioBtAcListener(JFrame frame) {
+        this.frame = frame;
+    }
 
     public static String getId() {
         return id;
@@ -22,6 +26,7 @@ public class DeviceRadioBtAcListener implements ActionListener {
         AbstractButton button = (AbstractButton) e.getSource();
         // 输出按钮中的文本
         System.out.println("你选择了:" + button.getText());
+        frame.setTitle(button.getText());
         setId(button.getText());
     }
 }

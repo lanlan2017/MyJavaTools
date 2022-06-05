@@ -20,6 +20,11 @@ public class AdbDi {
     //         frame.setVisible(true);
     //     }
     // }
+    JFrame frame;
+
+    public AdbDi(JFrame frame) {
+        this.frame = frame;
+    }
 
     /**
      * 执行adb devices -l命令，如果存在设备的话，则生成存放这些设备的单选按钮组
@@ -57,7 +62,7 @@ public class AdbDi {
 
             JPanel finalPanel = panel;
             // 创建设备单选按钮的事件监听器
-            DeviceRadioBtAcListener listener = new DeviceRadioBtAcListener();
+            DeviceRadioBtAcListener listener = new DeviceRadioBtAcListener(frame);
             devices.forEach(device -> {
                 // 创建一个单选按钮
                 JRadioButton deviceRadioButton = new JRadioButton(device.getId());
