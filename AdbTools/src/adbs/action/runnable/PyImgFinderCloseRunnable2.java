@@ -1,33 +1,31 @@
 package adbs.action.runnable;
 
-import adbs.cmd.*;
-import adbs.ui.AdbTools;
+import adbs.cmd.CmdRun;
+import adbs.cmd.PyAutoGui;
+import adbs.cmd.PythonRun;
 import adbs.python.PythonGenerator;
 import tools.file.Files;
 
 import java.awt.*;
 import java.io.File;
 
-/**
- * Python图片查找器 可关闭线程体
- */
-public abstract class PyImgFinderCloseRunnable extends ClosableRunnable {
-
+public abstract class PyImgFinderCloseRunnable2 extends CloseableRunnable2 {
     /**
      * python文件的绝对路径
      */
     protected static String pyPath;
-
     /**
-     * 设置要执行的Python文件的绝对路径
+     * 是否要更新python文件
      */
-    protected abstract void setPyPath();
-
     private boolean isPythonFileUpdate = false;
 
     @Override
-    protected void running() {
-        AdbTools.setIsRunning(this);
+    protected void beforeLoop() {
+
+    }
+
+    @Override
+    protected void loopBody() {
         updatePythonFile();
         // 调用子类的方法
         // setMsg();
@@ -35,6 +33,16 @@ public abstract class PyImgFinderCloseRunnable extends ClosableRunnable {
         // 运行python文件
         runPython(pyPath);
     }
+
+    @Override
+    protected void afterLoop() {
+
+    }
+
+    /**
+     * 设置要执行的Python文件的绝对路径
+     */
+    protected abstract void setPyPath();
 
     private void updatePythonFile() {
         // 调用子类的方法
@@ -48,6 +56,7 @@ public abstract class PyImgFinderCloseRunnable extends ClosableRunnable {
             System.out.println(msg);
         }
     }
+
 
     /**
      * 执行Python文件
@@ -90,9 +99,9 @@ public abstract class PyImgFinderCloseRunnable extends ClosableRunnable {
      */
     protected abstract void performAction(String img, Point point);
 
-    public static void setStop(boolean stop) {
-        // 给父类的
-        ClosableRunnable.setStop(stop);
+    @Override
+    public void stop() {
+        super.stop();
         if (stop) {
             // 获取与python文件同名的txt文件
             String pyOutputPath = pyPath.replace(".py", ".txt");

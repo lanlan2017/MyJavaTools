@@ -15,8 +15,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.net.URL;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -31,7 +31,6 @@ public class AdbTools {
     private JPanel topPanel;
     private JPanel buttonPanel;
     private JPanel outputPanel;
-    private JButton kuaiShouReadButton;
     private JButton videoButton;
     private JPanel inputPanel;
     private JTextField input1;
@@ -46,7 +45,6 @@ public class AdbTools {
     private JButton shoppingButton;
     private JPanel devicePanel;
     private JLabel deviceLabel;
-    private JButton stopButton;
     private JButton openButton;
     private JButton waitReturnButton;
     private JTextField input2;
@@ -54,7 +52,6 @@ public class AdbTools {
     private JPanel adbPanel;
     private JPanel specificPanel;
     private JButton wuKongGuanBiBtn;
-    private JButton readButton;
     private JButton douyinSeeVideoBtn;
     private JPanel controlPanel;
     private JCheckBox customCheckBox;
@@ -71,9 +68,12 @@ public class AdbTools {
     private JButton taskManageBtn;
     private JButton returnBtn;
     private JButton homeBtn;
+    private JButton douYinBtn3;
+    private JButton stopBtn2;
+    private JButton kuaiShouReadButton2;
+    private JButton readButton2;
 
     // 当前正在执行的线程
-    // private static Runnable isRunning;
     private static HashSet<Runnable> isRunningSet = new HashSet<>();
     private final JFrame frame;
     // 输入输出汇总
@@ -108,9 +108,9 @@ public class AdbTools {
         inOutputModel = new InOutputModel(inputPanelModel, output);
 
         // 通用按钮面板 使用网格布局
-        buttonPanel.setLayout(new GridLayout(2, 4, 0, 0));
+        buttonPanel.setLayout(new GridLayout(3, 4, 0, 0));
         // 特定面板按钮 使用网格布局
-        GridLayout gridLayout = new GridLayout(2, 4, 0, 0);
+        GridLayout gridLayout = new GridLayout(3, 4, 0, 0);
         specificPanel.setLayout(gridLayout);
 
         // 输入面板等待按钮
@@ -119,23 +119,22 @@ public class AdbTools {
 
         // 刷视频按钮
         videoButton.addActionListener(new VideoButtonActionListener(frame, inputPanelModel));
-        kuaiShouReadButton.addActionListener(new KuaiShouYueDuButtonListener(kuaiShouReadButton, inOutputModel));
+
+
         // 浏览后返回按钮事件处理程序
         browseButton.addActionListener(new BrowseButtonActionListener(frame, inputPanelModel));
         // 逛街按钮
         shoppingButton.addActionListener(new ShoppingButtonActionListener(frame, inputPanelModel));
 
-        stopButton.addActionListener(new StopButtonListener(isRunningSet, inOutputModel));
+        // stopButton.addActionListener(new StopButtonListener(isRunningSet, inOutputModel));
+
+
         // 等待后返回按钮
         waitReturnButton.addActionListener(new WaitReturnButtonActionListener(frame, inputPanelModel));
         // setButtonIconOnly(waitReturnButton, getResource("等待 (1).png"));
         // 悟空看视频按钮
         wuKongGuanBiBtn.addActionListener(e -> new Thread(new WuKongGuanBiRunnable()).start());
-        // 阅读按钮
-        readButton.addActionListener(e -> {
-            ReadButtonRunnable readButtonRunnable = new ReadButtonRunnable(inOutputModel);
-            new Thread(readButtonRunnable).start();
-        });
+
         // setButtonIconOnly(returnBtn, getResource("阅读.png"));
         douyinSeeVideoBtn.addActionListener(new DouYinSeeVideoButtonListener(frame, inOutputModel));
         dormantCheckBox.addItemListener(new ItemListener() {
@@ -216,14 +215,23 @@ public class AdbTools {
         });
         // 任务管理键
         taskManageBtn.addActionListener(new TaskManageBtnAcListener());
-        // setButtonIconOnly(taskManageBtn, getResource("空框.png"));
         // 返回键
         returnBtn.addActionListener(new ReturnBtnAcListener());
-        // setButtonIconOnly(returnBtn, getResource("方向-左.png"));
-        // setButtonIconOnly(returnBtn, getResource("向左三角形.png"));
         // home键
         homeBtn.addActionListener(new HomeBtnAcListener());
-        // setButtonIconOnly(homeBtn, getResource("圆圈.png"));
+
+
+        douYinBtn3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new Thread(DouYinTaskRunnable2.getInstance()).start();
+            }
+        });
+        stopBtn2.addActionListener(new StopButtonListener2(isRunningSet, inOutputModel));
+
+
+        // kuaiShouReadButton2.addActionListener(new KuaiShouYueDuButtonListener2(readButton, inOutputModel));
+        kuaiShouReadButton2.addActionListener(new KuaiShouYueDuButtonListener(readButton2, inOutputModel));
 
 
         // 不显示标题栏，最小化，关闭按钮
@@ -238,6 +246,16 @@ public class AdbTools {
         dormantPanel.setVisible(false);
         // 显示窗体
         frame.setVisible(true);
+
+        readButton2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ReadButtonRunnable2 readButtonRunnable2 = ReadButtonRunnable2.getInstance();
+                readButtonRunnable2.setInOutputModel(inOutputModel);
+                // new Thread(new ReadButtonRunnable2(inOutputModel)).start();
+                new Thread(readButtonRunnable2).start();
+            }
+        });
     }
 
     // private URL getResource(String path) {
@@ -264,11 +282,12 @@ public class AdbTools {
     // }
 
     public static void setIsRunning(Runnable isRunning) {
+        System.out.println("正在运行的:" + isRunning);
         isRunningSet.add(isRunning);
+        System.out.println("set长度:" + isRunningSet.size());
     }
 
     public static void main(String[] args) {
-        // new AdbTools();
         AdbTools.getInstance();
     }
 }

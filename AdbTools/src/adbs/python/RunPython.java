@@ -1,4 +1,4 @@
-package python;
+package adbs.python;
 
 public class RunPython {
 }

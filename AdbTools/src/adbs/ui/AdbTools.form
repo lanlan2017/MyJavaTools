@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="topPanel" layout-manager="GridLayoutManager" row-count="7" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="760" height="400"/>
+      <xy x="20" y="20" width="850" height="400"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -158,14 +158,10 @@
           <color color="-2914806"/>
         </border>
         <children>
-          <component id="d640a" class="javax.swing.JButton" binding="kuaiShouReadButton">
+          <component id="e049d" class="javax.swing.JButton" binding="kuaiShouReadButton2">
             <constraints/>
             <properties>
-              <alignmentY value="0.0"/>
-              <horizontalTextPosition value="2"/>
-              <iconTextGap value="0"/>
               <text value="快手阅读"/>
-              <toolTipText value="快手视频"/>
             </properties>
           </component>
           <component id="89b5a" class="javax.swing.JButton" binding="kuaishouTaskCenterBtn">
@@ -189,6 +185,12 @@
             <properties>
               <text value="抖音刷视频"/>
               <toolTipText value="抖音刷视频"/>
+            </properties>
+          </component>
+          <component id="58db7" class="javax.swing.JButton" binding="douYinBtn3">
+            <constraints/>
+            <properties>
+              <text value="抖音任务3"/>
             </properties>
           </component>
           <component id="2de69" class="javax.swing.JButton" binding="pddKaiHongBaoBtn">
@@ -294,12 +296,10 @@
               <toolTipText value="刷视频"/>
             </properties>
           </component>
-          <component id="96389" class="javax.swing.JButton" binding="readButton">
+          <component id="d1ff6" class="javax.swing.JButton" binding="readButton2">
             <constraints/>
             <properties>
-              <iconTextGap value="0"/>
               <text value="阅读"/>
-              <toolTipText value="阅读"/>
             </properties>
           </component>
           <component id="99ba9" class="javax.swing.JButton" binding="shoppingButton">
@@ -323,11 +323,10 @@
               <toolTipText value="浏览后返回"/>
             </properties>
           </component>
-          <component id="2531f" class="javax.swing.JButton" binding="stopButton">
+          <component id="18460" class="javax.swing.JButton" binding="stopBtn2">
             <constraints/>
             <properties>
               <text value="停止"/>
-              <toolTipText value="停止"/>
             </properties>
           </component>
         </children>
