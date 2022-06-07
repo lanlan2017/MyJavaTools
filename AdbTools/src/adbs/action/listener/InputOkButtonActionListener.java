@@ -2,6 +2,7 @@ package adbs.action.listener;
 
 import adbs.action.model.InOutputModel;
 import adbs.action.runnable.*;
+import tools.thead.Threads;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -14,7 +15,10 @@ public class InputOkButtonActionListener implements ActionListener {
     private BrowseRunnable browseRunnable;
     private ShoppingButtonRunnable shoppingButtonRunnable;
     private WaitReturnButtonRunnable waitReturnButtonRunnable;
-    private VideoButtonRunnable videoButtonRunnable;
+    // private VideoButtonRunnable videoButtonRunnable;
+    private VideoButtonRunnable2 videoButtonRunnable2;
+    private Thread videoBtnThread;
+
 
     public InputOkButtonActionListener(InOutputModel inOutputModel) {
         this.inOutputModel = inOutputModel;
@@ -27,7 +31,11 @@ public class InputOkButtonActionListener implements ActionListener {
         // this.waitReturnButtonRunnable = new WaitReturnButtonRunnable(inOutputModel);
         this.waitReturnButtonRunnable = WaitReturnButtonRunnable.getInstance();
         waitReturnButtonRunnable.setInOutputModel(inOutputModel);
-        this.videoButtonRunnable = new VideoButtonRunnable(inOutputModel);
+        // this.videoButtonRunnable = new VideoButtonRunnable(inOutputModel);
+
+        this.videoButtonRunnable2 = VideoButtonRunnable2.getInstance();
+        videoButtonRunnable2.setInOutputModel(inOutputModel);
+        // videoBtnThread = new Thread(videoButtonRunnable2);
 
     }
 
@@ -56,10 +64,27 @@ public class InputOkButtonActionListener implements ActionListener {
             String input2Str = inOutputModel.getInputPanelModel().getInput2().getText();
             // 如果输入的都是数字
             if (input1Str.matches("\\d+") && input2Str.matches("\\d+")) {
-                videoButtonRunnable.setMin(Integer.parseInt(input1Str));
-                videoButtonRunnable.setMax(Integer.parseInt(input2Str));
-                new Thread(videoButtonRunnable).start();
+                videoButtonRunnable2.setMin(Integer.parseInt(input1Str));
+                videoButtonRunnable2.setMax(Integer.parseInt(input2Str));
+                // 如果线程已经死掉了,或者线程还没创建
+                if (Threads.threadIsNullOrNoAlive(videoBtnThread)) {
+                    videoBtnThread = new Thread(videoButtonRunnable2);
+                    videoBtnThread.start();
+                } else {
+                    System.out.println(videoButtonRunnable2.getMsg() + " 已经在运行中,请勿重复启动");
+                }
             }
         }
     }
+
+    // /**
+    //  * 判断thread是否位null,或者已经死亡。
+    //  *
+    //  * @param thread 线程
+    //  * @return 如果线程是null, 或者已经死掉, 则返回true.
+    //  */
+    // private boolean threadIsNullOrNoAlive(Thread thread) {
+    //     return thread == null || thread != null && !thread.isAlive();
+    //     Threads
+    // }
 }

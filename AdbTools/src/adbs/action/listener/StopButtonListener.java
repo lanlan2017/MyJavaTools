@@ -1,7 +1,7 @@
 package adbs.action.listener;
 
 import adbs.action.model.InOutputModel;
-import adbs.action.runnable.CloseableRunnable2;
+import adbs.action.runnable.CloseableRunnable;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,11 +21,11 @@ public class StopButtonListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Iterator<Runnable> iterator = isRunningSet.iterator();
         while (iterator.hasNext()) {
-            Runnable next = iterator.next();
-            System.out.println(next);
+            Runnable runnable = iterator.next();
+            // System.out.println(runnable);
             //如果是可关闭的线程体
-            if (next instanceof CloseableRunnable2) {
-                CloseableRunnable2 closeableRunnable2 = (CloseableRunnable2) next;
+            if (runnable instanceof CloseableRunnable) {
+                CloseableRunnable closeableRunnable2 = (CloseableRunnable) runnable;
                 System.out.println(closeableRunnable2 + " is stop now");
                 // 关闭线程
                 closeableRunnable2.stop();

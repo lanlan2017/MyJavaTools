@@ -2,9 +2,9 @@ package adbs.action.runnable;
 
 import adbs.ui.AdbTools;
 
-public abstract class CloseableRunnable2 implements Runnable {
+public abstract class CloseableRunnable implements Runnable {
 
-    public CloseableRunnable2() {
+    public CloseableRunnable() {
         setMsg();
     }
 
@@ -40,11 +40,13 @@ public abstract class CloseableRunnable2 implements Runnable {
 
     @Override
     public void run() {
+        // 默认循环不停止
         stop = false;
         // 表示当前进程正在运行
         AdbTools.setIsRunning(this);
         // 循环之前要做的
         beforeLoop();
+        // 如果不需要停止循环的话，就一直循环
         while (!stop) {
             loopBody();
         }

@@ -7,7 +7,7 @@ import tools.thead.Threads;
 
 import javax.swing.*;
 
-public class WaitReturnButtonRunnable extends CloseableRunnable2 {
+public class WaitReturnButtonRunnable extends CloseableRunnable {
     private static WaitReturnButtonRunnable instance = new WaitReturnButtonRunnable();
 
     private WaitReturnButtonRunnable() {

@@ -158,7 +158,7 @@
           <color color="-2914806"/>
         </border>
         <children>
-          <component id="e049d" class="javax.swing.JButton" binding="kuaiShouReadButton2">
+          <component id="e049d" class="javax.swing.JButton" binding="kuaiShouReadBtn">
             <constraints/>
             <properties>
               <text value="快手阅读"/>
@@ -187,10 +187,10 @@
               <toolTipText value="抖音刷视频"/>
             </properties>
           </component>
-          <component id="58db7" class="javax.swing.JButton" binding="douYinBtn3">
+          <component id="58db7" class="javax.swing.JButton" binding="douYinBtn">
             <constraints/>
             <properties>
-              <text value="抖音任务3"/>
+              <text value="抖音任务"/>
             </properties>
           </component>
           <component id="2de69" class="javax.swing.JButton" binding="pddKaiHongBaoBtn">

@@ -8,9 +8,9 @@ import tools.thead.Threads;
 import javax.swing.*;
 import java.util.Random;
 
-public class ReadButtonRunnable2 extends CloseableRunnable2 {
+public class ReadButtonRunnable extends CloseableRunnable {
 
-    private static ReadButtonRunnable2 instance = new ReadButtonRunnable2();
+    private static ReadButtonRunnable instance = new ReadButtonRunnable();
     // 输入输出汇总Model
     private InOutputModel inOutputModel;
     // 输出内容
@@ -19,14 +19,14 @@ public class ReadButtonRunnable2 extends CloseableRunnable2 {
     private int min;
     private int max;
 
-    private ReadButtonRunnable2() {
+    private ReadButtonRunnable() {
         setMsg();
         random = new Random();
         min = 5;
         max = 9;
     }
 
-    public static ReadButtonRunnable2 getInstance() {
+    public static ReadButtonRunnable getInstance() {
         return instance;
     }
 

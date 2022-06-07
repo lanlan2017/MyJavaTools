@@ -5,7 +5,7 @@ import adbs.cmd.AdbCommands;
 import adbs.test.DeviceRadioBtAcListener;
 import tools.thead.Threads;
 
-public class BrowseRunnable extends CloseableRunnable2 {
+public class BrowseRunnable extends CloseableRunnable {
     private InOutputModel inOutputModel;
 
     private static BrowseRunnable instance = new BrowseRunnable();

@@ -67,9 +67,9 @@ public class AdbTools {
     private JButton taskManageBtn;
     private JButton returnBtn;
     private JButton homeBtn;
-    private JButton douYinBtn3;
+    private JButton douYinBtn;
     private JButton stopBtn;
-    private JButton kuaiShouReadButton2;
+    private JButton kuaiShouReadBtn;
     private JButton readButton2;
 
     // 当前正在执行的线程
@@ -190,6 +190,7 @@ public class AdbTools {
         pddKaiHongBaoBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // new Thread(new PddHongBaoOpenRunnable()).start();
                 new Thread(new PddHongBaoOpenRunnable()).start();
             }
         });
@@ -220,17 +221,17 @@ public class AdbTools {
         homeBtn.addActionListener(new HomeBtnAcListener());
 
 
-        douYinBtn3.addActionListener(new ActionListener() {
+        douYinBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Thread(DouYinTaskRunnable2.getInstance()).start();
+                new Thread(DouYinTaskRunnable.getInstance()).start();
             }
         });
         stopBtn.addActionListener(new StopButtonListener(isRunningSet, inOutputModel));
 
 
         // kuaiShouReadButton2.addActionListener(new KuaiShouYueDuButtonListener2(readButton, inOutputModel));
-        kuaiShouReadButton2.addActionListener(new KuaiShouYueDuButtonListener(readButton2, inOutputModel));
+        kuaiShouReadBtn.addActionListener(new KuaiShouYueDuButtonListener(readButton2, inOutputModel));
 
 
         // 不显示标题栏，最小化，关闭按钮
@@ -249,10 +250,10 @@ public class AdbTools {
         readButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ReadButtonRunnable2 readButtonRunnable2 = ReadButtonRunnable2.getInstance();
-                readButtonRunnable2.setInOutputModel(inOutputModel);
+                ReadButtonRunnable readButtonRunnable = ReadButtonRunnable.getInstance();
+                readButtonRunnable.setInOutputModel(inOutputModel);
                 // new Thread(new ReadButtonRunnable2(inOutputModel)).start();
-                new Thread(readButtonRunnable2).start();
+                new Thread(readButtonRunnable).start();
             }
         });
     }

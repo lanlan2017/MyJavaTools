@@ -7,7 +7,7 @@ import tools.thead.Threads;
 
 import javax.swing.*;
 
-public class ShoppingButtonRunnable extends CloseableRunnable2 {
+public class ShoppingButtonRunnable extends CloseableRunnable {
     /**
      * 输入输出汇总模型
      */

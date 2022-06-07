@@ -5,6 +5,10 @@ import adbs.cmd.Robots;
 import java.awt.*;
 
 public class PddHongBaoOpenRunnable extends PyImgFinderCloseRunnable {
+    @Override
+    protected void setMsg() {
+        msg = "拼多多开红包线程";
+    }
 
     @Override
     protected void setPyPath() {
@@ -22,10 +26,5 @@ public class PddHongBaoOpenRunnable extends PyImgFinderCloseRunnable {
                 Robots.delay(1000);
                 break;
         }
-    }
-
-    @Override
-    public void setMsg() {
-        msg = "拼多多开红包线程";
     }
 }
