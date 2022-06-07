@@ -16,7 +16,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -69,7 +68,7 @@ public class AdbTools {
     private JButton returnBtn;
     private JButton homeBtn;
     private JButton douYinBtn3;
-    private JButton stopBtn2;
+    private JButton stopBtn;
     private JButton kuaiShouReadButton2;
     private JButton readButton2;
 
@@ -227,7 +226,7 @@ public class AdbTools {
                 new Thread(DouYinTaskRunnable2.getInstance()).start();
             }
         });
-        stopBtn2.addActionListener(new StopButtonListener2(isRunningSet, inOutputModel));
+        stopBtn.addActionListener(new StopButtonListener(isRunningSet, inOutputModel));
 
 
         // kuaiShouReadButton2.addActionListener(new KuaiShouYueDuButtonListener2(readButton, inOutputModel));

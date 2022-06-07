@@ -323,7 +323,7 @@
               <toolTipText value="浏览后返回"/>
             </properties>
           </component>
-          <component id="18460" class="javax.swing.JButton" binding="stopBtn2">
+          <component id="18460" class="javax.swing.JButton" binding="stopBtn">
             <constraints/>
             <properties>
               <text value="停止"/>

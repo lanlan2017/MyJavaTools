@@ -21,7 +21,10 @@ public class InputOkButtonActionListener implements ActionListener {
 
     public InputOkButtonActionListener(InOutputModel inOutputModel) {
         this.inOutputModel = inOutputModel;
-        this.browseRunnable = new BrowseRunnable(inOutputModel);
+        this.browseRunnable = BrowseRunnable.getInstance();
+        browseRunnable.setInOutputModel(inOutputModel);
+
+
         this.shoppingButtonRunnable = new ShoppingButtonRunnable(inOutputModel);
         this.waitReturnButtonRunnable = new WaitReturnButtonRunnable(inOutputModel);
         this.videoButtonRunnable = new VideoButtonRunnable(inOutputModel);
@@ -35,6 +38,7 @@ public class InputOkButtonActionListener implements ActionListener {
 
         if ("开始浏览".equals(ok.getText())) {
             output.setText("浏览线程：开始浏览");
+            // new Thread(browseRunnable).start();
             new Thread(browseRunnable).start();
         } else if ("开始逛街".equals(ok.getText())) {
             output.setText("逛街线程：开始逛街");

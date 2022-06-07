@@ -3,6 +3,11 @@ package adbs.action.runnable;
 import adbs.ui.AdbTools;
 
 public abstract class CloseableRunnable2 implements Runnable {
+
+    public CloseableRunnable2() {
+        setMsg();
+    }
+
     /**
      * 是否结束线程
      */
@@ -30,7 +35,6 @@ public abstract class CloseableRunnable2 implements Runnable {
      * 停止线程
      */
     public void stop() {
-        // System.out.println(this + " is stopped");
         stop = true;
     }
 
@@ -64,16 +68,4 @@ public abstract class CloseableRunnable2 implements Runnable {
      * 循环之后要准备的工作
      */
     protected abstract void afterLoop();
-
-    // @Override
-    // public boolean equals(Object o) {
-    //     // 当前类的所有对象都视为同一个对象
-    //     return true;
-    // }
-    //
-    // @Override
-    // public int hashCode() {
-    //     // 当前类的所有对象都视为同一个对象
-    //     return 100;
-    // }
 }
