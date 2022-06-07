@@ -12,8 +12,7 @@ public class InputOkButtonActionListener implements ActionListener {
 
 
     private BrowseRunnable browseRunnable;
-    // private ShoppingButtonRunnable shoppingButtonRunnable;
-    private ShoppingButtonRunnable2 shoppingButtonRunnable2;
+    private ShoppingButtonRunnable shoppingButtonRunnable;
     private WaitReturnButtonRunnable waitReturnButtonRunnable;
     private VideoButtonRunnable videoButtonRunnable;
 
@@ -22,11 +21,12 @@ public class InputOkButtonActionListener implements ActionListener {
         this.browseRunnable = BrowseRunnable.getInstance();
         browseRunnable.setInOutputModel(inOutputModel);
 
+        this.shoppingButtonRunnable = ShoppingButtonRunnable.getInstance();
+        shoppingButtonRunnable.setInOutputModel(inOutputModel);
 
-        // this.shoppingButtonRunnable = new ShoppingButtonRunnable(inOutputModel);
-        this.shoppingButtonRunnable2 = ShoppingButtonRunnable2.getInstance();
-        shoppingButtonRunnable2.setInOutputModel(inOutputModel);
-        this.waitReturnButtonRunnable = new WaitReturnButtonRunnable(inOutputModel);
+        // this.waitReturnButtonRunnable = new WaitReturnButtonRunnable(inOutputModel);
+        this.waitReturnButtonRunnable = WaitReturnButtonRunnable.getInstance();
+        waitReturnButtonRunnable.setInOutputModel(inOutputModel);
         this.videoButtonRunnable = new VideoButtonRunnable(inOutputModel);
 
     }
@@ -43,12 +43,12 @@ public class InputOkButtonActionListener implements ActionListener {
             new Thread(browseRunnable).start();
         } else if ("开始逛街".equals(ok.getText())) {
             output.setText("逛街线程：开始逛街");
-
             // new Thread(shoppingButtonRunnable).start();
-            new Thread(shoppingButtonRunnable2).start();
+            new Thread(shoppingButtonRunnable).start();
 
         } else if ("开始等待".equals(ok.getText())) {
             output.setText("等待返回线程：开始等待");
+            // new Thread(waitReturnButtonRunnable).start();
             new Thread(waitReturnButtonRunnable).start();
         } else if ("开始刷视频".equals(ok.getText())) {
             output.setText("刷视频线程：开始等待");

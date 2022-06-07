@@ -7,18 +7,18 @@ import tools.thead.Threads;
 
 import javax.swing.*;
 
-public class ShoppingButtonRunnable2 extends CloseableRunnable2 {
+public class ShoppingButtonRunnable extends CloseableRunnable2 {
     /**
      * 输入输出汇总模型
      */
     private InOutputModel inOutputModel;
 
-    private static ShoppingButtonRunnable2 instance = new ShoppingButtonRunnable2();
+    private static ShoppingButtonRunnable instance = new ShoppingButtonRunnable();
 
-    private ShoppingButtonRunnable2() {
+    private ShoppingButtonRunnable() {
     }
 
-    public static ShoppingButtonRunnable2 getInstance() {
+    public static ShoppingButtonRunnable getInstance() {
         return instance;
     }
 
