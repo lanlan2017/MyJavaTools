@@ -97,6 +97,12 @@
               <text value="定制功能"/>
             </properties>
           </component>
+          <component id="be281" class="javax.swing.JCheckBox" binding="universalCheckBox">
+            <constraints/>
+            <properties>
+              <text value="通用功能"/>
+            </properties>
+          </component>
           <component id="4ba85" class="javax.swing.JCheckBox" binding="dormantCheckBox">
             <constraints/>
             <properties>
@@ -146,7 +152,7 @@
           </grid>
         </children>
       </grid>
-      <grid id="a4768" binding="specificPanel" layout-manager="FlowLayout" hgap="0" vgap="0" flow-align="1">
+      <grid id="a4768" binding="customPanel" layout-manager="FlowLayout" hgap="0" vgap="0" flow-align="1">
         <constraints>
           <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -280,7 +286,7 @@
           </component>
         </children>
       </grid>
-      <grid id="4a7a3" binding="buttonPanel" layout-manager="FlowLayout" hgap="0" vgap="0" flow-align="1">
+      <grid id="4a7a3" binding="universalPanel" layout-manager="FlowLayout" hgap="0" vgap="0" flow-align="1">
         <constraints>
           <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>

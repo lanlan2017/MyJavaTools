@@ -28,7 +28,7 @@ public class AdbTools {
     }
 
     private JPanel topPanel;
-    private JPanel buttonPanel;
+    private JPanel universalPanel;
     private JPanel outputPanel;
     private JButton videoButton;
     private JPanel inputPanel;
@@ -49,7 +49,7 @@ public class AdbTools {
     private JTextField input2;
     private JPanel adbControlPanel;
     private JPanel adbPanel;
-    private JPanel specificPanel;
+    private JPanel customPanel;
     private JButton wuKongGuanBiBtn;
     private JButton douyinSeeVideoBtn;
     private JPanel controlPanel;
@@ -71,6 +71,7 @@ public class AdbTools {
     private JButton stopBtn;
     private JButton kuaiShouReadBtn;
     private JButton readButton2;
+    private JCheckBox universalCheckBox;
 
     // 当前正在执行的线程
     private static HashSet<Runnable> isRunningSet = new HashSet<>();
@@ -108,10 +109,10 @@ public class AdbTools {
 
         // 特定面板按钮 使用网格布局
         GridLayout gridLayout = new GridLayout(3, 4, 0, 0);
-        specificPanel.setLayout(gridLayout);
+        customPanel.setLayout(gridLayout);
         // 通用按钮面板 使用网格布局
-        buttonPanel.setLayout(new GridLayout(2, 4, 0, 0));
-
+        universalPanel.setLayout(new GridLayout(2, 4, 0, 0));
+        // universalPanel.setVisible(true);
         // 输入面板等待按钮
         inputOkButton.addActionListener(new InputOkButtonActionListener(inOutputModel));
 
@@ -152,9 +153,20 @@ public class AdbTools {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
-                    specificPanel.setVisible(true);
+                    customPanel.setVisible(true);
                 } else {
-                    specificPanel.setVisible(false);
+                    customPanel.setVisible(false);
+                }
+                frame.pack();
+            }
+        });
+        universalCheckBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    universalPanel.setVisible(true);
+                } else {
+                    universalPanel.setVisible(false);
                 }
                 frame.pack();
             }
@@ -256,6 +268,7 @@ public class AdbTools {
                 new Thread(readButtonRunnable).start();
             }
         });
+
     }
 
     // private URL getResource(String path) {
