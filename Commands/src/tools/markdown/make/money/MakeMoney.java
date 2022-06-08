@@ -36,7 +36,7 @@ public class MakeMoney {
      * @return 一级标题。
      */
     private String heading1() {
-        return "# " + DateFormatters.YMDHL.format(new Date()) + "\n";
+        return "# " + DateFormatters.yyyyMMdd.format(new Date()) + "\n";
     }
 
     /**
