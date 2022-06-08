@@ -1,5 +1,6 @@
 package adbs.action.runnable;
 
+import adbs.action.model.InOutputModel;
 import adbs.cmd.CmdRun;
 import adbs.cmd.PyAutoGui;
 import adbs.cmd.PythonRun;
@@ -10,6 +11,12 @@ import java.awt.*;
 import java.io.File;
 
 public abstract class PyImgFinderCloseRunnable extends CloseableRunnable {
+    private InOutputModel inOutputModel;
+
+    public void setInOutputModel(InOutputModel inOutputModel) {
+        this.inOutputModel = inOutputModel;
+    }
+
     /**
      * python文件的绝对路径
      */
@@ -21,7 +28,9 @@ public abstract class PyImgFinderCloseRunnable extends CloseableRunnable {
 
     @Override
     protected void beforeLoop() {
-
+        if (inOutputModel != null) {
+            inOutputModel.getOutput().setText(msg + ":已经开始");
+        }
     }
 
     @Override
@@ -36,7 +45,9 @@ public abstract class PyImgFinderCloseRunnable extends CloseableRunnable {
 
     @Override
     protected void afterLoop() {
-
+        if (inOutputModel != null) {
+            inOutputModel.getOutput().setText(msg + ":已经结束");
+        }
     }
 
     /**

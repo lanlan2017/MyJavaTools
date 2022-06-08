@@ -14,7 +14,7 @@ public class JinRiTouTiaoRunnable extends PyImgFinderCloseRunnable {
     protected void performAction(String img, Point point) {
         switch (img) {
             case "A_KanGuangGaoShiPinZaiZhuan.png":
-            case "A_KanWanShiPinZaiLing.png":
+            case "A_KanWanShiPinZaiLing_honor.png":
             case "A_KanWanShiPinZaiLing2.png":
             case "A_LingQuJiangLi.png":
             case "A_ZaiKanYiGe.png":

@@ -2,7 +2,8 @@ package adbs.action.listener;
 
 import adbs.action.model.InOutputModel;
 import adbs.action.runnable.DouYinVideoButtonRunnable;
-import adbs.action.runnable.VideoButtonRunnable2;
+import adbs.action.runnable.VideoButtonRunnable;
+import tools.thead.Threads;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -28,14 +29,15 @@ public class DouYinSeeVideoButtonListener implements ActionListener {
         // 启动刷视频线程
         // new Thread(new VideoButtonRunnable(inOutputModel)).start();
         // 先停止刷视频线程
-        VideoButtonRunnable2 videoButtonRunnable2 = VideoButtonRunnable2.getInstance();
-        videoButtonRunnable2.stop();
+        VideoButtonRunnable videoButtonRunnable = VideoButtonRunnable.getInstance();
+        videoButtonRunnable.stop();
 
-        videoButtonRunnable2.setInOutputModel(inOutputModel);
-        new Thread(videoButtonRunnable2).start();
+        videoButtonRunnable.setInOutputModel(inOutputModel);
+        new Thread(videoButtonRunnable).start();
 
         // 如果抖音刷视频置顶红包监听线程 死掉了(没活着)
-        if (douYinVideoThread == null || douYinVideoThread != null && !douYinVideoThread.isAlive()) {
+        // if (douYinVideoThread == null || douYinVideoThread != null && !douYinVideoThread.isAlive()) {
+        if (Threads.threadIsNullOrNotAlive(douYinVideoThread)) {
             System.out.println("抖音视频置顶红包 监听线程已经死掉，重新创建一个线程");
             // 重现创建一个线程，并执行
             // douYinVideoThread = new Thread(douYinVideoButtonRunnable);

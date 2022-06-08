@@ -16,6 +16,7 @@ public class KuaiShouTaskCenterRunnable extends PyImgFinderCloseRunnable {
             case "GuangGao_KaiShi.png":
             case "B_ZhiBuo_Start.png":
             case "KaiBaoXiang_A_KanShiPinZuiGaoDe.png":
+            case "A_KaiBaoXiang_KanShiPinZuiGaoDe_honor.png":
             case "KaiBaoXiang_ZaiKanYiGeZuiGaoDe.png":
             case "GuangGao_ZaiKanYiGe.png":
                 Robots.leftMouseButtonClick(point);

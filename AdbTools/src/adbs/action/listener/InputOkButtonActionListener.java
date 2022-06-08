@@ -16,7 +16,7 @@ public class InputOkButtonActionListener implements ActionListener {
     private ShoppingButtonRunnable shoppingButtonRunnable;
     private WaitReturnButtonRunnable waitReturnButtonRunnable;
     // private VideoButtonRunnable videoButtonRunnable;
-    private VideoButtonRunnable2 videoButtonRunnable2;
+    private VideoButtonRunnable videoButtonRunnable;
     private Thread videoBtnThread;
 
 
@@ -33,8 +33,8 @@ public class InputOkButtonActionListener implements ActionListener {
         waitReturnButtonRunnable.setInOutputModel(inOutputModel);
         // this.videoButtonRunnable = new VideoButtonRunnable(inOutputModel);
 
-        this.videoButtonRunnable2 = VideoButtonRunnable2.getInstance();
-        videoButtonRunnable2.setInOutputModel(inOutputModel);
+        this.videoButtonRunnable = VideoButtonRunnable.getInstance();
+        videoButtonRunnable.setInOutputModel(inOutputModel);
         // videoBtnThread = new Thread(videoButtonRunnable2);
 
     }
@@ -64,14 +64,14 @@ public class InputOkButtonActionListener implements ActionListener {
             String input2Str = inOutputModel.getInputPanelModel().getInput2().getText();
             // 如果输入的都是数字
             if (input1Str.matches("\\d+") && input2Str.matches("\\d+")) {
-                videoButtonRunnable2.setMin(Integer.parseInt(input1Str));
-                videoButtonRunnable2.setMax(Integer.parseInt(input2Str));
+                videoButtonRunnable.setMin(Integer.parseInt(input1Str));
+                videoButtonRunnable.setMax(Integer.parseInt(input2Str));
                 // 如果线程已经死掉了,或者线程还没创建
-                if (Threads.threadIsNullOrNoAlive(videoBtnThread)) {
-                    videoBtnThread = new Thread(videoButtonRunnable2);
+                if (Threads.threadIsNullOrNotAlive(videoBtnThread)) {
+                    videoBtnThread = new Thread(videoButtonRunnable);
                     videoBtnThread.start();
                 } else {
-                    System.out.println(videoButtonRunnable2.getMsg() + " 已经在运行中,请勿重复启动");
+                    System.out.println(videoButtonRunnable.getMsg() + " 已经在运行中,请勿重复启动");
                 }
             }
         }
