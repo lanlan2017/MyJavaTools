@@ -81,6 +81,12 @@
               <toolTipText value="任务管理"/>
             </properties>
           </component>
+          <component id="18460" class="javax.swing.JButton" binding="stopBtn">
+            <constraints/>
+            <properties>
+              <text value="停止"/>
+            </properties>
+          </component>
         </children>
       </grid>
       <grid id="e6d4c" binding="controlPanel" layout-manager="FlowLayout" hgap="0" vgap="0" flow-align="0">
@@ -327,12 +333,6 @@
             <properties>
               <text value="浏览后返回"/>
               <toolTipText value="浏览后返回"/>
-            </properties>
-          </component>
-          <component id="18460" class="javax.swing.JButton" binding="stopBtn">
-            <constraints/>
-            <properties>
-              <text value="停止"/>
             </properties>
           </component>
         </children>
