@@ -4,7 +4,7 @@ import adbs.action.listener.*;
 import adbs.action.model.InOutputModel;
 import adbs.action.model.InputPanelModel;
 import adbs.action.runnable.*;
-// import adbs.action.runnable.KuaiShouYueDuRunnable;
+import adbs.buttons.JButtons;
 import adbs.cmd.CmdRun;
 import adbs.test.AdbDi;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -101,18 +101,18 @@ public class AdbTools {
         devicePanel.add(new AdbDi(frame).createDevicesPanel());
         // 打开（设备）按钮
         openButton.addActionListener(new OpenButtonListener());
-        // 设置打开按钮的图标
-        // setButtonIconOnly(openButton, getResource("open.png"));
         // 创建输入面板的模型
         InputPanelModel inputPanelModel = new InputPanelModel(inputPanel, timeLable, timeRadioPanel, radioButton15s, radioButton35s, radioButton70s, input1, input2, inputOkButton);
         inOutputModel = new InOutputModel(inputPanelModel, output);
 
         // 特定面板按钮 使用网格布局
-        GridLayout gridLayout = new GridLayout(3, 4, 0, 0);
-        customPanel.setLayout(gridLayout);
+        // GridLayout gridLayout = new GridLayout(3, 4, 0, 0);
+        // customPanel.setLayout(gridLayout);
+
         // 通用按钮面板 使用网格布局
-        universalPanel.setLayout(new GridLayout(2, 4, 0, 0));
-        // universalPanel.setVisible(true);
+        // universalPanel.setLayout(new GridLayout(2, 4, 0, 0));
+
+
         // 输入面板等待按钮
         inputOkButton.addActionListener(new InputOkButtonActionListener(inOutputModel));
 
@@ -126,16 +126,11 @@ public class AdbTools {
         // 逛街按钮
         shoppingButton.addActionListener(new ShoppingButtonActionListener(frame, inputPanelModel));
 
-        // stopButton.addActionListener(new StopButtonListener(isRunningSet, inOutputModel));
-
-
         // 等待后返回按钮
         waitReturnButton.addActionListener(new WaitReturnButtonActionListener(frame, inputPanelModel));
-        // setButtonIconOnly(waitReturnButton, getResource("等待 (1).png"));
         // 悟空看视频按钮
         wuKongGuanBiBtn.addActionListener(e -> new Thread(new WuKongGuanBiRunnable()).start());
 
-        // setButtonIconOnly(returnBtn, getResource("阅读.png"));
         douyinSeeVideoBtn.addActionListener(new DouYinSeeVideoButtonListener(frame, inOutputModel));
         dormantCheckBox.addItemListener(new ItemListener() {
             @Override
@@ -203,6 +198,7 @@ public class AdbTools {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // new Thread(new PddHongBaoOpenRunnable()).start();
+                JButtons.setFocusPainted(e);
                 new Thread(new PddHongBaoOpenRunnable()).start();
             }
         });
@@ -216,12 +212,16 @@ public class AdbTools {
         jinRiTouTiaoBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Thread(new JinRiTouTiaoRunnable()).start();
+                JButtons.setFocusPainted(e);
+                JinRiTouTiaoRunnable jinRiTouTiaoRunnable = new JinRiTouTiaoRunnable();
+                jinRiTouTiaoRunnable.setInOutputModel(inOutputModel);
+                new Thread(jinRiTouTiaoRunnable).start();
             }
         });
         kuaishouTaskCenterBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                JButtons.setFocusPainted(e);
                 new Thread(new KuaiShouTaskCenterRunnable()).start();
             }
         });
@@ -236,6 +236,7 @@ public class AdbTools {
         douYinBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                JButtons.setFocusPainted(e);
                 new Thread(DouYinTaskRunnable.getInstance()).start();
             }
         });
@@ -270,29 +271,6 @@ public class AdbTools {
         });
 
     }
-
-    // private URL getResource(String path) {
-    //     URL returnIcoUrl = AdbTools.class.getClassLoader().getResource(path);
-    //     return returnIcoUrl;
-    // }
-
-    // /**
-    //  * 设置按钮的图标，只显示图标
-    //  *
-    //  * @param button       要设置图标的按钮
-    //  * @param returnIcoUrl 图标的URL
-    //  */
-    // private void setButtonIconOnly(JButton button, URL returnIcoUrl) {
-    //     Icon icon = new ImageIcon(returnIcoUrl);
-    //
-    //     // 使用按钮原来的文字，作为提示文本
-    //     // button.setToolTipText(button.getText());
-    //     // 设置图标
-    //     button.setIcon(icon);
-    //     // button.setMaximumSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
-    //     // 取消文字
-    //     button.setText("");
-    // }
 
     public static void setIsRunning(Runnable isRunning) {
         System.out.println("正在运行的:" + isRunning);
