@@ -239,19 +239,6 @@ public class AdbTools {
         kuaiShouReadBtn.addActionListener(new KuaiShouYueDuButtonListener(readButton2, inOutputModel));
 
 
-        // 不显示标题栏，最小化，关闭按钮
-        // frame.setUndecorated(true);
-        // 点击关闭按钮时退出程序
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        // 永远置顶
-        frame.setAlwaysOnTop(true);
-        // 最合适的方式显示
-        frame.pack();
-        // 隐藏休眠设置面板
-        dormantPanel.setVisible(false);
-        // 显示窗体
-        frame.setVisible(true);
-
         readButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -261,8 +248,58 @@ public class AdbTools {
                 new Thread(readButtonRunnable).start();
             }
         });
+        AbstractButtons.setMarginInButtonJPanel(universalPanel);
+        AbstractButtons.setMarginInButtonJPanel(customPanel);
+        AbstractButtons.setJButtonMargin(stopBtn);
 
+        // frame.pack();
+        // 不显示标题栏，最小化，关闭按钮
+        // frame.setUndecorated(true);
+        // 点击关闭按钮时退出程序
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        // 永远置顶
+        frame.setAlwaysOnTop(true);
+        // topPanel.repaint();
+        // frame.repaint();
+        // 最合适的方式显示
+        frame.setVisible(true);
+        dormantPanel.setVisible(false);
+        // frame.pack();
+        frame.pack();
+        // 隐藏休眠设置面板
+        // 显示窗体
     }
+
+    // /**
+    //  * 设置AbstractButton的内边距
+    //  *
+    //  * @param button AbstractButton对象
+    //  */
+    // private void setJButtonMargin(AbstractButton button) {
+    //     int marginVal = 2;
+    //     button.setMargin(new Insets(marginVal, marginVal, marginVal, marginVal));
+    // }
+    //
+    // /**
+    //  * 最小化面板中的按钮
+    //  *
+    //  * @param panel 放置按钮的JPanel
+    //  */
+    // private void setMarginInButtonJPanel(JPanel panel) {
+    //     int count = panel.getComponentCount();
+    //     int x = 3;
+    //     Insets insets = new Insets(x, x, x, x);
+    //     for (int i = 0; i < count; i++) {
+    //         Component component = panel.getComponent(i);
+    //         if (component instanceof AbstractButton) {
+    //             System.out.println(component + "是按钮");
+    //             AbstractButton abstractButton = (AbstractButton) component;
+    //             abstractButton.setMargin(insets);
+    //         }
+    //     }
+    //     panel.repaint();
+    //     // frame.pack();
+    // }
 
     public static void setIsRunning(Runnable isRunning) {
         System.out.println("正在运行的:" + isRunning);
