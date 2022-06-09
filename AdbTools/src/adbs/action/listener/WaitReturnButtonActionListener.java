@@ -1,12 +1,12 @@
 package adbs.action.listener;
 
+import adbs.action.listener.abs.ButtonFocusReleaseActionListener;
 import adbs.action.model.InputPanelModel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class WaitReturnButtonActionListener implements ActionListener {
+public class WaitReturnButtonActionListener extends ButtonFocusReleaseActionListener {
     JFrame frame;
     InputPanelModel inputPanelModel;
 
@@ -16,7 +16,7 @@ public class WaitReturnButtonActionListener implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    protected void actionEvent(ActionEvent e) {
         inputPanelModel.getInputPanel().setVisible(true);
         inputPanelModel.getTimeLable().setText("等待时间:");
         inputPanelModel.getTimeRadioPanel().setVisible(true);
@@ -25,6 +25,4 @@ public class WaitReturnButtonActionListener implements ActionListener {
         inputPanelModel.getInput2().setVisible(false);
         frame.pack();
     }
-
-
 }

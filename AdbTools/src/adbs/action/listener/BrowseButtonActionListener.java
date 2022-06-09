@@ -1,12 +1,12 @@
 package adbs.action.listener;
 
+import adbs.action.listener.abs.ButtonFocusReleaseActionListener;
 import adbs.action.model.InputPanelModel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class BrowseButtonActionListener implements ActionListener {
+public class BrowseButtonActionListener extends ButtonFocusReleaseActionListener {
     private JFrame frame;
     private InputPanelModel inputPanelModel;
 
@@ -16,7 +16,7 @@ public class BrowseButtonActionListener implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    protected void actionEvent(ActionEvent e) {
         inputPanelModel.getInputPanel().setVisible(true);
         inputPanelModel.getTimeLable().setText("浏览时间(s):");
         inputPanelModel.getTimeRadioPanel().setVisible(true);

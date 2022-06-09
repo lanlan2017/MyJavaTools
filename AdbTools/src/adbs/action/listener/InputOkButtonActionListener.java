@@ -1,22 +1,19 @@
 package adbs.action.listener;
 
+import adbs.action.listener.abs.ButtonFocusReleaseActionListener;
 import adbs.action.model.InOutputModel;
 import adbs.action.runnable.*;
 import tools.thead.Threads;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class InputOkButtonActionListener implements ActionListener {
-    private InOutputModel inOutputModel;
-
-
-    private BrowseRunnable browseRunnable;
-    private ShoppingButtonRunnable shoppingButtonRunnable;
-    private WaitReturnButtonRunnable waitReturnButtonRunnable;
-    // private VideoButtonRunnable videoButtonRunnable;
-    private VideoButtonRunnable videoButtonRunnable;
+public class InputOkButtonActionListener extends ButtonFocusReleaseActionListener {
+    private final InOutputModel inOutputModel;
+    private final BrowseRunnable browseRunnable;
+    private final ShoppingButtonRunnable shoppingButtonRunnable;
+    private final WaitReturnButtonRunnable waitReturnButtonRunnable;
+    private final VideoButtonRunnable videoButtonRunnable;
     private Thread videoBtnThread;
 
 
@@ -28,19 +25,16 @@ public class InputOkButtonActionListener implements ActionListener {
         this.shoppingButtonRunnable = ShoppingButtonRunnable.getInstance();
         shoppingButtonRunnable.setInOutputModel(inOutputModel);
 
-        // this.waitReturnButtonRunnable = new WaitReturnButtonRunnable(inOutputModel);
         this.waitReturnButtonRunnable = WaitReturnButtonRunnable.getInstance();
         waitReturnButtonRunnable.setInOutputModel(inOutputModel);
-        // this.videoButtonRunnable = new VideoButtonRunnable(inOutputModel);
 
         this.videoButtonRunnable = VideoButtonRunnable.getInstance();
         videoButtonRunnable.setInOutputModel(inOutputModel);
-        // videoBtnThread = new Thread(videoButtonRunnable2);
 
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    protected void actionEvent(ActionEvent e) {
         JButton ok = (JButton) e.getSource();
         JLabel output = inOutputModel.getOutput();
 
@@ -76,15 +70,4 @@ public class InputOkButtonActionListener implements ActionListener {
             }
         }
     }
-
-    // /**
-    //  * 判断thread是否位null,或者已经死亡。
-    //  *
-    //  * @param thread 线程
-    //  * @return 如果线程是null, 或者已经死掉, 则返回true.
-    //  */
-    // private boolean threadIsNullOrNoAlive(Thread thread) {
-    //     return thread == null || thread != null && !thread.isAlive();
-    //     Threads
-    // }
 }

@@ -15,9 +15,11 @@ public class JinRiTouTiaoRunnable extends PyImgFinderCloseRunnable {
         switch (img) {
             case "A_KanGuangGaoShiPinZaiZhuan.png":
             case "A_KanWanShiPinZaiLing_honor.png":
+            case "A_KanWanShiPinZaiLing_oppo.png":
             case "A_KanWanShiPinZaiLing2.png":
             case "A_LingQuJiangLi.png":
             case "A_ZaiKanYiGe.png":
+            case "A_ZaiKanYiGe_oppo.png":
                 Robots.leftClickThenRightClick(point, 35 * 1000);
                 break;
             default:

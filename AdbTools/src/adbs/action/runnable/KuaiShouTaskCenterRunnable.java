@@ -19,9 +19,14 @@ public class KuaiShouTaskCenterRunnable extends PyImgFinderCloseRunnable {
             case "A_KaiBaoXiang_KanShiPinZuiGaoDe_honor.png":
             case "KaiBaoXiang_ZaiKanYiGeZuiGaoDe.png":
             case "GuangGao_ZaiKanYiGe.png":
-                Robots.leftMouseButtonClick(point);
-                Robots.delay(40 * 1000);
-                Robots.rightClickButton(point);
+            case "GuangGao_KaiShi_oppo.png":
+            case "GuangGao_ZaiKanYiGe_oppo.png":
+            case "GuangGao_ZaiKanYiGeZuiGaoDe_oppo.png":
+                System.out.println("case");
+                // Robots.leftMouseButtonClick(point);
+                // Robots.delay(40 * 1000);
+                // Robots.rightClickButton(point);
+                Robots.leftClickThenRightClick(point, 40 * 1000);
                 break;
             case "ZhiBuo_ZhiBuoZhong.png":
                 Robots.leftMouseButtonClick(point);
@@ -29,6 +34,7 @@ public class KuaiShouTaskCenterRunnable extends PyImgFinderCloseRunnable {
                 Robots.rightClickButton(point);
                 break;
             default:
+                System.out.println("default");
                 Robots.leftMouseButtonClick(point);
                 Robots.delay(2 * 1000);
                 break;

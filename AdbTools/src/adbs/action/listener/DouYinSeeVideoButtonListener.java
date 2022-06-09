@@ -1,5 +1,6 @@
 package adbs.action.listener;
 
+import adbs.action.listener.abs.ButtonFocusReleaseActionListener;
 import adbs.action.model.InOutputModel;
 import adbs.action.runnable.DouYinVideoButtonRunnable;
 import adbs.action.runnable.VideoButtonRunnable;
@@ -7,9 +8,8 @@ import tools.thead.Threads;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class DouYinSeeVideoButtonListener implements ActionListener {
+public class DouYinSeeVideoButtonListener extends ButtonFocusReleaseActionListener {
     private JFrame frame;
     private InOutputModel inOutputModel;
     private DouYinVideoButtonRunnable douYinVideoButtonRunnable;
@@ -19,11 +19,10 @@ public class DouYinSeeVideoButtonListener implements ActionListener {
         this.frame = frame;
         this.inOutputModel = inOutputModel;
         this.douYinVideoButtonRunnable = new DouYinVideoButtonRunnable();
-        // this.douYinVideoThread = new Thread(douYinVideoButtonRunnable);
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    protected void actionEvent(ActionEvent e) {
         inOutputModel.getInputPanelModel().getInputPanel().setVisible(false);
         frame.pack();
         // 启动刷视频线程

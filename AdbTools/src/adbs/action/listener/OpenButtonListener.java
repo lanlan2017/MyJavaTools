@@ -1,22 +1,19 @@
 package adbs.action.listener;
 
+import adbs.action.listener.abs.ButtonFocusReleaseActionListener;
 import adbs.action.runnable.OpenButtonRunnable;
-import adbs.buttons.JButtons;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class OpenButtonListener implements ActionListener {
-    private OpenButtonRunnable target;
+public class OpenButtonListener extends ButtonFocusReleaseActionListener {
+    private OpenButtonRunnable openButtonRunnable;
 
     public OpenButtonListener() {
-        target = new OpenButtonRunnable();
+        openButtonRunnable = new OpenButtonRunnable();
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        JButtons.setFocusPainted(e);
-        new Thread(target).start();
+    protected void actionEvent(ActionEvent e) {
+        new Thread(openButtonRunnable).start();
     }
 }

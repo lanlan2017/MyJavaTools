@@ -22,7 +22,7 @@ public class WuKongGuanBiRunnable extends PyImgFinderCloseRunnable {
                 // case "WuKong_KaiBaoXiang.png":
                 System.out.println("先单击左键，等待，再单击右键");
                 // 点击左键（进入广告），然后点击右键（返回）
-                Robots.leftClickThenRightClick(point, 40 * 1000);
+                Robots.leftClickThenRightClick(point, 35 * 1000);
                 // Robots.leftMouseButtonClick(point);
                 // Robots.delay(40 * 1000);
                 break;

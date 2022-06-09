@@ -103,7 +103,8 @@ public class PythonGenerator {
         pythonTail.append("            break\n");
         pythonTail.append("        else:\n");
         pythonTail.append("            # 等待\n");
-        pythonTail.append("            time.sleep(0.1)\n");
+        // pythonTail.append("            time.sleep(0.1)\n");
+        pythonTail.append("            time.sleep(0.05)\n");
         return pythonTail;
     }
 

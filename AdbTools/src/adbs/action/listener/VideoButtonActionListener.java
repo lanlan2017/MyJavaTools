@@ -1,12 +1,12 @@
 package adbs.action.listener;
 
+import adbs.action.listener.abs.ButtonFocusReleaseActionListener;
 import adbs.action.model.InputPanelModel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class VideoButtonActionListener implements ActionListener {
+public class VideoButtonActionListener extends ButtonFocusReleaseActionListener {
     private JFrame frame;
     private InputPanelModel inputPanelModel;
 
@@ -16,7 +16,7 @@ public class VideoButtonActionListener implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    protected void actionEvent(ActionEvent e) {
         // 显示输入界面
         inputPanelModel.getInputPanel().setVisible(true);
         // 设置标签
@@ -35,7 +35,6 @@ public class VideoButtonActionListener implements ActionListener {
         input2.setText(String.valueOf(14));
         // 设置按钮文字
         inputPanelModel.getInputOkButton().setText("开始刷视频");
-
         frame.pack();
     }
 }

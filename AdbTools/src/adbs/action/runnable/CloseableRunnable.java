@@ -4,10 +4,6 @@ import adbs.ui.AdbTools;
 
 public abstract class CloseableRunnable implements Runnable {
 
-    public CloseableRunnable() {
-        setMsg();
-    }
-
     /**
      * 是否结束线程
      */
@@ -16,6 +12,10 @@ public abstract class CloseableRunnable implements Runnable {
      * 线程消息
      */
     protected String msg;
+
+    public CloseableRunnable() {
+        setMsg();
+    }
 
     /**
      * 设置消息
