@@ -105,14 +105,6 @@ public class AdbTools {
         InputPanelModel inputPanelModel = new InputPanelModel(inputPanel, timeLable, timeRadioPanel, radioButton15s, radioButton35s, radioButton70s, input1, input2, inputOkButton);
         inOutputModel = new InOutputModel(inputPanelModel, output);
 
-        // 特定面板按钮 使用网格布局
-        // GridLayout gridLayout = new GridLayout(3, 4, 0, 0);
-        // customPanel.setLayout(gridLayout);
-
-        // 通用按钮面板 使用网格布局
-        // universalPanel.setLayout(new GridLayout(2, 4, 0, 0));
-
-
         // 输入面板等待按钮
         inputOkButton.addActionListener(new InputOkButtonActionListener(inOutputModel));
 
