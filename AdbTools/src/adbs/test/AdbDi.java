@@ -65,7 +65,8 @@ public class AdbDi {
             DeviceRadioBtAcListener listener = new DeviceRadioBtAcListener(frame);
             devices.forEach(device -> {
                 // 创建一个单选按钮
-                JRadioButton deviceRadioButton = new JRadioButton(device.getId());
+                // JRadioButton deviceRadioButton = new JRadioButton(device.getId());
+                JRadioButton deviceRadioButton = new JRadioButton(device.getSimpleId(device.getId()));
                 deviceRadioButton.addActionListener(listener);
                 if (size == 1) {
                     deviceRadioButton.doClick();

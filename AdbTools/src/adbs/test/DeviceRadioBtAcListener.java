@@ -25,8 +25,12 @@ public class DeviceRadioBtAcListener implements ActionListener {
         // 获取触发事件的按钮
         AbstractButton button = (AbstractButton) e.getSource();
         // 输出按钮中的文本
-        System.out.println("你选择了:" + button.getText());
-        frame.setTitle(button.getText());
-        setId(button.getText());
+        String buttonText = button.getText();
+        System.out.println("你选择了:" + buttonText);
+        frame.setTitle(buttonText);
+        String phoneId = Device.map.get(buttonText);
+        // setId(buttonText);
+        // setId(phoneId);
+        id = phoneId;
     }
 }

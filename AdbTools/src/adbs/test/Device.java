@@ -1,18 +1,36 @@
 package adbs.test;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Objects;
 
 public class Device {
     private String id;
     private String description;
+    public static HashMap<String, String> map = new HashMap<>();
 
     public Device(String id, String description) {
         this.id = id;
         this.description = description;
+        String simpleId = getSimpleId(id);
+        map.put(simpleId, id);
     }
 
     public String getId() {
         return id;
+    }
+
+    public String getSimpleId(String id) {
+        String simpleId = "";
+        switch (id) {
+            case "U8ENW18117021408":
+                simpleId = "HonorUSB";
+                break;
+            case "75aed56d":
+                simpleId = "OppoUSB";
+                break;
+        }
+        return simpleId;
     }
 
     public void setId(String id) {
