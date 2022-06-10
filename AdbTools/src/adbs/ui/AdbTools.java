@@ -72,6 +72,7 @@ public class AdbTools {
     private JButton kuaiShouReadBtn;
     private JButton readButton2;
     private JCheckBox universalCheckBox;
+    private JButton kuaiShouVideoBtn;
 
     // 当前正在执行的线程
     private static HashSet<Runnable> isRunningSet = new HashSet<>();
@@ -233,9 +234,6 @@ public class AdbTools {
             }
         });
         stopBtn.addActionListener(new StopButtonListener(isRunningSet, inOutputModel));
-
-
-        // kuaiShouReadButton2.addActionListener(new KuaiShouYueDuButtonListener2(readButton, inOutputModel));
         kuaiShouReadBtn.addActionListener(new KuaiShouYueDuButtonListener(readButton2, inOutputModel));
 
 
@@ -244,62 +242,35 @@ public class AdbTools {
             public void actionPerformed(ActionEvent e) {
                 ReadButtonRunnable readButtonRunnable = ReadButtonRunnable.getInstance();
                 readButtonRunnable.setInOutputModel(inOutputModel);
-                // new Thread(new ReadButtonRunnable2(inOutputModel)).start();
                 new Thread(readButtonRunnable).start();
             }
         });
         AbstractButtons.setMarginInButtonJPanel(universalPanel);
         AbstractButtons.setMarginInButtonJPanel(customPanel);
         AbstractButtons.setJButtonMargin(stopBtn);
+        AbstractButtons.setJButtonMargin(inputOkButton);
+        AbstractButtons.setJButtonMargin(dormantOKButton);
 
-        // frame.pack();
         // 不显示标题栏，最小化，关闭按钮
         // frame.setUndecorated(true);
         // 点击关闭按钮时退出程序
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         // 永远置顶
         frame.setAlwaysOnTop(true);
-        // topPanel.repaint();
-        // frame.repaint();
-        // 最合适的方式显示
-        frame.setVisible(true);
-        dormantPanel.setVisible(false);
-        // frame.pack();
-        frame.pack();
-        // 隐藏休眠设置面板
         // 显示窗体
+        frame.setVisible(true);
+        // 隐藏休眠设置面板
+        dormantPanel.setVisible(false);
+        // 最合适的方式显示，这句要写在setVisible方法之后
+        frame.pack();
+        kuaiShouVideoBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new Thread(new KuaiShouVideoBtnRunnable(stopBtn, videoButton)).start();
+                videoButton.doClick();
+            }
+        });
     }
-
-    // /**
-    //  * 设置AbstractButton的内边距
-    //  *
-    //  * @param button AbstractButton对象
-    //  */
-    // private void setJButtonMargin(AbstractButton button) {
-    //     int marginVal = 2;
-    //     button.setMargin(new Insets(marginVal, marginVal, marginVal, marginVal));
-    // }
-    //
-    // /**
-    //  * 最小化面板中的按钮
-    //  *
-    //  * @param panel 放置按钮的JPanel
-    //  */
-    // private void setMarginInButtonJPanel(JPanel panel) {
-    //     int count = panel.getComponentCount();
-    //     int x = 3;
-    //     Insets insets = new Insets(x, x, x, x);
-    //     for (int i = 0; i < count; i++) {
-    //         Component component = panel.getComponent(i);
-    //         if (component instanceof AbstractButton) {
-    //             System.out.println(component + "是按钮");
-    //             AbstractButton abstractButton = (AbstractButton) component;
-    //             abstractButton.setMargin(insets);
-    //         }
-    //     }
-    //     panel.repaint();
-    //     // frame.pack();
-    // }
 
     public static void setIsRunning(Runnable isRunning) {
         System.out.println("正在运行的:" + isRunning);
