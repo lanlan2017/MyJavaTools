@@ -12,29 +12,14 @@ public class KuaiShouTaskCenterRunnable extends PyImgFinderCloseRunnable {
 
     @Override
     protected void performAction(String img, Point point) {
+        // 等待
         switch (img) {
-            case "GuangGao_KaiShi.png":
-            case "B_ZhiBuo_Start.png":
-            case "KaiBaoXiang_A_KanShiPinZuiGaoDe.png":
-            case "A_KaiBaoXiang_KanShiPinZuiGaoDe_honor.png":
-            case "KaiBaoXiang_ZaiKanYiGeZuiGaoDe.png":
-            case "GuangGao_ZaiKanYiGe.png":
-            case "GuangGao_KaiShi_oppo.png":
-            case "GuangGao_ZaiKanYiGe_oppo.png":
-            case "GuangGao_ZaiKanYiGeZuiGaoDe_oppo.png":
-                System.out.println("case");
-                // Robots.leftMouseButtonClick(point);
-                // Robots.delay(40 * 1000);
-                // Robots.rightClickButton(point);
-                Robots.leftClickThenRightClick(point, 40 * 1000);
+            case "begin_GuangGao_ZaiKanYiGe_oppo.png":
+            case "begin_KaiBaoXiang_KanShiPinZuiGaoDe_honor.png":
+            case "begin_KanGuangGaoZhuanJinBi_oppo.png":
+                Robots.leftClickThenRightClick(point, 40*1000);
                 break;
-            case "ZhiBuo_ZhiBuoZhong.png":
-                Robots.leftMouseButtonClick(point);
-                Robots.delay(70 * 1000);
-                Robots.rightClickButton(point);
-                break;
-            default:
-                System.out.println("default");
+            case "exit_KanGuangGaoZhuanJinBi_FangQi_oppo.png":
                 Robots.leftMouseButtonClick(point);
                 Robots.delay(2 * 1000);
                 break;

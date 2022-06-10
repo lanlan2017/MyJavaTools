@@ -54,17 +54,14 @@ public class Robots {
      */
     public static void leftClickThenRightClick(Point point, int millisecond) {
         if (point != null) {
-
             // 点击鼠标左键，进入广告界面
             leftMouseButtonClick(point);
-            // 进入广告界面之后，关闭阅读线程
-            // ReadButtonRunnable.setStop(true);
-            // ReadButtonRunnable.setStop(true);
             // 等待30秒
             System.out.println("机器人,等待:" + millisecond + "毫秒");
             robot.delay(millisecond);
             // 点击鼠标右键，（触发返回功能）退出广告界面。
             rightClickButton(point);
+            robot.delay(3 * 1000);
         }
     }
 

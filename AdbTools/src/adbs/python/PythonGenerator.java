@@ -1,5 +1,6 @@
 package adbs.python;
 
+import tools.copy.SystemClipboard;
 import tools.file.Files;
 import tools.format.date.DateFormatters;
 
@@ -14,11 +15,68 @@ import java.util.Date;
 public class PythonGenerator {
     public static void main(String[] args) {
 
-        // String pythonPathDir = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\KuaiShou";
+        String pythonPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\KuaiShou\\TaskCenter";
         // String pythonPathDir = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\DouYin";
         // Python文件路径
-        String pythonPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\WuKongLiuLanQi\\WuKongLiuLanQi.py";
-        updatePythonFile(pythonPath);
+        // String pythonPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\WuKongLiuLanQi\\WuKongLiuLanQi.py";
+        // updatePythonFile(pythonPath);
+        String switchCases = imagesInDir2SwitchCases(pythonPath);
+        System.out.println(switchCases);
+        SystemClipboard.setSysClipboardText(switchCases);
+    }
+
+    /**
+     * 生成一个存放 目录下所有'.png'文件的python数组
+     *
+     * @param dirPath 目录的字符串名称（绝对路径）
+     */
+    private static String imagesInDir2SwitchCases(String dirPath) {
+        File dir = new File(dirPath);
+        if (dir.isDirectory()) {
+            // 获取目录下的所有.png文件列表
+            String[] pngList = dir.list((dir1, name) -> name.endsWith(".png"));
+            if (pngList != null) {
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < pngList.length; i++) {
+                    sb.append("case ");
+                    sb.append("\"");
+                    sb.append(pngList[i]);
+                    sb.append("\"");
+                    sb.append(":\n");
+                    // if (pngList[i].startsWith("await_") && !pngList[i + 1].startsWith("await_")) {
+                    if (isAppendBreak(pngList, i, "await_")) {
+                        sb.append("    Robots.delay(50 * 1000);\n");
+                        sb.append("    Robots.delay(20 * 1000);\n");
+                        sb.append("    break;\n");
+                        // } else if (pngList[i].startsWith("begin_") && !pngList[i + 1].startsWith("begin_")) {
+                    } else if (isAppendBreak(pngList, i, "begin_")) {
+                        sb.append("    Robots.leftClickThenRightClick(point, 40*1000);\n");
+                        sb.append("    break;\n");
+                    } else if (isAppendBreak(pngList, i, "exit_")) {
+                        sb.append("    Robots.leftMouseButtonClick(point);\n");
+                        sb.append("    Robots.delay(2 * 1000);\n");
+                        sb.append("    break;\n");
+                    }
+
+                    // sb.append("    break;");
+                    // sb.append("\n");
+                }
+                return sb.toString();
+            }
+        }
+        return "";
+    }
+
+    /**
+     * 判断是否应该添加break语句。
+     *
+     * @param pngList 数组
+     * @param i       当前遍历的坐标
+     * @param prefix  数组元素开头子串
+     * @return 如果在交界处，或者是最后一个元素时，返回true
+     */
+    private static boolean isAppendBreak(String[] pngList, int i, String prefix) {
+        return pngList[i].startsWith(prefix) && (i == pngList.length - 1 || !pngList[i + 1].startsWith(prefix));
     }
 
     /**
@@ -49,6 +107,8 @@ public class PythonGenerator {
         // System.out.println(pythonCode);
         // 把完整的Python代码写入Python文件
         Files.writerFile(pythonFile, pythonCode);
+        // imagesInDir2SwitchCases(pythonPathDir);
+        SystemClipboard.setSysClipboardText(imagesInDir2SwitchCases(pythonPathDir));
     }
 
     /**
@@ -111,10 +171,10 @@ public class PythonGenerator {
     /**
      * 生成一个存放 目录下所有'.png'文件的python数组
      *
-     * @param pathname 目录的字符串名称（绝对路径）
+     * @param dirPath 目录的字符串名称（绝对路径）
      */
-    private static String imagesInDir2Array(String pathname) {
-        File dir = new File(pathname);
+    private static String imagesInDir2Array(String dirPath) {
+        File dir = new File(dirPath);
         if (dir.isDirectory()) {
             // 获取目录下的所有.png文件列表
             String[] pngList = dir.list((dir1, name) -> name.endsWith(".png"));
@@ -124,9 +184,13 @@ public class PythonGenerator {
                 for (int i = 0; i < pngList.length; i++) {
                     sb.append("    ");
                     sb.append("sys.path[0]+");
-                    sb.append("\"\\");
-                    // sb.append(png);
+                    sb.append("\"");
+                    sb.append("\\");
+                    if (pngList[i].startsWith("b")||pngList[i].startsWith("a")) {
+                        sb.append("\\");
+                    }
                     sb.append(pngList[i]);
+
                     sb.append("\"");
                     if (i < pngList.length - 1) {
                         sb.append(",");
@@ -140,4 +204,6 @@ public class PythonGenerator {
         }
         return "";
     }
+
+
 }
