@@ -13,19 +13,17 @@ public class JinRiTouTiaoRunnable extends PyImgFinderCloseRunnable {
     @Override
     protected void performAction(String img, Point point) {
         switch (img) {
-            case "A_KanGuangGaoShiPinZaiZhuan.png":
-            case "A_KanWanShiPinZaiLing_honor.png":
-            case "A_KanWanShiPinZaiLing_oppo.png":
-            case "A_KanWanShiPinZaiLing2.png":
-            case "A_LingQuJiangLi.png":
-            case "A_ZaiKanYiGe.png":
-            case "A_ZaiKanYiGe_oppo.png":
-                Robots.leftClickThenRightClick(point, 35 * 1000);
+            case "begin_honor_KanWanShiPinZaiLing.png":
+            case "begin_oppo_KanWanShiPinZaiLing.png":
+            case "begin_oppo_Read_KanShiPinZaiLing.png":
+            case "begin_oppo_Read_ZaiKanYiHuoGe.png":
+                Robots.leftClickThenRightClick(point, 40 * 1000);
                 break;
-            default:
+            case "exit_oppo_DaCha0.png":
                 Robots.leftMouseButtonClick(point);
-                Robots.delay(1000);
+                Robots.delay(2 * 1000);
                 break;
+
         }
     }
 

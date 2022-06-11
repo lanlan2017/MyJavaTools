@@ -19,7 +19,6 @@ public class OpenButtonRunnable implements Runnable {
     public void run() {
         // 获取选择的id
         String id = DeviceRadioBtAcListener.getId();
-
         Set<Map.Entry<String, String>> entries = Device.map.entrySet();
         entries.forEach(new Consumer<Map.Entry<String, String>>() {
             @Override

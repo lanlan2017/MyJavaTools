@@ -29,6 +29,10 @@ public class Device {
             case "75aed56d":
                 simpleId = "OppoUSB";
                 break;
+            case "192.168.0.102:5555":
+                simpleId = "HonorWiFi";
+                break;
+
         }
         return simpleId;
     }

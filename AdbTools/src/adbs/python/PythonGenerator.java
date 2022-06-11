@@ -1,21 +1,29 @@
 package adbs.python;
 
+import adbs.test.Device;
+import adbs.test.DeviceRadioBtAcListener;
 import tools.copy.SystemClipboard;
 import tools.file.Files;
 import tools.format.date.DateFormatters;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
+import java.util.*;
+import java.util.function.Consumer;
 
 /**
  * Python生成器
  * 生成要执行的Python文件
  */
 public class PythonGenerator {
+    /**
+     * 当前选择的id的别名
+     */
+
     public static void main(String[] args) {
 
-        String pythonPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\KuaiShou\\TaskCenter";
+        // String pythonPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\KuaiShou\\TaskCenter";
+        String pythonPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\JinRiTouTiao";
         // String pythonPathDir = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\DouYin";
         // Python文件路径
         // String pythonPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\WuKongLiuLanQi\\WuKongLiuLanQi.py";
@@ -23,6 +31,31 @@ public class PythonGenerator {
         String switchCases = imagesInDir2SwitchCases(pythonPath);
         System.out.println(switchCases);
         SystemClipboard.setSysClipboardText(switchCases);
+    }
+
+    private static String simpleId;
+
+    static {
+        // 获取选择的id
+        String id = DeviceRadioBtAcListener.getId();
+
+        if (id != null) {
+            Set<Map.Entry<String, String>> entries = Device.map.entrySet();
+            entries.forEach(new Consumer<Map.Entry<String, String>>() {
+                @Override
+                public void accept(Map.Entry<String, String> stringStringEntry) {
+                    if (stringStringEntry.getValue().equals(id)) {
+                        simpleId = stringStringEntry.getKey();
+                    }
+                }
+            });
+            if (simpleId.toLowerCase().contains("oppo")) {
+                simpleId = "oppo";
+            } else if (simpleId.toLowerCase().contains("honor")) {
+                simpleId = "honor";
+            }
+            System.out.println("品牌名：" + simpleId);
+        }
     }
 
     /**
@@ -112,6 +145,63 @@ public class PythonGenerator {
     }
 
     /**
+     * 生成一个存放 目录下所有'.png'文件的python数组
+     *
+     * @param dirPath 目录的字符串名称（绝对路径）
+     */
+    private static String imagesInDir2Array(String dirPath) {
+        File dir = new File(dirPath);
+        if (dir.isDirectory()) {
+            // 获取目录下的所有.png文件列表
+            String[] pngList = dir.list((dir1, name) -> {
+                //
+                // // 获取选择的id
+                // String id = DeviceRadioBtAcListener.getId();
+                //
+                // Set<Map.Entry<String, String>> entries = Device.map.entrySet();
+                // entries.forEach(new Consumer<Map.Entry<String, String>>() {
+                //     @Override
+                //     public void accept(Map.Entry<String, String> stringStringEntry) {
+                //         if (stringStringEntry.getValue().equals(id)) {
+                //             simpleId = stringStringEntry.getKey();
+                //         }
+                //     }
+                // });
+                // if (simpleId.toLowerCase().contains("oppo")) {
+                //     simpleId = "oppo";
+                // } else if (simpleId.toLowerCase().contains("honor")) {
+                //     simpleId = "honor";
+                // }
+                return name.endsWith(".png") && name.toLowerCase().contains(simpleId);
+            });
+            if (pngList != null) {
+                StringBuilder sb = new StringBuilder();
+                sb.append("images = [\n");
+                for (int i = 0; i < pngList.length; i++) {
+                    sb.append("    ");
+                    sb.append("sys.path[0]+");
+                    sb.append("\"");
+                    sb.append("\\");
+                    if (pngList[i].startsWith("b") || pngList[i].startsWith("a")) {
+                        sb.append("\\");
+                    }
+                    sb.append(pngList[i]);
+
+                    sb.append("\"");
+                    if (i < pngList.length - 1) {
+                        sb.append(",");
+                    }
+                    sb.append("\n");
+                }
+                sb.append("]\n");
+                // System.out.println(sb);
+                return sb.toString();
+            }
+        }
+        return "";
+    }
+
+    /**
      * 获取Python头部代码
      *
      * @return Python头部代码
@@ -166,43 +256,6 @@ public class PythonGenerator {
         // pythonTail.append("            time.sleep(0.1)\n");
         pythonTail.append("            time.sleep(0.05)\n");
         return pythonTail;
-    }
-
-    /**
-     * 生成一个存放 目录下所有'.png'文件的python数组
-     *
-     * @param dirPath 目录的字符串名称（绝对路径）
-     */
-    private static String imagesInDir2Array(String dirPath) {
-        File dir = new File(dirPath);
-        if (dir.isDirectory()) {
-            // 获取目录下的所有.png文件列表
-            String[] pngList = dir.list((dir1, name) -> name.endsWith(".png"));
-            if (pngList != null) {
-                StringBuilder sb = new StringBuilder();
-                sb.append("images = [\n");
-                for (int i = 0; i < pngList.length; i++) {
-                    sb.append("    ");
-                    sb.append("sys.path[0]+");
-                    sb.append("\"");
-                    sb.append("\\");
-                    if (pngList[i].startsWith("b")||pngList[i].startsWith("a")) {
-                        sb.append("\\");
-                    }
-                    sb.append(pngList[i]);
-
-                    sb.append("\"");
-                    if (i < pngList.length - 1) {
-                        sb.append(",");
-                    }
-                    sb.append("\n");
-                }
-                sb.append("]\n");
-                // System.out.println(sb);
-                return sb.toString();
-            }
-        }
-        return "";
     }
 
 
