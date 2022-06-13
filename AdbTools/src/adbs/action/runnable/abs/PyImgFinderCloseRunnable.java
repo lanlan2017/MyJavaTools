@@ -1,20 +1,28 @@
-package adbs.action.runnable;
+package adbs.action.runnable.abs;
 
 import adbs.action.model.InOutputModel;
+import adbs.action.runnable.abs.CloseableRunnable;
 import adbs.cmd.CmdRun;
 import adbs.cmd.PyAutoGui;
 import adbs.cmd.PythonRun;
+import adbs.cmd.Robots;
 import adbs.python.PythonGenerator;
 import tools.file.Files;
+import tools.thead.Threads;
 
 import java.awt.*;
 import java.io.File;
 
 public abstract class PyImgFinderCloseRunnable extends CloseableRunnable {
+    private int waitSeconds = 35;
     private InOutputModel inOutputModel;
 
     public void setInOutputModel(InOutputModel inOutputModel) {
         this.inOutputModel = inOutputModel;
+    }
+
+    protected void setWaitSeconds(int waitSeconds) {
+        this.waitSeconds = waitSeconds;
     }
 
     /**
@@ -94,7 +102,7 @@ public abstract class PyImgFinderCloseRunnable extends CloseableRunnable {
         // System.out.println("pyOutput=" + pyOutput);
         // 截取出图片的完整名称
         String img = pyOutput.substring(0, pyOutput.indexOf(".png") + ".png".length());
-        System.out.println("匹配到：img='" + img + "'");
+        System.out.println("\n匹配到：img='" + img + "'");
         // 从输出中获取坐标点
         Point point = PyAutoGui.getPoint(pyOutput);
         // 根据图片名称和坐标执行操作
@@ -108,7 +116,21 @@ public abstract class PyImgFinderCloseRunnable extends CloseableRunnable {
      * @param img   图片名称
      * @param point 图片的坐标
      */
-    protected abstract void performAction(String img, Point point);
+    protected void performAction(String img, Point point) {
+        if (img.startsWith("begin_")) {
+            Robots.leftMouseButtonClick(point);
+            System.out.println("等待:" + waitSeconds + "s");
+            Threads.sleep(waitSeconds * 1000);
+            Robots.rightClickButton(point);
+            Threads.sleep(1500);
+        } else if (img.startsWith("exit_")) {
+            Robots.leftMouseButtonClick(point);
+            Robots.delay(2 * 1000);
+        } else {
+            Robots.leftMouseButtonClick(point);
+            Robots.delay(2 * 1000);
+        }
+    }
 
     @Override
     public void stop() {
