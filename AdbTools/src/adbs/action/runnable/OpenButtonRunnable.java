@@ -3,7 +3,6 @@ package adbs.action.runnable;
 import adbs.cmd.AdbCommands;
 import adbs.test.Device;
 import adbs.test.DeviceRadioBtAcListener;
-import adbs.ui.AdbTools;
 
 import java.util.Map;
 import java.util.Set;

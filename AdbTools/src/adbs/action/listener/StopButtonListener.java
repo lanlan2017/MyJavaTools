@@ -2,7 +2,7 @@ package adbs.action.listener;
 
 import adbs.action.listener.abs.ButtonFocusReleaseActionListener;
 import adbs.action.model.InOutputModel;
-import adbs.action.runnable.CloseableRunnable;
+import adbs.action.runnable.abs.CloseableRunnable;
 
 import java.awt.event.ActionEvent;
 import java.util.HashSet;

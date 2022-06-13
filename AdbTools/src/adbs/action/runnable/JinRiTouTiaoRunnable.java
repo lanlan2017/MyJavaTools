@@ -1,30 +1,11 @@
 package adbs.action.runnable;
 
-import adbs.cmd.Robots;
-
-import java.awt.*;
+import adbs.action.runnable.abs.PyImgFinderCloseRunnable;
 
 public class JinRiTouTiaoRunnable extends PyImgFinderCloseRunnable {
     @Override
     protected void setPyPath() {
         pyPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\JinRiTouTiao\\JinRiTouTiao.py";
-    }
-
-    @Override
-    protected void performAction(String img, Point point) {
-        switch (img) {
-            case "begin_honor_KanWanShiPinZaiLing.png":
-            case "begin_oppo_KanWanShiPinZaiLing.png":
-            case "begin_oppo_Read_KanShiPinZaiLing.png":
-            case "begin_oppo_Read_ZaiKanYiHuoGe.png":
-                Robots.leftClickThenRightClick(point, 40 * 1000);
-                break;
-            case "exit_oppo_DaCha0.png":
-                Robots.leftMouseButtonClick(point);
-                Robots.delay(2 * 1000);
-                break;
-
-        }
     }
 
     @Override

@@ -102,23 +102,23 @@
             <constraints/>
             <properties>
               <selected value="true"/>
-              <text value="定制功能"/>
+              <text value="定制"/>
             </properties>
           </component>
           <component id="be281" class="javax.swing.JCheckBox" binding="universalCheckBox">
             <constraints/>
             <properties>
               <selected value="true"/>
-              <text value="通用功能"/>
+              <text value="通用"/>
             </properties>
           </component>
           <component id="4ba85" class="javax.swing.JCheckBox" binding="dormantCheckBox">
             <constraints/>
             <properties>
-              <text value="休眠电脑"/>
+              <text value="定时"/>
             </properties>
           </component>
-          <grid id="141e4" binding="dormantPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+          <grid id="141e4" binding="dormantPanel" layout-manager="FlowLayout" hgap="0" vgap="0" flow-align="1">
             <constraints/>
             <properties>
               <visible value="true"/>
@@ -146,15 +146,21 @@
                   <alignmentY value="0.0"/>
                   <focusable value="true"/>
                   <iconTextGap value="0"/>
-                  <text value="m后休眠"/>
+                  <text value="m后"/>
                   <verticalAlignment value="0"/>
                 </properties>
               </component>
               <component id="72c66" class="javax.swing.JButton" binding="dormantOKButton">
                 <constraints/>
                 <properties>
-                  <label value="确定"/>
-                  <text value="确定"/>
+                  <label value="休眠"/>
+                  <text value="休眠"/>
+                </properties>
+              </component>
+              <component id="4b4d" class="javax.swing.JButton" binding="waitStopBtn">
+                <constraints/>
+                <properties>
+                  <text value="停止"/>
                 </properties>
               </component>
             </children>
@@ -195,16 +201,6 @@
               <toolTipText value="悟空看视频"/>
             </properties>
           </component>
-          <component id="a797a" class="javax.swing.JButton" binding="aiQiYiBtn">
-            <constraints>
-              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-              <gridbag weightx="1.0" weighty="0.0"/>
-            </constraints>
-            <properties>
-              <text value="爱奇艺金币"/>
-              <toolTipText value="爱奇艺金币"/>
-            </properties>
-          </component>
           <component id="58db7" class="javax.swing.JButton" binding="douYinBtn">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
@@ -243,16 +239,6 @@
               <text value="快手阅读"/>
             </properties>
           </component>
-          <component id="2de69" class="javax.swing.JButton" binding="pddKaiHongBaoBtn">
-            <constraints>
-              <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-              <gridbag weightx="1.0" weighty="0.0"/>
-            </constraints>
-            <properties>
-              <text value="拼多多开红包"/>
-              <toolTipText value="拼多多开红包"/>
-            </properties>
-          </component>
           <component id="44721" class="javax.swing.JButton" binding="jinRiTouTiaoBtn">
             <constraints>
               <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
@@ -266,6 +252,16 @@
               <iconTextGap value="0"/>
               <text value="今日头条"/>
               <toolTipText value="今日头条"/>
+            </properties>
+          </component>
+          <component id="2de69" class="javax.swing.JButton" binding="pddKaiHongBaoBtn">
+            <constraints>
+              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="1.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="拼多多红包"/>
+              <toolTipText value="拼多多开红包"/>
             </properties>
           </component>
         </children>
@@ -334,7 +330,7 @@
           </component>
         </children>
       </grid>
-      <grid id="4a7a3" binding="universalPanel" layout-manager="GridLayoutManager" row-count="2" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="0">
+      <grid id="4a7a3" binding="universalPanel" layout-manager="GridLayoutManager" row-count="1" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="0">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -349,31 +345,13 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="浏览后返回"/>
+              <text value="浏览返回"/>
               <toolTipText value="浏览后返回"/>
-            </properties>
-          </component>
-          <component id="99ba9" class="javax.swing.JButton" binding="shoppingButton">
-            <constraints>
-              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="逛街"/>
-              <toolTipText value="逛街"/>
-            </properties>
-          </component>
-          <component id="9179" class="javax.swing.JButton" binding="waitReturnButton">
-            <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="等待后返回"/>
-              <toolTipText value="等待后返回"/>
             </properties>
           </component>
           <component id="d1ff6" class="javax.swing.JButton" binding="readButton2">
             <constraints>
-              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="阅读"/>
@@ -381,11 +359,29 @@
           </component>
           <component id="1bc83" class="javax.swing.JButton" binding="videoButton">
             <constraints>
-              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="刷视频"/>
               <toolTipText value="刷视频"/>
+            </properties>
+          </component>
+          <component id="9179" class="javax.swing.JButton" binding="waitReturnButton">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="等待返回"/>
+              <toolTipText value="等待后返回"/>
+            </properties>
+          </component>
+          <component id="99ba9" class="javax.swing.JButton" binding="shoppingButton">
+            <constraints>
+              <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="逛街"/>
+              <toolTipText value="逛街"/>
             </properties>
           </component>
         </children>

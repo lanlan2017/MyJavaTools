@@ -1,7 +1,6 @@
 package adbs.action.model;
 
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * 输入输出组件模型

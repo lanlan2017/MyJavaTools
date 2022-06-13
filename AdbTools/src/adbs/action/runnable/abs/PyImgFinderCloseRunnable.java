@@ -1,7 +1,6 @@
 package adbs.action.runnable.abs;
 
 import adbs.action.model.InOutputModel;
-import adbs.action.runnable.abs.CloseableRunnable;
 import adbs.cmd.CmdRun;
 import adbs.cmd.PyAutoGui;
 import adbs.cmd.PythonRun;

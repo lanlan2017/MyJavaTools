@@ -23,7 +23,8 @@ public class PythonGenerator {
     public static void main(String[] args) {
 
         // String pythonPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\KuaiShou\\TaskCenter";
-        String pythonPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\JinRiTouTiao";
+        // String pythonPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\JinRiTouTiao";
+        String pythonPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\KuaiShou\\Video";
         // String pythonPathDir = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\DouYin";
         // Python文件路径
         // String pythonPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\WuKongLiuLanQi\\WuKongLiuLanQi.py";
@@ -83,9 +84,10 @@ public class PythonGenerator {
                         sb.append("    break;\n");
                         // } else if (pngList[i].startsWith("begin_") && !pngList[i + 1].startsWith("begin_")) {
                     } else if (isAppendBreak(pngList, i, "begin_")) {
-                        sb.append("    Robots.leftClickThenRightClick(point, 40*1000);\n");
+                        sb.append("    Robots.leftClickThenRightClick(point, 35*1000);\n");
                         sb.append("    break;\n");
                     } else if (isAppendBreak(pngList, i, "exit_")) {
+                        sb.append("default:\n");
                         sb.append("    Robots.leftMouseButtonClick(point);\n");
                         sb.append("    Robots.delay(2 * 1000);\n");
                         sb.append("    break;\n");

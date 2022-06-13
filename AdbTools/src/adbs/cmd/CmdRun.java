@@ -29,6 +29,5 @@ public class CmdRun {
         ProcessBuilder processBuilder = new ProcessBuilder(command);
         ProcessRunner processRunner = new ProcessRunner();
         return processRunner.runProcess(processBuilder);
-        // System.out.println("adbResult = " + adbResult);
     }
 }

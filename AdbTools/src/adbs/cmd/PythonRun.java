@@ -36,8 +36,5 @@ public class PythonRun {
 
     public static void main(String[] args) {
         // jieSuoZhangJiePoint();
-
-
     }
-
 }

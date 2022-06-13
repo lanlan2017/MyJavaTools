@@ -46,14 +46,14 @@ public class AdbCommands {
      * 在手机左侧，从下向上滑动
      */
     public static String swipeBottom2TopOnLeft(String id) {
-        return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 8 1650 8 700 300");
+        return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 8 1650 8 700 200");
     }
 
     /**
      * 在手机左侧，从下向上滑动
      */
     public static void swipeTop2BottomOnLeft(String id) {
-        AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 8 700 8 1650 300");
+        AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 8 700 8 1650 200");
     }
 
     /**

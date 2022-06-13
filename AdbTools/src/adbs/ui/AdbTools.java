@@ -61,7 +61,7 @@ public class AdbTools {
     private JLabel dormantJLable2;
     private JLabel dormantJLable1;
     private JButton pddKaiHongBaoBtn;
-    private JButton aiQiYiBtn;
+    // private JButton aiQiYiBtn;
     private JButton jinRiTouTiaoBtn;
     private JButton kuaishouTaskCenterBtn;
     private JButton taskManageBtn;
@@ -73,6 +73,7 @@ public class AdbTools {
     private JButton readButton2;
     private JCheckBox universalCheckBox;
     private JButton kuaiShouVideoBtn;
+    private JButton waitStopBtn;
 
     // 当前正在执行的线程
     private static HashSet<Runnable> isRunningSet = new HashSet<>();
@@ -187,6 +188,35 @@ public class AdbTools {
                 timer.schedule(task, ms);
             }
         });
+        waitStopBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Timer timer = new Timer(true);
+                // 注意，javax.swing包中也有一个Timer类，如果import中用到swing包,要注意名字的冲突。
+
+                String text = dormantTextField.getText();
+                TimerTask task = new TimerTask() {
+                    public void run() {
+                        System.out.println(text + "m到了");
+                        // 杀死悟空浏览器
+                        // CmdRun.run("adb shell am force-stop com.cat.readall");
+                        // 杀死快手极速版
+                        // CmdRun.run("adb shell am force-stop com.kuaishou.nebula");
+                        // // 杀死抖音极速版
+                        // CmdRun.run("adb shell am force-stop com.ss.android.ugc.aweme.lite");
+                        // 息屏，并且休眠电脑
+                        // CmdRun.run("adb shell input keyevent 223 && shutdown /h");
+                        // CmdRun.run("adb shell input keyevent 223");
+                        stopBtn.doClick();
+                    }
+                };
+
+                long ms = Long.parseLong(text) * 60 * 1000;
+                // timer.schedule(task, 5 * 1000);
+                // 等待指定毫秒后执行任务
+                timer.schedule(task, ms);
+            }
+        });
         pddKaiHongBaoBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -196,12 +226,12 @@ public class AdbTools {
             }
         });
 
-        aiQiYiBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new Thread(new AiQiYiRunnable()).start();
-            }
-        });
+        // aiQiYiBtn.addActionListener(new ActionListener() {
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         new Thread(new AiQiYiRunnable()).start();
+        //     }
+        // });
         jinRiTouTiaoBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -250,6 +280,7 @@ public class AdbTools {
         AbstractButtons.setJButtonMargin(stopBtn);
         AbstractButtons.setJButtonMargin(inputOkButton);
         AbstractButtons.setJButtonMargin(dormantOKButton);
+        AbstractButtons.setJButtonMargin(waitStopBtn);
 
         // 不显示标题栏，最小化，关闭按钮
         // frame.setUndecorated(true);
@@ -266,10 +297,11 @@ public class AdbTools {
         kuaiShouVideoBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Thread(new KuaiShouVideoBtnRunnable(stopBtn, videoButton)).start();
+                new Thread(new KuaiShouVideoBtnRunnable(inOutputModel)).start();
                 videoButton.doClick();
             }
         });
+
     }
 
     public static void setIsRunning(Runnable isRunning) {

@@ -1,6 +1,7 @@
 package adbs.action.runnable;
 
 import adbs.action.model.InOutputModel;
+import adbs.action.runnable.abs.CloseableRunnable;
 import adbs.cmd.AdbCommands;
 import adbs.test.DeviceRadioBtAcListener;
 import tools.thead.Threads;
