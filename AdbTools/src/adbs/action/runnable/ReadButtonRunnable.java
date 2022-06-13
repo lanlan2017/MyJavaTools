@@ -67,11 +67,11 @@ public class ReadButtonRunnable extends CloseableRunnable {
         }
         // 生成[min,Max]区间的随机整数
         int s = random.nextInt(max) % (max - min + 1) + min;
-        s = s * 1000;
         output.setText(msg + "等待" + s + "秒");
 
         String oldText;
         String newText;
+        s = s * 1000;
         int count = 0;
         while (count < s) {
             // 如果已经收到结束的通知

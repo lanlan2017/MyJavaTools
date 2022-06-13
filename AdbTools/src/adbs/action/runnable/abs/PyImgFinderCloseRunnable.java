@@ -43,10 +43,6 @@ public abstract class PyImgFinderCloseRunnable extends CloseableRunnable {
     @Override
     protected void loopBody() {
         updatePythonFile();
-        // 调用子类的方法
-        // setMsg();
-        // System.out.println(msg);
-        // 运行python文件
         runPython(pyPath);
     }
 

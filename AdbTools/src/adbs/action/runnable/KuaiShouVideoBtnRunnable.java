@@ -11,7 +11,7 @@ public class KuaiShouVideoBtnRunnable extends PyImgFinderCloseRunnable {
 
     @Override
     protected void setMsg() {
-        msg = "快手刷视频线程";
+        msg = "快手刷视频误触监控进程";
     }
 
     @Override

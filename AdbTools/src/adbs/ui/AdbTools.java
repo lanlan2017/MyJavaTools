@@ -298,6 +298,7 @@ public class AdbTools {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new Thread(new KuaiShouVideoBtnRunnable(inOutputModel)).start();
+                // 触发刷视频按钮
                 videoButton.doClick();
             }
         });
