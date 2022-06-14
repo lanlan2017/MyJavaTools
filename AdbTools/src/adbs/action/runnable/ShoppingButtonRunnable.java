@@ -15,6 +15,8 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
     private InOutputModel inOutputModel;
 
     private static ShoppingButtonRunnable instance = new ShoppingButtonRunnable();
+    private int seconds;
+    private int count;
 
     private ShoppingButtonRunnable() {
     }
@@ -40,68 +42,91 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
     @Override
     protected void loopBody() {
         String id = DeviceRadioBtAcListener.getId();
-        // 告诉主线程当前线程正在运行
-        // AdbTools.setIsRunning(this);
-
-        JTextField input1 = inOutputModel.getInputPanelModel().getInput1();
-        // 读取文本框1中的秒数
-        int seconds = Integer.parseInt(input1.getText()) * 1000;
-        // 计数器
-        int count = 0;
 
         JLabel output = inOutputModel.getOutput();
+        JTextField input1 = inOutputModel.getInputPanelModel().getInput1();
+        // 读取文本框1中的秒数
+        seconds = Integer.parseInt(input1.getText()) * 1000;
+        // 计数器
+        count = 0;
+
         output.setText("逛街线程：已经开始");
         output.setText("逛街线程: 在左侧 从下向上滑动3次");
-
         // 在左侧，从下向上滑动三次
-        count = swipeFromBottomToTopOnce(id, input1, seconds, count);
-        count = swipeFromBottomToTopOnce(id, input1, seconds, count);
-        count = swipeFromBottomToTopOnce(id, input1, seconds, count);
+        if (swipeFromBottomToTopOnce(id, input1)) {
+            // 如果到达了指定时间，
+            stop = true;
+            return;
+        }
+        if (swipeFromBottomToTopOnce(id, input1)) {
+            stop = true;
+            return;
+        }
+        if (swipeFromBottomToTopOnce(id, input1)) {
+            stop = true;
+            return;
+        }
 
-        while (!stop && count <= seconds) {
+        while (!stop) {
             output.setText(msg + ":在左侧 从下向上 滑动1次");
-            if (stop) {
-                break;
-            }
             // 休眠1秒
-            count = swipeFromBottomToTopOnce(id, input1, seconds, count);
-
-            // 如果已经运行了指定的时间
-            if (count >= seconds) {
-                // 退出循环
+            if (swipeFromBottomToTopOnce(id, input1)) {
+                System.out.println("到达指定时间1!");
+                stop = true;
                 break;
             }
-
-            // output.setText("逛街线程: 在左侧 从上向下滑动1次");
             output.setText(msg + ":在左侧 从上向下 滑动1次");
-            Threads.sleep(1000);
-            count += 1000;
-
-            // 在输入框中显示剩余时间
-            input1.setText(String.valueOf((seconds - count) / 1000));
-            if (stop) {
+            if (swipeFromTopToBottomOnce(id, input1)) {
+                System.out.println("到达指定时间2!");
+                stop = true;
                 break;
             }
-            AdbCommands.swipeTop2BottomOnLeft(id);
         }
     }
 
     /**
      * 从下往上滑动一次
      *
-     * @param id      手机的id
-     * @param input1  输入文本1
-     * @param seconds 总秒数
-     * @param count   计数器
+     * @param id     手机的id
+     * @param input1 输入文本1
      * @return 计数器
      */
-    private int swipeFromBottomToTopOnce(String id, JTextField input1, int seconds, int count) {
+    private boolean swipeFromBottomToTopOnce(String id, JTextField input1) {
+        // 等待1秒
+        Threads.sleep(1000);
+        // 计数器+1秒
+        count += 1000;
+        // 计算剩余时间
+        int diff = (seconds - count) / 1000;
+        if (diff >= 0) {
+            // 从下向上滑动
+            AdbCommands.swipeBottom2TopOnLeft(id);
+            // 更新输入文本框
+            input1.setText(String.valueOf(diff));
+            // 返回false表示还没达到指定时间
+            return false;
+        }
+        // 返回true表示已经达到指定时间了
+        return true;
+    }
+
+    /**
+     * 从下往上滑动一次
+     *
+     * @param id     手机的id
+     * @param input1 输入文本1
+     * @return 计数器
+     */
+    private boolean swipeFromTopToBottomOnce(String id, JTextField input1) {
         Threads.sleep(1000);
         count += 1000;
-        // 在输入框中显示剩余时间
-        input1.setText(String.valueOf((seconds - count) / 1000));
-        AdbCommands.swipeBottom2TopOnLeft(id);
-        return count;
+        int shengYu = (seconds - count) / 1000;
+        if (shengYu >= 0) {
+            AdbCommands.swipeTop2BottomOnLeft(id);
+            input1.setText(String.valueOf(shengYu));
+            return false;
+        }
+        return true;
     }
 
     @Override
