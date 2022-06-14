@@ -78,5 +78,4 @@ public class Robots {
         // 等待一小段时间，让解锁界面打开
         robot.delay(millisecond);
     }
-
 }

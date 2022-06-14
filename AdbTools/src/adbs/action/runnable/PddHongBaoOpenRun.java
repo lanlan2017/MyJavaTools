@@ -2,7 +2,7 @@ package adbs.action.runnable;
 
 import adbs.action.runnable.abs.PyImgFinderCloseRunnable;
 
-public class PddHongBaoOpenRunnable extends PyImgFinderCloseRunnable {
+public class PddHongBaoOpenRun extends PyImgFinderCloseRunnable {
     @Override
     protected void setMsg() {
         msg = "拼多多开红包线程";

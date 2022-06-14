@@ -1,8 +1,10 @@
 package adbs.action.runnable.abs;
 
+import adbs.action.model.InOutputModel;
 import adbs.ui.AdbTools;
 
 public abstract class CloseableRunnable implements Runnable {
+    protected InOutputModel inOutputModel;
 
     /**
      * 是否结束线程
@@ -12,6 +14,10 @@ public abstract class CloseableRunnable implements Runnable {
      * 线程消息
      */
     protected String msg;
+
+    public void setInOutputModel(InOutputModel inOutputModel) {
+        this.inOutputModel = inOutputModel;
+    }
 
     public CloseableRunnable() {
         setMsg();
@@ -57,7 +63,11 @@ public abstract class CloseableRunnable implements Runnable {
     /**
      * 循环之前要准备的工作
      */
-    protected abstract void beforeLoop();
+    protected void beforeLoop() {
+        if (inOutputModel != null) {
+            inOutputModel.getOutput().setText(msg + ":已经开始");
+        }
+    }
 
 
     /**
@@ -69,5 +79,10 @@ public abstract class CloseableRunnable implements Runnable {
     /**
      * 循环之后要准备的工作
      */
-    protected abstract void afterLoop();
+    protected void afterLoop() {
+        System.out.println("Closeable AfterLoop" + this + " " + inOutputModel);
+        if (inOutputModel != null) {
+            inOutputModel.getOutput().setText(msg + ":已经结束");
+        }
+    }
 }

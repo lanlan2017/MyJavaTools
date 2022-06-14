@@ -112,7 +112,7 @@
               <text value="通用"/>
             </properties>
           </component>
-          <component id="4ba85" class="javax.swing.JCheckBox" binding="dormantCheckBox">
+          <component id="4ba85" class="javax.swing.JCheckBox" binding="timedCheckbox">
             <constraints/>
             <properties>
               <text value="定时"/>
@@ -264,6 +264,15 @@
               <toolTipText value="拼多多开红包"/>
             </properties>
           </component>
+          <component id="6ecfc" class="javax.swing.JButton" binding="taoBaoNiuDanBtn">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="淘宝扭蛋"/>
+            </properties>
+          </component>
         </children>
       </grid>
       <grid id="6ff82" binding="inputPanel" layout-manager="FlowLayout" hgap="0" vgap="0" flow-align="1">
@@ -287,12 +296,15 @@
               <component id="9ecb0" class="javax.swing.JRadioButton" binding="radioButton15s">
                 <constraints/>
                 <properties>
+                  <horizontalAlignment value="2"/>
+                  <horizontalTextPosition value="11"/>
                   <text value="15s"/>
                 </properties>
               </component>
               <component id="90203" class="javax.swing.JRadioButton" binding="radioButton35s">
                 <constraints/>
                 <properties>
+                  <horizontalAlignment value="2"/>
                   <text value="35s"/>
                 </properties>
               </component>
@@ -349,7 +361,7 @@
               <toolTipText value="浏览后返回"/>
             </properties>
           </component>
-          <component id="d1ff6" class="javax.swing.JButton" binding="readButton2">
+          <component id="d1ff6" class="javax.swing.JButton" binding="readButton">
             <constraints>
               <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>

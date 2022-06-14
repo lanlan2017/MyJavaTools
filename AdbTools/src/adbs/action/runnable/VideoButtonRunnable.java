@@ -57,6 +57,7 @@ public class VideoButtonRunnable extends CloseableRunnable {
 
     @Override
     protected void beforeLoop() {
+        super.beforeLoop();
         if (min == 0) {
             min = 7;
         }
@@ -106,8 +107,8 @@ public class VideoButtonRunnable extends CloseableRunnable {
         }
     }
 
-    @Override
-    protected void afterLoop() {
-        inOutputModel.getOutput().setText(msg + ":已停止");
-    }
+    // @Override
+    // protected void afterLoop() {
+    //     inOutputModel.getOutput().setText(msg + ":已停止");
+    // }
 }

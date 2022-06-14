@@ -19,18 +19,6 @@ public abstract class ButtonFocusReleaseActionListener implements ActionListener
         Insets insets = new Insets(1, 1, 1, 1);
         openBtn.setMargin(insets);
         openBtn.setFocusPainted(false);
-        // Color oldBackground = openBtn.getBackground();
-        // openBtn.setFocusPainted(false);
-        // openBtn.setBackground(Color.red);
-        // openBtn.repaint();
-        // // openBtn.updateUI();
-        // // Robots.delay(5 * 1000);
-        // openBtn.setBackground(oldBackground);
-        // openBtn.updateUI();
-        // openBtn.repaint();
-        // 释放焦点
-        // // 释放按钮的焦点
-        // JButtons.setFocusPainted(e);
     }
 
     /**

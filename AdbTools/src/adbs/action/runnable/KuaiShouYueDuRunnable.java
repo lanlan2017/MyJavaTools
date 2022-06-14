@@ -23,7 +23,7 @@ public class KuaiShouYueDuRunnable extends PyImgFinderCloseRunnable {
 
     @Override
     protected void setMsg() {
-        msg = "快手阅读测试版2";
+        msg = "快手阅读";
     }
 
     @Override

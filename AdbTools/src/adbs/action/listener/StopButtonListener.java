@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.util.HashSet;
 import java.util.Iterator;
 
-// public class StopButtonListener implements ActionListener {
 public class StopButtonListener extends ButtonFocusReleaseActionListener {
     private HashSet<Runnable> isRunningSet;
     private InOutputModel inOutputModel;
@@ -17,29 +16,6 @@ public class StopButtonListener extends ButtonFocusReleaseActionListener {
         this.isRunningSet = isRunningSet;
         this.inOutputModel = inOutputModel;
     }
-    //
-    // @Override
-    // public void actionPerformed(ActionEvent e) {
-    //     // JButtons.setFocusPainted(e);
-    //     Iterator<Runnable> iterator = isRunningSet.iterator();
-    //     while (iterator.hasNext()) {
-    //         Runnable runnable = iterator.next();
-    //         // System.out.println(runnable);
-    //         //如果是可关闭的线程体
-    //         if (runnable instanceof CloseableRunnable) {
-    //             CloseableRunnable closeableRunnable2 = (CloseableRunnable) runnable;
-    //             System.out.println(closeableRunnable2 + " is stop now");
-    //             // 关闭线程
-    //             closeableRunnable2.stop();
-    //             // 从线程池中删除掉
-    //             iterator.remove();
-    //         }
-    //     }
-    //     // DouYinTaskRunnable2.getInstance().stop();
-    //     System.out.println("end isRunningSet.size() = " + isRunningSet.size());
-    //     // inputPanel.setVisible(false);
-    //     inOutputModel.getInputPanelModel().getInputPanel().setVisible(false);
-    // }
 
     @Override
     protected void actionEvent(ActionEvent e) {

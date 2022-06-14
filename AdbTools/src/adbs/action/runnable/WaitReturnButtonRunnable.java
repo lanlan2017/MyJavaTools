@@ -31,11 +31,6 @@ public class WaitReturnButtonRunnable extends CloseableRunnable {
     }
 
     @Override
-    protected void beforeLoop() {
-
-    }
-
-    @Override
     protected void loopBody() {
         // 获取输入文本框1
         JTextField input1 = inOutputModel.getInputPanelModel().getInput1();
@@ -69,6 +64,7 @@ public class WaitReturnButtonRunnable extends CloseableRunnable {
 
     @Override
     protected void afterLoop() {
+        super.afterLoop();
         // 触发返回键
         AdbCommands.returnButton(DeviceRadioBtAcListener.getId());
         inOutputModel.getOutput().setText(msg + ":已停止");

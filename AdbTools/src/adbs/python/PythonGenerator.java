@@ -156,24 +156,6 @@ public class PythonGenerator {
         if (dir.isDirectory()) {
             // 获取目录下的所有.png文件列表
             String[] pngList = dir.list((dir1, name) -> {
-                //
-                // // 获取选择的id
-                // String id = DeviceRadioBtAcListener.getId();
-                //
-                // Set<Map.Entry<String, String>> entries = Device.map.entrySet();
-                // entries.forEach(new Consumer<Map.Entry<String, String>>() {
-                //     @Override
-                //     public void accept(Map.Entry<String, String> stringStringEntry) {
-                //         if (stringStringEntry.getValue().equals(id)) {
-                //             simpleId = stringStringEntry.getKey();
-                //         }
-                //     }
-                // });
-                // if (simpleId.toLowerCase().contains("oppo")) {
-                //     simpleId = "oppo";
-                // } else if (simpleId.toLowerCase().contains("honor")) {
-                //     simpleId = "honor";
-                // }
                 return name.endsWith(".png") && name.toLowerCase().contains(simpleId);
             });
             if (pngList != null) {
@@ -259,6 +241,4 @@ public class PythonGenerator {
         pythonTail.append("            time.sleep(0.05)\n");
         return pythonTail;
     }
-
-
 }

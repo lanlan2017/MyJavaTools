@@ -14,11 +14,6 @@ import java.io.File;
 
 public abstract class PyImgFinderCloseRunnable extends CloseableRunnable {
     private int waitSeconds = 35;
-    private InOutputModel inOutputModel;
-
-    public void setInOutputModel(InOutputModel inOutputModel) {
-        this.inOutputModel = inOutputModel;
-    }
 
     protected void setWaitSeconds(int waitSeconds) {
         this.waitSeconds = waitSeconds;
@@ -34,23 +29,9 @@ public abstract class PyImgFinderCloseRunnable extends CloseableRunnable {
     private boolean isPythonFileUpdate = false;
 
     @Override
-    protected void beforeLoop() {
-        if (inOutputModel != null) {
-            inOutputModel.getOutput().setText(msg + ":已经开始");
-        }
-    }
-
-    @Override
     protected void loopBody() {
         updatePythonFile();
         runPython(pyPath);
-    }
-
-    @Override
-    protected void afterLoop() {
-        if (inOutputModel != null) {
-            inOutputModel.getOutput().setText(msg + ":已经结束");
-        }
     }
 
     /**

@@ -1,16 +1,17 @@
 package adbs.ui;
 
 import adbs.action.listener.*;
+import adbs.action.listener.abs.shellinput.HomeBtnAcListener;
+import adbs.action.listener.abs.shellinput.ReturnBtnAcListener;
+import adbs.action.listener.abs.shellinput.TaskManageBtnAcListener;
 import adbs.action.model.InOutputModel;
 import adbs.action.model.InputPanelModel;
 import adbs.action.runnable.*;
-import adbs.buttons.JButtons;
 import adbs.cmd.CmdRun;
 import adbs.test.AdbDi;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -54,14 +55,13 @@ public class AdbTools {
     private JButton douyinSeeVideoBtn;
     private JPanel controlPanel;
     private JCheckBox customCheckBox;
-    private JCheckBox dormantCheckBox;
+    private JCheckBox timedCheckbox;
     private JPanel dormantPanel;
     private JTextField dormantTextField;
     private JButton dormantOKButton;
     private JLabel dormantJLable2;
     private JLabel dormantJLable1;
     private JButton pddKaiHongBaoBtn;
-    // private JButton aiQiYiBtn;
     private JButton jinRiTouTiaoBtn;
     private JButton kuaishouTaskCenterBtn;
     private JButton taskManageBtn;
@@ -70,10 +70,11 @@ public class AdbTools {
     private JButton douYinBtn;
     private JButton stopBtn;
     private JButton kuaiShouReadBtn;
-    private JButton readButton2;
+    private JButton readButton;
     private JCheckBox universalCheckBox;
     private JButton kuaiShouVideoBtn;
     private JButton waitStopBtn;
+    private JButton taoBaoNiuDanBtn;
 
     // 当前正在执行的线程
     private static HashSet<Runnable> isRunningSet = new HashSet<>();
@@ -96,6 +97,7 @@ public class AdbTools {
         frame.setTitle("adb工具箱");
         // 禁止调整窗体大小
         frame.setResizable(false);
+        // 设置窗体的内容面板
         frame.setContentPane(topPanel);
         // 窗体内容面板监听鼠标事件
         topPanel.addMouseListener(new TopPanelMouseAdapter(frame));
@@ -122,11 +124,10 @@ public class AdbTools {
 
         // 等待后返回按钮
         waitReturnButton.addActionListener(new WaitReturnButtonActionListener(frame, inputPanelModel));
-        // 悟空看视频按钮
-        wuKongGuanBiBtn.addActionListener(e -> new Thread(new WuKongGuanBiRunnable()).start());
 
         douyinSeeVideoBtn.addActionListener(new DouYinSeeVideoButtonListener(frame, inOutputModel));
-        dormantCheckBox.addItemListener(new ItemListener() {
+        // 定时多选框
+        timedCheckbox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 // 如果勾选了当前按钮
@@ -141,6 +142,7 @@ public class AdbTools {
         customCheckBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
+                // 如果勾选
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     customPanel.setVisible(true);
                 } else {
@@ -152,6 +154,7 @@ public class AdbTools {
         universalCheckBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
+                // 如果勾选
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     universalPanel.setVisible(true);
                 } else {
@@ -183,7 +186,6 @@ public class AdbTools {
                 };
 
                 long ms = Long.parseLong(text) * 60 * 1000;
-                // timer.schedule(task, 5 * 1000);
                 // 等待指定毫秒后执行任务
                 timer.schedule(task, ms);
             }
@@ -191,63 +193,35 @@ public class AdbTools {
         waitStopBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // 创建定时器,守护进程
                 Timer timer = new Timer(true);
-                // 注意，javax.swing包中也有一个Timer类，如果import中用到swing包,要注意名字的冲突。
-
+                //
                 String text = dormantTextField.getText();
                 TimerTask task = new TimerTask() {
                     public void run() {
                         System.out.println(text + "m到了");
-                        // 杀死悟空浏览器
-                        // CmdRun.run("adb shell am force-stop com.cat.readall");
-                        // 杀死快手极速版
-                        // CmdRun.run("adb shell am force-stop com.kuaishou.nebula");
-                        // // 杀死抖音极速版
-                        // CmdRun.run("adb shell am force-stop com.ss.android.ugc.aweme.lite");
-                        // 息屏，并且休眠电脑
-                        // CmdRun.run("adb shell input keyevent 223 && shutdown /h");
-                        // CmdRun.run("adb shell input keyevent 223");
                         stopBtn.doClick();
                     }
                 };
 
                 long ms = Long.parseLong(text) * 60 * 1000;
-                // timer.schedule(task, 5 * 1000);
                 // 等待指定毫秒后执行任务
                 timer.schedule(task, ms);
             }
         });
-        pddKaiHongBaoBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // new Thread(new PddHongBaoOpenRunnable()).start();
-                JButtons.setFocusPainted(e);
-                new Thread(new PddHongBaoOpenRunnable()).start();
-            }
-        });
 
-        // aiQiYiBtn.addActionListener(new ActionListener() {
-        //     @Override
-        //     public void actionPerformed(ActionEvent e) {
-        //         new Thread(new AiQiYiRunnable()).start();
-        //     }
-        // });
-        jinRiTouTiaoBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JButtons.setFocusPainted(e);
-                JinRiTouTiaoRunnable jinRiTouTiaoRunnable = new JinRiTouTiaoRunnable();
-                jinRiTouTiaoRunnable.setInOutputModel(inOutputModel);
-                new Thread(jinRiTouTiaoRunnable).start();
-            }
-        });
-        kuaishouTaskCenterBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JButtons.setFocusPainted(e);
-                new Thread(new KuaiShouTaskCenterRunnable()).start();
-            }
-        });
+        // 悟空看视频按钮
+        wuKongGuanBiBtn.addActionListener(new PyImgFindAcListener(new WuKongRun(), inOutputModel));
+
+        pddKaiHongBaoBtn.addActionListener(new PyImgFindAcListener(new PddHongBaoOpenRun(), inOutputModel));
+
+        jinRiTouTiaoBtn.addActionListener(new PyImgFindAcListener(new JinRiTouTiaoRun(), inOutputModel));
+        kuaishouTaskCenterBtn.addActionListener(new PyImgFindAcListener(new KuaiShouTaskCenterRun(), inOutputModel));
+
+        douYinBtn.addActionListener(new PyImgFindAcListener(DouYinTaskRun.getInstance(), inOutputModel));
+
+        taoBaoNiuDanBtn.addActionListener(new PyImgFindAcListener(new TaoBaoRunnable(), inOutputModel));
+
         // 任务管理键
         taskManageBtn.addActionListener(new TaskManageBtnAcListener());
         // 返回键
@@ -256,25 +230,22 @@ public class AdbTools {
         homeBtn.addActionListener(new HomeBtnAcListener());
 
 
-        douYinBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JButtons.setFocusPainted(e);
-                new Thread(DouYinTaskRunnable.getInstance()).start();
-            }
-        });
         stopBtn.addActionListener(new StopButtonListener(isRunningSet, inOutputModel));
-        kuaiShouReadBtn.addActionListener(new KuaiShouYueDuButtonListener(readButton2, inOutputModel));
+        kuaiShouReadBtn.addActionListener(new KuaiShouYueDuButtonListener(readButton, inOutputModel));
 
 
-        readButton2.addActionListener(new ActionListener() {
+        readButton.addActionListener(new PyImgFindAcListener(ReadButtonRunnable.getInstance(), inOutputModel));
+
+        kuaiShouVideoBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ReadButtonRunnable readButtonRunnable = ReadButtonRunnable.getInstance();
-                readButtonRunnable.setInOutputModel(inOutputModel);
-                new Thread(readButtonRunnable).start();
+                new Thread(new KuaiShouVideoBtnRunnable(inOutputModel)).start();
+                // 触发刷视频按钮
+                videoButton.doClick();
             }
         });
+
+
         AbstractButtons.setMarginInButtonJPanel(universalPanel);
         AbstractButtons.setMarginInButtonJPanel(customPanel);
         AbstractButtons.setJButtonMargin(stopBtn);
@@ -294,15 +265,6 @@ public class AdbTools {
         dormantPanel.setVisible(false);
         // 最合适的方式显示，这句要写在setVisible方法之后
         frame.pack();
-        kuaiShouVideoBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new Thread(new KuaiShouVideoBtnRunnable(inOutputModel)).start();
-                // 触发刷视频按钮
-                videoButton.doClick();
-            }
-        });
-
     }
 
     public static void setIsRunning(Runnable isRunning) {

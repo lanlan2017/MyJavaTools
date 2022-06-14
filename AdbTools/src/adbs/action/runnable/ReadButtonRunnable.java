@@ -13,7 +13,7 @@ public class ReadButtonRunnable extends CloseableRunnable {
 
     private static ReadButtonRunnable instance = new ReadButtonRunnable();
     // 输入输出汇总Model
-    private InOutputModel inOutputModel;
+    // private InOutputModel inOutputModel;
     // 输出内容
     private JLabel output;
     private Random random;
@@ -38,11 +38,12 @@ public class ReadButtonRunnable extends CloseableRunnable {
 
     @Override
     protected void setMsg() {
-        msg = "阅读线程2";
+        msg = "阅读线程";
     }
 
     @Override
     protected void beforeLoop() {
+        super.beforeLoop();
         // 先等待1秒
         Threads.sleep(500);
     }
@@ -90,8 +91,4 @@ public class ReadButtonRunnable extends CloseableRunnable {
         }
     }
 
-    @Override
-    protected void afterLoop() {
-        output.setText(msg + "已停止");
-    }
 }

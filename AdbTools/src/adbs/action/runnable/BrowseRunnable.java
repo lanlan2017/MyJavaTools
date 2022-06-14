@@ -29,11 +29,6 @@ public class BrowseRunnable extends CloseableRunnable {
     }
 
     @Override
-    protected void beforeLoop() {
-        inOutputModel.getOutput().setText(msg + ":已经开始");
-    }
-
-    @Override
     protected void loopBody() {
         String id = DeviceRadioBtAcListener.getId();
         if (id != null) {
@@ -63,7 +58,7 @@ public class BrowseRunnable extends CloseableRunnable {
 
     @Override
     protected void afterLoop() {
-        inOutputModel.getOutput().setText(msg + ":已经结束");
+        super.afterLoop();
         // 弹出确认框
         inOutputModel.getInputPanelModel().showConfirmDialog();
     }

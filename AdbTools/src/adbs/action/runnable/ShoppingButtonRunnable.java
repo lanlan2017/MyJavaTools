@@ -35,11 +35,6 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
     }
 
     @Override
-    protected void beforeLoop() {
-
-    }
-
-    @Override
     protected void loopBody() {
         String id = DeviceRadioBtAcListener.getId();
 
@@ -127,10 +122,5 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
             return false;
         }
         return true;
-    }
-
-    @Override
-    protected void afterLoop() {
-        inOutputModel.getOutput().setText(msg + ":已经结束");
     }
 }

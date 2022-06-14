@@ -4,6 +4,7 @@ import adbs.cmd.AdbCommands;
 import adbs.test.Device;
 import adbs.test.DeviceRadioBtAcListener;
 
+import java.awt.*;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -12,6 +13,11 @@ import java.util.function.Consumer;
  * 打开设备 按钮事件处理程序
  */
 public class OpenButtonRunnable implements Runnable {
+    // 保存屏幕宽度
+    private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    static {
+        System.out.println("屏幕宽度:" + screenSize);
+    }
     private String simpleId;
 
     @Override
@@ -33,8 +39,8 @@ public class OpenButtonRunnable implements Runnable {
             System.out.println("scrcpy.exe 打开镜像");
             // 使用scrcpy.exe命令打开设备
             // AdbCommands.runAbdCmd("scrcpy.exe -s " + id + " --turn-screen-off --stay-awake -m 768 --window-title 182 --always-on-top");
-            // AdbCommands.runAbdCmd("scrcpy.exe -s " + id + " --turn-screen-off --stay-awake -m 768 --window-title " + id + " --always-on-top");
-            AdbCommands.runAbdCmd("scrcpy.exe -s " + id + " --turn-screen-off --stay-awake -m 768 --window-title " + simpleId + " --always-on-top");
+            // AdbCommands.runAbdCmd("scrcpy.exe -s " + id + " --turn-screen-off --stay-awake -m 674 --window-title " + id + " --always-on-top");
+            AdbCommands.runAbdCmd("scrcpy.exe -s " + id + " --turn-screen-off -b 2M -m 768 --stay-awake --window-title " + simpleId + " --always-on-top");
         }
         System.out.println("scrcpy.exe 已关闭");
     }

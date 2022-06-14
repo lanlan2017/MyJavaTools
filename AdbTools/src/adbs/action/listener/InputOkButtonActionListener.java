@@ -40,8 +40,6 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
 
         if ("开始浏览".equals(ok.getText())) {
             output.setText("浏览线程：开始浏览");
-
-            // new Thread(browseRunnable).start();
             new Thread(browseRunnable).start();
         } else if ("开始逛街".equals(ok.getText())) {
             output.setText("逛街线程：开始逛街");

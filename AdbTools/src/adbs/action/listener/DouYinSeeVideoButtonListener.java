@@ -25,8 +25,6 @@ public class DouYinSeeVideoButtonListener extends ButtonFocusReleaseActionListen
     protected void actionEvent(ActionEvent e) {
         inOutputModel.getInputPanelModel().getInputPanel().setVisible(false);
         frame.pack();
-        // 启动刷视频线程
-        // new Thread(new VideoButtonRunnable(inOutputModel)).start();
         // 先停止刷视频线程
         VideoButtonRunnable videoButtonRunnable = VideoButtonRunnable.getInstance();
         videoButtonRunnable.stop();
@@ -35,7 +33,6 @@ public class DouYinSeeVideoButtonListener extends ButtonFocusReleaseActionListen
         new Thread(videoButtonRunnable).start();
 
         // 如果抖音刷视频置顶红包监听线程 死掉了(没活着)
-        // if (douYinVideoThread == null || douYinVideoThread != null && !douYinVideoThread.isAlive()) {
         if (Threads.threadIsNullOrNotAlive(douYinVideoThread)) {
             System.out.println("抖音视频置顶红包 监听线程已经死掉，重新创建一个线程");
             // 重现创建一个线程，并执行
