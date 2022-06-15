@@ -7,6 +7,7 @@ import java.awt.*;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class AdbDi {
     // public static void main(String[] args) {
@@ -51,8 +52,7 @@ public class AdbDi {
             }
         }
         // System.out.println(devices.size());
-        int size;
-        if ((size = devices.size()) > 0) {
+        if (devices.size() > 0) {
             // 创建单选按钮的容器
             panel = new JPanel();
             // 床架按钮组
@@ -63,15 +63,17 @@ public class AdbDi {
             JPanel finalPanel = panel;
             // 创建设备单选按钮的事件监听器
             DeviceRadioBtAcListener listener = new DeviceRadioBtAcListener(frame);
+
+            AtomicBoolean isFirst = new AtomicBoolean(true);
             devices.forEach(device -> {
                 // 创建一个单选按钮
-                // JRadioButton deviceRadioButton = new JRadioButton(device.getId());
                 JRadioButton deviceRadioButton = new JRadioButton(device.getSimpleId(device.getId()));
                 deviceRadioButton.addActionListener(listener);
-                if (size == 1) {
+                if (isFirst.get()) {
+                    // 默认选择第1个单选按钮
                     deviceRadioButton.doClick();
+                    isFirst.set(false);
                 }
-                // radioButtons.add(deviceRadioButton);
                 // 添加到按钮组中
                 buttonGroup.add(deviceRadioButton);
                 // 添加到面板中
@@ -80,12 +82,4 @@ public class AdbDi {
         }
         return panel;
     }
-
-    // static public class DeviceRadioButtonActionListener implements ActionListener {
-    //     @Override
-    //     public void actionPerformed(ActionEvent e) {
-    //         AbstractButton button = (AbstractButton) e.getSource();
-    //         System.out.println("你选择了:" + button.getText());
-    //     }
-    // }
 }

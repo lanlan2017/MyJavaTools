@@ -1,7 +1,6 @@
 package adbs.test;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Objects;
 
 public class Device {
@@ -32,7 +31,9 @@ public class Device {
             case "192.168.0.102:5555":
                 simpleId = "HonorWiFi";
                 break;
-
+            case "192.168.0.100:5556":
+                simpleId = "OppoWiFi";
+                break;
         }
         return simpleId;
     }
