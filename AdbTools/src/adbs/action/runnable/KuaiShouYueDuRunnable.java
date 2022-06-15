@@ -2,6 +2,7 @@ package adbs.action.runnable;
 
 import adbs.action.runnable.abs.PyImgFinderCloseRunnable;
 import adbs.cmd.Robots;
+import adbs.test.Device;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,7 +29,12 @@ public class KuaiShouYueDuRunnable extends PyImgFinderCloseRunnable {
 
     @Override
     protected void setPyPath() {
-        pyPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\KuaiShou\\YueDu\\YueDu.py";
+        // pyPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\KuaiShou\\YueDu\\YueDu.py";
+        // String simpleId = Device.findSimpleId(DeviceRadioBtAcListener.getId());
+        // 获取当前选择的设备的厂商名(小写)
+        String brand = Device.getBrand();
+        pyPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\KuaiShou\\YueDu\\YueDu" + "_" + brand + ".py";
+        // System.out.println(pyPath);
     }
 
     @Override
@@ -40,6 +46,6 @@ public class KuaiShouYueDuRunnable extends PyImgFinderCloseRunnable {
         // 退出广告界面之后，开启阅读线程
         readButton.doClick();
         // 等待一小段时间，让解锁界面打开
-        Robots.delay(1500);
+        Robots.delay(2000);
     }
 }

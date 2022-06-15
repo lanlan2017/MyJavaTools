@@ -1,11 +1,11 @@
 package adbs.test;
 
-import java.util.HashMap;
-import java.util.Objects;
+import java.util.*;
 
 public class Device {
     private String id;
     private String description;
+
     public static HashMap<String, String> map = new HashMap<>();
 
     public Device(String id, String description) {
@@ -17,6 +17,18 @@ public class Device {
 
     public String getId() {
         return id;
+    }
+
+    public static String findSimpleId(String id) {
+        Set<Map.Entry<String, String>> entries = Device.map.entrySet();
+        Iterator<Map.Entry<String, String>> iterator = entries.iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<String, String> next = iterator.next();
+            if (next.getValue().equals(id)) {
+                return next.getKey();
+            }
+        }
+        return "";
     }
 
     public String getSimpleId(String id) {
@@ -38,6 +50,22 @@ public class Device {
         return simpleId;
     }
 
+    /**
+     * 获取当前的品牌名
+     *
+     * @return
+     */
+    public static String getBrand() {
+        String simpleId = Device.findSimpleId(DeviceRadioBtAcListener.getId()).toLowerCase();
+        String brand = null;
+        if (simpleId.contains("oppo")) {
+            brand = "oppo";
+        } else if (simpleId.contains("honor")) {
+            brand = "honor";
+        }
+        return brand;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -57,7 +85,6 @@ public class Device {
         if (o == null || getClass() != o.getClass())
             return false;
         Device devices = (Device) o;
-        // return Objects.equals(id, devices.id) && Objects.equals(description, devices.description);
         // 如果设备描述信息一样的话，则认为是同一个设备
         return Objects.equals(description, devices.description);
     }

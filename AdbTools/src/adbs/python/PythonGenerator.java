@@ -9,7 +9,6 @@ import tools.format.date.DateFormatters;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-import java.util.function.Consumer;
 
 /**
  * Python生成器
@@ -32,31 +31,6 @@ public class PythonGenerator {
         String switchCases = imagesInDir2SwitchCases(pythonPath);
         System.out.println(switchCases);
         SystemClipboard.setSysClipboardText(switchCases);
-    }
-
-    private static String simpleId;
-
-    static {
-        // 获取选择的id
-        String id = DeviceRadioBtAcListener.getId();
-
-        if (id != null) {
-            Set<Map.Entry<String, String>> entries = Device.map.entrySet();
-            entries.forEach(new Consumer<Map.Entry<String, String>>() {
-                @Override
-                public void accept(Map.Entry<String, String> stringStringEntry) {
-                    if (stringStringEntry.getValue().equals(id)) {
-                        simpleId = stringStringEntry.getKey();
-                    }
-                }
-            });
-            if (simpleId.toLowerCase().contains("oppo")) {
-                simpleId = "oppo";
-            } else if (simpleId.toLowerCase().contains("honor")) {
-                simpleId = "honor";
-            }
-            System.out.println("品牌名：" + simpleId);
-        }
     }
 
     /**
@@ -133,8 +107,12 @@ public class PythonGenerator {
 
         // 获取Python文件所在的目录的路径
         String pythonPathDir = pythonPath.substring(0, pythonPath.lastIndexOf("\\"));
+        String brand = Device.getBrand();
+
+        // System.out.println("品牌名:" + simpleId);
+        System.out.println("厂商:" + brand);
         // 生成图片数组
-        String images = imagesInDir2Array(pythonPathDir);
+        String images = imagesInDir2Array(pythonPathDir, brand);
         // System.out.println(images);
         // 拼接完整的Python代码
         String pythonCode = getPythonHead() + images + getPythonTail();
@@ -146,17 +124,30 @@ public class PythonGenerator {
         SystemClipboard.setSysClipboardText(imagesInDir2SwitchCases(pythonPathDir));
     }
 
+    // private static String getBrand() {
+    //     String simpleId = Device.findSimpleId(DeviceRadioBtAcListener.getId()).toLowerCase();
+    //     String brand = null;
+    //     if (simpleId.contains("oppo")) {
+    //         brand = "oppo";
+    //     } else if (simpleId.contains("honor")) {
+    //         brand = "honor";
+    //     }
+    //     return brand;
+    // }
+
     /**
      * 生成一个存放 目录下所有'.png'文件的python数组
      *
      * @param dirPath 目录的字符串名称（绝对路径）
+     * @param brand   手机的品牌，制造商
+     * @return
      */
-    private static String imagesInDir2Array(String dirPath) {
+    private static String imagesInDir2Array(String dirPath, String brand) {
         File dir = new File(dirPath);
         if (dir.isDirectory()) {
             // 获取目录下的所有.png文件列表
             String[] pngList = dir.list((dir1, name) -> {
-                return name.endsWith(".png") && name.toLowerCase().contains(simpleId);
+                return name.endsWith(".png") && name.toLowerCase().contains(brand);
             });
             if (pngList != null) {
                 StringBuilder sb = new StringBuilder();

@@ -1,6 +1,5 @@
 package adbs.action.runnable.abs;
 
-import adbs.action.model.InOutputModel;
 import adbs.cmd.CmdRun;
 import adbs.cmd.PyAutoGui;
 import adbs.cmd.PythonRun;
@@ -23,10 +22,16 @@ public abstract class PyImgFinderCloseRunnable extends CloseableRunnable {
      * python文件的绝对路径
      */
     protected static String pyPath;
-    /**
-     * 是否要更新python文件
-     */
-    private boolean isPythonFileUpdate = false;
+    // /**
+    //  * 是否要更新python文件
+    //  */
+    // private boolean isPythonFileUpdate = false;
+
+    @Override
+    protected void beforeLoop() {
+        super.beforeLoop();
+        // updatePythonFile();
+    }
 
     @Override
     protected void loopBody() {
@@ -42,11 +47,12 @@ public abstract class PyImgFinderCloseRunnable extends CloseableRunnable {
     private void updatePythonFile() {
         // 调用子类的方法
         setPyPath();
-        if (!isPythonFileUpdate && pyPath != null && !"".equals(pyPath)) {
+        // if (!isPythonFileUpdate && pyPath != null && !"".equals(pyPath)) {
+        if (pyPath != null && !"".equals(pyPath)) {
             System.out.println("更新要运行的Python文件：" + pyPath);
             // 自动生成Python文件
             PythonGenerator.updatePythonFile(pyPath);
-            isPythonFileUpdate = true;
+            // isPythonFileUpdate = true;
             setMsg();
             System.out.println(msg);
         }
@@ -74,8 +80,6 @@ public abstract class PyImgFinderCloseRunnable extends CloseableRunnable {
      * @param pyOutput python输出（带有图片的输出）
      */
     private void haveFoundPictures(String pyOutput) {
-        // 打印进程输出
-        // System.out.println("pyOutput=" + pyOutput);
         // 截取出图片的完整名称
         String img = pyOutput.substring(0, pyOutput.indexOf(".png") + ".png".length());
         System.out.println("\n匹配到：img='" + img + "'");

@@ -10,17 +10,6 @@ import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class AdbDi {
-    // public static void main(String[] args) {
-    //     JFrame frame = new JFrame("测试自动生成设备列表");
-    //     JPanel panel = new AdbDi().createDevicesPanel();
-    //     if (panel != null) {
-    //         frame.add(panel);
-    //         frame.pack();
-    //         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-    //         frame.setAlwaysOnTop(true);
-    //         frame.setVisible(true);
-    //     }
-    // }
     JFrame frame;
 
     public AdbDi(JFrame frame) {
@@ -33,7 +22,6 @@ public class AdbDi {
      * @return 如果存在设置，则返回包含这些设备的JPanel
      */
     public JPanel createDevicesPanel() {
-        // JPanel panel = null;
         JPanel panel = new JPanel();
         String devicesListStr = AdbCommands.runAbdCmd("adb devices -l");
         Collection<Device> devices = new LinkedHashSet<>();

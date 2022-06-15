@@ -5,6 +5,7 @@ import adbs.test.Device;
 import adbs.test.DeviceRadioBtAcListener;
 
 import java.awt.*;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -15,24 +16,18 @@ import java.util.function.Consumer;
 public class OpenButtonRunnable implements Runnable {
     // 保存屏幕宽度
     private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
     static {
         System.out.println("屏幕宽度:" + screenSize);
     }
+
     private String simpleId;
 
     @Override
     public void run() {
         // 获取选择的id
         String id = DeviceRadioBtAcListener.getId();
-        Set<Map.Entry<String, String>> entries = Device.map.entrySet();
-        entries.forEach(new Consumer<Map.Entry<String, String>>() {
-            @Override
-            public void accept(Map.Entry<String, String> stringStringEntry) {
-                if (stringStringEntry.getValue().equals(id)) {
-                    simpleId = stringStringEntry.getKey();
-                }
-            }
-        });
+        simpleId = Device.findSimpleId(id);
 
         // 如果存在id
         if (id != null && !"".equals(id)) {
@@ -44,4 +39,6 @@ public class OpenButtonRunnable implements Runnable {
         }
         System.out.println("scrcpy.exe 已关闭");
     }
+
+
 }
