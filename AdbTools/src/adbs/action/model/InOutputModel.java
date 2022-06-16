@@ -14,11 +14,18 @@ public class InOutputModel {
      * 输出组件
      */
     private JLabel output;
+    private JButton stopBtn;
 
-    public InOutputModel(InputPanelModel inputPanelModel, JLabel output) {
+    public InOutputModel(InputPanelModel inputPanelModel, JLabel output, JButton stopBtn) {
         this.inputPanelModel = inputPanelModel;
         this.output = output;
+        this.stopBtn = stopBtn;
     }
+
+    // public InOutputModel(InputPanelModel inputPanelModel, JLabel output) {
+    //     this.inputPanelModel = inputPanelModel;
+    //     this.output = output;
+    // }
 
     public InputPanelModel getInputPanelModel() {
         return inputPanelModel;
@@ -28,4 +35,7 @@ public class InOutputModel {
         return output;
     }
 
+    public JButton getStopBtn() {
+        return stopBtn;
+    }
 }

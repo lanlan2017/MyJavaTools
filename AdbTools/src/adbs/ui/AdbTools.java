@@ -107,7 +107,7 @@ public class AdbTools {
         openButton.addActionListener(new OpenButtonListener());
         // 创建输入面板的模型
         InputPanelModel inputPanelModel = new InputPanelModel(inputPanel, timeLable, timeRadioPanel, radioButton15s, radioButton35s, radioButton70s, input1, input2, inputOkButton);
-        inOutputModel = new InOutputModel(inputPanelModel, output);
+        inOutputModel = new InOutputModel(inputPanelModel, output, stopBtn);
 
         // 输入面板等待按钮
         inputOkButton.addActionListener(new InputOkButtonActionListener(inOutputModel));

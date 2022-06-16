@@ -5,6 +5,7 @@ import adbs.cmd.PyAutoGui;
 import adbs.cmd.PythonRun;
 import adbs.cmd.Robots;
 import adbs.python.PythonGenerator;
+import adbs.test.DeviceRadioBtAcListener;
 import tools.file.Files;
 import tools.thead.Threads;
 
@@ -22,19 +23,15 @@ public abstract class PyImgFinderCloseRunnable extends CloseableRunnable {
      * python文件的绝对路径
      */
     protected static String pyPath;
-    // /**
-    //  * 是否要更新python文件
-    //  */
-    // private boolean isPythonFileUpdate = false;
 
-    @Override
-    protected void beforeLoop() {
-        super.beforeLoop();
-        // updatePythonFile();
-    }
+    // @Override
+    // protected void beforeLoop() {
+    //     super.beforeLoop();
+    // }
 
     @Override
     protected void loopBody() {
+        // 更新Python文件
         updatePythonFile();
         runPython(pyPath);
     }
@@ -99,13 +96,31 @@ public abstract class PyImgFinderCloseRunnable extends CloseableRunnable {
     protected void performAction(String img, Point point) {
         if (img.startsWith("begin_")) {
             Robots.leftMouseButtonClick(point);
-            System.out.println("等待:" + waitSeconds + "s");
-            Threads.sleep(waitSeconds * 1000);
+            int count = 0;
+            int s = waitSeconds * 1000;
+            while (count <= s) {
+                // 等待1秒
+                Threads.sleep(1000);
+                count += 1000;
+                inOutputModel.getOutput().setText(msg + "等待:" + (waitSeconds--) + "s");
+            }
             Robots.rightClickButton(point);
             Threads.sleep(1500);
+            inOutputModel.getOutput().setText("");
         } else if (img.startsWith("exit_")) {
             Robots.leftMouseButtonClick(point);
             Robots.delay(2 * 1000);
+        } else if (img.startsWith("stop_")) {
+            // 点击停止按钮
+            inOutputModel.getStopBtn().doClick();
+            String id = DeviceRadioBtAcListener.getId();
+            // 杀死快手极速版
+            CmdRun.run("adb -s " + id + " shell am force-stop com.kuaishou.nebula");
+            Threads.sleep(1000);
+            // 息屏
+            CmdRun.run("adb -s " + id + " shell input keyevent 223");
+            // 休眠电脑
+            // CmdRun.run("shutdown /h");
         } else {
             Robots.leftMouseButtonClick(point);
             Robots.delay(2 * 1000);
