@@ -77,7 +77,7 @@ public class AdbTools {
     private JButton taoBaoNiuDanBtn;
 
     // 当前正在执行的线程
-    private static HashSet<Runnable> isRunningSet = new HashSet<>();
+    private HashSet<Runnable> isRunningSet = new HashSet<>();
     private final JFrame frame;
     // 输入输出汇总
     private InOutputModel inOutputModel;
@@ -267,7 +267,7 @@ public class AdbTools {
         frame.pack();
     }
 
-    public static void setIsRunning(Runnable isRunning) {
+    public void setIsRunning(Runnable isRunning) {
         System.out.println("正在运行的:" + isRunning);
         isRunningSet.add(isRunning);
         System.out.println("set长度:" + isRunningSet.size());
