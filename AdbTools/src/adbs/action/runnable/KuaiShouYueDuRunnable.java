@@ -33,7 +33,7 @@ public class KuaiShouYueDuRunnable extends PyImgFinderCloseRunnable {
         // String simpleId = Device.findSimpleId(DeviceRadioBtAcListener.getId());
         // 获取当前选择的设备的厂商名(小写)
         String brand = Device.getBrand();
-        pyPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\KuaiShou\\YueDu\\YueDu" + "_" + brand + ".py";
+        pyPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\KuaiShou\\YueDu\\YueDu_" + brand + ".py";
         // System.out.println(pyPath);
     }
 
@@ -41,11 +41,8 @@ public class KuaiShouYueDuRunnable extends PyImgFinderCloseRunnable {
     protected void performAction(String img, Point point) {
         // 停止阅读进程
         ReadButtonRunnable.getInstance().stop();
-        // 先点击鼠标左键 ，等待一定时间后 ，点击鼠标右键
-        Robots.leftClickThenRightClick(point, 35 * 1000);
+        super.performAction(img, point);
         // 退出广告界面之后，开启阅读线程
         readButton.doClick();
-        // 等待一小段时间，让解锁界面打开
-        Robots.delay(2000);
     }
 }
