@@ -102,7 +102,7 @@ public abstract class PyImgFinderCloseRunnable extends CloseableRunnable {
                 // 等待1秒
                 Threads.sleep(1000);
                 count += 1000;
-                inOutputModel.getOutput().setText(msg + "等待:" + (waitSeconds--) + "s");
+                inOutputModel.getOutput().setText(msg + "等待:" + ((s - count) / 1000) + "s");
             }
             Robots.rightClickButton(point);
             Threads.sleep(1500);
@@ -139,7 +139,7 @@ public abstract class PyImgFinderCloseRunnable extends CloseableRunnable {
                 // 读取文件内容
                 String yueDuPidStr = Files.readFile(file);
                 // 如果文件内容都是数字
-                if (yueDuPidStr.matches("\\d+")) {
+                if (yueDuPidStr != null && yueDuPidStr.matches("\\d+")) {
                     // 输出内容
                     System.out.println("杀死pid=" + yueDuPidStr + "的进程（python）");
                     // AdbCommands.runAbdCmd("taskkill /F /IM python.exe");
