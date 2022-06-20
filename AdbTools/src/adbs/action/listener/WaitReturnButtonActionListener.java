@@ -23,6 +23,8 @@ public class WaitReturnButtonActionListener extends ButtonFocusReleaseActionList
         inputPanelModel.getInputOkButton().setText("开始等待");
         inputPanelModel.getInput1().setColumns(2);
         inputPanelModel.getInput2().setVisible(false);
+        inputPanelModel.getPlusBtn().setVisible(false);
+        inputPanelModel.getMinusBtn().setVisible(false);
         frame.pack();
     }
 }

@@ -7,6 +7,7 @@ import adbs.action.listener.abs.shellinput.TaskManageBtnAcListener;
 import adbs.action.model.InOutputModel;
 import adbs.action.model.InputPanelModel;
 import adbs.action.runnable.*;
+import adbs.buttons.AbstractButtons;
 import adbs.cmd.CmdRun;
 import adbs.test.AdbDi;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -75,6 +76,8 @@ public class AdbTools {
     private JButton kuaiShouVideoBtn;
     private JButton waitStopBtn;
     private JButton taoBaoNiuDanBtn;
+    private JButton plusBtn;
+    private JButton minusBtn;
 
     // 当前正在执行的线程
     private HashSet<Runnable> isRunningSet = new HashSet<>();
@@ -106,7 +109,7 @@ public class AdbTools {
         // 打开（设备）按钮
         openButton.addActionListener(new OpenButtonListener());
         // 创建输入面板的模型
-        InputPanelModel inputPanelModel = new InputPanelModel(inputPanel, timeLable, timeRadioPanel, radioButton15s, radioButton35s, radioButton70s, input1, input2, inputOkButton);
+        InputPanelModel inputPanelModel = new InputPanelModel(inputPanel, timeLable, timeRadioPanel, radioButton15s, radioButton35s, radioButton70s, input1, input2, inputOkButton,plusBtn,minusBtn);
         inOutputModel = new InOutputModel(inputPanelModel, output, stopBtn);
 
         // 输入面板等待按钮
@@ -265,6 +268,69 @@ public class AdbTools {
         dormantPanel.setVisible(false);
         // 最合适的方式显示，这句要写在setVisible方法之后
         frame.pack();
+        plusBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int value1 = Integer.parseInt(input1.getText());
+                int value2 = Integer.parseInt(input2.getText());
+                //7-14
+                //8-16
+                //9-18
+                //10-20
+                //20-40
+                //40-60
+                if (value1 == 7) {
+                    value1 = 8;
+                    value2 = 16;
+                } else if (value1 == 8) {
+                    value1 = 9;
+                    value2 = 18;
+                } else if (value1 == 9) {
+                    value1 = 10;
+                    value2 = 20;
+                } else if (value1 == 10) {
+                    value1 = 20;
+                    value2 = 40;
+
+                } else if (value1 == 20) {
+                    value1 = 30;
+                    value2 = 60;
+                } else {
+                    return;
+                }
+                input1.setText(String.valueOf(value1));
+                input2.setText(String.valueOf(value2));
+
+
+            }
+        });
+        minusBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int value1 = Integer.parseInt(input1.getText());
+                int value2 = Integer.parseInt(input2.getText());
+                if (value1 == 30) {
+                    value1 = 20;
+                    value2 = 40;
+                } else if (value1 == 20) {
+                    value1 = 10;
+                    value2 = 20;
+                } else if (value1 == 10) {
+                    value1 = 9;
+                    value2 = 18;
+                } else if (value1 == 9) {
+                    value1 = 8;
+                    value2 = 16;
+                } else if (value1 == 8) {
+                    value1 = 7;
+                    value2 = 14;
+                } else {
+                    return;
+                }
+                input1.setText(String.valueOf(value1));
+                input2.setText(String.valueOf(value2));
+            }
+        });
     }
 
     public void setIsRunning(Runnable isRunning) {
@@ -276,4 +342,5 @@ public class AdbTools {
     public static void main(String[] args) {
         AdbTools.getInstance();
     }
+
 }

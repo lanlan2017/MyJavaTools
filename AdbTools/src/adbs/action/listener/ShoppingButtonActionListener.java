@@ -27,6 +27,10 @@ public class ShoppingButtonActionListener extends ButtonFocusReleaseActionListen
         input1.setText(String.valueOf(20 * 60));
         input1.setColumns(4);
         inputPanelModel.getInput2().setVisible(false);
+
+        inputPanelModel.getPlusBtn().setVisible(false);
+        inputPanelModel.getMinusBtn().setVisible(false);
+
         inputPanelModel.getInputOkButton().setText("开始逛街");
         frame.pack();
     }

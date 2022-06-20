@@ -16,8 +16,10 @@ public class InputPanelModel {
     private JTextField input1;
     private JTextField input2;
     private JButton inputOkButton;
+    private JButton plusBtn;
+    private JButton minusBtn;
 
-    public InputPanelModel(JPanel inputPanel, JLabel timeLable, JPanel timeRadioPanel, JRadioButton radioButton15s, JRadioButton radioButton35s, JRadioButton radioButton70s, JTextField input1, JTextField input2, JButton inputOkButton) {
+    public InputPanelModel(JPanel inputPanel, JLabel timeLable, JPanel timeRadioPanel, JRadioButton radioButton15s, JRadioButton radioButton35s, JRadioButton radioButton70s, JTextField input1, JTextField input2, JButton inputOkButton, JButton plusBtn, JButton minusBtn) {
         this.inputPanel = inputPanel;
         this.timeLable = timeLable;
         this.timeRadioPanel = timeRadioPanel;
@@ -27,6 +29,8 @@ public class InputPanelModel {
         this.input1 = input1;
         this.input2 = input2;
         this.inputOkButton = inputOkButton;
+        this.plusBtn = plusBtn;
+        this.minusBtn = minusBtn;
 
         ButtonGroup bg = new ButtonGroup();
         bg.add(radioButton15s);
@@ -64,6 +68,14 @@ public class InputPanelModel {
 
     public JButton getInputOkButton() {
         return inputOkButton;
+    }
+
+    public JButton getPlusBtn() {
+        return plusBtn;
+    }
+
+    public JButton getMinusBtn() {
+        return minusBtn;
     }
 
     public void showConfirmDialog() {
