@@ -18,7 +18,7 @@ public class WaitReturnButtonActionListener extends ButtonFocusReleaseActionList
     @Override
     protected void actionEvent(ActionEvent e) {
         inputPanelModel.getInputPanel().setVisible(true);
-        inputPanelModel.getTimeLable().setText("等待时间:");
+        inputPanelModel.getTimeLable().setText("等待时间(s):");
         inputPanelModel.getTimeRadioPanel().setVisible(true);
         inputPanelModel.getInputOkButton().setText("开始等待");
         inputPanelModel.getInput1().setColumns(2);

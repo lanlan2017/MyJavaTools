@@ -298,14 +298,14 @@
                 <properties>
                   <horizontalAlignment value="2"/>
                   <horizontalTextPosition value="11"/>
-                  <text value="15s"/>
+                  <text value="15"/>
                 </properties>
               </component>
               <component id="90203" class="javax.swing.JRadioButton" binding="radioButton35s">
                 <constraints/>
                 <properties>
                   <horizontalAlignment value="2"/>
-                  <text value="35s"/>
+                  <text value="35"/>
                 </properties>
               </component>
               <component id="b2e78" class="javax.swing.JRadioButton" binding="radioButton70s">
@@ -313,7 +313,7 @@
                 <properties>
                   <horizontalAlignment value="2"/>
                   <horizontalTextPosition value="11"/>
-                  <text value="70s"/>
+                  <text value="70"/>
                   <verticalAlignment value="0"/>
                 </properties>
               </component>
