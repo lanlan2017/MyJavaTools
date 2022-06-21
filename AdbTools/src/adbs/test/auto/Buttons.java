@@ -1,14 +1,12 @@
 package adbs.test.auto;
 
 import adbs.buttons.AbstractButtons;
+import adbs.test.auto.listener.OtherJCheckBoxItemListener;
 import com.formdev.flatlaf.FlatLightLaf;
-import tools.thead.Threads;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -23,14 +21,14 @@ public class Buttons {
     }
 
     public static void main(String[] args) {
+        // 创建窗体
         JFrame frame = new JFrame();
+        // 创建窗体的内容面板
         JPanel contentPane = new JPanel();
+        // 设置窗体的内容面板
         frame.setContentPane(contentPane);
-        // 使用箱型布局,垂直排列
-        frame.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
-
-        JPanel jPanel0 = new JPanel();
-        jPanel0.addMouseListener(new MouseAdapter() {
+        // 内容面板监听鼠标右键双击事件
+        contentPane.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON3) {
@@ -39,51 +37,21 @@ public class Buttons {
                 }
             }
         });
+        // 窗体使用箱型布局,垂直排列
+        frame.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 
-        JPanel jPanel1 = new JPanel();
-        extracted(frame, jPanel1);
-        JCheckBox jCheckBox = new JCheckBox("其他", true);
-        jCheckBox.addItemListener(new ItemListener() {
-            // 被控制的JPanel
-            private JPanel itemJpanel = jPanel1;
-            private int index;
+        // 遍历目录，创建按钮面板
+        JPanel otherJPanel = new JPanel();
+        JPanel checkJPanel = new JPanel();
+        newButtonJPanel(frame, checkJPanel, otherJPanel);
 
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                // 获取窗体的内容面板
-                Container contentPane = frame.getContentPane();
-                // 如果当前的状态是勾选状态
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    // 显示被控制的面板
-                    itemJpanel.setVisible(true);
-                    // 添加被控制的面板到指定的位置
-                    contentPane.add(itemJpanel, index);
-                } else {
-                    // 隐藏面板
-                    itemJpanel.setVisible(false);
-                    // 组件数组
-                    Component[] comps = contentPane.getComponents();
-                    // 遍历组件数组
-                    for (int i = 0; i < comps.length; i++) {
-                        if (comps[i] instanceof JPanel) {
-                            JPanel comp = (JPanel) comps[i];
-                            // 如果找到
-                            if (comp.equals(itemJpanel)) {
-                                // 移除组件
-                                contentPane.remove(comps[i]);
-                                index = i;
-                            }
-                        }
-                    }
-                }
-                // 以最佳方式显示
-                frame.pack();
-            }
-        });
-
-        jPanel0.add(jCheckBox);
-        frame.add(jPanel0);
-
+        checkJPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        JCheckBox otherJCheckBox = new JCheckBox("其他", true);
+        otherJCheckBox.addItemListener(new OtherJCheckBoxItemListener(frame, otherJPanel));
+        checkJPanel.add(otherJCheckBox);
+        frame.add(checkJPanel, 0);
+        // 永远置顶
+        frame.setAlwaysOnTop(true);
         // 设置关闭按钮功能
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         // 显示窗体
@@ -92,7 +60,7 @@ public class Buttons {
         frame.pack();
     }
 
-    private static void extracted(JFrame frame, JPanel jPanel1) {
+    private static JPanel newButtonJPanel(JFrame frame, JPanel checkJPanel, JPanel otherJPanel) {
         File dir = new File("G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons");
         File[] dirList = dir.listFiles(new FileFilter() {
             @Override
@@ -110,18 +78,28 @@ public class Buttons {
                         return pathname.isDirectory();
                     }
                 });
-                // 如果存在子目录
+                // 如果一级子目录存在子目录
                 if (dirDeep1List.length > 0) {
+                    // 获取一级子目录的名称
                     String name = dirDeep1.getName();
                     System.out.println(name);
+                    // 创建面板
                     JPanel jPanel = new JPanel();
+                    // 给面板标题边框，使用一级目录名作为标题
                     jPanel.setBorder(new TitledBorder(name));
-                    FlowLayout layout = new FlowLayout(FlowLayout.LEADING, 0, 0);
-                    // layout.setAlignment();
-                    jPanel.setAlignmentX(JPanel.CENTER_ALIGNMENT);
-                    jPanel.setAlignmentY(JPanel.CENTER_ALIGNMENT);
+
+                    FlowLayout layout = new FlowLayout(FlowLayout.LEFT, 0, 0);
+                    // 设置布局管理器
                     jPanel.setLayout(layout);
+                    // 创建复选框，默认勾选
+                    JCheckBox checkBox = new JCheckBox(name, true);
+                    checkJPanel.add(checkBox);
+                    // 监听
+                    checkBox.addItemListener(new OtherJCheckBoxItemListener(frame, jPanel));
+
+                    // 遍历二级子目录
                     for (File dirDeep2 : dirDeep1List) {
+                        // 获取二级目录名
                         String name1 = dirDeep2.getName();
                         if (!name1.contains("test") && !name1.contains("demo")) {
                             JButton button = new JButton(name1);
@@ -135,15 +113,17 @@ public class Buttons {
                 else {
                     JButton button = new JButton(dirDeep1.getName());
                     AbstractButtons.setJButtonMargin(button);
-                    jPanel1.add(button);
+                    // 添加到其他面板
+                    otherJPanel.add(button);
                 }
             }
         }
-        int jPanel1ComponentCount = jPanel1.getComponentCount();
+        int jPanel1ComponentCount = otherJPanel.getComponentCount();
         // 向上取整
         int rows = (int) Math.ceil(jPanel1ComponentCount / 4.0);
-        jPanel1.setLayout(new GridLayout(rows, 4, 0, 0));
-        jPanel1.setBorder(new TitledBorder("Other"));
-        frame.add(jPanel1);
+        otherJPanel.setLayout(new GridLayout(rows, 4, 0, 0));
+        otherJPanel.setBorder(new TitledBorder("Other"));
+        frame.add(otherJPanel);
+        return otherJPanel;
     }
 }
