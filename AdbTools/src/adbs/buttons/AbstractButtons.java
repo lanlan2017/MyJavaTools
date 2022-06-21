@@ -1,4 +1,4 @@
-package adbs.ui;
+package adbs.buttons;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +14,27 @@ public class AbstractButtons {
      */
     public static void setJButtonMargin(AbstractButton button) {
         int marginVal = 2;
+        // int marginVal = 0;
         button.setMargin(new Insets(marginVal, marginVal, marginVal, marginVal));
+    }
+
+    /**
+     * 设置AbstractButton的内边距
+     *
+     * @param button AbstractButton对象
+     * @param margin
+     */
+    public static void setJButtonMargin(AbstractButton button, int margin) {
+        button.setMargin(new Insets(margin, margin, margin, margin));
+    }
+
+    /**
+     * 设置AbstractButton的内边距
+     *
+     * @param button AbstractButton对象
+     */
+    public static void setJButtonMargin(AbstractButton button, int topBotton, int leftRight) {
+        button.setMargin(new Insets(2, leftRight, 2, leftRight));
     }
 
     /**
@@ -24,7 +44,8 @@ public class AbstractButtons {
      */
     public static void setMarginInButtonJPanel(JPanel panel) {
         int count = panel.getComponentCount();
-        int x = 3;
+        // int x = 3;
+        int x = 2;
         Insets insets = new Insets(x, x, x, x);
         for (int i = 0; i < count; i++) {
             Component component = panel.getComponent(i);

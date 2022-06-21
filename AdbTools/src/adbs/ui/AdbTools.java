@@ -109,7 +109,7 @@ public class AdbTools {
         // 打开（设备）按钮
         openButton.addActionListener(new OpenButtonListener());
         // 创建输入面板的模型
-        InputPanelModel inputPanelModel = new InputPanelModel(inputPanel, timeLable, timeRadioPanel, radioButton15s, radioButton35s, radioButton70s, input1, input2, inputOkButton,plusBtn,minusBtn);
+        InputPanelModel inputPanelModel = new InputPanelModel(inputPanel, timeLable, timeRadioPanel, radioButton15s, radioButton35s, radioButton70s, input1, input2, inputOkButton, plusBtn, minusBtn);
         inOutputModel = new InOutputModel(inputPanelModel, output, stopBtn);
 
         // 输入面板等待按钮
@@ -247,27 +247,6 @@ public class AdbTools {
                 videoButton.doClick();
             }
         });
-
-
-        AbstractButtons.setMarginInButtonJPanel(universalPanel);
-        AbstractButtons.setMarginInButtonJPanel(customPanel);
-        AbstractButtons.setJButtonMargin(stopBtn);
-        AbstractButtons.setJButtonMargin(inputOkButton);
-        AbstractButtons.setJButtonMargin(dormantOKButton);
-        AbstractButtons.setJButtonMargin(waitStopBtn);
-
-        // 不显示标题栏，最小化，关闭按钮
-        // frame.setUndecorated(true);
-        // 点击关闭按钮时退出程序
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        // 永远置顶
-        frame.setAlwaysOnTop(true);
-        // 显示窗体
-        frame.setVisible(true);
-        // 隐藏休眠设置面板
-        dormantPanel.setVisible(false);
-        // 最合适的方式显示，这句要写在setVisible方法之后
-        frame.pack();
         plusBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -331,6 +310,29 @@ public class AdbTools {
                 input2.setText(String.valueOf(value2));
             }
         });
+
+        AbstractButtons.setMarginInButtonJPanel(universalPanel);
+        AbstractButtons.setMarginInButtonJPanel(customPanel);
+        AbstractButtons.setJButtonMargin(stopBtn);
+        AbstractButtons.setJButtonMargin(plusBtn, 2, 0);
+        AbstractButtons.setJButtonMargin(minusBtn, 2, 0);
+        AbstractButtons.setJButtonMargin(inputOkButton);
+        AbstractButtons.setJButtonMargin(dormantOKButton);
+        AbstractButtons.setJButtonMargin(waitStopBtn);
+
+        // 不显示标题栏，最小化，关闭按钮
+        // frame.setUndecorated(true);
+        // 点击关闭按钮时退出程序
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        // 永远置顶
+        frame.setAlwaysOnTop(true);
+        // 显示窗体
+        frame.setVisible(true);
+        // 隐藏休眠设置面板
+        dormantPanel.setVisible(false);
+        // 最合适的方式显示，这句要写在setVisible方法之后
+        frame.pack();
+
     }
 
     public void setIsRunning(Runnable isRunning) {

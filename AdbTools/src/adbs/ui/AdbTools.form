@@ -336,12 +336,14 @@
           <component id="11867" class="javax.swing.JButton" binding="plusBtn">
             <constraints/>
             <properties>
+              <horizontalTextPosition value="0"/>
               <text value="&gt;"/>
             </properties>
           </component>
           <component id="7bc1a" class="javax.swing.JButton" binding="minusBtn">
             <constraints/>
             <properties>
+              <horizontalTextPosition value="0"/>
               <text value="&lt;"/>
             </properties>
           </component>

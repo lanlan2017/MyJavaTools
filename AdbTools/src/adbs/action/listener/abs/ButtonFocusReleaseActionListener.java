@@ -16,8 +16,10 @@ public abstract class ButtonFocusReleaseActionListener implements ActionListener
 
         AbstractButton openBtn = (AbstractButton) e.getSource();
         //设置外边距
-        Insets insets = new Insets(1, 1, 1, 1);
-        openBtn.setMargin(insets);
+        // Insets insets = new Insets(1, 1, 1, 1);
+        // openBtn.setMargin(insets);
+
+        // 释放焦点
         openBtn.setFocusPainted(false);
     }
 
