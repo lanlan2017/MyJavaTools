@@ -336,9 +336,9 @@ public class AdbTools {
     }
 
     public void setIsRunning(Runnable isRunning) {
-        System.out.println("正在运行的:" + isRunning);
+        // System.out.println("正在运行的:" + isRunning);
         isRunningSet.add(isRunning);
-        System.out.println("set长度:" + isRunningSet.size());
+        // System.out.println("set长度:" + isRunningSet.size());
     }
 
     public static void main(String[] args) {

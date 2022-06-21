@@ -1,14 +1,13 @@
 package adbs.python;
 
 import adbs.test.Device;
-import adbs.test.DeviceRadioBtAcListener;
 import tools.copy.SystemClipboard;
 import tools.file.Files;
 import tools.format.date.DateFormatters;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.Date;
 
 /**
  * Python生成器
@@ -110,7 +109,7 @@ public class PythonGenerator {
         String brand = Device.getBrand();
 
         // System.out.println("品牌名:" + simpleId);
-        System.out.println("厂商:" + brand);
+        // System.out.println("厂商:" + brand);
         // 生成图片数组
         String images = imagesInDir2Array(pythonPathDir, brand);
         // System.out.println(images);

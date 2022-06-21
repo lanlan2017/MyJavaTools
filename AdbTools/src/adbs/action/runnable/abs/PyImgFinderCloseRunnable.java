@@ -7,10 +7,12 @@ import adbs.cmd.Robots;
 import adbs.python.PythonGenerator;
 import adbs.test.DeviceRadioBtAcListener;
 import tools.file.Files;
+import tools.format.date.DateFormatters;
 import tools.thead.Threads;
 
 import java.awt.*;
 import java.io.File;
+import java.util.Date;
 
 public abstract class PyImgFinderCloseRunnable extends CloseableRunnable {
     private int waitSeconds = 35;
@@ -24,15 +26,16 @@ public abstract class PyImgFinderCloseRunnable extends CloseableRunnable {
      */
     protected static String pyPath;
 
-    // @Override
-    // protected void beforeLoop() {
-    //     super.beforeLoop();
-    // }
+    @Override
+    protected void beforeLoop() {
+        super.beforeLoop();
+        // 更新Python文件
+        updatePythonFile();
+    }
 
     @Override
     protected void loopBody() {
-        // 更新Python文件
-        updatePythonFile();
+        // updatePythonFile();
         runPython(pyPath);
     }
 
@@ -51,7 +54,7 @@ public abstract class PyImgFinderCloseRunnable extends CloseableRunnable {
             PythonGenerator.updatePythonFile(pyPath);
             // isPythonFileUpdate = true;
             setMsg();
-            System.out.println(msg);
+            // System.out.println(msg);
         }
     }
 
@@ -79,7 +82,7 @@ public abstract class PyImgFinderCloseRunnable extends CloseableRunnable {
     private void haveFoundPictures(String pyOutput) {
         // 截取出图片的完整名称
         String img = pyOutput.substring(0, pyOutput.indexOf(".png") + ".png".length());
-        System.out.println("\n匹配到：img='" + img + "'");
+        System.out.println("\n匹配到：img='" + img + "'(" + DateFormatters.yyyyMMddHHmmss.format(new Date())+")");
         // 从输出中获取坐标点
         Point point = PyAutoGui.getPoint(pyOutput);
         // 根据图片名称和坐标执行操作
@@ -99,6 +102,10 @@ public abstract class PyImgFinderCloseRunnable extends CloseableRunnable {
             int count = 0;
             int s = waitSeconds * 1000;
             while (count <= s) {
+                if (stop) {
+                    inOutputModel.getOutput().setText(msg + "等待:已结束");
+                    return;
+                }
                 // 等待1秒
                 Threads.sleep(1000);
                 count += 1000;

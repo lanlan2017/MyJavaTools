@@ -23,7 +23,7 @@ public class Robots {
      * 点击鼠标左键
      */
     public static void leftMouseButtonClick(Point point) {
-        System.out.println(DateFormatters.yyyyMMddHHmmss.format(new Date()));
+        // System.out.println(DateFormatters.yyyyMMddHHmmss.format(new Date()));
         // 移动到指定位置
         robot.mouseMove(point.x, point.y);
         System.out.println("机器人,单击左键");

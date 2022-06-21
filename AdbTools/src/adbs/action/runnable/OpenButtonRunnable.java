@@ -4,22 +4,16 @@ import adbs.cmd.AdbCommands;
 import adbs.test.Device;
 import adbs.test.DeviceRadioBtAcListener;
 
-import java.awt.*;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.Consumer;
-
 /**
  * 打开设备 按钮事件处理程序
  */
 public class OpenButtonRunnable implements Runnable {
-    // 保存屏幕宽度
-    private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
-    static {
-        System.out.println("屏幕宽度:" + screenSize);
-    }
+    // // 保存屏幕宽度
+    // private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    //
+    // static {
+    //     System.out.println("屏幕宽度:" + screenSize);
+    // }
 
     private String simpleId;
 
