@@ -4,12 +4,11 @@ import adbs.action.listener.OpenButtonListener;
 import adbs.action.listener.abs.shellinput.HomeBtnAcListener;
 import adbs.action.listener.abs.shellinput.ReturnBtnAcListener;
 import adbs.action.listener.abs.shellinput.TaskManageBtnAcListener;
-import adbs.action.runnable.abs.CloseableRunnable;
 import adbs.buttons.AbstractButtons;
 import adbs.test.AdbDi;
 import adbs.test.Device;
 import adbs.test.auto.listener.OtherJCheckBoxItemListener;
-import adbs.test.auto.run.Python_FileCloseableRunnable;
+import adbs.test.auto.run.PythonCloseableRun;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
@@ -20,7 +19,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.io.FileFilter;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -32,11 +30,11 @@ public class Buttons {
         FlatLightLaf.setup();
     }
 
-    private static String dirPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\";
+    private static final String dirPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\";
     private static JLabel output;
 
-    private HashSet<Runnable> isRunningSet = new HashSet<>();
-    private static Buttons instance = new Buttons();
+    private final HashSet<Runnable> isRunningSet = new HashSet<>();
+    private static final Buttons instance = new Buttons();
 
     private Buttons() {
     }
@@ -106,11 +104,11 @@ public class Buttons {
                     // System.out.println(runnable);
                     //如果是可关闭的线程体
                     // if (runnable instanceof CloseableRunnable) {
-                    if (runnable instanceof Python_FileCloseableRunnable) {
-                        Python_FileCloseableRunnable python_fileCloseableRunnable = (Python_FileCloseableRunnable) runnable;
-                        System.out.println(python_fileCloseableRunnable + " is stop now");
+                    if (runnable instanceof PythonCloseableRun) {
+                        PythonCloseableRun python_CloseableRun = (PythonCloseableRun) runnable;
+                        System.out.println(python_CloseableRun + " is stop now");
                         // 关闭线程
-                        python_fileCloseableRunnable.stop();
+                        python_CloseableRun.stop();
                         // 从线程池中删除掉
                         iterator.remove();
                     }
@@ -164,83 +162,78 @@ public class Buttons {
         frame.pack();
     }
 
-    private static JPanel newButtonJPanel(JFrame frame, JPanel checkJPanel, JPanel otherJPanel) {
+    // private static JPanel newButtonJPanel(JFrame frame, JPanel checkJPanel, JPanel otherJPanel) {
+    private static void newButtonJPanel(JFrame frame, JPanel checkJPanel, JPanel otherJPanel) {
         File dir = new File("G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons");
-        File[] dirList = dir.listFiles(new FileFilter() {
-            @Override
-            public boolean accept(File pathname) {
-                return pathname.isDirectory();
-            }
-        });
+        File[] dirList = dir.listFiles(pathname -> pathname.isDirectory());
 
-        for (File dirDeep1 : dirList) {
-            if (dirDeep1.isDirectory()) {
-                // 列出子目录
-                File[] dirDeep1List = dirDeep1.listFiles(new FileFilter() {
-                    @Override
-                    public boolean accept(File pathname) {
-                        return pathname.isDirectory();
-                    }
-                });
-                // 如果一级子目录存在子目录
-                if (dirDeep1List.length > 0) {
-                    // 获取一级子目录的名称
-                    String name = dirDeep1.getName();
-                    // System.out.println("name = " + name);
-                    // 创建面板
-                    JPanel jPanel = new JPanel();
-                    // 给面板标题边框，使用一级目录名作为标题
-                    jPanel.setBorder(new TitledBorder(name));
+        if (dirList != null) {
+            for (File dirDeep1 : dirList) {
+                if (dirDeep1.isDirectory()) {
+                    // 列出子目录
+                    File[] dirDeep1List = dirDeep1.listFiles(pathname -> pathname.isDirectory());
+                    // 如果一级子目录存在子目录
+                    if (dirDeep1List != null) {
+                        if (dirDeep1List.length > 0) {
+                            // 获取一级子目录的名称
+                            String name = dirDeep1.getName();
+                            // System.out.println("name = " + name);
+                            // 创建面板
+                            JPanel jPanel = new JPanel();
+                            // 给面板标题边框，使用一级目录名作为标题
+                            jPanel.setBorder(new TitledBorder(name));
 
-                    FlowLayout layout = new FlowLayout(FlowLayout.LEFT, 0, 0);
-                    // 设置布局管理器
-                    jPanel.setLayout(layout);
-                    // 创建复选框，默认勾选
-                    JCheckBox checkBox = new JCheckBox(name, true);
-                    checkJPanel.add(checkBox);
-                    // 监听
-                    checkBox.addItemListener(new OtherJCheckBoxItemListener(frame, jPanel));
+                            FlowLayout layout = new FlowLayout(FlowLayout.LEFT, 0, 0);
+                            // 设置布局管理器
+                            jPanel.setLayout(layout);
+                            // 创建复选框，默认勾选
+                            JCheckBox checkBox = new JCheckBox(name, true);
+                            checkJPanel.add(checkBox);
+                            // 监听
+                            checkBox.addItemListener(new OtherJCheckBoxItemListener(frame, jPanel));
 
-                    // 遍历二级子目录
-                    for (File dirDeep2 : dirDeep1List) {
-                        // 获取二级目录名
-                        String name1 = dirDeep2.getName();
-                        if (!name1.contains("test") && !name1.contains("demo")) {
-                            // 创建按钮
-                            JButton button = new JButton(name1);
+                            // 遍历二级子目录
+                            for (File dirDeep2 : dirDeep1List) {
+                                // 获取二级目录名
+                                String name1 = dirDeep2.getName();
+                                if (!name1.contains("test") && !name1.contains("demo")) {
+                                    // 创建按钮
+                                    JButton button = new JButton(name1);
+                                    button.addActionListener(new ActionListener() {
+                                        @Override
+                                        public void actionPerformed(ActionEvent e) {
+                                            // 拼接内容Python文件路径
+                                            String pythonFile = dirPath + name + "\\" + name1 + "\\" + "_" + Device.getBrand() + ".py";
+                                            System.out.println("pythonFile = " + pythonFile);
+                                            new Thread(new PythonCloseableRun(name1, pythonFile, output)).start();
+                                        }
+                                    });
+
+                                    AbstractButtons.setJButtonMargin(button);
+                                    jPanel.add(button);
+                                }
+                            }
+                            frame.add(jPanel);
+                        }
+                        // 如果不存在子目录
+                        else {
+                            JButton button = new JButton(dirDeep1.getName());
                             button.addActionListener(new ActionListener() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
-                                    // 拼接内容Python文件路径
-                                    String pythonFile = dirPath + name + "\\" + name1 + "\\" + "_" + Device.getBrand() + ".py";
+                                    JButton source = (JButton) e.getSource();
+                                    String msg = source.getText();
+                                    String pythonDir = dirPath + msg + "\\";
+                                    String pythonFile = pythonDir + "_" + Device.getBrand() + ".py";
                                     System.out.println("pythonFile = " + pythonFile);
-                                    new Thread(new Python_FileCloseableRunnable(name1, pythonFile, output)).start();
+                                    new Thread(new PythonCloseableRun(msg, pythonFile, output)).start();
                                 }
                             });
-
                             AbstractButtons.setJButtonMargin(button);
-                            jPanel.add(button);
+                            // 添加到其他面板
+                            otherJPanel.add(button);
                         }
                     }
-                    frame.add(jPanel);
-                }
-                // 如果不存在子目录
-                else {
-                    JButton button = new JButton(dirDeep1.getName());
-                    button.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            JButton source = (JButton) e.getSource();
-                            String msg = source.getText();
-                            String pythonDir = dirPath + msg + "\\";
-                            String pythonFile = pythonDir + "_" + Device.getBrand() + ".py";
-                            System.out.println("pythonFile = " + pythonFile);
-                            new Thread(new Python_FileCloseableRunnable(msg, pythonFile, output)).start();
-                        }
-                    });
-                    AbstractButtons.setJButtonMargin(button);
-                    // 添加到其他面板
-                    otherJPanel.add(button);
                 }
             }
         }
@@ -250,6 +243,6 @@ public class Buttons {
         otherJPanel.setLayout(new GridLayout(rows, 4, 0, 0));
         otherJPanel.setBorder(new TitledBorder("Other"));
         frame.add(otherJPanel);
-        return otherJPanel;
+        // return otherJPanel;
     }
 }
