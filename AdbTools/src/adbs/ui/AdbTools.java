@@ -106,8 +106,16 @@ public class AdbTools {
         topPanel.addMouseListener(new TopPanelMouseAdapter(frame));
         // 添加当前设备面板
         devicePanel.add(new AdbDi(frame).createDevicesPanel());
+
         // 打开（设备）按钮
         openButton.addActionListener(new OpenButtonListener());
+        // 任务管理键
+        taskManageBtn.addActionListener(new TaskManageBtnAcListener());
+        // 返回键
+        returnBtn.addActionListener(new ReturnBtnAcListener());
+        // home键
+        homeBtn.addActionListener(new HomeBtnAcListener());
+
         // 创建输入面板的模型
         InputPanelModel inputPanelModel = new InputPanelModel(inputPanel, timeLable, timeRadioPanel, radioButton15s, radioButton35s, radioButton70s, input1, input2, inputOkButton, plusBtn, minusBtn);
         inOutputModel = new InOutputModel(inputPanelModel, output, stopBtn);
@@ -119,11 +127,12 @@ public class AdbTools {
         // 刷视频按钮
         videoButton.addActionListener(new VideoButtonActionListener(frame, inputPanelModel));
 
-
         // 浏览后返回按钮事件处理程序
         browseButton.addActionListener(new BrowseButtonActionListener(frame, inputPanelModel));
         // 逛街按钮
         shoppingButton.addActionListener(new ShoppingButtonActionListener(frame, inputPanelModel));
+
+
 
         // 等待后返回按钮
         waitReturnButton.addActionListener(new WaitReturnButtonActionListener(frame, inputPanelModel));
@@ -225,15 +234,11 @@ public class AdbTools {
 
         taoBaoNiuDanBtn.addActionListener(new PyImgFindAcListener(new TaoBaoRunnable(), inOutputModel));
 
-        // 任务管理键
-        taskManageBtn.addActionListener(new TaskManageBtnAcListener());
-        // 返回键
-        returnBtn.addActionListener(new ReturnBtnAcListener());
-        // home键
-        homeBtn.addActionListener(new HomeBtnAcListener());
+
 
 
         stopBtn.addActionListener(new StopButtonListener(isRunningSet, inOutputModel));
+
         kuaiShouReadBtn.addActionListener(new KuaiShouYueDuButtonListener(readButton, inOutputModel));
 
 
