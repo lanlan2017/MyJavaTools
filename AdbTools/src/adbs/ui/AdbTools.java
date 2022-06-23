@@ -258,15 +258,12 @@ public class AdbTools {
                 //10-20
                 //20-40
                 //40-60
-                if (value1 == 7) {
-                    value1 = 8;
-                    value2 = 16;
-                } else if (value1 == 8) {
-                    value1 = 9;
-                    value2 = 18;
-                } else if (value1 == 9) {
-                    value1 = 10;
-                    value2 = 20;
+                //60-90
+                //90-150
+                //150-240
+                if (value1 < 10) {
+                    value1 = value1 + 1;
+                    value2 = value1 * 2;
                 } else if (value1 == 10) {
                     value1 = 20;
                     value2 = 40;
@@ -274,6 +271,15 @@ public class AdbTools {
                 } else if (value1 == 20) {
                     value1 = 30;
                     value2 = 60;
+                } else if (value1 == 30) {
+                    value1 = 60;
+                    value2 = 90;
+                } else if (value1 == 60) {
+                    value1 = 90;
+                    value2 = 150;
+                } else if (value1 == 90) {
+                    value1 = 150;
+                    value2 = 240;
                 } else {
                     return;
                 }
@@ -288,21 +294,24 @@ public class AdbTools {
             public void actionPerformed(ActionEvent e) {
                 int value1 = Integer.parseInt(input1.getText());
                 int value2 = Integer.parseInt(input2.getText());
-                if (value1 == 30) {
+                if (value1 == 150) {
+                    value1 = 90;
+                    value2 = 150;
+                } else if (value1 == 90) {
+                    value1 = 60;
+                    value2 = 90;
+                } else if (value1 == 60) {
+                    value1 = 30;
+                    value2 = 60;
+                } else if (value1 == 30) {
                     value1 = 20;
                     value2 = 40;
                 } else if (value1 == 20) {
                     value1 = 10;
                     value2 = 20;
-                } else if (value1 == 10) {
-                    value1 = 9;
-                    value2 = 18;
-                } else if (value1 == 9) {
-                    value1 = 8;
-                    value2 = 16;
-                } else if (value1 == 8) {
-                    value1 = 7;
-                    value2 = 14;
+                } else if (value1 > 7) {
+                    value1 = value1 - 1;
+                    value2 = value1 * 2;
                 } else {
                     return;
                 }
