@@ -476,6 +476,9 @@ public class Buttons {
             case "KuaiShou":
                 name = "快手";
                 break;
+            case "KuaiKanDian":
+                name = "快看点";
+                break;
             // case "":
             //     name = "";
             //     break;
