@@ -15,6 +15,7 @@ import adbs.test.auto.listener.JCheckBoxControlJPanelItemListener;
 import adbs.test.auto.listener.StopBtnAcListener2;
 import adbs.test.auto.run.PythonCloseableRun;
 import com.formdev.flatlaf.FlatLightLaf;
+import tools.config.properties.PropertiesTools;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -25,10 +26,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.HashSet;
+import java.util.Properties;
 
 public class Buttons {
 
     private static JButton stopBtn;
+
 
     static {
         // 设置外观,先设置外观，再创建UI。
@@ -38,6 +41,7 @@ public class Buttons {
     }
 
     private static final String dirPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\";
+    private PropertiesTools propertiesTools = new PropertiesTools(dirPath + "\\" + "ui.properties");
     private final InOutputModel inOutputModel;
     private final JButton taskBtn;
     private final JButton homeBtn;
@@ -309,7 +313,7 @@ public class Buttons {
         outputJPanel.add(output);
         frame.add(outputJPanel);
 
-
+        otherJCheckBox.doClick();
         // frame.add(checkJPanel);
         // 永远置顶
         frame.setAlwaysOnTop(true);
@@ -360,6 +364,7 @@ public class Buttons {
                             jPanel.setLayout(layout);
                             // 创建复选框，默认勾选
                             JCheckBox checkBox = new JCheckBox(name, true);
+                            checkBox.doClick();
                             checkJPanel.add(checkBox);
                             // 监听
                             checkBox.addItemListener(new JCheckBoxControlJPanelItemListener(frame, jPanel));
@@ -369,7 +374,8 @@ public class Buttons {
                                 // 获取二级目录名
                                 String name1 = dirDeep2.getName();
                                 if (!name1.contains("test") && !name1.contains("demo")) {
-                                    String chName = getCHName(name1);
+                                    String chName = propertiesTools.getProperty(name1);
+                                    // String chName = getCHName(name1);
                                     // 创建按钮
                                     // JButton button = new JButton(name1);
                                     JButton button = new JButton(chName);
@@ -389,12 +395,14 @@ public class Buttons {
                                     jPanel.add(button);
                                 }
                             }
+                            // 隐藏面板
+                            jPanel.setVisible(false);
                             frame.add(jPanel);
                         }
                         // 如果不存在子目录
                         else {
                             String name = dirDeep1.getName();
-                            String chName = getCHName(name);
+                            String chName = propertiesTools.getProperty(name);
                             JButton button = new JButton(chName);
                             button.addActionListener(new ActionListener() {
                                 @Override
@@ -428,6 +436,7 @@ public class Buttons {
         frame.add(otherJPanel);
         // return otherJPanel;
     }
+
 
     private static String getCHName(String name) {
         switch (name) {
