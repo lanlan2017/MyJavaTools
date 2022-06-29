@@ -5,6 +5,10 @@ import adbs.test.DeviceRadioBtAcListener;
 
 import java.awt.event.ActionEvent;
 
+/**
+ * 事件处理程序，触发时执行如下命令：<br>
+ * adb -s _id_ shell input keyevent _key_
+ */
 public abstract class AdShellInputKeyEventAcListener extends ButtonFocusReleaseActionListener {
     protected String key;
 

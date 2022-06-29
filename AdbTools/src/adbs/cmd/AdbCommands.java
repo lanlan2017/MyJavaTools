@@ -46,14 +46,16 @@ public class AdbCommands {
      * 在手机左侧，从下向上滑动
      */
     public static String swipeBottom2TopOnLeft(String id) {
-        return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 8 1650 8 700 200");
+        // return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 1650 5 700 200");
+        return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 1600 5 800 200");
     }
 
     /**
      * 在手机左侧，从下向上滑动
      */
     public static void swipeTop2BottomOnLeft(String id) {
-        AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 8 700 8 1650 200");
+        // AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 700 5 1650 200");
+        AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 800 5 1600 200");
     }
 
     /**
@@ -71,9 +73,9 @@ public class AdbCommands {
     }
 
     private static String runCmd() {
-        ProcessBuilder processBuilder = new ProcessBuilder(command);
-        ProcessRunner processRunner = new ProcessRunner();
-        return processRunner.runProcess(processBuilder);
+        ProcessBuilder builder = new ProcessBuilder(command);
+        ProcessRunner runner = new ProcessRunner();
+        return runner.runProcess(builder);
         // System.out.println("adbResult = " + adbResult);
     }
 

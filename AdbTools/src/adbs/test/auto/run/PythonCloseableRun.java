@@ -1,5 +1,7 @@
 package adbs.test.auto.run;
 
+import adbs.action.runnable.ReadButtonRunnable;
+import adbs.action.runnable.abs.CloseableRunnable;
 import adbs.cmd.CmdRun;
 import adbs.cmd.PyAutoGui;
 import adbs.cmd.PythonRun;
@@ -17,17 +19,33 @@ import java.util.Date;
 
 public class PythonCloseableRun implements Runnable {
     /**
-     * 是否结束线程
-     */
-    protected boolean stop = false;
-    /**
      * 线程消息
      */
     protected String msg;
-    private int waitSeconds = 35;
     private String pyPath;
-
     private JLabel output;
+    private CloseableRunnable closeableRun;
+    private JButton afterBtn;
+    /**
+     * 是否结束线程
+     */
+    protected boolean stop = false;
+    private int waitSeconds = 35;
+
+    // public PythonCloseableRun(String msg, String pyPath, JLabel output, PythonCloseableRun closeableRun, JButton afterBtn) {
+    //     this.msg = msg;
+    //     this.pyPath = pyPath;
+    //     this.output = output;
+    //     this.closeableRun = closeableRun;
+    //     this.afterBtn = afterBtn;
+    // }
+
+    // public PythonCloseableRun(String msg, String pyPath, JLabel output, JButton afterBtn) {
+    //     this.msg = msg;
+    //     this.pyPath = pyPath;
+    //     this.output = output;
+    //     this.afterBtn = afterBtn;
+    // }
 
     public PythonCloseableRun(String msg, String pyPath, JLabel output) {
         this.msg = msg;
@@ -35,23 +53,18 @@ public class PythonCloseableRun implements Runnable {
         this.output = output;
     }
 
-    // public PythonFileCloseableRunnable(String pyFilePath, JLabel output) {
-    //     this.pyPath = pyFilePath;
-    //     this.output = output;
-    // }
-
-    // public void setPyPath(String pyPath) {
-    //     this.pyPath = pyPath;
-    // }
-
-    // public JLabel getOutput() {
-    //     return output;
-    // }
+    // public PythonCloseableRun(String chName1, String pythonFile, JLabel output, CloseableRunnable closeableRunnable, JButton readButton) {
     //
-    // public void setOutput(JLabel output) {
-    //     this.output = output;
     // }
 
+
+    public PythonCloseableRun(String msg, String pyPath, JLabel output, CloseableRunnable closeableRun, JButton afterBtn) {
+        this.msg = msg;
+        this.pyPath = pyPath;
+        this.output = output;
+        this.closeableRun = closeableRun;
+        this.afterBtn = afterBtn;
+    }
 
     public void setStop(boolean stop) {
         this.stop = stop;
@@ -92,6 +105,9 @@ public class PythonCloseableRun implements Runnable {
         // 更新Python文件
         updatePythonFile();
         output.setText(msg + ":开始");
+        // if (closeableRun != null) {
+        //     closeableRun.stop();
+        // }
     }
 
     private void updatePythonFile() {
@@ -156,27 +172,36 @@ public class PythonCloseableRun implements Runnable {
         // extraWaitingTime
         int extraWaitingTime = extraWaitingTime(img);
         if (img.startsWith("begin_")) {
+            // 先停止辅助的线程
+            if (closeableRun != null) {
+                closeableRun.stop();
+            }
+
             Robots.leftMouseButtonClick(point);
-            int count = 0;
             // s2;
-            int s = (waitSeconds + extraWaitingTime) * 1000;
-            while (count <= s) {
-                if (stop) {
-                    output.setText(msg + "等待:已结束");
-                    return;
-                }
-                // 等待1秒
-                Threads.sleep(1000);
-                count += 1000;
-                output.setText(msg + "等待:" + ((s - count) / 1000) + "s");
+            int s = waitSeconds + extraWaitingTime;
+            // 如果已经按下了停止键
+            if (isNotStopThenWait(s)) {
+                return;
             }
             Robots.rightClickButton(point);
             Threads.sleep(1500);
-            output.setText("无");
+            // 触发后续的按键
+            if (afterBtn != null) {
+                afterBtn.doClick();
+            }
+        } else if (img.startsWith("click_")) {
+            Robots.leftMouseButtonClick(point);
+            // isNotStopThenWait(2 + extraWaitingTime);
+            // int s = 2 + extraWaitingTime;
+            // output.setText(msg + "等待:" + s + "s");
+            // Robots.delay(s * 1000);
         } else if (img.startsWith("exit_")) {
             Robots.leftMouseButtonClick(point);
-            // s2;
-            Robots.delay((2 + extraWaitingTime) * 1000);
+            isNotStopThenWait(2 + extraWaitingTime);
+            // int s = 2 + extraWaitingTime;
+            // output.setText(msg + "等待:" + s + "s");
+            // Robots.delay(s * 1000);
         }
         // else if (img.startsWith("stop_")) {
         //     // 点击停止按钮
@@ -194,6 +219,30 @@ public class PythonCloseableRun implements Runnable {
             Robots.leftMouseButtonClick(point);
             Robots.delay(2 * 1000);
         }
+        output.setText("无");
+    }
+
+    /**
+     * 如果stop为false的话，则等待指定秒数。
+     * 当按下停止按钮时，stop会被设置为true.
+     *
+     * @param s 需要等待的秒数
+     * @return 如果stop为true, 则返回true, 否则返回false。
+     */
+    private boolean isNotStopThenWait(int s) {
+        System.out.println("预计等待" + s);
+        int count = 0;
+        while (count <= s) {
+            if (stop) {
+                output.setText(msg + "等待:已结束");
+                return true;
+            }
+            // 等待1秒
+            Threads.sleep(1000);
+            count += 1;
+            output.setText(msg + "等待:" + (s - count) + "s");
+        }
+        return false;
     }
 
     private int extraWaitingTime(String img) {
@@ -202,7 +251,6 @@ public class PythonCloseableRun implements Runnable {
             String times = img.substring(img.indexOf("+") + 1, img.lastIndexOf("_wait"));
             System.out.println("times = " + times);
             seconds = Integer.parseInt(times);
-            // Threads.sleep(seconds * 1000);
         }
         return seconds;
     }

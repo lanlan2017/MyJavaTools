@@ -1,7 +1,7 @@
 package adbs.action.listener;
 
 import adbs.action.listener.abs.ButtonFocusReleaseActionListener;
-import adbs.action.runnable.OpenButtonRunnable;
+import adbs.action.runnable.open.OpenButtonRunnable;
 
 import java.awt.event.ActionEvent;
 

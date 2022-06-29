@@ -229,6 +229,7 @@ public class PythonGenerator {
         pythonTail.append("            # 等待\n");
         // pythonTail.append("            time.sleep(0.1)\n");
         pythonTail.append("            time.sleep(0.05)\n");
+        // pythonTail.append("            time.sleep(0.02)\n");
         return pythonTail;
     }
 }

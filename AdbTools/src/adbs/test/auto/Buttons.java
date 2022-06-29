@@ -1,15 +1,18 @@
 package adbs.test.auto;
 
 import adbs.action.listener.*;
+import adbs.action.listener.abs.shell.RebootBtnAcListener;
 import adbs.action.listener.abs.shellinput.HomeBtnAcListener;
 import adbs.action.listener.abs.shellinput.ReturnBtnAcListener;
 import adbs.action.listener.abs.shellinput.TaskManageBtnAcListener;
 import adbs.action.model.InOutputModel;
 import adbs.action.model.InputPanelModel;
 import adbs.action.runnable.ReadButtonRunnable;
-import adbs.buttons.AbstractButtons;
+import adbs.action.runnable.open.Taskkill;
+import tools.swing.button.AbstractButtons;
 import adbs.test.AdbDi;
 import adbs.test.Device;
+import adbs.test.DeviceRadioBtAcListener;
 import adbs.test.auto.listener.JChcekBoxControl2JPanelItemListener;
 import adbs.test.auto.listener.JCheckBoxControlJPanelItemListener;
 import adbs.test.auto.listener.StopBtnAcListener2;
@@ -26,7 +29,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.HashSet;
-import java.util.Properties;
 
 public class Buttons {
 
@@ -41,6 +43,9 @@ public class Buttons {
     }
 
     private static final String dirPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\";
+    private final JButton rebootBtn;
+    private final JButton closeBtn;
+    private final JButton killBtn;
     private PropertiesTools propertiesTools = new PropertiesTools(dirPath + "\\" + "ui.properties");
     private final InOutputModel inOutputModel;
     private final JButton taskBtn;
@@ -106,6 +111,9 @@ public class Buttons {
         // openBtn = new JButton(new ImageIcon());
         openBtn = new JButton(new ImageIcon(Buttons.class.getClassLoader().getResource("open.png")));
         openBtn.setToolTipText("打开设备");
+        killBtn = new JButton("kill");
+
+
         // openBtn.setIcon(new ImageIcon(Buttons.class.getClassLoader().getResource("open.png")));
         returnBtn = new JButton(new ImageIcon(Buttons.class.getClassLoader().getResource("向左三角形.png")));
         returnBtn.setToolTipText("返回键");
@@ -116,7 +124,15 @@ public class Buttons {
         taskBtn = new JButton(new ImageIcon(Buttons.class.getClassLoader().getResource("空框.png")));
         taskBtn.setToolTipText("任务键");
 
-        stopBtn = new JButton("stop");
+        rebootBtn = new JButton("重启");
+        rebootBtn.addActionListener(new RebootBtnAcListener(frame, "reboot"));
+        closeBtn = new JButton("关机");
+        closeBtn.addActionListener(new RebootBtnAcListener(frame, "shell reboot -p"));
+
+        // propertiesTools.getProperty("stop")
+        // stopBtn = new JButton("stop");
+        stopBtn = new JButton(propertiesTools.getProperty("stop"));
+
         stopBtn.setToolTipText("停止所有后台线程");
 
         // 创建输入选择面板
@@ -169,6 +185,13 @@ public class Buttons {
 
         // 打开（设备）按钮
         openBtn.addActionListener(new OpenButtonListener());
+        killBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String id = DeviceRadioBtAcListener.getId();
+                Taskkill.killScrcpy(id);
+            }
+        });
         // 任务管理键
         taskBtn.addActionListener(new TaskManageBtnAcListener());
         // 返回键
@@ -177,10 +200,14 @@ public class Buttons {
         homeBtn.addActionListener(new HomeBtnAcListener());
         stopBtn.addActionListener(new StopBtnAcListener2(frame, isRunningSet, inOutputModel));
 
+        // adb面板添加按钮
         adbJPanel.add(openBtn);
+        adbJPanel.add(killBtn);
         adbJPanel.add(returnBtn);
         adbJPanel.add(homeBtn);
         adbJPanel.add(taskBtn);
+        adbJPanel.add(rebootBtn);
+        adbJPanel.add(closeBtn);
         adbJPanel.add(stopBtn);
         frame.add(adbJPanel);
 
@@ -356,14 +383,18 @@ public class Buttons {
                             // System.out.println("name = " + name);
                             // 创建面板
                             JPanel jPanel = new JPanel();
+                            // propertiesTools.getProperty(name);
                             // 给面板标题边框，使用一级目录名作为标题
-                            jPanel.setBorder(new TitledBorder(name));
+                            // jPanel.setBorder(new TitledBorder(name));
+                            String chName = propertiesTools.getProperty(name);
+                            jPanel.setBorder(new TitledBorder(chName));
 
                             FlowLayout layout = new FlowLayout(FlowLayout.LEFT, 0, 0);
                             // 设置布局管理器
                             jPanel.setLayout(layout);
                             // 创建复选框，默认勾选
-                            JCheckBox checkBox = new JCheckBox(name, true);
+                            // JCheckBox checkBox = new JCheckBox(name, true);
+                            JCheckBox checkBox = new JCheckBox(chName, true);
                             checkBox.doClick();
                             checkJPanel.add(checkBox);
                             // 监听
@@ -374,20 +405,30 @@ public class Buttons {
                                 // 获取二级目录名
                                 String name1 = dirDeep2.getName();
                                 if (!name1.contains("test") && !name1.contains("demo")) {
-                                    String chName = propertiesTools.getProperty(name1);
-                                    // String chName = getCHName(name1);
+                                    String chName1 = propertiesTools.getProperty(name1);
+                                    // String chName1 = getCHName(name1);
                                     // 创建按钮
                                     // JButton button = new JButton(name1);
-                                    JButton button = new JButton(chName);
+                                    JButton button = new JButton(chName1);
                                     button.addActionListener(new ActionListener() {
                                         @Override
                                         public void actionPerformed(ActionEvent e) {
                                             // 拼接内容Python文件路径
                                             String pythonFile = dirPath + name + "\\" + name1 + "\\" + "_" + Device.getBrand() + ".py";
                                             System.out.println("pythonFile = " + pythonFile);
-
                                             // new Thread(new PythonCloseableRun(name1, pythonFile, output)).start();
-                                            new Thread(new PythonCloseableRun(chName, pythonFile, output)).start();
+                                            // new Thread(new PythonCloseableRun(chName1, pythonFile, output)).start();
+                                            if (name.equals("KuaiShou") && name1.equals("YueDu")) {
+                                                System.out.println("name = " + name);
+                                                System.out.println("name1 = " + name1);
+                                                // ReadButtonRunnable.getInstance()
+                                                ReadButtonRunnable readButtonRunnable = ReadButtonRunnable.getInstance();
+                                                new Thread(readButtonRunnable).start();
+                                                new Thread(new PythonCloseableRun(chName1, pythonFile, output, readButtonRunnable, readButton)).start();
+                                                // new
+                                            } else {
+                                                new Thread(new PythonCloseableRun(name1, pythonFile, output)).start();
+                                            }
                                         }
                                     });
 
@@ -438,60 +479,60 @@ public class Buttons {
     }
 
 
-    private static String getCHName(String name) {
-        switch (name) {
-            case "JinRiTouTiao":
-                name = "今日头条";
-                break;
-            case "AiQiYi":
-                name = "爱奇艺";
-                break;
-            case "PinDuoDuo":
-                name = "拼多多";
-                break;
-            case "TaoBao":
-                name = "淘宝";
-                break;
-            case "TaoBaoTeJia":
-                name = "陶特";
-                break;
-            case "WuKongLiuLanQi":
-                name = "悟空";
-                break;
-            case "FanQieXiaoShuo":
-                name = "番茄小说";
-                break;
-            case "HuoShan":
-                name = "火山";
-                break;
-            case "ZhuanQianRenWu":
-                name = "赚钱任务";
-                break;
-            case "TaskCenter":
-                name = "任务";
-                break;
-            case "Video":
-                name = "刷视频";
-                break;
-            case "video":
-                name = "刷视频";
-                break;
-            case "YueDu":
-                name = "阅读";
-                break;
-            case "DouYin":
-                name = "抖音";
-                break;
-            case "KuaiShou":
-                name = "快手";
-                break;
-            case "KuaiKanDian":
-                name = "快看点";
-                break;
-            // case "":
-            //     name = "";
-            //     break;
-        }
-        return name;
-    }
+    // private static String getCHName(String name) {
+    //     switch (name) {
+    //         case "JinRiTouTiao":
+    //             name = "今日头条";
+    //             break;
+    //         case "AiQiYi":
+    //             name = "爱奇艺";
+    //             break;
+    //         case "PinDuoDuo":
+    //             name = "拼多多";
+    //             break;
+    //         case "TaoBao":
+    //             name = "淘宝";
+    //             break;
+    //         case "TaoBaoTeJia":
+    //             name = "陶特";
+    //             break;
+    //         case "WuKongLiuLanQi":
+    //             name = "悟空";
+    //             break;
+    //         case "FanQieXiaoShuo":
+    //             name = "番茄小说";
+    //             break;
+    //         case "HuoShan":
+    //             name = "火山";
+    //             break;
+    //         case "ZhuanQianRenWu":
+    //             name = "赚钱任务";
+    //             break;
+    //         case "TaskCenter":
+    //             name = "任务";
+    //             break;
+    //         case "Video":
+    //             name = "刷视频";
+    //             break;
+    //         case "video":
+    //             name = "刷视频";
+    //             break;
+    //         case "YueDu":
+    //             name = "阅读";
+    //             break;
+    //         case "DouYin":
+    //             name = "抖音";
+    //             break;
+    //         case "KuaiShou":
+    //             name = "快手";
+    //             break;
+    //         case "KuaiKanDian":
+    //             name = "快看点";
+    //             break;
+    //         // case "":
+    //         //     name = "";
+    //         //     break;
+    //     }
+    //     return name;
+    // }
 }
