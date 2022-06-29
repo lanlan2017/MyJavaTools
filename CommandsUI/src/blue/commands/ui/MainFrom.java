@@ -15,6 +15,7 @@ import blue.ocr3.buttons.CancelButton;
 import blue.ocr3.buttons.SstButton;
 import blue.ocr3.screenshot.ScreenShotWindow;
 import com.formdev.flatlaf.FlatLightLaf;
+import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
 import java.awt.*;
@@ -113,13 +114,13 @@ public class MainFrom {
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JButton button=(JButton) e.getSource();
+                JButton button = (JButton) e.getSource();
                 String buttonText = button.getText();
-                if("跟随".equals(buttonText)){
+                if ("跟随".equals(buttonText)) {
                     System.out.println("主窗体 不再 靠近截图方框显示");
                     button.setText("不跟随");
                     ScreenShotWindow.getInstance().setFrameNextToScreenshot(false);
-                }else if("不跟随".equals(buttonText)){
+                } else if ("不跟随".equals(buttonText)) {
                     button.setText("跟随");
                     System.out.println("主窗体 将会 靠近截图方框显示");
                     ScreenShotWindow.getInstance().setFrameNextToScreenshot(true);
@@ -486,9 +487,10 @@ public class MainFrom {
      * 退出按钮设置
      */
     private void exitButtonSetting() {
-        // // 设置按钮的大小
-        Dimension preferredSize = new Dimension(50, 22);
-        exitButton.setPreferredSize(preferredSize);
+        // // // 设置按钮的大小
+        // Dimension preferredSize = new Dimension(50, 22);
+        // exitButton.setPreferredSize(preferredSize);
+        AbstractButtons.setJButtonMargin(exitButton);
         // 退出按钮的功能
         exitButton.addActionListener(new ExitButtonListener());
     }

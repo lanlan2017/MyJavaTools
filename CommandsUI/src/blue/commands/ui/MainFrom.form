@@ -104,6 +104,7 @@
           <component id="fa694" class="javax.swing.JButton" binding="exitButton">
             <constraints/>
             <properties>
+              <alignmentY value="0.0"/>
               <enabled value="true"/>
               <font/>
               <horizontalTextPosition value="0"/>
