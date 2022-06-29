@@ -1,4 +1,4 @@
-package yml.model;
+package config.yml.model;
 
 public class Address {
     private String lines;

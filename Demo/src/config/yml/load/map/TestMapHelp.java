@@ -1,8 +1,8 @@
-package yml.load.map;
+package config.yml.load.map;
 
 import org.yaml.snakeyaml.Yaml;
 import tools.reflect.classs.Resource2InputStream;
-import yml.load.map.key.MapKeyList;
+import config.yml.load.map.key.MapKeyList;
 
 import java.util.*;
 
@@ -12,7 +12,7 @@ public class TestMapHelp {
     static {
         Yaml yaml = new Yaml();
         // map = yaml.load(TestMapHelp.class.getClassLoader().getResourceAsStream("yml/Map2.yml"));
-        map = yaml.load(Resource2InputStream.relativePath(TestMapHelp.class,"yml/Map2.yml"));
+        map = yaml.load(Resource2InputStream.relativePath(TestMapHelp.class, "config/yml/Map2.yml"));
     }
     // public TestMapHelp() {
     //     Yaml yaml = new Yaml();

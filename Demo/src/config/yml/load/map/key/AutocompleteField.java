@@ -1,6 +1,6 @@
-package yml.load.map.key;
+package config.yml.load.map.key;
 
-import yml.load.map.TestMapHelp;
+import config.yml.load.map.TestMapHelp;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;

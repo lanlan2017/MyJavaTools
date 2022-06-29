@@ -1,4 +1,4 @@
-package yml.load;
+package config.yml.load;
 
 import org.yaml.snakeyaml.Yaml;
 import tools.reflect.classs.Resource2InputStream;
@@ -34,7 +34,7 @@ public class YmlTest {
         System.out.println("----------testList-----------");
         Yaml yaml = new Yaml();
         // List<String> ret = (List<String>) yaml.load(this.getClass().getClassLoader().getResourceAsStream("list.yml"));
-        List<String> ret = (List<String>) yaml.load(Resource2InputStream.relativePath(this.getClass(), "yml/list.yml"));
+        List<String> ret = (List<String>) yaml.load(Resource2InputStream.relativePath(this.getClass(), "config/yml/list.yml"));
         System.out.println(ret);
         // yaml.
         System.out.println("----------testList-----------");
@@ -44,7 +44,7 @@ public class YmlTest {
     public void testMap() {
         System.out.println("----------testMap-----------");
         Yaml yaml = new Yaml();
-        Map<String, Object> ret = (Map<String, Object>) yaml.load(Resource2InputStream.relativePath(this.getClass(), "yml/map.yml"));
+        Map<String, Object> ret = (Map<String, Object>) yaml.load(Resource2InputStream.relativePath(this.getClass(), "config/yml/map.yml"));
         System.out.println(ret);
         System.out.println("----------testMap-----------");
     }
@@ -52,7 +52,7 @@ public class YmlTest {
     public void testFragment() {
         System.out.println("----------testFragment-----------");
         Yaml yaml = new Yaml();
-        Iterable<Object> ret = yaml.loadAll(Resource2InputStream.relativePath(this.getClass(), "yml/fragment.yml"));
+        Iterable<Object> ret = yaml.loadAll(Resource2InputStream.relativePath(this.getClass(), "config/yml/fragment.yml"));
         for (Object o : ret) {
             System.out.println(o);
         }
