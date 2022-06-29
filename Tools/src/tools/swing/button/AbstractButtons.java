@@ -1,4 +1,4 @@
-package adbs.buttons;
+package tools.swing.button;
 
 import javax.swing.*;
 import java.awt.*;
@@ -56,6 +56,5 @@ public class AbstractButtons {
             }
         }
         panel.repaint();
-        // frame.pack();
     }
 }
