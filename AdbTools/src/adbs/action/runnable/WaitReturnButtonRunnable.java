@@ -3,7 +3,7 @@ package adbs.action.runnable;
 import adbs.action.model.InOutputModel;
 import adbs.action.runnable.abs.CloseableRunnable;
 import adbs.cmd.AdbCommands;
-import adbs.test.DeviceRadioBtAcListener;
+import adbs.test.DeviceListener;
 import tools.thead.Threads;
 
 import javax.swing.*;
@@ -66,7 +66,7 @@ public class WaitReturnButtonRunnable extends CloseableRunnable {
     protected void afterLoop() {
         super.afterLoop();
         // 触发返回键
-        AdbCommands.returnButton(DeviceRadioBtAcListener.getId());
+        AdbCommands.returnButton(DeviceListener.getPhoneId());
         inOutputModel.getOutput().setText(msg + ":已停止");
         inOutputModel.getInputPanelModel().showConfirmDialog();
     }

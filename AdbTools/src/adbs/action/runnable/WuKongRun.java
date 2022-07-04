@@ -6,8 +6,8 @@ import adbs.test.Device;
 public class WuKongRun extends PyImgFinderCloseRunnable {
     @Override
     protected void setPyPath() {
-
-        pyPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\WuKongLiuLanQi\\WuKong_" + Device.getBrand() + ".py";
+        // pyPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\WuKongLiuLanQi\\WuKong_" + Device.getBrand() + ".py";
+        pyPath = "AdbToolsPythons\\WuKongLiuLanQi\\WuKong_" + Device.getBrand() + ".py";
         setWaitSeconds(40);
     }
 

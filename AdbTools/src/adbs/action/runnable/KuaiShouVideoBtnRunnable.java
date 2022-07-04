@@ -16,6 +16,7 @@ public class KuaiShouVideoBtnRunnable extends PyImgFinderCloseRunnable {
 
     @Override
     protected void setPyPath() {
-        pyPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\KuaiShou\\Video\\video.py";
+        // pyPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\KuaiShou\\Video\\video.py";
+        pyPath = "AdbToolsPythons\\KuaiShou\\Video\\video.py";
     }
 }

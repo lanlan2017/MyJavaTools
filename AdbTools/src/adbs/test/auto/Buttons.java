@@ -12,7 +12,7 @@ import adbs.action.runnable.open.Taskkill;
 import tools.swing.button.AbstractButtons;
 import adbs.test.AdbDi;
 import adbs.test.Device;
-import adbs.test.DeviceRadioBtAcListener;
+import adbs.test.DeviceListener;
 import adbs.test.auto.listener.JChcekBoxControl2JPanelItemListener;
 import adbs.test.auto.listener.JCheckBoxControlJPanelItemListener;
 import adbs.test.auto.listener.StopBtnAcListener2;
@@ -42,11 +42,15 @@ public class Buttons {
         FlatLightLaf.setup();
     }
 
-    private static final String dirPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\";
+    // private static final String dirPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\";
+    // private static final String dirPath = "Pythons\\";
+    private static final String dirPath = "AdbToolsPythons\\";
     private final JButton rebootBtn;
     private final JButton closeBtn;
     private final JButton killBtn;
-    private PropertiesTools propertiesTools = new PropertiesTools(dirPath + "\\" + "ui.properties");
+    // private PropertiesTools propertiesTools = new PropertiesTools(dirPath + "\\" + "ui.properties");
+    // private PropertiesTools propertiesTools = new PropertiesTools(dirPath + "\\" + "AdbTools.properties");
+    private PropertiesTools propertiesTools = new PropertiesTools("AdbTools.properties");
     private final InOutputModel inOutputModel;
     private final JButton taskBtn;
     private final JButton homeBtn;
@@ -188,7 +192,7 @@ public class Buttons {
         killBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String id = DeviceRadioBtAcListener.getId();
+                String id = DeviceListener.getPhoneId();
                 Taskkill.killScrcpy(id);
             }
         });
@@ -230,6 +234,10 @@ public class Buttons {
                     value1 = value1 + 1;
                     value2 = value1 * 2;
                 } else if (value1 == 10) {
+                    value1 = 15;
+                    value2 = 30;
+
+                } else if (value1 == 15) {
                     value1 = 20;
                     value2 = 40;
 
@@ -272,6 +280,9 @@ public class Buttons {
                     value1 = 20;
                     value2 = 40;
                 } else if (value1 == 20) {
+                    value1 = 15;
+                    value2 = 30;
+                } else if (value1 == 15) {
                     value1 = 10;
                     value2 = 20;
                 } else if (value1 > 7) {
@@ -367,7 +378,9 @@ public class Buttons {
     }
 
     private void newButtonJPanel(JFrame frame, JPanel checkJPanel, JPanel otherJPanel) {
-        File dir = new File("G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons");
+        // File dir = new File("G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons");
+        File dir = new File(dirPath);
+        System.out.println("AdbToolsPythonImg = " + dir.getAbsolutePath());
         File[] dirList = dir.listFiles(pathname -> pathname.isDirectory());
 
         if (dirList != null) {

@@ -1,12 +1,15 @@
 package adbs.cmd;
 
 import tools.process.ProcessRunner;
+import tools.random.Randoms;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class AdbCommands {
+
     /**
      * 存放命令的List
      */
@@ -43,11 +46,43 @@ public class AdbCommands {
     }
 
     /**
+     * 单击屏幕右侧
+     *
+     * @param id     手机的设备ID，可通过adb devices -l查看
+     * @param width  手机设备的宽度
+     * @param height 手机设备的高度
+     */
+    public static void clickScreenRightSide(String id, int width, int height) {
+        // Random random=new Random();
+        // Randoms.getRandomInt(10,90);
+        // random.nextInt()
+        // int y = (height / 100) * 10;
+        // y的范围位20%到80%之间
+        int y = (height / 100) * Randoms.getRandomInt(20, 80);
+        // int x = (width / 100) * 98;
+        // 假设width=1080，则1080/270=4,4*260=1040,4*269=1076
+        int x = (width / 270) * Randoms.getRandomInt(260, 269);
+        //adb shell input tap 250 250
+        // AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 893 233 73 228 200");
+        AdbCommands.runAbdCmd("adb -s " + id + " shell input tap " + x + " " + y);
+    }
+
+    /**
      * 在手机左侧，从下向上滑动
      */
     public static String swipeBottom2TopOnLeft(String id) {
         // return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 1650 5 700 200");
         return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 1600 5 800 200");
+    }
+
+    /**
+     * 在手机左侧，从下向上滑动
+     */
+    public static String swipeBottom2TopOnLeft(String id, int height) {
+        // return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 1650 5 700 200");
+        int y1 = (height / 100) * 30;
+        int y2 = (height / 100) * 70;
+        return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 " + y2 + " 5 " + y1 + " 200");
     }
 
     /**

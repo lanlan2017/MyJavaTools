@@ -3,11 +3,11 @@ package adbs.action.runnable;
 import adbs.action.model.InOutputModel;
 import adbs.action.runnable.abs.CloseableRunnable;
 import adbs.cmd.AdbCommands;
-import adbs.test.DeviceRadioBtAcListener;
+import adbs.test.DeviceListener;
+import tools.random.Randoms;
 import tools.thead.Threads;
 
 import javax.swing.*;
-import java.util.Random;
 
 public class ReadButtonRunnable extends CloseableRunnable {
 
@@ -16,13 +16,11 @@ public class ReadButtonRunnable extends CloseableRunnable {
     // private InOutputModel inOutputModel;
     // 输出内容
     private JLabel output;
-    private Random random;
     private int min;
     private int max;
 
     private ReadButtonRunnable() {
         setMsg();
-        random = new Random();
         min = 5;
         max = 9;
     }
@@ -55,7 +53,7 @@ public class ReadButtonRunnable extends CloseableRunnable {
 
     private void body() {
         String id;
-        id = DeviceRadioBtAcListener.getId();
+        id = DeviceListener.getPhoneId();
         if (id == null) {
             // 如果没有选择设备
             JOptionPane.showConfirmDialog(null, "请勾选要操作的设备");
@@ -64,10 +62,13 @@ public class ReadButtonRunnable extends CloseableRunnable {
         } else {
             // 如果选择了设备
             // 执行一次adb命令，从右向左滑动屏幕
-            AdbCommands.swipeRight2LeftOnTop(id);
+            // AdbCommands.swipeRight2LeftOnTop(id);
+            AdbCommands.clickScreenRightSide(id, DeviceListener.getWidth(), DeviceListener.getHeight());
         }
         // 生成[min,Max]区间的随机整数
-        int s = random.nextInt(max) % (max - min + 1) + min;
+        // int s = random.nextInt(max) % (max - min + 1) + min;
+        int s = Randoms.getRandomInt(min, max);
+
         output.setText(msg + "等待" + s + "秒");
 
         String oldText;

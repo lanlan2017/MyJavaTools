@@ -3,7 +3,7 @@ package adbs.action.runnable;
 import adbs.action.model.InOutputModel;
 import adbs.action.runnable.abs.CloseableRunnable;
 import adbs.cmd.AdbCommands;
-import adbs.test.DeviceRadioBtAcListener;
+import adbs.test.DeviceListener;
 import tools.thead.Threads;
 
 public class BrowseRunnable extends CloseableRunnable {
@@ -30,7 +30,7 @@ public class BrowseRunnable extends CloseableRunnable {
 
     @Override
     protected void loopBody() {
-        String id = DeviceRadioBtAcListener.getId();
+        String id = DeviceListener.getPhoneId();
         if (id != null) {
             String text = inOutputModel.getInputPanelModel().getInput1().getText();
             System.out.println("text = " + text);

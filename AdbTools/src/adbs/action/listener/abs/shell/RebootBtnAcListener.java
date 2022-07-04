@@ -1,7 +1,7 @@
 package adbs.action.listener.abs.shell;
 
 import adbs.cmd.AdbCommands;
-import adbs.test.DeviceRadioBtAcListener;
+import adbs.test.DeviceListener;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -26,7 +26,7 @@ public class RebootBtnAcListener implements ActionListener {
         int returnVal = JOptionPane.showConfirmDialog(frame, "确认" + button.getText() + "?");
         // 如果选择的是确认按键
         if (returnVal == JOptionPane.OK_OPTION) {
-            String id = DeviceRadioBtAcListener.getId();
+            String id = DeviceListener.getPhoneId();
             // 重启
             // code = "reboot";
             String adbCmd = "adb -s " + id + " " + code;

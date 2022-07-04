@@ -10,6 +10,7 @@ public class PddHongBaoOpenRun extends PyImgFinderCloseRunnable {
 
     @Override
     protected void setPyPath() {
-        pyPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\PinDuoDuo\\PinDuoDuoKaiHongBao.py";
+        // pyPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\PinDuoDuo\\PinDuoDuoKaiHongBao.py";
+        pyPath = "AdbToolsPythons\\PinDuoDuo\\PinDuoDuoKaiHongBao.py";
     }
 }

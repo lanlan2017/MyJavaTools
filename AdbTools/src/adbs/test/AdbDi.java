@@ -50,7 +50,7 @@ public class AdbDi {
 
             JPanel finalPanel = panel;
             // 创建设备单选按钮的事件监听器
-            DeviceRadioBtAcListener listener = new DeviceRadioBtAcListener(frame);
+            DeviceListener listener = new DeviceListener(frame);
 
             AtomicBoolean isFirst = new AtomicBoolean(true);
             devices.forEach(device -> {

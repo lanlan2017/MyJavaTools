@@ -56,7 +56,7 @@ public class Device {
      * @return
      */
     public static String getBrand() {
-        String simpleId = Device.findSimpleId(DeviceRadioBtAcListener.getId()).toLowerCase();
+        String simpleId = Device.findSimpleId(DeviceListener.getPhoneId()).toLowerCase();
         String brand = null;
         if (simpleId.contains("oppo")) {
             brand = "oppo";

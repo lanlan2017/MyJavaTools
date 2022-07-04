@@ -16,7 +16,8 @@ public class DouYinTaskRun extends PyImgFinderCloseRunnable {
 
     @Override
     protected void setPyPath() {
-        pyPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\DouYin\\ZhuanQianRenWu\\Task.py";
+        // pyPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\DouYin\\ZhuanQianRenWu\\Task.py";
+        pyPath = "AdbToolsPythons\\DouYin\\ZhuanQianRenWu\\Task.py";
     }
 
     @Override

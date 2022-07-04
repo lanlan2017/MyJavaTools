@@ -19,7 +19,7 @@ public class Taskkill {
         // 执行
         String run = CmdRun.run("jps -m");
         Scanner sc = new Scanner(run);
-        System.out.println(run);
+        // System.out.println(run);
         String line;
         while (sc.hasNext()) {
             line = sc.nextLine();

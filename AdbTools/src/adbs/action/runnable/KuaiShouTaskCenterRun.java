@@ -8,7 +8,8 @@ public class KuaiShouTaskCenterRun extends PyImgFinderCloseRunnable {
     protected void setPyPath() {
         // pyPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\KuaiShou\\TaskCenter\\TaskCenter.py";
         String brand = Device.getBrand();
-        pyPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\KuaiShou\\TaskCenter\\TaskCenter_" + brand + ".py";
+        // pyPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\KuaiShou\\TaskCenter\\TaskCenter_" + brand + ".py";
+        pyPath = "AdbToolsPythons\\KuaiShou\\TaskCenter\\TaskCenter_" + brand + ".py";
     }
 
     @Override

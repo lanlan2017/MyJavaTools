@@ -3,7 +3,7 @@ package adbs.action.runnable;
 import adbs.action.model.InOutputModel;
 import adbs.action.runnable.abs.CloseableRunnable;
 import adbs.cmd.AdbCommands;
-import adbs.test.DeviceRadioBtAcListener;
+import adbs.test.DeviceListener;
 import tools.thead.Threads;
 
 import javax.swing.*;
@@ -36,7 +36,7 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
 
     @Override
     protected void loopBody() {
-        String id = DeviceRadioBtAcListener.getId();
+        String id = DeviceListener.getPhoneId();
 
         JLabel output = inOutputModel.getOutput();
         JTextField input1 = inOutputModel.getInputPanelModel().getInput1();

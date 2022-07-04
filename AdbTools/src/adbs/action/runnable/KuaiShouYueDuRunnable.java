@@ -33,7 +33,8 @@ public class KuaiShouYueDuRunnable extends PyImgFinderCloseRunnable {
         // String simpleId = Device.findSimpleId(DeviceRadioBtAcListener.getId());
         // 获取当前选择的设备的厂商名(小写)
         String brand = Device.getBrand();
-        pyPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\KuaiShou\\YueDu\\YueDu_" + brand + ".py";
+        // pyPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\KuaiShou\\YueDu\\YueDu_" + brand + ".py";
+        pyPath = "AdbToolsPythons\\KuaiShou\\YueDu\\YueDu_" + brand + ".py";
         // System.out.println(pyPath);
     }
 

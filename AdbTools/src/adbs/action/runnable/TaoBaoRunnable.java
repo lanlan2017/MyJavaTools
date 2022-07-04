@@ -10,6 +10,7 @@ public class TaoBaoRunnable extends PyImgFinderCloseRunnable {
 
     @Override
     protected void setPyPath() {
-        pyPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\TaoBao\\TaoBao.py";
+        // pyPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\TaoBao\\TaoBao.py";
+        pyPath = "AdbToolsPythons\\TaoBao\\TaoBao.py";
     }
 }

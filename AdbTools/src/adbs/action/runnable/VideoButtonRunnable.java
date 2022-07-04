@@ -3,19 +3,17 @@ package adbs.action.runnable;
 import adbs.action.model.InOutputModel;
 import adbs.action.runnable.abs.CloseableRunnable;
 import adbs.cmd.AdbCommands;
-import adbs.test.DeviceRadioBtAcListener;
+import adbs.test.DeviceListener;
+import tools.random.Randoms;
 import tools.thead.Threads;
 
 import javax.swing.*;
-import java.util.Random;
 
 public class VideoButtonRunnable extends CloseableRunnable {
     private static VideoButtonRunnable instance = new VideoButtonRunnable();
-    private Random random;
     private JLabel output;
 
     private VideoButtonRunnable() {
-        random = new Random();
     }
 
     public static VideoButtonRunnable getInstance() {
@@ -69,17 +67,22 @@ public class VideoButtonRunnable extends CloseableRunnable {
 
     @Override
     protected void loopBody() {
-        String id = DeviceRadioBtAcListener.getId();
+        String id = DeviceListener.getPhoneId();
         String oldOutput;
         String newOutput;
         // 毫秒计数器
         int msCount = 0;
         // 生成[min,Max]区间的随机整数
-        int randomInt = random.nextInt(max) % (max - min + 1) + min;
+        int randomInt = Randoms.getRandomInt(min, max);
         // 要求等待的毫秒数
         int msToWait = randomInt * 1000;
-        // 在手机左侧，从下往上滑动
-        String adbResult = AdbCommands.swipeBottom2TopOnLeft(id);
+
+        // // 在手机左侧，从下往上滑动
+        // String adbResult = AdbCommands.swipeBottom2TopOnLeft(id);
+
+        // // 在手机左侧，从下往上滑动
+        String adbResult = AdbCommands.swipeBottom2TopOnLeft(id, DeviceListener.getHeight());
+
 
         if (adbResult.startsWith("Error!ExitCode=")) {
             System.out.println("adb命令运行错误，退出程序." + adbResult);
@@ -106,9 +109,4 @@ public class VideoButtonRunnable extends CloseableRunnable {
             }
         }
     }
-
-    // @Override
-    // protected void afterLoop() {
-    //     inOutputModel.getOutput().setText(msg + ":已停止");
-    // }
 }

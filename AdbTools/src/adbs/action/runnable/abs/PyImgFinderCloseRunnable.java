@@ -5,7 +5,7 @@ import adbs.cmd.PyAutoGui;
 import adbs.cmd.PythonRun;
 import adbs.cmd.Robots;
 import adbs.python.PythonGenerator;
-import adbs.test.DeviceRadioBtAcListener;
+import adbs.test.DeviceListener;
 import tools.file.Files;
 import tools.format.date.DateFormatters;
 import tools.thead.Threads;
@@ -120,7 +120,7 @@ public abstract class PyImgFinderCloseRunnable extends CloseableRunnable {
         } else if (img.startsWith("stop_")) {
             // 点击停止按钮
             inOutputModel.getStopBtn().doClick();
-            String id = DeviceRadioBtAcListener.getId();
+            String id = DeviceListener.getPhoneId();
             // 杀死快手极速版
             CmdRun.run("adb -s " + id + " shell am force-stop com.kuaishou.nebula");
             Threads.sleep(1000);
