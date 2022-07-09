@@ -34,7 +34,8 @@ public class BrowseRunnable extends CloseableRunnable {
         if (id != null) {
             String text = inOutputModel.getInputPanelModel().getInput1().getText();
             System.out.println("text = " + text);
-            int s = Integer.parseInt(text) * 1000;
+            // int s = Integer.parseInt(text) * 1000;
+            int s = Integer.parseInt(text);
             int count = 0;
             // 如果stop为false，则一直执行。
             inOutputModel.getOutput().setText(msg + ":在手机左侧，从下向上滑动");
@@ -42,7 +43,8 @@ public class BrowseRunnable extends CloseableRunnable {
                 // 休眠1秒
                 // output.setText("浏览线程：在手机左侧，从下向上滑动");
                 Threads.sleep(1000);
-                count += 1000;
+                // count += 1000;
+                count += 1;
                 if (count <= s) {
                     AdbCommands.swipeBottom2TopOnLeft(id);
                 } else {
@@ -50,7 +52,8 @@ public class BrowseRunnable extends CloseableRunnable {
                     stop();
                     break;
                 }
-                inOutputModel.getOutput().setText(msg + ":" + ((s - count) / 1000) + "s");
+                // inOutputModel.getOutput().setText(msg + ":" + ((s - count) / 1000) + "s");
+                inOutputModel.getOutput().setText(msg + ":" + (s - count) + "s");
             }
         }
 

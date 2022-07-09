@@ -66,11 +66,11 @@ public class DeviceListener implements ActionListener {
 
             if (widthStr.matches("[0-9]+")) {
                 width = Integer.parseInt(widthStr);
-                System.out.println("width = " + width);
+                // System.out.println("width = " + width);
             }
             if (heightStr.matches("[0-9]+")) {
                 height = Integer.parseInt(heightStr);
-                System.out.println("height = " + height);
+                // System.out.println("height = " + height);
             }
         }
         // setId(buttonText);

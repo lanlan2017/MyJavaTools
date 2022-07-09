@@ -66,7 +66,7 @@ public class WaitReturnButtonRunnable extends CloseableRunnable {
     protected void afterLoop() {
         super.afterLoop();
         // 触发返回键
-        AdbCommands.returnButton(DeviceListener.getPhoneId());
+        // AdbCommands.returnButton(DeviceListener.getPhoneId());
         inOutputModel.getOutput().setText(msg + ":已停止");
         inOutputModel.getInputPanelModel().showConfirmDialog();
     }

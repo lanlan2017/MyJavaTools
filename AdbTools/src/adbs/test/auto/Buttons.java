@@ -158,7 +158,9 @@ public class Buttons {
         // 创建通用功能面板
         universalPanel = new JPanel();
         browseButton = new JButton("浏览返回");
-        waitReturnButton = new JButton("等待返回");
+        // waitReturnButton = new JButton("等待返回");
+        // waitReturnButton = new JButton("等待提示");
+        waitReturnButton = new JButton("等待");
         readButton = new JButton("阅读");
         videoButton = new JButton("刷视频");
         shoppingButton = new JButton("逛街");
