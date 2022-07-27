@@ -9,6 +9,7 @@ import adbs.action.model.InOutputModel;
 import adbs.action.model.InputPanelModel;
 import adbs.action.runnable.ReadButtonRunnable;
 import adbs.action.runnable.open.Taskkill;
+import adbs.cmd.AdbCommands;
 import tools.swing.button.AbstractButtons;
 import adbs.test.AdbDi;
 import adbs.test.Device;
@@ -23,17 +24,11 @@ import tools.config.properties.PropertiesTools;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.io.File;
 import java.util.HashSet;
 
 public class Buttons {
-
-    private static JButton stopBtn;
-
 
     static {
         // 设置外观,先设置外观，再创建UI。
@@ -42,12 +37,15 @@ public class Buttons {
         FlatLightLaf.setup();
     }
 
+    private final JFrame frame;
+    private static JButton stopBtn;
     // private static final String dirPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\";
     // private static final String dirPath = "Pythons\\";
     private static final String dirPath = "AdbToolsPythons\\";
     private final JButton rebootBtn;
     private final JButton closeBtn;
     private final JButton killBtn;
+    private final JButton autoBtn;
     // private PropertiesTools propertiesTools = new PropertiesTools(dirPath + "\\" + "ui.properties");
     // private PropertiesTools propertiesTools = new PropertiesTools(dirPath + "\\" + "AdbTools.properties");
     private PropertiesTools propertiesTools = new PropertiesTools("AdbTools.properties");
@@ -60,7 +58,6 @@ public class Buttons {
     private final JPanel devicesPanel;
     private final FlowLayout flowLayout;
     private final JPanel contentPane;
-    private final JFrame frame;
     private final JPanel inputPanel;
     private final JLabel timeLable;
     private final JPanel timeRadioPanel;
@@ -103,6 +100,7 @@ public class Buttons {
         flowLayout = new FlowLayout(FlowLayout.LEFT, 0, 0);
         // 创建设备面板
         devicesPanel = new AdbDi(frame).createDevicesPanel();
+
         // 设备面板设置布局管理器
         devicesPanel.setLayout(flowLayout);
         // 添加到窗体中
@@ -136,6 +134,8 @@ public class Buttons {
         // propertiesTools.getProperty("stop")
         // stopBtn = new JButton("stop");
         stopBtn = new JButton(propertiesTools.getProperty("stop"));
+
+        autoBtn = new JButton("auto");
 
         stopBtn.setToolTipText("停止所有后台线程");
 
@@ -205,7 +205,12 @@ public class Buttons {
         // home键
         homeBtn.addActionListener(new HomeBtnAcListener());
         stopBtn.addActionListener(new StopBtnAcListener2(frame, isRunningSet, inOutputModel));
+        autoBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
+            }
+        });
         // adb面板添加按钮
         adbJPanel.add(openBtn);
         adbJPanel.add(killBtn);
@@ -299,6 +304,18 @@ public class Buttons {
         });
         // 输入面板等待按钮
         inputOkButton.addActionListener(new InputOkButtonActionListener(inOutputModel));
+        input1.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    System.out.println("按下回车键");
+                    // 触发回车键
+                    inputOkButton.doClick();
+                }
+                // super.keyReleased(e);
+            }
+        });
+
         inputPanel.add(timeLable);
         inputPanel.add(timeRadioPanel);
         inputPanel.add(input1);
@@ -457,28 +474,9 @@ public class Buttons {
                         }
                         // 如果不存在子目录
                         else {
-                            String name = dirDeep1.getName();
-                            String chName = propertiesTools.getProperty(name);
-                            JButton button = new JButton(chName);
-                            button.addActionListener(new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
-                                    JButton source = (JButton) e.getSource();
-                                    // String msg = source.getText();
-                                    // String msg = source.getText();
-                                    // String pythonDir = dirPath + msg + "\\";
-                                    // String pythonFile = pythonDir + "_" + Device.getBrand() + ".py";
-                                    // System.out.println("pythonFile = " + pythonFile);
-                                    // new Thread(new PythonCloseableRun(msg, pythonFile, output)).start();
-                                    String pythonDir = dirPath + name + "\\";
-                                    String pythonFile = pythonDir + "_" + Device.getBrand() + ".py";
-                                    System.out.println("pythonFile = " + pythonFile);
-                                    new Thread(new PythonCloseableRun(chName, pythonFile, output)).start();
-                                }
-                            });
-                            AbstractButtons.setJButtonMargin(button);
-                            // 添加到其他面板
-                            otherJPanel.add(button);
+                            // 一级目录处理
+                            // 处理子目录
+                            subdirHandling(otherJPanel, dirDeep1);
                         }
                     }
                 }
@@ -493,61 +491,53 @@ public class Buttons {
         // return otherJPanel;
     }
 
+    private void subdirHandling(JPanel otherJPanel, File dirDeep1) {
+        String name = dirDeep1.getName();
+        String chName = propertiesTools.getProperty(name);
+        JButton button = new JButton(chName);
+        if ("Auto".equals(name)) {
+            // auto(name, chName, button);
+        } else {
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // JButton source = (JButton) e.getSource();
+                    String pythonDir = dirPath + name + "\\";
+                    String pythonFile = pythonDir + "_" + Device.getBrand() + ".py";
+                    System.out.println("pythonFile = " + pythonFile);
+                    new Thread(new PythonCloseableRun(chName, pythonFile, output)).start();
+                }
+            });
+        }
+        AbstractButtons.setJButtonMargin(button);
+        // 添加到其他面板
+        otherJPanel.add(button);
+    }
 
-    // private static String getCHName(String name) {
-    //     switch (name) {
-    //         case "JinRiTouTiao":
-    //             name = "今日头条";
-    //             break;
-    //         case "AiQiYi":
-    //             name = "爱奇艺";
-    //             break;
-    //         case "PinDuoDuo":
-    //             name = "拼多多";
-    //             break;
-    //         case "TaoBao":
-    //             name = "淘宝";
-    //             break;
-    //         case "TaoBaoTeJia":
-    //             name = "陶特";
-    //             break;
-    //         case "WuKongLiuLanQi":
-    //             name = "悟空";
-    //             break;
-    //         case "FanQieXiaoShuo":
-    //             name = "番茄小说";
-    //             break;
-    //         case "HuoShan":
-    //             name = "火山";
-    //             break;
-    //         case "ZhuanQianRenWu":
-    //             name = "赚钱任务";
-    //             break;
-    //         case "TaskCenter":
-    //             name = "任务";
-    //             break;
-    //         case "Video":
-    //             name = "刷视频";
-    //             break;
-    //         case "video":
-    //             name = "刷视频";
-    //             break;
-    //         case "YueDu":
-    //             name = "阅读";
-    //             break;
-    //         case "DouYin":
-    //             name = "抖音";
-    //             break;
-    //         case "KuaiShou":
-    //             name = "快手";
-    //             break;
-    //         case "KuaiKanDian":
-    //             name = "快看点";
-    //             break;
-    //         // case "":
-    //         //     name = "";
-    //         //     break;
-    //     }
-    //     return name;
-    // }
+    private void auto(String name, String chName, JButton button) {
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("是auto");
+                taskBtn.doClick();
+                int width = DeviceListener.getWidth();
+                int height = DeviceListener.getHeight();
+                String phoneId = DeviceListener.getPhoneId();
+
+                AdbCommands.swipeBottom2TopOnMiddle(phoneId, width, height);
+                //    触发home键
+                homeBtn.doClick();
+                if (Device.getBrand().contains("oppo")) {
+                    // DeviceListener.getWidth()
+                    //    如果是OPPO，则向右移动三次
+                    AdbCommands.swipeRight2LeftOnTop(phoneId, width, height);
+                    AdbCommands.swipeRight2LeftOnTop(phoneId, width, height);
+                    String pythonDir = dirPath + name + "\\";
+                    String pythonFile = pythonDir + "_" + Device.getBrand() + ".py";
+                    System.out.println("pythonFile = " + pythonFile);
+                    new Thread(new PythonCloseableRun(chName, pythonFile, output)).start();
+                }
+            }
+        });
+    }
 }

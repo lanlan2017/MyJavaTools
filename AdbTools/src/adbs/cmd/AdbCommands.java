@@ -46,6 +46,16 @@ public class AdbCommands {
     }
 
     /**
+     * 在手机顶部从右向左滑动
+     */
+    public static void swipeRight2LeftOnTop(String id, int width, int height) {
+        int x_right = (width / 100) * 90;
+        int x_left = (width / 100) * 10;
+        int y = (height / 100) * 60;
+        AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe " + x_right + " " + y + " " + x_left + " " + y + " 200");
+    }
+
+    /**
      * 单击屏幕右侧
      *
      * @param id     手机的设备ID，可通过adb devices -l查看
@@ -83,6 +93,17 @@ public class AdbCommands {
         int y1 = (height / 100) * 30;
         int y2 = (height / 100) * 70;
         return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 " + y2 + " 5 " + y1 + " 200");
+    }
+
+    /**
+     * 在手机中间从下向上滑动
+     */
+    public static String swipeBottom2TopOnMiddle(String id, int width, int height) {
+        // return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 1650 5 700 200");
+        int x = (int) (width * 0.5);
+        int y1 = (height / 100) * 30;
+        int y2 = (height / 100) * 70;
+        return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe " + x + " " + y2 + " " + x + " " + y1 + " 200");
     }
 
     /**

@@ -156,7 +156,8 @@ public class PythonGenerator {
                     sb.append("sys.path[0]+");
                     sb.append("\"");
                     sb.append("\\");
-                    if (pngList[i].startsWith("b") || pngList[i].startsWith("a")) {
+                    // isEscape
+                    if (isNeedToAddEscape(pngList[i])) {
                         sb.append("\\");
                     }
                     sb.append(pngList[i]);
@@ -173,6 +174,16 @@ public class PythonGenerator {
             }
         }
         return "";
+    }
+
+    /**
+     * 是否需要添加转义字符
+     * isNeedToAddEscape
+     * @param s
+     * @return
+     */
+    private static boolean isNeedToAddEscape(String s) {
+        return s.startsWith("b") || s.startsWith("a")|| s.startsWith("r");
     }
 
     /**

@@ -4,6 +4,7 @@ import tools.format.date.DateFormatters;
 
 import java.awt.*;
 import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.util.Date;
 
 public class Robots {
@@ -24,6 +25,12 @@ public class Robots {
      */
     public static void leftMouseButtonClick(Point point) {
         // System.out.println(DateFormatters.yyyyMMddHHmmss.format(new Date()));
+        // 触发ctrl键
+        robot.keyPress(KeyEvent.VK_CONTROL);
+        robot.delay(50);
+        robot.keyRelease(KeyEvent.VK_CONTROL);
+        robot.delay(500);
+
         // 移动到指定位置
         robot.mouseMove(point.x, point.y);
         System.out.println("机器人,单击左键");

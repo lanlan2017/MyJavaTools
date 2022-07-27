@@ -1,6 +1,5 @@
 package adbs.test.auto.run;
 
-import adbs.action.runnable.ReadButtonRunnable;
 import adbs.action.runnable.abs.CloseableRunnable;
 import adbs.cmd.CmdRun;
 import adbs.cmd.PyAutoGui;
@@ -32,31 +31,11 @@ public class PythonCloseableRun implements Runnable {
     protected boolean stop = false;
     private int waitSeconds = 35;
 
-    // public PythonCloseableRun(String msg, String pyPath, JLabel output, PythonCloseableRun closeableRun, JButton afterBtn) {
-    //     this.msg = msg;
-    //     this.pyPath = pyPath;
-    //     this.output = output;
-    //     this.closeableRun = closeableRun;
-    //     this.afterBtn = afterBtn;
-    // }
-
-    // public PythonCloseableRun(String msg, String pyPath, JLabel output, JButton afterBtn) {
-    //     this.msg = msg;
-    //     this.pyPath = pyPath;
-    //     this.output = output;
-    //     this.afterBtn = afterBtn;
-    // }
-
     public PythonCloseableRun(String msg, String pyPath, JLabel output) {
         this.msg = msg;
         this.pyPath = pyPath;
         this.output = output;
     }
-
-    // public PythonCloseableRun(String chName1, String pythonFile, JLabel output, CloseableRunnable closeableRunnable, JButton readButton) {
-    //
-    // }
-
 
     public PythonCloseableRun(String msg, String pyPath, JLabel output, CloseableRunnable closeableRun, JButton afterBtn) {
         this.msg = msg;
@@ -83,7 +62,6 @@ public class PythonCloseableRun implements Runnable {
             if (yueDuPidStr != null && yueDuPidStr.matches("\\d+")) {
                 // 输出内容
                 System.out.println("杀死pid=" + yueDuPidStr + "的进程（python）");
-                // AdbCommands.runAbdCmd("taskkill /F /IM python.exe");
                 CmdRun.run("taskkill -f -pid " + yueDuPidStr);
             }
         }
@@ -101,34 +79,37 @@ public class PythonCloseableRun implements Runnable {
         afterLoop();
     }
 
+    /**
+     * 循环之前
+     */
     private void beforeLoop() {
         // 更新Python文件
         updatePythonFile();
         output.setText(msg + ":开始");
-        // if (closeableRun != null) {
-        //     closeableRun.stop();
-        // }
     }
 
+    /**
+     * 更新要运行的python文件
+     */
     private void updatePythonFile() {
         // 调用子类的方法
-        // setPyPath();
-        // if (!isPythonFileUpdate && pyPath != null && !"".equals(pyPath)) {
         if (pyPath != null && !"".equals(pyPath)) {
             System.out.println("更新要运行的Python文件：" + pyPath);
             // 自动生成Python文件
             PythonGenerator.updatePythonFile(pyPath);
-            // isPythonFileUpdate = true;
-            // setMsg();
-            // System.out.println(msg);
         }
     }
 
+    /**
+     * 循环体
+     */
     private void loopBody() {
         runPython();
     }
 
-
+    /**
+     * 运行Python
+     */
     private void runPython() {
         // 运行python进程，获取进程的标准输出
         String pyOutput = PythonRun.runPython(pyPath);
@@ -140,6 +121,9 @@ public class PythonCloseableRun implements Runnable {
         }
     }
 
+    /**
+     * 线程循环结束后要做的
+     */
     private void afterLoop() {
         output.setText(msg + ":结束");
     }
@@ -154,7 +138,7 @@ public class PythonCloseableRun implements Runnable {
         // 截取出图片的完整名称
         String img = pyOutput.substring(0, pyOutput.indexOf(".png") + ".png".length());
         System.out.println("\n匹配到：img='" + img + "'(" + DateFormatters.yyyyMMddHHmmss.format(new Date()) + ")");
-        // 从输出中获取坐标点
+        // 从输出中获取坐标
         Point point = PyAutoGui.getPoint(pyOutput);
         // 根据图片名称和坐标执行操作
         // 根据img和point执行操作
@@ -168,15 +152,14 @@ public class PythonCloseableRun implements Runnable {
      * @param point 图片的坐标
      */
     protected void performAction(String img, Point point) {
-        // 额外等待时间
-        // extraWaitingTime
+        // 从图片中获取需要，额外等待时间
         int extraWaitingTime = extraWaitingTime(img);
+        // 如果图片以begin_开头的话
         if (img.startsWith("begin_")) {
             // 先停止辅助的线程
             if (closeableRun != null) {
                 closeableRun.stop();
             }
-
             Robots.leftMouseButtonClick(point);
             // s2;
             int s = waitSeconds + extraWaitingTime;
@@ -198,26 +181,17 @@ public class PythonCloseableRun implements Runnable {
             // Robots.delay(s * 1000);
         } else if (img.startsWith("exit_")) {
             Robots.leftMouseButtonClick(point);
-            isNotStopThenWait(2 + extraWaitingTime);
-            // int s = 2 + extraWaitingTime;
-            // output.setText(msg + "等待:" + s + "s");
-            // Robots.delay(s * 1000);
-        }
-        // else if (img.startsWith("stop_")) {
-        //     // 点击停止按钮
-        //     inOutputModel.getStopBtn().doClick();
-        //     String id = DeviceRadioBtAcListener.getId();
-        //     // 杀死快手极速版
-        //     CmdRun.run("adb -s " + id + " shell am force-stop com.kuaishou.nebula");
-        //     Threads.sleep(1000);
-        //     // 息屏
-        //     CmdRun.run("adb -s " + id + " shell input keyevent 223");
-        //     // 休眠电脑
-        //     // CmdRun.run("shutdown /h");
-        // }
-        else {
+            isNotStopThenWait(3 + extraWaitingTime);
+        } else if (img.startsWith("return_")) {
+            Robots.rightClickButton(point);
+            isNotStopThenWait(3);
+        } else if (img.startsWith("GuangJie_")) {
+
+            isNotStopThenWait(3);
+        } else {
             Robots.leftMouseButtonClick(point);
-            Robots.delay(2 * 1000);
+            // Robots.delay(4 * 1000);
+            isNotStopThenWait(3 + extraWaitingTime);
         }
         output.setText("无");
     }
@@ -246,11 +220,24 @@ public class PythonCloseableRun implements Runnable {
     }
 
     private int extraWaitingTime(String img) {
+
         int seconds = 0;
-        if (img.contains("+") && img.contains("_wait")) {
-            String times = img.substring(img.indexOf("+") + 1, img.lastIndexOf("_wait"));
-            System.out.println("times = " + times);
-            seconds = Integer.parseInt(times);
+        if (img.contains("+")) {
+            if (img.contains("_wait")) {
+                String times = img.substring(img.indexOf("+") + 1, img.lastIndexOf("_wait"));
+                System.out.println("times = " + times);
+                seconds = Integer.parseInt(times);
+            }
+            // HuoShan_oppo_+30_0.png
+            // HuoShan_oppo_+20_0.png
+            // HuoShan_oppo_+40_0.png
+            // HuoShan_oppo_+50_0.png
+            else if (img.matches("[a-zA-Z_]+\\+([0-9]+)_[a-zA-Z0-9_]+\\.png")) {
+                System.out.println("简写");
+                String times = img.replaceAll("[a-zA-Z_]+\\+([0-9]+)_[a-zA-Z0-9_]+\\.png", "$1");
+                System.out.println("times = " + times);
+                seconds = Integer.parseInt(times);
+            }
         }
         return seconds;
     }
