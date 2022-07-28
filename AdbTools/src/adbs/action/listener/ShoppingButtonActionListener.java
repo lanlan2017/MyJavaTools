@@ -24,12 +24,15 @@ public class ShoppingButtonActionListener extends ButtonFocusReleaseActionListen
         // 逛街20分钟
         JTextField input1 = inputPanelModel.getInput1();
         input1.setVisible(true);
-        input1.setText(String.valueOf(20 * 60));
+        // input1.setText(String.valueOf(20 * 60));
+        input1.setText(String.valueOf(35));
         input1.setColumns(4);
         inputPanelModel.getInput2().setVisible(false);
 
-        inputPanelModel.getPlusBtn().setVisible(false);
-        inputPanelModel.getMinusBtn().setVisible(false);
+        // inputPanelModel.getPlusBtn().setVisible(false);
+        // inputPanelModel.getMinusBtn().setVisible(false);
+        inputPanelModel.getPlusBtn().setVisible(true);
+        inputPanelModel.getMinusBtn().setVisible(true);
 
         inputPanelModel.getInputOkButton().setText("开始逛街");
         frame.pack();
