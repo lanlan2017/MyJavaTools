@@ -27,12 +27,12 @@ public class VideoButtonActionListener extends ButtonFocusReleaseActionListener 
         JTextField input1 = inputPanelModel.getInput1();
         input1.setVisible(true);
         input1.setColumns(2);
-        input1.setText(String.valueOf(7));
+        input1.setText(String.valueOf(9));
         // 显示输入框2
         JTextField input2 = inputPanelModel.getInput2();
         input2.setVisible(true);
         input2.setColumns(2);
-        input2.setText(String.valueOf(14));
+        input2.setText(String.valueOf(18));
 
         inputPanelModel.getPlusBtn().setVisible(true);
         inputPanelModel.getMinusBtn().setVisible(true);

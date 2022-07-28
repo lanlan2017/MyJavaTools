@@ -8,7 +8,6 @@ import java.awt.*;
 public class DouYinVideoButtonRunnable extends PyImgFinderCloseRunnable {
     @Override
     protected void setPyPath() {
-        // pyPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\DouYin\\DouYinVideoAdv.py";
         pyPath = "AdbToolsPythons\\DouYin\\DouYinVideoAdv.py";
     }
 
