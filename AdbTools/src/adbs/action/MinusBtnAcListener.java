@@ -7,6 +7,9 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * 减少按钮监听器
+ */
 public class MinusBtnAcListener implements ActionListener {
     private InOutputModel inOutputModel;
 

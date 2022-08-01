@@ -44,7 +44,7 @@ public class Buttons {
     private final JButton rebootBtn;
     private final JButton closeBtn;
     private final JButton killBtn;
-    private final JButton autoBtn;
+    // private final JButton autoBtn;
     private PropertiesTools propertiesTools = new PropertiesTools("AdbTools.properties");
     private final InOutputModel inOutputModel;
     private final JButton taskBtn;
@@ -53,7 +53,7 @@ public class Buttons {
     private final JButton openBtn;
     private final JPanel adbJPanel;
     private final JPanel devicesPanel;
-    private final FlowLayout flowLayout;
+    private final FlowLayout flowLayoutLeft;
     private final JPanel contentPane;
     private final JPanel inputPanel;
     private final JLabel timeLable;
@@ -96,48 +96,106 @@ public class Buttons {
         // 窗体使用箱型布局,垂直排列
         frame.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 
-        flowLayout = new FlowLayout(FlowLayout.LEFT, 0, 0);
+        // 流式布局左对齐
+        flowLayoutLeft = new FlowLayout(FlowLayout.LEFT, 0, 0);
         // 创建设备面板
         devicesPanel = new AdbDi(frame).createDevicesPanel();
 
         // 设备面板设置布局管理器
-        devicesPanel.setLayout(flowLayout);
+        devicesPanel.setLayout(flowLayoutLeft);
         // 添加到窗体中
         frame.add(devicesPanel);
-        // 添加AdbJPanel到frame中
-        // addAdbJPanel(frame, flowLayout);
+
 
         adbJPanel = new JPanel();
-        adbJPanel.setLayout(flowLayout);
-        // openBtn = new JButton(new ImageIcon());
+        adbJPanel.setBorder(new TitledBorder("adb"));
+        adbJPanel.setLayout(flowLayoutLeft);
+
+        // 打开镜像按钮
         openBtn = new JButton(new ImageIcon(Buttons.class.getClassLoader().getResource("open.png")));
         openBtn.setToolTipText("打开设备");
-        killBtn = new JButton("kill");
+        openBtn.addActionListener(new OpenButtonListener());
 
+
+        // 杀死镜像按钮
+        killBtn = new JButton("kill");
+        killBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String id = DeviceListener.getPhoneId();
+                Taskkill.killScrcpy(id);
+            }
+        });
+
+
+        // 返回键按钮
         returnBtn = new JButton(new ImageIcon(Buttons.class.getClassLoader().getResource("向左三角形.png")));
         returnBtn.setToolTipText("返回键");
+        // 返回键
+        returnBtn.addActionListener(new ReturnBtnAcListener());
 
+
+        // home键按钮
         homeBtn = new JButton(new ImageIcon(Buttons.class.getClassLoader().getResource("圆圈.png")));
         homeBtn.setToolTipText("home键");
+        homeBtn.addActionListener(new HomeBtnAcListener());
 
+
+        // 任务键按钮
         taskBtn = new JButton(new ImageIcon(Buttons.class.getClassLoader().getResource("空框.png")));
         taskBtn.setToolTipText("任务键");
+        // 任务管理键
+        taskBtn.addActionListener(new TaskManageBtnAcListener());
 
+
+        // 重启键按钮
         rebootBtn = new JButton("重启");
         rebootBtn.addActionListener(new RebootBtnAcListener(frame, "reboot"));
+
+        // 关机键按钮
         closeBtn = new JButton("关机");
         closeBtn.addActionListener(new RebootBtnAcListener(frame, "shell reboot -p"));
 
+        // // 停止按钮
+        // stopBtn = new JButton(propertiesTools.getProperty("stop"));
+        // stopBtn.setToolTipText("停止所有后台线程");
+        // stopBtn.addActionListener(new StopBtnAcListener2(frame, isRunningSet, inOutputModel));
+
+        // autoBtn = new JButton("auto");
+
+        // adb面板添加按钮
+        adbJPanel.add(openBtn);
+        adbJPanel.add(killBtn);
+        adbJPanel.add(returnBtn);
+        adbJPanel.add(homeBtn);
+        adbJPanel.add(taskBtn);
+        adbJPanel.add(rebootBtn);
+        adbJPanel.add(closeBtn);
+        // adbJPanel.add(stopBtn);
+        frame.add(adbJPanel);
+
+
+
+
+        // 停止按钮
+
+        JPanel stopJPanel = new JPanel();
+        stopJPanel.setBorder(new TitledBorder("stop"));
+        stopJPanel.setLayout(flowLayoutLeft);
+
+        // 停止按钮
         stopBtn = new JButton(propertiesTools.getProperty("stop"));
-
-        autoBtn = new JButton("auto");
-
         stopBtn.setToolTipText("停止所有后台线程");
+        stopJPanel.add(stopBtn);
+        AbstractButtons.setMarginInButtonJPanel(stopJPanel);
+        frame.add(stopJPanel);
+
+
 
         // 创建输入选择面板
-        inputPanel = new JPanel(flowLayout);
+        inputPanel = new JPanel(flowLayoutLeft);
         timeLable = new JLabel("时间(s)");
-        timeRadioPanel = new JPanel(flowLayout);
+        timeRadioPanel = new JPanel(flowLayoutLeft);
         radioButton15s = new JRadioButton("15");
         radioButton35s = new JRadioButton("35");
         radioButton70s = new JRadioButton("70");
@@ -167,7 +225,7 @@ public class Buttons {
         outputJPanel = new JPanel();
         output = new JLabel();
 
-        // 创建输入面板的模型
+        // // 创建输入面板的模型
         inputPanelModel = new InputPanelModel(inputPanel, timeLable, timeRadioPanel, radioButton15s, radioButton35s, radioButton70s, input1, input2, inputOkButton, plusBtn, minusBtn);
         inOutputModel = new InOutputModel(inputPanelModel, output, stopBtn);
 
@@ -182,175 +240,51 @@ public class Buttons {
             }
         });
 
-        // 打开（设备）按钮
-        openBtn.addActionListener(new OpenButtonListener());
-        killBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String id = DeviceListener.getPhoneId();
-                Taskkill.killScrcpy(id);
-            }
-        });
-        // 任务管理键
-        taskBtn.addActionListener(new TaskManageBtnAcListener());
-        // 返回键
-        returnBtn.addActionListener(new ReturnBtnAcListener());
+        // // 打开（设备）按钮
+        // openBtn.addActionListener(new OpenButtonListener());
+
+        // killBtn.addActionListener(new ActionListener() {
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         String id = DeviceListener.getPhoneId();
+        //         Taskkill.killScrcpy(id);
+        //     }
+        // });
+
+
+        // // 任务管理键
+        // taskBtn.addActionListener(new TaskManageBtnAcListener());
+        // // 返回键
+        // returnBtn.addActionListener(new ReturnBtnAcListener());
         // home键
-        homeBtn.addActionListener(new HomeBtnAcListener());
+        // homeBtn.addActionListener(new HomeBtnAcListener());
         stopBtn.addActionListener(new StopBtnAcListener2(frame, isRunningSet, inOutputModel));
-        autoBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
-            }
-        });
-        // adb面板添加按钮
-        adbJPanel.add(openBtn);
-        adbJPanel.add(killBtn);
-        adbJPanel.add(returnBtn);
-        adbJPanel.add(homeBtn);
-        adbJPanel.add(taskBtn);
-        adbJPanel.add(rebootBtn);
-        adbJPanel.add(closeBtn);
-        adbJPanel.add(stopBtn);
-        frame.add(adbJPanel);
 
+        // autoBtn.addActionListener(new ActionListener() {
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //
+        //     }
+        // });
+
+
+        // // adb面板添加按钮
+        // adbJPanel.add(openBtn);
+        // adbJPanel.add(killBtn);
+        // adbJPanel.add(returnBtn);
+        // adbJPanel.add(homeBtn);
+        // adbJPanel.add(taskBtn);
+        // adbJPanel.add(rebootBtn);
+        // adbJPanel.add(closeBtn);
+        // // adbJPanel.add(stopBtn);
+        // frame.add(adbJPanel);
+
+
+        // 增加按钮
         plusBtn.addActionListener(new PlusBtnAcListener(inOutputModel));
-
-        // plusBtn.addActionListener(new ActionListener() {
-        //     @Override
-        //     public void actionPerformed(ActionEvent e) {
-        //         if (input1.isVisible()) {
-        //             // 两个输入文本框都可见
-        //             if (input2.isVisible()) {
-        //                 int value1 = Integer.parseInt(input1.getText());
-        //                 int value2 = Integer.parseInt(input2.getText());
-        //                 //7-14
-        //                 //8-16
-        //                 //9-18
-        //                 //10-20
-        //                 //20-40
-        //                 //40-60
-        //                 //60-90
-        //                 //90-150
-        //                 //150-240
-        //                 if (value1 < 10) {
-        //                     value1 = value1 + 1;
-        //                     value2 = value1 * 2;
-        //                 } else if (value1 == 10) {
-        //                     value1 = 15;
-        //                     value2 = 30;
-        //
-        //                 } else if (value1 == 15) {
-        //                     value1 = 20;
-        //                     value2 = 40;
-        //
-        //                 } else if (value1 == 20) {
-        //                     value1 = 30;
-        //                     value2 = 60;
-        //                 } else if (value1 == 30) {
-        //                     value1 = 60;
-        //                     value2 = 90;
-        //                 } else if (value1 == 60) {
-        //                     value1 = 90;
-        //                     value2 = 150;
-        //                 } else if (value1 == 90) {
-        //                     value1 = 150;
-        //                     value2 = 240;
-        //                 } else {
-        //                     return;
-        //                 }
-        //                 input1.setText(String.valueOf(value1));
-        //                 input2.setText(String.valueOf(value2));
-        //             }
-        //             // 如果第1个文本框可见，第2个文本框不可见
-        //             else {
-        //                 int value1 = Integer.parseInt(input1.getText());
-        //                 //    35
-        //                 //    65
-        //                 //    1200
-        //                 switch (value1) {
-        //                     case 35:
-        //                         value1 = 65;
-        //                         break;
-        //                     case 65:
-        //                         value1 = 95;
-        //                         break;
-        //                     case 95:
-        //                         value1 = 1200;
-        //                         break;
-        //                     // case :
-        //                     //     break;
-        //                 }
-        //
-        //                 input1.setText(String.valueOf(value1));
-        //             }
-        //         }
-        //
-        //     }
-        // });
+        // 减少按钮
         minusBtn.addActionListener(new MinusBtnAcListener(inOutputModel));
-
-        // minusBtn.addActionListener(new ActionListener() {
-        //     @Override
-        //     public void actionPerformed(ActionEvent e) {
-        //         if (input1.isVisible()) {
-        //             int value1 = Integer.parseInt(input1.getText());
-        //             if (input2.isVisible()) {
-        //                 int value2 = Integer.parseInt(input2.getText());
-        //                 if (value1 == 150) {
-        //                     value1 = 90;
-        //                     value2 = 150;
-        //                 } else if (value1 == 90) {
-        //                     value1 = 60;
-        //                     value2 = 90;
-        //                 } else if (value1 == 60) {
-        //                     value1 = 30;
-        //                     value2 = 60;
-        //                 } else if (value1 == 30) {
-        //                     value1 = 20;
-        //                     value2 = 40;
-        //                 } else if (value1 == 20) {
-        //                     value1 = 15;
-        //                     value2 = 30;
-        //                 } else if (value1 == 15) {
-        //                     value1 = 10;
-        //                     value2 = 20;
-        //                 } else if (value1 > 7) {
-        //                     value1 = value1 - 1;
-        //                     value2 = value1 * 2;
-        //                 } else {
-        //                     return;
-        //                 }
-        //                 input1.setText(String.valueOf(value1));
-        //                 input2.setText(String.valueOf(value2));
-        //             }
-        //             // 第2个不可见
-        //             else {
-        //                 switch (value1) {
-        //                     case 1200:
-        //                         value1 = 95;
-        //                         break;
-        //                     case 95:
-        //                         value1 = 65;
-        //                         break;
-        //                     case 65:
-        //                         value1 = 35;
-        //                         break;
-        //                     // case :
-        //                     //     break;
-        //                     // case :
-        //                     //     break;
-        //                 }
-        //                 input1.setText(String.valueOf(value1));
-        //             }
-        //         }
-        //
-        //     }
-        // });
-
-
-
         // 输入面板等待按钮
         inputOkButton.addActionListener(new InputOkButtonActionListener(inOutputModel));
         input1.addKeyListener(new KeyAdapter() {
@@ -361,7 +295,6 @@ public class Buttons {
                     // 触发回车键
                     inputOkButton.doClick();
                 }
-                // super.keyReleased(e);
             }
         });
 
@@ -376,7 +309,7 @@ public class Buttons {
 
 
         universalPanel.setBorder(new TitledBorder("通用功能"));
-        universalPanel.setLayout(flowLayout);
+        universalPanel.setLayout(flowLayoutLeft);
         universalPanel.add(browseButton);
         universalPanel.add(waitReturnButton);
         universalPanel.add(readButton);
@@ -401,7 +334,7 @@ public class Buttons {
 
         newButtonJPanel(frame, checkJPanel, otherJPanel);
 
-        checkJPanel.setLayout(flowLayout);
+        checkJPanel.setLayout(flowLayoutLeft);
 
         otherJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(frame, otherJPanel));
 
@@ -413,7 +346,7 @@ public class Buttons {
         frame.add(checkJPanel, 2);
         // frame.add(checkJPanel);
 
-        outputJPanel.setLayout(flowLayout);
+        outputJPanel.setLayout(flowLayoutLeft);
         output.setText("统一输出");
 
         outputJPanel.add(output);
