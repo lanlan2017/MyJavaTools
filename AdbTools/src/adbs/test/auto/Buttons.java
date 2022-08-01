@@ -41,16 +41,9 @@ public class Buttons {
     private final JFrame frame;
     private static JButton stopBtn;
     private static final String dirPath = "AdbToolsPythons\\";
-    private final JButton rebootBtn;
-    private final JButton closeBtn;
-    private final JButton killBtn;
-    // private final JButton autoBtn;
+
     private PropertiesTools propertiesTools = new PropertiesTools("AdbTools.properties");
     private final InOutputModel inOutputModel;
-    private final JButton taskBtn;
-    private final JButton homeBtn;
-    private final JButton returnBtn;
-    private final JButton openBtn;
     private final JPanel adbJPanel;
     private final JPanel devicesPanel;
     private final FlowLayout flowLayoutLeft;
@@ -90,6 +83,18 @@ public class Buttons {
         frame = new JFrame();
         // 创建窗体的内容面板
         contentPane = new JPanel();
+
+        // 内容面板监听鼠标右键双击事件
+        contentPane.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON3) {
+                    System.out.println("双击主面板");
+                    frame.pack();
+                }
+            }
+        });
+
         // 设置窗体的内容面板
         frame.setContentPane(contentPane);
 
@@ -106,79 +111,11 @@ public class Buttons {
         // 添加到窗体中
         frame.add(devicesPanel);
 
-
-        adbJPanel = new JPanel();
-        adbJPanel.setBorder(new TitledBorder("adb"));
-        adbJPanel.setLayout(flowLayoutLeft);
-
-        // 打开镜像按钮
-        openBtn = new JButton(new ImageIcon(Buttons.class.getClassLoader().getResource("open.png")));
-        openBtn.setToolTipText("打开设备");
-        openBtn.addActionListener(new OpenButtonListener());
-
-
-        // 杀死镜像按钮
-        killBtn = new JButton("kill");
-        killBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String id = DeviceListener.getPhoneId();
-                Taskkill.killScrcpy(id);
-            }
-        });
-
-
-        // 返回键按钮
-        returnBtn = new JButton(new ImageIcon(Buttons.class.getClassLoader().getResource("向左三角形.png")));
-        returnBtn.setToolTipText("返回键");
-        // 返回键
-        returnBtn.addActionListener(new ReturnBtnAcListener());
-
-
-        // home键按钮
-        homeBtn = new JButton(new ImageIcon(Buttons.class.getClassLoader().getResource("圆圈.png")));
-        homeBtn.setToolTipText("home键");
-        homeBtn.addActionListener(new HomeBtnAcListener());
-
-
-        // 任务键按钮
-        taskBtn = new JButton(new ImageIcon(Buttons.class.getClassLoader().getResource("空框.png")));
-        taskBtn.setToolTipText("任务键");
-        // 任务管理键
-        taskBtn.addActionListener(new TaskManageBtnAcListener());
-
-
-        // 重启键按钮
-        rebootBtn = new JButton("重启");
-        rebootBtn.addActionListener(new RebootBtnAcListener(frame, "reboot"));
-
-        // 关机键按钮
-        closeBtn = new JButton("关机");
-        closeBtn.addActionListener(new RebootBtnAcListener(frame, "shell reboot -p"));
-
-        // // 停止按钮
-        // stopBtn = new JButton(propertiesTools.getProperty("stop"));
-        // stopBtn.setToolTipText("停止所有后台线程");
-        // stopBtn.addActionListener(new StopBtnAcListener2(frame, isRunningSet, inOutputModel));
-
-        // autoBtn = new JButton("auto");
-
-        // adb面板添加按钮
-        adbJPanel.add(openBtn);
-        adbJPanel.add(killBtn);
-        adbJPanel.add(returnBtn);
-        adbJPanel.add(homeBtn);
-        adbJPanel.add(taskBtn);
-        adbJPanel.add(rebootBtn);
-        adbJPanel.add(closeBtn);
-        // adbJPanel.add(stopBtn);
+        // 创建adb面板
+        adbJPanel = getAdbJPanel();
         frame.add(adbJPanel);
 
-
-
-
-        // 停止按钮
-
+        // 停止面板
         JPanel stopJPanel = new JPanel();
         stopJPanel.setBorder(new TitledBorder("stop"));
         stopJPanel.setLayout(flowLayoutLeft);
@@ -191,7 +128,6 @@ public class Buttons {
         frame.add(stopJPanel);
 
 
-
         // 创建输入选择面板
         inputPanel = new JPanel(flowLayoutLeft);
         timeLable = new JLabel("时间(s)");
@@ -202,11 +138,38 @@ public class Buttons {
         timeLable.add(radioButton15s);
         timeLable.add(radioButton35s);
         timeLable.add(radioButton70s);
+
         input1 = new JTextField(3);
+        input1.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    System.out.println("按下回车键");
+                    // 触发回车键
+                    inputOkButton.doClick();
+                }
+            }
+        });
+
+
+
         input2 = new JTextField(3);
         plusBtn = new JButton(">");
+
+
         minusBtn = new JButton("<");
         inputOkButton = new JButton("确认");
+
+        inputPanel.add(timeLable);
+        inputPanel.add(timeRadioPanel);
+        inputPanel.add(input1);
+        inputPanel.add(input2);
+        inputPanel.add(plusBtn);
+        inputPanel.add(minusBtn);
+        inputPanel.add(inputOkButton);
+        frame.add(inputPanel);
+
+
 
         // 创建通用功能面板
         universalPanel = new JPanel();
@@ -229,83 +192,23 @@ public class Buttons {
         inputPanelModel = new InputPanelModel(inputPanel, timeLable, timeRadioPanel, radioButton15s, radioButton35s, radioButton70s, input1, input2, inputOkButton, plusBtn, minusBtn);
         inOutputModel = new InOutputModel(inputPanelModel, output, stopBtn);
 
-        // 内容面板监听鼠标右键双击事件
-        contentPane.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON3) {
-                    System.out.println("双击主面板");
-                    frame.pack();
-                }
-            }
-        });
-
-        // // 打开（设备）按钮
-        // openBtn.addActionListener(new OpenButtonListener());
-
-        // killBtn.addActionListener(new ActionListener() {
-        //     @Override
-        //     public void actionPerformed(ActionEvent e) {
-        //         String id = DeviceListener.getPhoneId();
-        //         Taskkill.killScrcpy(id);
-        //     }
-        // });
-
-
-        // // 任务管理键
-        // taskBtn.addActionListener(new TaskManageBtnAcListener());
-        // // 返回键
-        // returnBtn.addActionListener(new ReturnBtnAcListener());
-        // home键
-        // homeBtn.addActionListener(new HomeBtnAcListener());
         stopBtn.addActionListener(new StopBtnAcListener2(frame, isRunningSet, inOutputModel));
 
-
-        // autoBtn.addActionListener(new ActionListener() {
-        //     @Override
-        //     public void actionPerformed(ActionEvent e) {
-        //
-        //     }
-        // });
-
-
-        // // adb面板添加按钮
-        // adbJPanel.add(openBtn);
-        // adbJPanel.add(killBtn);
-        // adbJPanel.add(returnBtn);
-        // adbJPanel.add(homeBtn);
-        // adbJPanel.add(taskBtn);
-        // adbJPanel.add(rebootBtn);
-        // adbJPanel.add(closeBtn);
-        // // adbJPanel.add(stopBtn);
-        // frame.add(adbJPanel);
-
-
-        // 增加按钮
-        plusBtn.addActionListener(new PlusBtnAcListener(inOutputModel));
+        // // 增加按钮
+        // plusBtn.addActionListener(new PlusBtnAcListener(inOutputModel));
         // 减少按钮
         minusBtn.addActionListener(new MinusBtnAcListener(inOutputModel));
         // 输入面板等待按钮
         inputOkButton.addActionListener(new InputOkButtonActionListener(inOutputModel));
-        input1.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    System.out.println("按下回车键");
-                    // 触发回车键
-                    inputOkButton.doClick();
-                }
-            }
-        });
 
-        inputPanel.add(timeLable);
-        inputPanel.add(timeRadioPanel);
-        inputPanel.add(input1);
-        inputPanel.add(input2);
-        inputPanel.add(plusBtn);
-        inputPanel.add(minusBtn);
-        inputPanel.add(inputOkButton);
-        frame.add(inputPanel);
+        // inputPanel.add(timeLable);
+        // inputPanel.add(timeRadioPanel);
+        // inputPanel.add(input1);
+        // inputPanel.add(input2);
+        // inputPanel.add(plusBtn);
+        // inputPanel.add(minusBtn);
+        // inputPanel.add(inputOkButton);
+        // frame.add(inputPanel);
 
 
         universalPanel.setBorder(new TitledBorder("通用功能"));
@@ -362,6 +265,64 @@ public class Buttons {
         frame.setVisible(true);
         // 调整窗体到最佳大小
         frame.pack();
+    }
+
+    private JPanel getAdbJPanel() {
+        final JPanel adbJPanel;
+        adbJPanel = new JPanel();
+        adbJPanel.setBorder(new TitledBorder("adb"));
+        adbJPanel.setLayout(flowLayoutLeft);
+
+        // 打开镜像按钮
+        JButton openBtn = new JButton(new ImageIcon(Buttons.class.getClassLoader().getResource("open.png")));
+        openBtn.setToolTipText("打开设备");
+        openBtn.addActionListener(new OpenButtonListener());
+
+        // 杀死镜像按钮
+        JButton  killBtn = new JButton("kill");
+        killBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String id = DeviceListener.getPhoneId();
+                Taskkill.killScrcpy(id);
+            }
+        });
+
+
+        // 返回键按钮
+        JButton returnBtn = new JButton(new ImageIcon(Buttons.class.getClassLoader().getResource("向左三角形.png")));
+        returnBtn.setToolTipText("返回键");
+        // 返回键
+        returnBtn.addActionListener(new ReturnBtnAcListener());
+
+
+        // home键按钮
+        JButton  homeBtn = new JButton(new ImageIcon(Buttons.class.getClassLoader().getResource("圆圈.png")));
+        homeBtn.setToolTipText("home键");
+        homeBtn.addActionListener(new HomeBtnAcListener());
+        // 任务键按钮
+        JButton taskBtn = new JButton(new ImageIcon(Buttons.class.getClassLoader().getResource("空框.png")));
+        taskBtn.setToolTipText("任务键");
+        // 任务管理键
+        taskBtn.addActionListener(new TaskManageBtnAcListener());
+
+
+        // 重启键按钮
+        JButton rebootBtn = new JButton("重启");
+        rebootBtn.addActionListener(new RebootBtnAcListener(frame, "reboot"));
+        // 关机键按钮
+        JButton closeBtn = new JButton("关机");
+        closeBtn.addActionListener(new RebootBtnAcListener(frame, "shell reboot -p"));
+        // adb面板添加按钮
+        adbJPanel.add(openBtn);
+        adbJPanel.add(killBtn);
+        adbJPanel.add(returnBtn);
+        adbJPanel.add(homeBtn);
+        adbJPanel.add(taskBtn);
+        adbJPanel.add(rebootBtn);
+        adbJPanel.add(closeBtn);
+        // frame.add(adbJPanel);
+        return adbJPanel;
     }
 
     public static Buttons getInstance() {
@@ -494,32 +455,5 @@ public class Buttons {
         AbstractButtons.setJButtonMargin(button);
         // 添加到其他面板
         otherJPanel.add(button);
-    }
-
-    private void auto(String name, String chName, JButton button) {
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("是auto");
-                taskBtn.doClick();
-                int width = DeviceListener.getWidth();
-                int height = DeviceListener.getHeight();
-                String phoneId = DeviceListener.getPhoneId();
-
-                AdbCommands.swipeBottom2TopOnMiddle(phoneId, width, height);
-                //    触发home键
-                homeBtn.doClick();
-                if (Device.getBrand().contains("oppo")) {
-                    // DeviceListener.getWidth()
-                    //    如果是OPPO，则向右移动三次
-                    AdbCommands.swipeRight2LeftOnTop(phoneId, width, height);
-                    AdbCommands.swipeRight2LeftOnTop(phoneId, width, height);
-                    String pythonDir = dirPath + name + "\\";
-                    String pythonFile = pythonDir + "_" + Device.getBrand() + ".py";
-                    System.out.println("pythonFile = " + pythonFile);
-                    new Thread(new PythonCloseableRun(chName, pythonFile, output)).start();
-                }
-            }
-        });
     }
 }
