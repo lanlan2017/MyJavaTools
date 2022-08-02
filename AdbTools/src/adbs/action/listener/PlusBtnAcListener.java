@@ -11,16 +11,23 @@ import java.awt.event.ActionListener;
  */
 public class PlusBtnAcListener implements ActionListener {
     private InOutputModel inOutputModel;
+    private JTextField input1;
+    private JTextField input2;
 
     public PlusBtnAcListener(InOutputModel inOutputModel) {
         this.inOutputModel = inOutputModel;
+        input1 = inOutputModel.getInputPanelModel().getInput1();
+        input2 = inOutputModel.getInputPanelModel().getInput2();
     }
+
+    public PlusBtnAcListener(JTextField input1, JTextField input2) {
+        this.input1 = input1;
+        this.input2 = input2;
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        JTextField input1 = inOutputModel.getInputPanelModel().getInput1();
-        JTextField input2 = inOutputModel.getInputPanelModel().getInput2();
-
         if (input1.isVisible()) {
             // 两个输入文本框都可见
             if (input2.isVisible()) {
@@ -71,6 +78,12 @@ public class PlusBtnAcListener implements ActionListener {
                 //    65
                 //    1200
                 switch (value1) {
+                    case 0:
+                        value1 = 30;
+                        break;
+                    case 30:
+                        value1 = 35;
+                        break;
                     case 35:
                         value1 = 65;
                         break;
@@ -80,8 +93,14 @@ public class PlusBtnAcListener implements ActionListener {
                     case 95:
                         value1 = 1200;
                         break;
+                    // default:
+                    //     value1 = 30;
+                    //     break;
                     // case :
                     //     break;
+                }
+                if (value1 < 0) {
+                    value1 = 30;
                 }
 
                 input1.setText(String.valueOf(value1));

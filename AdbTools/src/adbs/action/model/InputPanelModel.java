@@ -1,5 +1,8 @@
 package adbs.action.model;
 
+import adbs.action.MinusBtnAcListener;
+import adbs.action.listener.InputOkButtonActionListener;
+import adbs.action.listener.PlusBtnAcListener;
 import adbs.test.Device;
 import adbs.test.DeviceListener;
 
@@ -43,6 +46,14 @@ public class InputPanelModel {
         radioButton15s.addActionListener(e -> input1.setText(String.valueOf(15)));
         radioButton35s.addActionListener(e -> input1.setText(String.valueOf(35)));
         radioButton70s.addActionListener(e -> input1.setText(String.valueOf(70)));
+
+        // 增加按钮
+        plusBtn.addActionListener(new PlusBtnAcListener(input1,input2));
+        // 减少按钮
+        minusBtn.addActionListener(new MinusBtnAcListener(input1,input2));
+
+        // // 输入面板等待按钮
+        // inputOkButton.addActionListener(new InputOkButtonActionListener(inOutputModel));
 
         // 刚开始,隐藏输入面板
         inputPanel.setVisible(false);

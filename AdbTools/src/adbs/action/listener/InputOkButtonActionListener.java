@@ -19,6 +19,7 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
 
     public InputOkButtonActionListener(InOutputModel inOutputModel) {
         this.inOutputModel = inOutputModel;
+
         this.browseRunnable = BrowseRunnable.getInstance();
         browseRunnable.setInOutputModel(inOutputModel);
 
@@ -32,6 +33,10 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
         videoButtonRunnable.setInOutputModel(inOutputModel);
 
     }
+    //
+    // public InputOkButtonActionListener() {
+    //
+    // }
 
     @Override
     protected void actionEvent(ActionEvent e) {

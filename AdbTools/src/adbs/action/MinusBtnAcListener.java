@@ -12,22 +12,31 @@ import java.awt.event.ActionListener;
  */
 public class MinusBtnAcListener implements ActionListener {
     private InOutputModel inOutputModel;
+    private JTextField input1;
+    private JTextField input2;
 
     public MinusBtnAcListener(InOutputModel inOutputModel) {
         this.inOutputModel = inOutputModel;
+        input1 = inOutputModel.getInputPanelModel().getInput1();
+        input2 = inOutputModel.getInputPanelModel().getInput2();
+    }
+
+    public MinusBtnAcListener(JTextField input1, JTextField input2) {
+        this.input1 = input1;
+        this.input2 = input2;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        InputPanelModel inputPanelModel = inOutputModel.getInputPanelModel();
-        JTextField input1 = inputPanelModel.getInput1();
-        JTextField input2 = inputPanelModel.getInput2();
+        // InputPanelModel inputPanelModel = inOutputModel.getInputPanelModel();
+        // JTextField input1 = inputPanelModel.getInput1();
+        // JTextField input2 = inputPanelModel.getInput2();
 
 
         if (input1.isVisible()) {
             int value1 = Integer.parseInt(input1.getText());
             if (input2.isVisible()) {
-                int value2 = Integer.parseInt(input2.getText());
+                int value2;
                 if (value1 == 150) {
                     value1 = 90;
                     value2 = 150;
@@ -66,6 +75,9 @@ public class MinusBtnAcListener implements ActionListener {
                         break;
                     case 65:
                         value1 = 35;
+                        break;
+                    case 35:
+                        value1 = 30;
                         break;
                     // case :
                     //     break;

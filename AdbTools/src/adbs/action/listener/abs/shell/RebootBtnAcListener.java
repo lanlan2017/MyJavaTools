@@ -11,11 +11,17 @@ import java.awt.event.ActionListener;
  * 重启按钮事件处理程序
  */
 public class RebootBtnAcListener implements ActionListener {
-    private JFrame frame;
+    // private JFrame frame;
+    private JPanel jPanel;
+
     private String code;
 
-    public RebootBtnAcListener(JFrame frame, String code) {
-        this.frame = frame;
+    // public RebootBtnAcListener(JFrame frame, String code) {
+    //     this.frame = frame;
+    //     this.code = code;
+    // }
+    public RebootBtnAcListener(JPanel jPanel, String code) {
+        this.jPanel = jPanel;
         this.code = code;
     }
 
@@ -23,7 +29,7 @@ public class RebootBtnAcListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         AbstractButton button = (AbstractButton) e.getSource();
         button.setFocusPainted(false);
-        int returnVal = JOptionPane.showConfirmDialog(frame, "确认" + button.getText() + "?");
+        int returnVal = JOptionPane.showConfirmDialog(jPanel, "确认" + button.getText() + "?");
         // 如果选择的是确认按键
         if (returnVal == JOptionPane.OK_OPTION) {
             String id = DeviceListener.getPhoneId();

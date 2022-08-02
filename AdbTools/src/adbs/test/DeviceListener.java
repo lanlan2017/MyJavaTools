@@ -39,9 +39,6 @@ public class DeviceListener implements ActionListener {
     public static int getHeight() {
         return height;
     }
-    // public static void setPhoneId(String phoneId) {
-    //     DeviceRadioBtAcListener.phoneId = phoneId;
-    // }
 
 
     @Override
@@ -61,20 +58,14 @@ public class DeviceListener implements ActionListener {
             String flag = "Physical size: ";
             String widthStr = run.substring(run.indexOf(flag) + flag.length(), run.lastIndexOf("x"));
             String heightStr = run.substring(run.lastIndexOf("x") + "x".length());
-            // System.out.println("heightStr = " + heightStr);
-            // System.out.println("heightStr = " + heightStr);
 
             if (widthStr.matches("[0-9]+")) {
                 width = Integer.parseInt(widthStr);
-                // System.out.println("width = " + width);
             }
             if (heightStr.matches("[0-9]+")) {
                 height = Integer.parseInt(heightStr);
-                // System.out.println("height = " + height);
             }
         }
-        // setId(buttonText);
-        // setId(phoneId);
         DeviceListener.phoneId = phoneId;
     }
 }

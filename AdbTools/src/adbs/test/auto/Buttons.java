@@ -1,6 +1,5 @@
 package adbs.test.auto;
 
-import adbs.action.MinusBtnAcListener;
 import adbs.action.listener.*;
 import adbs.action.listener.abs.shell.RebootBtnAcListener;
 import adbs.action.listener.abs.shellinput.HomeBtnAcListener;
@@ -10,7 +9,6 @@ import adbs.action.model.InOutputModel;
 import adbs.action.model.InputPanelModel;
 import adbs.action.runnable.ReadButtonRunnable;
 import adbs.action.runnable.open.Taskkill;
-import adbs.cmd.AdbCommands;
 import tools.swing.button.AbstractButtons;
 import adbs.test.AdbDi;
 import adbs.test.Device;
@@ -46,7 +44,8 @@ public class Buttons {
     private final InOutputModel inOutputModel;
     private final JPanel adbJPanel;
     private final JPanel devicesPanel;
-    private final FlowLayout flowLayoutLeft;
+    private static final FlowLayout flowLayoutLeft = new FlowLayout(FlowLayout.LEFT, 0, 0);
+
     private final JPanel contentPane;
     private final JPanel inputPanel;
     private final JLabel timeLable;
@@ -101,18 +100,17 @@ public class Buttons {
         // 窗体使用箱型布局,垂直排列
         frame.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 
-        // 流式布局左对齐
-        flowLayoutLeft = new FlowLayout(FlowLayout.LEFT, 0, 0);
         // 创建设备面板
         devicesPanel = new AdbDi(frame).createDevicesPanel();
-
-        // 设备面板设置布局管理器
+        // 设备面板设置 流式布局 左对齐
         devicesPanel.setLayout(flowLayoutLeft);
         // 添加到窗体中
         frame.add(devicesPanel);
 
-        // 创建adb面板
-        adbJPanel = getAdbJPanel();
+        // 创建adb面板和面板中的控件
+        AdbJPanels adbJPanels = new AdbJPanels();
+        adbJPanel = adbJPanels.getAdbJPanel();
+        adbJPanel.setLayout(flowLayoutLeft);
         frame.add(adbJPanel);
 
         // 停止面板
@@ -152,7 +150,6 @@ public class Buttons {
         });
 
 
-
         input2 = new JTextField(3);
         plusBtn = new JButton(">");
 
@@ -168,7 +165,6 @@ public class Buttons {
         inputPanel.add(minusBtn);
         inputPanel.add(inputOkButton);
         frame.add(inputPanel);
-
 
 
         // 创建通用功能面板
@@ -194,21 +190,8 @@ public class Buttons {
 
         stopBtn.addActionListener(new StopBtnAcListener2(frame, isRunningSet, inOutputModel));
 
-        // // 增加按钮
-        // plusBtn.addActionListener(new PlusBtnAcListener(inOutputModel));
-        // 减少按钮
-        minusBtn.addActionListener(new MinusBtnAcListener(inOutputModel));
         // 输入面板等待按钮
         inputOkButton.addActionListener(new InputOkButtonActionListener(inOutputModel));
-
-        // inputPanel.add(timeLable);
-        // inputPanel.add(timeRadioPanel);
-        // inputPanel.add(input1);
-        // inputPanel.add(input2);
-        // inputPanel.add(plusBtn);
-        // inputPanel.add(minusBtn);
-        // inputPanel.add(inputOkButton);
-        // frame.add(inputPanel);
 
 
         universalPanel.setBorder(new TitledBorder("通用功能"));
@@ -221,7 +204,7 @@ public class Buttons {
         frame.add(universalPanel);
 
         AbstractButtons.setMarginInButtonJPanel(universalPanel);
-        AbstractButtons.setMarginInButtonJPanel(adbJPanel);
+        AbstractButtons.setMarginInButtonJPanel(this.adbJPanel);
         AbstractButtons.setMarginInButtonJPanel(inputPanel);
 
         // 浏览后返回按钮事件处理程序
@@ -247,7 +230,6 @@ public class Buttons {
         checkJPanel.add(generalJCheckBox, 0);
         // 插入到第2行
         frame.add(checkJPanel, 2);
-        // frame.add(checkJPanel);
 
         outputJPanel.setLayout(flowLayoutLeft);
         output.setText("统一输出");
@@ -265,64 +247,6 @@ public class Buttons {
         frame.setVisible(true);
         // 调整窗体到最佳大小
         frame.pack();
-    }
-
-    private JPanel getAdbJPanel() {
-        final JPanel adbJPanel;
-        adbJPanel = new JPanel();
-        adbJPanel.setBorder(new TitledBorder("adb"));
-        adbJPanel.setLayout(flowLayoutLeft);
-
-        // 打开镜像按钮
-        JButton openBtn = new JButton(new ImageIcon(Buttons.class.getClassLoader().getResource("open.png")));
-        openBtn.setToolTipText("打开设备");
-        openBtn.addActionListener(new OpenButtonListener());
-
-        // 杀死镜像按钮
-        JButton  killBtn = new JButton("kill");
-        killBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String id = DeviceListener.getPhoneId();
-                Taskkill.killScrcpy(id);
-            }
-        });
-
-
-        // 返回键按钮
-        JButton returnBtn = new JButton(new ImageIcon(Buttons.class.getClassLoader().getResource("向左三角形.png")));
-        returnBtn.setToolTipText("返回键");
-        // 返回键
-        returnBtn.addActionListener(new ReturnBtnAcListener());
-
-
-        // home键按钮
-        JButton  homeBtn = new JButton(new ImageIcon(Buttons.class.getClassLoader().getResource("圆圈.png")));
-        homeBtn.setToolTipText("home键");
-        homeBtn.addActionListener(new HomeBtnAcListener());
-        // 任务键按钮
-        JButton taskBtn = new JButton(new ImageIcon(Buttons.class.getClassLoader().getResource("空框.png")));
-        taskBtn.setToolTipText("任务键");
-        // 任务管理键
-        taskBtn.addActionListener(new TaskManageBtnAcListener());
-
-
-        // 重启键按钮
-        JButton rebootBtn = new JButton("重启");
-        rebootBtn.addActionListener(new RebootBtnAcListener(frame, "reboot"));
-        // 关机键按钮
-        JButton closeBtn = new JButton("关机");
-        closeBtn.addActionListener(new RebootBtnAcListener(frame, "shell reboot -p"));
-        // adb面板添加按钮
-        adbJPanel.add(openBtn);
-        adbJPanel.add(killBtn);
-        adbJPanel.add(returnBtn);
-        adbJPanel.add(homeBtn);
-        adbJPanel.add(taskBtn);
-        adbJPanel.add(rebootBtn);
-        adbJPanel.add(closeBtn);
-        // frame.add(adbJPanel);
-        return adbJPanel;
     }
 
     public static Buttons getInstance() {
