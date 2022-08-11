@@ -34,6 +34,23 @@ public class ConfigTools {
         return instance;
     }
 
+    public String forward(String[] args, String input) {
+        // 根据参数的长度
+        switch (args.length) {
+            // 当只有一个参数的时候
+            case 1:
+                // 显示帮助文档
+                help(args);
+                // return null;
+                return fileHelp(args);
+            // 其他情况
+            default:
+                // 处理命令
+                return runByArgs(args,input);
+        }
+        // return "";
+    }
+
     /**
      * 程序入口
      *
@@ -167,6 +184,7 @@ public class ConfigTools {
         // String valueOfKeys = keySequenceValue(args);
         // 更换算法
         String valueOfKeys = ConfigTools2.getInstance().keySequenceValue(args);
+        //
         // 如果value的格式为："全限定方法名_ControlCode" 的话
         if (valueOfKeys.matches(RegexEnum.FQ_MethodName_ControlCode.toString())) {
             // System.out.println("全限定方法名_ControlCode");
@@ -175,6 +193,37 @@ public class ConfigTools {
         // 如果value的格式为"全限定方法名"
         else if (valueOfKeys.matches(RegexEnum.FQ_MethodName.toString())) {
             return runFqMethod(valueOfKeys);
+        }
+        // 如果value是 资源文件的地址
+        else if (valueOfKeys.matches("(?:.+?\\/)+.+?\\.[a-zA-Z]+")) {
+            // 读取资源文件中的内容
+            String code = ResourceFileReader.getFileContent(this.getClass(), valueOfKeys);
+            return code;
+        }
+        // 如果value是普通字符串，则直接返回该字符串。
+        return valueOfKeys;
+    }
+
+    /**
+     * 根据参数执行方法
+     *
+     * @param args 命令行参数
+     */
+    private String runByArgs(String[] args, String input) {
+        // 查询命令行参数中这一长串key对应的value值
+        // String valueOfKeys = keySequenceValue(args);
+        // 更换算法
+        String valueOfKeys = ConfigTools2.getInstance().keySequenceValue(args);
+        // 如果value的格式为："全限定方法名_ControlCode" 的话
+        if (valueOfKeys.matches(RegexEnum.FQ_MethodName_ControlCode.toString())) {
+            // System.out.println("全限定方法名_ControlCode");
+            // return runFqMethodControlCode(args, valueOfKeys);
+            return runFqMethodControlCode(args, valueOfKeys, input);
+        }
+        // 如果value的格式为"全限定方法名"
+        else if (valueOfKeys.matches(RegexEnum.FQ_MethodName.toString())) {
+            // return runFqMethod(valueOfKeys);
+            return runFqMethod(valueOfKeys, input);
         }
         // 如果value是 资源文件的地址
         else if (valueOfKeys.matches("(?:.+?\\/)+.+?\\.[a-zA-Z]+")) {
@@ -204,7 +253,7 @@ public class ConfigTools {
             // System.out.println("使用最后一个命令行作为参数");
             // System.out.println(Arrays.toString(args));
             // 使用最后一个命令行参数作为方法的输入参数
-            result = CallInstanceMethod.runFQMethodName(fqMethodName, args[args.length-1]);
+            result = CallInstanceMethod.runFQMethodName(fqMethodName, args[args.length - 1]);
         }
         // 如果控制串是"ControlCodeIsLastArg"
         else if ("ControlCodeIsLastArg".equals(controlCode)) {
@@ -242,6 +291,82 @@ public class ConfigTools {
         return result;
     }
 
+    private String runFqMethodControlCode(String[] args, String valueOfKeys, String input) {
+        String result = "";
+        // 摘出全限定方法名
+        String fqMethodName = valueOfKeys.substring(0, valueOfKeys.lastIndexOf("_"));
+        // 摘出控制串
+        String controlCode = valueOfKeys.substring(valueOfKeys.lastIndexOf("_") + 1);
+        // 如果控制串是"Parameterless"
+        // 没有控制字符串,表示执行无参方法
+        if ("Parameterless".equals(controlCode)) {
+            // 运行无参数的方法
+            result = CallInstanceMethod.runFQMethodName(fqMethodName);
+            // return result;
+        }
+        // 以最后一个命令行参数作为输入
+        else if ("LastArgIsMethodInput".equals(controlCode)) {
+            //
+            // System.out.println("使用最后一个命令行作为参数");
+            // System.out.println(Arrays.toString(args));
+            // 使用最后一个命令行参数作为方法的输入参数
+            result = CallInstanceMethod.runFQMethodName(fqMethodName, args[args.length - 1]);
+        }
+        // 如果控制串是"ControlCodeIsLastArg"
+        // 以最后一个命令行参数作为 控制码
+        else if ("ControlCodeIsLastArg".equals(controlCode)) {
+            // 获取最后一个命令行参数
+            String lastArg = args[args.length - 1];
+            // 如果最后一个命令行参数是"cb"的话
+            if ("cb".equals(lastArg)) {
+                // // 读取剪贴板中的数据
+                // String clipboardText = SystemClipboard.getSysClipboardText();
+                // // 执行方法
+                // // result = CallInstanceMethod.runFQMethodName(fqMethodName, "", clipboardText);
+
+
+                result = CallInstanceMethod.runFQMethodName(fqMethodName, "", input);
+                // return result;
+            }
+            // 如果最后一个命令行参数不是"cb"的话
+            else {
+                // // 读取剪贴板中的数据
+                // String clipboardText = SystemClipboard.getSysClipboardText();
+                // // 执行方法，最后一个命令行参数作为方法的第1个参数，剪贴板中的内容作为方法的第2个参数
+                // result = CallInstanceMethod.runFQMethodName(fqMethodName, lastArg, clipboardText);
+                // // return result;
+
+
+                result = CallInstanceMethod.runFQMethodName(fqMethodName, lastArg, input);
+            }
+        }
+        // 如果控制串是"ControlCodeIsLastTwoArgs"
+        // 如果最后两个命令行参数是 控制串
+        else if ("ControlCodeIsLastTwoArgs".equals(controlCode)) {
+            // // 读取剪贴板中的数据
+            // String clipboardText = SystemClipboard.getSysClipboardText();
+            // String arg3 = args[args.length - 1];
+            // String arg2 = args[args.length - 2];
+            // // System.out.println("fqMethodName = " + fqMethodName);
+            // // System.out.println("arg1=clipboardText = " + clipboardText);
+            // // System.out.println("arg2 = " + arg2);
+            // // System.out.println("arg3 = " + arg3);
+            // result = CallInstanceMethod.runFqMethodName(fqMethodName, clipboardText, arg2, arg3);
+
+
+            // 读取剪贴板中的数据
+            // String clipboardText = SystemClipboard.getSysClipboardText();
+            String arg3 = args[args.length - 1];
+            String arg2 = args[args.length - 2];
+            // System.out.println("fqMethodName = " + fqMethodName);
+            // System.out.println("arg1=clipboardText = " + clipboardText);
+            // System.out.println("arg2 = " + arg2);
+            // System.out.println("arg3 = " + arg3);
+            result = CallInstanceMethod.runFqMethodName(fqMethodName, input, arg2, arg3);
+        }
+        return result;
+    }
+
     /**
      * 执行全限定方法名对应的方法
      *
@@ -253,6 +378,20 @@ public class ConfigTools {
         String clipboardText = SystemClipboard.getSysClipboardText();
         // 执行该方法，剪贴中的字符串作为该方法的第1个参数
         String result = CallInstanceMethod.runFQMethodName(fQMethodName, clipboardText);
+        return result;
+    }
+
+    /**
+     * 执行全限定方法名对应的方法
+     *
+     * @param fQMethodName 全限定方法名
+     * @return 全限定方法名的运行结果
+     */
+    private String runFqMethod(String fQMethodName, String input) {
+        // 读取剪贴板中的内容
+        // String clipboardText = SystemClipboard.getSysClipboardText();
+        // 执行该方法，剪贴中的字符串作为该方法的第1个参数
+        String result = CallInstanceMethod.runFQMethodName(fQMethodName, input);
         return result;
     }
 

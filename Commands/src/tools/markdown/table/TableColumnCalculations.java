@@ -31,7 +31,7 @@ public class TableColumnCalculations {
         // 按行拆分
         String tableLines[] = tableStr.split("\n");
         String line;
-        // double sum = 0.0;
+        // 累加器
         BigDecimal sum = new BigDecimal("0.0");
         StringBuilder sb = new StringBuilder(tableStr.length() + tableLines[tableLines.length - 1].length() + 4);
         for (int i = 0; i < tableLines.length; i++) {
@@ -39,27 +39,55 @@ public class TableColumnCalculations {
             if (i >= 2) {
                 // System.out.println(tableLines[i]);
                 line = tableLines[i];
-                // 摘下数据列单元格中的数据
-                line = line.replaceAll(".*\\|([0-9]+[.][0-9]+)\\|.*", "$1");
-                // System.out.println(line);
-                // sum += Double.valueOf(line);
-                sum = sum.add(new BigDecimal(line));
+                // 如果存在，浮点数 的单元格
+                if (line.matches(".*\\|([0-9]+[.][0-9]+)\\|.*")) {
+                    // 摘下数据列单元格中的浮点数
+                    line = line.replaceAll(".*\\|([0-9]+[.][0-9]+)\\|.*", "$1");
+                    // System.out.println(line);
+                    sum = sum.add(new BigDecimal(line));
+                    // System.out.println("数字:"+line);
+                } else {
+                    // System.out.println("非数字:"+line);
+                }
             }
         }
         // System.out.println("sum = " + sum);
         // System.out.println(tableStr);
         sb.append(tableStr + "\n");
-        // 复制表格最后一行作为统计行,并将数据列的单元格的数值，替换为求和得到的数值
-        // String sumLine = tableLines[tableLines.length - 1].replaceAll("(?<=\\|)([0-9]+[.][0-9]+)(?=\\|)", String.valueOf(sum));
-        String sumLine = tableLines[tableLines.length - 1].replaceAll("(?<=\\|)([0-9]+[.][0-9]+)(?=\\|)", sum.toString());
+
         // System.out.println();
-        // System.out.println(sumLine);
+        // 复制表格最后一行作为统计行,并将数据列的单元格的数值，替换为求和得到的数值
+        String sumLine = getSumLine(sum, tableLines[tableLines.length - 1]);
+
+        // sb.append(sumLine + "\n");
+        // System.out.println(sb.toString());
+        // return sb.toString();
+
+
+        return sumLine;
+    }
+
+    /**
+     * 把累加结果写到表格最后一行
+     *
+     * @param sum           求和得到的BigDecimal
+     * @param tableLineLast 表格最后一行文本
+     * @return 包含表格求和结果的
+     */
+    private String getSumLine(BigDecimal sum, String tableLineLast) {
+        String sumLine = "";
+        // 如果最后一行存在数字
+        if (tableLineLast.matches(".*\\|([0-9]+[.][0-9]+)\\|.*")) {
+            // 替换数字行
+            sumLine = tableLineLast.replaceAll("(?<=\\|)([0-9]+[.][0-9]+)(?=\\|)", sum.toString());
+        } else if (tableLineLast.matches(".*\\|\\|.*")) {
+            // String before = tableLineLast.substring(0, tableLineLast.lastIndexOf("|") - 1);
+            sumLine = tableLineLast.replaceAll("(?<=\\|)(?=\\|)", sum.toString());
+            // sumLine = before + "|" + sum.toString() + "|";
+        }
         // 删除所有非数字的单元格中的字符串
         sumLine = sumLine.replaceAll("[a-zA-Z\u4e00-\u9fa5_][0-9a-zA-Z\u4e00-\u9fa5 _]+\\|", "|");
-        // System.out.println();
-        // System.out.println(sumLine);
-        sb.append(sumLine + "\n");
-        // System.out.println(sb.toString());
-        return sb.toString();
+        sumLine = sumLine.replace("|", "");
+        return sumLine;
     }
 }
