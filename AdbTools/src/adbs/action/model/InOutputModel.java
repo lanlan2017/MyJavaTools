@@ -10,6 +10,7 @@ public class InOutputModel {
      * 输入组件
      */
     private InputPanelModel inputPanelModel;
+
     /**
      * 输出组件
      */

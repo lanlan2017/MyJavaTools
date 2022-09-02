@@ -1,4 +1,4 @@
-package adbs.test.auto;
+package adbs.test.auto.ui;
 
 import adbs.action.listener.OpenButtonListener;
 import adbs.action.listener.abs.shell.RebootBtnAcListener;
@@ -7,16 +7,20 @@ import adbs.action.listener.abs.shellinput.ReturnBtnAcListener;
 import adbs.action.listener.abs.shellinput.TaskManageBtnAcListener;
 import adbs.action.runnable.open.Taskkill;
 import adbs.test.DeviceListener;
+import adbs.test.auto.Buttons;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class  AdbJPanels {
+public class AdbJPanels {
 
     JPanel adbJPanel;
     JButton openBtn;
+    // JButton volumePlus;
+    // JButton volumeMinus;
+    // JButton volumeNone;
     JButton killBtn;
     JButton returnBtn;
     JButton homeBtn;
@@ -27,7 +31,7 @@ public class  AdbJPanels {
 
     public AdbJPanels() {
         adbJPanel = new JPanel();
-        adbJPanel.setBorder(new TitledBorder("adb"));
+        adbJPanel.setBorder(new TitledBorder(""));
         openBtn = new JButton(new ImageIcon(Buttons.class.getClassLoader().getResource("open.png")));
         openBtn.setToolTipText("打开设备");
         openBtn.addActionListener(new OpenButtonListener());
@@ -47,6 +51,22 @@ public class  AdbJPanels {
         returnBtn.setToolTipText("返回键");
         // 返回键
         returnBtn.addActionListener(new ReturnBtnAcListener());
+
+
+        // volumePlus = new JButton("+");
+        // volumePlus.setToolTipText("音量加一");
+        // // 音量加一键
+        // volumePlus.addActionListener(new VolumePlusBtnAcListener());
+        //
+        // volumeMinus = new JButton("-");
+        // volumeMinus.setToolTipText("音量减一");
+        // // 音量减一键
+        // volumeMinus.addActionListener(new VolumeMinusBtnAcListener());
+        //
+        // volumeNone = new JButton("x");
+        // volumeNone.setToolTipText("静音键");
+        // // 静音键
+        // volumeNone.addActionListener(new VolumeNoneBtnAcListener());
 
 
         // home键按钮
@@ -74,6 +94,9 @@ public class  AdbJPanels {
         // adb面板添加按钮
         adbJPanel.add(openBtn);
         adbJPanel.add(killBtn);
+        // adbJPanel.add(volumePlus);
+        // adbJPanel.add(volumeMinus);
+        // adbJPanel.add(volumeNone);
         adbJPanel.add(returnBtn);
         adbJPanel.add(homeBtn);
         adbJPanel.add(taskBtn);

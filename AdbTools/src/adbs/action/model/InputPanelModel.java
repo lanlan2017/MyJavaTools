@@ -13,6 +13,7 @@ import java.awt.*;
  * 定义输入面板模型
  */
 public class InputPanelModel {
+
     private JPanel inputPanel;
     private JLabel timeLable;
     private JPanel timeRadioPanel;
