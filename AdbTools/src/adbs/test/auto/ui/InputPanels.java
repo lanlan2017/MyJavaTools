@@ -1,5 +1,7 @@
 package adbs.test.auto.ui;
 
+import adbs.test.auto.ui.config.FlowLayouts;
+
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -23,6 +25,7 @@ public class InputPanels {
         // 创建输入选择面板
         // inputPanel = new JPanel(flowLayoutLeft);
         inputPanel = new JPanel();
+        inputPanel.setLayout(FlowLayouts.flowLayoutLeft);
         timeLable = new JLabel("时间(s)");
         // timeRadioPanel = new JPanel(flowLayoutLeft);
         timeRadioPanel = new JPanel();

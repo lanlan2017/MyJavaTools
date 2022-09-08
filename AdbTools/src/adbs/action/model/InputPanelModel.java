@@ -5,6 +5,7 @@ import adbs.action.listener.InputOkButtonActionListener;
 import adbs.action.listener.PlusBtnAcListener;
 import adbs.test.Device;
 import adbs.test.DeviceListener;
+import adbs.test.auto.ui.InputPanels;
 
 import javax.swing.*;
 import java.awt.*;
@@ -49,16 +50,20 @@ public class InputPanelModel {
         radioButton70s.addActionListener(e -> input1.setText(String.valueOf(70)));
 
         // 增加按钮
-        plusBtn.addActionListener(new PlusBtnAcListener(input1,input2));
+        plusBtn.addActionListener(new PlusBtnAcListener(input1, input2));
         // 减少按钮
-        minusBtn.addActionListener(new MinusBtnAcListener(input1,input2));
+        minusBtn.addActionListener(new MinusBtnAcListener(input1, input2));
 
         // // 输入面板等待按钮
         // inputOkButton.addActionListener(new InputOkButtonActionListener(inOutputModel));
 
         // 刚开始,隐藏输入面板
         inputPanel.setVisible(false);
+    }
 
+    public InputPanelModel(InputPanels inputPanels) {
+        // new InputPanelModel(inputPanels.getInputPanel(), inputPanels.getTimeLable(), inputPanels.getTimeRadioPanel(), inputPanels.getRadioButton15s(), inputPanels.getRadioButton35s(), inputPanels.getRadioButton70s(), inputPanels.getInput1(), inputPanels.getInput2(), inputPanels.getInputOkButton(), inputPanels.getPlusBtn(), inputPanels.getMinusBtn());
+        this(inputPanels.getInputPanel(), inputPanels.getTimeLable(), inputPanels.getTimeRadioPanel(), inputPanels.getRadioButton15s(), inputPanels.getRadioButton35s(), inputPanels.getRadioButton70s(), inputPanels.getInput1(), inputPanels.getInput2(), inputPanels.getInputOkButton(), inputPanels.getPlusBtn(), inputPanels.getMinusBtn());
     }
 
     public JPanel getInputPanel() {

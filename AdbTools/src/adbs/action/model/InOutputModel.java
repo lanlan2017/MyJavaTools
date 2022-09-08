@@ -23,11 +23,6 @@ public class InOutputModel {
         this.stopBtn = stopBtn;
     }
 
-    // public InOutputModel(InputPanelModel inputPanelModel, JLabel output) {
-    //     this.inputPanelModel = inputPanelModel;
-    //     this.output = output;
-    // }
-
     public InputPanelModel getInputPanelModel() {
         return inputPanelModel;
     }
