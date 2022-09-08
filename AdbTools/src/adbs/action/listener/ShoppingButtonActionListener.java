@@ -1,40 +1,48 @@
 package adbs.action.listener;
 
 import adbs.action.listener.abs.ButtonFocusReleaseActionListener;
-import adbs.action.model.InputPanelModel;
+import adbs.test.auto.ui.InputPanels;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class ShoppingButtonActionListener extends ButtonFocusReleaseActionListener {
     private JFrame frame;
-    private InputPanelModel inputPanelModel;
+    private InputPanels inputPanels;
 
-    public ShoppingButtonActionListener(JFrame frame, InputPanelModel inputPanelModel) {
+
+
+    public ShoppingButtonActionListener(JFrame frame, InputPanels inputPanels) {
         this.frame = frame;
-        this.inputPanelModel = inputPanelModel;
+        this.inputPanels = inputPanels;
     }
 
     @Override
     protected void actionEvent(ActionEvent e) {
-        inputPanelModel.getInputPanel().setVisible(true);
-        inputPanelModel.getTimeLable().setText("逛街时长(s)");
+        inputPanels.getInputPanel().setVisible(true);
+        inputPanels.getTimeLable().setText("时长(s)");
         // 关闭单选按钮组
-        inputPanelModel.getTimeRadioPanel().setVisible(false);
+        inputPanels.getTimeRadioPanel().setVisible(false);
         // 逛街20分钟
-        JTextField input1 = inputPanelModel.getInput1();
+        JTextField input1 = inputPanels.getInput1();
         input1.setVisible(true);
         // input1.setText(String.valueOf(20 * 60));
         input1.setText(String.valueOf(35));
         input1.setColumns(4);
-        inputPanelModel.getInput2().setVisible(false);
+        inputPanels.getInput2().setVisible(false);
 
-        // inputPanelModel.getPlusBtn().setVisible(false);
-        // inputPanelModel.getMinusBtn().setVisible(false);
-        inputPanelModel.getPlusBtn().setVisible(true);
-        inputPanelModel.getMinusBtn().setVisible(true);
+        // inputPanels.getPlusBtn().setVisible(false);
+        // inputPanels.getMinusBtn().setVisible(false);
+        inputPanels.getPlusBtn().setVisible(true);
+        inputPanels.getMinusBtn().setVisible(true);
 
-        inputPanelModel.getInputOkButton().setText("开始逛街");
+        inputPanels.getInputOkButton().setText("开始逛街");
+
+
+
+
+
+
         frame.pack();
     }
 }

@@ -1,8 +1,12 @@
 package adbs.test.auto.ui;
 
+import adbs.test.Device;
+import adbs.test.DeviceListener;
 import adbs.test.auto.ui.config.FlowLayouts;
+import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -63,6 +67,8 @@ public class InputPanels {
         inputPanel.add(inputOkButton);
         // frame.add(inputPanel);
         // return inputPanel;
+
+        AbstractButtons.setMarginInButtonJPanel(inputPanel);
     }
 
     public JPanel getInputPanel() {
@@ -107,5 +113,29 @@ public class InputPanels {
 
     public JButton getInputOkButton() {
         return inputOkButton;
+    }
+
+
+    public void showConfirmDialog() {
+        // 得到窗体的内容面板
+        Container parent = inputPanel.getParent();
+        String simpleId = Device.findSimpleId(DeviceListener.getPhoneId());
+        int returnVal;
+        String message = simpleId + "再次执行?";
+        if (parent instanceof Component) {
+            System.out.println("---------------是组件");
+            Component comp = parent;
+            // DeviceListener.getPhoneId();
+            returnVal = JOptionPane.showConfirmDialog(comp, message);
+        } else {
+            returnVal = JOptionPane.showConfirmDialog(null, message);
+        }
+        // 如果选择的是确认按键
+        if (returnVal == JOptionPane.OK_OPTION) {
+            if (inputOkButton != null && inputOkButton instanceof JButton) {
+                // 触发按钮
+                inputOkButton.doClick();
+            }
+        }
     }
 }

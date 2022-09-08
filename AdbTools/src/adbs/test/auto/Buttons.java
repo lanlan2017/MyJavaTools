@@ -4,10 +4,7 @@ import adbs.action.listener.*;
 import adbs.action.model.InOutputModel;
 import adbs.action.model.InputPanelModel;
 import adbs.action.runnable.ReadButtonRunnable;
-import adbs.test.auto.ui.AdbJPanels;
-import adbs.test.auto.ui.ControlJPanels;
-import adbs.test.auto.ui.InputPanels;
-import adbs.test.auto.ui.StopJPanels;
+import adbs.test.auto.ui.*;
 import adbs.test.auto.ui.config.FlowLayouts;
 import tools.swing.button.AbstractButtons;
 import adbs.test.AdbDi;
@@ -35,40 +32,23 @@ public class Buttons {
         FlatLightLaf.setup();
     }
 
+    // 窗体
     private final JFrame frame;
+    // 停止按钮
     private static JButton stopBtn;
     private static final String dirPath = "AdbToolsPythons\\";
 
     private PropertiesTools propertiesTools = new PropertiesTools("AdbTools.properties");
-    private final InOutputModel inOutputModel;
 
-    private JPanel adbJPanel;
-    private final JPanel devicesPanel;
-    private final JPanel stopJPanel;
-    private final JPanel controlJPanel;
-
-    // private final JPanel contentPane;
     private JPanel inputPanel;
-    private JLabel timeLable;
-    private JPanel timeRadioPanel;
-    private JTextField input1;
-    private JTextField input2;
-    // 增加按钮
-    private JButton plusBtn;
-    // 减少按钮
-    private JButton minusBtn;
-    private JButton inputOkButton;
-    private final InputPanelModel inputPanelModel;
-    private JRadioButton radioButton15s;
-    private JRadioButton radioButton35s;
-    private JRadioButton radioButton70s;
-    private final JPanel universalPanel;
-    private final JButton browseButton;
-    private final JButton waitReturnButton;
-    private final JButton readButton;
-    private final JButton videoButton;
-    private final JButton shoppingButton;
+
+    private JPanel controlJPanel;
+    private JPanel universalPanel;
+    private JButton readButton;
     private final JPanel otherJPanel;
+    /**
+     * 多选按钮面包
+     */
     private final JPanel checkJPanel;
     private final JCheckBox otherJCheckBox;
     private final JPanel outputJPanel;
@@ -85,112 +65,85 @@ public class Buttons {
         contentPaneSetting();
 
         // 初始化第0个面板
-        devicesPanel = initZeroPanel();
+        initZeroPanel();
         // 初始化第1个面板
-        adbJPanel = initFirstPanel();
+        initFirstPanel();
         // 初始化第2个面板
-        stopJPanel = initSeconPanel();
+        initSeconPanel();
         // 初始化第3个面板
         controlJPanel = initControlJPanel();
 
         // 初始化输入面板
         InputPanels inputPanels = initInputPanels();
-        // 创建通用功能面板
-        universalPanel = new JPanel();
-        browseButton = new JButton("浏览返回");
-        waitReturnButton = new JButton("等待");
-        readButton = new JButton("阅读");
-        videoButton = new JButton("刷视频");
-        shoppingButton = new JButton("逛街");
 
         // 其他按钮面板
         otherJPanel = new JPanel();
-        checkJPanel = new JPanel();
-        otherJCheckBox = new JCheckBox("其他", true);
-        generalJCheckBox = new JCheckBox("通用", true);
 
+        // 创建多选按钮面板
+        checkJPanel = new JPanel();
+        checkJPanel.setLayout(FlowLayouts.flowLayoutLeft);
+
+        // 其他复选框
+        otherJCheckBox = new JCheckBox("其他", true);
+        // 其他单选框 可以 控制其他面板
+        otherJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(frame, otherJPanel));
+        otherJCheckBox.doClick();
+
+        // 通用复选框
+        generalJCheckBox = new JCheckBox("通用", true);
+        //
+        // 控制单选框
+        JCheckBox controlJCheckBox = new JCheckBox("控制", true);
+        controlJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(frame, controlJPanel));
+        controlJCheckBox.doClick();
+
+
+        // 输出面板
         outputJPanel = new JPanel();
         output = new JLabel();
+        outputJPanel.setLayout(FlowLayouts.flowLayoutLeft);
+        output.setText("统一输出");
+        outputJPanel.add(output);
 
         // // 创建输入面板的模型
-        // inputPanelModel = new InputPanelModel(inputPanel, timeLable, timeRadioPanel, radioButton15s, radioButton35s, radioButton70s, input1, input2, inputOkButton, plusBtn, minusBtn);
-        // inputPanelModel = new InputPanelModel(inputPanel, inputPanels.getTimeLable(), inputPanels.getTimeRadioPanel(), inputPanels.getRadioButton15s(), inputPanels.getRadioButton35s(), inputPanels.getRadioButton70s(), inputPanels.getInput1(), inputPanels.getInput2(), inputPanels.getInputOkButton(), inputPanels.getPlusBtn(), inputPanels.getMinusBtn());
-        // inputPanelModel = new InputPanelModel(inputPanels.getInputPanel(), inputPanels.getTimeLable(), inputPanels.getTimeRadioPanel(), inputPanels.getRadioButton15s(), inputPanels.getRadioButton35s(), inputPanels.getRadioButton70s(), inputPanels.getInput1(), inputPanels.getInput2(), inputPanels.getInputOkButton(), inputPanels.getPlusBtn(), inputPanels.getMinusBtn());
-        // inputPanelModel = new InputPanelModel(inputPanels.getInputPanel(), inputPanels.getTimeLable(), inputPanels.getTimeRadioPanel(), inputPanels.getRadioButton15s(), inputPanels.getRadioButton35s(), inputPanels.getRadioButton70s(), inputPanels.getInput1(), inputPanels.getInput2(), inputPanels.getInputOkButton(), inputPanels.getPlusBtn(), inputPanels.getMinusBtn());
-        inputPanelModel = new InputPanelModel(inputPanels);
-
-        inOutputModel = new InOutputModel(inputPanelModel, output, stopBtn);
-
-        stopBtn.addActionListener(new StopBtnAcListener2(frame, isRunningSet, inOutputModel));
-
-        inputOkButton = inputPanels.getInputOkButton();
-        // 输入面板等待按钮
-        inputOkButton.addActionListener(new InputOkButtonActionListener(inOutputModel));
-
-
-        universalPanel.setBorder(new TitledBorder("通用功能"));
-        universalPanel.setLayout(FlowLayouts.flowLayoutLeft);
-        universalPanel.add(browseButton);
-        universalPanel.add(waitReturnButton);
-        universalPanel.add(readButton);
-        universalPanel.add(videoButton);
-        universalPanel.add(shoppingButton);
-        frame.add(universalPanel);
-
-
-        // 浏览后返回按钮事件处理程序
-        browseButton.addActionListener(new BrowseButtonActionListener(frame, inputPanelModel));
-        // 等待后返回按钮
-        waitReturnButton.addActionListener(new WaitReturnButtonActionListener(frame, inputPanelModel));
-        readButton.addActionListener(new PyImgFindAcListener(ReadButtonRunnable.getInstance(), inOutputModel));
-        // 刷视频按钮
-        videoButton.addActionListener(new VideoButtonActionListener(frame, inputPanelModel));
-        // 逛街按钮
-        shoppingButton.addActionListener(new ShoppingButtonActionListener(frame, inputPanelModel));
-
+        // inputPanelModel = new InputPanelModel(inputPanels);
+        InOutputModel inout2 = new InOutputModel(inputPanels, output, stopBtn);
+        // 测试替换
+        stopBtn.addActionListener(new StopBtnAcListener2(frame, isRunningSet, inout2));
+        // 设置inputOK按钮事件监听器
+        inputPanels.getInputOkButton().addActionListener(new InputOkButtonActionListener(inout2));
+        // 初始化通用面板
+        universalPanel = initUniversalPanel(inputPanels, inout2);
+        // 需要先初始化通用面板 要放在 initUniversalPanel(inputPanels, inout2);之后
+        generalJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(frame, universalPanel));
 
         newButtonJPanel(frame, checkJPanel, otherJPanel);
 
-        checkJPanel.setLayout(FlowLayouts.flowLayoutLeft);
-
-        otherJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(frame, otherJPanel));
-
-        generalJCheckBox.addItemListener(new JChcekBoxControl2JPanelItemListener(frame, universalPanel, inputPanel));
-
         checkJPanel.add(otherJCheckBox);
+        checkJPanel.add(controlJCheckBox);
         checkJPanel.add(generalJCheckBox, 0);
         // 插入到第2行
         // frame.add(checkJPanel, 2);
         frame.add(checkJPanel, 3);
-
-        outputJPanel.setLayout(FlowLayouts.flowLayoutLeft);
-        output.setText("统一输出");
-
-        outputJPanel.add(output);
         frame.add(outputJPanel);
 
-        otherJCheckBox.doClick();
-
-        AbstractButtons.setMarginInButtonJPanel(universalPanel);
-        AbstractButtons.setMarginInButtonJPanel(adbJPanel);
-        AbstractButtons.setMarginInButtonJPanel(stopJPanel);
-        AbstractButtons.setMarginInButtonJPanel(inputPanel);
-
-        // frame.add(checkJPanel);
         // 永远置顶
         frame.setAlwaysOnTop(true);
         // 设置关闭按钮功能
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        // 显示窗体
-        frame.setVisible(true);
         // 调整窗体到最佳大小
         frame.pack();
+        // 显示窗体
+        frame.setVisible(true);
+    }
+
+    private JPanel initUniversalPanel(InputPanels inputPanels, InOutputModel inout2) {
+        UniversalPanels universalPanels = new UniversalPanels(frame, inputPanels, inout2);
+        return universalPanels.getUniversalPanel();
     }
 
     /**
      * 初始化第3个面板，控制面板
-     *
-     * @return 表示控制面板的JPanel对象
      */
     private JPanel initControlJPanel() {
         final JPanel controlJPanel;
@@ -232,7 +185,7 @@ public class Buttons {
         frame.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
     }
 
-    private JPanel initZeroPanel() {
+    private void initZeroPanel() {
         final JPanel devicesPanel;
         // 创建设备面板
         devicesPanel = new AdbDi(frame).createDevicesPanel();
@@ -240,28 +193,25 @@ public class Buttons {
         devicesPanel.setLayout(FlowLayouts.flowLayoutLeft);
         // 添加到窗体中
         frame.add(devicesPanel);
-        return devicesPanel;
     }
 
-    private JPanel initSeconPanel() {
+    private void initSeconPanel() {
         final JPanel stopJPanel;
         StopJPanels stopJPanels = new StopJPanels();
         stopJPanel = stopJPanels.getStopJPanel();
         stopJPanel.setLayout(FlowLayouts.flowLayoutLeft);
         stopBtn = stopJPanels.getStopBtn();
         frame.add(stopJPanel);
-        return stopJPanel;
     }
 
-    private JPanel initFirstPanel() {
+    private void initFirstPanel() {
         final JPanel adbJPanel;
         // 创建第1个面板
         // 创建adb面板和面板中的控件
         AdbJPanels adbJPanels = new AdbJPanels();
         adbJPanel = adbJPanels.getAdbJPanel();
-        adbJPanel.setLayout(FlowLayouts.flowLayoutLeft);
+        // adbJPanel.setLayout(FlowLayouts.flowLayoutLeft);
         frame.add(adbJPanel);
-        return adbJPanel;
     }
 
     public static Buttons getInstance() {
@@ -278,6 +228,13 @@ public class Buttons {
         Buttons.getInstance();
     }
 
+    /**
+     * 根据体魄目录生成按钮
+     *
+     * @param frame
+     * @param checkJPanel
+     * @param otherJPanel
+     */
     private void newButtonJPanel(JFrame frame, JPanel checkJPanel, JPanel otherJPanel) {
         // File dir = new File("G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons");
         File dir = new File(dirPath);

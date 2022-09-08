@@ -44,7 +44,13 @@ public class StopBtnAcListener2 implements ActionListener {
             }
         }
         System.out.println("end isRunningSet.size() = " + isRunningSet.size());
-        inOutputModel.getInputPanelModel().getInputPanel().setVisible(false);
+
+
+        // inOutputModel.getInputPanelModel().getInputPanel().setVisible(false);
+        
+        inOutputModel.getInputPanels().getInputPanel().setVisible(false);
+
+
         frame.pack();
     }
 }

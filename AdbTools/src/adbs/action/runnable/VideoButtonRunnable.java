@@ -10,8 +10,14 @@ import tools.thead.Threads;
 import javax.swing.*;
 
 public class VideoButtonRunnable extends CloseableRunnable {
+
+    /**
+     * 输入输出汇总模型
+     */
+    private InOutputModel inOutputModel;
     private static VideoButtonRunnable instance = new VideoButtonRunnable();
-    private JLabel output;
+    // private JLabel output;
+
 
     private VideoButtonRunnable() {
     }
@@ -19,17 +25,12 @@ public class VideoButtonRunnable extends CloseableRunnable {
     public static VideoButtonRunnable getInstance() {
         return instance;
     }
-
-    /**
-     * 输入输出汇总模型
-     */
-    private InOutputModel inOutputModel;
     private int min = 0;
     private int max = 0;
 
     public void setInOutputModel(InOutputModel inOutputModel) {
         this.inOutputModel = inOutputModel;
-        this.output = inOutputModel.getOutput();
+        // this.output = inOutputModel.getOutput();
     }
 
     public int getMin() {
@@ -70,6 +71,7 @@ public class VideoButtonRunnable extends CloseableRunnable {
         String id = DeviceListener.getPhoneId();
         String oldOutput;
         String newOutput;
+        JLabel output=inOutputModel.getOutput();
         // 毫秒计数器
         int msCount = 0;
         // 生成[min,Max]区间的随机整数
@@ -102,7 +104,7 @@ public class VideoButtonRunnable extends CloseableRunnable {
             msCount += 250;
 
             oldOutput = output.getText();
-            newOutput = msg + ":等待" + ((msToWait - msCount) / 1000) + "s";
+            newOutput = msg + ":等待--" + ((msToWait - msCount) / 1000) + "s";
             // 如果新旧内容不相等，则设置为新内容
             if (!newOutput.equals(oldOutput)) {
                 output.setText(newOutput);

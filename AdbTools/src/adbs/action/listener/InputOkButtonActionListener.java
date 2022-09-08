@@ -9,7 +9,11 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class InputOkButtonActionListener extends ButtonFocusReleaseActionListener {
+    /**
+     * 被操作的输入输出组件
+     */
     private final InOutputModel inOutputModel;
+
     private final BrowseRunnable browseRunnable;
     private final ShoppingButtonRunnable shoppingButtonRunnable;
     private final WaitReturnButtonRunnable waitReturnButtonRunnable;
@@ -57,8 +61,12 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
             new Thread(waitReturnButtonRunnable).start();
         } else if ("开始刷视频".equals(ok.getText())) {
             output.setText("刷视频线程：开始等待");
-            String input1Str = inOutputModel.getInputPanelModel().getInput1().getText();
-            String input2Str = inOutputModel.getInputPanelModel().getInput2().getText();
+            // String input1Str = inOutputModel.getInputPanelModel().getInput1().getText();
+            // String input2Str = inOutputModel.getInputPanelModel().getInput2().getText();
+
+            // 测试替换
+            String input1Str = inOutputModel.getInputPanels().getInput1().getText();
+            String input2Str = inOutputModel.getInputPanels().getInput2().getText();
             // 如果输入的都是数字
             if (input1Str.matches("\\d+") && input2Str.matches("\\d+")) {
                 videoButtonRunnable.setMin(Integer.parseInt(input1Str));

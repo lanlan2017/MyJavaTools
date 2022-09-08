@@ -2,13 +2,16 @@ package adbs.action.runnable;
 
 import adbs.action.model.InOutputModel;
 import adbs.action.runnable.abs.CloseableRunnable;
-import adbs.cmd.AdbCommands;
-import adbs.test.DeviceListener;
 import tools.thead.Threads;
 
 import javax.swing.*;
 
+/**
+ * 等待返回 线程体
+ */
 public class WaitReturnButtonRunnable extends CloseableRunnable {
+    private InOutputModel inOutputModel;
+
     private static WaitReturnButtonRunnable instance = new WaitReturnButtonRunnable();
 
     private WaitReturnButtonRunnable() {
@@ -18,8 +21,6 @@ public class WaitReturnButtonRunnable extends CloseableRunnable {
     public static WaitReturnButtonRunnable getInstance() {
         return instance;
     }
-
-    private InOutputModel inOutputModel;
 
     public void setInOutputModel(InOutputModel inOutputModel) {
         this.inOutputModel = inOutputModel;
@@ -33,7 +34,9 @@ public class WaitReturnButtonRunnable extends CloseableRunnable {
     @Override
     protected void loopBody() {
         // 获取输入文本框1
-        JTextField input1 = inOutputModel.getInputPanelModel().getInput1();
+        // JTextField input1 = inOutputModel.getInputPanelModel().getInput1();
+        // 测试替换
+        JTextField input1 = inOutputModel.getInputPanels().getInput1();
         // 解析输入文本1中的数字,并计算得到毫秒数
         int millisecond = Integer.parseInt(input1.getText()) * 1000;
         // 获取输入标签
@@ -68,6 +71,9 @@ public class WaitReturnButtonRunnable extends CloseableRunnable {
         // 触发返回键
         // AdbCommands.returnButton(DeviceListener.getPhoneId());
         inOutputModel.getOutput().setText(msg + ":已停止");
-        inOutputModel.getInputPanelModel().showConfirmDialog();
+
+        // inOutputModel.getInputPanelModel().showConfirmDialog();
+        // 测试替换
+        inOutputModel.getInputPanels().showConfirmDialog();
     }
 }

@@ -1,5 +1,7 @@
 package adbs.action.model;
 
+import adbs.test.auto.ui.InputPanels;
+
 import javax.swing.*;
 
 /**
@@ -10,6 +12,8 @@ public class InOutputModel {
      * 输入组件
      */
     private InputPanelModel inputPanelModel;
+
+    private InputPanels inputPanels;
 
     /**
      * 输出组件
@@ -22,9 +26,18 @@ public class InOutputModel {
         this.output = output;
         this.stopBtn = stopBtn;
     }
+    public InOutputModel(InputPanels inputPanels, JLabel output, JButton stopBtn) {
+        this.inputPanels = inputPanels;
+        this.output = output;
+        this.stopBtn = stopBtn;
+    }
 
     public InputPanelModel getInputPanelModel() {
         return inputPanelModel;
+    }
+
+    public InputPanels getInputPanels() {
+        return inputPanels;
     }
 
     public JLabel getOutput() {

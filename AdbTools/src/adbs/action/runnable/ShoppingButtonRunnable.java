@@ -37,9 +37,10 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
     @Override
     protected void loopBody() {
         String id = DeviceListener.getPhoneId();
-
         JLabel output = inOutputModel.getOutput();
-        JTextField input1 = inOutputModel.getInputPanelModel().getInput1();
+        // JTextField input1 = inOutputModel.getInputPanelModel().getInput1();
+        // 测试替换
+        JTextField input1 = inOutputModel.getInputPanels().getInput1();
         // 读取文本框1中的秒数
         seconds = Integer.parseInt(input1.getText()) * 1000;
         // 计数器

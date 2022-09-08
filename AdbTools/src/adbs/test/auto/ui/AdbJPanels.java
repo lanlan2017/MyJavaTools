@@ -8,6 +8,8 @@ import adbs.action.listener.abs.shellinput.TaskManageBtnAcListener;
 import adbs.action.runnable.open.Taskkill;
 import adbs.test.DeviceListener;
 import adbs.test.auto.Buttons;
+import adbs.test.auto.ui.config.FlowLayouts;
+import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -18,9 +20,6 @@ public class AdbJPanels {
 
     JPanel adbJPanel;
     JButton openBtn;
-    // JButton volumePlus;
-    // JButton volumeMinus;
-    // JButton volumeNone;
     JButton killBtn;
     JButton returnBtn;
     JButton homeBtn;
@@ -32,6 +31,9 @@ public class AdbJPanels {
     public AdbJPanels() {
         adbJPanel = new JPanel();
         adbJPanel.setBorder(new TitledBorder(""));
+        adbJPanel.setLayout(FlowLayouts.flowLayoutLeft);
+
+
         openBtn = new JButton(new ImageIcon(Buttons.class.getClassLoader().getResource("open.png")));
         openBtn.setToolTipText("打开设备");
         openBtn.addActionListener(new OpenButtonListener());
@@ -51,23 +53,6 @@ public class AdbJPanels {
         returnBtn.setToolTipText("返回键");
         // 返回键
         returnBtn.addActionListener(new ReturnBtnAcListener());
-
-
-        // volumePlus = new JButton("+");
-        // volumePlus.setToolTipText("音量加一");
-        // // 音量加一键
-        // volumePlus.addActionListener(new VolumePlusBtnAcListener());
-        //
-        // volumeMinus = new JButton("-");
-        // volumeMinus.setToolTipText("音量减一");
-        // // 音量减一键
-        // volumeMinus.addActionListener(new VolumeMinusBtnAcListener());
-        //
-        // volumeNone = new JButton("x");
-        // volumeNone.setToolTipText("静音键");
-        // // 静音键
-        // volumeNone.addActionListener(new VolumeNoneBtnAcListener());
-
 
         // home键按钮
         homeBtn = new JButton(new ImageIcon(Buttons.class.getClassLoader().getResource("圆圈.png")));
@@ -94,14 +79,13 @@ public class AdbJPanels {
         // adb面板添加按钮
         adbJPanel.add(openBtn);
         adbJPanel.add(killBtn);
-        // adbJPanel.add(volumePlus);
-        // adbJPanel.add(volumeMinus);
-        // adbJPanel.add(volumeNone);
         adbJPanel.add(returnBtn);
         adbJPanel.add(homeBtn);
         adbJPanel.add(taskBtn);
         adbJPanel.add(rebootBtn);
         adbJPanel.add(closeBtn);
+
+        AbstractButtons.setMarginInButtonJPanel(adbJPanel);
     }
 
     public JPanel getAdbJPanel() {

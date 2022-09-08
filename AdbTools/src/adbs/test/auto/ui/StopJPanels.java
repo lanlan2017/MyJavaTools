@@ -6,6 +6,7 @@ import adbs.action.listener.abs.shellinput.VolumePlusBtnAcListener;
 import adbs.cmd.CmdRun;
 import javafx.scene.input.InputMethodTextRun;
 import tools.config.properties.PropertiesTools;
+import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -88,6 +89,7 @@ public class StopJPanels {
         stopJPanel.add(stopBtn);
         // stopJPanel.add(dormantTextField);
         // stopJPanel.add(dormantOKButton);
+        AbstractButtons.setMarginInButtonJPanel(stopJPanel);
     }
 
     public JPanel getStopJPanel() {

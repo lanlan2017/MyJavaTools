@@ -6,6 +6,9 @@ import adbs.cmd.AdbCommands;
 import adbs.test.DeviceListener;
 import tools.thead.Threads;
 
+/**
+ * 浏览返回 线程体
+ */
 public class BrowseRunnable extends CloseableRunnable {
     private InOutputModel inOutputModel;
 
@@ -32,7 +35,11 @@ public class BrowseRunnable extends CloseableRunnable {
     protected void loopBody() {
         String id = DeviceListener.getPhoneId();
         if (id != null) {
-            String text = inOutputModel.getInputPanelModel().getInput1().getText();
+            // String text = inOutputModel.getInputPanelModel().getInput1().getText();
+            // 测试替换输入框1
+            String text = inOutputModel.getInputPanels().getInput1().getText();
+
+
             System.out.println("text = " + text);
             // int s = Integer.parseInt(text) * 1000;
             int s = Integer.parseInt(text);
@@ -63,6 +70,8 @@ public class BrowseRunnable extends CloseableRunnable {
     protected void afterLoop() {
         super.afterLoop();
         // 弹出确认框
-        inOutputModel.getInputPanelModel().showConfirmDialog();
+        // inOutputModel.getInputPanelModel().showConfirmDialog();
+        inOutputModel.getInputPanels().showConfirmDialog();
+
     }
 }
