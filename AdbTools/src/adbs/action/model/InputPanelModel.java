@@ -1,7 +1,6 @@
 package adbs.action.model;
 
-import adbs.action.MinusBtnAcListener;
-import adbs.action.listener.InputOkButtonActionListener;
+import adbs.action.listener.MinusBtnAcListener;
 import adbs.action.listener.PlusBtnAcListener;
 import adbs.test.Device;
 import adbs.test.DeviceListener;

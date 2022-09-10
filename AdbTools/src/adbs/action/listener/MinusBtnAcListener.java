@@ -1,7 +1,6 @@
-package adbs.action;
+package adbs.action.listener;
 
 import adbs.action.model.InOutputModel;
-import adbs.action.model.InputPanelModel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -11,14 +10,12 @@ import java.awt.event.ActionListener;
  * 减少按钮监听器
  */
 public class MinusBtnAcListener implements ActionListener {
-    private InOutputModel inOutputModel;
     private JTextField input1;
     private JTextField input2;
 
     public MinusBtnAcListener(InOutputModel inOutputModel) {
-        this.inOutputModel = inOutputModel;
-        input1 = inOutputModel.getInputPanelModel().getInput1();
-        input2 = inOutputModel.getInputPanelModel().getInput2();
+        input1 = inOutputModel.getInputPanels().getInput1();
+        input2 = inOutputModel.getInputPanels().getInput2();
     }
 
     public MinusBtnAcListener(JTextField input1, JTextField input2) {
@@ -28,18 +25,19 @@ public class MinusBtnAcListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // InputPanelModel inputPanelModel = inOutputModel.getInputPanelModel();
-        // JTextField input1 = inputPanelModel.getInput1();
-        // JTextField input2 = inputPanelModel.getInput2();
-
-
+        // 如果输入框1 可见的话
         if (input1.isVisible()) {
             int value1 = Integer.parseInt(input1.getText());
+            // 如果输入框2也可见的话
             if (input2.isVisible()) {
+                // 输入框1，输入框2都可见
                 int value2;
                 if (value1 == 150) {
-                    value1 = 90;
+                    value1 = 120;
                     value2 = 150;
+                } else if (value1 == 120) {
+                    value1 = 90;
+                    value2 = 120;
                 } else if (value1 == 90) {
                     value1 = 60;
                     value2 = 90;
@@ -66,6 +64,7 @@ public class MinusBtnAcListener implements ActionListener {
             }
             // 第2个不可见
             else {
+                // 输入框1可见，输入框2不可见
                 switch (value1) {
                     case 1200:
                         value1 = 95;
@@ -78,6 +77,9 @@ public class MinusBtnAcListener implements ActionListener {
                         break;
                     case 35:
                         value1 = 30;
+                        break;
+                    case 30:
+                        value1 = 20;
                         break;
                     // case :
                     //     break;

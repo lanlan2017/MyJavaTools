@@ -3,6 +3,7 @@ package adbs.test.auto.ui;
 import adbs.test.Device;
 import adbs.test.DeviceListener;
 import adbs.test.auto.ui.config.FlowLayouts;
+import adbs.test.auto.ui.config.Fonts;
 import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
@@ -27,7 +28,6 @@ public class InputPanels {
     public InputPanels() {
 
         // 创建输入选择面板
-        // inputPanel = new JPanel(flowLayoutLeft);
         inputPanel = new JPanel();
         inputPanel.setLayout(FlowLayouts.flowLayoutLeft);
         timeLable = new JLabel("时间(s)");
@@ -41,6 +41,9 @@ public class InputPanels {
         timeLable.add(radioButton70s);
 
         input1 = new JTextField(3);
+
+        input1.setFont(Fonts.Consolas_PLAIN_12);
+
         input1.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
@@ -54,6 +57,10 @@ public class InputPanels {
 
 
         input2 = new JTextField(3);
+        input2.setFont(Fonts.Consolas_PLAIN_12);
+
+
+
         plusBtn = new JButton(">");
         minusBtn = new JButton("<");
         inputOkButton = new JButton("确认");
@@ -65,8 +72,7 @@ public class InputPanels {
         inputPanel.add(plusBtn);
         inputPanel.add(minusBtn);
         inputPanel.add(inputOkButton);
-        // frame.add(inputPanel);
-        // return inputPanel;
+        inputPanel.setVisible(false);
 
         AbstractButtons.setMarginInButtonJPanel(inputPanel);
     }

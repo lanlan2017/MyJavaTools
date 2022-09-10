@@ -22,13 +22,16 @@ public class BrowseButtonActionListener extends ButtonFocusReleaseActionListener
     protected void actionEvent(ActionEvent e) {
         // 测试替换
         inputPanels.getInputPanel().setVisible(true);
-        inputPanels.getTimeLable().setText("浏览时间(s):");
+        inputPanels.getTimeLable().setText("时间(s):");
         inputPanels.getTimeRadioPanel().setVisible(true);
         inputPanels.getInput1().setText(String.valueOf(30));
+        inputPanels.getInput1().setColumns(4);
         inputPanels.getInput2().setVisible(false);
         inputPanels.getInputOkButton().setText("开始浏览");
-        inputPanels.getPlusBtn().setVisible(false);
-        inputPanels.getMinusBtn().setVisible(false);
+        // inputPanels.getPlusBtn().setVisible(false);
+        // inputPanels.getMinusBtn().setVisible(false);
+        inputPanels.getPlusBtn().setVisible(true);
+        inputPanels.getMinusBtn().setVisible(true);
 
         frame.pack();
     }

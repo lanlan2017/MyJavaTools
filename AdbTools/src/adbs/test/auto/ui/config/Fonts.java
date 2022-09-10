@@ -16,6 +16,17 @@ public class Fonts {
     public static Font f4 = new Font(Font.DIALOG_INPUT, Font.BOLD | Font.ITALIC, 15);
     public static Font f5 = new Font(Font.MONOSPACED, Font.BOLD | Font.ITALIC, 15);
 
+    /**
+     * 等宽字体Consolas,14号
+     */
+    public static Font Consolas_PLAIN_14 = new Font("Consolas", Font.PLAIN, 14);
+    public static Font Consolas_BOLD_14 = new Font("Consolas", Font.BOLD, 14);
+    public static Font Consolas_PLAIN_12 = new Font("Consolas", Font.PLAIN, 14);
+    /**
+     * Cascadia 是微软出品的一款开源等宽字体，Windows Terminal 中的默认字体就是它。
+     */
+    public static Font Cascadia_PLAIN_14 = new Font("Cascadia", Font.PLAIN, 14);
+
     public static void main(String[] args) {
         JFrame frame = new JFrame();
         JLabel label1 = new JLabel("helloWorld，你好");

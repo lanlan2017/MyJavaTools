@@ -1,15 +1,14 @@
 package adbs.test.auto;
 
+import adbs.action.listener.MinusBtnAcListener;
 import adbs.action.listener.*;
 import adbs.action.model.InOutputModel;
-import adbs.action.model.InputPanelModel;
 import adbs.action.runnable.ReadButtonRunnable;
 import adbs.test.auto.ui.*;
 import adbs.test.auto.ui.config.FlowLayouts;
 import tools.swing.button.AbstractButtons;
 import adbs.test.AdbDi;
 import adbs.test.Device;
-import adbs.test.auto.listener.JChcekBoxControl2JPanelItemListener;
 import adbs.test.auto.listener.JCheckBoxControlJPanelItemListener;
 import adbs.test.auto.listener.StopBtnAcListener2;
 import adbs.test.auto.run.PythonCloseableRun;
@@ -64,13 +63,13 @@ public class Buttons {
         // 设置窗体内容面板
         contentPaneSetting();
 
-        // 初始化第0个面板
-        initZeroPanel();
-        // 初始化第1个面板
-        initFirstPanel();
-        // 初始化第2个面板
-        initSeconPanel();
-        // 初始化第3个面板
+        // 初始化第0个面板，初始化设备面板
+        initDevicesPanel();
+        // 初始化第1个面板,adb面板
+        initAdbJPanel();
+        // // 初始化第2个面板
+        // initStopJPanel();
+        // 初始化第3个面板，控制面板
         controlJPanel = initControlJPanel();
 
         // 初始化输入面板
@@ -79,7 +78,7 @@ public class Buttons {
         // 其他按钮面板
         otherJPanel = new JPanel();
 
-        // 创建多选按钮面板
+        // 多选框面板
         checkJPanel = new JPanel();
         checkJPanel.setLayout(FlowLayouts.flowLayoutLeft);
 
@@ -87,16 +86,21 @@ public class Buttons {
         otherJCheckBox = new JCheckBox("其他", true);
         // 其他单选框 可以 控制其他面板
         otherJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(frame, otherJPanel));
+        // 现在就触发
         otherJCheckBox.doClick();
 
         // 通用复选框
         generalJCheckBox = new JCheckBox("通用", true);
         //
-        // 控制单选框
+        // 控制复选框
         JCheckBox controlJCheckBox = new JCheckBox("控制", true);
         controlJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(frame, controlJPanel));
+        // 现在就触发
         controlJCheckBox.doClick();
 
+        checkJPanel.add(generalJCheckBox, 0);
+        checkJPanel.add(controlJCheckBox);
+        checkJPanel.add(otherJCheckBox);
 
         // 输出面板
         outputJPanel = new JPanel();
@@ -105,26 +109,28 @@ public class Buttons {
         output.setText("统一输出");
         outputJPanel.add(output);
 
-        // // 创建输入面板的模型
-        // inputPanelModel = new InputPanelModel(inputPanels);
-        InOutputModel inout2 = new InOutputModel(inputPanels, output, stopBtn);
+        // 创建输入面板的模型
+        InOutputModel inOut = new InOutputModel(inputPanels, output, stopBtn);
         // 测试替换
-        stopBtn.addActionListener(new StopBtnAcListener2(frame, isRunningSet, inout2));
+        stopBtn.addActionListener(new StopBtnAcListener2(frame, isRunningSet, inOut));
         // 设置inputOK按钮事件监听器
-        inputPanels.getInputOkButton().addActionListener(new InputOkButtonActionListener(inout2));
+        inputPanels.getInputOkButton().addActionListener(new InputOkButtonActionListener(inOut));
+        inputPanels.getPlusBtn().addActionListener(new PlusBtnAcListener(inOut));
+        inputPanels.getMinusBtn().addActionListener(new MinusBtnAcListener(inOut));
+
         // 初始化通用面板
-        universalPanel = initUniversalPanel(inputPanels, inout2);
-        // 需要先初始化通用面板 要放在 initUniversalPanel(inputPanels, inout2);之后
+        universalPanel = initUniversalPanel(inOut);
+
+        // 需要先初始化通用面板 要放在 initUniversalPanel(inputPanels, inOut);之后
         generalJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(frame, universalPanel));
 
+        // 添加选项到多选面板
         newButtonJPanel(frame, checkJPanel, otherJPanel);
 
-        checkJPanel.add(otherJCheckBox);
-        checkJPanel.add(controlJCheckBox);
-        checkJPanel.add(generalJCheckBox, 0);
-        // 插入到第2行
-        // frame.add(checkJPanel, 2);
-        frame.add(checkJPanel, 3);
+        // 添加多选框面板到第3行
+        frame.add(checkJPanel, 2);
+        AbstractButtons.setMarginInButtonJPanel(checkJPanel, -1);
+        // 添加输出面包到最后一行
         frame.add(outputJPanel);
 
         // 永远置顶
@@ -137,8 +143,8 @@ public class Buttons {
         frame.setVisible(true);
     }
 
-    private JPanel initUniversalPanel(InputPanels inputPanels, InOutputModel inout2) {
-        UniversalPanels universalPanels = new UniversalPanels(frame, inputPanels, inout2);
+    private JPanel initUniversalPanel(InOutputModel inout2) {
+        UniversalPanels universalPanels = new UniversalPanels(frame, inout2);
         return universalPanels.getUniversalPanel();
     }
 
@@ -185,7 +191,10 @@ public class Buttons {
         frame.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
     }
 
-    private void initZeroPanel() {
+    /**
+     * 初始化设备面板
+     */
+    private void initDevicesPanel() {
         final JPanel devicesPanel;
         // 创建设备面板
         devicesPanel = new AdbDi(frame).createDevicesPanel();
@@ -195,23 +204,22 @@ public class Buttons {
         frame.add(devicesPanel);
     }
 
-    private void initSeconPanel() {
+    private void initStopJPanel() {
         final JPanel stopJPanel;
         StopJPanels stopJPanels = new StopJPanels();
         stopJPanel = stopJPanels.getStopJPanel();
-        stopJPanel.setLayout(FlowLayouts.flowLayoutLeft);
-        stopBtn = stopJPanels.getStopBtn();
+        // stopJPanel.setLayout(FlowLayouts.flowLayoutLeft);
+        // stopBtn = stopJPanels.getStopBtn();
         frame.add(stopJPanel);
     }
 
-    private void initFirstPanel() {
-        final JPanel adbJPanel;
-        // 创建第1个面板
-        // 创建adb面板和面板中的控件
+    /**
+     * 初始化adb面板
+     */
+    private void initAdbJPanel() {
         AdbJPanels adbJPanels = new AdbJPanels();
-        adbJPanel = adbJPanels.getAdbJPanel();
-        // adbJPanel.setLayout(FlowLayouts.flowLayoutLeft);
-        frame.add(adbJPanel);
+        stopBtn=adbJPanels.getStopBtn();
+        frame.add(adbJPanels.getAdbJPanel());
     }
 
     public static Buttons getInstance() {
@@ -303,7 +311,8 @@ public class Buttons {
                                         }
                                     });
 
-                                    AbstractButtons.setJButtonMargin(button);
+                                    // AbstractButtons.setJButtonMargin(button);
+                                    AbstractButtons.setJButtonMargin(button,1);
                                     jPanel.add(button);
                                 }
                             }
@@ -321,11 +330,18 @@ public class Buttons {
                 }
             }
         }
-        int jPanel1ComponentCount = otherJPanel.getComponentCount();
-        // 向上取整
-        int rows = (int) Math.ceil(jPanel1ComponentCount / 4.0);
-        otherJPanel.setLayout(new GridLayout(rows, 4, 0, 0));
+        //
+        // // 获取其他面板的组件个数
+        // int jPanel1ComponentCount = otherJPanel.getComponentCount();
+        // // 向上取整
+        // int rows = (int) Math.ceil(jPanel1ComponentCount / 4.0);
+        // // 设置对齐方式
+        // otherJPanel.setLayout(new GridLayout(rows, 4, 0, 0));
+        // otherJPanel.setBorder(new TitledBorder("Other"));
+
+        otherJPanel.setLayout(FlowLayouts.flowLayoutLeft);
         otherJPanel.setBorder(new TitledBorder("Other"));
+
         frame.add(otherJPanel);
         // return otherJPanel;
     }
@@ -348,7 +364,8 @@ public class Buttons {
                 }
             });
         }
-        AbstractButtons.setJButtonMargin(button);
+        // AbstractButtons.setJButtonMargin(button);
+        AbstractButtons.setJButtonMargin(button,1);
         // 添加到其他面板
         otherJPanel.add(button);
     }

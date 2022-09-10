@@ -10,14 +10,12 @@ import java.awt.event.ActionListener;
  * 增加按钮监听器
  */
 public class PlusBtnAcListener implements ActionListener {
-    private InOutputModel inOutputModel;
     private JTextField input1;
     private JTextField input2;
 
     public PlusBtnAcListener(InOutputModel inOutputModel) {
-        this.inOutputModel = inOutputModel;
-        input1 = inOutputModel.getInputPanelModel().getInput1();
-        input2 = inOutputModel.getInputPanelModel().getInput2();
+        input1 = inOutputModel.getInputPanels().getInput1();
+        input2 = inOutputModel.getInputPanels().getInput2();
     }
 
     public PlusBtnAcListener(JTextField input1, JTextField input2) {
@@ -63,6 +61,9 @@ public class PlusBtnAcListener implements ActionListener {
                     value1 = 90;
                     value2 = 150;
                 } else if (value1 == 90) {
+                    value1 = 120;
+                    value2 = 150;
+                } else if (value1 == 120) {
                     value1 = 150;
                     value2 = 240;
                 } else {
@@ -79,6 +80,9 @@ public class PlusBtnAcListener implements ActionListener {
                 //    1200
                 switch (value1) {
                     case 0:
+                        value1 = 20;
+                        break;
+                    case 20:
                         value1 = 30;
                         break;
                     case 30:
@@ -99,8 +103,8 @@ public class PlusBtnAcListener implements ActionListener {
                     // case :
                     //     break;
                 }
-                if (value1 < 0) {
-                    value1 = 30;
+                if (value1 < 20) {
+                    value1 = 20;
                 }
 
                 input1.setText(String.valueOf(value1));

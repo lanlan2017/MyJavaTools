@@ -122,7 +122,8 @@ public class ControlJPanels {
         // controlJPanel.add(secondLabel);
         controlJPanel.add(dormantOKButton);
 
-        AbstractButtons.setMarginInButtonJPanel(controlJPanel);
+        // AbstractButtons.setMarginInButtonJPanel(controlJPanel);
+        AbstractButtons.setMarginInButtonJPanel(controlJPanel,1);
     }
 
     public JPanel getControlJPanel() {
