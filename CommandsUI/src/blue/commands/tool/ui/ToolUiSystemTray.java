@@ -101,17 +101,34 @@ public class ToolUiSystemTray {
             System.out.println("显示主窗体");
             //显示窗口
             frame.setVisible(true);
+            if (frame.getExtendedState() == JFrame.ICONIFIED) {
+                System.out.println("已经最小化了");
+                frame.setExtendedState(JFrame.NORMAL);
+            }
         });
 
         // 菜单项2
+        // JMenuItem exit = new JMenuItem(toUtf8Str("退出"));
+        JMenuItem mini = new JMenuItem("最小化");
+        mini.addActionListener(e -> {
+            System.out.println("点击了最小化");
+            // System.exit(0);
+            // frame.setVisible(false);
+            frame.setExtendedState(JFrame.ICONIFIED);//最小化窗体
+        });
+
+        // 菜单项3
         // JMenuItem exit = new JMenuItem(toUtf8Str("退出"));
         JMenuItem exit = new JMenuItem("退出");
         exit.addActionListener(e -> {
             System.out.println("点击了退出选项");
             System.exit(0);
         });
+
+
         // 添加菜单项到弹出框
         jPopupMenu.add(showMainFrame);
+        jPopupMenu.add(mini);
         jPopupMenu.add(exit);
         // 自动调整大小
         jPopupMenu.pack();

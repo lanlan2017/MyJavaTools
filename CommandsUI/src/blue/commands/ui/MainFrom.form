@@ -101,6 +101,12 @@
               <text value="ocr" noi18n="true"/>
             </properties>
           </component>
+          <component id="1b560" class="javax.swing.JButton" binding="miniBtn">
+            <constraints/>
+            <properties>
+              <text value="min"/>
+            </properties>
+          </component>
           <component id="fa694" class="javax.swing.JButton" binding="exitButton">
             <constraints/>
             <properties>

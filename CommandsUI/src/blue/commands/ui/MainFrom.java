@@ -75,6 +75,7 @@ public class MainFrom {
     // ocr输出和命令输出分隔面板
     private JSplitPane jSplitPane;
     private JButton button1;
+    private JButton miniBtn;
 
 
     public MainFrom(JFrame frame) {
@@ -125,6 +126,22 @@ public class MainFrom {
                     System.out.println("主窗体 将会 靠近截图方框显示");
                     ScreenShotWindow.getInstance().setFrameNextToScreenshot(true);
                 }
+            }
+        });
+        miniBtnSetting(frame);
+    }
+
+    /**
+     * 最小化窗体设置
+     *
+     * @param frame JFrame对象
+     */
+    private void miniBtnSetting(JFrame frame) {
+        AbstractButtons.setJButtonMargin(miniBtn);
+        miniBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.setExtendedState(JFrame.ICONIFIED);
             }
         });
     }
