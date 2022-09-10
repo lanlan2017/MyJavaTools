@@ -1,5 +1,7 @@
 package adbs.test.auto.ui;
 
+import adbs.action.runnable.open.Taskkill;
+import adbs.cmd.CmdRun;
 import adbs.test.auto.ui.config.FlowLayouts;
 import tools.swing.button.AbstractButtons;
 
@@ -84,24 +86,33 @@ public class ControlJPanels {
                 final double finalMs = ms;
                 System.out.print("等待:" + (finalMs) + "(ms)=");
                 System.out.print((finalMs / 1000) + "(s)=");
-                System.out.print((finalMs / (60*1000)) + "(m)=");
-                System.out.print((finalMs / (60*60*1000)) + "(h)");
+                System.out.print((finalMs / (60 * 1000)) + "(m)=");
+                System.out.print((finalMs / (60 * 60 * 1000)) + "(h)");
                 System.out.println();
 
                 TimerTask task = new TimerTask() {
                     public void run() {
                         // System.out.print("等待:" + (finalMs) + "(ms)=");
                         // System.out.print((finalMs / 1000) + "(s)");
-                        System.out.println("结束");
+                        // System.out.println("结束");
                         // 杀死悟空浏览器
                         // CmdRun.run("adb shell am force-stop com.cat.readall");
                         // 杀死快手极速版
                         // CmdRun.run("adb shell am force-stop com.kuaishou.nebula");
                         // // 杀死抖音极速版
                         // CmdRun.run("adb shell am force-stop com.ss.android.ugc.aweme.lite");
-                        // 息屏，并且休眠电脑
-                        // CmdRun.run("adb shell input keyevent 223 && shutdown /h");
-                        // CmdRun.run("adb shell input keyevent 223");
+
+                        // 关闭adb.exe,关闭scrcpy.exe
+                        // CmdRun.run("taskkill /f /im adb.exe");
+
+                        Taskkill.killAdbToolsJarAll();
+                        // // oppo手机关机
+                        // CmdRun.run("adb -s 75aed56d shell reboot -p");
+                        // // honor手机关机
+                        // CmdRun.run("adb -s U8ENW18117021408 shell reboot -p");
+                        // // 电脑休眠
+                        // CmdRun.run("shutdown /h");
+
                     }
                 };
                 // 定时器等待ms毫秒后执行任务task
@@ -123,7 +134,7 @@ public class ControlJPanels {
         controlJPanel.add(dormantOKButton);
 
         // AbstractButtons.setMarginInButtonJPanel(controlJPanel);
-        AbstractButtons.setMarginInButtonJPanel(controlJPanel,1);
+        AbstractButtons.setMarginInButtonJPanel(controlJPanel, 1);
     }
 
     public JPanel getControlJPanel() {
