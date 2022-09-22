@@ -80,6 +80,15 @@ public class PlusBtnAcListener implements ActionListener {
                 //    1200
                 switch (value1) {
                     case 0:
+                        value1 = 8;
+                        break;
+                    case 8:
+                        value1 = 10;
+                        break;
+                    case 10:
+                        value1 = 15;
+                        break;
+                    case 15:
                         value1 = 20;
                         break;
                     case 20:

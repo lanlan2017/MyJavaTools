@@ -16,12 +16,15 @@ import java.util.TimerTask;
 public class ControlJPanels {
     private final JPanel controlJPanel;
     private final JLabel label;
-    private final JButton dormantOKButton;
     private final JTextField hourTextField;
     private final JLabel hourLabel;
     private final JTextField minuteTextField;
     private final JLabel minuteLabel;
     private final JTextField secondTextField;
+    private final JButton dormantOKButton;
+    // shutdown -a
+    private final JButton cancelBtn;
+
 
     public ControlJPanels() {
         controlJPanel = new JPanel(FlowLayouts.flowLayoutLeft);
@@ -105,14 +108,16 @@ public class ControlJPanels {
                         // 关闭adb.exe,关闭scrcpy.exe
                         // CmdRun.run("taskkill /f /im adb.exe");
 
+                        // oppo手机关机
+                        CmdRun.run("adb -s 75aed56d shell reboot -p");
+                        // honor手机关机
+                        CmdRun.run("adb -s U8ENW18117021408 shell reboot -p");
+                        // 3秒后关机
+                        CmdRun.run("timeout 10 && shutdown /h");
+                        // 杀死自己
                         Taskkill.killAdbToolsJarAll();
-                        // // oppo手机关机
-                        // CmdRun.run("adb -s 75aed56d shell reboot -p");
-                        // // honor手机关机
-                        // CmdRun.run("adb -s U8ENW18117021408 shell reboot -p");
-                        // // 电脑休眠
-                        // CmdRun.run("shutdown /h");
-
+                        // 电脑休眠
+                        //timeout 36000 && adb -s 75aed56d shell reboot -p && adb -s U8ENW18117021408 shell reboot -p && shutdown /h
                     }
                 };
                 // 定时器等待ms毫秒后执行任务task
@@ -121,6 +126,14 @@ public class ControlJPanels {
             }
         });
 
+        cancelBtn = new JButton("取消");
+        cancelBtn.setToolTipText("取消shutdown命令");
+        cancelBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CmdRun.run("shutdown -a");
+            }
+        });
         controlJPanel.add(label);
         controlJPanel.add(hourTextField);
         controlJPanel.add(hourLabel);
@@ -132,6 +145,7 @@ public class ControlJPanels {
         // controlJPanel.add(second);
         // controlJPanel.add(secondLabel);
         controlJPanel.add(dormantOKButton);
+        controlJPanel.add(cancelBtn);
 
         // AbstractButtons.setMarginInButtonJPanel(controlJPanel);
         AbstractButtons.setMarginInButtonJPanel(controlJPanel, 1);
