@@ -40,12 +40,17 @@ public class Device {
             case "75aed56d":
                 simpleId = "OppoUSB";
                 break;
+            case "jjqsqst4aim7f675":
+                simpleId = "RemiUSB";
+                break;
             case "192.168.0.102:5555":
                 simpleId = "HonorWiFi";
                 break;
             case "192.168.0.100:5556":
                 simpleId = "OppoWiFi";
                 break;
+            default:
+                simpleId = id;
         }
         return simpleId;
     }
