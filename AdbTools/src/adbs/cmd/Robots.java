@@ -1,11 +1,8 @@
 package adbs.cmd;
 
-import tools.format.date.DateFormatters;
-
 import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.util.Date;
 
 public class Robots {
     private static Robot robot;
@@ -18,6 +15,10 @@ public class Robots {
         } catch (AWTException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Robot getRobot() {
+        return robot;
     }
 
     /**
