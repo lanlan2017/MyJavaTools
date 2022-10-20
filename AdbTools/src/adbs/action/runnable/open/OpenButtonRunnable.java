@@ -1,8 +1,8 @@
 package adbs.action.runnable.open;
 
 import adbs.cmd.CmdRun;
-import adbs.test.Device;
-import adbs.test.DeviceListener;
+import adbs.main.auto.listener.Device;
+import adbs.main.auto.listener.DeviceListener;
 
 /**
  * 打开设备 按钮事件处理程序

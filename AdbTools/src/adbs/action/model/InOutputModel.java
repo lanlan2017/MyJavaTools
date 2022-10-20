@@ -1,6 +1,6 @@
 package adbs.action.model;
 
-import adbs.test.auto.ui.InputPanels;
+import adbs.main.auto.ui.InputPanels;
 
 import javax.swing.*;
 

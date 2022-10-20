@@ -1,6 +1,6 @@
 package adbs.python;
 
-import adbs.test.Device;
+import adbs.main.auto.listener.Device;
 import tools.copy.SystemClipboard;
 import tools.file.Files;
 import tools.format.date.DateFormatters;
@@ -123,17 +123,6 @@ public class PythonGenerator {
         SystemClipboard.setSysClipboardText(imagesInDir2SwitchCases(pythonPathDir));
     }
 
-    // private static String getBrand() {
-    //     String simpleId = Device.findSimpleId(DeviceRadioBtAcListener.getId()).toLowerCase();
-    //     String brand = null;
-    //     if (simpleId.contains("oppo")) {
-    //         brand = "oppo";
-    //     } else if (simpleId.contains("honor")) {
-    //         brand = "honor";
-    //     }
-    //     return brand;
-    // }
-
     /**
      * 生成一个存放 目录下所有'.png'文件的python数组
      *
@@ -178,9 +167,8 @@ public class PythonGenerator {
 
     /**
      * 是否需要添加转义字符
-     * isNeedToAddEscape
-     * @param s
-     * @return
+     * @param s 图片名称
+     * @return 如果图片以字母'b','a','r'开头，则返回true,否则返回false。
      */
     private static boolean isNeedToAddEscape(String s) {
         return s.startsWith("b") || s.startsWith("a")|| s.startsWith("r");

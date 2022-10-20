@@ -1,8 +1,7 @@
 package adbs.action.runnable;
 
 import adbs.action.runnable.abs.PyImgFinderCloseRunnable;
-import adbs.cmd.Robots;
-import adbs.test.Device;
+import adbs.main.auto.listener.Device;
 
 import javax.swing.*;
 import java.awt.*;

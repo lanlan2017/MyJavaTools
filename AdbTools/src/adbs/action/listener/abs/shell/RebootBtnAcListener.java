@@ -1,7 +1,7 @@
 package adbs.action.listener.abs.shell;
 
 import adbs.cmd.AdbCommands;
-import adbs.test.DeviceListener;
+import adbs.main.auto.listener.DeviceListener;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -12,9 +12,9 @@ import java.awt.event.ActionListener;
  */
 public class RebootBtnAcListener implements ActionListener {
     // private JFrame frame;
-    private JPanel jPanel;
+    private final JPanel jPanel;
 
-    private String code;
+    private final String code;
 
     // public RebootBtnAcListener(JFrame frame, String code) {
     //     this.frame = frame;
@@ -28,7 +28,7 @@ public class RebootBtnAcListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         AbstractButton button = (AbstractButton) e.getSource();
-        button.setFocusPainted(false);
+        // button.setFocusPainted(false);
         int returnVal = JOptionPane.showConfirmDialog(jPanel, "确认" + button.getText() + "?");
         // 如果选择的是确认按键
         if (returnVal == JOptionPane.OK_OPTION) {
@@ -36,7 +36,7 @@ public class RebootBtnAcListener implements ActionListener {
             // 重启
             // code = "reboot";
             String adbCmd = "adb -s " + id + " " + code;
-            System.out.println("adbCmd = " + adbCmd);
+            // System.out.println("adbCmd = " + adbCmd);
             AdbCommands.runAbdCmd(adbCmd);
         }
     }

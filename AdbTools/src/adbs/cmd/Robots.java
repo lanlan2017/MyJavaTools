@@ -4,6 +4,9 @@ import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
+/**
+ * 机器人类
+ */
 public class Robots {
     private static Robot robot;
 
@@ -17,6 +20,10 @@ public class Robots {
         }
     }
 
+    /**
+     * 返回已经创建的机器人对象。
+     * @return 机器人类对象
+     */
     public static Robot getRobot() {
         return robot;
     }

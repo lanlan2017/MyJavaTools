@@ -1,7 +1,7 @@
 package adbs.action.runnable;
 
 import adbs.action.runnable.abs.PyImgFinderCloseRunnable;
-import adbs.test.Device;
+import adbs.main.auto.listener.Device;
 
 public class KuaiShouTaskCenterRun extends PyImgFinderCloseRunnable {
     @Override

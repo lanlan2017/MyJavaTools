@@ -5,6 +5,9 @@ import tools.process.ProcessRunner;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 调用cmd执行命令
+ */
 public class CmdRun {
     /**
      * 存放命令的List

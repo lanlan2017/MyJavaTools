@@ -3,7 +3,7 @@ package adbs.action.runnable.open;
 import adbs.cmd.CmdRun;
 
 /**
- * 调用scrcpy.exe程序
+ * 调用scrcpy.exe程序打开手机镜像
  */
 public class OpenScrcpy {
     public static void main(String[] args) {

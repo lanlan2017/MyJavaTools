@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * 调用cmd,执行adb命令
+ */
 public class AdbCommands {
 
     /**

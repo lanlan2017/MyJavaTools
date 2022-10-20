@@ -2,6 +2,9 @@ package adbs.cmd;
 
 import java.awt.*;
 
+/**
+ * 获取PyAutoGui找到的图片坐标对应的java.awt.Point对象。
+ */
 public class PyAutoGui {
     /**
      * 获取python执行结果中的坐标。

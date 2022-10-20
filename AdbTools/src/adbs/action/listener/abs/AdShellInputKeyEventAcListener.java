@@ -1,7 +1,7 @@
 package adbs.action.listener.abs;
 
 import adbs.cmd.AdbCommands;
-import adbs.test.DeviceListener;
+import adbs.main.auto.listener.DeviceListener;
 
 import java.awt.event.ActionEvent;
 

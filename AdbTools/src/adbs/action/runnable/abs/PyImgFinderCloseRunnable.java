@@ -5,7 +5,7 @@ import adbs.cmd.PyAutoGui;
 import adbs.cmd.PythonRun;
 import adbs.cmd.Robots;
 import adbs.python.PythonGenerator;
-import adbs.test.DeviceListener;
+import adbs.main.auto.listener.DeviceListener;
 import tools.file.Files;
 import tools.format.date.DateFormatters;
 import tools.thead.Threads;

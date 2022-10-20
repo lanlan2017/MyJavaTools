@@ -4,6 +4,9 @@ import adbs.cmd.CmdRun;
 
 import java.util.Scanner;
 
+/**
+ * 调用taskkill.exe
+ */
 public class Taskkill {
     public static void main(String[] args) {
         // killScrcpy("75aed56d");
@@ -65,11 +68,19 @@ public class Taskkill {
         }
     }
 
+    /**
+     * 杀死指定pid进程的进程树
+     * @param pid 程序的pid
+     */
     public static void killPidTree(String pid) {
         String x = CmdRun.run("taskkill -f -t -pid " + pid);
         System.out.println(x);
     }
 
+    /**
+     * 杀死指定pid的进程
+     * @param pid 进程的pid
+     */
     public static void killPid(String pid) {
         String x = CmdRun.run("taskkill -f -pid " + pid);
         System.out.println(x);

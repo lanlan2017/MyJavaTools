@@ -2,9 +2,9 @@ package adbs.action.model;
 
 import adbs.action.listener.MinusBtnAcListener;
 import adbs.action.listener.PlusBtnAcListener;
-import adbs.test.Device;
-import adbs.test.DeviceListener;
-import adbs.test.auto.ui.InputPanels;
+import adbs.main.auto.listener.Device;
+import adbs.main.auto.listener.DeviceListener;
+import adbs.main.auto.ui.InputPanels;
 
 import javax.swing.*;
 import java.awt.*;

@@ -5,6 +5,9 @@ import tools.process.ProcessRunner;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 运行python文件
+ */
 public class PythonRun {
     /**
      * 存放命令的List
@@ -34,7 +37,7 @@ public class PythonRun {
         return processRunner.runProcess(processBuilder);
     }
 
-    public static void main(String[] args) {
-        // jieSuoZhangJiePoint();
-    }
+    // public static void main(String[] args) {
+    //     // jieSuoZhangJiePoint();
+    // }
 }
