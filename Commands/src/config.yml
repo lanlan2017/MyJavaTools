@@ -237,7 +237,14 @@ s:
     space:
       underscore: tools.string.StringReplace.characterReplacement_ControlCodeIsLastTwoArgs
     lastTwoDefault: tools.string.StringReplace.characterReplacement_ControlCodeIsLastTwoArgs
-
+  sum:
+    default: tools.string.multiline.MultilineString.sum
+    # 对多行字符串中的小数求和
+    multiple_lines_decimals: tools.string.multiline.MultilineString.sum
+    # 统计的时候显示当天日期
+    date: tools.string.multiline.MultilineString.sumDate
+    # 分app进行统计
+    all: tools.string.multiline.MultilineString.subAll
 # 学习强国App相关命令
 qg:
   # 获取PDF课件的真实地址

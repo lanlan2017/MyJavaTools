@@ -1,5 +1,7 @@
 package tools.string;
 
+import tools.format.date.DateFormatters;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -8,8 +10,8 @@ public class StringGenerator {
      * 生成格式化的日期
      */
     public String dateStr() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
-        return format.format(new Date());
+        // SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
+        return DateFormatters.yyyyMMdd.format(new Date());
     }
 
     /**
