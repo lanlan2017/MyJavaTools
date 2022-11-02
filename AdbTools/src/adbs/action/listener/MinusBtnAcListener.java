@@ -90,6 +90,9 @@ public class MinusBtnAcListener implements ActionListener {
                     case 10:
                         value1 = 8;
                         break;
+                    case 8:
+                        value1 = 5;
+                        break;
                     // case :
                     //     break;
                     // case :

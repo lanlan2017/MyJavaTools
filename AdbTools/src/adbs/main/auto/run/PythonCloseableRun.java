@@ -1,10 +1,8 @@
 package adbs.main.auto.run;
 
 import adbs.action.runnable.abs.CloseableRunnable;
-import adbs.cmd.CmdRun;
-import adbs.cmd.PyAutoGui;
-import adbs.cmd.PythonRun;
-import adbs.cmd.Robots;
+import adbs.cmd.*;
+import adbs.main.auto.listener.DeviceListener;
 import adbs.python.PythonGenerator;
 import adbs.main.AdbTools;
 import tools.file.Files;
@@ -177,7 +175,7 @@ public class PythonCloseableRun implements Runnable {
             {
                 // System.out.println("移动鼠标，免得遮挡");
                 // 向右下角移动鼠标，免得遮挡
-                Robots.getRobot().mouseMove(point.x+40, point.y+40);
+                Robots.getRobot().mouseMove(point.x + 40, point.y + 40);
             }
             Threads.sleep(1500);
             // 触发后续的按键
@@ -197,8 +195,13 @@ public class PythonCloseableRun implements Runnable {
             Robots.rightClickButton(point);
             isNotStopThenWait(3);
         } else if (img.startsWith("GuangJie_")) {
-
             isNotStopThenWait(3);
+        } else if (img.startsWith("scrollUp")) {
+            System.out.println("从下向上滑动,跳过精选里的直播");
+            // AdbCommands.swipeBottom2TopOnLeft(DeviceListener.getPhoneId());
+            AdbCommands.swipeBottom2TopOnMiddle(DeviceListener.getPhoneId(), DeviceListener.getWidth(), DeviceListener.getHeight());
+            //多等待3秒
+            Robots.delay(3*1000);
         } else {
             Robots.leftMouseButtonClick(point);
             // Robots.delay(4 * 1000);

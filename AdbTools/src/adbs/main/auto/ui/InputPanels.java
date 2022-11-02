@@ -134,7 +134,6 @@ public class InputPanels {
         if (parent instanceof Component) {
             System.out.println("---------------是组件");
             Component comp = parent;
-            // DeviceListener.getPhoneId();
             returnVal = JOptionPane.showConfirmDialog(comp, message);
         } else {
             returnVal = JOptionPane.showConfirmDialog(null, message);

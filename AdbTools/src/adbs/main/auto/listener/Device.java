@@ -6,8 +6,16 @@ import tools.config.properties.PropertiesTools;
 import java.util.*;
 
 public class Device {
+    /**
+     * 设备ID
+     */
     private String id;
+    /**
+     * 设备描述信息
+     */
     private String description;
+
+
 
     public static HashMap<String, String> map = new HashMap<>();
 
@@ -55,22 +63,34 @@ public class Device {
     }
 
     /**
-     * 获取当前的品牌名
+     * 获取当前选择的设备的品牌名
      *
-     * @return
+     * @return 当前选择的设备的品牌名称
      */
     public static String getBrand() {
-        // todo 修改此处硬编码方式
-        String simpleId = Device.findSimpleId(DeviceListener.getPhoneId()).toLowerCase();
+        String phoneId = DeviceListener.getPhoneId();
+        String simpleId = Device.findSimpleId(phoneId).toLowerCase();
         System.out.println("simpleId = " + simpleId);
-        String brand = "未知设备";
-        if (simpleId.contains("oppo")) {
-            brand = "oppo";
-        } else if (simpleId.contains("honor")) {
-            brand = "honor";
-        } else if (simpleId.contains("redmi")) {
-            brand = "redmi";
+        String brand;
+        if (simpleId.contains("wifi")) {
+            // 如果配置文件中有HonorWiFI之类的别名
+            brand = simpleId.substring(0, simpleId.lastIndexOf("wifi"));
+        } else if (simpleId.contains("usb")) {
+            // 如果配置文件中有HonorUSB之类的别名
+            brand = simpleId.substring(0, simpleId.lastIndexOf("usb"));
+        } else {
+            // 没有的话使用手机id作为品牌名
+            brand = phoneId;
         }
+
+        // else if (simpleId.contains("oppo")) {
+        //     brand = "oppo";
+        // } else if (simpleId.contains("honor")) {
+        //     brand = "honor";
+        // } else if (simpleId.contains("redmi")) {
+        //     brand = "redmi";
+        // }
+        System.out.println("brand = " + brand);
         return brand;
     }
 

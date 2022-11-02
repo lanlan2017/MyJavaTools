@@ -212,18 +212,16 @@ public class AdbTools {
      * @param frame 窗体
      * @param checkJPanel 复选框面板
      */
-    // private void newButtonJPanel(JFrame frame, JPanel checkJPanel, JPanel otherJPanel) {
     private void newButtonJPanel(JFrame frame, JPanel checkJPanel) {
-        // File dir = new File("G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons");
         File dir = new File(dirPath);
         System.out.println("AdbToolsPythonImg = " + dir.getAbsolutePath());
-        File[] dirList = dir.listFiles(pathname -> pathname.isDirectory());
+        File[] dirList = dir.listFiles(File::isDirectory);
 
         if (dirList != null) {
             for (File dirDeep1 : dirList) {
                 if (dirDeep1.isDirectory()) {
                     // 列出子目录
-                    File[] dirDeep1List = dirDeep1.listFiles(pathname -> pathname.isDirectory());
+                    File[] dirDeep1List = dirDeep1.listFiles(File::isDirectory);
                     // 如果一级子目录存在子目录
                     if (dirDeep1List != null) {
                         if (dirDeep1List.length > 0) {
