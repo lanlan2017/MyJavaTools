@@ -29,22 +29,29 @@ public class MultilineString {
     }
 
     /**
-     * 统计字符串的值。
+     * 给多天的，多个"产品 价格"求总价格。
      *
-     * @param s 多行字符串
-     * @return 统计表格。
+     * @param s 多行字符串，每行的字符串格式为 "产品 价格"，产品可重复
+     * @return 表格, 升序排列，表格的每一行格式为 "产品，该产品价格累加值",最后一行为"合计 所有产品的价格累加值"
      */
     public String subAll(String s) {
         s = deleteUselessLine(s);
+        // System.out.println(s);
+        // System.out.println();
+        // 删除文件末尾的总计信息
+        s = s.substring(0, s.lastIndexOf("## 总计"));
+        // System.out.println(s);
+        // System.out.println();
+
 
         LinkedHashMap<String, BigDecimal> linkedHashMap = sumAllInLinkHashMap(s);
         StringBuilder sb = new StringBuilder();
         // System.out.println(getHorizontalLine(11));
+        sb.append("## 总计\n");
         sb.append(getHorizontalLine(11)).append("\n");
 
-        // System.out.print(printTable(linkedHashMap));
-        sb.append(printTable(linkedHashMap));
-
+        // System.out.print(printSumAllTable(linkedHashMap));
+        sb.append(printSumAllTable(linkedHashMap));
         // System.out.println(getHorizontalLine(11));
         sb.append(getHorizontalLine(11)).append("\n");
         // System.out.println(getHorizontalLine(11));
@@ -52,7 +59,7 @@ public class MultilineString {
         return s1;
     }
 
-    private static String printTable(LinkedHashMap<String, BigDecimal> linkedHashMap) {
+    private static String printSumAllTable(LinkedHashMap<String, BigDecimal> linkedHashMap) {
         StringBuilder sb = new StringBuilder();
         BigDecimal bigDecimal = linkedHashMap.get("maxLength");
         // 删除附加的名称长度
@@ -66,6 +73,8 @@ public class MultilineString {
         Collections.sort(list, new Comparator<Map.Entry<String, BigDecimal>>() {
             @Override
             public int compare(Map.Entry<String, BigDecimal> o1, Map.Entry<String, BigDecimal> o2) {
+                // 使用BigDecimal默认的排序规则
+                // Java默认的排序规则是升序排序
                 return o1.getValue().compareTo(o2.getValue());
             }
         });
@@ -107,6 +116,7 @@ public class MultilineString {
         BigDecimal sumAll = new BigDecimal(0);
         try {
             while (((line = reader.readLine()) != null)) {
+
                 String[] split = line.split("[ ]+");
                 String key = split[0];
                 if (key.length() > maxLength) {
@@ -132,16 +142,22 @@ public class MultilineString {
             e.printStackTrace();
         }
         linkedHashMap.put("maxLength", new BigDecimal(maxLength));
-        linkedHashMap.put("合计", sumAll);
+        linkedHashMap.put("总计", sumAll);
         return linkedHashMap;
     }
 
+    /**
+     * 多行字符中其他无关行，只保留"产品 价格"格式的行。
+     *
+     * @param s 包含多行"产品 价格"的字符串。
+     * @return 只有"产品 价格"的多行字符串
+     */
     private static String deleteUselessLine(String s) {
         // 删除每日总计
-        s = s.replaceAll("[累合总]计[　]{1,}[0-9{1,}]\\.[0-9]{1,2}\\n", "");
+        s = s.replaceAll("[累合总]计[　]+[0-9{1,}]\\.[0-9]{1,2}\\n", "");
         // System.out.println(s);
         // 删除分隔符
-        s = s.replaceAll("－－－－－－－－－－－\n", "");
+        s = s.replaceAll("－+\n?", "");
         // 删除日期行
         s = s.replaceAll("\\#\\# [0-9]{4}\\-[0-9]{1,2}\\-[0-9]{1,2}\\n", "");
         // 全角空格替换成半角空格
@@ -164,33 +180,36 @@ public class MultilineString {
         System.out.println(multilineString.sum(s));
     }
 
+    /**
+     * 计算多个"产品 价格"的总价格，并生成带日期的表格。
+     *
+     * @param mulLine 多行字符串，每行的格式为"产品 价格"。
+     * @return 带日期的自定义表格
+     */
     public String sumDate(String mulLine) {
         return "## " + DateFormatters.yyyyMMdd.format(new Date()) + "\n" + sum(mulLine);
     }
 
 
+    /**
+     * 对没有重复key多行"产品 价格"字符串，求总价格。
+     *
+     * @param mulLine 多行字符串，每行的格式为"产品 价格"
+     * @return 包含总价格的表格。
+     */
     public String sum(String mulLine) {
-
-        // 删除分割符号
-        mulLine = mulLine.replaceAll("－+\n?", "");
-        // 删除旧的合计
-        mulLine = mulLine.replaceAll("合计　+[0-9]+\\.[0-9]+\n", "");
-        // 把全角空格替换为半角空格，免得影响后续处理。
-        mulLine = mulLine.replaceAll(QuanJiao.kongGe, " ");
-
-        // System.out.println(mulLine);
-        // System.out.println();
-
+        // // 删除分割符号
+        // mulLine = mulLine.replaceAll("－+\n?", "");
+        // // 删除旧的合计
+        // mulLine = mulLine.replaceAll("合计　+[0-9]+\\.[0-9]+\n", "");
+        // // 把全角空格替换为半角空格，免得影响后续处理。
+        // mulLine = mulLine.replaceAll(QuanJiao.kongGe, " ");
+        mulLine = deleteUselessLine(mulLine);
+        System.out.println(mulLine);
+        System.out.println();
 
         String horizontalLine = getHorizontalLine(11);
         StringBuilder sb = new StringBuilder();
-        // 获取日期
-        // String date = DateFormatters.yyyyMMdd.format(new Date());
-        // System.out.println(horizontalLine);
-        // sb.append(horizontalLine).append("\n");
-        // System.out.println(date);
-        // sb.append("## ").append(date).append("\n");
-        // System.out.println(horizontalLine);
         sb.append(horizontalLine).append("\n");
         // System.out.print(sumMultipleLinesOfDecimals(mulLine));
         sb.append(sumMultipleLinesOfDecimals(mulLine));
@@ -232,27 +251,6 @@ public class MultilineString {
         String maxLength = "MaxKeyLength";
         BigDecimal maxLengthValue = linkedHashMap.get(maxLength);
 
-        // int finalMaxLength = maxLengthValue.intValue();
-        // linkedHashMap.forEach(new BiConsumer<String, BigDecimal>() {
-        //     @Override
-        //     public void accept(String s, BigDecimal bigDecimal) {
-        //         if (s.equals("MaxKeyLength")) {
-        //             // System.out.println();
-        //             sb.append(getHorizontalLine(11)).append("\n");
-        //         } else {
-        //             int length = s.length();
-        //             // System.out.print(s);
-        //             sb.append(s);
-        //             int l = finalMaxLength + 1 - length;
-        //             while (l > 0) {
-        //                 sb.append(QuanJiao.kongGe);
-        //                 l--;
-        //             }
-        //             // System.out.println(bigDecimal);
-        //             sb.append(bigDecimal).append("\n");
-        //         }
-        //     }
-        // });
         linkedHashMap.remove("MaxKeyLength");
         Set<Map.Entry<String, BigDecimal>> entries = linkedHashMap.entrySet();
         ArrayList<Map.Entry<String, BigDecimal>> list = new ArrayList<>(entries);
