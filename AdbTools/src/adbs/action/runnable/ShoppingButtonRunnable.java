@@ -36,7 +36,8 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
 
     @Override
     protected void loopBody() {
-        String id = DeviceListener.getPhoneId();
+        // String id = DeviceListener.getPhoneId();
+        String id = DeviceListener.getSelectedPhoneId();
         JLabel output = inOutputModel.getOutput();
         // JTextField input1 = inOutputModel.getInputPanelModel().getInput1();
         // 测试替换

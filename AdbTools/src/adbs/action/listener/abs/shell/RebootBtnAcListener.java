@@ -32,7 +32,8 @@ public class RebootBtnAcListener implements ActionListener {
         int returnVal = JOptionPane.showConfirmDialog(jPanel, "确认" + button.getText() + "?");
         // 如果选择的是确认按键
         if (returnVal == JOptionPane.OK_OPTION) {
-            String id = DeviceListener.getPhoneId();
+            // String id = DeviceListener.getPhoneId();
+            String id = DeviceListener.getSelectedPhoneId();
             // 重启
             // code = "reboot";
             String adbCmd = "adb -s " + id + " " + code;

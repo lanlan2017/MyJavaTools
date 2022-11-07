@@ -68,7 +68,12 @@ public class VideoButtonRunnable extends CloseableRunnable {
 
     @Override
     protected void loopBody() {
-        String id = DeviceListener.getPhoneId();
+        // String id = DeviceListener.getPhoneId();
+
+        // String id =DeviceListener.getPhoneId();
+        String id =DeviceListener.getSelectedPhoneId();
+
+
         String oldOutput;
         String newOutput;
         JLabel output=inOutputModel.getOutput();

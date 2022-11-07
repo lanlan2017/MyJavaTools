@@ -199,7 +199,9 @@ public class PythonCloseableRun implements Runnable {
         } else if (img.startsWith("scrollUp")) {
             System.out.println("从下向上滑动,跳过精选里的直播");
             // AdbCommands.swipeBottom2TopOnLeft(DeviceListener.getPhoneId());
-            AdbCommands.swipeBottom2TopOnMiddle(DeviceListener.getPhoneId(), DeviceListener.getWidth(), DeviceListener.getHeight());
+            // AdbCommands.swipeBottom2TopOnMiddle(DeviceListener.getPhoneId(), DeviceListener.getWidth(), DeviceListener.getHeight());
+            // AdbCommands.swipeBottom2TopOnMiddle(DeviceListener.getPhoneId(), DeviceListener.getWidth(), DeviceListener.getHeight());
+            AdbCommands.swipeBottom2TopOnMiddle(DeviceListener.getSelectedPhoneId(), DeviceListener.getWidth(), DeviceListener.getHeight());
             //多等待3秒
             Robots.delay(3*1000);
         } else {

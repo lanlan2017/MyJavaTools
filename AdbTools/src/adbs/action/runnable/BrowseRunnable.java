@@ -33,7 +33,8 @@ public class BrowseRunnable extends CloseableRunnable {
 
     @Override
     protected void loopBody() {
-        String id = DeviceListener.getPhoneId();
+        // String id = DeviceListener.getPhoneId();
+        String id = DeviceListener.getSelectedPhoneId();
         if (id != null) {
             // String text = inOutputModel.getInputPanelModel().getInput1().getText();
             // 测试替换输入框1

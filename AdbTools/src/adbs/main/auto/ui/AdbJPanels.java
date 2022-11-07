@@ -61,7 +61,9 @@ public class AdbJPanels {
         killScrcpyBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String id = DeviceListener.getPhoneId();
+                // String id = DeviceListener.getPhoneId();
+                // String id = DeviceListener.getPhoneId();
+                String id = DeviceListener.getSelectedPhoneId();
                 Taskkill.killScrcpy(id);
             }
         });

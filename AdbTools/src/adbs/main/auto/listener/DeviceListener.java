@@ -15,7 +15,9 @@ public class DeviceListener implements ActionListener {
     /**
      * 设备id
      */
-    private static String phoneId;
+    private static String selectedPhoneId;
+
+    private static String selectedSimpleId;
 
     /**
      * 设备的宽度(像素)
@@ -35,8 +37,12 @@ public class DeviceListener implements ActionListener {
         this.device = device;
     }
 
-    public static String getPhoneId() {
-        return phoneId;
+    public static String getSelectedPhoneId() {
+        return selectedPhoneId;
+    }
+
+    public static String getSelectedSimpleId() {
+        return selectedSimpleId;
     }
 
     public static int getWidth() {
@@ -54,18 +60,23 @@ public class DeviceListener implements ActionListener {
         AbstractButton button = (AbstractButton) e.getSource();
         // 输出按钮中的文本
         String buttonText = button.getText();
+        System.out.println();
         System.out.println("你选择了:" + buttonText);
         frame.setTitle(buttonText);
         if (device != null) {
+            // System.out.println();
             // 从设备对象获取设备id
             System.out.println("从设备对象获取设备id");
-            phoneId = device.getId();
-        }
+            selectedPhoneId = device.getId();
+            // System.out.println("phoneId = " + selectedPhoneId);
+            selectedSimpleId=device.getSimpleId();
 
-        // 反向获取id
-        String phoneId = Device.map.get(buttonText);
+            System.out.println("selectedPhoneId = " + selectedPhoneId);
+            System.out.println("selectedSimpleId = " + selectedSimpleId);
+            // System.out.println();
+        }
         // 执行adb命令
-        String run = CmdRun.run("adb -s " + phoneId + " shell wm size").trim();
+        String run = CmdRun.run("adb -s " + selectedPhoneId + " shell wm size").trim();
         // 打印adb命令结果
         System.out.println("run =" + run);
         // int width = 0;
@@ -84,6 +95,5 @@ public class DeviceListener implements ActionListener {
                 DeviceListener.height = Integer.parseInt(heightStr);
             }
         }
-        DeviceListener.phoneId = phoneId;
     }
 }

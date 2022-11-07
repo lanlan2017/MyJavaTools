@@ -14,7 +14,8 @@ public class OpenButtonRunnable implements Runnable {
     @Override
     public void run() {
         // 获取选择的id
-        String id = DeviceListener.getPhoneId();
+        // String id = DeviceListener.getPhoneId();
+        String id = DeviceListener.getSelectedPhoneId();
         simpleId = Device.findSimpleId(id);
         // 如果存在id
         if (id != null && !"".equals(id)) {

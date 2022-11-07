@@ -7,10 +7,9 @@ import adbs.main.auto.ui.config.FlowLayouts;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.Scanner;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.BiConsumer;
 
 /**
  * 根据adb devices -l命令的结果，返回包换设备的单选框的JPanel
@@ -29,7 +28,8 @@ public class AdbDi {
      */
     public JPanel createDevicesPanel() {
         JPanel panel = new JPanel();
-        Collection<Device> devices = new LinkedHashSet<>();
+        // Collection<Device> devices = new LinkedHashSet<>();
+        Map<String,Device> devices = new LinkedHashMap<>();
         // 执行adb devices -l命令
         String devicesListStr = AdbCommands.runAbdCmd("adb devices -l");
         // 分析adb devices -l命令结果
@@ -49,7 +49,9 @@ public class AdbDi {
                 Device device = new Device(deviceStrs[0], deviceStrs[1]);
                 // if (devices.contains(device))
                 // 将这个设备添加到集合中
-                devices.add(device);
+                // devices.add(device);
+                // devices.put(device.getSimpleId(device.getId()),device);
+                devices.put(device.getSimpleId(),device);
             }
         }
         // System.out.println(devices.size());
@@ -69,26 +71,52 @@ public class AdbDi {
             // DeviceListener listener = new DeviceListener(frame);
             // 设置原子布尔值
             AtomicBoolean isFirst = new AtomicBoolean(true);
-            // 遍历设备集合
-            devices.forEach(device -> {
-                // 为每一个设备，
-                // 创建一个单选按钮
-                JRadioButton deviceRadioButton = new JRadioButton(device.getSimpleId(device.getId()));
-                // 为这个设备创建监听器
-                DeviceListener listener = new DeviceListener(frame, device);
-                // 设置监听器
-                deviceRadioButton.addActionListener(listener);
-                // 默认为true，也就是第1个
-                if (isFirst.get()) {
-                    // 默认选择第1个单选按钮
-                    deviceRadioButton.doClick();
-                    // 改变标记，后面不再进入此代码块
-                    isFirst.set(false);
+            // // 遍历设备集合
+            // devices.forEach(device -> {
+            //     // 为每一个设备，
+            //     // 创建一个单选按钮
+            //     // JRadioButton deviceRadioButton = new JRadioButton(device.getSimpleId(device.getId()));
+            //     JRadioButton deviceRadioButton = new JRadioButton(device);
+            //     // 为这个设备创建监听器
+            //     DeviceListener listener = new DeviceListener(frame, device);
+            //     // 设置监听器
+            //     deviceRadioButton.addActionListener(listener);
+            //     // 默认为true，也就是第1个
+            //     if (isFirst.get()) {
+            //         // 默认选择第1个单选按钮
+            //         deviceRadioButton.doClick();
+            //         // 改变标记，后面不再进入此代码块
+            //         isFirst.set(false);
+            //     }
+            //     // 添加该单选按钮 到按钮组中
+            //     buttonGroup.add(deviceRadioButton);
+            //     // 添加该按钮到设备面板中
+            //     finalPanel.add(deviceRadioButton);
+            // });
+
+            devices.forEach(new BiConsumer<String, Device>() {
+                @Override
+                public void accept(String s, Device device) {
+                        // 为每一个设备，
+                        // 创建一个单选按钮
+                        // JRadioButton deviceRadioButton = new JRadioButton(device.getSimpleId(device.getId()));
+                        JRadioButton deviceRadioButton = new JRadioButton(s);
+                        // 为这个设备创建监听器
+                        DeviceListener listener = new DeviceListener(frame, device);
+                        // 设置监听器
+                        deviceRadioButton.addActionListener(listener);
+                        // 默认为true，也就是第1个
+                        if (isFirst.get()) {
+                            // 默认选择第1个单选按钮
+                            deviceRadioButton.doClick();
+                            // 改变标记，后面不再进入此代码块
+                            isFirst.set(false);
+                        }
+                        // 添加该单选按钮 到按钮组中
+                        buttonGroup.add(deviceRadioButton);
+                        // 添加该按钮到设备面板中
+                        finalPanel.add(deviceRadioButton);
                 }
-                // 添加该单选按钮 到按钮组中
-                buttonGroup.add(deviceRadioButton);
-                // 添加该按钮到设备面板中
-                finalPanel.add(deviceRadioButton);
             });
         }
         return panel;

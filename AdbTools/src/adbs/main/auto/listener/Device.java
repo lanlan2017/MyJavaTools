@@ -11,10 +11,13 @@ public class Device {
      */
     private String id;
     /**
+     * 设备ID的别名
+     */
+    private String simpleId;
+    /**
      * 设备描述信息
      */
     private String description;
-
 
 
     public static HashMap<String, String> map = new HashMap<>();
@@ -22,12 +25,21 @@ public class Device {
     public Device(String id, String description) {
         this.id = id;
         this.description = description;
-        String simpleId = getSimpleId(id);
+        // String simpleId = getSimpleId(id);
+        // map.put(simpleId, id);
+
+
+
+        simpleId = getSimpleId(id);
         map.put(simpleId, id);
     }
 
     public String getId() {
         return id;
+    }
+
+    public String getSimpleId() {
+        return simpleId;
     }
 
     /**
@@ -68,8 +80,20 @@ public class Device {
      * @return 当前选择的设备的品牌名称
      */
     public static String getBrand() {
-        String phoneId = DeviceListener.getPhoneId();
-        String simpleId = Device.findSimpleId(phoneId).toLowerCase();
+        // String phoneId = DeviceListener.getPhoneId();
+        String phoneId = DeviceListener.getSelectedPhoneId();
+
+        // String simpleId = Device.findSimpleId(phoneId).toLowerCase();
+
+
+
+        String simpleId = DeviceListener.getSelectedSimpleId().toLowerCase();
+        //
+        // String selectedSimpleId = DeviceListener.getSelectedSimpleId();
+        // System.out.println("selectedSimpleId = " + selectedSimpleId);
+        // // String simpleId = DeviceListener.getSelectedSimpleId();
+
+
         System.out.println("simpleId = " + simpleId);
         String brand;
         if (simpleId.contains("wifi")) {
@@ -82,14 +106,6 @@ public class Device {
             // 没有的话使用手机id作为品牌名
             brand = phoneId;
         }
-
-        // else if (simpleId.contains("oppo")) {
-        //     brand = "oppo";
-        // } else if (simpleId.contains("honor")) {
-        //     brand = "honor";
-        // } else if (simpleId.contains("redmi")) {
-        //     brand = "redmi";
-        // }
         System.out.println("brand = " + brand);
         return brand;
     }

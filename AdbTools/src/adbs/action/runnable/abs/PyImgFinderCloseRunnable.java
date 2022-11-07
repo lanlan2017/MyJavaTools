@@ -120,7 +120,8 @@ public abstract class PyImgFinderCloseRunnable extends CloseableRunnable {
         } else if (img.startsWith("stop_")) {
             // 点击停止按钮
             inOutputModel.getStopBtn().doClick();
-            String id = DeviceListener.getPhoneId();
+            // String id = DeviceListener.getPhoneId();
+            String id = DeviceListener.getSelectedPhoneId();
             // 杀死快手极速版
             CmdRun.run("adb -s " + id + " shell am force-stop com.kuaishou.nebula");
             Threads.sleep(1000);

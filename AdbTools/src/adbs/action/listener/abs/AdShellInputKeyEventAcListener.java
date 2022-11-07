@@ -16,7 +16,8 @@ public abstract class AdShellInputKeyEventAcListener extends ButtonFocusReleaseA
 
     @Override
     protected void actionEvent(ActionEvent e) {
-        String id = DeviceListener.getPhoneId();
+        // String id = DeviceListener.getPhoneId();
+        String id = DeviceListener.getSelectedPhoneId();
         // 调用子类的方法，设置键值
         setKey();
         if (id != null && !"".equals(id) && key != null && !"".equals(key)) {

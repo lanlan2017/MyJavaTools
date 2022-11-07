@@ -100,7 +100,8 @@ public class InputPanelModel {
     public void showConfirmDialog() {
         // 得到窗体的内容面板
         Container parent = inputPanel.getParent();
-        String simpleId = Device.findSimpleId(DeviceListener.getPhoneId());
+        // String simpleId = Device.findSimpleId(DeviceListener.getPhoneId());
+        String simpleId = DeviceListener.getSelectedPhoneId();
         int returnVal;
         String message = simpleId + "再次执行?";
         if (parent instanceof Component) {

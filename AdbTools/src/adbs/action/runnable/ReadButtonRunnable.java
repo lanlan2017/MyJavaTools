@@ -53,7 +53,9 @@ public class ReadButtonRunnable extends CloseableRunnable {
 
     private void body() {
         String id;
-        id = DeviceListener.getPhoneId();
+        // id = DeviceListener.getPhoneId();
+        // id = DeviceListener.getPhoneId();
+        id = DeviceListener.getSelectedPhoneId();
         if (id == null) {
             // 如果没有选择设备
             JOptionPane.showConfirmDialog(null, "请勾选要操作的设备");
