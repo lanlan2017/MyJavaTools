@@ -29,7 +29,7 @@ public class PythonGenerator {
         // updatePythonFile(pythonPath);
         String switchCases = imagesInDir2SwitchCases(pythonPath);
         System.out.println(switchCases);
-        SystemClipboard.setSysClipboardText(switchCases);
+        // SystemClipboard.setSysClipboardText(switchCases);
     }
 
     /**
@@ -120,7 +120,7 @@ public class PythonGenerator {
         // 把完整的Python代码写入Python文件
         Files.writerFile(pythonFile, pythonCode);
         // imagesInDir2SwitchCases(pythonPathDir);
-        SystemClipboard.setSysClipboardText(imagesInDir2SwitchCases(pythonPathDir));
+        // SystemClipboard.setSysClipboardText(imagesInDir2SwitchCases(pythonPathDir));
     }
 
     /**

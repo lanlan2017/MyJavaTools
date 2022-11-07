@@ -118,9 +118,9 @@ public class PlusBtnAcListener implements ActionListener {
                     // case :
                     //     break;
                 }
-                if (value1 < 20) {
-                    value1 = 20;
-                }
+                // if (value1 < 20) {
+                //     value1 = 20;
+                // }
 
                 input1.setText(String.valueOf(value1));
             }
