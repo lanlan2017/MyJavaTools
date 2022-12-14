@@ -30,7 +30,8 @@ public class OpenScrcpy {
     private static void scrcpyCall(String id, String title) {
         // AdbCommands.runAbdCmd("scrcpy.exe -s " + id + " --turn-screen-off -b 2M -m 768 --stay-awake --window-title " + title + " --always-on-top");
         // CmdRun.run("F:\\Program Files\\scrcpy-win64-v1.18\\scrcpy.exe -s " + id + " --turn-screen-off -b 2M -m 768 --stay-awake --window-title " + title + " --always-on-top");
-        String code = "scrcpy.exe -s " + id + " --turn-screen-off -b 2M -m 768 --stay-awake --window-title " + title + " --always-on-top";
+        // String code = "scrcpy.exe -s " + id + " --turn-screen-off -b 2M -m 768 --stay-awake --window-title " + title + " --always-on-top";
+        String code = "scrcpy.exe -s " + id + " --turn-screen-off -b 2M -m 768 --stay-awake --window-title " + title;
         System.out.println(code);
         CmdRun.run(code);
     }
