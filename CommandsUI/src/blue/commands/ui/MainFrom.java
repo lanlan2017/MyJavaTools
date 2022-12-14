@@ -148,12 +148,14 @@ public class MainFrom {
 
     /**
      * 全局键盘事件处理设置
+     * 全局快捷设置
      */
     private void keyEventSetting() {
         Toolkit.getDefaultToolkit().addAWTEventListener(new AWTEventListener() {
             @Override
             public void eventDispatched(AWTEvent event) {
                 if (((KeyEvent) event).getID() == KeyEvent.KEY_PRESSED) {
+                    // 快捷键定义
                     //放入自己的键盘监听事件
                     //((KeyEvent) event).getKeyCode();// 获取按键的code
                     //((KeyEvent) event).getKeyChar();// 获取按键的字符
@@ -189,6 +191,14 @@ public class MainFrom {
                         if (ocrPanel.isVisible() && keyCode == KeyEvent.VK_B) {
                             // System.out.println("按下ALT+B");
                             BaiduOCRButton.getInstance().baiduOCRButtonAction();
+                        }
+                        // Alt+W：截屏
+                        else if (ocrPanel.isVisible() && keyCode == KeyEvent.VK_W) {
+                            SstButton.getInstance().sstButtonAction();
+                        }
+                        // alt+E：取消截屏
+                        else if (ocrPanel.isVisible() && keyCode == KeyEvent.VK_E) {
+                            CancelButton.getInstance().cancelButtonAction();
                         }
                     }
                     // 按下ctrl键
