@@ -67,6 +67,15 @@ public class MinusBtnAcListener implements ActionListener {
                 // 输入框1可见，输入框2不可见
                 switch (value1) {
                     case 1200:
+                        value1 = 185;
+                        break;
+                    case 185:
+                        value1 = 155;
+                        break;
+                    case 155:
+                        value1 = 125;
+                        break;
+                    case 125:
                         value1 = 95;
                         break;
                     case 95:
