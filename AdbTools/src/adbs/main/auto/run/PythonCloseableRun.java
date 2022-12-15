@@ -172,11 +172,9 @@ public class PythonCloseableRun implements Runnable {
             }
             // 点击右键
             Robots.rightClickButton(point);
-            {
-                // System.out.println("移动鼠标，免得遮挡");
-                // 向右下角移动鼠标，免得遮挡
-                Robots.getRobot().mouseMove(point.x + 40, point.y + 40);
-            }
+
+            avoidOcclusion(point);
+
             Threads.sleep(1500);
             // 触发后续的按键
             if (afterBtn != null) {
@@ -190,6 +188,7 @@ public class PythonCloseableRun implements Runnable {
             // Robots.delay(s * 1000);
         } else if (img.startsWith("exit_")) {
             Robots.leftMouseButtonClick(point);
+            avoidOcclusion(point);
             isNotStopThenWait(3 + extraWaitingTime);
         } else if (img.startsWith("return_")) {
             Robots.rightClickButton(point);
@@ -203,13 +202,21 @@ public class PythonCloseableRun implements Runnable {
             // AdbCommands.swipeBottom2TopOnMiddle(DeviceListener.getPhoneId(), DeviceListener.getWidth(), DeviceListener.getHeight());
             AdbCommands.swipeBottom2TopOnMiddle(DeviceListener.getSelectedPhoneId(), DeviceListener.getWidth(), DeviceListener.getHeight());
             //多等待3秒
-            Robots.delay(3*1000);
+            Robots.delay(3 * 1000);
         } else {
             Robots.leftMouseButtonClick(point);
             // Robots.delay(4 * 1000);
             isNotStopThenWait(3 + extraWaitingTime);
         }
         output.setText("无");
+    }
+
+    /**
+     * 移动鼠标到目标图片中点坐标的右下方，避免鼠标遮挡后续的目标图片。
+     * @param point 目标图片的坐标点
+     */
+    private void avoidOcclusion(Point point) {
+        Robots.getRobot().mouseMove(point.x + 40, point.y + 40);
     }
 
     /**

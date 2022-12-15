@@ -30,7 +30,7 @@ public class PlusBtnAcListener implements ActionListener {
             // 两个输入文本框都可见
             if (input2.isVisible()) {
                 int value1 = Integer.parseInt(input1.getText());
-                int value2 = Integer.parseInt(input2.getText());
+                int value2;
                 //7-14
                 //8-16
                 //9-18
