@@ -1,7 +1,7 @@
 package adbs.action.listener;
 
 import adbs.action.listener.abs.ButtonFocusReleaseActionListener;
-import adbs.action.model.InOutputModel;
+import adbs.main.auto.ui.inout.InOutputModel;
 import adbs.action.runnable.DouYinVideoButtonRunnable;
 import adbs.action.runnable.VideoButtonRunnable;
 import tools.thead.Threads;
@@ -23,7 +23,7 @@ public class DouYinSeeVideoButtonListener extends ButtonFocusReleaseActionListen
 
     @Override
     protected void actionEvent(ActionEvent e) {
-        inOutputModel.getInputPanelModel().getInputPanel().setVisible(false);
+        // inOutputModel.getInputPanelModel().getInputPanel().setVisible(false);
         frame.pack();
         // 先停止刷视频线程
         VideoButtonRunnable videoButtonRunnable = VideoButtonRunnable.getInstance();

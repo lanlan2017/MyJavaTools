@@ -1,7 +1,7 @@
-package adbs.action.listener;
+package adbs.main.auto.ui.universalpanels.listener;
 
 import adbs.action.listener.abs.ButtonFocusReleaseActionListener;
-import adbs.main.auto.ui.InputPanels;
+import adbs.main.auto.ui.inout.inputpanels.InputPanels;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -47,8 +47,6 @@ public class VideoButtonActionListener extends ButtonFocusReleaseActionListener 
 
         // 设置按钮文字
         inputPanels.getInputOkButton().setText("开始刷视频");
-
-
 
         frame.pack();
     }

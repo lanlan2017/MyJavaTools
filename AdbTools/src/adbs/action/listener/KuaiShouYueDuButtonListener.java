@@ -1,7 +1,7 @@
 package adbs.action.listener;
 
 import adbs.action.listener.abs.ButtonFocusReleaseActionListener;
-import adbs.action.model.InOutputModel;
+import adbs.main.auto.ui.inout.InOutputModel;
 import adbs.action.runnable.KuaiShouYueDuRunnable;
 import adbs.action.runnable.ReadButtonRunnable;
 

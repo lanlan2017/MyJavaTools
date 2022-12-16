@@ -1,8 +1,9 @@
-package adbs.action.listener;
+package adbs.main.auto.ui.inout.inputpanels.listener;
 
 import adbs.action.listener.abs.ButtonFocusReleaseActionListener;
-import adbs.action.model.InOutputModel;
+import adbs.main.auto.ui.inout.InOutputModel;
 import adbs.action.runnable.*;
+import adbs.main.auto.ui.universalpanels.listener.ShoppingButtonRunnable;
 import tools.thead.Threads;
 
 import javax.swing.*;
@@ -59,6 +60,7 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
             output.setText("等待返回线程：开始等待");
             // new Thread(waitReturnButtonRunnable).start();
             new Thread(waitReturnButtonRunnable).start();
+
         } else if ("开始刷视频".equals(ok.getText())) {
             output.setText("刷视频线程：开始等待");
             // String input1Str = inOutputModel.getInputPanelModel().getInput1().getText();

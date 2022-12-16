@@ -1,6 +1,6 @@
 package adbs.action.listener;
 
-import adbs.action.model.InOutputModel;
+import adbs.main.auto.ui.inout.InOutputModel;
 import adbs.action.runnable.abs.CloseableRunnable;
 
 import java.awt.event.ActionEvent;

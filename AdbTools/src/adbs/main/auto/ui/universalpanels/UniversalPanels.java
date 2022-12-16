@@ -1,9 +1,12 @@
-package adbs.main.auto.ui;
+package adbs.main.auto.ui.universalpanels;
 
 import adbs.action.listener.*;
-import adbs.action.model.InOutputModel;
+import adbs.main.auto.ui.inout.InOutputModel;
 import adbs.action.runnable.ReadButtonRunnable;
 import adbs.main.auto.ui.config.FlowLayouts;
+import adbs.main.auto.ui.universalpanels.listener.BrowseButtonActionListener;
+import adbs.main.auto.ui.universalpanels.listener.VideoButtonActionListener;
+import adbs.main.auto.ui.universalpanels.listener.WaitButtonActionListener;
 import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
@@ -24,7 +27,7 @@ public class UniversalPanels {
     /**
      * 等待返回按钮
      */
-    private JButton waitReturnButton;
+    private JButton waitButton;
     /**
      * 阅读按钮
      */
@@ -57,8 +60,8 @@ public class UniversalPanels {
         browseButton = new JButton("浏览");
         browseButton.setToolTipText("连续在屏幕左侧从下向上滑动");
 
-        waitReturnButton = new JButton("等待");
-        waitReturnButton.setToolTipText("等待一定时间后提示");
+        waitButton = new JButton("等待");
+        waitButton.setToolTipText("等待一定时间后提示");
         videoButton = new JButton("刷视频");
         videoButton.setToolTipText("等待随机秒数后，从下向上滑动一次");
 
@@ -67,7 +70,7 @@ public class UniversalPanels {
 
         universalPanel.add(readButton);
         universalPanel.add(browseButton);
-        universalPanel.add(waitReturnButton);
+        universalPanel.add(waitButton);
         universalPanel.add(videoButton);
         universalPanel.add(shoppingButton);
 
@@ -81,7 +84,7 @@ public class UniversalPanels {
 
         // 等待后返回按钮
         // waitReturnButton.addActionListener(new WaitReturnButtonActionListener(frame, inputPanels));
-        waitReturnButton.addActionListener(new WaitReturnButtonActionListener(frame, inout2.getInputPanels()));
+        waitButton.addActionListener(new WaitButtonActionListener(frame, inout2.getInputPanels()));
 
 
 

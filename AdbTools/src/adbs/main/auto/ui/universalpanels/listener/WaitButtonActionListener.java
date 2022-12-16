@@ -1,16 +1,19 @@
-package adbs.action.listener;
+package adbs.main.auto.ui.universalpanels.listener;
 
 import adbs.action.listener.abs.ButtonFocusReleaseActionListener;
-import adbs.main.auto.ui.InputPanels;
+import adbs.main.auto.ui.inout.inputpanels.InputPanels;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
-public class WaitReturnButtonActionListener extends ButtonFocusReleaseActionListener {
+/**
+ * 等待按钮事件监听器
+ */
+public class WaitButtonActionListener extends ButtonFocusReleaseActionListener {
     private JFrame frame;
     private InputPanels inputPanels;
 
-    public WaitReturnButtonActionListener(JFrame frame, InputPanels inputPanels) {
+    public WaitButtonActionListener(JFrame frame, InputPanels inputPanels) {
         this.frame = frame;
         this.inputPanels = inputPanels;
     }
@@ -26,6 +29,7 @@ public class WaitReturnButtonActionListener extends ButtonFocusReleaseActionList
         inputPanels.getInput1().setColumns(4);
         inputPanels.getInput1().setText(String.valueOf(30));
         inputPanels.getInput2().setVisible(false);
+        // inputPanels.getInput2().setVisible(true);
         // inputPanels.getPlusBtn().setVisible(false);
         // inputPanels.getMinusBtn().setVisible(false);
         inputPanels.getPlusBtn().setVisible(true);

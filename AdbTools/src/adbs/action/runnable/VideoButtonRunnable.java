@@ -1,6 +1,6 @@
 package adbs.action.runnable;
 
-import adbs.action.model.InOutputModel;
+import adbs.main.auto.ui.inout.InOutputModel;
 import adbs.action.runnable.abs.CloseableRunnable;
 import adbs.cmd.AdbCommands;
 import adbs.main.auto.listener.DeviceListener;

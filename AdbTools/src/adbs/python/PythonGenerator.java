@@ -1,7 +1,6 @@
 package adbs.python;
 
 import adbs.main.auto.listener.Device;
-import tools.copy.SystemClipboard;
 import tools.file.Files;
 import tools.format.date.DateFormatters;
 

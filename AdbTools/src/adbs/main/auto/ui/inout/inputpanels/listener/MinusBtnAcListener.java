@@ -1,6 +1,6 @@
-package adbs.action.listener;
+package adbs.main.auto.ui.inout.inputpanels.listener;
 
-import adbs.action.model.InOutputModel;
+import adbs.main.auto.ui.inout.InOutputModel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

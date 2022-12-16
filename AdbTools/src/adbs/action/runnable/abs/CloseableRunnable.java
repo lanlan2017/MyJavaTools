@@ -1,6 +1,6 @@
 package adbs.action.runnable.abs;
 
-import adbs.action.model.InOutputModel;
+import adbs.main.auto.ui.inout.InOutputModel;
 import adbs.main.AdbTools;
 
 public abstract class CloseableRunnable implements Runnable {

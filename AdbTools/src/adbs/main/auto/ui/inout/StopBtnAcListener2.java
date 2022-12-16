@@ -1,6 +1,6 @@
-package adbs.main.auto.listener;
+package adbs.main.auto.ui.inout;
 
-import adbs.action.model.InOutputModel;
+import adbs.main.auto.ui.inout.InOutputModel;
 import adbs.action.runnable.abs.CloseableRunnable;
 import adbs.main.auto.run.PythonCloseableRun;
 
@@ -49,8 +49,6 @@ public class StopBtnAcListener2 implements ActionListener {
         // inOutputModel.getInputPanelModel().getInputPanel().setVisible(false);
         
         inOutputModel.getInputPanels().getInputPanel().setVisible(false);
-
-
         frame.pack();
     }
 }
