@@ -1,12 +1,13 @@
-package adbs.main.auto.ui.universalpanels;
+package adbs.main.auto.ui.jpanels.universal;
 
 import adbs.action.listener.*;
 import adbs.main.auto.ui.inout.InOutputModel;
 import adbs.action.runnable.ReadButtonRunnable;
 import adbs.main.auto.ui.config.FlowLayouts;
-import adbs.main.auto.ui.universalpanels.listener.BrowseButtonActionListener;
-import adbs.main.auto.ui.universalpanels.listener.VideoButtonActionListener;
-import adbs.main.auto.ui.universalpanels.listener.WaitButtonActionListener;
+import adbs.main.auto.ui.jpanels.universal.listener.ShoppingButtonActionListener;
+import adbs.main.auto.ui.jpanels.universal.listener.VideoButtonActionListener;
+import adbs.main.auto.ui.jpanels.universal.listener.BrowseButtonActionListener;
+import adbs.main.auto.ui.jpanels.universal.listener.WaitButtonActionListener;
 import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;

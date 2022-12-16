@@ -1,6 +1,4 @@
-package adbs.action.listener.abs.shellinput;
-
-import adbs.action.listener.abs.AdShellInputKeyEventAcListener;
+package adbs.main.auto.ui.jpanels.adb.listener;
 
 /**
  * 任务管理按键事件处理程序

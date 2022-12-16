@@ -1,7 +1,7 @@
-package adbs.main.auto.ui.universalpanels.listener;
+package adbs.main.auto.ui.jpanels.universal.listener;
 
-import adbs.action.listener.abs.ButtonFocusReleaseActionListener;
-import adbs.main.auto.ui.inout.inputpanels.InputPanels;
+import adbs.main.auto.ui.jpanels.adb.listener.ButtonFocusReleaseActionListener;
+import adbs.main.auto.ui.jpanels.input.InputPanels;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

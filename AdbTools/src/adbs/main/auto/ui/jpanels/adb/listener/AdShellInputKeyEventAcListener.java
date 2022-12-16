@@ -1,4 +1,4 @@
-package adbs.action.listener.abs;
+package adbs.main.auto.ui.jpanels.adb.listener;
 
 import adbs.cmd.AdbCommands;
 import adbs.main.auto.listener.DeviceListener;

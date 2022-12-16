@@ -1,4 +1,4 @@
-package adbs.main.auto.ui.universalpanels.listener;
+package adbs.main.auto.ui.jpanels.universal.listener;
 
 import adbs.main.auto.ui.inout.InOutputModel;
 import adbs.action.runnable.abs.CloseableRunnable;

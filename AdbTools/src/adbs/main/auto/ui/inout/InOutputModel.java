@@ -1,6 +1,6 @@
 package adbs.main.auto.ui.inout;
 
-import adbs.main.auto.ui.inout.inputpanels.InputPanels;
+import adbs.main.auto.ui.jpanels.input.InputPanels;
 
 import javax.swing.*;
 

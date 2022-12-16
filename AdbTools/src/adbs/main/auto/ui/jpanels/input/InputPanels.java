@@ -1,4 +1,4 @@
-package adbs.main.auto.ui.inout.inputpanels;
+package adbs.main.auto.ui.jpanels.input;
 
 import adbs.main.auto.listener.DeviceListener;
 import adbs.main.auto.ui.config.FlowLayouts;

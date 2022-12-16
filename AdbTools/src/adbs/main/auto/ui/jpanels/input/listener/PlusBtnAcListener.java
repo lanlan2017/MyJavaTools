@@ -1,4 +1,4 @@
-package adbs.main.auto.ui.inout.inputpanels.listener;
+package adbs.main.auto.ui.jpanels.input.listener;
 
 import adbs.main.auto.ui.inout.InOutputModel;
 

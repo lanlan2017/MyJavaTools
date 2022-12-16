@@ -1,13 +1,12 @@
-package adbs.main.auto.ui;
+package adbs.main.auto.ui.jpanels.adb;
 
-import adbs.action.listener.OpenButtonListener;
-import adbs.action.listener.abs.shell.RebootBtnAcListener;
-import adbs.action.listener.abs.shellinput.*;
+import adbs.main.auto.ui.jpanels.adb.listener.RebootBtnAcListener;
 import adbs.action.runnable.open.Taskkill;
 import adbs.main.auto.listener.DeviceListener;
 import adbs.main.AdbTools;
 import adbs.main.auto.ui.config.FlowLayouts;
 import adbs.main.auto.ui.config.Fonts;
+import adbs.main.auto.ui.jpanels.adb.listener.*;
 import config.AdbToolsProperties;
 import tools.config.properties.PropertiesTools;
 import tools.swing.button.AbstractButtons;

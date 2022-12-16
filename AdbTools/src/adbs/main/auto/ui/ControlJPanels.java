@@ -118,7 +118,7 @@ public class ControlJPanels {
                         // 3秒后关机
                         CmdRun.run("timeout 10 && shutdown /h");
                         // 杀死自己
-                        Taskkill.killAdbToolsJarAll();
+                        // Taskkill.killAdbToolsJarAll();
                         // 电脑休眠
                         //timeout 36000 && adb -s 75aed56d shell reboot -p && adb -s U8ENW18117021408 shell reboot -p && shutdown /h
                     }

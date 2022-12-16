@@ -1,19 +1,20 @@
 package adbs.main;
 
-import adbs.main.auto.ui.inout.inputpanels.listener.InputOkButtonActionListener;
-import adbs.main.auto.ui.inout.inputpanels.listener.MinusBtnAcListener;
+import adbs.main.auto.ui.jpanels.input.listener.InputOkButtonActionListener;
+import adbs.main.auto.ui.jpanels.input.listener.MinusBtnAcListener;
 import adbs.main.auto.ui.inout.InOutputModel;
 import adbs.action.runnable.ReadButtonRunnable;
 import adbs.main.auto.listener.Device;
 import adbs.main.auto.ui.*;
 import adbs.main.auto.ui.config.FlowLayouts;
-import adbs.main.auto.ui.inout.inputpanels.InputPanels;
-import adbs.main.auto.ui.inout.inputpanels.listener.PlusBtnAcListener;
-import adbs.main.auto.ui.universalpanels.UniversalPanels;
+import adbs.main.auto.ui.jpanels.input.InputPanels;
+import adbs.main.auto.ui.jpanels.input.listener.PlusBtnAcListener;
+import adbs.main.auto.ui.jpanels.adb.AdbJPanels;
+import adbs.main.auto.ui.jpanels.universal.UniversalPanels;
 import config.AdbToolsProperties;
 import tools.swing.button.AbstractButtons;
 import adbs.main.auto.listener.JCheckBoxControlJPanelItemListener;
-import adbs.main.auto.ui.inout.StopBtnAcListener2;
+import adbs.main.auto.ui.inout.listener.StopBtnAcListener2;
 import adbs.main.auto.run.PythonCloseableRun;
 import com.formdev.flatlaf.FlatLightLaf;
 import tools.config.properties.PropertiesTools;

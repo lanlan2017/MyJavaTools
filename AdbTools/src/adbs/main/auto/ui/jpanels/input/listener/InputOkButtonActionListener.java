@@ -1,9 +1,9 @@
-package adbs.main.auto.ui.inout.inputpanels.listener;
+package adbs.main.auto.ui.jpanels.input.listener;
 
-import adbs.action.listener.abs.ButtonFocusReleaseActionListener;
+import adbs.main.auto.ui.jpanels.adb.listener.ButtonFocusReleaseActionListener;
 import adbs.main.auto.ui.inout.InOutputModel;
 import adbs.action.runnable.*;
-import adbs.main.auto.ui.universalpanels.listener.ShoppingButtonRunnable;
+import adbs.main.auto.ui.jpanels.universal.listener.ShoppingButtonRunnable;
 import tools.thead.Threads;
 
 import javax.swing.*;

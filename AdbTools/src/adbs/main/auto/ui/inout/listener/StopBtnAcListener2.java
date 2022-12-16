@@ -1,4 +1,4 @@
-package adbs.main.auto.ui.inout;
+package adbs.main.auto.ui.inout.listener;
 
 import adbs.main.auto.ui.inout.InOutputModel;
 import adbs.action.runnable.abs.CloseableRunnable;
