@@ -30,7 +30,7 @@ public class VideoButtonActionListener extends ButtonFocusReleaseActionListener 
         // 设置标签
         inputPanels.getTimeLable().setText("间隔(s):");
         // 隐藏单选按钮组
-        inputPanels.getTimeRadioPanel().setVisible(false);
+        // inputPanels.getTimeRadioPanel().setVisible(false);
         // 显示输入框1
         JTextField input1 = inputPanels.getInput1();
         input1.setVisible(true);

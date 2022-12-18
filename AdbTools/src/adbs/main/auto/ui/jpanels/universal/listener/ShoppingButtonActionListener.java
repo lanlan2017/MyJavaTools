@@ -22,7 +22,7 @@ public class ShoppingButtonActionListener extends ButtonFocusReleaseActionListen
         inputPanels.getInputPanel().setVisible(true);
         inputPanels.getTimeLable().setText("时长(s)");
         // 关闭单选按钮组
-        inputPanels.getTimeRadioPanel().setVisible(false);
+        // inputPanels.getTimeRadioPanel().setVisible(false);
         // 逛街20分钟
         JTextField input1 = inputPanels.getInput1();
         input1.setVisible(true);

@@ -24,7 +24,7 @@ public class WaitButtonActionListener extends ButtonFocusReleaseActionListener {
         // 测试替换
         inputPanels.getInputPanel().setVisible(true);
         inputPanels.getTimeLable().setText("时间(s):");
-        inputPanels.getTimeRadioPanel().setVisible(true);
+        // inputPanels.getTimeRadioPanel().setVisible(true);
         inputPanels.getInputOkButton().setText("开始等待");
         inputPanels.getInput1().setColumns(4);
         inputPanels.getInput1().setText(String.valueOf(30));

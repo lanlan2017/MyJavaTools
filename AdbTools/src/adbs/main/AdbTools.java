@@ -146,7 +146,7 @@ public class AdbTools {
         InputPanels inputPanels = new InputPanels();
         JPanel inputPanel = inputPanels.getInputPanel();
         // inputPanel.setLayout(FlowLayouts.flowLayoutLeft);
-        inputPanels.getTimeRadioPanel().setLayout(FlowLayouts.flowLayoutLeft);
+        // inputPanels.getTimeRadioPanel().setLayout(FlowLayouts.flowLayoutLeft);
         frame.add(inputPanel);
         return inputPanels;
     }

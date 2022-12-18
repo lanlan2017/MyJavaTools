@@ -16,7 +16,7 @@ import java.awt.event.KeyEvent;
 public class InputPanels {
     final JPanel inputPanel;
     JLabel timeLable;
-    JPanel timeRadioPanel;
+    // JPanel timeRadioPanel;
     JTextField input1;
     JTextField input2;
     JButton plusBtn;
@@ -29,7 +29,7 @@ public class InputPanels {
         inputPanel = new JPanel();
         inputPanel.setLayout(FlowLayouts.flowLayoutLeft);
         timeLable = new JLabel("时间(s)");
-        timeRadioPanel = new JPanel();
+        // timeRadioPanel = new JPanel();
         input1 = new JTextField(3);
         input1.setFont(Fonts.Consolas_PLAIN_12);
         input1.addKeyListener(new KeyAdapter() {
@@ -54,7 +54,7 @@ public class InputPanels {
         inputOkButton = new JButton("确认");
 
         inputPanel.add(timeLable);
-        inputPanel.add(timeRadioPanel);
+        // inputPanel.add(timeRadioPanel);
         inputPanel.add(input1);
         inputPanel.add(input2);
         inputPanel.add(plusBtn);
@@ -73,9 +73,9 @@ public class InputPanels {
         return timeLable;
     }
 
-    public JPanel getTimeRadioPanel() {
-        return timeRadioPanel;
-    }
+    // public JPanel getTimeRadioPanel() {
+    //     return timeRadioPanel;
+    // }
 
     public JTextField getInput1() {
         return input1;
