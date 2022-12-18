@@ -22,6 +22,7 @@ public class InputPanels {
     JButton plusBtn;
     JButton minusBtn;
     JButton inputOkButton;
+    JLabel timerJLabel;
 
     public InputPanels() {
 
@@ -30,8 +31,8 @@ public class InputPanels {
         inputPanel.setLayout(FlowLayouts.flowLayoutLeft);
         timeLable = new JLabel("时间(s)");
         // timeRadioPanel = new JPanel();
-        input1 = new JTextField(3);
-        input1.setFont(Fonts.Consolas_PLAIN_12);
+        input1 = new JTextField(2);
+        input1.setFont(Fonts.Consolas_PLAIN_14);
         input1.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
@@ -42,16 +43,15 @@ public class InputPanels {
                 }
             }
         });
-
-
-        input2 = new JTextField(3);
-        input2.setFont(Fonts.Consolas_PLAIN_12);
-
+        input2 = new JTextField(2);
+        input2.setFont(Fonts.Consolas_PLAIN_14);
 
 
         plusBtn = new JButton(">");
         minusBtn = new JButton("<");
         inputOkButton = new JButton("确认");
+        timerJLabel = new JLabel("");
+
 
         inputPanel.add(timeLable);
         // inputPanel.add(timeRadioPanel);
@@ -60,9 +60,11 @@ public class InputPanels {
         inputPanel.add(plusBtn);
         inputPanel.add(minusBtn);
         inputPanel.add(inputOkButton);
+        inputPanel.add(timerJLabel);
         inputPanel.setVisible(false);
 
-        AbstractButtons.setMarginInButtonJPanel(inputPanel);
+        AbstractButtons.setMarginInButtonJPanel(inputPanel,1);
+        // AbstractButtons.setMarginInButtonJPanel(inputPanel,0);
     }
 
     public JPanel getInputPanel() {
@@ -97,6 +99,9 @@ public class InputPanels {
         return inputOkButton;
     }
 
+    public JLabel getTimerJLabel() {
+        return timerJLabel;
+    }
 
     public void showConfirmDialog() {
         // 得到窗体的内容面板
@@ -104,8 +109,7 @@ public class InputPanels {
         // String simpleId = Device.findSimpleId(DeviceListener.getPhoneId());
 
 
-
-        String simpleId =DeviceListener.getSelectedSimpleId();
+        String simpleId = DeviceListener.getSelectedSimpleId();
 
         int returnVal;
         String message = simpleId + "再次执行?";

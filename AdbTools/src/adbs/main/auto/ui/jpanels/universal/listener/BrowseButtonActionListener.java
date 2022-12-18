@@ -27,11 +27,12 @@ public class BrowseButtonActionListener extends ButtonFocusReleaseActionListener
         inputPanels.getInput1().setText(String.valueOf(30));
         inputPanels.getInput1().setColumns(4);
         inputPanels.getInput2().setVisible(false);
-        inputPanels.getInputOkButton().setText("开始浏览");
         // inputPanels.getPlusBtn().setVisible(false);
         // inputPanels.getMinusBtn().setVisible(false);
         inputPanels.getPlusBtn().setVisible(true);
         inputPanels.getMinusBtn().setVisible(true);
+        inputPanels.getInputOkButton().setText("开始浏览");
+        inputPanels.getTimerJLabel().setVisible(false);
 
         frame.pack();
     }

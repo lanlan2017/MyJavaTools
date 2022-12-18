@@ -2,8 +2,10 @@ package adbs.main.auto.ui.jpanels.input.listener;
 
 import adbs.main.auto.ui.jpanels.adb.listener.ButtonFocusReleaseActionListener;
 import adbs.main.auto.ui.inout.InOutputModel;
-import adbs.action.runnable.*;
-import adbs.main.auto.ui.jpanels.universal.listener.ShoppingButtonRunnable;
+import adbs.main.auto.ui.jpanels.universal.runnable.BrowseRunnable;
+import adbs.main.auto.ui.jpanels.universal.runnable.ShoppingButtonRunnable;
+import adbs.main.auto.ui.jpanels.universal.runnable.VideoButtonRunnable;
+import adbs.main.auto.ui.jpanels.universal.runnable.WaitButtonRunnable;
 import tools.thead.Threads;
 
 import javax.swing.*;
@@ -17,7 +19,7 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
 
     private final BrowseRunnable browseRunnable;
     private final ShoppingButtonRunnable shoppingButtonRunnable;
-    private final WaitReturnButtonRunnable waitReturnButtonRunnable;
+    private final WaitButtonRunnable waitReturnButtonRunnable;
     private final VideoButtonRunnable videoButtonRunnable;
     private Thread videoBtnThread;
 
@@ -31,7 +33,7 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
         this.shoppingButtonRunnable = ShoppingButtonRunnable.getInstance();
         shoppingButtonRunnable.setInOutputModel(inOutputModel);
 
-        this.waitReturnButtonRunnable = WaitReturnButtonRunnable.getInstance();
+        this.waitReturnButtonRunnable = WaitButtonRunnable.getInstance();
         waitReturnButtonRunnable.setInOutputModel(inOutputModel);
 
         this.videoButtonRunnable = VideoButtonRunnable.getInstance();

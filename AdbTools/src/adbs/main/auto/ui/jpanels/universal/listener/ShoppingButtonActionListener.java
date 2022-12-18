@@ -35,8 +35,8 @@ public class ShoppingButtonActionListener extends ButtonFocusReleaseActionListen
         // inputPanels.getMinusBtn().setVisible(false);
         inputPanels.getPlusBtn().setVisible(true);
         inputPanels.getMinusBtn().setVisible(true);
-
         inputPanels.getInputOkButton().setText("开始逛街");
+        inputPanels.getTimerJLabel().setVisible(false);
 
         frame.pack();
     }

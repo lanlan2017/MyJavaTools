@@ -1,4 +1,4 @@
-package adbs.action.runnable;
+package adbs.main.auto.ui.jpanels.universal.runnable;
 
 import adbs.main.auto.ui.inout.InOutputModel;
 import adbs.action.runnable.abs.CloseableRunnable;
@@ -7,7 +7,7 @@ import adbs.main.auto.listener.DeviceListener;
 import tools.thead.Threads;
 
 /**
- * 浏览返回 线程体
+ * 浏览 线程体
  */
 public class BrowseRunnable extends CloseableRunnable {
     private InOutputModel inOutputModel;

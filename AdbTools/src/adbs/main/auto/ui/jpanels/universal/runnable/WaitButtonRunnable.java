@@ -1,4 +1,4 @@
-package adbs.action.runnable;
+package adbs.main.auto.ui.jpanels.universal.runnable;
 
 import adbs.main.auto.ui.inout.InOutputModel;
 import adbs.action.runnable.abs.CloseableRunnable;
@@ -9,16 +9,16 @@ import javax.swing.*;
 /**
  * 等待返回 线程体
  */
-public class WaitReturnButtonRunnable extends CloseableRunnable {
+public class WaitButtonRunnable extends CloseableRunnable {
     private InOutputModel inOutputModel;
 
-    private static WaitReturnButtonRunnable instance = new WaitReturnButtonRunnable();
+    private static WaitButtonRunnable instance = new WaitButtonRunnable();
 
-    private WaitReturnButtonRunnable() {
+    private WaitButtonRunnable() {
 
     }
 
-    public static WaitReturnButtonRunnable getInstance() {
+    public static WaitButtonRunnable getInstance() {
         return instance;
     }
 
@@ -28,7 +28,8 @@ public class WaitReturnButtonRunnable extends CloseableRunnable {
 
     @Override
     protected void setMsg() {
-        msg = "等待后返回线程2";
+        // msg = "等待后返回线程2";
+        msg = "等待:";
     }
 
     @Override
@@ -40,7 +41,8 @@ public class WaitReturnButtonRunnable extends CloseableRunnable {
         // 解析输入文本1中的数字,并计算得到毫秒数
         int millisecond = Integer.parseInt(input1.getText()) * 1000;
         // 获取输入标签
-        JLabel output = inOutputModel.getOutput();
+        // JLabel output = inOutputModel.getOutput();
+        JLabel output = inOutputModel.getInputPanels().getTimerJLabel();
         // AdbTools.setIsRunning(this);
         int count = 0;
         int timeSlice = 250;
@@ -58,7 +60,8 @@ public class WaitReturnButtonRunnable extends CloseableRunnable {
             }
             // 获取
             oldOutput = output.getText();
-            newOutput = msg + ":等待" + ((millisecond - count) / 1000) + "s";
+            // newOutput = msg + ":等待" + ((millisecond - count) / 1000) + "s";
+            newOutput = msg + ((millisecond - count) / 1000) + "s";
             if (!newOutput.equals(oldOutput)) {
                 output.setText(newOutput);
             }
@@ -70,7 +73,9 @@ public class WaitReturnButtonRunnable extends CloseableRunnable {
         super.afterLoop();
         // 触发返回键
         // AdbCommands.returnButton(DeviceListener.getPhoneId());
-        inOutputModel.getOutput().setText(msg + ":已停止");
+        // inOutputModel.getOutput().setText(msg + ":已停止");
+        // inOutputModel.getInputPanels().getTimerJLabel().setText("等待结束");
+        inOutputModel.getInputPanels().getTimerJLabel().setText("");
 
         // inOutputModel.getInputPanelModel().showConfirmDialog();
         // 测试替换

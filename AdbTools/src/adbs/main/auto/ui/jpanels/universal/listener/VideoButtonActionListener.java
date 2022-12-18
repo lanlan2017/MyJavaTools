@@ -44,9 +44,9 @@ public class VideoButtonActionListener extends ButtonFocusReleaseActionListener 
 
         inputPanels.getPlusBtn().setVisible(true);
         inputPanels.getMinusBtn().setVisible(true);
-
         // 设置按钮文字
         inputPanels.getInputOkButton().setText("开始刷视频");
+        inputPanels.getTimerJLabel().setVisible(false);
 
         frame.pack();
     }

@@ -3,7 +3,7 @@ package adbs.action.listener;
 import adbs.main.auto.ui.jpanels.adb.listener.ButtonFocusReleaseActionListener;
 import adbs.main.auto.ui.inout.InOutputModel;
 import adbs.action.runnable.DouYinVideoButtonRunnable;
-import adbs.action.runnable.VideoButtonRunnable;
+import adbs.main.auto.ui.jpanels.universal.runnable.VideoButtonRunnable;
 import tools.thead.Threads;
 
 import javax.swing.*;

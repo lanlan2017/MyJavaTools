@@ -22,9 +22,10 @@ public class Fonts {
     /**
      * 等宽字体Consolas,14号
      */
-    public static Font Consolas_PLAIN_14 = new Font("Consolas", Font.PLAIN, 14);
     public static Font Consolas_BOLD_14 = new Font("Consolas", Font.BOLD, 14);
-    public static Font Consolas_PLAIN_12 = new Font("Consolas", Font.PLAIN, 14);
+    public static Font Consolas_PLAIN_14 = new Font("Consolas", Font.PLAIN, 14);
+    public static Font Consolas_PLAIN_12 = new Font("Consolas", Font.PLAIN, 12);
+    public static Font Consolas_PLAIN_13 = new Font("Consolas", Font.PLAIN, 13);
     /**
      * Cascadia 是微软出品的一款开源等宽字体，Windows Terminal 中的默认字体就是它。
      */

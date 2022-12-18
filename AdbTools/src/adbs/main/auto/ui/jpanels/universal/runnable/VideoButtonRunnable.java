@@ -1,4 +1,4 @@
-package adbs.action.runnable;
+package adbs.main.auto.ui.jpanels.universal.runnable;
 
 import adbs.main.auto.ui.inout.InOutputModel;
 import adbs.action.runnable.abs.CloseableRunnable;
