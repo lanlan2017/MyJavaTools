@@ -1,9 +1,9 @@
 package adbs.main.auto.ui.jpanels.universal.runnable;
 
-import adbs.main.auto.ui.inout.InOutputModel;
 import adbs.action.runnable.abs.CloseableRunnable;
 import adbs.cmd.AdbCommands;
-import adbs.main.auto.listener.DeviceListener;
+import adbs.main.AdbTools;
+import adbs.main.auto.ui.inout.InOutputModel;
 import tools.thead.Threads;
 
 import javax.swing.*;
@@ -37,7 +37,8 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
     @Override
     protected void loopBody() {
         // String id = DeviceListener.getPhoneId();
-        String id = DeviceListener.getSelectedPhoneId();
+        // String id = DeviceListener.getSelectedPhoneId();
+        String id = AdbTools.device.getId();
         JLabel output = inOutputModel.getOutput();
         // JTextField input1 = inOutputModel.getInputPanelModel().getInput1();
         // 测试替换

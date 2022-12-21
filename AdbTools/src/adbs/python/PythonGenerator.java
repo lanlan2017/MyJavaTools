@@ -1,5 +1,6 @@
 package adbs.python;
 
+import adbs.main.AdbTools;
 import adbs.main.auto.listener.Device;
 import tools.file.Files;
 import tools.format.date.DateFormatters;
@@ -105,7 +106,8 @@ public class PythonGenerator {
 
         // 获取Python文件所在的目录的路径
         String pythonPathDir = pythonPath.substring(0, pythonPath.lastIndexOf("\\"));
-        String brand = Device.getBrand();
+        // String brand = Device.getBrand();
+        String brand = AdbTools.device.getBrand2();
 
         // System.out.println("品牌名:" + simpleId);
         // System.out.println("厂商:" + brand);

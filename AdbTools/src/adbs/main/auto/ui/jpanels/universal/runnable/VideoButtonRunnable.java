@@ -1,9 +1,9 @@
 package adbs.main.auto.ui.jpanels.universal.runnable;
 
-import adbs.main.auto.ui.inout.InOutputModel;
 import adbs.action.runnable.abs.CloseableRunnable;
 import adbs.cmd.AdbCommands;
-import adbs.main.auto.listener.DeviceListener;
+import adbs.main.AdbTools;
+import adbs.main.auto.ui.inout.InOutputModel;
 import tools.random.Randoms;
 import tools.thead.Threads;
 
@@ -71,7 +71,9 @@ public class VideoButtonRunnable extends CloseableRunnable {
         // String id = DeviceListener.getPhoneId();
 
         // String id =DeviceListener.getPhoneId();
-        String id =DeviceListener.getSelectedPhoneId();
+        // String id =DeviceListener.getSelectedPhoneId();
+        String id = AdbTools.device.getId();
+
 
 
         String oldOutput;
@@ -88,7 +90,8 @@ public class VideoButtonRunnable extends CloseableRunnable {
         // String adbResult = AdbCommands.swipeBottom2TopOnLeft(id);
 
         // // 在手机左侧，从下往上滑动
-        String adbResult = AdbCommands.swipeBottom2TopOnLeft(id, DeviceListener.getHeight());
+        // String adbResult = AdbCommands.swipeBottom2TopOnLeft(id, DeviceListener.getHeight());
+        String adbResult = AdbCommands.swipeBottom2TopOnLeft(id, AdbTools.device.getHeight());
 
 
         if (adbResult.startsWith("Error!ExitCode=")) {

@@ -1,6 +1,6 @@
 package adbs.main.auto.ui.jpanels.input;
 
-import adbs.main.auto.listener.DeviceListener;
+import adbs.main.AdbTools;
 import adbs.main.auto.ui.config.FlowLayouts;
 import adbs.main.auto.ui.config.Fonts;
 import tools.swing.button.AbstractButtons;
@@ -109,7 +109,8 @@ public class InputPanels {
         // String simpleId = Device.findSimpleId(DeviceListener.getPhoneId());
 
 
-        String simpleId = DeviceListener.getSelectedSimpleId();
+        // String simpleId = DeviceListener.getSelectedSimpleId();
+        String simpleId = AdbTools.device.getSimpleId();
 
         int returnVal;
         String message = simpleId + "再次执行?";

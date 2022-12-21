@@ -1,5 +1,6 @@
 package adbs.main.auto.listener;
 
+import adbs.cmd.CmdRun;
 import config.AdbToolsProperties;
 import tools.config.properties.PropertiesTools;
 
@@ -19,6 +20,15 @@ public class Device {
      */
     private String description;
 
+    /**
+     * 设备的宽度(像素)
+     */
+    private int width;
+    /**
+     * 设备的高度(像素)
+     */
+    private int height;
+
 
     public static HashMap<String, String> map = new HashMap<>();
 
@@ -27,8 +37,6 @@ public class Device {
         this.description = description;
         // String simpleId = getSimpleId(id);
         // map.put(simpleId, id);
-
-
 
         simpleId = getSimpleId(id);
         map.put(simpleId, id);
@@ -74,27 +82,62 @@ public class Device {
         return property;
     }
 
+    // /**
+    //  * 获取当前选择的设备的品牌名
+    //  *
+    //  * @return 当前选择的设备的品牌名称
+    //  */
+    // public static String getBrand() {
+    //     // String phoneId = DeviceListener.getPhoneId();
+    //     String phoneId = DeviceListener.getSelectedPhoneId();
+    //
+    //     // String simpleId = Device.findSimpleId(phoneId).toLowerCase();
+    //
+    //
+    //     String simpleId = DeviceListener.getSelectedSimpleId().toLowerCase();
+    //     //
+    //     // String selectedSimpleId = DeviceListener.getSelectedSimpleId();
+    //     // System.out.println("selectedSimpleId = " + selectedSimpleId);
+    //     // // String simpleId = DeviceListener.getSelectedSimpleId();
+    //
+    //
+    //     System.out.println("simpleId = " + simpleId);
+    //     String brand;
+    //     if (simpleId.contains("wifi")) {
+    //         // 如果配置文件中有HonorWiFI之类的别名
+    //         brand = simpleId.substring(0, simpleId.lastIndexOf("wifi"));
+    //     } else if (simpleId.contains("usb")) {
+    //         // 如果配置文件中有HonorUSB之类的别名
+    //         brand = simpleId.substring(0, simpleId.lastIndexOf("usb"));
+    //     } else {
+    //         // 没有的话使用手机id作为品牌名
+    //         brand = phoneId;
+    //     }
+    //     System.out.println("brand = " + brand);
+    //     return brand;
+    // }
+
     /**
      * 获取当前选择的设备的品牌名
      *
      * @return 当前选择的设备的品牌名称
      */
-    public static String getBrand() {
+    public String getBrand2() {
         // String phoneId = DeviceListener.getPhoneId();
-        String phoneId = DeviceListener.getSelectedPhoneId();
+        // String phoneId = DeviceListener.getSelectedPhoneId();
 
         // String simpleId = Device.findSimpleId(phoneId).toLowerCase();
 
 
-
-        String simpleId = DeviceListener.getSelectedSimpleId().toLowerCase();
+        // String simpleId = DeviceListener.getSelectedSimpleId().toLowerCase();
         //
         // String selectedSimpleId = DeviceListener.getSelectedSimpleId();
         // System.out.println("selectedSimpleId = " + selectedSimpleId);
         // // String simpleId = DeviceListener.getSelectedSimpleId();
 
 
-        System.out.println("simpleId = " + simpleId);
+        // System.out.println("simpleId = " + simpleId);
+        String phoneId = id;
         String brand;
         if (simpleId.contains("wifi")) {
             // 如果配置文件中有HonorWiFI之类的别名
@@ -120,6 +163,46 @@ public class Device {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getWidth() {
+        if (width == 0 || height == 0) {
+            initWidthHeight();
+        }
+        return width;
+    }
+
+    private void initWidthHeight() {
+        // 执行adb命令
+        String run = CmdRun.run("adb -s " + id + " shell wm size").trim();
+        // String run = CmdRun.run("adb -s " + selectedPhoneId + " shell wm size").trim();
+        // 打印adb命令结果
+        System.out.println("run =" + run);
+        // int width = 0;
+        // int height = 0;
+        if (run.startsWith("Physical size")) {
+            String flag = "Physical size: ";
+            // 截取出屏幕宽度，高度
+            String widthStr = run.substring(run.indexOf(flag) + flag.length(), run.lastIndexOf("x"));
+            String heightStr = run.substring(run.lastIndexOf("x") + "x".length());
+
+            if (widthStr.matches("[0-9]+")) {
+                // 设置屏幕宽度到
+                // DeviceListener.width = Integer.parseInt(widthStr);
+                width = Integer.parseInt(widthStr);
+            }
+            if (heightStr.matches("[0-9]+")) {
+                // DeviceListener.height = Integer.parseInt(heightStr);
+                height = Integer.parseInt(heightStr);
+            }
+        }
+    }
+
+    public int getHeight() {
+        if (height == 0 || width == 0) {
+            initWidthHeight();
+        }
+        return height;
     }
 
     @Override

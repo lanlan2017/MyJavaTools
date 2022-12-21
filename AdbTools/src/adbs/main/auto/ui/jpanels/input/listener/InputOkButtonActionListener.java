@@ -59,7 +59,7 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
             new Thread(shoppingButtonRunnable).start();
 
         } else if ("开始等待".equals(ok.getText())) {
-            output.setText("等待返回线程：开始等待");
+            // output.setText("等待返回线程：开始等待");
             // new Thread(waitReturnButtonRunnable).start();
             new Thread(waitReturnButtonRunnable).start();
 

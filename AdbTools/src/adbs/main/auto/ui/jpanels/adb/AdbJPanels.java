@@ -1,8 +1,6 @@
 package adbs.main.auto.ui.jpanels.adb;
 
-import adbs.main.auto.ui.jpanels.adb.listener.RebootBtnAcListener;
 import adbs.action.runnable.open.Taskkill;
-import adbs.main.auto.listener.DeviceListener;
 import adbs.main.AdbTools;
 import adbs.main.auto.ui.config.FlowLayouts;
 import adbs.main.auto.ui.config.Fonts;
@@ -62,7 +60,9 @@ public class AdbJPanels {
             public void actionPerformed(ActionEvent e) {
                 // String id = DeviceListener.getPhoneId();
                 // String id = DeviceListener.getPhoneId();
-                String id = DeviceListener.getSelectedPhoneId();
+                // String id = DeviceListener.getSelectedPhoneId();
+                String id =AdbTools.device.getId();
+
                 Taskkill.killScrcpy(id);
             }
         });

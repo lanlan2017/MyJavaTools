@@ -2,9 +2,8 @@ package adbs.main.auto.run;
 
 import adbs.action.runnable.abs.CloseableRunnable;
 import adbs.cmd.*;
-import adbs.main.auto.listener.DeviceListener;
-import adbs.python.PythonGenerator;
 import adbs.main.AdbTools;
+import adbs.python.PythonGenerator;
 import tools.file.Files;
 import tools.format.date.DateFormatters;
 import tools.thead.Threads;
@@ -200,7 +199,8 @@ public class PythonCloseableRun implements Runnable {
             // AdbCommands.swipeBottom2TopOnLeft(DeviceListener.getPhoneId());
             // AdbCommands.swipeBottom2TopOnMiddle(DeviceListener.getPhoneId(), DeviceListener.getWidth(), DeviceListener.getHeight());
             // AdbCommands.swipeBottom2TopOnMiddle(DeviceListener.getPhoneId(), DeviceListener.getWidth(), DeviceListener.getHeight());
-            AdbCommands.swipeBottom2TopOnMiddle(DeviceListener.getSelectedPhoneId(), DeviceListener.getWidth(), DeviceListener.getHeight());
+            // AdbCommands.swipeBottom2TopOnMiddle(DeviceListener.getSelectedPhoneId(), DeviceListener.getWidth(), DeviceListener.getHeight());
+            AdbCommands.swipeBottom2TopOnMiddle(AdbTools.device.getId(), AdbTools.device.getWidth(), AdbTools.device.getHeight());
             //多等待3秒
             Robots.delay(3 * 1000);
         } else {

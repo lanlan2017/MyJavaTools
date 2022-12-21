@@ -1,9 +1,9 @@
 package adbs.main.auto.ui.jpanels.universal.runnable;
 
-import adbs.main.auto.ui.inout.InOutputModel;
 import adbs.action.runnable.abs.CloseableRunnable;
 import adbs.cmd.AdbCommands;
-import adbs.main.auto.listener.DeviceListener;
+import adbs.main.AdbTools;
+import adbs.main.auto.ui.inout.InOutputModel;
 import tools.thead.Threads;
 
 /**
@@ -34,7 +34,8 @@ public class BrowseRunnable extends CloseableRunnable {
     @Override
     protected void loopBody() {
         // String id = DeviceListener.getPhoneId();
-        String id = DeviceListener.getSelectedPhoneId();
+        // String id = DeviceListener.getSelectedPhoneId();
+        String id = AdbTools.device.getId();
         if (id != null) {
             // String text = inOutputModel.getInputPanelModel().getInput1().getText();
             // 测试替换输入框1

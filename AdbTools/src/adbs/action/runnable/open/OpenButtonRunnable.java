@@ -1,8 +1,7 @@
 package adbs.action.runnable.open;
 
 import adbs.cmd.CmdRun;
-import adbs.main.auto.listener.Device;
-import adbs.main.auto.listener.DeviceListener;
+import adbs.main.AdbTools;
 
 /**
  * 打开设备 按钮事件处理程序
@@ -15,8 +14,11 @@ public class OpenButtonRunnable implements Runnable {
     public void run() {
         // 获取选择的id
         // String id = DeviceListener.getPhoneId();
-        String id = DeviceListener.getSelectedPhoneId();
-        simpleId = Device.findSimpleId(id);
+        // String id = DeviceListener.getSelectedPhoneId();
+        // simpleId = Device.findSimpleId(id);
+
+        String id= AdbTools.device.getId();
+         simpleId = AdbTools.device.getSimpleId();
         // 如果存在id
         if (id != null && !"".equals(id)) {
             System.out.println("scrcpy.exe 打开镜像");
@@ -29,7 +31,7 @@ public class OpenButtonRunnable implements Runnable {
             // CmdRun.run("G:\\dev2\\idea_workspace\\MyJavaTools\\runable\\open_scrcpy.bat " + id + " " + simpleId);
             // String code = "G:\\dev2\\idea_workspace\\MyJavaTools\\runable\\open_scrcpy.bat " + id + " " + simpleId;
             // String code = "open_scrcpy.bat " + id + " " + simpleId;
-            String code = "adbtools_open_scrcpy.bat " + id + " " + simpleId;
+            String code = "adbtools_open_scrcpy.bat " + id + " " + this.simpleId;
             System.out.println("调用另一个Jar:" + code);
             CmdRun.run(code);
         }

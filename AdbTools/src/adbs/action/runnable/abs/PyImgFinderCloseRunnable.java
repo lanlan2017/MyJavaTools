@@ -4,8 +4,8 @@ import adbs.cmd.CmdRun;
 import adbs.cmd.PyAutoGui;
 import adbs.cmd.PythonRun;
 import adbs.cmd.Robots;
+import adbs.main.AdbTools;
 import adbs.python.PythonGenerator;
-import adbs.main.auto.listener.DeviceListener;
 import tools.file.Files;
 import tools.format.date.DateFormatters;
 import tools.thead.Threads;
@@ -121,7 +121,8 @@ public abstract class PyImgFinderCloseRunnable extends CloseableRunnable {
             // 点击停止按钮
             inOutputModel.getStopBtn().doClick();
             // String id = DeviceListener.getPhoneId();
-            String id = DeviceListener.getSelectedPhoneId();
+            // String id = DeviceListener.getSelectedPhoneId();
+            String id = AdbTools.device.getId();
             // 杀死快手极速版
             CmdRun.run("adb -s " + id + " shell am force-stop com.kuaishou.nebula");
             Threads.sleep(1000);

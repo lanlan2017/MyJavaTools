@@ -1,9 +1,9 @@
 package adbs.action.runnable;
 
-import adbs.main.auto.ui.inout.InOutputModel;
 import adbs.action.runnable.abs.CloseableRunnable;
 import adbs.cmd.AdbCommands;
-import adbs.main.auto.listener.DeviceListener;
+import adbs.main.AdbTools;
+import adbs.main.auto.ui.inout.InOutputModel;
 import tools.random.Randoms;
 import tools.thead.Threads;
 
@@ -55,7 +55,11 @@ public class ReadButtonRunnable extends CloseableRunnable {
         String id;
         // id = DeviceListener.getPhoneId();
         // id = DeviceListener.getPhoneId();
-        id = DeviceListener.getSelectedPhoneId();
+        // id = DeviceListener.getSelectedPhoneId();
+
+        id = AdbTools.device.getId();
+        int width = AdbTools.device.getWidth();
+        int height = AdbTools.device.getHeight();
         if (id == null) {
             // 如果没有选择设备
             JOptionPane.showConfirmDialog(null, "请勾选要操作的设备");
@@ -65,7 +69,8 @@ public class ReadButtonRunnable extends CloseableRunnable {
             // 如果选择了设备
             // 执行一次adb命令，从右向左滑动屏幕
             // AdbCommands.swipeRight2LeftOnTop(id);
-            AdbCommands.clickScreenRightSide(id, DeviceListener.getWidth(), DeviceListener.getHeight());
+            // AdbCommands.clickScreenRightSide(id, DeviceListener.getWidth(), DeviceListener.getHeight());
+            AdbCommands.clickScreenRightSide(id, width, height);
         }
         // 生成[min,Max]区间的随机整数
         // int s = random.nextInt(max) % (max - min + 1) + min;

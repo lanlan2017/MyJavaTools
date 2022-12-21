@@ -1,5 +1,6 @@
 package adbs.main;
 
+import adbs.cmd.AdbCommands;
 import adbs.main.auto.ui.jpanels.input.listener.InputOkButtonActionListener;
 import adbs.main.auto.ui.jpanels.input.listener.MinusBtnAcListener;
 import adbs.main.auto.ui.inout.InOutputModel;
@@ -24,7 +25,10 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.Scanner;
 
 public class AdbTools {
 
@@ -39,14 +43,18 @@ public class AdbTools {
     private final JFrame frame;
     // 停止按钮
     private static JButton stopBtn;
+    // 配置文件路径
     private static final String dirPath = "AdbToolsPythons\\";
-
+    // 配置文件
     private final PropertiesTools propertiesTools = AdbToolsProperties.propertiesTools;
 
-    // 快手的阅读按钮
+    // 阅读按钮
     private JButton readButton;
     // private final JPanel otherJPanel;
+    // 输出标签
     private final JLabel output;
+    // 当前选择的设备
+    public static Device device;
 
     private final HashSet<Runnable> isRunningSet = new HashSet<>();
     private static final AdbTools instance = new AdbTools();
@@ -58,7 +66,8 @@ public class AdbTools {
         contentPaneSetting();
 
         // 初始化第0个面板，初始化设备面板
-        initDevicesPanel();
+        // initDevicesPanel();
+        initDevicesPanel2();
         // 初始化第1个面板,adb面板
         initAdbJPanel();
         // 初始化第3个面板，控制面板
@@ -127,7 +136,7 @@ public class AdbTools {
 
     private JPanel initUniversalPanel(InOutputModel inout2) {
         UniversalPanels universalPanels = new UniversalPanels(frame, inout2);
-        readButton=universalPanels.getReadButton();
+        readButton = universalPanels.getReadButton();
         return universalPanels.getUniversalPanel();
     }
 
@@ -174,17 +183,70 @@ public class AdbTools {
         frame.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
     }
 
+    // /**
+    //  * 初始化设备面板
+    //  */
+    // private void initDevicesPanel() {
+    //     final JPanel devicesPanel;
+    //     // 创建设备面板
+    //     devicesPanel = new AdbDi(frame).createDevicesPanel();
+    //     // 设备面板设置 流式布局 左对齐
+    //     devicesPanel.setLayout(FlowLayouts.flowLayoutLeft);
+    //     // 添加到窗体中
+    //     frame.add(devicesPanel);
+    // }
+
     /**
      * 初始化设备面板
      */
-    private void initDevicesPanel() {
-        final JPanel devicesPanel;
-        // 创建设备面板
-        devicesPanel = new AdbDi(frame).createDevicesPanel();
-        // 设备面板设置 流式布局 左对齐
-        devicesPanel.setLayout(FlowLayouts.flowLayoutLeft);
-        // 添加到窗体中
-        frame.add(devicesPanel);
+    private void initDevicesPanel2() {
+        ArrayList<String> idList = new ArrayList<>();
+        LinkedHashMap<String, Device> simpleId_Device_map = new LinkedHashMap<>();
+        String devicesListStr = AdbCommands.runAbdCmd("adb devices -l");
+        // 分析adb devices -l命令结果
+        Scanner scanner = new Scanner(devicesListStr);
+
+
+        String line;
+        while (scanner.hasNextLine()) {
+            line = scanner.nextLine();
+            // System.out.println("line = " + line);
+            // List of devices attached表示没有设备，
+            // 如果是设备输出信息
+            if (!line.equals("List of devices attached") && !"".equals(line)) {
+                // 按两个或者更多的空格符作为分界 来分割字符串
+                String[] deviceStrs = line.split("[ ]{2,}");
+                // System.out.println("ID = " + deviceStrs[0]);
+                // System.out.println("dir = " + deviceStrs[1]);
+                // 分割得到的第1段是设备id，第2段是设备的描述信息
+                Device device = new Device(deviceStrs[0], deviceStrs[1]);
+                idList.add(device.getSimpleId());
+                simpleId_Device_map.put(device.getSimpleId(), device);
+            }
+        }
+
+        System.out.println("idList = " + idList);
+
+
+        // showConfirmDialog();
+        Component parentComponent = frame;
+        // Component parentComponent = null;
+        String message = "请选择";
+        String title = "弹出多选择框";
+        // int optionType = JOptionPane.YES_NO_CANCEL_OPTION;
+        int optionType = JOptionPane.YES_OPTION;
+        int messageType = JOptionPane.PLAIN_MESSAGE;
+        Icon icon = null;
+        // String[] options = {"HonorWiFi", "RedmiWiFi"};
+        String[] options = idList.toArray(new String[idList.size()]);
+        int initialValue = 0;
+        // 弹出选项框
+        int dialogReturn = JOptionPane.showOptionDialog(parentComponent, message, title, optionType, messageType, icon, options, initialValue);
+        // 设置到标题
+        frame.setTitle(options[dialogReturn]);
+        // frame.setTitle(Device.map.get(options[dialogReturn]));
+        // System.out.println("simpleId_Device_map.get(options[dialogReturn]) = " + simpleId_Device_map.get(options[dialogReturn]));
+        device = simpleId_Device_map.get(options[dialogReturn]);
     }
 
     /**
@@ -213,7 +275,7 @@ public class AdbTools {
     /**
      * 根据体魄目录生成按钮
      *
-     * @param frame 窗体
+     * @param frame       窗体
      * @param checkJPanel 复选框面板
      */
     private void newButtonJPanel(JFrame frame, JPanel checkJPanel) {
@@ -265,7 +327,8 @@ public class AdbTools {
                                         @Override
                                         public void actionPerformed(ActionEvent e) {
                                             // 拼接内容Python文件路径
-                                            String pythonFile = dirPath + name + "\\" + name1 + "\\" + "_" + Device.getBrand() + ".py";
+                                            // String pythonFile = dirPath + name + "\\" + name1 + "\\" + "_" + Device.getBrand() + ".py";
+                                            String pythonFile = dirPath + name + "\\" + name1 + "\\" + "_" + device.getBrand2() + ".py";
                                             System.out.println("pythonFile = " + pythonFile);
                                             // new Thread(new PythonCloseableRun(name1, pythonFile, output)).start();
                                             // new Thread(new PythonCloseableRun(chName1, pythonFile, output)).start();

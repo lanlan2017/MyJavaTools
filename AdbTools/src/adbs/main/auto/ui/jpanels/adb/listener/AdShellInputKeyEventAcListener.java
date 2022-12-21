@@ -1,7 +1,7 @@
 package adbs.main.auto.ui.jpanels.adb.listener;
 
 import adbs.cmd.AdbCommands;
-import adbs.main.auto.listener.DeviceListener;
+import adbs.main.AdbTools;
 
 import java.awt.event.ActionEvent;
 
@@ -17,7 +17,8 @@ public abstract class AdShellInputKeyEventAcListener extends ButtonFocusReleaseA
     @Override
     protected void actionEvent(ActionEvent e) {
         // String id = DeviceListener.getPhoneId();
-        String id = DeviceListener.getSelectedPhoneId();
+        // String id = DeviceListener.getSelectedPhoneId();
+        String id = AdbTools.device.getId();
         // 调用子类的方法，设置键值
         setKey();
         if (id != null && !"".equals(id) && key != null && !"".equals(key)) {

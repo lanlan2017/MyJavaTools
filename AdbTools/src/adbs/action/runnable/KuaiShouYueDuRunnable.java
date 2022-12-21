@@ -1,6 +1,7 @@
 package adbs.action.runnable;
 
 import adbs.action.runnable.abs.PyImgFinderCloseRunnable;
+import adbs.main.AdbTools;
 import adbs.main.auto.listener.Device;
 
 import javax.swing.*;
@@ -31,7 +32,8 @@ public class KuaiShouYueDuRunnable extends PyImgFinderCloseRunnable {
         // pyPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\KuaiShou\\YueDu\\YueDu.py";
         // String simpleId = Device.findSimpleId(DeviceRadioBtAcListener.getId());
         // 获取当前选择的设备的厂商名(小写)
-        String brand = Device.getBrand();
+        // String brand = Device.getBrand();
+        String brand = AdbTools.device.getBrand2();
         // pyPath = "G:\\dev2\\idea_workspace\\MyJavaTools\\AdbTools\\Pythons\\KuaiShou\\YueDu\\YueDu_" + brand + ".py";
         pyPath = "AdbToolsPythons\\KuaiShou\\YueDu\\YueDu_" + brand + ".py";
         // System.out.println(pyPath);
