@@ -1,12 +1,11 @@
 package adbs.main;
 
 import adbs.cmd.AdbCommands;
-import adbs.main.auto.listener.Device;
+import adbs.model.Device;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class JOptionPaneTest {
