@@ -1,6 +1,7 @@
 package adbs.main;
 
 import adbs.cmd.AdbCommands;
+import adbs.cmd.CmdRun;
 import adbs.main.ui.jpanels.control.ControlJPanels;
 import adbs.main.ui.jpanels.input.listener.InputOkButtonActionListener;
 import adbs.main.ui.jpanels.input.listener.MinusBtnAcListener;
@@ -231,8 +232,8 @@ public class AdbTools {
         // showConfirmDialog();
         Component parentComponent = frame;
         // Component parentComponent = null;
-        String message = "请选择";
-        String title = "弹出多选择框";
+        String message = "请选择要操作的adb设备：";
+        String title = "选择Adb设备";
         // int optionType = JOptionPane.YES_NO_CANCEL_OPTION;
         int optionType = JOptionPane.YES_OPTION;
         int messageType = JOptionPane.PLAIN_MESSAGE;
@@ -242,11 +243,18 @@ public class AdbTools {
         int initialValue = 0;
         // 弹出选项框
         int dialogReturn = JOptionPane.showOptionDialog(parentComponent, message, title, optionType, messageType, icon, options, initialValue);
-        // 设置到标题
-        frame.setTitle(options[dialogReturn]);
-        // frame.setTitle(Device.map.get(options[dialogReturn]));
-        // System.out.println("simpleId_Device_map.get(options[dialogReturn]) = " + simpleId_Device_map.get(options[dialogReturn]));
-        device = simpleId_Device_map.get(options[dialogReturn]);
+        if(dialogReturn>=0){
+            // 设置到标题
+            String adbSelected = options[dialogReturn];
+            frame.setTitle(adbSelected);
+            // frame.setTitle(Device.map.get(options[dialogReturn]));
+            // System.out.println("simpleId_Device_map.get(options[dialogReturn]) = " + simpleId_Device_map.get(options[dialogReturn]));
+            device = simpleId_Device_map.get(adbSelected);
+            // CmdRun.run("title " + adbSelected);
+        }else {
+            System.out.println("退出程序");
+            System.exit(-1);
+        }
     }
 
     /**

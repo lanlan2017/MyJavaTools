@@ -51,8 +51,11 @@ public class MinusBtnAcListener implements ActionListener {
                     value1 = 15;
                     value2 = 30;
                 } else if (value1 == 15) {
+                    value1 = 12;
+                    value2 = 22;
+                } else if (value1 == 12) {
                     value1 = 10;
-                    value2 = 20;
+                    value2 = 22;
                 } else if (value1 > 7) {
                     value1 = value1 - 1;
                     value2 = value1 * 2;
