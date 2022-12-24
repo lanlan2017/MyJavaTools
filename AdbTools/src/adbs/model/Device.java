@@ -43,6 +43,7 @@ public class Device {
 
         simpleId = getSimpleId(id);
         map.put(simpleId, id);
+        System.out.println("id=" + id + ",simpleId=" + simpleId);
     }
 
     public String getId() {
@@ -128,10 +129,11 @@ public class Device {
     public String getBrand2() {
         // String phoneId = DeviceListener.getPhoneId();
         // String phoneId = DeviceListener.getSelectedPhoneId();
+        // String phoneId = id;
 
         // String simpleId = Device.findSimpleId(phoneId).toLowerCase();
-
-
+        //
+        //
         // String simpleId = DeviceListener.getSelectedSimpleId().toLowerCase();
         //
         // String selectedSimpleId = DeviceListener.getSelectedSimpleId();
@@ -140,17 +142,19 @@ public class Device {
 
 
         // System.out.println("simpleId = " + simpleId);
-        String phoneId = id;
-        String brand;
-        if (simpleId.contains("wifi")) {
+        // String simpleId=this.simpleId.toLowerCase();
+        // String brand;
+        String brand = simpleId.toLowerCase();
+        if (brand.contains("wifi")) {
             // 如果配置文件中有HonorWiFI之类的别名
-            brand = simpleId.substring(0, simpleId.lastIndexOf("wifi"));
-        } else if (simpleId.contains("usb")) {
+            brand = brand.substring(0, brand.lastIndexOf("wifi"));
+        } else if (brand.contains("usb")) {
             // 如果配置文件中有HonorUSB之类的别名
-            brand = simpleId.substring(0, simpleId.lastIndexOf("usb"));
+            brand = brand.substring(0, brand.lastIndexOf("usb"));
         } else {
             // 没有的话使用手机id作为品牌名
-            brand = phoneId;
+            // brand = phoneId;
+            brand = id;
         }
         System.out.println("brand = " + brand);
         return brand;
@@ -170,6 +174,7 @@ public class Device {
 
     /**
      * 获取adb设备的宽度(像素)
+     *
      * @return
      */
     public int getWidth() {
@@ -210,6 +215,7 @@ public class Device {
 
     /**
      * 获取adb设备的屏幕高度（像素）
+     *
      * @return
      */
     public int getHeight() {
