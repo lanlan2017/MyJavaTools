@@ -30,7 +30,7 @@ public class ControlJPanels {
 
     public ControlJPanels() {
         controlJPanel = new JPanel(FlowLayouts.flowLayoutLeft);
-        controlJPanel.setBorder(new TitledBorder("控制面板"));
+        // controlJPanel.setBorder(new TitledBorder("控制面板"));
         Font font1 = new Font(Font.SANS_SERIF, Font.BOLD, 16);
         // Font font2 = new Font(Font.SANS_SERIF, Font.BOLD, 12);
         // Font font2 = new Font("Consolas", Font.BOLD, 12);

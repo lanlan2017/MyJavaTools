@@ -71,9 +71,11 @@ public class AdbJPanels {
         // returnBtn = new JButton(new ImageIcon(Buttons.class.getClassLoader().getResource("向左三角形.png")));
 
         // ◁ ○ □
-        returnBtn = new JButton("◁");
+        // returnBtn = new JButton("◁");
+        returnBtn = new JButton("<");
         returnBtn.setToolTipText("返回键");
         // returnBtn.setFont(Fonts.Consolas_BOLD_14);
+        returnBtn.setFont(Fonts.Consolas_BOLD_12);
         // 返回键
         returnBtn.addActionListener(new ReturnBtnAcListener());
 
@@ -84,15 +86,18 @@ public class AdbJPanels {
         ◁○□▇◀●
         xxx
          */
-        homeBtn = new JButton("○");
-        homeBtn.setFont(Fonts.Consolas_BOLD_14);
+        // homeBtn = new JButton("○");
+        homeBtn = new JButton("o");
+        homeBtn.setFont(Fonts.Consolas_BOLD_12);
         homeBtn.setToolTipText("home键");
         homeBtn.addActionListener(new HomeBtnAcListener());
         // 任务键按钮
         // ◁ ○ □
         // taskBtn = new JButton(new ImageIcon(Buttons.class.getClassLoader().getResource("空框.png")));
-        taskBtn = new JButton("□");
-        taskBtn.setFont(Fonts.Consolas_BOLD_14);
+        // taskBtn = new JButton("□");
+        taskBtn = new JButton("t");
+        // taskBtn.setFont(Fonts.Consolas_BOLD_14);
+        taskBtn.setFont(Fonts.Consolas_BOLD_12);
         taskBtn.setToolTipText("任务键");
         // 任务管理键
         taskBtn.addActionListener(new TaskManageBtnAcListener());
@@ -164,6 +169,7 @@ public class AdbJPanels {
         // AbstractButtons.setJButtonMargin(volumeNone, -1);
 
         AbstractButtons.setMarginInButtonJPanel(volumeJPanel, -1);
+        // 设置的内切
         AbstractButtons.setMarginInButtonJPanel(navigationKeyJPanel, -1);
         // volumeNone.setMargin(new Insets(2, -1, -1, -1));
         // volumeNone.setMargin(new Insets(2, -1, 2, -1));

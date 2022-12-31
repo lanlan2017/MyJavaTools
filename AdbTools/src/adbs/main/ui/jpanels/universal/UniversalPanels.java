@@ -48,7 +48,7 @@ public class UniversalPanels {
 
         // 创建通用功能面板
         universalPanel = new JPanel();
-        universalPanel.setBorder(new TitledBorder("通用功能"));
+        // universalPanel.setBorder(new TitledBorder("通用功能"));
         universalPanel.setLayout(FlowLayouts.flowLayoutLeft);
         readButton = new JButton("阅读");
         readButton.setToolTipText("阅读功能:连续点击屏幕右侧");
@@ -95,7 +95,8 @@ public class UniversalPanels {
 
         // AbstractButtons.setMarginInButtonJPanel(universalPanel);
         AbstractButtons.setMarginInButtonJPanel(universalPanel,1);
-        frame.add(universalPanel);
+        // 添加通用功能面板到窗体中
+        // frame.add(universalPanel);
     }
 
     public JPanel getUniversalPanel() {

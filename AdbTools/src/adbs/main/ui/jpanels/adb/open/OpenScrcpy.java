@@ -24,14 +24,20 @@ public class OpenScrcpy {
 
     /**
      * 调用scrcpy.exe
-     * @param id 设备id
+     *
+     * @param id    设备id
      * @param title 窗口标题
      */
     private static void scrcpyCall(String id, String title) {
         // AdbCommands.runAbdCmd("scrcpy.exe -s " + id + " --turn-screen-off -b 2M -m 768 --stay-awake --window-title " + title + " --always-on-top");
         // CmdRun.run("F:\\Program Files\\scrcpy-win64-v1.18\\scrcpy.exe -s " + id + " --turn-screen-off -b 2M -m 768 --stay-awake --window-title " + title + " --always-on-top");
         // String code = "scrcpy.exe -s " + id + " --turn-screen-off -b 2M -m 768 --stay-awake --window-title " + title + " --always-on-top";
-        String code = "scrcpy.exe -s " + id + " --turn-screen-off -b 2M -m 768 --stay-awake --window-title " + title;
+        String code;
+        if (title.startsWith("HuaWei")) {
+            code = "scrcpy.exe -s " + id + " -b 2M -m 768 --stay-awake --window-title " + title;
+        } else {
+            code = "scrcpy.exe -s " + id + " --turn-screen-off -b 2M -m 768 --stay-awake --window-title " + title;
+        }
         System.out.println(code);
         CmdRun.run(code);
     }

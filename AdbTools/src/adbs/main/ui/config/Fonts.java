@@ -23,6 +23,7 @@ public class Fonts {
      * 等宽字体Consolas,14号
      */
     public static Font Consolas_BOLD_14 = new Font("Consolas", Font.BOLD, 14);
+    public static Font Consolas_BOLD_12 = new Font("Consolas", Font.BOLD, 12);
     public static Font Consolas_PLAIN_14 = new Font("Consolas", Font.PLAIN, 14);
     public static Font Consolas_PLAIN_12 = new Font("Consolas", Font.PLAIN, 12);
     public static Font Consolas_PLAIN_13 = new Font("Consolas", Font.PLAIN, 13);

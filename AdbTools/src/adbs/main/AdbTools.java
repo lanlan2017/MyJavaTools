@@ -13,6 +13,7 @@ import adbs.main.ui.jpanels.input.InputPanels;
 import adbs.main.ui.jpanels.input.listener.PlusBtnAcListener;
 import adbs.main.ui.jpanels.adb.AdbJPanels;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
+import adbs.tools.buttons.JButtons;
 import config.AdbToolsProperties;
 import tools.swing.button.AbstractButtons;
 import adbs.main.ui.jpanels.check.JCheckBoxControlJPanelItemListener;
@@ -70,26 +71,53 @@ public class AdbTools {
         // initDevicesPanel();
         initDevicesPanel2();
         // 初始化第1个面板,adb面板
-        initAdbJPanel();
+        AdbJPanels adbJPanels = initAdbJPanel();
         // 初始化第3个面板，控制面板
         JPanel controlJPanel = initControlJPanel();
 
         // 初始化输入面板
         InputPanels inputPanels = initInputPanels();
 
-        // 多选框面板
+
+        // 初始化多选框面板
         JPanel checkJPanel = new JPanel();
         checkJPanel.setLayout(FlowLayouts.flowLayoutLeft);
 
+        // // 选项面板
+        // frame.add(checkJPanel);
+        // // adb面板
+        // frame.add(adbJPanels.getAdbJPanel());
+        // // 时间输入面板
+        // frame.add(inputPanels.getInputPanel());
+        // // 控制面板
+        // frame.add(controlJPanel);
+
         // 通用复选框
-        JCheckBox generalJCheckBox = new JCheckBox("通用", true);
+        // JCheckBox generalJCheckBox = new JCheckBox("通用", true);
+        JCheckBox generalJCheckBox = new JCheckBox("", true);
+        generalJCheckBox.setToolTipText("展开/折叠 通用功能");
+        // generalJCheckBox.setMargin();
+        // JCheckBox adbJCheckBox = new JCheckBox("系统", true);
+        JCheckBox adbJCheckBox = new JCheckBox("", true);
+        adbJCheckBox.setToolTipText("展开/折叠 系统功能");
+        // AbstractButtons.setMarginInButtonJPanel(checkJPanel);
+        adbJCheckBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                boolean visible = adbJPanels.getAdbJPanel().isVisible();
+                adbJPanels.getAdbJPanel().setVisible(!visible);
+                frame.pack();
+            }
+        });
         // 控制复选框
         JCheckBox controlJCheckBox = new JCheckBox("控制", true);
         controlJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(frame, controlJPanel));
         // 现在就触发
         controlJCheckBox.doClick();
 
-        checkJPanel.add(generalJCheckBox, 0);
+        // checkJPanel.add(generalJCheckBox, 0);
+        checkJPanel.add(adbJCheckBox);
+        checkJPanel.add(generalJCheckBox);
         checkJPanel.add(controlJCheckBox);
 
         // 输出面板
@@ -112,15 +140,28 @@ public class AdbTools {
         // 初始化通用面板
         JPanel universalPanel = initUniversalPanel(inOut);
 
+        // 选项面板
+        frame.add(checkJPanel);
+        // adb面板
+        frame.add(adbJPanels.getAdbJPanel());
+        // 添加通用功能面板
+        frame.add(universalPanel);
+        // 时间输入面板
+        frame.add(inputPanels.getInputPanel());
+        // 控制面板
+        frame.add(controlJPanel);
+
         // 需要先初始化通用面板 要放在 initUniversalPanel(inputPanels, inOut);之后
         generalJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(frame, universalPanel));
 
         // 添加选项到多选面板
         // newButtonJPanel(frame, checkJPanel, otherJPanel);
+        // frame.add(checkJPanel);
         newButtonJPanel(frame, checkJPanel);
 
         // 添加多选框面板到第3行
-        frame.add(checkJPanel, 2);
+        // frame.add(checkJPanel, 2);
+        AbstractButtons.setMarginInButtonJPanel(checkJPanel, 10);
         AbstractButtons.setMarginInButtonJPanel(checkJPanel, -1);
         // 添加输出面包到最后一行
         frame.add(outputJPanel);
@@ -136,6 +177,7 @@ public class AdbTools {
     }
 
     private JPanel initUniversalPanel(InOutputModel inout2) {
+        // 创建通用面板，并添加到窗体中
         UniversalPanels universalPanels = new UniversalPanels(frame, inout2);
         readButton = universalPanels.getReadButton();
         return universalPanels.getUniversalPanel();
@@ -148,16 +190,16 @@ public class AdbTools {
         final JPanel controlJPanel;
         ControlJPanels controlJPanels = new ControlJPanels();
         controlJPanel = controlJPanels.getControlJPanel();
-        frame.add(controlJPanel);
+        // frame.add(controlJPanel);
         return controlJPanel;
     }
 
     private InputPanels initInputPanels() {
         InputPanels inputPanels = new InputPanels();
-        JPanel inputPanel = inputPanels.getInputPanel();
+        // JPanel inputPanel = inputPanels.getInputPanel();
         // inputPanel.setLayout(FlowLayouts.flowLayoutLeft);
         // inputPanels.getTimeRadioPanel().setLayout(FlowLayouts.flowLayoutLeft);
-        frame.add(inputPanel);
+        // frame.add(inputPanel);
         return inputPanels;
     }
 
@@ -207,7 +249,6 @@ public class AdbTools {
         // 分析adb devices -l命令结果
         Scanner scanner = new Scanner(devicesListStr);
 
-
         String line;
         while (scanner.hasNextLine()) {
             line = scanner.nextLine();
@@ -228,7 +269,6 @@ public class AdbTools {
 
         System.out.println("idList = " + idList);
 
-
         // showConfirmDialog();
         Component parentComponent = frame;
         // Component parentComponent = null;
@@ -243,7 +283,7 @@ public class AdbTools {
         int initialValue = 0;
         // 弹出选项框
         int dialogReturn = JOptionPane.showOptionDialog(parentComponent, message, title, optionType, messageType, icon, options, initialValue);
-        if(dialogReturn>=0){
+        if (dialogReturn >= 0) {
             // 设置到标题
             String adbSelected = options[dialogReturn];
             frame.setTitle(adbSelected);
@@ -251,19 +291,29 @@ public class AdbTools {
             // System.out.println("simpleId_Device_map.get(options[dialogReturn]) = " + simpleId_Device_map.get(options[dialogReturn]));
             device = simpleId_Device_map.get(adbSelected);
             // CmdRun.run("title " + adbSelected);
-        }else {
+        } else {
             System.out.println("退出程序");
             System.exit(-1);
         }
     }
 
+    // /**
+    //  * 初始化adb面板
+    //  */
+    // private void initAdbJPanel() {
+    //     AdbJPanels adbJPanels = new AdbJPanels();
+    //     stopBtn = adbJPanels.getStopBtn();
+    //     frame.add(adbJPanels.getAdbJPanel());
+    // }
+
     /**
      * 初始化adb面板
      */
-    private void initAdbJPanel() {
+    private AdbJPanels initAdbJPanel() {
         AdbJPanels adbJPanels = new AdbJPanels();
         stopBtn = adbJPanels.getStopBtn();
-        frame.add(adbJPanels.getAdbJPanel());
+        // frame.add(adbJPanels.getAdbJPanel());
+        return adbJPanels;
     }
 
     public static AdbTools getInstance() {
