@@ -1,5 +1,6 @@
 package adbs.main.ui.jpanels.universal.listener;
 
+import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.adb.listener.ButtonFocusReleaseActionListener;
 import adbs.main.ui.jpanels.input.InputPanels;
 
@@ -36,6 +37,7 @@ public class WaitButtonActionListener extends ButtonFocusReleaseActionListener {
         inputPanels.getMinusBtn().setVisible(true);
         inputPanels.getTimerJLabel().setVisible(true);
 
-        frame.pack();
+        // frame.pack();
+        JFramePack.onJComponentActionEvent(e);
     }
 }

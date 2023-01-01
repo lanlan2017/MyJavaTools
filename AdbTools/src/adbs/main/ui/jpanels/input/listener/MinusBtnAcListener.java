@@ -32,7 +32,10 @@ public class MinusBtnAcListener implements ActionListener {
             if (input2.isVisible()) {
                 // 输入框1，输入框2都可见
                 int value2;
-                if (value1 == 150) {
+                if (value1 == 240) {
+                    value1 = 150;
+                    value2 = 240;
+                } else if (value1 == 150) {
                     value1 = 120;
                     value2 = 150;
                 } else if (value1 == 120) {
@@ -70,6 +73,15 @@ public class MinusBtnAcListener implements ActionListener {
                 // 输入框1可见，输入框2不可见
                 switch (value1) {
                     case 1200:
+                        value1 = 900;
+                        break;
+                    case 900:
+                        value1 = 600;
+                        break;
+                    case 600:
+                        value1 = 300;
+                        break;
+                    case 300:
                         value1 = 185;
                         break;
                     case 185:

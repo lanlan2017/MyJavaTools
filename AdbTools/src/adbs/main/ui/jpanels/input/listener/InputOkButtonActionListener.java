@@ -1,5 +1,6 @@
 package adbs.main.ui.jpanels.input.listener;
 
+import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.adb.listener.ButtonFocusReleaseActionListener;
 import adbs.main.ui.inout.InOutputModel;
 import adbs.main.ui.jpanels.universal.runnable.BrowseRunnable;
@@ -40,10 +41,6 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
         videoButtonRunnable.setInOutputModel(inOutputModel);
 
     }
-    //
-    // public InputOkButtonActionListener() {
-    //
-    // }
 
     @Override
     protected void actionEvent(ActionEvent e) {
@@ -84,5 +81,31 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
                 }
             }
         }
+        // onJComponentActionEvent(e);
+        JFramePack.onJComponentActionEvent(e, 500);
+
     }
+
+    // /**
+    //  * 点击按钮后，调用JFrame.pack()方法，更新界面。
+    //  *
+    //  * @param e ActionEvent对象
+    //  */
+    // public static void onJComponentActionEvent(ActionEvent e) {
+    //     Container parent = ((JButton) e.getSource()).getParent();
+    //     while (parent instanceof JComponent) {
+    //         parent = parent.getParent();
+    //     }
+    //     if (parent instanceof JFrame) {
+    //         JFrame frame = (JFrame) parent;
+    //         // 启动一个线程来刷新界面
+    //         new Thread(() -> {
+    //             // 等待1秒
+    //             Threads.sleep(1000);
+    //             System.out.println("jFrame_pack_刷新界面");
+    //             // 刷新界面
+    //             frame.pack();
+    //         }).start();
+    //     }
+    // }
 }

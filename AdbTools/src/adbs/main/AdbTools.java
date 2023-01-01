@@ -131,7 +131,8 @@ public class AdbTools {
         // 创建输入面板的模型
         InOutputModel inOut = new InOutputModel(inputPanels, output, stopBtn);
         // 测试替换
-        stopBtn.addActionListener(new StopBtnAcListener2(frame, isRunningSet, inOut));
+        // stopBtn.addActionListener(new StopBtnAcListener2(frame, isRunningSet, inOut));
+        stopBtn.addActionListener(new StopBtnAcListener2(isRunningSet, inOut));
         // 设置inputOK按钮事件监听器
         inputPanels.getInputOkButton().addActionListener(new InputOkButtonActionListener(inOut));
         inputPanels.getPlusBtn().addActionListener(new PlusBtnAcListener(inOut));
@@ -218,8 +219,13 @@ public class AdbTools {
                     System.out.println("双击主面板");
                     frame.pack();
                 }
+                // else if (e.getClickCount() == 1 && e.getButton() == MouseEvent.BUTTON1) {
+                //     System.out.println("单击主面板上的按钮");
+                //     frame.pack();
+                // }
             }
         });
+
         // 设置窗体的内容面板
         frame.setContentPane(contentPane);
         // 窗体使用箱型布局,垂直排列

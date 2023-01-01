@@ -1,5 +1,6 @@
 package adbs.main.ui.jpanels.universal.listener;
 
+import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.adb.listener.ButtonFocusReleaseActionListener;
 import adbs.main.ui.jpanels.input.InputPanels;
 
@@ -38,6 +39,8 @@ public class ShoppingButtonActionListener extends ButtonFocusReleaseActionListen
         inputPanels.getInputOkButton().setText("开始逛街");
         inputPanels.getTimerJLabel().setVisible(false);
 
-        frame.pack();
+        // frame.pack();
+        JFramePack.onJComponentActionEvent(e);
+
     }
 }

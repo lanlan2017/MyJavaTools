@@ -115,7 +115,7 @@ public class InputPanels {
         int returnVal;
         String message = simpleId + "再次执行?";
         if (parent instanceof Component) {
-            System.out.println("---------------是组件");
+            // System.out.println("---------------是组件");
             Component comp = parent;
             returnVal = JOptionPane.showConfirmDialog(comp, message);
         } else {

@@ -1,5 +1,7 @@
 package adbs.main.ui.jpanels.check;
 
+import adbs.main.ui.jframe.JFramePack;
+
 import javax.swing.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -24,6 +26,9 @@ public class JCheckBoxControlJPanelItemListener implements ItemListener {
 
     @Override
     public void itemStateChanged(ItemEvent e) {
+        Object source = e.getSource();
+        // System.out.println("source = " + source);
+
         // 如果当前的状态是勾选状态
         if (e.getStateChange() == ItemEvent.SELECTED) {
             // 显示被控制的面板
@@ -33,6 +38,8 @@ public class JCheckBoxControlJPanelItemListener implements ItemListener {
             jPanel.setVisible(false);
         }
         // 以最佳方式显示
-        frame.pack();
+        // frame.pack();
+
+        JFramePack.onJComponentActionEvent(e);
     }
 }

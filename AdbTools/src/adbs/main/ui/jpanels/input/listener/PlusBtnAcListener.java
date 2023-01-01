@@ -65,10 +65,16 @@ public class PlusBtnAcListener implements ActionListener {
                 } else if (value1 == 90) {
                     value1 = 120;
                     value2 = 150;
-                } else if (value1 == 120) {
+                }
+                else if (value1 == 120) {
                     value1 = 150;
                     value2 = 240;
-                } else {
+                }
+                else if (value1 == 150) {
+                    value1 = 240;
+                    value2 = 300;
+                }
+                else {
                     return;
                 }
                 input1.setText(String.valueOf(value1));
@@ -121,6 +127,15 @@ public class PlusBtnAcListener implements ActionListener {
                         value1 = 185;
                         break;
                     case 185:
+                        value1 = 300;
+                        break;
+                    case 300:
+                        value1 = 600;
+                        break;
+                    case 600:
+                        value1 = 900;
+                        break;
+                    case 900:
                         value1 = 1200;
                         break;
                     // default:

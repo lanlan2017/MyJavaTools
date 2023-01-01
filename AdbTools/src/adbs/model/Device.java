@@ -43,7 +43,7 @@ public class Device {
 
         simpleId = getSimpleId(id);
         map.put(simpleId, id);
-        System.out.println("id=" + id + ",simpleId=" + simpleId);
+        // System.out.println("id=" + id + ",simpleId=" + simpleId);
     }
 
     public String getId() {
@@ -81,8 +81,8 @@ public class Device {
     public String getSimpleId(String id) {
         PropertiesTools propertiesTools = AdbToolsProperties.propertiesTools;
         String property = propertiesTools.getProperty(id);
-        System.out.println("通过 配置文件 获取设备别名");
-        System.out.println(id + " = " + property);
+        // System.out.println("通过 配置文件 获取设备别名");
+        // System.out.println(id + " = " + property);
         return property;
     }
 
