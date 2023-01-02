@@ -11,11 +11,15 @@ import java.awt.event.ActionEvent;
  * 设置浏览按钮的操作界面。
  */
 public class BrowseButtonActionListener extends ButtonFocusReleaseActionListener {
-    private JFrame frame;
+    // private JFrame frame;
     private InputPanels inputPanels;
 
-    public BrowseButtonActionListener(JFrame frame, InputPanels inputPanels) {
-        this.frame = frame;
+    // public BrowseButtonActionListener(JFrame frame, InputPanels inputPanels) {
+    //     this.frame = frame;
+    //     this.inputPanels = inputPanels;
+    // }
+    public BrowseButtonActionListener(InputPanels inputPanels) {
+        // this.frame = frame;
         this.inputPanels = inputPanels;
     }
 

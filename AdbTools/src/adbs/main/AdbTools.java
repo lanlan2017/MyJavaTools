@@ -1,26 +1,24 @@
 package adbs.main;
 
 import adbs.cmd.AdbCommands;
-import adbs.cmd.CmdRun;
+import adbs.main.run.PythonCloseableRun;
+import adbs.main.ui.config.FlowLayouts;
+import adbs.main.ui.inout.InOutputModel;
+import adbs.main.ui.inout.listener.StopBtnAcListener2;
+import adbs.main.ui.jpanels.adb.AdbJPanels;
+import adbs.main.ui.jpanels.check.JCheckBoxControlJPanelItemListener;
 import adbs.main.ui.jpanels.control.ControlJPanels;
+import adbs.main.ui.jpanels.input.InputPanels;
 import adbs.main.ui.jpanels.input.listener.InputOkButtonActionListener;
 import adbs.main.ui.jpanels.input.listener.MinusBtnAcListener;
-import adbs.main.ui.inout.InOutputModel;
+import adbs.main.ui.jpanels.input.listener.PlusBtnAcListener;
+import adbs.main.ui.jpanels.universal.UniversalPanels;
 import adbs.main.ui.jpanels.universal.listener.ReadButtonRunnable;
 import adbs.model.Device;
-import adbs.main.ui.config.FlowLayouts;
-import adbs.main.ui.jpanels.input.InputPanels;
-import adbs.main.ui.jpanels.input.listener.PlusBtnAcListener;
-import adbs.main.ui.jpanels.adb.AdbJPanels;
-import adbs.main.ui.jpanels.universal.UniversalPanels;
-import adbs.tools.buttons.JButtons;
-import config.AdbToolsProperties;
-import tools.swing.button.AbstractButtons;
-import adbs.main.ui.jpanels.check.JCheckBoxControlJPanelItemListener;
-import adbs.main.ui.inout.listener.StopBtnAcListener2;
-import adbs.main.run.PythonCloseableRun;
 import com.formdev.flatlaf.FlatLightLaf;
+import config.AdbToolsProperties;
 import tools.config.properties.PropertiesTools;
+import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -111,7 +109,8 @@ public class AdbTools {
         });
         // 控制复选框
         JCheckBox controlJCheckBox = new JCheckBox("控制", true);
-        controlJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(frame, controlJPanel));
+        // controlJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(frame, controlJPanel));
+        controlJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(controlJPanel));
         // 现在就触发
         controlJCheckBox.doClick();
 
@@ -153,7 +152,8 @@ public class AdbTools {
         frame.add(controlJPanel);
 
         // 需要先初始化通用面板 要放在 initUniversalPanel(inputPanels, inOut);之后
-        generalJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(frame, universalPanel));
+        // generalJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(frame, universalPanel));
+        generalJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(universalPanel));
 
         // 添加选项到多选面板
         // newButtonJPanel(frame, checkJPanel, otherJPanel);
@@ -179,7 +179,8 @@ public class AdbTools {
 
     private JPanel initUniversalPanel(InOutputModel inout2) {
         // 创建通用面板，并添加到窗体中
-        UniversalPanels universalPanels = new UniversalPanels(frame, inout2);
+        // UniversalPanels universalPanels = new UniversalPanels(frame, inout2);
+        UniversalPanels universalPanels = new UniversalPanels(inout2);
         readButton = universalPanels.getReadButton();
         return universalPanels.getUniversalPanel();
     }
@@ -196,12 +197,11 @@ public class AdbTools {
     }
 
     private InputPanels initInputPanels() {
-        InputPanels inputPanels = new InputPanels();
         // JPanel inputPanel = inputPanels.getInputPanel();
         // inputPanel.setLayout(FlowLayouts.flowLayoutLeft);
         // inputPanels.getTimeRadioPanel().setLayout(FlowLayouts.flowLayoutLeft);
         // frame.add(inputPanel);
-        return inputPanels;
+        return new InputPanels();
     }
 
     /**
@@ -375,7 +375,8 @@ public class AdbTools {
                             checkBox.doClick();
                             checkJPanel.add(checkBox);
                             // 监听
-                            checkBox.addItemListener(new JCheckBoxControlJPanelItemListener(frame, jPanel));
+                            // checkBox.addItemListener(new JCheckBoxControlJPanelItemListener(frame, jPanel));
+                            checkBox.addItemListener(new JCheckBoxControlJPanelItemListener(jPanel));
 
                             // 遍历二级子目录
                             for (File dirDeep2 : dirDeep1List) {

@@ -10,23 +10,26 @@ import java.awt.event.ItemListener;
  * 多选框面板选项监听器
  */
 public class JCheckBoxControlJPanelItemListener implements ItemListener {
-    /**
-     * 窗体
-     */
-    protected JFrame frame;
+    // /**
+    //  * 窗体
+    //  */
+    // protected JFrame frame;
     /**
      * 被控制的JPanel
      */
     protected JPanel jPanel;
 
-    public JCheckBoxControlJPanelItemListener(JFrame frame, JPanel jPanel) {
-        this.frame = frame;
+    // public JCheckBoxControlJPanelItemListener(JFrame frame, JPanel jPanel) {
+    //     this.frame = frame;
+    //     this.jPanel = jPanel;
+    // }
+    public JCheckBoxControlJPanelItemListener(JPanel jPanel) {
+        // this.frame = frame;
         this.jPanel = jPanel;
     }
 
     @Override
     public void itemStateChanged(ItemEvent e) {
-        Object source = e.getSource();
         // System.out.println("source = " + source);
 
         // 如果当前的状态是勾选状态

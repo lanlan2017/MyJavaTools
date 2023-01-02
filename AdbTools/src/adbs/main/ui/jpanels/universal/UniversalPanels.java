@@ -41,14 +41,14 @@ public class UniversalPanels {
     /**
      * 初始化通用面板
      *
-     * @param inout2
-     * @return
+     * @param inout2 输入输出控件汇总
      */
-    public UniversalPanels(JFrame frame, InOutputModel inout2) {
-
+    // public UniversalPanels(JFrame frame, InOutputModel inout2) {
+    public UniversalPanels(InOutputModel inout2) {
         // 创建通用功能面板
         universalPanel = new JPanel();
         // universalPanel.setBorder(new TitledBorder("通用功能"));
+
         universalPanel.setLayout(FlowLayouts.flowLayoutLeft);
         readButton = new JButton("阅读");
         readButton.setToolTipText("阅读功能:连续点击屏幕右侧");
@@ -76,25 +76,28 @@ public class UniversalPanels {
         // browseButton.addActionListener(new BrowseButtonActionListener(frame, inputPanels));
 
         // browseButton.addActionListener(new BrowseButtonActionListener(frame, inout2.getInputPanels()));
-        browseButton.addActionListener(new BrowseButtonActionListener(frame, inout2.getInputPanels()));
+        // browseButton.addActionListener(new BrowseButtonActionListener(frame, inout2.getInputPanels()));
+        browseButton.addActionListener(new BrowseButtonActionListener(inout2.getInputPanels()));
 
         // 等待后返回按钮
         // waitReturnButton.addActionListener(new WaitReturnButtonActionListener(frame, inputPanels));
-        waitButton.addActionListener(new WaitButtonActionListener(frame, inout2.getInputPanels()));
-
+        // waitButton.addActionListener(new WaitButtonActionListener(frame, inout2.getInputPanels()));
+        waitButton.addActionListener(new WaitButtonActionListener(inout2.getInputPanels()));
 
 
         // 刷视频按钮
         // videoButton.addActionListener(new VideoButtonActionListener(frame, inputPanels));
-        videoButton.addActionListener(new VideoButtonActionListener(frame, inout2.getInputPanels()));
+        // videoButton.addActionListener(new VideoButtonActionListener(frame, inout2.getInputPanels()));
+        videoButton.addActionListener(new VideoButtonActionListener(inout2.getInputPanels()));
 
         // 逛街按钮
         // shoppingButton.addActionListener(new ShoppingButtonActionListener(frame, inputPanels));
-        shoppingButton.addActionListener(new ShoppingButtonActionListener(frame, inout2.getInputPanels()));
+        // shoppingButton.addActionListener(new ShoppingButtonActionListener(frame, inout2.getInputPanels()));
+        shoppingButton.addActionListener(new ShoppingButtonActionListener(inout2.getInputPanels()));
 
 
         // AbstractButtons.setMarginInButtonJPanel(universalPanel);
-        AbstractButtons.setMarginInButtonJPanel(universalPanel,1);
+        AbstractButtons.setMarginInButtonJPanel(universalPanel, 1);
         // 添加通用功能面板到窗体中
         // frame.add(universalPanel);
     }

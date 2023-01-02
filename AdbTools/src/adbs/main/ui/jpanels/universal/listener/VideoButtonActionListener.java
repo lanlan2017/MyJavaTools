@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
  * 刷视频按钮 操作界面
  */
 public class VideoButtonActionListener extends ButtonFocusReleaseActionListener {
-    private JFrame frame;
+    // private JFrame frame;
     // private InputPanelModel inputPanelModel;
     private InputPanels inputPanels;
 
@@ -19,8 +19,12 @@ public class VideoButtonActionListener extends ButtonFocusReleaseActionListener 
     //     this.frame = frame;
     //     this.inputPanelModel = inputPanelModel;
     // }
-    public VideoButtonActionListener(JFrame frame,  InputPanels inputPanels) {
-        this.frame = frame;
+    // public VideoButtonActionListener(JFrame frame,  InputPanels inputPanels) {
+    //     this.frame = frame;
+    //     this.inputPanels = inputPanels;
+    // }
+    public VideoButtonActionListener(InputPanels inputPanels) {
+        // this.frame = frame;
         this.inputPanels = inputPanels;
     }
 

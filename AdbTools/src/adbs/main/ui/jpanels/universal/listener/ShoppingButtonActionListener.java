@@ -8,13 +8,17 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class ShoppingButtonActionListener extends ButtonFocusReleaseActionListener {
-    private JFrame frame;
+    // private JFrame frame;
     private InputPanels inputPanels;
 
 
 
-    public ShoppingButtonActionListener(JFrame frame, InputPanels inputPanels) {
-        this.frame = frame;
+    // public ShoppingButtonActionListener(JFrame frame, InputPanels inputPanels) {
+    //     this.frame = frame;
+    //     this.inputPanels = inputPanels;
+    // }
+    public ShoppingButtonActionListener(InputPanels inputPanels) {
+        // this.frame = frame;
         this.inputPanels = inputPanels;
     }
 

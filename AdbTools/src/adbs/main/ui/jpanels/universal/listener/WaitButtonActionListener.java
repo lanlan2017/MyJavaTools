@@ -11,11 +11,16 @@ import java.awt.event.ActionEvent;
  * 等待按钮事件监听器
  */
 public class WaitButtonActionListener extends ButtonFocusReleaseActionListener {
-    private JFrame frame;
+    // private JFrame frame;
     private InputPanels inputPanels;
+    //
+    // public WaitButtonActionListener(JFrame frame, InputPanels inputPanels) {
+    //     this.frame = frame;
+    //     this.inputPanels = inputPanels;
+    // }
 
-    public WaitButtonActionListener(JFrame frame, InputPanels inputPanels) {
-        this.frame = frame;
+    public WaitButtonActionListener(InputPanels inputPanels) {
+        // this.frame = frame;
         this.inputPanels = inputPanels;
     }
 
