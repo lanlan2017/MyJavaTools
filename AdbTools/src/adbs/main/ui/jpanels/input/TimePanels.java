@@ -11,25 +11,44 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 /**
- * 输入面板
+ * 时间选择面板
  */
-public class InputPanels {
-    final JPanel inputPanel;
-    JLabel timeLable;
-    // JPanel timeRadioPanel;
-    JTextField input1;
-    JTextField input2;
-    JButton plusBtn;
-    JButton minusBtn;
-    JButton inputOkButton;
-    JLabel timerJLabel;
+public class TimePanels {
+    private final JPanel timePanel;
+    /**
+     * 时间提示标签
+     */
+    private JLabel timeLabel;
+    /**
+     * 时间输入框1
+     */
+    private JTextField input1;
+    /**
+     * 时间输入框2
+     */
+    private JTextField input2;
+    /**
+     * 时间增加按钮
+     */
+    private JButton plusBtn;
+    /**
+     * 时间减少按钮
+     */
+    private JButton minusBtn;
+    /**
+     * 确认按钮
+     */
+    private JButton inputOkButton;
+    /**
+     * 倒计时标签
+     */
+    private JLabel timerJLabel;
 
-    public InputPanels() {
-
+    public TimePanels() {
         // 创建输入选择面板
-        inputPanel = new JPanel();
-        inputPanel.setLayout(FlowLayouts.flowLayoutLeft);
-        timeLable = new JLabel("时间(s)");
+        timePanel = new JPanel();
+        timePanel.setLayout(FlowLayouts.flowLayoutLeft);
+        timeLabel = new JLabel("时间(s)");
         // timeRadioPanel = new JPanel();
         input1 = new JTextField(2);
         input1.setFont(Fonts.Consolas_PLAIN_14);
@@ -53,31 +72,27 @@ public class InputPanels {
         timerJLabel = new JLabel("");
 
 
-        inputPanel.add(timeLable);
+        timePanel.add(timeLabel);
         // inputPanel.add(timeRadioPanel);
-        inputPanel.add(input1);
-        inputPanel.add(input2);
-        inputPanel.add(plusBtn);
-        inputPanel.add(minusBtn);
-        inputPanel.add(inputOkButton);
-        inputPanel.add(timerJLabel);
-        inputPanel.setVisible(false);
+        timePanel.add(input1);
+        timePanel.add(input2);
+        timePanel.add(plusBtn);
+        timePanel.add(minusBtn);
+        timePanel.add(inputOkButton);
+        timePanel.add(timerJLabel);
+        timePanel.setVisible(false);
 
-        AbstractButtons.setMarginInButtonJPanel(inputPanel,1);
+        AbstractButtons.setMarginInButtonJPanel(timePanel, 1);
         // AbstractButtons.setMarginInButtonJPanel(inputPanel,0);
     }
 
-    public JPanel getInputPanel() {
-        return inputPanel;
+    public JPanel getTimePanel() {
+        return timePanel;
     }
 
-    public JLabel getTimeLable() {
-        return timeLable;
+    public JLabel getTimeLabel() {
+        return timeLabel;
     }
-
-    // public JPanel getTimeRadioPanel() {
-    //     return timeRadioPanel;
-    // }
 
     public JTextField getInput1() {
         return input1;
@@ -105,16 +120,12 @@ public class InputPanels {
 
     public void showConfirmDialog() {
         // 得到窗体的内容面板
-        Container parent = inputPanel.getParent();
-        // String simpleId = Device.findSimpleId(DeviceListener.getPhoneId());
-
-
-        // String simpleId = DeviceListener.getSelectedSimpleId();
+        Container parent = timePanel.getParent();
         String simpleId = AdbTools.device.getSimpleId();
 
         int returnVal;
         String message = simpleId + "再次执行?";
-        if (parent instanceof Component) {
+        if (parent != null) {
             // System.out.println("---------------是组件");
             Component comp = parent;
             returnVal = JOptionPane.showConfirmDialog(comp, message);
@@ -123,7 +134,7 @@ public class InputPanels {
         }
         // 如果选择的是确认按键
         if (returnVal == JOptionPane.OK_OPTION) {
-            if (inputOkButton != null && inputOkButton instanceof JButton) {
+            if (inputOkButton != null) {
                 // 触发按钮
                 inputOkButton.doClick();
             }

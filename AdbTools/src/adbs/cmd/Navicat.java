@@ -11,7 +11,6 @@ import java.awt.event.KeyEvent;
 public class Navicat {
     public static void main(String[] args) {
         String pyFilePath = "G:\\dev2\\idea_workspace\\MyJavaTools\\Conifg_Navicat\\NavicatAutoClick.py";
-
         // while (true) {
         doOnes(pyFilePath);
         // }

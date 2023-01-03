@@ -17,6 +17,7 @@ import java.util.TimerTask;
  */
 public class ControlJPanels {
     private final JPanel controlJPanel;
+
     private final JLabel label;
     private final JTextField hourTextField;
     private final JLabel hourLabel;
@@ -24,7 +25,6 @@ public class ControlJPanels {
     private final JLabel minuteLabel;
     private final JTextField secondTextField;
     private final JButton dormantOKButton;
-    // shutdown -a
     private final JButton cancelBtn;
 
 

@@ -33,12 +33,17 @@ public class OpenScrcpy {
         // CmdRun.run("F:\\Program Files\\scrcpy-win64-v1.18\\scrcpy.exe -s " + id + " --turn-screen-off -b 2M -m 768 --stay-awake --window-title " + title + " --always-on-top");
         // String code = "scrcpy.exe -s " + id + " --turn-screen-off -b 2M -m 768 --stay-awake --window-title " + title + " --always-on-top";
         String code;
+        // 对以指定字符串开头的设备
         if (title.startsWith("HuaWei")) {
+            // 启动scrcpy.exe镜像的时候不息屏
             code = "scrcpy.exe -s " + id + " -b 2M -m 768 --stay-awake --window-title " + title;
         } else {
+            // 其他设备，启动scrcpy.exe镜像时，关闭屏幕
             code = "scrcpy.exe -s " + id + " --turn-screen-off -b 2M -m 768 --stay-awake --window-title " + title;
         }
+        // 打印执行的命令
         System.out.println(code);
+        // 创建cmd进程，执行scrcpy.exe命令
         CmdRun.run(code);
     }
 }

@@ -25,11 +25,20 @@ public class PythonRun {
         command.add("file");
     }
 
+    /**
+     * 运行Python文件,
+     * @param pyFilePath Python文件的绝对路径
+     * @return Python文件运行结果。
+     */
     public static String runPython(String pyFilePath) {
         command.set(command.size() - 1, pyFilePath);
         return runCmd();
     }
 
+    /**
+     * 启动一个进程，运行Command列表中的命令，并返回进程输出的内容。
+     * @return 进程的输出字符串
+     */
     private static String runCmd() {
         ProcessBuilder processBuilder = new ProcessBuilder(command);
         ProcessRunner processRunner = new ProcessRunner();

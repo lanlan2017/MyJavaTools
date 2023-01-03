@@ -8,12 +8,12 @@ import java.util.Scanner;
  * 调用taskkill.exe
  */
 public class Taskkill {
-    public static void main(String[] args) {
-        // killScrcpy("75aed56d");
-
-        // killAdbToolsJarAll();
-
-    }
+    // public static void main(String[] args) {
+    //     // killScrcpy("75aed56d");
+    //
+    //     // killAdbToolsJarAll();
+    //
+    // }
 
     /**
      * 杀死所有的AdbTools.jar命令

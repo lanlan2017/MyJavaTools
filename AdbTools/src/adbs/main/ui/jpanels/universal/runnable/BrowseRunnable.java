@@ -32,12 +32,10 @@ public class BrowseRunnable extends CloseableRunnable {
 
     @Override
     protected void loopBody() {
-        // String id = DeviceListener.getPhoneId();
-        // String id = DeviceListener.getSelectedPhoneId();
+        // 获取选中的adb设备的序列号
         String id = AdbTools.device.getId();
         if (id != null) {
-            // String text = inOutputModel.getInputPanelModel().getInput1().getText();
-            // 测试替换输入框1
+            // 获取输入框1的内容
             String text = inOutputModel.getInputPanels().getInput1().getText();
 
 

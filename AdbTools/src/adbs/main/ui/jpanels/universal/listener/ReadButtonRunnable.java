@@ -11,9 +11,7 @@ import javax.swing.*;
 
 public class ReadButtonRunnable extends CloseableRunnable {
 
-    private static ReadButtonRunnable instance = new ReadButtonRunnable();
-    // 输入输出汇总Model
-    // private InOutputModel inOutputModel;
+    private static final ReadButtonRunnable instance = new ReadButtonRunnable();
     // 输出内容
     private JLabel output;
     private int min;
@@ -52,13 +50,11 @@ public class ReadButtonRunnable extends CloseableRunnable {
     }
 
     private void body() {
-        String id;
-        // id = DeviceListener.getPhoneId();
-        // id = DeviceListener.getPhoneId();
-        // id = DeviceListener.getSelectedPhoneId();
-
-        id = AdbTools.device.getId();
+        // 获取选中的adb设备的序列号
+        String id = AdbTools.device.getId();
+        // 获取选中的adb设备的屏幕宽度
         int width = AdbTools.device.getWidth();
+        // 获取选中的adb设备的屏幕高度
         int height = AdbTools.device.getHeight();
         if (id == null) {
             // 如果没有选择设备
@@ -67,17 +63,13 @@ public class ReadButtonRunnable extends CloseableRunnable {
             stop = true;
         } else {
             // 如果选择了设备
-            // 执行一次adb命令，从右向左滑动屏幕
-            // AdbCommands.swipeRight2LeftOnTop(id);
-            // AdbCommands.clickScreenRightSide(id, DeviceListener.getWidth(), DeviceListener.getHeight());
+            // 点击屏幕右侧
             AdbCommands.clickScreenRightSide(id, width, height);
         }
         // 生成[min,Max]区间的随机整数
         // int s = random.nextInt(max) % (max - min + 1) + min;
         int s = Randoms.getRandomInt(min, max);
-
         output.setText(msg + "等待" + s + "秒");
-
         String oldText;
         String newText;
         s = s * 1000;
@@ -98,5 +90,4 @@ public class ReadButtonRunnable extends CloseableRunnable {
             count += 250;
         }
     }
-
 }

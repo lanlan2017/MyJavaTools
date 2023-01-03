@@ -18,11 +18,6 @@ public class MinusBtnAcListener implements ActionListener {
         input2 = inOutputModel.getInputPanels().getInput2();
     }
 
-    public MinusBtnAcListener(JTextField input1, JTextField input2) {
-        this.input1 = input1;
-        this.input2 = input2;
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         // 如果输入框1 可见的话

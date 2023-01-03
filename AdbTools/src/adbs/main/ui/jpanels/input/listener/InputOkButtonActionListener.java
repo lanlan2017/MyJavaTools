@@ -12,6 +12,9 @@ import tools.thead.Threads;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
+/**
+ * 确认按钮事件处理程序
+ */
 public class InputOkButtonActionListener extends ButtonFocusReleaseActionListener {
     /**
      * 被操作的输入输出组件
@@ -62,10 +65,7 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
 
         } else if ("开始刷视频".equals(ok.getText())) {
             output.setText("刷视频线程：开始等待");
-            // String input1Str = inOutputModel.getInputPanelModel().getInput1().getText();
-            // String input2Str = inOutputModel.getInputPanelModel().getInput2().getText();
-
-            // 测试替换
+            // 获取时间区间
             String input1Str = inOutputModel.getInputPanels().getInput1().getText();
             String input2Str = inOutputModel.getInputPanels().getInput2().getText();
             // 如果输入的都是数字
@@ -81,31 +81,7 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
                 }
             }
         }
-        // onJComponentActionEvent(e);
+        // 等待指定毫秒之后，刷新JFrame界面，以最佳大小显示
         JFramePack.onJComponentActionEvent(e, 500);
-
     }
-
-    // /**
-    //  * 点击按钮后，调用JFrame.pack()方法，更新界面。
-    //  *
-    //  * @param e ActionEvent对象
-    //  */
-    // public static void onJComponentActionEvent(ActionEvent e) {
-    //     Container parent = ((JButton) e.getSource()).getParent();
-    //     while (parent instanceof JComponent) {
-    //         parent = parent.getParent();
-    //     }
-    //     if (parent instanceof JFrame) {
-    //         JFrame frame = (JFrame) parent;
-    //         // 启动一个线程来刷新界面
-    //         new Thread(() -> {
-    //             // 等待1秒
-    //             Threads.sleep(1000);
-    //             System.out.println("jFrame_pack_刷新界面");
-    //             // 刷新界面
-    //             frame.pack();
-    //         }).start();
-    //     }
-    // }
 }

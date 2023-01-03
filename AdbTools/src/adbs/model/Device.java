@@ -86,64 +86,12 @@ public class Device {
         return property;
     }
 
-    // /**
-    //  * 获取当前选择的设备的品牌名
-    //  *
-    //  * @return 当前选择的设备的品牌名称
-    //  */
-    // public static String getBrand() {
-    //     // String phoneId = DeviceListener.getPhoneId();
-    //     String phoneId = DeviceListener.getSelectedPhoneId();
-    //
-    //     // String simpleId = Device.findSimpleId(phoneId).toLowerCase();
-    //
-    //
-    //     String simpleId = DeviceListener.getSelectedSimpleId().toLowerCase();
-    //     //
-    //     // String selectedSimpleId = DeviceListener.getSelectedSimpleId();
-    //     // System.out.println("selectedSimpleId = " + selectedSimpleId);
-    //     // // String simpleId = DeviceListener.getSelectedSimpleId();
-    //
-    //
-    //     System.out.println("simpleId = " + simpleId);
-    //     String brand;
-    //     if (simpleId.contains("wifi")) {
-    //         // 如果配置文件中有HonorWiFI之类的别名
-    //         brand = simpleId.substring(0, simpleId.lastIndexOf("wifi"));
-    //     } else if (simpleId.contains("usb")) {
-    //         // 如果配置文件中有HonorUSB之类的别名
-    //         brand = simpleId.substring(0, simpleId.lastIndexOf("usb"));
-    //     } else {
-    //         // 没有的话使用手机id作为品牌名
-    //         brand = phoneId;
-    //     }
-    //     System.out.println("brand = " + brand);
-    //     return brand;
-    // }
-
     /**
      * 获取当前选择的设备的品牌名
      *
      * @return 当前选择的设备的品牌名称
      */
     public String getBrand2() {
-        // String phoneId = DeviceListener.getPhoneId();
-        // String phoneId = DeviceListener.getSelectedPhoneId();
-        // String phoneId = id;
-
-        // String simpleId = Device.findSimpleId(phoneId).toLowerCase();
-        //
-        //
-        // String simpleId = DeviceListener.getSelectedSimpleId().toLowerCase();
-        //
-        // String selectedSimpleId = DeviceListener.getSelectedSimpleId();
-        // System.out.println("selectedSimpleId = " + selectedSimpleId);
-        // // String simpleId = DeviceListener.getSelectedSimpleId();
-
-
-        // System.out.println("simpleId = " + simpleId);
-        // String simpleId=this.simpleId.toLowerCase();
-        // String brand;
         String brand = simpleId.toLowerCase();
         if (brand.contains("wifi")) {
             // 如果配置文件中有HonorWiFI之类的别名

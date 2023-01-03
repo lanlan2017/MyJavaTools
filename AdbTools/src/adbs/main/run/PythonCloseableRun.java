@@ -21,14 +21,29 @@ public class PythonCloseableRun implements Runnable {
      * 线程消息
      */
     protected String msg;
+    /**
+     * python文件的绝对路径
+     */
     private String pyPath;
+    /**
+     * python进程输出的标签
+     */
     private JLabel output;
+    /**
+     * 可关闭线程体
+     */
     private CloseableRunnable closeableRun;
+    /**
+     * Python进程结束后触发的按钮
+     */
     private JButton afterBtn;
     /**
      * 是否结束线程
      */
     protected boolean stop = false;
+    /**
+     * 默认等待时间
+     */
     private int waitSeconds = 35;
 
     public PythonCloseableRun(String msg, String pyPath, JLabel output) {

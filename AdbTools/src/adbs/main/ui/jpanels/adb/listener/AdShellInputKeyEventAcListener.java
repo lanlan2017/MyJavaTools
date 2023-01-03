@@ -16,12 +16,13 @@ public abstract class AdShellInputKeyEventAcListener extends ButtonFocusReleaseA
 
     @Override
     protected void actionEvent(ActionEvent e) {
-        // String id = DeviceListener.getPhoneId();
-        // String id = DeviceListener.getSelectedPhoneId();
+        // 获取adb设备的ID
         String id = AdbTools.device.getId();
-        // 调用子类的方法，设置键值
+        // 调用实现类的方法，设置键值
         setKey();
+
         if (id != null && !"".equals(id) && key != null && !"".equals(key)) {
+            // 启动cmd进程，执行adb命令
             AdbCommands.runAbdCmd("adb -s " + id + " shell input keyevent " + key);
         }
     }

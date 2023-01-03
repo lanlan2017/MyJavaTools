@@ -2,47 +2,38 @@ package adbs.main.ui.jpanels.universal.listener;
 
 import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.adb.listener.ButtonFocusReleaseActionListener;
-import adbs.main.ui.jpanels.input.InputPanels;
+import adbs.main.ui.jpanels.input.TimePanels;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 /**
  * 等待按钮事件监听器
  */
 public class WaitButtonActionListener extends ButtonFocusReleaseActionListener {
-    // private JFrame frame;
-    private InputPanels inputPanels;
-    //
-    // public WaitButtonActionListener(JFrame frame, InputPanels inputPanels) {
-    //     this.frame = frame;
-    //     this.inputPanels = inputPanels;
-    // }
+    private TimePanels timePanels;
 
-    public WaitButtonActionListener(InputPanels inputPanels) {
-        // this.frame = frame;
-        this.inputPanels = inputPanels;
+    public WaitButtonActionListener(TimePanels timePanels) {
+        this.timePanels = timePanels;
     }
 
     @Override
     protected void actionEvent(ActionEvent e) {
 
         // 测试替换
-        inputPanels.getInputPanel().setVisible(true);
-        inputPanels.getTimeLable().setText("时间(s):");
+        timePanels.getTimePanel().setVisible(true);
+        timePanels.getTimeLabel().setText("时间(s):");
         // inputPanels.getTimeRadioPanel().setVisible(true);
-        inputPanels.getInputOkButton().setText("开始等待");
-        inputPanels.getInput1().setColumns(4);
-        inputPanels.getInput1().setText(String.valueOf(30));
-        inputPanels.getInput2().setVisible(false);
+        timePanels.getInputOkButton().setText("开始等待");
+        timePanels.getInput1().setColumns(4);
+        timePanels.getInput1().setText(String.valueOf(30));
+        timePanels.getInput2().setVisible(false);
         // inputPanels.getInput2().setVisible(true);
         // inputPanels.getPlusBtn().setVisible(false);
         // inputPanels.getMinusBtn().setVisible(false);
-        inputPanels.getPlusBtn().setVisible(true);
-        inputPanels.getMinusBtn().setVisible(true);
-        inputPanels.getTimerJLabel().setVisible(true);
+        timePanels.getPlusBtn().setVisible(true);
+        timePanels.getMinusBtn().setVisible(true);
+        timePanels.getTimerJLabel().setVisible(true);
 
-        // frame.pack();
         JFramePack.onJComponentActionEvent(e);
     }
 }

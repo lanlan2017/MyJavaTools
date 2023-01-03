@@ -11,17 +11,10 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 public class StopBtnAcListener2 implements ActionListener {
-    // private JFrame frame;
     private HashSet<Runnable> isRunningSet;
     private InOutputModel inOutputModel;
 
-    // public StopBtnAcListener2(JFrame frame, HashSet<Runnable> isRunningSet, InOutputModel inOutputModel) {
-    //     this.frame = frame;
-    //     this.isRunningSet = isRunningSet;
-    //     this.inOutputModel = inOutputModel;
-    // }
     public StopBtnAcListener2(HashSet<Runnable> isRunningSet, InOutputModel inOutputModel) {
-        // this.frame = frame;
         this.isRunningSet = isRunningSet;
         this.inOutputModel = inOutputModel;
     }
@@ -48,14 +41,9 @@ public class StopBtnAcListener2 implements ActionListener {
                 iterator.remove();
             }
         }
-        // System.out.println("end isRunningSet.size() = " + isRunningSet.size());
-
-
-        // inOutputModel.getInputPanelModel().getInputPanel().setVisible(false);
-        
-        inOutputModel.getInputPanels().getInputPanel().setVisible(false);
-        // frame.pack();
-        // InputOkButtonActionListener.onJComponentActionEvent(e);
+        // 隐藏时间面板
+        inOutputModel.getInputPanels().getTimePanel().setVisible(false);
+        // 更新JFrame界面
         JFramePack.onJComponentActionEvent(e);
     }
 }

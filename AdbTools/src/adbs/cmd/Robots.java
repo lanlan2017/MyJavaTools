@@ -12,7 +12,7 @@ public class Robots {
 
     static {
         try {
-            // 主屏幕
+            // 在主屏幕上创建一个机器人了
             robot = new Robot();
             // robot = new Robot(gd[1]);
         } catch (AWTException e) {
@@ -29,7 +29,9 @@ public class Robots {
     }
 
     /**
-     * 点击鼠标左键
+     *
+     * 在给定的位置，点击鼠标左键
+     * @param point
      */
     public static void leftMouseButtonClick(Point point) {
         // System.out.println(DateFormatters.yyyyMMddHHmmss.format(new Date()));
@@ -50,8 +52,11 @@ public class Robots {
         robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
     }
 
+
     /**
-     * 点击鼠标右键
+     *
+     * 在给定的位置，点击鼠标右键
+     * @param point 屏幕坐标
      */
     public static void rightClickButton(Point point) {
         // 鼠标移动到之前的位置（防止等待的时候，鼠标被移开了）
@@ -67,7 +72,7 @@ public class Robots {
     }
 
     /**
-     * 先点击左键，再点击右键
+     * 在给定的位置，先点击左键，等待指定毫秒后，再点击右键
      *
      * @param point 要点击的屏幕坐标
      */
@@ -87,7 +92,7 @@ public class Robots {
     /**
      * 等待指定毫秒数
      *
-     * @param millisecond
+     * @param millisecond 需要等待的毫秒数
      */
     public static void delay(int millisecond) {
         // 等待一小段时间，让解锁界面打开

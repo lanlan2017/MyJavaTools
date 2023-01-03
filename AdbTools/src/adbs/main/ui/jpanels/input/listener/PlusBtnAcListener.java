@@ -31,15 +31,6 @@ public class PlusBtnAcListener implements ActionListener {
             if (input2.isVisible()) {
                 int value1 = Integer.parseInt(input1.getText());
                 int value2;
-                //7-14
-                //8-16
-                //9-18
-                //10-20
-                //20-40
-                //40-60
-                //60-90
-                //90-150
-                //150-240
                 if (value1 < 10) {
                     value1 = value1 + 1;
                     value2 = value1 * 2;
@@ -83,13 +74,7 @@ public class PlusBtnAcListener implements ActionListener {
             // 如果第1个文本框可见，第2个文本框不可见
             else {
                 int value1 = Integer.parseInt(input1.getText());
-                //    35
-                //    65
-                //    1200
                 switch (value1) {
-                    // case 0:
-                    //     value1 = 8;
-                    //     break;
                     case 0:
                         value1 = 5;
                         break;
@@ -144,10 +129,6 @@ public class PlusBtnAcListener implements ActionListener {
                     // case :
                     //     break;
                 }
-                // if (value1 < 20) {
-                //     value1 = 20;
-                // }
-
                 input1.setText(String.valueOf(value1));
             }
         }

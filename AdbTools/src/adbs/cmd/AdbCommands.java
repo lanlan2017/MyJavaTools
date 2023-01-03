@@ -65,10 +65,6 @@ public class AdbCommands {
      * @param height 手机设备的高度
      */
     public static void clickScreenRightSide(String id, int width, int height) {
-        // Random random=new Random();
-        // Randoms.getRandomInt(10,90);
-        // random.nextInt()
-        // int y = (height / 100) * 10;
         // y的范围位20%到80%之间
         int y = (height / 100) * Randoms.getRandomInt(20, 80);
         // int x = (width / 100) * 98;
@@ -76,7 +72,6 @@ public class AdbCommands {
         // int x = (width / 270) * Randoms.getRandomInt(267, 269);
         int x = (width / 120) * Randoms.getRandomInt(119, 120) - Randoms.getRandomInt(2,7);
         //adb shell input tap 250 250
-        // AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 893 233 73 228 200");
         AdbCommands.runAbdCmd("adb -s " + id + " shell input tap " + x + " " + y);
     }
 
@@ -84,7 +79,6 @@ public class AdbCommands {
      * 在手机左侧，从下向上滑动
      */
     public static String swipeBottom2TopOnLeft(String id) {
-        // return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 1650 5 700 200");
         return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 1600 5 800 200");
     }
 
@@ -92,9 +86,9 @@ public class AdbCommands {
      * 在手机左侧，从下向上滑动
      */
     public static String swipeBottom2TopOnLeft(String id, int height) {
-        // return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 1650 5 700 200");
         int y1 = (height / 100) * 30;
         int y2 = (height / 100) * 70;
+        // return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 1650 5 700 200");
         return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 " + y2 + " 5 " + y1 + " 200");
     }
 
@@ -102,10 +96,10 @@ public class AdbCommands {
      * 在手机中间从下向上滑动
      */
     public static String swipeBottom2TopOnMiddle(String id, int width, int height) {
-        // return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 1650 5 700 200");
         int x = (int) (width * 0.5);
         int y1 = (height / 100) * 30;
         int y2 = (height / 100) * 70;
+        // return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 1650 5 700 200");
         return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe " + x + " " + y2 + " " + x + " " + y1 + " 200");
     }
 
