@@ -103,15 +103,24 @@ public class PlusBtnAcListener implements ActionListener {
                         value1 = 95;
                         break;
                     case 95:
-                        value1 = 125;
+                        value1 = 120;
                         break;
-                    case 125:
-                        value1 = 155;
+                    case 120:
+                        value1 = 150;
                         break;
-                    case 155:
-                        value1 = 185;
+                    case 150:
+                        value1 = 180;
                         break;
-                    case 185:
+                    case 180:
+                        value1 = 210;
+                        break;
+                    case 210:
+                        value1 = 240;
+                        break;
+                    case 240:
+                        value1 = 270;
+                        break;
+                    case 270:
                         value1 = 300;
                         break;
                     case 300:
