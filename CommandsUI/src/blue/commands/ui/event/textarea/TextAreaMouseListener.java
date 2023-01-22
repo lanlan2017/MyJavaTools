@@ -1,5 +1,7 @@
 package blue.commands.ui.event.textarea;
 
+import blue.commands.ui.MainFrom;
+
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -25,6 +27,8 @@ public class TextAreaMouseListener extends MouseAdapter {
             textArea.setRows(0);
             // 设置默认列数
             textArea.setColumns(25);
+            // 隐藏输出面板
+            MainFrom.getInstance().getOutputScrollPane().setVisible(false);
             // 调整窗体大小
             frame.pack();
         }

@@ -63,7 +63,7 @@ public class TextFieldKeyListener extends KeyAdapter {
                     // System.out.println("哈哈哈哈哈哈");
                 }
                 // System.out.println("嘻嘻嘻嘻");
-                // 隐藏文本框
+                // 隐藏弹出的选项框
                 jComboBox.setPopupVisible(false);
                 // 执行命令，打印结果
                 pressedEnter();
@@ -119,7 +119,9 @@ public class TextFieldKeyListener extends KeyAdapter {
                     // 隐藏文本框
                     jComboBox.setPopupVisible(false);
                 }
-                MainFrom.getInstance().getJSplitPane().setVisible(true);
+                // MainFrom.getInstance().getJSplitPane().setVisible(true);
+                MainFrom.getInstance().getOutputScrollPane().setVisible(true);
+                MainFrom.getInstance().getFrame().pack();
             } else {
                 // 隐藏textArea面板
                 // scrollPaneFather.setVisible(false);
@@ -232,7 +234,8 @@ public class TextFieldKeyListener extends KeyAdapter {
      * 否则返回false。
      */
     private boolean isUseOcrOutputForCommandInput(JTextArea ocrTextArea) {
-        return ocrTextArea.isVisible() && !ocrTextArea.getText().equals("") && MainFrom.getInstance().getJSplitPane().getDividerLocation() != 0;
+        // return ocrTextArea.isVisible() && !ocrTextArea.getText().equals("") && MainFrom.getInstance().getJSplitPane().getDividerLocation() != 0;
+        return ocrTextArea.isVisible() && !ocrTextArea.getText().equals("");
     }
 
     /**
