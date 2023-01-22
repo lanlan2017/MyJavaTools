@@ -38,12 +38,12 @@ public class MultilineString {
         s = deleteUselessLine(s);
         // System.out.println(s);
         // System.out.println();
-        // 删除文件末尾的总计信息
-        s = s.substring(0, s.lastIndexOf("## 总计"));
-        // System.out.println(s);
-        // System.out.println();
-
-
+        if(s.contains("## 总计")){
+            // 删除文件末尾的总计信息
+            s = s.substring(0, s.lastIndexOf("## 总计"));
+            // System.out.println(s);
+            // System.out.println();
+        }
         LinkedHashMap<String, BigDecimal> linkedHashMap = sumAllInLinkHashMap(s);
         StringBuilder sb = new StringBuilder();
         // System.out.println(getHorizontalLine(11));
