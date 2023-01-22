@@ -4,7 +4,7 @@ package blue.commands.ui;
 import blue.commands.thread.CommandsRunnable;
 import blue.commands.tool.ui.ToolUiSystemTray;
 import blue.commands.ui.event.button.ExitButtonListener;
-import blue.commands.ui.event.jsplitpane.JSplitPanePropertyChangeListener;
+// import blue.commands.ui.event.jsplitpane.JSplitPanePropertyChangeListener;
 import blue.commands.ui.event.panel.PanelMouseListener;
 import blue.commands.ui.event.panel.PanelMouseMotionListener;
 import blue.commands.ui.event.radiobutton.RadioButtonItemListener;
@@ -73,7 +73,11 @@ public class MainFrom {
     private JTextField a1TextField;
     private JScrollPane ocrScrollPane;
     // ocr输出和命令输出分隔面板
-    private JSplitPane jSplitPane;
+
+    // private JSplitPane jSplitPane;
+
+
+
     private JButton button1;
     private JButton miniBtn;
 
@@ -83,10 +87,10 @@ public class MainFrom {
         this.frame = frame;
         // 初始化系统托盘
         new ToolUiSystemTray(frame);
-        // 程序刚开始，隐藏ocr输出文本域，命令输出文本域
-        jSplitPane.setVisible(false);
-        // 程序刚开始，隐藏分割面板左侧
-        jSplitPane.setDividerLocation(0);
+        // // 程序刚开始，隐藏ocr输出文本域，命令输出文本域
+        // jSplitPane.setVisible(false);
+        // // 程序刚开始，隐藏分割面板左侧
+        // jSplitPane.setDividerLocation(0);
 
         // 程序刚开始隐藏OCR面板
         ocrPanel.setVisible(false);
@@ -232,6 +236,7 @@ public class MainFrom {
                     // 通过代码来触发键盘事件
                     try {
                         Robot robot = new Robot();
+                        // 按下回车键
                         robot.keyPress(KeyEvent.VK_ENTER);
                     } catch (AWTException e) {
                         e.printStackTrace();
@@ -530,13 +535,17 @@ public class MainFrom {
         return ocrTextArea;
     }
 
+    public JScrollPane getOutputScrollPane() {
+        return outputScrollPane;
+    }
+
     public JScrollPane getOcrScrollPane() {
         return ocrScrollPane;
     }
 
-    public JSplitPane getJSplitPane() {
-        return jSplitPane;
-    }
+    // public JSplitPane getJSplitPane() {
+    //     return jSplitPane;
+    // }
 
     public static void main(String[] args) {
 

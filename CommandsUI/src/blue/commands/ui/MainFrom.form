@@ -168,29 +168,20 @@
           </grid>
         </children>
       </grid>
-      <splitpane id="661a1" binding="jSplitPane">
+      <grid id="875e4" layout-manager="BorderLayout" hgap="0" vgap="0">
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <preferred-size width="400" height="80"/>
-          </grid>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties>
-          <dividerLocation value="252"/>
-          <dividerSize value="7"/>
-          <oneTouchExpandable value="true"/>
-          <orientation value="1"/>
-          <resizeWeight value="0.5"/>
-        </properties>
+        <properties/>
         <border type="none"/>
         <children>
           <scrollpane id="86843" binding="ocrScrollPane">
-            <constraints>
-              <splitpane position="left"/>
-            </constraints>
+            <constraints border-constraint="North"/>
             <properties>
               <font name="Courier New" size="12" style="1"/>
               <horizontalScrollBarPolicy value="30"/>
               <verticalScrollBarPolicy value="20"/>
+              <visible value="false"/>
             </properties>
             <border type="line" title="ocr结果">
               <color color="-4520288"/>
@@ -199,7 +190,7 @@
               <component id="c9d66" class="javax.swing.JTextArea" binding="ocrTextArea">
                 <constraints/>
                 <properties>
-                  <columns value="30"/>
+                  <columns value="10"/>
                   <font/>
                   <lineWrap value="true"/>
                   <rows value="3"/>
@@ -208,12 +199,11 @@
             </children>
           </scrollpane>
           <scrollpane id="3926b" binding="outputScrollPane">
-            <constraints>
-              <splitpane position="right"/>
-            </constraints>
+            <constraints border-constraint="Center"/>
             <properties>
               <enabled value="false"/>
               <font/>
+              <visible value="false"/>
             </properties>
             <border type="line" title="命令结果">
               <color color="-16663622"/>
@@ -222,7 +212,7 @@
               <component id="9805e" class="javax.swing.JTextArea" binding="outputTextArea">
                 <constraints/>
                 <properties>
-                  <columns value="30"/>
+                  <columns value="10"/>
                   <font/>
                   <lineWrap value="true"/>
                   <rows value="3"/>
@@ -232,7 +222,7 @@
             </children>
           </scrollpane>
         </children>
-      </splitpane>
+      </grid>
     </children>
   </grid>
 </form>
