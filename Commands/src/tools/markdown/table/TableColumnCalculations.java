@@ -1,6 +1,10 @@
 package tools.markdown.table;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * markdown表格列计算
@@ -33,7 +37,7 @@ public class TableColumnCalculations {
         String line;
         // 累加器
         BigDecimal sum = new BigDecimal("0.0");
-        StringBuilder sb = new StringBuilder(tableStr.length() + tableLines[tableLines.length - 1].length() + 4);
+        // 遍历所有行
         for (int i = 0; i < tableLines.length; i++) {
             // 从第3行开始计算，markdown前两行为表格的标题和对齐方式
             if (i >= 2) {
@@ -51,43 +55,25 @@ public class TableColumnCalculations {
                 }
             }
         }
-        // System.out.println("sum = " + sum);
-        // System.out.println(tableStr);
-        sb.append(tableStr + "\n");
-
-        // System.out.println();
-        // 复制表格最后一行作为统计行,并将数据列的单元格的数值，替换为求和得到的数值
-        String sumLine = getSumLine(sum, tableLines[tableLines.length - 1]);
-
-        // sb.append(sumLine + "\n");
-        // System.out.println(sb.toString());
-        // return sb.toString();
-
-
-        return sumLine;
-    }
-
-    /**
-     * 把累加结果写到表格最后一行
-     *
-     * @param sum           求和得到的BigDecimal
-     * @param tableLineLast 表格最后一行文本
-     * @return 包含表格求和结果的
-     */
-    private String getSumLine(BigDecimal sum, String tableLineLast) {
-        String sumLine = "";
-        // 如果最后一行存在数字
-        if (tableLineLast.matches(".*\\|([0-9]+[.][0-9]+)\\|.*")) {
-            // 替换数字行
-            sumLine = tableLineLast.replaceAll("(?<=\\|)([0-9]+[.][0-9]+)(?=\\|)", sum.toString());
-        } else if (tableLineLast.matches(".*\\|\\|.*")) {
-            // String before = tableLineLast.substring(0, tableLineLast.lastIndexOf("|") - 1);
-            sumLine = tableLineLast.replaceAll("(?<=\\|)(?=\\|)", sum.toString());
-            // sumLine = before + "|" + sum.toString() + "|";
-        }
-        // 删除所有非数字的单元格中的字符串
-        sumLine = sumLine.replaceAll("[a-zA-Z\u4e00-\u9fa5_][0-9a-zA-Z\u4e00-\u9fa5 _]+\\|", "|");
-        sumLine = sumLine.replace("|", "");
-        return sumLine;
+        Calendar calendar = Calendar.getInstance(Locale.CHINA);
+        calendar.setTime(new Date());
+        // 获取当前日期
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+        // 获取当前月最大天数
+        int maxDayOfMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        // 获取今年最大天数
+        int maxDayOfYear = calendar.getActualMaximum(Calendar.DAY_OF_YEAR);
+        double sum1 = Double.parseDouble(String.valueOf(sum));
+        // 计算日薪
+        double daySalary = sum1 / dayOfMonth;
+        // 计算月薪
+        double monthSalary = sum1 / dayOfMonth * maxDayOfMonth;
+        // 计算年薪
+        double yearSalary = sum1 / dayOfMonth * maxDayOfYear;
+        // 定义格式化模板，保留到小数点后两位
+        DecimalFormat df = new DecimalFormat("#.00");
+        // 凭借字符串
+        String returnStr = "累计=" + sum + ",日薪=" + df.format(daySalary) + ",月薪=" + df.format(monthSalary)+",年薪="+df.format(yearSalary);
+        return returnStr;
     }
 }
