@@ -1,7 +1,8 @@
 package adbs.main.ui.jpanels.universal.runnable;
 
-import adbs.main.ui.inout.InOutputModel;
+import adbs.cmd.Robots;
 import adbs.main.AdbTools;
+import adbs.main.ui.inout.InOutputModel;
 
 public abstract class CloseableRunnable implements Runnable {
     protected InOutputModel inOutputModel;
@@ -18,6 +19,7 @@ public abstract class CloseableRunnable implements Runnable {
     public void setInOutputModel(InOutputModel inOutputModel) {
         this.inOutputModel = inOutputModel;
     }
+
 
     public CloseableRunnable() {
         setMsg();
@@ -66,7 +68,7 @@ public abstract class CloseableRunnable implements Runnable {
      */
     protected void beforeLoop() {
         if (inOutputModel != null) {
-            inOutputModel.getOutput().setText(msg + ":已经开始");
+            inOutputModel.getUniversalPanels().getOutput2().setText(msg + ":开始");
         }
     }
 
@@ -83,7 +85,7 @@ public abstract class CloseableRunnable implements Runnable {
     protected void afterLoop() {
         System.out.println("Closeable AfterLoop：" + this + " " + inOutputModel);
         if (inOutputModel != null) {
-            inOutputModel.getOutput().setText(msg + ":已经结束");
+            inOutputModel.getUniversalPanels().getOutput2().setText("");
         }
     }
 }

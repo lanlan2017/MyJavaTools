@@ -13,7 +13,7 @@ import adbs.main.ui.jpanels.input.listener.InputOkButtonActionListener;
 import adbs.main.ui.jpanels.input.listener.MinusBtnAcListener;
 import adbs.main.ui.jpanels.input.listener.PlusBtnAcListener;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
-import adbs.main.ui.jpanels.universal.listener.ReadButtonRunnable;
+import adbs.main.ui.jpanels.universal.runnable.ReadButtonRunnable;
 import adbs.model.Device;
 import com.formdev.flatlaf.FlatLightLaf;
 import config.AdbToolsProperties;
@@ -51,7 +51,7 @@ public class AdbTools {
     // 阅读按钮
     private JButton readButton;
     // private final JPanel otherJPanel;
-    // 输出标签
+    // // 输出标签
     private final JLabel output;
     // 当前选择的设备
     public static Device device;
@@ -66,13 +66,19 @@ public class AdbTools {
         contentPaneSetting();
         // 初始化第0个面板，初始化设备面板
         initDevicesPanel2();
+
         // 初始化第1个面板,adb面板
         AdbJPanels adbJPanels = initAdbJPanel();
+
         // 初始化第3个面板，控制面板
         JPanel controlJPanel = initControlJPanel();
 
-        // 初始化输入面板
-        TimePanels timePanels = initInputPanels();
+        // 初始化 时间输入面板
+        TimePanels timePanels = initTimePanels();
+
+        // 初始化通用功能面板
+        UniversalPanels universalPanel = initUniversalPanel(timePanels);
+        output=universalPanel.getOutput2();
 
         // 初始化多选框面板
         JPanel checkJPanel = new JPanel();
@@ -80,8 +86,10 @@ public class AdbTools {
 
         // 通用复选框
         // JCheckBox generalJCheckBox = new JCheckBox("通用", true);
+
         JCheckBox generalJCheckBox = new JCheckBox("", true);
         generalJCheckBox.setToolTipText("展开/折叠 通用功能");
+
         // JCheckBox adbJCheckBox = new JCheckBox("系统", true);
         JCheckBox adbJCheckBox = new JCheckBox("", true);
         adbJCheckBox.setToolTipText("展开/折叠 系统功能");
@@ -104,41 +112,48 @@ public class AdbTools {
         checkJPanel.add(generalJCheckBox);
         checkJPanel.add(controlJCheckBox);
 
-        // 输出面板
-        // private final JCheckBox otherJCheckBox;
-        JPanel outputJPanel = new JPanel();
-        output = new JLabel();
-        outputJPanel.setLayout(FlowLayouts.flowLayoutLeft);
-        output.setText("统一输出");
-        outputJPanel.add(output);
+        // // 输出面板
+        // // private final JCheckBox otherJCheckBox;
+        // JPanel outputJPanel = new JPanel();
+        // output = new JLabel();
+        // outputJPanel.setLayout(FlowLayouts.flowLayoutLeft);
+        // output.setText("统一输出");
+        // outputJPanel.add(output);
 
         // 创建输入面板的模型
-        InOutputModel inOut = new InOutputModel(timePanels, output, stopBtn);
+        // InOutputModel inOut = new InOutputModel(timePanels, output, stopBtn);
+        // InOutputModel inOut = new InOutputModel(timePanels, universalPanel,output, stopBtn);
+        InOutputModel inOut = new InOutputModel(timePanels, universalPanel, stopBtn);
         // 测试替换
         // stopBtn.addActionListener(new StopBtnAcListener2(frame, isRunningSet, inOut));
         stopBtn.addActionListener(new StopBtnAcListener2(isRunningSet, inOut));
+
+
         // 设置inputOK按钮事件监听器
         timePanels.getInputOkButton().addActionListener(new InputOkButtonActionListener(inOut));
         timePanels.getPlusBtn().addActionListener(new PlusBtnAcListener(inOut));
         timePanels.getMinusBtn().addActionListener(new MinusBtnAcListener(inOut));
 
         // 初始化通用面板
-        JPanel universalPanel = initUniversalPanel(inOut);
+        // JPanel universalPanel = initUniversalPanel(inOut.getTimePanels());
+        // JPanel universalPanel = initUniversalPanel(timePanels);
 
-        // 选项面板
+        // 添加 选项面板 到窗体中
         frame.add(checkJPanel);
-        // adb面板
+        // 添加 adb面板 到窗体中
         frame.add(adbJPanels.getAdbJPanel());
-        // 添加通用功能面板
-        frame.add(universalPanel);
-        // 时间输入面板
+        // 添加 通用功能面板
+        // frame.add(universalPanel);
+        frame.add(universalPanel.getUniversalPanel());
+        // 添加 时间输入面板
         frame.add(timePanels.getTimePanel());
-        // 控制面板
+        // 添加 控制面板
         frame.add(controlJPanel);
 
         // 需要先初始化通用面板 要放在 initUniversalPanel(inputPanels, inOut);之后
         // generalJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(frame, universalPanel));
-        generalJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(universalPanel));
+        // generalJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(universalPanel));
+        generalJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(universalPanel.getUniversalPanel()));
 
         // 添加选项到多选面板
         // newButtonJPanel(frame, checkJPanel, otherJPanel);
@@ -150,7 +165,7 @@ public class AdbTools {
         AbstractButtons.setMarginInButtonJPanel(checkJPanel, 10);
         AbstractButtons.setMarginInButtonJPanel(checkJPanel, -1);
         // 添加输出面包到最后一行
-        frame.add(outputJPanel);
+        // frame.add(outputJPanel);
 
         // 永远置顶
         frame.setAlwaysOnTop(true);
@@ -162,11 +177,13 @@ public class AdbTools {
         frame.setVisible(true);
     }
 
-    private JPanel initUniversalPanel(InOutputModel inout2) {
+    // private JPanel initUniversalPanel(InOutputModel inout2) {
+    private UniversalPanels initUniversalPanel(TimePanels timePanels) {
         // 创建通用面板，并添加到窗体中
-        UniversalPanels universalPanels = new UniversalPanels(inout2);
+        UniversalPanels universalPanels = new UniversalPanels(timePanels);
         readButton = universalPanels.getReadButton();
-        return universalPanels.getUniversalPanel();
+        // return universalPanels.getUniversalPanel();
+        return universalPanels;
     }
 
     /**
@@ -179,7 +196,7 @@ public class AdbTools {
         return controlJPanel;
     }
 
-    private TimePanels initInputPanels() {
+    private TimePanels initTimePanels() {
         return new TimePanels();
     }
 
@@ -360,6 +377,7 @@ public class AdbTools {
                                                 // new Thread(new PythonCloseableRun(chName1, pythonFile, output, readButtonRunnable, )).start();
                                                 // new
                                             } else {
+                                                // new Thread(new PythonCloseableRun(name1, pythonFile, output)).start();
                                                 new Thread(new PythonCloseableRun(name1, pythonFile, output)).start();
                                             }
                                         }

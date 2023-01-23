@@ -3,10 +3,7 @@ package adbs.main.ui.jpanels.input.listener;
 import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.adb.listener.ButtonFocusReleaseActionListener;
 import adbs.main.ui.inout.InOutputModel;
-import adbs.main.ui.jpanels.universal.runnable.BrowseRunnable;
-import adbs.main.ui.jpanels.universal.runnable.ShoppingButtonRunnable;
-import adbs.main.ui.jpanels.universal.runnable.VideoButtonRunnable;
-import adbs.main.ui.jpanels.universal.runnable.WaitButtonRunnable;
+import adbs.main.ui.jpanels.universal.runnable.*;
 import tools.thead.Threads;
 
 import javax.swing.*;
@@ -21,15 +18,36 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
      */
     private final InOutputModel inOutputModel;
 
+    private final ReadButtonRunnable readButtonRunnable;
+
+    /**
+     * 浏览 按钮功能 线程体
+     */
     private final BrowseRunnable browseRunnable;
-    private final ShoppingButtonRunnable shoppingButtonRunnable;
+    /**
+     * 等待 按钮功能 线程体
+     */
     private final WaitButtonRunnable waitReturnButtonRunnable;
+    /**
+     * 刷视频 按钮功能 线程体
+     */
     private final VideoButtonRunnable videoButtonRunnable;
+    /**
+     * 逛街 按钮功能 线程体
+     */
+    private final ShoppingButtonRunnable shoppingButtonRunnable;
+
+    /**
+     * 线程
+     */
     private Thread videoBtnThread;
 
 
     public InputOkButtonActionListener(InOutputModel inOutputModel) {
         this.inOutputModel = inOutputModel;
+
+        this.readButtonRunnable = ReadButtonRunnable.getInstance();
+        readButtonRunnable.setInOutputModel(inOutputModel);
 
         this.browseRunnable = BrowseRunnable.getInstance();
         browseRunnable.setInOutputModel(inOutputModel);
@@ -48,13 +66,15 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
     @Override
     protected void actionEvent(ActionEvent e) {
         JButton ok = (JButton) e.getSource();
-        JLabel output = inOutputModel.getOutput();
+        // JLabel output = inOutputModel.getOutput();
+        JLabel output = inOutputModel.getUniversalPanels().getOutput2();
+
 
         if ("开始浏览".equals(ok.getText())) {
-            output.setText("浏览线程：开始浏览");
+            output.setText("浏览:开始");
             new Thread(browseRunnable).start();
         } else if ("开始逛街".equals(ok.getText())) {
-            output.setText("逛街线程：开始逛街");
+            output.setText("逛街:开始");
             // new Thread(shoppingButtonRunnable).start();
             new Thread(shoppingButtonRunnable).start();
 
@@ -64,10 +84,10 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
             new Thread(waitReturnButtonRunnable).start();
 
         } else if ("开始刷视频".equals(ok.getText())) {
-            output.setText("刷视频线程：开始等待");
+            output.setText("刷视频:开始");
             // 获取时间区间
-            String input1Str = inOutputModel.getInputPanels().getInput1().getText();
-            String input2Str = inOutputModel.getInputPanels().getInput2().getText();
+            String input1Str = inOutputModel.getTimePanels().getInput1().getText();
+            String input2Str = inOutputModel.getTimePanels().getInput2().getText();
             // 如果输入的都是数字
             if (input1Str.matches("\\d+") && input2Str.matches("\\d+")) {
                 videoButtonRunnable.setMin(Integer.parseInt(input1Str));
@@ -78,6 +98,23 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
                     videoBtnThread.start();
                 } else {
                     System.out.println(videoButtonRunnable.getMsg() + " 已经在运行中,请勿重复启动");
+                }
+            }
+        } else if ("开始阅读".equals(ok.getText())) {
+            output.setText("阅读:开始");
+            // 获取时间区间
+            String input1Str = inOutputModel.getTimePanels().getInput1().getText();
+            String input2Str = inOutputModel.getTimePanels().getInput2().getText();
+            // 如果输入的都是数字
+            if (input1Str.matches("\\d+") && input2Str.matches("\\d+")) {
+                readButtonRunnable.setMin(Integer.parseInt(input1Str));
+                readButtonRunnable.setMax(Integer.parseInt(input2Str));
+                // 如果线程已经死掉了,或者线程还没创建
+                if (Threads.threadIsNullOrNotAlive(videoBtnThread)) {
+                    videoBtnThread = new Thread(readButtonRunnable);
+                    videoBtnThread.start();
+                } else {
+                    System.out.println(readButtonRunnable.getMsg() + " 已经在运行中,请勿重复启动");
                 }
             }
         }

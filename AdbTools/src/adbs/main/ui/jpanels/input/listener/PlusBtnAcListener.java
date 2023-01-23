@@ -15,16 +15,10 @@ public class PlusBtnAcListener implements ActionListener {
     private JLabel timerJLabel;
 
     public PlusBtnAcListener(InOutputModel inOutputModel) {
-        input1 = inOutputModel.getInputPanels().getInput1();
-        input2 = inOutputModel.getInputPanels().getInput2();
-        timerJLabel = inOutputModel.getInputPanels().getTimerJLabel();
+        input1 = inOutputModel.getTimePanels().getInput1();
+        input2 = inOutputModel.getTimePanels().getInput2();
+        timerJLabel = inOutputModel.getTimePanels().getTimerJLabel();
     }
-
-    // public PlusBtnAcListener(JTextField input1, JTextField input2) {
-    //     this.input1 = input1;
-    //     this.input2 = input2;
-    // }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -121,7 +115,7 @@ public class PlusBtnAcListener implements ActionListener {
                     case 180:
                         //3.5m=3.5*60=210s
                         value1 = 210;
-                        timerJLabel.setText("3.3m");
+                        timerJLabel.setText("3.5m");
                         break;
                     case 210:
                         // 4m=4*60s=240s

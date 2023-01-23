@@ -18,9 +18,9 @@ public class MinusBtnAcListener implements ActionListener {
     private final JLabel timerJLabel;
 
     public MinusBtnAcListener(InOutputModel inOutputModel) {
-        input1 = inOutputModel.getInputPanels().getInput1();
-        input2 = inOutputModel.getInputPanels().getInput2();
-        timerJLabel = inOutputModel.getInputPanels().getTimerJLabel();
+        input1 = inOutputModel.getTimePanels().getInput1();
+        input2 = inOutputModel.getTimePanels().getInput2();
+        timerJLabel = inOutputModel.getTimePanels().getTimerJLabel();
     }
 
     @Override

@@ -1,19 +1,17 @@
-package adbs.main.ui.jpanels.universal.listener;
+package adbs.main.ui.jpanels.universal.runnable;
 
-import adbs.main.ui.jpanels.universal.runnable.CloseableRunnable;
 import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
-import adbs.main.ui.inout.InOutputModel;
 import tools.random.Randoms;
 import tools.thead.Threads;
 
 import javax.swing.*;
 
+/**
+ * 阅读按钮执行体
+ */
 public class ReadButtonRunnable extends CloseableRunnable {
-
     private static final ReadButtonRunnable instance = new ReadButtonRunnable();
-    // 输出内容
-    private JLabel output;
     private int min;
     private int max;
 
@@ -27,14 +25,17 @@ public class ReadButtonRunnable extends CloseableRunnable {
         return instance;
     }
 
-    public void setInOutputModel(InOutputModel inOutputModel) {
-        this.inOutputModel = inOutputModel;
-        this.output = inOutputModel.getOutput();
+    public void setMin(int min) {
+        this.min = min;
+    }
+
+    public void setMax(int max) {
+        this.max = max;
     }
 
     @Override
     protected void setMsg() {
-        msg = "阅读线程";
+        msg = "阅读";
     }
 
     @Override
@@ -69,7 +70,13 @@ public class ReadButtonRunnable extends CloseableRunnable {
         // 生成[min,Max]区间的随机整数
         // int s = random.nextInt(max) % (max - min + 1) + min;
         int s = Randoms.getRandomInt(min, max);
-        output.setText(msg + "等待" + s + "秒");
+
+        // output.setText(msg + "等待" + s + "秒");
+        // output2.setText(msg + "等待" + s + "s");
+
+        JLabel output2 = inOutputModel.getUniversalPanels().getOutput2();
+
+        output2.setText(s + "s后" + msg);
         String oldText;
         String newText;
         s = s * 1000;
@@ -82,10 +89,13 @@ public class ReadButtonRunnable extends CloseableRunnable {
             }
             // 等待一小段时间
             Threads.sleep(250);
-            oldText = output.getText();
-            newText = msg + "等待" + (s - count) / 1000 + "秒";
+            // oldText = output.getText();
+            oldText = output2.getText();
+            // newText = msg + "等待" + (s - count) / 1000 + "s";
+            newText = (s - count) / 1000 + "s后" + msg;
             if (!oldText.equals(newText)) {
-                output.setText(newText);
+                // output.setText(newText);
+                output2.setText(newText);
             }
             count += 250;
         }

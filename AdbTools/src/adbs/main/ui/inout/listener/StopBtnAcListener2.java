@@ -27,7 +27,6 @@ public class StopBtnAcListener2 implements ActionListener {
             //如果是可关闭的线程体
             if (runnable instanceof PythonCloseableRun) {
                 PythonCloseableRun python_CloseableRun = (PythonCloseableRun) runnable;
-                // System.out.println(python_CloseableRun + " is stop now");
                 // 关闭线程
                 python_CloseableRun.stop();
                 // 从线程池中删除掉
@@ -42,7 +41,8 @@ public class StopBtnAcListener2 implements ActionListener {
             }
         }
         // 隐藏时间面板
-        inOutputModel.getInputPanels().getTimePanel().setVisible(false);
+        inOutputModel.getTimePanels().getTimePanel().setVisible(false);
+        inOutputModel.getUniversalPanels().getOutput2().setText("");
         // 更新JFrame界面
         JFramePack.onJComponentActionEvent(e);
     }

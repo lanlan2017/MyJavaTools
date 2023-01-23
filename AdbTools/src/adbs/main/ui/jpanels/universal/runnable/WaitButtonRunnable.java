@@ -6,7 +6,7 @@ import tools.thead.Threads;
 import javax.swing.*;
 
 /**
- * 等待返回 线程体
+ * 等待 线程体
  */
 public class WaitButtonRunnable extends CloseableRunnable {
     private InOutputModel inOutputModel;
@@ -37,12 +37,12 @@ public class WaitButtonRunnable extends CloseableRunnable {
         // 获取输入文本框1
         // JTextField input1 = inOutputModel.getInputPanelModel().getInput1();
         // 测试替换
-        JTextField input1 = inOutputModel.getInputPanels().getInput1();
+        JTextField input1 = inOutputModel.getTimePanels().getInput1();
         // 解析输入文本1中的数字,并计算得到毫秒数
         int millisecond = Integer.parseInt(input1.getText()) * 1000;
         // 获取输入标签
         // JLabel timerJLabel = inOutputModel.getOutput();
-        JLabel timerJLabel = inOutputModel.getInputPanels().getTimerJLabel();
+        JLabel timerJLabel = inOutputModel.getTimePanels().getTimerJLabel();
         // AdbTools.setIsRunning(this);
         int count = 0;
         int timeSlice = 250;
@@ -74,11 +74,11 @@ public class WaitButtonRunnable extends CloseableRunnable {
         // 触发返回键
         // AdbCommands.returnButton(DeviceListener.getPhoneId());
         // inOutputModel.getOutput().setText(msg + ":已停止");
-        // inOutputModel.getInputPanels().getTimerJLabel().setText("等待结束");
-        inOutputModel.getInputPanels().getTimerJLabel().setText("");
+        // inOutputModel.getTimePanels().getTimerJLabel().setText("等待结束");
+        inOutputModel.getTimePanels().getTimerJLabel().setText("");
 
         // inOutputModel.getInputPanelModel().showConfirmDialog();
         // 测试替换
-        inOutputModel.getInputPanels().showConfirmDialog();
+        inOutputModel.getTimePanels().showConfirmDialog();
     }
 }

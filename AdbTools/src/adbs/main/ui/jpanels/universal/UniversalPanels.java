@@ -1,12 +1,12 @@
 package adbs.main.ui.jpanels.universal;
 
-import adbs.main.ui.inout.InOutputModel;
+import adbs.main.ui.jpanels.input.TimePanels;
 import adbs.main.ui.jpanels.universal.listener.*;
 import adbs.main.ui.config.FlowLayouts;
+import adbs.main.ui.jpanels.universal.runnable.ReadButtonRunnable;
 import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
 
 /**
  * 通用面板
@@ -37,14 +37,19 @@ public class UniversalPanels {
      */
     private JButton shoppingButton;
 
+    /**
+     * 通用面板输出功能
+     */
+    private JLabel output2;
 
     /**
      * 初始化通用面板
      *
-     * @param inout2 输入输出控件汇总
+     * @param timePanels
      */
     // public UniversalPanels(JFrame frame, InOutputModel inout2) {
-    public UniversalPanels(InOutputModel inout2) {
+    // public UniversalPanels(InOutputModel inout2) {
+    public UniversalPanels(TimePanels timePanels) {
         // 创建通用功能面板
         universalPanel = new JPanel();
         // universalPanel.setBorder(new TitledBorder("通用功能"));
@@ -64,42 +69,30 @@ public class UniversalPanels {
         shoppingButton = new JButton("逛街");
         shoppingButton.setToolTipText("连续从下向上滑动三次，然后上下来回滑动");
 
+        // output2 = new JLabel("输出2");
+        output2 = new JLabel("");
+
         universalPanel.add(readButton);
         universalPanel.add(browseButton);
         universalPanel.add(waitButton);
         universalPanel.add(videoButton);
         universalPanel.add(shoppingButton);
+        universalPanel.add(output2);
 
-        readButton.addActionListener(new PyImgFindAcListener(ReadButtonRunnable.getInstance(), inout2));
+        // readButton.addActionListener(new PyImgFindAcListener(ReadButtonRunnable.getInstance(), inout2));
+        // readButton.addActionListener(new PyImgFindAcListener(ReadButtonRunnable.getInstance()));
+        readButton.addActionListener(new ReadButtonActionListener(timePanels));
 
-        // 浏览后返回按钮事件处理程序
-        // browseButton.addActionListener(new BrowseButtonActionListener(frame, inputPanels));
-
-        // browseButton.addActionListener(new BrowseButtonActionListener(frame, inout2.getInputPanels()));
-        // browseButton.addActionListener(new BrowseButtonActionListener(frame, inout2.getInputPanels()));
-        browseButton.addActionListener(new BrowseButtonActionListener(inout2.getInputPanels()));
-
+        browseButton.addActionListener(new BrowseButtonActionListener(timePanels));
         // 等待后返回按钮
-        // waitReturnButton.addActionListener(new WaitReturnButtonActionListener(frame, inputPanels));
-        // waitButton.addActionListener(new WaitButtonActionListener(frame, inout2.getInputPanels()));
-        waitButton.addActionListener(new WaitButtonActionListener(inout2.getInputPanels()));
-
-
+        waitButton.addActionListener(new WaitButtonActionListener(timePanels));
         // 刷视频按钮
-        // videoButton.addActionListener(new VideoButtonActionListener(frame, inputPanels));
-        // videoButton.addActionListener(new VideoButtonActionListener(frame, inout2.getInputPanels()));
-        videoButton.addActionListener(new VideoButtonActionListener(inout2.getInputPanels()));
-
+        videoButton.addActionListener(new VideoButtonActionListener(timePanels));
         // 逛街按钮
-        // shoppingButton.addActionListener(new ShoppingButtonActionListener(frame, inputPanels));
-        // shoppingButton.addActionListener(new ShoppingButtonActionListener(frame, inout2.getInputPanels()));
-        shoppingButton.addActionListener(new ShoppingButtonActionListener(inout2.getInputPanels()));
+        shoppingButton.addActionListener(new ShoppingButtonActionListener(timePanels));
 
 
-        // AbstractButtons.setMarginInButtonJPanel(universalPanel);
         AbstractButtons.setMarginInButtonJPanel(universalPanel, 1);
-        // 添加通用功能面板到窗体中
-        // frame.add(universalPanel);
     }
 
     public JPanel getUniversalPanel() {
@@ -108,5 +101,9 @@ public class UniversalPanels {
 
     public JButton getReadButton() {
         return readButton;
+    }
+
+    public JLabel getOutput2() {
+        return output2;
     }
 }

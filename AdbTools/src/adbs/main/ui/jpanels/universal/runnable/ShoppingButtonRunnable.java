@@ -30,25 +30,20 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
 
     @Override
     protected void setMsg() {
-        msg = "逛街线程2";
+        msg = "逛街";
     }
 
     @Override
     protected void loopBody() {
-        // String id = DeviceListener.getPhoneId();
-        // String id = DeviceListener.getSelectedPhoneId();
         String id = AdbTools.device.getId();
-        JLabel output = inOutputModel.getOutput();
-        // JTextField input1 = inOutputModel.getInputPanelModel().getInput1();
-        // 测试替换
-        JTextField input1 = inOutputModel.getInputPanels().getInput1();
+        JLabel output = inOutputModel.getUniversalPanels().getOutput2();
+        JTextField input1 = inOutputModel.getTimePanels().getInput1();
         // 读取文本框1中的秒数
         seconds = Integer.parseInt(input1.getText()) * 1000;
         // 计数器
         count = 0;
 
-        output.setText("逛街线程：已经开始");
-        output.setText("逛街线程: 在左侧 从下向上滑动3次");
+        output.setText("左↑滑3次");
         // 在左侧，从下向上滑动三次
         if (swipeFromBottomToTopOnce(id, input1)) {
             // 如果到达了指定时间，
@@ -65,14 +60,14 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
         }
 
         while (!stop) {
-            output.setText(msg + ":在左侧 从下向上 滑动1次");
+            output.setText("↓");
             // 休眠1秒
             if (swipeFromBottomToTopOnce(id, input1)) {
                 System.out.println("到达指定时间1!");
                 stop = true;
                 break;
             }
-            output.setText(msg + ":在左侧 从上向下 滑动1次");
+            output.setText("↑");
             if (swipeFromTopToBottomOnce(id, input1)) {
                 System.out.println("到达指定时间2!");
                 stop = true;
