@@ -28,7 +28,8 @@ public class WaitButtonRunnable extends CloseableRunnable {
     @Override
     protected void setMsg() {
         // msg = "等待后返回线程2";
-        msg = "等待:";
+        // msg = "等待:";
+        msg = "";
     }
 
     @Override
@@ -40,8 +41,8 @@ public class WaitButtonRunnable extends CloseableRunnable {
         // 解析输入文本1中的数字,并计算得到毫秒数
         int millisecond = Integer.parseInt(input1.getText()) * 1000;
         // 获取输入标签
-        // JLabel output = inOutputModel.getOutput();
-        JLabel output = inOutputModel.getInputPanels().getTimerJLabel();
+        // JLabel timerJLabel = inOutputModel.getOutput();
+        JLabel timerJLabel = inOutputModel.getInputPanels().getTimerJLabel();
         // AdbTools.setIsRunning(this);
         int count = 0;
         int timeSlice = 250;
@@ -58,11 +59,11 @@ public class WaitButtonRunnable extends CloseableRunnable {
                 break;
             }
             // 获取
-            oldOutput = output.getText();
+            oldOutput = timerJLabel.getText();
             // newOutput = msg + ":等待" + ((millisecond - count) / 1000) + "s";
             newOutput = msg + ((millisecond - count) / 1000) + "s";
             if (!newOutput.equals(oldOutput)) {
-                output.setText(newOutput);
+                timerJLabel.setText(newOutput);
             }
         }
     }

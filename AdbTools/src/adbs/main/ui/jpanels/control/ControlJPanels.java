@@ -114,7 +114,7 @@ public class ControlJPanels {
                         CmdRun.run("adb -s 75aed56d shell reboot -p");
                         // honor手机关机
                         CmdRun.run("adb -s U8ENW18117021408 shell reboot -p");
-                        // 3秒后关机
+                        // 等待10秒后休眠电脑
                         CmdRun.run("timeout 10 && shutdown /h");
                         // 杀死自己
                         // Taskkill.killAdbToolsJarAll();
