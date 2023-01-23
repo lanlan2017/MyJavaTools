@@ -35,13 +35,13 @@ public class ReadButtonActionListener extends ButtonFocusReleaseActionListener {
         input2.setColumns(3);
         // input2.setText(String.valueOf(18));
         // input2.setText(String.valueOf(22));
-        input2.setText(String.valueOf(9));
+        input2.setText(String.valueOf(10));
 
         timePanels.getPlusBtn().setVisible(true);
         timePanels.getMinusBtn().setVisible(true);
         // 设置按钮文字
         timePanels.getInputOkButton().setText("开始阅读");
-        timePanels.getTimerJLabel().setVisible(false);
+        // timePanels.getTimerJLabel().setVisible(false);
 
         // frame.pack();
         JFramePack.onJComponentActionEvent(e);

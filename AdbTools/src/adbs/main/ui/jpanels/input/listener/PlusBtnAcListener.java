@@ -135,7 +135,7 @@ public class PlusBtnAcListener implements ActionListener {
                     case 300:
                         // 10m=10*60s=600s
                         value1 = 600;
-                        timerJLabel.setText("6m");
+                        timerJLabel.setText("10m");
                         break;
                     case 600:
                         // 15m=15*60s=900s
