@@ -1,6 +1,6 @@
 package adbs.main.ui.inout;
 
-import adbs.main.ui.jpanels.input.TimePanels;
+import adbs.main.ui.jpanels.time.TimePanels;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
 
 import javax.swing.*;

@@ -43,6 +43,7 @@ public class StopBtnAcListener2 implements ActionListener {
         // 隐藏时间面板
         inOutputModel.getTimePanels().getTimePanel().setVisible(false);
         inOutputModel.getUniversalPanels().getOutput2().setText("");
+        inOutputModel.getTimePanels().getTimerJLabel().setText("");
         // 更新JFrame界面
         JFramePack.onJComponentActionEvent(e);
     }

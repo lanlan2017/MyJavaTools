@@ -1,4 +1,4 @@
-package adbs.main.ui.jpanels.input;
+package adbs.main.ui.jpanels.time;
 
 import adbs.main.AdbTools;
 import adbs.main.ui.config.FlowLayouts;

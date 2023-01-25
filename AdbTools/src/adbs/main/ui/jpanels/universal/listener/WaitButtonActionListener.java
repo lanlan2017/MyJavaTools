@@ -2,7 +2,7 @@ package adbs.main.ui.jpanels.universal.listener;
 
 import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.adb.listener.ButtonFocusReleaseActionListener;
-import adbs.main.ui.jpanels.input.TimePanels;
+import adbs.main.ui.jpanels.time.TimePanels;
 
 import java.awt.event.ActionEvent;
 

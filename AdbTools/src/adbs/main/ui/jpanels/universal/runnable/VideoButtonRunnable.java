@@ -101,4 +101,10 @@ public class VideoButtonRunnable extends CloseableRunnable {
             }
         }
     }
+
+    // @Override
+    // protected void afterLoop() {
+    //     super.afterLoop();
+    //     inOutputModel.getTimePanels().getTimerJLabel().setText("");
+    // }
 }

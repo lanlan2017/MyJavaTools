@@ -120,4 +120,10 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
         }
         return true;
     }
+
+    @Override
+    protected void afterLoop() {
+        super.afterLoop();
+        inOutputModel.getTimePanels().getTimerJLabel().setText("");
+    }
 }

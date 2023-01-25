@@ -1,4 +1,4 @@
-package adbs.main.ui.jpanels.input.listener;
+package adbs.main.ui.jpanels.time.listener;
 
 import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.adb.listener.ButtonFocusReleaseActionListener;

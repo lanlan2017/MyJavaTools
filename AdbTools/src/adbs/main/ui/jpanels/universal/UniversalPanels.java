@@ -1,9 +1,8 @@
 package adbs.main.ui.jpanels.universal;
 
-import adbs.main.ui.jpanels.input.TimePanels;
+import adbs.main.ui.jpanels.time.TimePanels;
 import adbs.main.ui.jpanels.universal.listener.*;
 import adbs.main.ui.config.FlowLayouts;
-import adbs.main.ui.jpanels.universal.runnable.ReadButtonRunnable;
 import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;

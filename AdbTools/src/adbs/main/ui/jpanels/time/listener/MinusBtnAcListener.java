@@ -1,4 +1,4 @@
-package adbs.main.ui.jpanels.input.listener;
+package adbs.main.ui.jpanels.time.listener;
 
 import adbs.main.ui.inout.InOutputModel;
 
@@ -110,6 +110,12 @@ public class MinusBtnAcListener implements ActionListener {
                         // input1.setColumns(3);
                         break;
                     case 900:
+                        // 15m=15*60s=900s
+                        value1 = 720;
+                        timerJLabel.setText("12m");
+                        // input1.setColumns(3);
+                        break;
+                    case 720:
                         // 10m=10*60s=600s
                         value1 = 600;
                         timerJLabel.setText("10m");
