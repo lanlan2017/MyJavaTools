@@ -62,6 +62,8 @@ public class AdbTools {
     private AdbTools() {
         // 创建窗体
         frame = new JFrame();
+        // 禁用最大化窗口
+        frame.setResizable(false);
         // 设置窗体内容面板
         contentPaneSetting();
         // 初始化第0个面板，初始化设备面板
@@ -294,6 +296,10 @@ public class AdbTools {
 
     public static AdbTools getInstance() {
         return instance;
+    }
+
+    public static JButton getStopBtn() {
+        return stopBtn;
     }
 
     public void setIsRunning(Runnable isRunning) {

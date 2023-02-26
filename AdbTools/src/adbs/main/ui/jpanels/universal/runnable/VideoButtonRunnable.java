@@ -22,6 +22,7 @@ public class VideoButtonRunnable extends CloseableRunnable {
     public static VideoButtonRunnable getInstance() {
         return instance;
     }
+
     private int min = 7;
     private int max = 14;
 
@@ -74,6 +75,12 @@ public class VideoButtonRunnable extends CloseableRunnable {
 
         if (adbResult.startsWith("Error!ExitCode=")) {
             System.out.println("adb命令运行错误，退出程序." + adbResult);
+            // System.exit(0);
+            JButton stopBtn = AdbTools.getStopBtn();
+            if (stopBtn != null && stopBtn instanceof JButton) {
+                System.out.println("点击停止按钮" + adbResult);
+                stopBtn.doClick();
+            }
             return;
             // break;
         }
@@ -93,7 +100,7 @@ public class VideoButtonRunnable extends CloseableRunnable {
             // oldOutput = output.getText();
             oldOutput = output2.getText();
             // newOutput = msg + ":等待--" + ((msToWait - msCount) / 1000) + "s";
-            newOutput = ((msToWait - msCount) / 1000) + "s后"+msg;
+            newOutput = ((msToWait - msCount) / 1000) + "s后" + msg;
             // 如果新旧内容不相等，则设置为新内容
             if (!newOutput.equals(oldOutput)) {
                 // output.setText(newOutput);
