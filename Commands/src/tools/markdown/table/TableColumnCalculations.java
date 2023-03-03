@@ -73,7 +73,8 @@ public class TableColumnCalculations {
         // 定义格式化模板，保留到小数点后两位
         DecimalFormat df = new DecimalFormat("#.00");
         // 凭借字符串
-        String returnStr = "累计=" + sum + ",日薪=" + df.format(daySalary) + ",月薪=" + df.format(monthSalary)+",年薪="+df.format(yearSalary);
+        // String returnStr = "累计=" + sum + ",日薪=" + df.format(daySalary) + ",月薪=" + df.format(monthSalary)+",年薪="+df.format(yearSalary);
+        String returnStr = sum+"\n日薪=" + df.format(daySalary) + ",月薪=" + df.format(monthSalary)+",年薪="+df.format(yearSalary);
         return returnStr;
     }
 }
