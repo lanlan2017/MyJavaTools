@@ -100,6 +100,12 @@ public class MainFrom {
         // 程序刚开始隐藏文本框减少按钮
         removeTextFieldButton.setVisible(false);
 
+        AbstractButtons.setJButtonMargin(removeTextFieldButton,0);
+        AbstractButtons.setJButtonMargin(addTextFieldButton,0);
+        AbstractButtons.setJButtonMargin(radioButton,0);
+        AbstractButtons.setJButtonMargin(miniBtn,0);
+        AbstractButtons.setJButtonMargin(exitButton,0);
+
         // 设置退出按钮的功能
         exitButtonSetting();
         // 窗体功能
@@ -141,7 +147,7 @@ public class MainFrom {
      * @param frame JFrame对象
      */
     private void miniBtnSetting(JFrame frame) {
-        AbstractButtons.setJButtonMargin(miniBtn);
+        // AbstractButtons.setJButtonMargin(miniBtn,0);
         miniBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -497,22 +503,22 @@ public class MainFrom {
         panel.addMouseMotionListener(new PanelMouseMotionListener(frame, panel));
         // 监听面板右键双击事件
         panel.addMouseListener(new PanelMouseListener(frame));
-        // 监听窗体焦点事件
-        frame.addWindowFocusListener(new WindowFocusListener() {
-            // 当窗体获得焦点是
-            @Override
-            public void windowGainedFocus(WindowEvent e) {
-                // 设置不透明
-                frame.setOpacity(1.0f);
-            }
-
-            // 当窗体失去焦点时
-            @Override
-            public void windowLostFocus(WindowEvent e) {
-                // 设置半透明
-                frame.setOpacity(0.5f);
-            }
-        });
+        // // 监听窗体焦点事件
+        // frame.addWindowFocusListener(new WindowFocusListener() {
+        //     // 当窗体获得焦点是
+        //     @Override
+        //     public void windowGainedFocus(WindowEvent e) {
+        //         // 设置不透明
+        //         frame.setOpacity(1.0f);
+        //     }
+        //
+        //     // 当窗体失去焦点时
+        //     @Override
+        //     public void windowLostFocus(WindowEvent e) {
+        //         // 设置半透明
+        //         frame.setOpacity(0.5f);
+        //     }
+        // });
     }
 
     /**
@@ -522,7 +528,7 @@ public class MainFrom {
         // // // 设置按钮的大小
         // Dimension preferredSize = new Dimension(50, 22);
         // exitButton.setPreferredSize(preferredSize);
-        AbstractButtons.setJButtonMargin(exitButton);
+        // AbstractButtons.setJButtonMargin(exitButton,0);
         // 退出按钮的功能
         exitButton.addActionListener(new ExitButtonListener());
     }
