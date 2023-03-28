@@ -230,14 +230,18 @@ public class AdbTools {
      * 初始化设备面板
      */
     private void initDevicesPanel2() {
+        // 设备序列号列表
         ArrayList<String> idList = new ArrayList<>();
+        // 设备别名
         LinkedHashMap<String, Device> simpleId_Device_map = new LinkedHashMap<>();
+        // 执行adb命令
         String devicesListStr = AdbCommands.runAbdCmd("adb devices -l");
+
         // 分析adb devices -l命令结果
         Scanner scanner = new Scanner(devicesListStr);
-
         String line;
         while (scanner.hasNextLine()) {
+            // 逐行读入
             line = scanner.nextLine();
             // System.out.println("line = " + line);
             // List of devices attached表示没有设备，
@@ -247,13 +251,16 @@ public class AdbTools {
                 String[] deviceStrs = line.split("[ ]{2,}");
                 // System.out.println("ID = " + deviceStrs[0]);
                 // System.out.println("dir = " + deviceStrs[1]);
+                // 创建设备对象
                 // 分割得到的第1段是设备id，第2段是设备的描述信息
                 Device device = new Device(deviceStrs[0], deviceStrs[1]);
+                // 添加设备的id到列表中
                 idList.add(device.getSimpleId());
+                // 把id和设备作为键值对放入map中
                 simpleId_Device_map.put(device.getSimpleId(), device);
             }
         }
-
+        // 打印id列表
         System.out.println("idList = " + idList);
 
         // showConfirmDialog();
@@ -266,13 +273,16 @@ public class AdbTools {
         int messageType = JOptionPane.PLAIN_MESSAGE;
         Icon icon = null;
         // String[] options = {"HonorWiFi", "RedmiWiFi"};
+        // 弹出对话框的选项列表
         String[] options = idList.toArray(new String[idList.size()]);
         int initialValue = 0;
-        // 弹出选项框
+        // 弹出选项框，获取用户选择的按钮编号
         int dialogReturn = JOptionPane.showOptionDialog(parentComponent, message, title, optionType, messageType, icon, options, initialValue);
+        // 如果用户选择了某个按钮
         if (dialogReturn >= 0) {
-            // 设置到标题
+            // 获取编号对应的字符串
             String adbSelected = options[dialogReturn];
+            // 把这个编号对应的字符串设置到窗体的标题
             frame.setTitle(adbSelected);
             // frame.setTitle(Device.map.get(options[dialogReturn]));
             // System.out.println("simpleId_Device_map.get(options[dialogReturn]) = " + simpleId_Device_map.get(options[dialogReturn]));

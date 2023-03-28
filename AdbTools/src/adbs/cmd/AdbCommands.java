@@ -139,7 +139,7 @@ public class AdbCommands {
     public static String runAbdCmd(String adbCmd) {
         // 替换最后一行adb命令
         command.set(command.size() - 1, adbCmd);
-        System.out.println("adbCmd = " + adbCmd);
+        // System.out.println("adbCmd = " + adbCmd);
         // 执行cmd命令
         // runCmd(command);
         return runCmd();
