@@ -65,7 +65,11 @@ public class ReadButtonRunnable extends CloseableRunnable {
         } else {
             // 如果选择了设备
             // 点击屏幕右侧
-            AdbCommands.clickScreenRightSide(id, width, height);
+            String adbResult = AdbCommands.clickScreenRightSide(id, width, height);
+            // System.out.println("    " + adbResult);
+            if (AdbCommands.ifDeviceNotExist(adbResult))
+                return;
+            //    在这里加上代码控制
         }
         // 生成[min,Max]区间的随机整数
         // int s = random.nextInt(max) % (max - min + 1) + min;
@@ -100,4 +104,6 @@ public class ReadButtonRunnable extends CloseableRunnable {
             count += 250;
         }
     }
+
+
 }

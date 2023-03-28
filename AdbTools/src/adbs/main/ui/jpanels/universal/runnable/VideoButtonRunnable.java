@@ -71,19 +71,9 @@ public class VideoButtonRunnable extends CloseableRunnable {
         // // 在手机左侧，从下往上滑动
         // String adbResult = AdbCommands.swipeBottom2TopOnLeft(id, DeviceListener.getHeight());
         String adbResult = AdbCommands.swipeBottom2TopOnLeft(id, AdbTools.device.getHeight());
-
-
-        if (adbResult.startsWith("Error!ExitCode=")) {
-            System.out.println("adb命令运行错误，退出程序." + adbResult);
-            // System.exit(0);
-            JButton stopBtn = AdbTools.getStopBtn();
-            if (stopBtn != null && stopBtn instanceof JButton) {
-                System.out.println("点击停止按钮" + adbResult);
-                stopBtn.doClick();
-            }
+        // 如果设备断开，则终止线程
+        if (AdbCommands.ifDeviceNotExist(adbResult))
             return;
-            // break;
-        }
         // 小片段等待循环
         while (msCount < msToWait) {
             // 当stop标记为true时，退出小片段等待

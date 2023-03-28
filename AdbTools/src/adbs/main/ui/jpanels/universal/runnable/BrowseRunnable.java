@@ -29,7 +29,7 @@ public class BrowseRunnable extends CloseableRunnable {
 
     @Override
     protected void setMsg() {
-        msg = "浏览2";
+        msg = "浏览";
     }
 
     @Override

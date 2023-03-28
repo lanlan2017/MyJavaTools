@@ -1,8 +1,10 @@
 package adbs.cmd;
 
+import adbs.main.AdbTools;
 import tools.process.ProcessRunner;
 import tools.random.Randoms;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +59,24 @@ public class AdbCommands {
         AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe " + x_right + " " + y + " " + x_left + " " + y + " 200");
     }
 
+    // /**
+    //  * 单击屏幕右侧
+    //  *
+    //  * @param id     手机的设备ID，可通过adb devices -l查看
+    //  * @param width  手机设备的宽度
+    //  * @param height 手机设备的高度
+    //  */
+    // public static void clickScreenRightSide(String id, int width, int height) {
+    //     // y的范围位20%到80%之间
+    //     int y = (height / 100) * Randoms.getRandomInt(20, 80);
+    //     // int x = (width / 100) * 98;
+    //     // 假设width=1080，则1080/270=4,4*260=1040,4*269=1076
+    //     // int x = (width / 270) * Randoms.getRandomInt(267, 269);
+    //     int x = (width / 120) * Randoms.getRandomInt(119, 120) - Randoms.getRandomInt(2,7);
+    //     //adb shell input tap 250 250
+    //     AdbCommands.runAbdCmd("adb -s " + id + " shell input tap " + x + " " + y);
+    // }
+
     /**
      * 单击屏幕右侧
      *
@@ -64,7 +84,7 @@ public class AdbCommands {
      * @param width  手机设备的宽度
      * @param height 手机设备的高度
      */
-    public static void clickScreenRightSide(String id, int width, int height) {
+    public static String clickScreenRightSide(String id, int width, int height) {
         // y的范围位20%到80%之间
         int y = (height / 100) * Randoms.getRandomInt(20, 80);
         // int x = (width / 100) * 98;
@@ -72,7 +92,7 @@ public class AdbCommands {
         // int x = (width / 270) * Randoms.getRandomInt(267, 269);
         int x = (width / 120) * Randoms.getRandomInt(119, 120) - Randoms.getRandomInt(2,7);
         //adb shell input tap 250 250
-        AdbCommands.runAbdCmd("adb -s " + id + " shell input tap " + x + " " + y);
+       return AdbCommands.runAbdCmd("adb -s " + id + " shell input tap " + x + " " + y);
     }
 
     /**
@@ -156,5 +176,19 @@ public class AdbCommands {
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
+    }
+    public static boolean ifDeviceNotExist(String adbResult) {
+        if (adbResult.startsWith("Error!ExitCode=")) {
+            System.out.println("adb命令运行错误，退出程序." + adbResult);
+            // System.exit(0);
+            JButton stopBtn = AdbTools.getStopBtn();
+            if (stopBtn != null && stopBtn instanceof JButton) {
+                System.out.println("点击停止按钮" + adbResult);
+                stopBtn.doClick();
+            }
+            return true;
+            // break;
+        }
+        return false;
     }
 }
