@@ -21,7 +21,7 @@ public class AddSerialToAdb {
         System.out.println("-------------------------");
         System.out.println("剪贴板内容:" + sysClipboardText);
         // 如果剪贴板中的文本以adb开头
-        if (sysClipboardText.startsWith("adb")) {
+        if (sysClipboardText.startsWith("adb") || sysClipboardText.startsWith("scrcpy")) {
             // 设备序列号列表
             ArrayList<String> idList = new ArrayList<>();
             // 设备别名
@@ -60,33 +60,53 @@ public class AddSerialToAdb {
             System.out.println("-------------------------");
             // 要求用户输入
             System.out.print("输入设备编号:");
+
             // 读取用户输入
             Scanner scanner1 = new Scanner(System.in);
             String inputNumber = scanner1.nextLine();
             System.out.println("-------------------------");
+            // 如果输入的是数字
             if (inputNumber.matches("\\d+")) {
                 int selected = Integer.parseInt(inputNumber);
-                Device device = simpleId_Device_map.get(idList.get(selected));
-                String adb_;
-                if (sysClipboardText.startsWith("adb -s")) {
-                    System.out.println("---修改adb命令中的序列号---");
+                if (selected >= 0 && selected <= idList.size()) {
+                    // 获取选中的设备
+                    Device device = simpleId_Device_map.get(idList.get(selected));
+                    String adb_;
+                    if (sysClipboardText.startsWith("adb")) {
+                        // 如果adb命令中已经带有序列号了
+                        if (sysClipboardText.startsWith("adb -s")) {
+                            System.out.println("---修改adb命令中的序列号---");
+                            // System.out.println("-------------------------");
+                            adb_ = sysClipboardText.replaceAll("adb -s [a-zA-Z0-9]+ ", "adb -s " + device.getId() + " ");
+                        } else {
+                            System.out.println("----给adb命令添加序列号----");
+                            adb_ = sysClipboardText.replace("adb ", "adb -s " + device.getId() + " ");
+                            System.out.println("修改为如下adb命令:");
+                        }
+                    }
+                    else {
+                        // 如果adb命令中已经带有序列号了
+                        if (sysClipboardText.contains(" -s ")) {
+                            System.out.println("---修改adb命令中的序列号---");
+                            // System.out.println("-------------------------");
+                            adb_ = sysClipboardText.replaceAll("scrcpy(?:.exe)? -s [a-zA-Z0-9]+ ", "scrcpy.exe -s " + device.getId() + " ");
+                        } else {
+                            System.out.println("----给adb命令添加序列号----");
+                            adb_ = sysClipboardText.replaceAll("scrcpy(?:.exe)? ", "scrcpy.exe -s " + device.getId() + " ");
+                            System.out.println("修改为如下adb命令:");
+                        }
+                    }
                     // System.out.println("-------------------------");
-                    adb_=sysClipboardText.replaceAll("adb -s [a-zA-Z0-9]+ ","adb -s "+device.getId()+" ");
-                }else {
-                    System.out.println("----给adb命令添加序列号----");
-                    adb_ = sysClipboardText.replace("adb ", "adb -s " + device.getId() + " ");
-                    System.out.println("修改为如下adb命令:");
+                    System.out.println("修改前:"+sysClipboardText);
+                    System.out.println("修改后:"+adb_);
+                    //写会剪贴板
+                    SystemClipboard.setSysClipboardText(adb_);
                 }
-                // System.out.println("-------------------------");
-
-                System.out.println(adb_);
-                //写会剪贴板
-                SystemClipboard.setSysClipboardText(adb_);
             }
             System.out.println("-------------------------");
             scanner1.close();
             scanner.close();
-        }else {
+        } else {
             System.err.println("输入错误，请复制要修改的adb命令到剪贴板中！");
         }
     }
