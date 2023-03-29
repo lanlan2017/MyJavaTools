@@ -413,6 +413,41 @@ public class MarkdownTools {
     }
 
     /**
+     * 生成uml语法的的plantuml代码块。
+     *
+     * @param code uml代码。
+     * @return uml语法的PlantUML代码块
+     */
+    public String codeBlockPlantUmlUml(String code) {
+        code = "```plantuml\n" + "@startuml\n" + code + "\n@enduml\n" + "```";
+        return code;
+    }
+
+    /**
+     * 类图，把多行字符串定义为类，
+     *
+     * @param code 多行字符串，没写一个Java类名
+     * @return 定义多个类的plantuml类图。
+     */
+    public String codeBlockPlantUmlUmlClasses(String code) {
+        code = code.replaceAll("(?m)^", "class ");
+        code = "```plantuml\n" + "@startuml\n" + code + "\n@enduml\n" + "```";
+        return code;
+    }
+
+    /**
+     * 类图，把多行字符串定义为类，
+     *
+     * @param code 多行字符串，没写一个Java类名
+     * @return 定义多个类的plantuml类图。
+     */
+    public String codeBlockPlantUmlUmlClassesBackgroundBorderStyle() {
+        String code = "#Green|Silver|Lime|Gray|Olive|Yellow|Maroon|Navy|Red|Blue|Purple|Teal|Fuchsia|Aqua|... ##[bold|dashed|dotted]BorderColor";
+        return code;
+    }
+
+
+    /**
      * 生成mindmap语法的的plantuml代码块。
      *
      * @param code mindmap代码。
@@ -431,9 +466,10 @@ public class MarkdownTools {
      * @return dot语法的PlantUML代码块
      */
     public String codeBlockPlantUmlMindmapMultiLine(String code) {
-        code = ":"+code+"\n" + "Line1\nLine2\n" + ";";
+        code = ":" + code + "\n" + "Line1\nLine2\n" + ";";
         return code;
     }
+
     /**
      * 生成mindmap语法的的plantuml代码块中的多行方框。
      * 生成mindmap语法的的plantuml代码块中的MultiLineBox。
@@ -442,7 +478,7 @@ public class MarkdownTools {
      * @return dot语法的PlantUML代码块
      */
     public String codeBlockPlantUmlMindmapMultiLineCode(String code) {
-        code = ":"+code+"\n" + "<code>\nLine1\nLine2\n</code>\n" + ";";
+        code = ":" + code + "\n" + "<code>\nLine1\nLine2\n</code>\n" + ";";
         return code;
     }
 

@@ -93,6 +93,11 @@ m:
       default: tools.markdown.MarkdownTools.codeBlockPlantUml
       # 生成dot语法的PlantUML代码块。
       dot: tools.markdown.MarkdownTools.codeBlockPlantUmlDot
+      uml:
+        default: tools.markdown.MarkdownTools.codeBlockPlantUmlUml
+        class:
+          default: tools.markdown.MarkdownTools.codeBlockPlantUmlUmlClasses
+          background: tools.markdown.MarkdownTools.codeBlockPlantUmlUmlClassesBackgroundBorderStyle_Parameterless
       # 思维导图语法的PlantUML代码块
       mindmap:
         default: tools.markdown.MarkdownTools.codeBlockPlantUmlMindmap
