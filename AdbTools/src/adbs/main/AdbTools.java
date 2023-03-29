@@ -1,7 +1,6 @@
 package adbs.main;
 
 import adbs.cmd.AdbCommands;
-import adbs.main.run.PythonCloseableRun;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.inout.InOutputModel;
 import adbs.main.ui.inout.listener.StopBtnAcListener2;
@@ -13,18 +12,16 @@ import adbs.main.ui.jpanels.time.listener.InputOkButtonActionListener;
 import adbs.main.ui.jpanels.time.listener.MinusBtnAcListener;
 import adbs.main.ui.jpanels.time.listener.PlusBtnAcListener;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
-import adbs.main.ui.jpanels.universal.runnable.ReadButtonRunnable;
 import adbs.model.Device;
 import com.formdev.flatlaf.FlatLightLaf;
-import config.AdbToolsProperties;
-import tools.config.properties.PropertiesTools;
 import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.event.*;
-import java.io.File;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -43,16 +40,6 @@ public class AdbTools {
     private final JFrame frame;
     // 停止按钮
     private static JButton stopBtn;
-    // 配置文件路径
-    private static final String dirPath = "AdbToolsPythons\\";
-    // 配置文件
-    private final PropertiesTools propertiesTools = AdbToolsProperties.propertiesTools;
-
-    // 阅读按钮
-    private JButton readButton;
-    // private final JPanel otherJPanel;
-    // // 输出标签
-    private final JLabel output;
     // 当前选择的设备
     public static Device device;
 
@@ -80,20 +67,20 @@ public class AdbTools {
 
         // 初始化通用功能面板
         UniversalPanels universalPanel = initUniversalPanel(timePanels);
-        output=universalPanel.getOutput2();
+        // private final JPanel otherJPanel;
+        // // 输出标签
 
         // 初始化多选框面板
         JPanel checkJPanel = new JPanel();
         checkJPanel.setLayout(FlowLayouts.flowLayoutLeft);
 
         // 通用复选框
-        // JCheckBox generalJCheckBox = new JCheckBox("通用", true);
-
-        JCheckBox generalJCheckBox = new JCheckBox("", true);
+        JCheckBox generalJCheckBox = new JCheckBox("通用", true);
+        // JCheckBox generalJCheckBox = new JCheckBox("", true);
         generalJCheckBox.setToolTipText("展开/折叠 通用功能");
 
-        // JCheckBox adbJCheckBox = new JCheckBox("系统", true);
-        JCheckBox adbJCheckBox = new JCheckBox("", true);
+        JCheckBox adbJCheckBox = new JCheckBox("系统", true);
+        // JCheckBox adbJCheckBox = new JCheckBox("", true);
         adbJCheckBox.setToolTipText("展开/折叠 系统功能");
         // AbstractButtons.setMarginInButtonJPanel(checkJPanel);
         adbJCheckBox.addItemListener(new ItemListener() {
@@ -140,16 +127,16 @@ public class AdbTools {
         // JPanel universalPanel = initUniversalPanel(inOut.getTimePanels());
         // JPanel universalPanel = initUniversalPanel(timePanels);
 
-        // 添加 选项面板 到窗体中
+        // 添加 选项面板 到窗体中 第1列
         frame.add(checkJPanel);
-        // 添加 adb面板 到窗体中
+        // 添加 adb面板 到窗体中 第2行
         frame.add(adbJPanels.getAdbJPanel());
-        // 添加 通用功能面板
+        // 添加 通用功能面板 到第3行
         // frame.add(universalPanel);
         frame.add(universalPanel.getUniversalPanel());
-        // 添加 时间输入面板
+        // 添加 时间输入面板 到第4行
         frame.add(timePanels.getTimePanel());
-        // 添加 控制面板
+        // 添加 控制面板 到第5行
         frame.add(controlJPanel);
 
         // 需要先初始化通用面板 要放在 initUniversalPanel(inputPanels, inOut);之后
@@ -160,7 +147,7 @@ public class AdbTools {
         // 添加选项到多选面板
         // newButtonJPanel(frame, checkJPanel, otherJPanel);
         // frame.add(checkJPanel);
-        newButtonJPanel(frame, checkJPanel);
+        // newButtonJPanel(frame, checkJPanel);
 
         // 添加多选框面板到第3行
         // frame.add(checkJPanel, 2);
@@ -183,7 +170,6 @@ public class AdbTools {
     private UniversalPanels initUniversalPanel(TimePanels timePanels) {
         // 创建通用面板，并添加到窗体中
         UniversalPanels universalPanels = new UniversalPanels(timePanels);
-        readButton = universalPanels.getReadButton();
         // return universalPanels.getUniversalPanel();
         return universalPanels;
     }
@@ -320,96 +306,5 @@ public class AdbTools {
 
     public static void main(String[] args) {
         AdbTools.getInstance();
-    }
-
-    /**
-     * 根据体魄目录生成按钮
-     *
-     * @param frame       窗体
-     * @param checkJPanel 复选框面板
-     */
-    private void newButtonJPanel(JFrame frame, JPanel checkJPanel) {
-        File dir = new File(dirPath);
-        System.out.println("AdbToolsPythonImg = " + dir.getAbsolutePath());
-        File[] dirList = dir.listFiles(File::isDirectory);
-
-        if (dirList != null) {
-            for (File dirDeep1 : dirList) {
-                if (dirDeep1.isDirectory()) {
-                    // 列出子目录
-                    File[] dirDeep1List = dirDeep1.listFiles(File::isDirectory);
-                    // 如果一级子目录存在子目录
-                    if (dirDeep1List != null) {
-                        if (dirDeep1List.length > 0) {
-                            // 获取一级子目录的名称
-                            String name = dirDeep1.getName();
-                            // System.out.println("name = " + name);
-                            // 创建面板
-                            JPanel jPanel = new JPanel();
-                            // propertiesTools.getProperty(name);
-                            // 给面板标题边框，使用一级目录名作为标题
-                            // jPanel.setBorder(new TitledBorder(name));
-                            String chName = propertiesTools.getProperty(name);
-                            jPanel.setBorder(new TitledBorder(chName));
-
-                            FlowLayout layout = new FlowLayout(FlowLayout.LEFT, 0, 0);
-                            // 设置布局管理器
-                            jPanel.setLayout(layout);
-                            // 创建复选框，默认勾选
-                            // JCheckBox checkBox = new JCheckBox(name, true);
-                            JCheckBox checkBox = new JCheckBox(chName, true);
-                            checkBox.doClick();
-                            checkJPanel.add(checkBox);
-                            // 监听
-                            // checkBox.addItemListener(new JCheckBoxControlJPanelItemListener(frame, jPanel));
-                            checkBox.addItemListener(new JCheckBoxControlJPanelItemListener(jPanel));
-
-                            // 遍历二级子目录
-                            for (File dirDeep2 : dirDeep1List) {
-                                // 获取二级目录名
-                                String name1 = dirDeep2.getName();
-                                if (!name1.contains("test") && !name1.contains("demo")) {
-                                    String chName1 = propertiesTools.getProperty(name1);
-                                    // String chName1 = getCHName(name1);
-                                    // 创建按钮
-                                    // JButton button = new JButton(name1);
-                                    JButton button = new JButton(chName1);
-                                    button.addActionListener(new ActionListener() {
-                                        @Override
-                                        public void actionPerformed(ActionEvent e) {
-                                            // 拼接内容Python文件路径
-                                            // String pythonFile = dirPath + name + "\\" + name1 + "\\" + "_" + Device.getBrand() + ".py";
-                                            String pythonFile = dirPath + name + "\\" + name1 + "\\" + "_" + device.getBrand2() + ".py";
-                                            System.out.println("pythonFile = " + pythonFile);
-                                            // new Thread(new PythonCloseableRun(name1, pythonFile, output)).start();
-                                            // new Thread(new PythonCloseableRun(chName1, pythonFile, output)).start();
-                                            if (name.equals("KuaiShou") && name1.equals("YueDu")) {
-                                                System.out.println("name = " + name);
-                                                System.out.println("name1 = " + name1);
-                                                // ReadButtonRunnable.getInstance()
-                                                ReadButtonRunnable readButtonRunnable = ReadButtonRunnable.getInstance();
-                                                new Thread(readButtonRunnable).start();
-                                                new Thread(new PythonCloseableRun(chName1, pythonFile, output, readButtonRunnable, readButton)).start();
-                                                // new Thread(new PythonCloseableRun(chName1, pythonFile, output, readButtonRunnable, )).start();
-                                                // new
-                                            } else {
-                                                // new Thread(new PythonCloseableRun(name1, pythonFile, output)).start();
-                                                new Thread(new PythonCloseableRun(name1, pythonFile, output)).start();
-                                            }
-                                        }
-                                    });
-                                    // 设置按钮的内切为1
-                                    AbstractButtons.setJButtonMargin(button, 1);
-                                    jPanel.add(button);
-                                }
-                            }
-                            // 隐藏面板
-                            jPanel.setVisible(false);
-                            frame.add(jPanel);
-                        }
-                    }
-                }
-            }
-        }
     }
 }
