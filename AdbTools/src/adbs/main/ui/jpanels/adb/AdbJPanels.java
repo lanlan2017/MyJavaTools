@@ -19,11 +19,10 @@ import java.awt.event.ActionListener;
 public class AdbJPanels {
 
     private JPanel adbJPanel;
-    /**
-     *
-     */
-    private JButton openScrcpyBtn;
-    private JButton killScrcpyBtn;
+
+    // private JButton openScrcpyBtn;
+    // private JButton killScrcpyBtn;
+
     private JButton returnBtn;
     private JButton homeBtn;
     private JButton taskBtn;
@@ -48,24 +47,24 @@ public class AdbJPanels {
         // PropertiesTools propertiesTools = new PropertiesTools("AdbTools.properties");
         PropertiesTools propertiesTools = AdbToolsProperties.propertiesTools;
 
-        openScrcpyBtn = new JButton(new ImageIcon(AdbTools.class.getClassLoader().getResource("open.png")));
-        openScrcpyBtn.setToolTipText("使用scrcpy打开设备");
-        openScrcpyBtn.addActionListener(new OpenButtonListener());
+        // openScrcpyBtn = new JButton(new ImageIcon(AdbTools.class.getClassLoader().getResource("open.png")));
+        // openScrcpyBtn.setToolTipText("使用scrcpy打开设备");
+        // openScrcpyBtn.addActionListener(new OpenButtonListener());
 
-
-        killScrcpyBtn = new JButton("kill");
-        killScrcpyBtn.setToolTipText("杀死打开的scrcpy镜像");
-        killScrcpyBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // String id = DeviceListener.getPhoneId();
-                // String id = DeviceListener.getPhoneId();
-                // String id = DeviceListener.getSelectedPhoneId();
-                String id =AdbTools.device.getId();
-
-                Taskkill.killScrcpy(id);
-            }
-        });
+        //
+        // killScrcpyBtn = new JButton("kill");
+        // killScrcpyBtn.setToolTipText("杀死打开的scrcpy镜像");
+        // killScrcpyBtn.addActionListener(new ActionListener() {
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         // String id = DeviceListener.getPhoneId();
+        //         // String id = DeviceListener.getPhoneId();
+        //         // String id = DeviceListener.getSelectedPhoneId();
+        //         String id =AdbTools.device.getId();
+        //
+        //         Taskkill.killScrcpy(id);
+        //     }
+        // });
 
 
         // returnBtn = new JButton(new ImageIcon(Buttons.class.getClassLoader().getResource("向左三角形.png")));
@@ -147,8 +146,9 @@ public class AdbJPanels {
 
 
         // adb面板添加按钮
-        adbJPanel.add(openScrcpyBtn);
-        adbJPanel.add(killScrcpyBtn);
+        // adbJPanel.add(openScrcpyBtn);
+        // adbJPanel.add(killScrcpyBtn);
+
         adbJPanel.add(returnBtn);
         adbJPanel.add(homeBtn);
         adbJPanel.add(taskBtn);

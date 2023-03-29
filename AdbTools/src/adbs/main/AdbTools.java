@@ -7,6 +7,7 @@ import adbs.main.ui.inout.listener.StopBtnAcListener2;
 import adbs.main.ui.jpanels.adb.AdbJPanels;
 import adbs.main.ui.jpanels.check.JCheckBoxControlJPanelItemListener;
 import adbs.main.ui.jpanels.control.ControlJPanels;
+import adbs.main.ui.jpanels.scrcpy.ScrcpyJPanels;
 import adbs.main.ui.jpanels.time.TimePanels;
 import adbs.main.ui.jpanels.time.listener.InputOkButtonActionListener;
 import adbs.main.ui.jpanels.time.listener.MinusBtnAcListener;
@@ -18,8 +19,6 @@ import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -59,6 +58,8 @@ public class AdbTools {
         // 初始化第1个面板,adb面板
         AdbJPanels adbJPanels = initAdbJPanel();
 
+        ScrcpyJPanels scrcpyJPanels = new ScrcpyJPanels();
+
         // 初始化第3个面板，控制面板
         JPanel controlJPanel = initControlJPanel();
 
@@ -82,15 +83,13 @@ public class AdbTools {
         JCheckBox adbJCheckBox = new JCheckBox("系统", true);
         // JCheckBox adbJCheckBox = new JCheckBox("", true);
         adbJCheckBox.setToolTipText("展开/折叠 系统功能");
-        // AbstractButtons.setMarginInButtonJPanel(checkJPanel);
-        adbJCheckBox.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                boolean visible = adbJPanels.getAdbJPanel().isVisible();
-                adbJPanels.getAdbJPanel().setVisible(!visible);
-                frame.pack();
-            }
-        });
+        JCheckBox scrcpyJCheckBox = new JCheckBox("投屏", true);
+        // JCheckBox adbJCheckBox = new JCheckBox("", true);
+        scrcpyJCheckBox.setToolTipText("展开/折叠 scrcpy设置功能");
+
+        adbJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(adbJPanels.getAdbJPanel()));
+        scrcpyJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(scrcpyJPanels.getScrcpyJPanel()));
+
         // 控制复选框
         JCheckBox controlJCheckBox = new JCheckBox("控制", true);
         controlJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(controlJPanel));
@@ -98,6 +97,7 @@ public class AdbTools {
         controlJCheckBox.doClick();
 
         checkJPanel.add(adbJCheckBox);
+        checkJPanel.add(scrcpyJCheckBox);
         checkJPanel.add(generalJCheckBox);
         checkJPanel.add(controlJCheckBox);
 
@@ -131,6 +131,7 @@ public class AdbTools {
         frame.add(checkJPanel);
         // 添加 adb面板 到窗体中 第2行
         frame.add(adbJPanels.getAdbJPanel());
+        frame.add(scrcpyJPanels.getScrcpyJPanel());
         // 添加 通用功能面板 到第3行
         // frame.add(universalPanel);
         frame.add(universalPanel.getUniversalPanel());
@@ -286,7 +287,6 @@ public class AdbTools {
     private AdbJPanels initAdbJPanel() {
         AdbJPanels adbJPanels = new AdbJPanels();
         stopBtn = adbJPanels.getStopBtn();
-        // frame.add(adbJPanels.getAdbJPanel());
         return adbJPanels;
     }
 
