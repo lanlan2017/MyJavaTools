@@ -77,7 +77,7 @@ public class AddSerialToAdb {
                         if (sysClipboardText.startsWith("adb -s")) {
                             System.out.println("---修改adb命令中的序列号---");
                             // System.out.println("-------------------------");
-                            adb_ = sysClipboardText.replaceAll("adb -s [a-zA-Z0-9]+ ", "adb -s " + device.getId() + " ");
+                            adb_ = sysClipboardText.replaceAll("adb -s [a-zA-Z0-9:.]+ ", "adb -s " + device.getId() + " ");
                         } else {
                             System.out.println("----给adb命令添加序列号----");
                             adb_ = sysClipboardText.replace("adb ", "adb -s " + device.getId() + " ");
@@ -89,7 +89,7 @@ public class AddSerialToAdb {
                         if (sysClipboardText.contains(" -s ")) {
                             System.out.println("---修改adb命令中的序列号---");
                             // System.out.println("-------------------------");
-                            adb_ = sysClipboardText.replaceAll("scrcpy(?:.exe)? -s [a-zA-Z0-9]+ ", "scrcpy.exe -s " + device.getId() + " ");
+                            adb_ = sysClipboardText.replaceAll("scrcpy(?:.exe)? -s [a-zA-Z0-9:.]+ ", "scrcpy.exe -s " + device.getId() + " ");
                         } else {
                             System.out.println("----给adb命令添加序列号----");
                             adb_ = sysClipboardText.replaceAll("scrcpy(?:.exe)? ", "scrcpy.exe -s " + device.getId() + " ");
