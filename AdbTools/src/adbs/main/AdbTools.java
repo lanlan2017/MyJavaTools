@@ -96,10 +96,13 @@ public class AdbTools {
         // 现在就触发
         controlJCheckBox.doClick();
 
+        JCheckBox multitaskingJCheckBox = new JCheckBox("后台", false);
+        scrcpyJCheckBox.setToolTipText("标记，勾选表示有APP在后台播放音频");
         checkJPanel.add(adbJCheckBox);
         checkJPanel.add(scrcpyJCheckBox);
         checkJPanel.add(generalJCheckBox);
         checkJPanel.add(controlJCheckBox);
+        checkJPanel.add(multitaskingJCheckBox);
 
         // // 输出面板
         // // private final JCheckBox otherJCheckBox;
