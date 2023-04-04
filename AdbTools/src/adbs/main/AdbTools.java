@@ -155,7 +155,8 @@ public class AdbTools {
 
         // 添加多选框面板到第3行
         // frame.add(checkJPanel, 2);
-        AbstractButtons.setMarginInButtonJPanel(checkJPanel, 10);
+        // AbstractButtons.setMarginInButtonJPanel(checkJPanel, 10);
+        AbstractButtons.setMarginInButtonJPanel(checkJPanel, -1);
         AbstractButtons.setMarginInButtonJPanel(checkJPanel, -1);
         // 添加输出面包到最后一行
         // frame.add(outputJPanel);

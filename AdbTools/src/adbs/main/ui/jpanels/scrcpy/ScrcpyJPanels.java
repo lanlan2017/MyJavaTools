@@ -34,7 +34,7 @@ public class ScrcpyJPanels {
         addBtn = new JButton("+");
 
         widthTextField = new JTextField(4);
-        widthTextField.setText(String.valueOf(360));
+        widthTextField.setText(String.valueOf(600));
         // 禁止用户修改宽度
         widthTextField.setEditable(false);
 
@@ -60,7 +60,7 @@ public class ScrcpyJPanels {
                 String text = widthTextField.getText();
                 int width = Integer.parseInt(text);
                 if (width < 600){
-                    width = width + 120;
+                    width = width + 60;
                     widthTextField.setText(String.valueOf(width));
                 }
             }
@@ -71,7 +71,7 @@ public class ScrcpyJPanels {
                 String text = widthTextField.getText();
                 int width = Integer.parseInt(text);
                 if (width > 360){
-                    width = width - 120;
+                    width = width - 60;
                     widthTextField.setText(String.valueOf(width));
                 }
             }

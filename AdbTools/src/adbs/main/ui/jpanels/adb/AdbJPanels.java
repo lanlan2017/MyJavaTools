@@ -1,5 +1,6 @@
 package adbs.main.ui.jpanels.adb;
 
+import adbs.cmd.AdbCommands;
 import adbs.main.ui.jpanels.adb.open.Taskkill;
 import adbs.main.AdbTools;
 import adbs.main.ui.config.FlowLayouts;
@@ -37,6 +38,8 @@ public class AdbJPanels {
     private JButton volumePlus;
     private JButton volumeMinus;
     private JButton volumeNone;
+    private JButton statusbarShow;
+    private JButton statusbarHide;
 
 
     public AdbJPanels() {
@@ -144,6 +147,39 @@ public class AdbJPanels {
         stopBtn = new JButton(propertiesTools.getProperty("stop"));
         stopBtn.setToolTipText("停止所有后台线程,刷新界面");
 
+        statusbarShow=new JButton("↓");
+        statusbarShow.setToolTipText("展开状态栏");
+        statusbarShow.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 获取选中的adb设备的序列号
+                String id = AdbTools.device.getId();
+                // 拼接重启代码
+                String adbCmd = "adb -s " + id + " shell service call statusbar 1";
+                // System.out.println("adbCmd = " + adbCmd);
+                // 启动cmd进程执行adb命令
+                AdbCommands.runAbdCmd(adbCmd);
+            }
+        });
+        statusbarHide=new JButton("↑");
+        statusbarHide.setToolTipText("收起状态栏");
+        statusbarHide.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 获取选中的adb设备的序列号
+                String id = AdbTools.device.getId();
+                // 拼接重启代码
+                String adbCmd = "adb -s " + id + " shell service call statusbar 2";
+                // System.out.println("adbCmd = " + adbCmd);
+                // 启动cmd进程执行adb命令
+                AdbCommands.runAbdCmd(adbCmd);
+            }
+        });
+        // 音量面板
+        JPanel statusbarJPanel = new JPanel();
+        statusbarJPanel.setLayout(FlowLayouts.flowLayoutLeft);
+        volumeJPanel.add(statusbarShow);
+        volumeJPanel.add(statusbarHide);
 
         // adb面板添加按钮
         // adbJPanel.add(openScrcpyBtn);
@@ -156,6 +192,11 @@ public class AdbJPanels {
         // adbJPanel.add(volumeMinus);
         // adbJPanel.add(volumeNone);
         adbJPanel.add(volumeJPanel);
+
+        // adbJPanel.add(statusbarShow);
+        // adbJPanel.add(statusbarHide);
+        adbJPanel.add(statusbarJPanel);
+
         adbJPanel.add(rebootBtn);
         adbJPanel.add(powerOffBtn);
         adbJPanel.add(stopBtn);
@@ -169,6 +210,7 @@ public class AdbJPanels {
         // AbstractButtons.setJButtonMargin(volumeNone, -1);
 
         AbstractButtons.setMarginInButtonJPanel(volumeJPanel, -1);
+        AbstractButtons.setMarginInButtonJPanel(statusbarJPanel, -1);
         // 设置的内切
         AbstractButtons.setMarginInButtonJPanel(navigationKeyJPanel, -1);
         // volumeNone.setMargin(new Insets(2, -1, -1, -1));
