@@ -50,7 +50,7 @@ public class JFramePack {
                 // 等待指定的毫秒数之后
                 Threads.sleep(millisecond);
             }
-            System.out.println("jFrame_pack_刷新界面");
+            // System.out.println("jFrame_pack_刷新界面");
             // 刷新界面
             frame2.pack();
         }).start();

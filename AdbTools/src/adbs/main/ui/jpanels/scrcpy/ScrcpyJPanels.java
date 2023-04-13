@@ -34,7 +34,8 @@ public class ScrcpyJPanels {
         addBtn = new JButton("+");
 
         widthTextField = new JTextField(4);
-        widthTextField.setText(String.valueOf(600));
+        // 设置投屏的 默认高度
+        widthTextField.setText(String.valueOf(540));
         // 禁止用户修改宽度
         widthTextField.setEditable(false);
 

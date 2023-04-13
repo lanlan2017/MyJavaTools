@@ -16,7 +16,7 @@ public class PropertiesTools {
 
     public PropertiesTools(String path) {
         File file = new File(path);
-        System.out.println("配置文件绝对路径= " + file.getAbsolutePath());
+        // System.out.println("配置文件绝对路径= " + file.getAbsolutePath());
         load(file);
     }
 

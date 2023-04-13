@@ -140,7 +140,7 @@ public class Device {
         String run = CmdRun.run("adb -s " + id + " shell wm size").trim();
         // String run = CmdRun.run("adb -s " + selectedPhoneId + " shell wm size").trim();
         // 打印adb命令结果
-        System.out.println("run =" + run);
+        System.out.println("设备像素：" + run);
         // int width = 0;
         // int height = 0;
         if (run.startsWith("Physical size")) {

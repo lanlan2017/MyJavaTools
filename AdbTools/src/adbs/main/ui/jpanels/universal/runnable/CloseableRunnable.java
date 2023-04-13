@@ -83,7 +83,7 @@ public abstract class CloseableRunnable implements Runnable {
      * 循环之后要准备的工作
      */
     protected void afterLoop() {
-        System.out.println("Closeable AfterLoop：" + this + " " + inOutputModel);
+        // System.out.println("Closeable AfterLoop：" + this + " " + inOutputModel);
         if (inOutputModel != null) {
             inOutputModel.getUniversalPanels().getOutput2().setText("");
         }
