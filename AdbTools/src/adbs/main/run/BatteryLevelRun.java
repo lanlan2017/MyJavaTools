@@ -38,7 +38,7 @@ public class BatteryLevelRun implements Runnable {
                         // 弹出确认对话框，显示标题，显示“是，否，取消”三个按钮
 
                         // int confirmDialog = JOptionPane.showConfirmDialog(null, message,simpleId,JOptionPane.YES_NO_CANCEL_OPTION);
-                        int confirmDialog = JOptionPane.showConfirmDialog(AdbTools.getContentPane(), message, simpleId, JOptionPane.YES_NO_OPTION);
+                        int confirmDialog = JOptionPane.showConfirmDialog(AdbTools.getInstance().getContentPane(), message, simpleId, JOptionPane.YES_NO_OPTION);
                         switch (confirmDialog) {
                             case JOptionPane.OK_OPTION:
                                 System.out.println("点击 是 按钮");
@@ -56,11 +56,13 @@ public class BatteryLevelRun implements Runnable {
                                 break;
                         }
                     }
+                    System.out.println("电量:" + level + "%");
                 }
             }
             try {
                 // 10分钟检测一次
-                int millis = 1000 * 60 * 5;
+                // int millis = 1000 * 60 * 5;
+                int millis = 1000 * 30 * 5;
                 Thread.sleep(millis);
             } catch (InterruptedException e) {
                 e.printStackTrace();

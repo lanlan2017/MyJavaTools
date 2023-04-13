@@ -181,7 +181,8 @@ public class AdbCommands {
         if (adbResult.startsWith("Error!ExitCode=")) {
             System.out.println("adb命令运行错误，退出程序." + adbResult);
             // System.exit(0);
-            JButton stopBtn = AdbTools.getStopBtn();
+            // JButton stopBtn = AdbTools.getInstance().getStopBtn();
+            JButton stopBtn = AdbTools.getInstance().getAdbJPanels().getStopBtn();
             if (stopBtn != null && stopBtn instanceof JButton) {
                 System.out.println("点击停止按钮" + adbResult);
                 stopBtn.doClick();

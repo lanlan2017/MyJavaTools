@@ -1,6 +1,7 @@
 package adbs.main.ui.jpanels.adb;
 
 import adbs.cmd.AdbCommands;
+import adbs.main.ui.inout.listener.StopBtnAcListener2;
 import adbs.main.ui.jpanels.adb.open.Taskkill;
 import adbs.main.AdbTools;
 import adbs.main.ui.config.FlowLayouts;
@@ -30,17 +31,16 @@ public class AdbJPanels {
     private JButton rebootBtn;
     private JButton powerOffBtn;
 
-    /**
-     * 停止后台线程按钮
-     */
-    private JButton stopBtn;
-
     private JButton volumePlus;
     private JButton volumeMinus;
     private JButton volumeNone;
     private JButton statusbarShow;
     private JButton statusbarHide;
 
+    /**
+     * 停止后台线程按钮
+     */
+    private JButton stopBtn;
 
     public AdbJPanels() {
         adbJPanel = new JPanel();
@@ -180,6 +180,12 @@ public class AdbJPanels {
         statusbarJPanel.setLayout(FlowLayouts.flowLayoutLeft);
         volumeJPanel.add(statusbarShow);
         volumeJPanel.add(statusbarHide);
+
+
+
+        stopBtn.addActionListener(new StopBtnAcListener2());
+
+
 
         // adb面板添加按钮
         // adbJPanel.add(openScrcpyBtn);

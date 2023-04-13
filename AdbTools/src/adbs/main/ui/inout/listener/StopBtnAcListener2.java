@@ -1,51 +1,37 @@
 package adbs.main.ui.inout.listener;
 
-import adbs.main.ui.inout.InOutputModel;
+import adbs.main.AdbTools;
 import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.universal.runnable.CloseableRunnable;
-// import adbs.main.run.PythonCloseableRun;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashSet;
 import java.util.Iterator;
 
 public class StopBtnAcListener2 implements ActionListener {
-    private HashSet<Runnable> isRunningSet;
-    private InOutputModel inOutputModel;
-
-    public StopBtnAcListener2(HashSet<Runnable> isRunningSet, InOutputModel inOutputModel) {
-        this.isRunningSet = isRunningSet;
-        this.inOutputModel = inOutputModel;
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Iterator<Runnable> iterator = isRunningSet.iterator();
+        Iterator<Runnable> iterator = AdbTools.getInstance().getIsRunningSet().iterator();
+        // Iterator<Runnable> iterator = isRunningSet.iterator();
         while (iterator.hasNext()) {
             Runnable runnable = iterator.next();
-            // //如果是可关闭的线程体
-            // if (runnable instanceof PythonCloseableRun) {
-            //     PythonCloseableRun python_CloseableRun = (PythonCloseableRun) runnable;
-            //     // 关闭线程
-            //     python_CloseableRun.stop();
-            //     // 从线程池中删除掉
-            //     iterator.remove();
-            // } else
-
             if (runnable instanceof CloseableRunnable) {
                 CloseableRunnable closeableRunnable = (CloseableRunnable) runnable;
-                // System.out.println(closeableRunnable + " is stop now");
                 // 关闭线程
                 closeableRunnable.stop();
                 // 从线程池中删除掉
                 iterator.remove();
             }
         }
+
+        // 时间面板的标签文字设为空字符串
+        AdbTools.getInstance().getTimePanels().getTimerJLabel().setText("");
         // 隐藏时间面板
-        inOutputModel.getTimePanels().getTimePanel().setVisible(false);
-        inOutputModel.getUniversalPanels().getOutput2().setText("");
-        inOutputModel.getTimePanels().getTimerJLabel().setText("");
+        AdbTools.getInstance().getTimePanels().getTimePanel().setVisible(false);
+        // 通用面板的标签文字设置为空字符串
+        AdbTools.getInstance().getUniversalPanels().getOutput2().setText("");
+
         // 更新JFrame界面
         JFramePack.onJComponentActionEvent(e);
     }
