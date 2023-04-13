@@ -60,7 +60,7 @@ public class BatteryLevelRun implements Runnable {
             }
             try {
                 // 10分钟检测一次
-                int millis = 1000 * 60 * 1;
+                int millis = 1000 * 60 * 5;
                 Thread.sleep(millis);
             } catch (InterruptedException e) {
                 e.printStackTrace();
