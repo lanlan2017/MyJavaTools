@@ -1,6 +1,7 @@
 package adbs.main;
 
 import adbs.cmd.AdbCommands;
+import adbs.main.run.BatteryLevelRun;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.inout.InOutputModel;
 import adbs.main.ui.inout.listener.StopBtnAcListener2;
@@ -44,6 +45,7 @@ public class AdbTools {
 
     private final HashSet<Runnable> isRunningSet = new HashSet<>();
     private static final AdbTools instance = new AdbTools();
+    private static JPanel contentPane;
 
     private AdbTools() {
         // 创建窗体
@@ -198,7 +200,7 @@ public class AdbTools {
      */
     private void contentPaneSetting() {
         // 创建窗体的内容面板
-        JPanel contentPane = new JPanel();
+        contentPane = new JPanel();
 
         // 内容面板监听鼠标右键双击事件
         contentPane.addMouseListener(new MouseAdapter() {
@@ -302,6 +304,10 @@ public class AdbTools {
         return stopBtn;
     }
 
+    public static JPanel getContentPane() {
+        return contentPane;
+    }
+
     public void setIsRunning(Runnable isRunning) {
         // System.out.println("正在运行的:" + isRunning);
         isRunningSet.add(isRunning);
@@ -310,5 +316,7 @@ public class AdbTools {
 
     public static void main(String[] args) {
         AdbTools.getInstance();
+        // 启动电池监测线程
+        new Thread(new BatteryLevelRun()).start();
     }
 }
