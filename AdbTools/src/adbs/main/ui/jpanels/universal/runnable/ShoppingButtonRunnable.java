@@ -35,7 +35,8 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
 
     @Override
     protected void loopBody() {
-        String id = AdbTools.device.getId();
+        // String id = AdbTools.device.getId();
+        String id = AdbTools.getInstance().getDevice().getId();
         JLabel output = inOutputModel.getUniversalPanels().getOutput2();
         JTextField input1 = inOutputModel.getTimePanels().getInput1();
         // 读取文本框1中的秒数

@@ -24,7 +24,7 @@ public class ShoppingButtonActionListener extends ButtonFocusReleaseActionListen
         JTextField input1 = timePanels.getInput1();
         input1.setVisible(true);
         // input1.setText(String.valueOf(20 * 60));
-        input1.setText(String.valueOf(35));
+        input1.setText(String.valueOf(30));
         input1.setColumns(4);
         timePanels.getInput2().setVisible(false);
 

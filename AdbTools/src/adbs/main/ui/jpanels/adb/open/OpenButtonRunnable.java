@@ -22,8 +22,14 @@ public class OpenButtonRunnable implements Runnable {
     @Override
     public void run() {
         // 获取选择的id
-        String id = AdbTools.device.getId();
-        String simpleId = AdbTools.device.getSimpleId();
+        // String id = AdbTools.device.getId();
+        // String simpleId = AdbTools.device.getSimpleId();
+
+
+        String id = AdbTools.getInstance().getDevice().getId();
+        String simpleId = AdbTools.getInstance().getDevice().getSimpleId();
+
+
         String scrcpyWidth=widthTextField.getText();
         // 如果存在id
         if (id != null && !"".equals(id)) {

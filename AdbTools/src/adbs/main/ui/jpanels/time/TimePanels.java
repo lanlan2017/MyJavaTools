@@ -121,7 +121,8 @@ public class TimePanels {
     public void showConfirmDialog() {
         // 得到窗体的内容面板
         Container parent = timePanel.getParent();
-        String simpleId = AdbTools.device.getSimpleId();
+        // String simpleId = AdbTools.device.getSimpleId();
+        String simpleId = AdbTools.getInstance().getDevice().getSimpleId();
 
         int returnVal;
         String message = simpleId + "再次执行?";

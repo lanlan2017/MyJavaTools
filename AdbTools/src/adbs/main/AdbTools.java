@@ -2,6 +2,7 @@ package adbs.main;
 
 import adbs.cmd.AdbCommands;
 import adbs.main.run.BatteryLevelRun;
+import adbs.main.run.ForegroundAppRun;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.inout.InOutputModel;
 import adbs.main.ui.inout.listener.StopBtnAcListener2;
@@ -50,15 +51,12 @@ public class AdbTools {
 
 
     // 当前选择的设备
-    public static Device device;
+    // public static Device device;
+    public Device device;
 
     private final HashSet<Runnable> isRunningSet = new HashSet<>();
     private static final AdbTools instance = new AdbTools();
     private JPanel contentPane;
-
-
-
-
 
 
     private AdbTools() {
@@ -299,6 +297,14 @@ public class AdbTools {
         return universalPanels;
     }
 
+    public Device getDevice() {
+        return device;
+    }
+
+    public JFrame getFrame() {
+        return frame;
+    }
+
     // public JButton getStopBtn() {
     //     return stopBtn;
     // }
@@ -321,5 +327,6 @@ public class AdbTools {
         AdbTools.getInstance();
         // 启动电池监测线程
         new Thread(new BatteryLevelRun()).start();
+        new Thread(new ForegroundAppRun()).start();
     }
 }

@@ -11,8 +11,17 @@ public class BatteryLevelRun implements Runnable {
 
     @Override
     public void run() {
-        String deviceId = AdbTools.device.getId();
-        String simpleId = AdbTools.device.getSimpleId();
+        try {
+            // 先等5秒，免得和其他命令冲突
+            Thread.sleep(1000*2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        // String deviceId = AdbTools.device.getId();
+        // String simpleId = AdbTools.device.getSimpleId();
+        AdbTools adbTools = AdbTools.getInstance();
+        String deviceId = adbTools.getDevice().getId();
+        String simpleId = adbTools.getDevice().getSimpleId();
         while (!stop) {
             String run;
 
@@ -38,11 +47,11 @@ public class BatteryLevelRun implements Runnable {
                         // 弹出确认对话框，显示标题，显示“是，否，取消”三个按钮
 
                         // int confirmDialog = JOptionPane.showConfirmDialog(null, message,simpleId,JOptionPane.YES_NO_CANCEL_OPTION);
-                        int confirmDialog = JOptionPane.showConfirmDialog(AdbTools.getInstance().getContentPane(), message, simpleId, JOptionPane.YES_NO_OPTION);
+                        int confirmDialog = JOptionPane.showConfirmDialog(adbTools.getContentPane(), message, simpleId, JOptionPane.YES_NO_OPTION);
                         switch (confirmDialog) {
                             case JOptionPane.OK_OPTION:
                                 System.out.println("点击 是 按钮");
-                                if (simpleId.toLowerCase(Locale.ROOT).equals("honor9")) {
+                                if (simpleId.toLowerCase(Locale.ROOT).equals("9")) {
                                     // 启动网络调试
                                     CmdRun.run("adb -s 8BN0217B82204110 tcpip 5560 && adb connect 192.168.0.109:5560");
                                 }
@@ -56,13 +65,30 @@ public class BatteryLevelRun implements Runnable {
                                 break;
                         }
                     }
-                    System.out.println("电量:" + level + "%");
+                    // System.out.println("电量:" + level + "%");
+                    JFrame frame = adbTools.getFrame();
+                    String frameTitle = frame.getTitle();
+                    // 如果原来的标题中已经有了百分号
+                    if(frameTitle.contains("%")){
+                        // System.out.println("frameTitle = " + frameTitle);
+                        //替换其中的百分号
+                        frameTitle=frameTitle.replaceAll(":[0-9]{1,2}%",":"+level+"%");
+                        // System.out.println("frameTitle = " + frameTitle);
+                    }else {
+                        // 在标题上加上百分号
+                        frameTitle=frameTitle+":"+level+"%";
+                    }
+
+                    frame.setTitle(frameTitle);
                 }
             }
             try {
-                // 10分钟检测一次
-                // int millis = 1000 * 60 * 5;
-                int millis = 1000 * 30 * 5;
+                // 5分钟检测一次
+                int millis = 1000 * 60 * 5;
+                // int millis = 1000 * 30 * 5;
+                // int millis = 1000 * 30 ;
+
+
                 Thread.sleep(millis);
             } catch (InterruptedException e) {
                 e.printStackTrace();

@@ -21,7 +21,7 @@ public class BrowseButtonActionListener extends ButtonFocusReleaseActionListener
         timePanels.getTimePanel().setVisible(true);
         timePanels.getTimeLabel().setText("时间(s):");
         // inputPanels.getTimeRadioPanel().setVisible(true);
-        timePanels.getInput1().setText(String.valueOf(30));
+        timePanels.getInput1().setText(String.valueOf(5));
         timePanels.getInput1().setColumns(4);
         timePanels.getInput2().setVisible(false);
         timePanels.getPlusBtn().setVisible(true);

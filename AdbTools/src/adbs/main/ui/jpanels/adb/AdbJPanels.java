@@ -144,7 +144,8 @@ public class AdbJPanels {
         // closeBtn.addActionListener(new RebootBtnAcListener(frame, "shell reboot -p"));
         powerOffBtn.addActionListener(new RebootBtnAcListener(adbJPanel, "shell reboot -p"));
 
-        stopBtn = new JButton(propertiesTools.getProperty("stop"));
+        // stopBtn = new JButton(propertiesTools.getProperty("stop"));
+        stopBtn = new JButton(propertiesTools.getProperty("停止"));
         stopBtn.setToolTipText("停止所有后台线程,刷新界面");
 
         statusbarShow=new JButton("↓");
@@ -153,7 +154,8 @@ public class AdbJPanels {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // 获取选中的adb设备的序列号
-                String id = AdbTools.device.getId();
+                // String id = AdbTools.device.getId();
+                String id = AdbTools.getInstance().getDevice().getId();
                 // 拼接重启代码
                 String adbCmd = "adb -s " + id + " shell service call statusbar 1";
                 // System.out.println("adbCmd = " + adbCmd);
@@ -167,7 +169,8 @@ public class AdbJPanels {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // 获取选中的adb设备的序列号
-                String id = AdbTools.device.getId();
+                // String id = AdbTools.device.getId();
+                String id = AdbTools.getInstance().getDevice().getId();
                 // 拼接重启代码
                 String adbCmd = "adb -s " + id + " shell service call statusbar 2";
                 // System.out.println("adbCmd = " + adbCmd);

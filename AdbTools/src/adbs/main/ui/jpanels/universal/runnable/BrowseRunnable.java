@@ -35,7 +35,8 @@ public class BrowseRunnable extends CloseableRunnable {
     @Override
     protected void loopBody() {
         // 获取选中的adb设备的序列号
-        String id = AdbTools.device.getId();
+        // String id = AdbTools.device.getId();
+        String id = AdbTools.getInstance().getDevice().getId();
         if (id != null) {
             // 获取输入框1的内容
             String text = inOutputModel.getTimePanels().getInput1().getText();

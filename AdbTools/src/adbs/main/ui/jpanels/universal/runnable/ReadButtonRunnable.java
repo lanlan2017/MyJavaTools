@@ -52,11 +52,18 @@ public class ReadButtonRunnable extends CloseableRunnable {
 
     private void body() {
         // 获取选中的adb设备的序列号
-        String id = AdbTools.device.getId();
+        // String id = AdbTools.device.getId();
+        // // 获取选中的adb设备的屏幕宽度
+        // int width = AdbTools.device.getWidth();
+        // // 获取选中的adb设备的屏幕高度
+        // int height = AdbTools.device.getHeight();
+
+        String id = AdbTools.getInstance().getDevice().getId();
         // 获取选中的adb设备的屏幕宽度
-        int width = AdbTools.device.getWidth();
+        int width = AdbTools.getInstance().getDevice().getWidth();
         // 获取选中的adb设备的屏幕高度
-        int height = AdbTools.device.getHeight();
+        int height = AdbTools.getInstance().getDevice().getHeight();
+
         if (id == null) {
             // 如果没有选择设备
             JOptionPane.showConfirmDialog(null, "请勾选要操作的设备");
