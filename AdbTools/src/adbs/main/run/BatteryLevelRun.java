@@ -6,17 +6,15 @@ import adbs.main.AdbTools;
 import javax.swing.*;
 import java.util.Locale;
 
+import adbs.tools.thread.ThreadSleep;
+
 public class BatteryLevelRun implements Runnable {
     private static boolean stop = false;
 
     @Override
     public void run() {
-        try {
-            // 先等5秒，免得和其他命令冲突
-            Thread.sleep(1000*2);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        // 等待2秒
+        ThreadSleep.seconds(2);
         // String deviceId = AdbTools.device.getId();
         // String simpleId = AdbTools.device.getSimpleId();
         AdbTools adbTools = AdbTools.getInstance();
@@ -24,7 +22,6 @@ public class BatteryLevelRun implements Runnable {
         String simpleId = adbTools.getDevice().getSimpleId();
         while (!stop) {
             String run;
-
             // run = CmdRun.run("adb -s 8BN0217B82204110 shell dumpsys battery|findstr level");
             run = CmdRun.run("adb -s " + deviceId + " shell dumpsys battery|findstr level");
             if (run != null && run.contains("level: ")) {
@@ -69,33 +66,25 @@ public class BatteryLevelRun implements Runnable {
                     JFrame frame = adbTools.getFrame();
                     String frameTitle = frame.getTitle();
                     // 如果原来的标题中已经有了百分号
-                    if(frameTitle.contains("%")){
+                    if (frameTitle.contains("%")) {
                         // System.out.println("frameTitle = " + frameTitle);
                         //替换其中的百分号
-                        frameTitle=frameTitle.replaceAll(":[0-9]{1,2}%",":"+level+"%");
+                        frameTitle = frameTitle.replaceAll(":[0-9]{1,2}%", ":" + level + "%");
                         // System.out.println("frameTitle = " + frameTitle);
-                    }else {
+                    } else {
                         // 在标题上加上百分号
-                        frameTitle=frameTitle+":"+level+"%";
+                        frameTitle = frameTitle + ":" + level + "%";
                     }
 
                     frame.setTitle(frameTitle);
                 }
             }
-            try {
-                // 5分钟检测一次
-                int millis = 1000 * 60 * 5;
-                // int millis = 1000 * 30 * 5;
-                // int millis = 1000 * 30 ;
-
-
-                Thread.sleep(millis);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            // seconds(60*5);
+            ThreadSleep.minutes(5);
         }
         // System.out.println(run);
     }
+
 
     // public static void main(String[] args) {
     //     new Thread(new BatteryLevelRun()).start();
