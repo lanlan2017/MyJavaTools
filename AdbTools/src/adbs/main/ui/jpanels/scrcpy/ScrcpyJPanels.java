@@ -60,9 +60,14 @@ public class ScrcpyJPanels {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String text = widthTextField.getText();
-                int width = Integer.parseInt(text);
-                if (width < 600){
+                int oldWidth = Integer.parseInt(text);
+                int width = oldWidth;
+                if (width < 360) {
+                    width = width + 10;
+                } else if (width < 600) {
                     width = width + 60;
+                }
+                if (width != oldWidth) {
                     widthTextField.setText(String.valueOf(width));
                 }
             }
@@ -71,9 +76,14 @@ public class ScrcpyJPanels {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String text = widthTextField.getText();
-                int width = Integer.parseInt(text);
-                if (width > 360){
+                int oldWidth = Integer.parseInt(text);
+                int width = oldWidth;
+                if (width > 360) {
                     width = width - 60;
+                } else if (width > 340) {
+                    width = width - 10;
+                }
+                if (width != oldWidth) {
                     widthTextField.setText(String.valueOf(width));
                 }
             }
