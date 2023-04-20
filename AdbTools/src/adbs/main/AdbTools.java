@@ -1,11 +1,10 @@
 package adbs.main;
 
 import adbs.cmd.AdbCommands;
-import adbs.main.run.BatteryLevelRun;
+import adbs.main.run.BatteryLevelRun2;
 import adbs.main.run.ForegroundAppRun;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.inout.InOutputModel;
-import adbs.main.ui.inout.listener.StopBtnAcListener2;
 import adbs.main.ui.jpanels.adb.AdbJPanels;
 import adbs.main.ui.jpanels.check.JCheckBoxControlJPanelItemListener;
 import adbs.main.ui.jpanels.control.ControlJPanels;
@@ -233,9 +232,9 @@ public class AdbTools {
                 // 分割得到的第1段是设备id，第2段是设备的描述信息
                 Device device = new Device(deviceStrs[0], deviceStrs[1]);
                 // 添加设备的id到列表中
-                idList.add(device.getSimpleId());
+                idList.add(device.getName());
                 // 把id和设备作为键值对放入map中
-                simpleId_Device_map.put(device.getSimpleId(), device);
+                simpleId_Device_map.put(device.getName(), device);
             }
         }
         // 打印id列表
@@ -326,7 +325,8 @@ public class AdbTools {
     public static void main(String[] args) {
         AdbTools.getInstance();
         // 启动电池监测线程
-        new Thread(new BatteryLevelRun()).start();
+        // new Thread(new BatteryLevelRun()).start();
+        new Thread(new BatteryLevelRun2()).start();
         new Thread(new ForegroundAppRun()).start();
     }
 }

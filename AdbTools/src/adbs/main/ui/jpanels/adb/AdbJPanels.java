@@ -2,7 +2,6 @@ package adbs.main.ui.jpanels.adb;
 
 import adbs.cmd.AdbCommands;
 import adbs.main.ui.inout.listener.StopBtnAcListener2;
-import adbs.main.ui.jpanels.adb.open.Taskkill;
 import adbs.main.AdbTools;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.config.Fonts;
@@ -155,7 +154,7 @@ public class AdbJPanels {
             public void actionPerformed(ActionEvent e) {
                 // 获取选中的adb设备的序列号
                 // String id = AdbTools.device.getId();
-                String id = AdbTools.getInstance().getDevice().getId();
+                String id = AdbTools.getInstance().getDevice().getSerial();
                 // 拼接重启代码
                 String adbCmd = "adb -s " + id + " shell service call statusbar 1";
                 // System.out.println("adbCmd = " + adbCmd);
@@ -170,7 +169,7 @@ public class AdbJPanels {
             public void actionPerformed(ActionEvent e) {
                 // 获取选中的adb设备的序列号
                 // String id = AdbTools.device.getId();
-                String id = AdbTools.getInstance().getDevice().getId();
+                String id = AdbTools.getInstance().getDevice().getSerial();
                 // 拼接重启代码
                 String adbCmd = "adb -s " + id + " shell service call statusbar 2";
                 // System.out.println("adbCmd = " + adbCmd);

@@ -18,7 +18,7 @@ public class ForegroundAppRun implements Runnable {
     public void run() {
         // 等待4秒
         ThreadSleep.seconds(4);
-        final String id = AdbTools.getInstance().getDevice().getId();
+        final String id = AdbTools.getInstance().getDevice().getSerial();
         AdbTools adbTools = AdbTools.getInstance();
         while (!stop) {
             String run = CmdRun.run("adb -s " + id + " shell dumpsys activity | findstr \"mResume\"");

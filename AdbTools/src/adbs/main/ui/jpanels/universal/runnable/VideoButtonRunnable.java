@@ -2,7 +2,6 @@ package adbs.main.ui.jpanels.universal.runnable;
 
 import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
-import adbs.main.ui.inout.InOutputModel;
 import tools.random.Randoms;
 import tools.thead.Threads;
 
@@ -54,7 +53,7 @@ public class VideoButtonRunnable extends CloseableRunnable {
     @Override
     protected void loopBody() {
         // String id = AdbTools.device.getId();
-        String id = AdbTools.getInstance().getDevice().getId();
+        String id = AdbTools.getInstance().getDevice().getSerial();
 
         String oldOutput;
         String newOutput;

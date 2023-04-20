@@ -26,8 +26,8 @@ public class OpenButtonRunnable implements Runnable {
         // String simpleId = AdbTools.device.getSimpleId();
 
 
-        String id = AdbTools.getInstance().getDevice().getId();
-        String simpleId = AdbTools.getInstance().getDevice().getSimpleId();
+        String id = AdbTools.getInstance().getDevice().getSerial();
+        String simpleId = AdbTools.getInstance().getDevice().getName();
 
 
         String scrcpyWidth=widthTextField.getText();

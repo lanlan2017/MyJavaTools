@@ -11,13 +11,13 @@ import java.util.*;
  */
 public class Device {
     /**
-     * 设备ID
+     * 设备序列号
      */
-    private String id;
+    private String serial;
     /**
-     * 设备ID的简短别名
+     * 设备名称
      */
-    private String simpleId;
+    private String name;
     /**
      * 设备描述信息
      */
@@ -35,23 +35,23 @@ public class Device {
 
     public static HashMap<String, String> map = new HashMap<>();
 
-    public Device(String id, String description) {
-        this.id = id;
+    public Device(String serial, String description) {
+        this.serial = serial;
         this.description = description;
         // String simpleId = getSimpleId(id);
         // map.put(simpleId, id);
 
-        simpleId = getSimpleId(id);
-        map.put(simpleId, id);
+        name = getSimpleId(serial);
+        map.put(name, serial);
         // System.out.println("id=" + id + ",simpleId=" + simpleId);
     }
 
-    public String getId() {
-        return id;
+    public String getSerial() {
+        return serial;
     }
 
-    public String getSimpleId() {
-        return simpleId;
+    public String getName() {
+        return name;
     }
 
     /**
@@ -92,7 +92,7 @@ public class Device {
      * @return 当前选择的设备的品牌名称
      */
     public String getBrand2() {
-        String brand = simpleId.toLowerCase();
+        String brand = name.toLowerCase();
         if (brand.contains("wifi")) {
             // 如果配置文件中有HonorWiFI之类的别名
             brand = brand.substring(0, brand.lastIndexOf("wifi"));
@@ -102,14 +102,14 @@ public class Device {
         } else {
             // 没有的话使用手机id作为品牌名
             // brand = phoneId;
-            brand = id;
+            brand = serial;
         }
         System.out.println("brand = " + brand);
         return brand;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setSerial(String serial) {
+        this.serial = serial;
     }
 
     public String getDescription() {
@@ -137,7 +137,7 @@ public class Device {
      */
     private void initWidthHeight() {
         // 执行adb命令
-        String run = CmdRun.run("adb -s " + id + " shell wm size").trim();
+        String run = CmdRun.run("adb -s " + serial + " shell wm size").trim();
         // String run = CmdRun.run("adb -s " + selectedPhoneId + " shell wm size").trim();
         // 打印adb命令结果
         System.out.println("设备像素：" + run);
@@ -186,6 +186,6 @@ public class Device {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, description);
+        return Objects.hash(serial, description);
     }
 }

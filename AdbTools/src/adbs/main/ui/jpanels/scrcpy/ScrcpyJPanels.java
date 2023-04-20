@@ -51,7 +51,7 @@ public class ScrcpyJPanels {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // String id = AdbTools.device.getId();
-                String id = AdbTools.getInstance().getDevice().getId();
+                String id = AdbTools.getInstance().getDevice().getSerial();
                 Taskkill.killScrcpy(id);
             }
         });

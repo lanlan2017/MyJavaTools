@@ -47,9 +47,9 @@ public class AddSerialToAdb {
                     // 分割得到的第1段是设备id，第2段是设备的描述信息
                     Device device = new Device(deviceStrs[0], deviceStrs[1]);
                     // 添加设备的id到列表中
-                    idList.add(device.getSimpleId());
+                    idList.add(device.getName());
                     // 把id和设备作为键值对放入map中
-                    simpleId_Device_map.put(device.getSimpleId(), device);
+                    simpleId_Device_map.put(device.getName(), device);
                 }
             }
             // 打印设备的简称列表
@@ -77,10 +77,10 @@ public class AddSerialToAdb {
                         if (sysClipboardText.startsWith("adb -s")) {
                             System.out.println("---修改adb命令中的序列号---");
                             // System.out.println("-------------------------");
-                            adb_ = sysClipboardText.replaceAll("adb -s [a-zA-Z0-9:.]+ ", "adb -s " + device.getId() + " ");
+                            adb_ = sysClipboardText.replaceAll("adb -s [a-zA-Z0-9:.]+ ", "adb -s " + device.getSerial() + " ");
                         } else {
                             System.out.println("----给adb命令添加序列号----");
-                            adb_ = sysClipboardText.replace("adb ", "adb -s " + device.getId() + " ");
+                            adb_ = sysClipboardText.replace("adb ", "adb -s " + device.getSerial() + " ");
                             System.out.println("修改为如下adb命令:");
                         }
                     }
@@ -89,10 +89,10 @@ public class AddSerialToAdb {
                         if (sysClipboardText.contains(" -s ")) {
                             System.out.println("---修改adb命令中的序列号---");
                             // System.out.println("-------------------------");
-                            adb_ = sysClipboardText.replaceAll("scrcpy(?:.exe)? -s [a-zA-Z0-9:.]+ ", "scrcpy.exe -s " + device.getId() + " ");
+                            adb_ = sysClipboardText.replaceAll("scrcpy(?:.exe)? -s [a-zA-Z0-9:.]+ ", "scrcpy.exe -s " + device.getSerial() + " ");
                         } else {
                             System.out.println("----给adb命令添加序列号----");
-                            adb_ = sysClipboardText.replaceAll("scrcpy(?:.exe)? ", "scrcpy.exe -s " + device.getId() + " ");
+                            adb_ = sysClipboardText.replaceAll("scrcpy(?:.exe)? ", "scrcpy.exe -s " + device.getSerial() + " ");
                             System.out.println("修改为如下adb命令:");
                         }
                     }

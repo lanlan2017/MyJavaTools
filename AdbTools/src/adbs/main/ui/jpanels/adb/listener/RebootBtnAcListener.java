@@ -33,7 +33,7 @@ public class RebootBtnAcListener implements ActionListener {
         if (returnVal == JOptionPane.OK_OPTION) {
             // 获取选中的adb设备的序列号
             // String id = AdbTools.device.getId();
-            String id = AdbTools.getInstance().getDevice().getId();
+            String id = AdbTools.getInstance().getDevice().getSerial();
             // 拼接重启代码
             String adbCmd = "adb -s " + id + " " + code;
             // System.out.println("adbCmd = " + adbCmd);

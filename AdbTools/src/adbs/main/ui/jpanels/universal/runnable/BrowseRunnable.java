@@ -2,7 +2,6 @@ package adbs.main.ui.jpanels.universal.runnable;
 
 import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
-import adbs.main.ui.inout.InOutputModel;
 import tools.thead.Threads;
 
 import javax.swing.*;
@@ -36,7 +35,7 @@ public class BrowseRunnable extends CloseableRunnable {
     protected void loopBody() {
         // 获取选中的adb设备的序列号
         // String id = AdbTools.device.getId();
-        String id = AdbTools.getInstance().getDevice().getId();
+        String id = AdbTools.getInstance().getDevice().getSerial();
         if (id != null) {
             // 获取输入框1的内容
             String text = inOutputModel.getTimePanels().getInput1().getText();

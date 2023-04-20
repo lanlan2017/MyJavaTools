@@ -58,7 +58,7 @@ public class ReadButtonRunnable extends CloseableRunnable {
         // // 获取选中的adb设备的屏幕高度
         // int height = AdbTools.device.getHeight();
 
-        String id = AdbTools.getInstance().getDevice().getId();
+        String id = AdbTools.getInstance().getDevice().getSerial();
         // 获取选中的adb设备的屏幕宽度
         int width = AdbTools.getInstance().getDevice().getWidth();
         // 获取选中的adb设备的屏幕高度

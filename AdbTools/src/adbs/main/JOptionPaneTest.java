@@ -39,7 +39,7 @@ public class JOptionPaneTest {
                 // System.out.println("dir = " + deviceStrs[1]);
                 // 分割得到的第1段是设备id，第2段是设备的描述信息
                 Device device = new Device(deviceStrs[0], deviceStrs[1]);
-                idList.add(device.getSimpleId());
+                idList.add(device.getName());
             }
         }
 

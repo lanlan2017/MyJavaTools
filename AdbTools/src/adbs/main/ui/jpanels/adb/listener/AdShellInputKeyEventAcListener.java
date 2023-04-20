@@ -18,7 +18,7 @@ public abstract class AdShellInputKeyEventAcListener extends ButtonFocusReleaseA
     protected void actionEvent(ActionEvent e) {
         // 获取adb设备的ID
         // String id = AdbTools.device.getId();
-        String id = AdbTools.getInstance().getDevice().getId();
+        String id = AdbTools.getInstance().getDevice().getSerial();
         // 调用实现类的方法，设置键值
         setKey();
 

@@ -4,6 +4,9 @@ import adbs.cmd.CmdRun;
 
 import java.util.*;
 
+/**
+ * 电池信息类，封装"adb shell dumpsys battery"命令的执行结果
+ */
 public class BatteryModel {
 
     // Current Battery Service state:
@@ -22,11 +25,11 @@ public class BatteryModel {
     //   temperature: 340
     //   technology: Li-poly
     private static String[] flag = {"Current Battery Service state:", "AC powered:", "USB powered:", "Wireless powered:", "Max charging current:", "Max charging voltage:", "Charge counter:", "status:", "health:", "present:", "level:", "scale:", "voltage:", "temperature:", "technology:"};
-    private static ArrayList<String> mameList = new ArrayList<>(flag.length);
-
-    static {
-        Collections.addAll(mameList, flag);
-    }
+    // private static ArrayList<String> mameList = new ArrayList<>(flag.length);
+    //
+    // static {
+    //     Collections.addAll(mameList, flag);
+    // }
 
     private String serial;
     private boolean isAcPowered;
@@ -52,37 +55,46 @@ public class BatteryModel {
         // String serial = "U8ENW18119024027";
         BatteryModel model = new BatteryModel(serial);
         System.out.println("model = " + model);
-        if(model.needAcPower()){
+        if (model.needAcPower()) {
             System.out.println("请使用充电头充电");
         }
     }
 
     /**
      * 判断设备是否需要使用充电头充电。
+     *
      * @return 如果没有使用充电头充电，并且电量小于百分之30，则返回true，否则返回false
      */
-    private boolean needAcPower() {
-        return !isAcPowered && level < 98;
+    public boolean needAcPower() {
+        // 更新电池信息
+        // update();
+        return !isAcPowered && level < 30;
+        // return !isAcPowered && level <= 100;
     }
 
     public BatteryModel(String serial) {
         // String serial = AdbTools.getInstance().getDevice().getId();
         // String serial = "75aed56d";
-        this.serial=serial;
-        query();
+        this.serial = serial;
+        // update();
         // return loopTimes;
     }
 
     /**
      * 查询电池信息。
      */
-    private void query() {
+    public void update() {
         // 拼接命令
         String code = "adb -s " + serial + " shell dumpsys battery";
         // 执行命令
         String run = CmdRun.run(code);
         // System.out.println("run = " + run);
         // System.out.println("----------------------------");
+        // 创建一个和标记数组长度一样的列表
+        ArrayList<String> mameList = new ArrayList<>(flag.length);
+        // 把标记字符串数组复制到列表中
+        Collections.addAll(mameList, flag);
+
 
         // 从list中取出信息开始的标记字符串
         String startFlag = mameList.get(0);
@@ -140,6 +152,62 @@ public class BatteryModel {
 
             }
         }
+    }
+
+    public boolean isAcPowered() {
+        return isAcPowered;
+    }
+
+    public boolean isUSBPowered() {
+        return isUSBPowered;
+    }
+
+    public boolean isWirelessPowered() {
+        return isWirelessPowered;
+    }
+
+    public int getMaxChargingCurrent() {
+        return maxChargingCurrent;
+    }
+
+    public int getMaxChargingVoltage() {
+        return maxChargingVoltage;
+    }
+
+    public int getChargeCounter() {
+        return chargeCounter;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public boolean isPresent() {
+        return present;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public int getScale() {
+        return scale;
+    }
+
+    public int getVoltage() {
+        return voltage;
+    }
+
+    public int getTemperature() {
+        return temperature;
+    }
+
+    public String getTechnology() {
+        return technology;
     }
 
     /**
