@@ -21,7 +21,7 @@ public class AddSerialToAdb {
         System.out.println("-------------------------");
         System.out.println("剪贴板内容:" + sysClipboardText);
         // 如果剪贴板中的文本以adb开头
-        if (sysClipboardText.startsWith("adb") || sysClipboardText.startsWith("scrcpy")) {
+        if (canAddASerialNumber(sysClipboardText)) {
             // 设备序列号列表
             ArrayList<String> idList = new ArrayList<>();
             // 设备别名
@@ -71,7 +71,8 @@ public class AddSerialToAdb {
                 if (selected >= 0 && selected <= idList.size()) {
                     // 获取选中的设备
                     Device device = simpleId_Device_map.get(idList.get(selected));
-                    String adb_;
+                    String adb_ = null;
+                    //如果是adb命令
                     if (sysClipboardText.startsWith("adb")) {
                         // 如果adb命令中已经带有序列号了
                         if (sysClipboardText.startsWith("adb -s")) {
@@ -83,8 +84,7 @@ public class AddSerialToAdb {
                             adb_ = sysClipboardText.replace("adb ", "adb -s " + device.getSerial() + " ");
                             System.out.println("修改为如下adb命令:");
                         }
-                    }
-                    else {
+                    } else if (sysClipboardText.contains("scrcpy")) {
                         // 如果adb命令中已经带有序列号了
                         if (sysClipboardText.contains(" -s ")) {
                             System.out.println("---修改adb命令中的序列号---");
@@ -95,10 +95,12 @@ public class AddSerialToAdb {
                             adb_ = sysClipboardText.replaceAll("scrcpy(?:.exe)? ", "scrcpy.exe -s " + device.getSerial() + " ");
                             System.out.println("修改为如下adb命令:");
                         }
+                    } else if (sysClipboardText.contains("gnirehtet")) {
+                        adb_ = sysClipboardText.replaceAll("(.*)(gnirehtet )(stop|start|restart) ([a-zA-Z0-9]+)$", "$1$2$3 " + device.getSerial());
                     }
                     // System.out.println("-------------------------");
-                    System.out.println("修改前:"+sysClipboardText);
-                    System.out.println("修改后:"+adb_);
+                    System.out.println("修改前:" + sysClipboardText);
+                    System.out.println("修改后:" + adb_);
                     //写会剪贴板
                     SystemClipboard.setSysClipboardText(adb_);
                 }
@@ -109,5 +111,15 @@ public class AddSerialToAdb {
         } else {
             System.err.println("输入错误，请复制要修改的adb命令到剪贴板中！");
         }
+    }
+
+    /**
+     * 判断命令是否可以加入序列号
+     *
+     * @param sysClipboardText
+     * @return
+     */
+    private static boolean canAddASerialNumber(String sysClipboardText) {
+        return sysClipboardText.contains("adb") || sysClipboardText.contains("scrcpy") || sysClipboardText.contains("gnirehtet");
     }
 }

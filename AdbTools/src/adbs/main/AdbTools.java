@@ -326,7 +326,7 @@ public class AdbTools {
         AdbTools.getInstance();
         // 启动电池监测线程
         // new Thread(new BatteryLevelRun()).start();
-        new Thread(new BatteryLevelRun2()).start();
         new Thread(new ForegroundAppRun()).start();
+        new Thread(new BatteryLevelRun2()).start();
     }
 }

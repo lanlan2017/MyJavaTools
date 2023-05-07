@@ -15,13 +15,14 @@ public class BatteryLevelRun2 implements Runnable {
     public void run() {
         // 等待2秒
         ThreadSleep.seconds(2);
+
         AdbTools adbTools = AdbTools.getInstance();
         String serial = adbTools.getDevice().getSerial();
         String name = adbTools.getDevice().getName();
         BatteryModel batteryModel = new BatteryModel(serial);
         batteryModel.update();
         System.out.print("--------------------------");
-        System.out.println(batteryModel);
+        System.out.print(batteryModel);
         System.out.println("--------------------------");
         while (!stop) {
             // 更新电池信息
@@ -39,7 +40,8 @@ public class BatteryLevelRun2 implements Runnable {
                 // 弹出确认对话框，显示标题，显示“是，否，取消”三个按钮
 
                 // int confirmDialog = JOptionPane.showConfirmDialog(null, message,name,JOptionPane.YES_NO_CANCEL_OPTION);
-                int confirmDialog = JOptionPane.showConfirmDialog(adbTools.getContentPane(), message, name, JOptionPane.YES_NO_OPTION);
+                // int confirmDialog = JOptionPane.showConfirmDialog(adbTools.getContentPane(), message, name, JOptionPane.YES_NO_OPTION);
+                int confirmDialog = JOptionPane.showConfirmDialog(adbTools.getContentPane(), message, name, JOptionPane.YES_NO_CANCEL_OPTION);
                 switch (confirmDialog) {
                     case JOptionPane.OK_OPTION:
                         System.out.println("点击 是 按钮");
@@ -63,6 +65,8 @@ public class BatteryLevelRun2 implements Runnable {
                         break;
                     case JOptionPane.CANCEL_OPTION:
                         System.out.println("点击 取消 按钮");
+                        // 停止电池检测线程
+                        stop = true;
                         break;
                 }
             }

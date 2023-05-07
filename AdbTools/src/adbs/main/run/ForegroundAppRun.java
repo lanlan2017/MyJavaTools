@@ -21,8 +21,12 @@ public class ForegroundAppRun implements Runnable {
         final String id = AdbTools.getInstance().getDevice().getSerial();
         AdbTools adbTools = AdbTools.getInstance();
         while (!stop) {
-            String run = CmdRun.run("adb -s " + id + " shell dumpsys activity | findstr \"mResume\"");
-            run = run.trim();
+            String topActivityCommand = getTopActivityCommand(id);
+            System.out.println("Command =" + topActivityCommand);
+            String run = CmdRun.run(topActivityCommand).trim();
+            // System.out.println("run =" + run);
+            // System.out.println("执行中...");
+            // run = run.trim();
             // 如果命令结果中有反斜杠，说明有包名
             if (run.contains("/")) {
                 // 后面的activity不要了，
@@ -32,6 +36,7 @@ public class ForegroundAppRun implements Runnable {
                 run = run.substring(run.lastIndexOf(" ") + 1);
                 // System.out.println("--" + run + "--");
 
+                System.out.println("包名 =" + run);
                 // 获取配置文件中的值
                 String appName = AdbToolsProperties.propertiesTools.getProperty(run);
                 // 输出应用的名称
@@ -71,7 +76,24 @@ public class ForegroundAppRun implements Runnable {
             // 等到5分钟
             // ThreadSleep.minutes(2);
             ThreadSleep.minutes(1);
+            // ThreadSleep.seconds(3);
 
         }
+    }
+
+    /**
+     * 根据不同的手机序列号返回不同的查询当前activity的adb命令
+     *
+     * @param id 手机的序列号
+     * @return 查询当前activity的adb命令
+     */
+    private String getTopActivityCommand(String id) {
+        String code;
+        if (id.equals("jjqsqst4aim7f675")) {
+            code = "adb -s " + id + " shell dumpsys activity | findstr topResumedActivity";
+        } else {
+            code = "adb -s " + id + " shell dumpsys activity | findstr \"mResume\"";
+        }
+        return code;
     }
 }
