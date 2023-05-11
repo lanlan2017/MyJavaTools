@@ -188,4 +188,9 @@ public class Device {
     public int hashCode() {
         return Objects.hash(serial, description);
     }
+
+    @Override
+    public String toString() {
+        return "Device{" + "serial='" + serial + '\'' + ", name='" + name + '\'' + ", width=" + width + ", height=" + height + '}';
+    }
 }
