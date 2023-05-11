@@ -1,4 +1,4 @@
-package runnabletools;
+package runnabletools.serial;
 
 /**
  * 给adb命令填充序列号
@@ -14,7 +14,7 @@ import java.util.*;
  * 补全器
  * filltor
  */
-public class AddSerialToAdb {
+public class AddSerial {
     public static void main(String[] args) {
         // 获取剪贴板中的文本
         String sysClipboardText = SystemClipboard.getSysClipboardText();
