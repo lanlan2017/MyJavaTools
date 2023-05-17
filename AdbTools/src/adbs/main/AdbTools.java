@@ -13,6 +13,7 @@ import adbs.main.ui.jpanels.time.TimePanels;
 import adbs.main.ui.jpanels.time.listener.InputOkButtonActionListener;
 import adbs.main.ui.jpanels.time.listener.MinusBtnAcListener;
 import adbs.main.ui.jpanels.time.listener.PlusBtnAcListener;
+import adbs.main.ui.jpanels.tools.ToolsJPanels;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
 import adbs.model.Device;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -81,6 +82,9 @@ public class AdbTools {
 
         // 初始化通用功能面板
         universalPanels = initUniversalPanel(timePanels);
+        // 初始化工具面板
+        ToolsJPanels toolsJPanels = new ToolsJPanels();
+
         // private final JPanel otherJPanel;
         // // 输出标签
 
@@ -96,11 +100,11 @@ public class AdbTools {
         JCheckBox adbJCheckBox = new JCheckBox("系统", true);
         // JCheckBox adbJCheckBox = new JCheckBox("", true);
         adbJCheckBox.setToolTipText("展开/折叠 系统功能");
+        adbJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(adbJPanels.getAdbJPanel()));
+
         JCheckBox scrcpyJCheckBox = new JCheckBox("投屏", true);
         // JCheckBox adbJCheckBox = new JCheckBox("", true);
         scrcpyJCheckBox.setToolTipText("展开/折叠 scrcpy设置功能");
-
-        adbJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(adbJPanels.getAdbJPanel()));
         scrcpyJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(scrcpyJPanels.getScrcpyJPanel()));
 
         // 控制复选框
@@ -109,13 +113,20 @@ public class AdbTools {
         // 现在就触发
         controlJCheckBox.doClick();
 
-        JCheckBox multitaskingJCheckBox = new JCheckBox("后台", false);
-        scrcpyJCheckBox.setToolTipText("标记，勾选表示有APP在后台播放音频");
+        // JCheckBox multitaskingJCheckBox = new JCheckBox("后台", false);
+        // JCheckBox multitaskingJCheckBox = new JCheckBox("工具", true);
+        JCheckBox toolsJCheckBox = new JCheckBox("工具", false);
+        toolsJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(toolsJPanels.getToolsJPanel()));
+        // toolsJCheckBox.doClick();
+        toolsJCheckBox.setToolTipText("usb上网，提前apk，安装apk功能");
+
+
+
         checkJPanel.add(adbJCheckBox);
         checkJPanel.add(scrcpyJCheckBox);
         checkJPanel.add(generalJCheckBox);
         checkJPanel.add(controlJCheckBox);
-        checkJPanel.add(multitaskingJCheckBox);
+        checkJPanel.add(toolsJCheckBox);
 
         // 创建输入面板的模型
         InOutputModel inOut = new InOutputModel(timePanels, universalPanels);
@@ -139,6 +150,7 @@ public class AdbTools {
         frame.add(timePanels.getTimePanel());
         // 添加 控制面板 到第5行
         frame.add(controlJPanel);
+        frame.add(toolsJPanels.getToolsJPanel());
 
         // 需要先初始化通用面板 要放在 initUniversalPanel(inputPanels, inOut);之后
         generalJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(universalPanels.getUniversalPanel()));
