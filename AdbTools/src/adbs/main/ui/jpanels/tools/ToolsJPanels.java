@@ -74,6 +74,8 @@ public class ToolsJPanels {
                 okButton.setText("开始提取");
                 okButton.setVisible(true);
                 AdbTools.getInstance().getFrame().pack();
+                // AdbPullApk.setParentComponent(AdbTools.getInstance().getFrame());
+                AdbPullApk.setParentComponent(AdbTools.getInstance().getContentPane());
             }
         });
 

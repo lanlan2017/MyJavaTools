@@ -4,6 +4,8 @@ import adbs.cmd.CmdRun;
 import adbs.model.Device;
 import runnabletools.install.AdbInstall;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.Scanner;
@@ -15,6 +17,7 @@ public class AdbPullApk {
      * 要执行的adb命令
      */
     private static String command = "";
+    private static Component parentComponent;
     // private static Device device;
 
     public static void main(String[] args) {
@@ -27,6 +30,13 @@ public class AdbPullApk {
         pullTopApk(device, apkName);
     }
 
+    public static Component getParentComponent() {
+        return parentComponent;
+    }
+
+    public static void setParentComponent(Component parentComponent) {
+        AdbPullApk.parentComponent = parentComponent;
+    }
 
     private static Device showDeviceGetSelected() {
         // 执行 adb devices -l 命令获取设备名称和设备对象的map
@@ -104,16 +114,21 @@ public class AdbPullApk {
             File apkDir = new File("D:\\网络共享\\可读可写\\apk\\");
             command = "adb -s " + device.getSerial() + " pull " + apkPath + " ";
             if (apkDir.isDirectory()) {
-                command = command + "D:\\网络共享\\可读可写\\apk\\";
+                // command = command + "D:\\网络共享\\可读可写\\apk\\";
+                command = "D: && cd D:\\网络共享\\可读可写\\apk\\ && " + command;
             }
             // command = command + apkNameInAndroid+"&&D:&&D:\\网络共享\\只读";
             command = command + apkNameInAndroid;
             System.out.println("command = " + command);
 
-
             String adbPullOut = CmdRun.run(command);
             System.out.println("adbPullOut = " + adbPullOut);
 
+            if (adbPullOut.contains("bytes in")) {
+                JOptionPane.showConfirmDialog(parentComponent, "apk提取成功");
+            }else {
+                JOptionPane.showConfirmDialog(parentComponent, "apk提取失败");
+            }
 
         }
     }
