@@ -30,16 +30,40 @@ public class AdbInstall {
 
         // String encoding = System.getProperty("file.encoding");
         // System.out.println("encoding = " + encoding);
-        
-        String chcp = CmdRun.run("chcp").trim();
-        System.out.println("chcp = " + chcp + "|");
 
-        System.out.println("Charset.defaultCharset() = " + Charset.defaultCharset());
+        // String chcp = CmdRun.run("chcp").trim();
+        // System.out.println("chcp = " + chcp + "|");
+        //
+        // System.out.println("Charset.defaultCharset() = " + Charset.defaultCharset());
+
 
         // 执行 adb devices -l 命令获取设备名称和设备对象的map
         LinkedHashMap<String, Device> deviceMap = getDeviceLinkedHashMap();
-        // 获取用户选择的设备名称
-        String name = getUserSelectedName(deviceMap);
+        // String name = getUserSelectedName(deviceMap);
+        Set<String> deviceNameSet = deviceMap.keySet();
+        String name = null;
+        if (args.length == 1) {
+            String arg0 = args[0];
+            System.out.println("args[0] = " + arg0);
+            Iterator<String> iterator = deviceNameSet.iterator();
+            boolean isLegalDeviceName = false;
+            while (iterator.hasNext()) {
+                String next = iterator.next();
+                if (next.equals(arg0)) {
+                    isLegalDeviceName = true;
+                    name = arg0;
+                }
+            }
+            if (!isLegalDeviceName) {
+                System.out.println("当前电脑上没有设备名:'" + arg0 + "'的设备!");
+                System.out.println("当前电脑连接了如下设备:");
+                // 获取用户选择的设备名称
+                name = getUserSelectedName(deviceMap);
+            }
+        } else {
+            // 获取用户选择的设备名称
+            name = getUserSelectedName(deviceMap);
+        }
         // 根据用户选择的设备名称从map中取出 设备对象
         Device device = deviceMap.get(name);
         // 给adb命令添加序列号选项,把设备对象中的序列号添加到adb命令中
@@ -124,7 +148,7 @@ public class AdbInstall {
                     selectApkToInstall(apkFindedArr);
                 } else {
                     System.out.println("电脑中没有apk的名称中包含 '" + apkName + "',请先下载到电脑中，或者直接在手机上下载");
-                    ThreadSleep.seconds(30);
+                    ThreadSleep.seconds(15);
                 }
 
             }
@@ -174,7 +198,7 @@ public class AdbInstall {
         System.out.println("run = " + run);
 
 
-        ThreadSleep.minutes(1);
+        // ThreadSleep.minutes(1);
         // Threads.sleep(60);
     }
 
