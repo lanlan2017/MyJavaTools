@@ -1,5 +1,6 @@
 package adbs.main.ui.jpanels.time.listener;
 
+import adbs.main.AdbTools;
 import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.adb.listener.ButtonFocusReleaseActionListener;
 import adbs.main.ui.inout.InOutputModel;
@@ -81,7 +82,12 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
         } else if ("开始等待".equals(ok.getText())) {
             // output.setText("等待返回线程：开始等待");
             // new Thread(waitReturnButtonRunnable).start();
+            JCheckBox taskCheckBox = AdbTools.getInstance().getTimePanels().getTaskCheckBox();
+            if (taskCheckBox.isSelected()) {
+             waitReturnButtonRunnable.setTriggerTaskView(true);
+            }
             new Thread(waitReturnButtonRunnable).start();
+
 
         } else if ("开始刷视频".equals(ok.getText())) {
             output.setText("刷视频:开始");

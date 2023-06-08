@@ -32,6 +32,9 @@ public class WaitButtonActionListener extends ButtonFocusReleaseActionListener {
         // inputPanels.getMinusBtn().setVisible(false);
         timePanels.getPlusBtn().setVisible(true);
         timePanels.getMinusBtn().setVisible(true);
+
+        timePanels.getTaskCheckBox().setVisible(true);
+
         timePanels.getTimerJLabel().setVisible(true);
         JFramePack.onJComponentActionEvent(e);
     }

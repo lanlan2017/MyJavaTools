@@ -1,5 +1,6 @@
 package adbs.main.ui.jpanels.universal.runnable;
 
+import adbs.main.AdbTools;
 import adbs.main.ui.inout.InOutputModel;
 import tools.thead.Threads;
 
@@ -9,6 +10,7 @@ import javax.swing.*;
  * 等待 线程体
  */
 public class WaitButtonRunnable extends CloseableRunnable {
+    private boolean isTriggerTaskView;
     private InOutputModel inOutputModel;
 
     private static WaitButtonRunnable instance = new WaitButtonRunnable();
@@ -19,6 +21,10 @@ public class WaitButtonRunnable extends CloseableRunnable {
 
     public static WaitButtonRunnable getInstance() {
         return instance;
+    }
+
+    public void setTriggerTaskView(boolean triggerTaskView) {
+        isTriggerTaskView = triggerTaskView;
     }
 
     public void setInOutputModel(InOutputModel inOutputModel) {
@@ -76,9 +82,13 @@ public class WaitButtonRunnable extends CloseableRunnable {
         // inOutputModel.getOutput().setText(msg + ":已停止");
         // inOutputModel.getTimePanels().getTimerJLabel().setText("等待结束");
         inOutputModel.getTimePanels().getTimerJLabel().setText("");
-
+        if(isTriggerTaskView){
+            AdbTools.getInstance().getAdbJPanels().getTaskBtn().doClick();
+            isTriggerTaskView=false;
+        }
         // inOutputModel.getInputPanelModel().showConfirmDialog();
         // 测试替换
         inOutputModel.getTimePanels().showConfirmDialog();
+
     }
 }

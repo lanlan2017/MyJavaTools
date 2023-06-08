@@ -232,4 +232,16 @@ public class AdbJPanels {
     public JButton getStopBtn() {
         return stopBtn;
     }
+
+    public JButton getReturnBtn() {
+        return returnBtn;
+    }
+
+    public JButton getHomeBtn() {
+        return homeBtn;
+    }
+
+    public JButton getTaskBtn() {
+        return taskBtn;
+    }
 }

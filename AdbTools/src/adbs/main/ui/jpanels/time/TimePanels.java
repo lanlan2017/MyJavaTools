@@ -36,6 +36,11 @@ public class TimePanels {
      */
     private JButton minusBtn;
     /**
+     * 时间结束是否出发task键
+     *
+     */
+    private JCheckBox taskCheckBox;
+    /**
      * 确认按钮
      */
     private JButton inputOkButton;
@@ -68,6 +73,11 @@ public class TimePanels {
 
         plusBtn = new JButton(">");
         minusBtn = new JButton("<");
+
+        taskCheckBox=new JCheckBox();
+        taskCheckBox.setToolTipText("等待结束触发 任务视图 ");
+        taskCheckBox.setVisible(false);
+
         inputOkButton = new JButton("确认");
         timerJLabel = new JLabel("");
 
@@ -78,6 +88,7 @@ public class TimePanels {
         timePanel.add(input2);
         timePanel.add(plusBtn);
         timePanel.add(minusBtn);
+        timePanel.add(taskCheckBox);
         timePanel.add(inputOkButton);
         timePanel.add(timerJLabel);
         timePanel.setVisible(false);
@@ -108,6 +119,10 @@ public class TimePanels {
 
     public JButton getMinusBtn() {
         return minusBtn;
+    }
+
+    public JCheckBox getTaskCheckBox() {
+        return taskCheckBox;
     }
 
     public JButton getInputOkButton() {

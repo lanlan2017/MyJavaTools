@@ -39,6 +39,9 @@ public class ReadButtonActionListener extends ButtonFocusReleaseActionListener {
 
         timePanels.getPlusBtn().setVisible(true);
         timePanels.getMinusBtn().setVisible(true);
+
+        timePanels.getTaskCheckBox().setVisible(false);
+
         // 设置按钮文字
         timePanels.getInputOkButton().setText("开始阅读");
         // timePanels.getTimerJLabel().setVisible(false);
