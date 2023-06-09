@@ -77,6 +77,11 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
         } else if ("开始逛街".equals(ok.getText())) {
             output.setText("逛街:开始");
             // new Thread(shoppingButtonRunnable).start();
+            JCheckBox checkBox = AdbTools.getInstance().getTimePanels().getTaskCheckBox();
+            if (checkBox.isSelected()) {
+                shoppingButtonRunnable.setClickReturnBtn(true);
+            }
+
             new Thread(shoppingButtonRunnable).start();
 
         } else if ("开始等待".equals(ok.getText())) {
@@ -84,7 +89,7 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
             // new Thread(waitReturnButtonRunnable).start();
             JCheckBox taskCheckBox = AdbTools.getInstance().getTimePanels().getTaskCheckBox();
             if (taskCheckBox.isSelected()) {
-             waitReturnButtonRunnable.setTriggerTaskView(true);
+                waitReturnButtonRunnable.setTriggerTaskView(true);
             }
             new Thread(waitReturnButtonRunnable).start();
 

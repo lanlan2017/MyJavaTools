@@ -35,7 +35,10 @@ public class ShoppingButtonActionListener extends ButtonFocusReleaseActionListen
         timePanels.getInputOkButton().setText("开始逛街");
 
         // timePanels.getTimerJLabel().setVisible(false);
-        timePanels.getTaskCheckBox().setVisible(false);
+        // timePanels.getTaskCheckBox().setVisible(false);
+        JCheckBox checkBox = timePanels.getTaskCheckBox();
+        checkBox.setToolTipText("逛街结束时 点击 返回键");
+        checkBox.setVisible(true);
         JFramePack.onJComponentActionEvent(e);
     }
 }

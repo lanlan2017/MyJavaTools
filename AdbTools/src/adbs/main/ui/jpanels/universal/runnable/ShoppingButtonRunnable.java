@@ -12,6 +12,10 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
      * 输入输出汇总模型
      */
     private InOutputModel inOutputModel;
+    /**
+     * 是否触发返回按钮
+     */
+    private boolean isClickReturnBtn;
 
     private static ShoppingButtonRunnable instance = new ShoppingButtonRunnable();
     private int seconds;
@@ -26,6 +30,10 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
 
     public void setInOutputModel(InOutputModel inOutputModel) {
         this.inOutputModel = inOutputModel;
+    }
+
+    public void setClickReturnBtn(boolean clickReturnBtn) {
+        isClickReturnBtn = clickReturnBtn;
     }
 
     @Override
@@ -126,5 +134,10 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
     protected void afterLoop() {
         super.afterLoop();
         inOutputModel.getTimePanels().getTimerJLabel().setText("");
+        if (isClickReturnBtn) {
+            AdbTools.getInstance().getAdbJPanels().getReturnBtn().doClick();
+            isClickReturnBtn = false;
+        }
+
     }
 }

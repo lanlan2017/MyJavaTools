@@ -4,6 +4,7 @@ import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.adb.listener.ButtonFocusReleaseActionListener;
 import adbs.main.ui.jpanels.time.TimePanels;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 /**
@@ -33,7 +34,9 @@ public class WaitButtonActionListener extends ButtonFocusReleaseActionListener {
         timePanels.getPlusBtn().setVisible(true);
         timePanels.getMinusBtn().setVisible(true);
 
-        timePanels.getTaskCheckBox().setVisible(true);
+        JCheckBox checkBox = timePanels.getTaskCheckBox();
+        checkBox.setToolTipText("等待结束时 点击 任务键");
+        checkBox.setVisible(true);
 
         timePanels.getTimerJLabel().setVisible(true);
         JFramePack.onJComponentActionEvent(e);
