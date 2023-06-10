@@ -42,6 +42,8 @@ public class VideoButtonActionListener extends ButtonFocusReleaseActionListener 
         timePanels.getMinusBtn().setVisible(true);
 
         timePanels.getTaskCheckBox().setVisible(false);
+        JCheckBox stopCheckBox = timePanels.getStopCheckBox();
+        stopCheckBox.setVisible(false);
 
         // 设置按钮文字
         timePanels.getInputOkButton().setText("开始刷视频");

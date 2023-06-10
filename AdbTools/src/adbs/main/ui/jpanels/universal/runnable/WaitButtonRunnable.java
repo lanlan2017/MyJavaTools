@@ -10,7 +10,14 @@ import javax.swing.*;
  * 等待 线程体
  */
 public class WaitButtonRunnable extends CloseableRunnable {
-    private boolean isTriggerTaskView;
+    /**
+     * 是否在等待结束之后触发 任务键
+     */
+    private boolean isClickTaskButton;
+    /**
+     * 是否在等待结束之后 点击 停止按钮
+     */
+    private boolean isClickStopButton;
     private InOutputModel inOutputModel;
 
     private static WaitButtonRunnable instance = new WaitButtonRunnable();
@@ -23,8 +30,12 @@ public class WaitButtonRunnable extends CloseableRunnable {
         return instance;
     }
 
-    public void setTriggerTaskView(boolean triggerTaskView) {
-        isTriggerTaskView = triggerTaskView;
+    public void setClickTaskButton(boolean clickTaskButton) {
+        isClickTaskButton = clickTaskButton;
+    }
+
+    public void setClickStopButton(boolean clickStopButton) {
+        isClickStopButton = clickStopButton;
     }
 
     public void setInOutputModel(InOutputModel inOutputModel) {
@@ -82,9 +93,13 @@ public class WaitButtonRunnable extends CloseableRunnable {
         // inOutputModel.getOutput().setText(msg + ":已停止");
         // inOutputModel.getTimePanels().getTimerJLabel().setText("等待结束");
         inOutputModel.getTimePanels().getTimerJLabel().setText("");
-        if(isTriggerTaskView){
+        if (isClickTaskButton) {
             AdbTools.getInstance().getAdbJPanels().getTaskBtn().doClick();
-            isTriggerTaskView=false;
+            isClickTaskButton = false;
+        }
+        if (isClickStopButton) {
+            AdbTools.getInstance().getAdbJPanels().getStopBtn().doClick();
+            isClickStopButton = false;
         }
         // inOutputModel.getInputPanelModel().showConfirmDialog();
         // 测试替换

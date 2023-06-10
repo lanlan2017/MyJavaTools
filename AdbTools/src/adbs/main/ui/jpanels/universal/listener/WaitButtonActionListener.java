@@ -35,8 +35,12 @@ public class WaitButtonActionListener extends ButtonFocusReleaseActionListener {
         timePanels.getMinusBtn().setVisible(true);
 
         JCheckBox checkBox = timePanels.getTaskCheckBox();
-        checkBox.setToolTipText("等待结束时 点击 任务键");
         checkBox.setVisible(true);
+        checkBox.setToolTipText("等待结束后 点击 任务键");
+
+        JCheckBox stopCheckBox = timePanels.getStopCheckBox();
+        stopCheckBox.setVisible(true);
+        stopCheckBox.setToolTipText("等待结束后 点击 停止按钮");
 
         timePanels.getTimerJLabel().setVisible(true);
         JFramePack.onJComponentActionEvent(e);

@@ -36,10 +36,16 @@ public class TimePanels {
      */
     private JButton minusBtn;
     /**
-     * 时间结束是否出发task键
+     * 时间结束后 是否 是否点击task键
      *
      */
     private JCheckBox taskCheckBox;
+    /**
+     * 时间结束 后是否自动点击停止按钮
+     *
+     *
+     */
+    private JCheckBox stopCheckBox;
     /**
      * 确认按钮
      */
@@ -74,9 +80,13 @@ public class TimePanels {
         plusBtn = new JButton(">");
         minusBtn = new JButton("<");
 
-        taskCheckBox=new JCheckBox();
-        taskCheckBox.setToolTipText("等待结束触发 任务视图 ");
+        taskCheckBox=new JCheckBox("t");
+        taskCheckBox.setToolTipText("等待结束后 自动点击 task按钮");
         taskCheckBox.setVisible(false);
+
+        stopCheckBox=new JCheckBox("s");
+        stopCheckBox.setToolTipText("等待结束后 自动点击 停止按钮");
+        stopCheckBox.setVisible(false);
 
         inputOkButton = new JButton("确认");
         timerJLabel = new JLabel("");
@@ -89,6 +99,7 @@ public class TimePanels {
         timePanel.add(plusBtn);
         timePanel.add(minusBtn);
         timePanel.add(taskCheckBox);
+        timePanel.add(stopCheckBox);
         timePanel.add(inputOkButton);
         timePanel.add(timerJLabel);
         timePanel.setVisible(false);
@@ -125,6 +136,10 @@ public class TimePanels {
         return taskCheckBox;
     }
 
+    public JCheckBox getStopCheckBox() {
+        return stopCheckBox;
+    }
+
     public JButton getInputOkButton() {
         return inputOkButton;
     }
@@ -143,8 +158,8 @@ public class TimePanels {
         String message = simpleId + "再次执行?";
         if (parent != null) {
             // System.out.println("---------------是组件");
-            Component comp = parent;
-            returnVal = JOptionPane.showConfirmDialog(comp, message);
+            // Component comp = parent;
+            returnVal = JOptionPane.showConfirmDialog(parent, message);
         } else {
             returnVal = JOptionPane.showConfirmDialog(null, message);
         }

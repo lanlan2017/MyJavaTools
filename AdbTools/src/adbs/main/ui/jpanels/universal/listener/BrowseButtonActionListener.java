@@ -4,6 +4,7 @@ import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.adb.listener.ButtonFocusReleaseActionListener;
 import adbs.main.ui.jpanels.time.TimePanels;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 /**
@@ -28,6 +29,8 @@ public class BrowseButtonActionListener extends ButtonFocusReleaseActionListener
         timePanels.getMinusBtn().setVisible(true);
 
         timePanels.getTaskCheckBox().setVisible(false);
+        JCheckBox stopCheckBox = timePanels.getStopCheckBox();
+        stopCheckBox.setVisible(false);
 
         timePanels.getInputOkButton().setText("开始浏览");
         // timePanels.getTimerJLabel().setVisible(false);
