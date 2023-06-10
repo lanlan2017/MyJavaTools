@@ -59,7 +59,7 @@ public class TimePanels {
         // 创建输入选择面板
         timePanel = new JPanel();
         timePanel.setLayout(FlowLayouts.flowLayoutLeft);
-        timeLabel = new JLabel("时间(s)");
+        timeLabel = new JLabel("时间:s");
         // timeRadioPanel = new JPanel();
         input1 = new JTextField(2);
         input1.setFont(Fonts.Consolas_PLAIN_14);

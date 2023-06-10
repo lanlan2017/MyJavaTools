@@ -58,7 +58,8 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
         shoppingButtonRunnable.setInOutputModel(inOutputModel);
 
         this.waitReturnButtonRunnable = WaitButtonRunnable.getInstance();
-        waitReturnButtonRunnable.setInOutputModel(inOutputModel);
+
+        // waitReturnButtonRunnable.setInOutputModel(inOutputModel);
 
         this.videoButtonRunnable = VideoButtonRunnable.getInstance();
         videoButtonRunnable.setInOutputModel(inOutputModel);
@@ -89,6 +90,9 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
             // output.setText("等待返回线程：开始等待");
             // new Thread(waitReturnButtonRunnable).start();
             TimePanels timePanels = AdbTools.getInstance().getTimePanels();
+            // 清空时间提示信息
+            timePanels.getTimerJLabel().setText("");
+            // AdbTools.getInstance().getFrame().pack();
             JCheckBox taskCheckBox = timePanels.getTaskCheckBox();
             if (taskCheckBox.isSelected()) {
                 waitReturnButtonRunnable.setClickTaskButton(true);

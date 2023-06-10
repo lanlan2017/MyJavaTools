@@ -22,7 +22,7 @@ public class WaitButtonActionListener extends ButtonFocusReleaseActionListener {
 
         // 测试替换
         timePanels.getTimePanel().setVisible(true);
-        timePanels.getTimeLabel().setText("时间(s):");
+        timePanels.getTimeLabel().setText("时间:");
         // inputPanels.getTimeRadioPanel().setVisible(true);
         timePanels.getInputOkButton().setText("开始等待");
         timePanels.getInput1().setColumns(4);

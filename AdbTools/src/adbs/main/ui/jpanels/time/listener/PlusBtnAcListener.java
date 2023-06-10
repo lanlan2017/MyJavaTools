@@ -1,5 +1,6 @@
 package adbs.main.ui.jpanels.time.listener;
 
+import adbs.main.AdbTools;
 import adbs.main.ui.inout.InOutputModel;
 
 import javax.swing.*;
@@ -190,6 +191,7 @@ public class PlusBtnAcListener implements ActionListener {
                     //     break;
                 }
                 input1.setText(String.valueOf(value1));
+                AdbTools.getInstance().getFrame().pack();
             }
         }
 

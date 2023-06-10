@@ -1,6 +1,5 @@
 package adbs.main.ui.jpanels.universal.runnable;
 
-import adbs.cmd.Robots;
 import adbs.main.AdbTools;
 import adbs.main.ui.inout.InOutputModel;
 
