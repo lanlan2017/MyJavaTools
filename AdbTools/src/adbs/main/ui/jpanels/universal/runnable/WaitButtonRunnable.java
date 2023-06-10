@@ -7,6 +7,7 @@ import adbs.main.ui.jpanels.time.TimePanels;
 import tools.thead.Threads;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * 等待 线程体
@@ -23,6 +24,10 @@ public class WaitButtonRunnable extends CloseableRunnable {
     // private InOutputModel inOutputModel;
 
     private static WaitButtonRunnable instance = new WaitButtonRunnable();
+    private TimePanels timePanels;
+    private JTextField input1;
+    private String input1OldText;
+    private Color input1Background;
 
     private WaitButtonRunnable() {
 
@@ -48,7 +53,25 @@ public class WaitButtonRunnable extends CloseableRunnable {
     protected void setMsg() {
         // msg = "等待后返回线程2";
         // msg = "等待:";
-        msg = "";
+        msg = "等待线程";
+    }
+
+    @Override
+    protected void beforeLoop() {
+        super.beforeLoop();
+        timePanels = AdbTools.getInstance().getTimePanels();
+        input1 = timePanels.getInput1();
+        // 解析输入文本1中的数字,并计算得到毫秒数
+        input1OldText = input1.getText();
+
+        input1Background = input1.getBackground();
+
+        // 设置文本框背景颜色为品红(MAGENTA)
+        input1.setBackground(Color.PINK);
+        // input1.setBackground(Color.MAGENTA);
+        // // 设置文本框字体颜色
+        // input1.setForeground(Color.GREEN);
+
     }
 
     @Override
@@ -58,12 +81,8 @@ public class WaitButtonRunnable extends CloseableRunnable {
         // 测试替换
         // TimePanels timePanels = inOutputModel.getTimePanels();
 
-        TimePanels timePanels = AdbTools.getInstance().getTimePanels();
 
-        JTextField input1 = timePanels.getInput1();
-        // 解析输入文本1中的数字,并计算得到毫秒数
-        String input1Text = input1.getText();
-        int millisecond = Integer.parseInt(input1Text) * 1000;
+        int millisecond = Integer.parseInt(input1OldText) * 1000;
         // 获取输入标签
         // // JLabel timerJLabel = inOutputModel.getOutput();
         // JLabel timerJLabel = timePanels.getTimerJLabel();
@@ -103,10 +122,6 @@ public class WaitButtonRunnable extends CloseableRunnable {
             // }
 
         }
-        // 恢复原来的设置
-        input1.setText(input1Text);
-        input1.setEditable(true);
-
     }
 
     @Override
@@ -119,7 +134,12 @@ public class WaitButtonRunnable extends CloseableRunnable {
 
         // JLabel timerJLabel = inOutputModel.getTimePanels().getTimerJLabel();
 
-        TimePanels timePanels = AdbTools.getInstance().getTimePanels();
+        // TimePanels timePanels = AdbTools.getInstance().getTimePanels();
+
+        // 恢复原来的设置
+        input1.setText(input1OldText);
+        input1.setEditable(true);
+        input1.setBackground(input1Background);
         JLabel timerJLabel = timePanels.getTimerJLabel();
 
 

@@ -40,9 +40,15 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
     private final ShoppingButtonRunnable shoppingButtonRunnable;
 
     /**
-     * 线程
+     * 刷视频线程
      */
     private Thread videoBtnThread;
+
+    /**
+     * 等待线程
+     * @param inOutputModel
+     */
+    private Thread waitBtnThread;
 
 
     public InputOkButtonActionListener(InOutputModel inOutputModel) {
@@ -101,7 +107,15 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
                 waitReturnButtonRunnable.setClickStopButton(true);
             }
 
-            new Thread(waitReturnButtonRunnable).start();
+            // new Thread(waitReturnButtonRunnable).start();
+
+            // 如果线程已经死掉了,或者线程还没创建
+            if (Threads.threadIsNullOrNotAlive(waitBtnThread)) {
+                waitBtnThread = new Thread(waitReturnButtonRunnable);
+                waitBtnThread.start();
+            } else {
+                System.out.println(waitReturnButtonRunnable.getMsg() + " 已经在运行中,请勿重复启动");
+            }
 
 
         } else if ("开始刷视频".equals(ok.getText())) {

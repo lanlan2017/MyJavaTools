@@ -219,7 +219,7 @@ public class AdbTools {
      * 初始化设备面板
      */
     private void initDevicesPanel2() {
-        // 设备序列号列表
+        // 保存设备序列号的列表
         ArrayList<String> idList = new ArrayList<>();
         // 设备别名
         LinkedHashMap<String, Device> simpleId_Device_map = new LinkedHashMap<>();
@@ -264,6 +264,7 @@ public class AdbTools {
         // String[] options = {"HonorWiFi", "RedmiWiFi"};
         // 弹出对话框的选项列表
         String[] options = idList.toArray(new String[idList.size()]);
+        //
         int initialValue = 0;
         // 弹出选项框，获取用户选择的按钮编号
         int dialogReturn = JOptionPane.showOptionDialog(parentComponent, message, title, optionType, messageType, icon, options, initialValue);
