@@ -1,6 +1,6 @@
 package tools.string.multiline;
 
-import constant.QuanJiao;
+import tools.constant.QuanJiao;
 import tools.format.date.DateFormatters;
 import tools.reflect.method.ObjectMap;
 import tools.string.StringDeleter;
@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.math.BigDecimal;
 import java.util.*;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class MultilineString {

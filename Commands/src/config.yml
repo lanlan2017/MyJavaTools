@@ -250,6 +250,7 @@ s:
     date: tools.string.multiline.MultilineString.sumDate
     # 分app进行统计
     all: tools.string.multiline.MultilineString.subAll
+#  apkname:
 # 学习强国App相关命令
 qg:
   # 获取PDF课件的真实地址

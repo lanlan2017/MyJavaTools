@@ -1,4 +1,4 @@
-package constant;
+package tools.constant;
 
 public class QuanJiao {
     /**
