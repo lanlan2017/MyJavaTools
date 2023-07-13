@@ -3,9 +3,12 @@ package adbs.main.ui.jpanels.universal;
 import adbs.main.ui.jpanels.time.TimePanels;
 import adbs.main.ui.jpanels.universal.listener.*;
 import adbs.main.ui.config.FlowLayouts;
+import adbs.main.ui.jpanels.universal.runnable.RoolBtnRunnable;
 import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * 通用面板
@@ -36,6 +39,10 @@ public class UniversalPanels {
      */
     private JButton shoppingButton;
 
+    /**
+     * 滚动
+     */
+    private JButton rollingButton;
     /**
      * 通用面板输出功能
      */
@@ -68,15 +75,14 @@ public class UniversalPanels {
         shoppingButton = new JButton("逛街");
         shoppingButton.setToolTipText("连续从下向上滑动三次，然后上下来回滑动");
 
+        rollingButton=new JButton("锁定");
+
+        rollingButton.setToolTipText("锁定鼠标左键");
+
         // output2 = new JLabel("输出2");
         output2 = new JLabel("");
 
-        universalPanel.add(readButton);
-        universalPanel.add(browseButton);
-        universalPanel.add(waitButton);
-        universalPanel.add(videoButton);
-        universalPanel.add(shoppingButton);
-        universalPanel.add(output2);
+
 
         // readButton.addActionListener(new PyImgFindAcListener(ReadButtonRunnable.getInstance(), inout2));
         // readButton.addActionListener(new PyImgFindAcListener(ReadButtonRunnable.getInstance()));
@@ -90,6 +96,23 @@ public class UniversalPanels {
         // 逛街按钮
         shoppingButton.addActionListener(new ShoppingButtonActionListener(timePanels));
 
+        // rollingButton.addActionListener(new ActionListener() {
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         new Thread(new RoolBtnRunnable()).start();
+        //     }
+        // });
+
+        rollingButton.addActionListener(new RoolButtonActionListener(timePanels));
+
+        // 添加到面板中
+        universalPanel.add(readButton);
+        universalPanel.add(browseButton);
+        universalPanel.add(waitButton);
+        universalPanel.add(videoButton);
+        universalPanel.add(shoppingButton);
+        universalPanel.add(rollingButton);
+        universalPanel.add(output2);
 
         AbstractButtons.setMarginInButtonJPanel(universalPanel, 1);
     }
@@ -104,5 +127,25 @@ public class UniversalPanels {
 
     public JLabel getOutput2() {
         return output2;
+    }
+
+    public JButton getBrowseButton() {
+        return browseButton;
+    }
+
+    public JButton getWaitButton() {
+        return waitButton;
+    }
+
+    public JButton getVideoButton() {
+        return videoButton;
+    }
+
+    public JButton getShoppingButton() {
+        return shoppingButton;
+    }
+
+    public JButton getRollingButton() {
+        return rollingButton;
     }
 }

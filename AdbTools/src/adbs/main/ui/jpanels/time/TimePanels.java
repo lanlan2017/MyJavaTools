@@ -3,6 +3,9 @@ package adbs.main.ui.jpanels.time;
 import adbs.main.AdbTools;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.config.Fonts;
+import adbs.main.ui.jpanels.time.beep.BeepRunnable;
+import adbs.main.ui.jpanels.universal.runnable.CloseableRunnable;
+import adbs.tools.thread.ThreadSleep;
 import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
@@ -37,13 +40,10 @@ public class TimePanels {
     private JButton minusBtn;
     /**
      * 时间结束后 是否 是否点击task键
-     *
      */
     private JCheckBox taskCheckBox;
     /**
      * 时间结束 后是否自动点击停止按钮
-     *
-     *
      */
     private JCheckBox stopCheckBox;
     /**
@@ -80,11 +80,11 @@ public class TimePanels {
         plusBtn = new JButton(">");
         minusBtn = new JButton("<");
 
-        taskCheckBox=new JCheckBox("t");
+        taskCheckBox = new JCheckBox("t");
         taskCheckBox.setToolTipText("等待结束后 自动点击 task按钮");
         taskCheckBox.setVisible(false);
 
-        stopCheckBox=new JCheckBox("s");
+        stopCheckBox = new JCheckBox("s");
         stopCheckBox.setToolTipText("等待结束后 自动点击 停止按钮");
         stopCheckBox.setVisible(false);
 
@@ -149,13 +149,18 @@ public class TimePanels {
     }
 
     public void showConfirmDialog() {
+
         // 得到窗体的内容面板
         Container parent = timePanel.getParent();
         // String simpleId = AdbTools.device.getSimpleId();
         String simpleId = AdbTools.getInstance().getDevice().getName();
-
-        int returnVal;
+        int returnVal = -100;
         String message = simpleId + "再次执行?";
+
+
+        CloseableRunnable beepRun = (CloseableRunnable) BeepRunnable.getInstance();
+        // 启动响铃提醒功能
+        new Thread(beepRun).start();
         if (parent != null) {
             // System.out.println("---------------是组件");
             // Component comp = parent;
@@ -163,6 +168,9 @@ public class TimePanels {
         } else {
             returnVal = JOptionPane.showConfirmDialog(null, message);
         }
+        // 关闭响铃提醒线程
+        beepRun.stop();
+
         // 如果选择的是确认按键
         if (returnVal == JOptionPane.OK_OPTION) {
             if (inputOkButton != null) {

@@ -9,6 +9,12 @@ import java.awt.event.KeyEvent;
  */
 public class Robots {
     private static Robot robot;
+    /**
+     * 鼠标左键
+     */
+    private static int leftMouseBtnDownMask = InputEvent.BUTTON1_DOWN_MASK;
+    private static int anInt;
+    ;
 
     static {
         try {
@@ -22,6 +28,7 @@ public class Robots {
 
     /**
      * 返回已经创建的机器人对象。
+     *
      * @return 机器人类对象
      */
     public static Robot getRobot() {
@@ -29,8 +36,8 @@ public class Robots {
     }
 
     /**
-     *
      * 在给定的位置，点击鼠标左键
+     *
      * @param point
      */
     public static void leftMouseButtonClick(Point point) {
@@ -46,16 +53,71 @@ public class Robots {
         System.out.println("机器人,单击左键");
         robot.delay(50);
         // 按下鼠标左键
-        robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+        mousePressLeftBtn();
         robot.delay(50);
         // 释放鼠标左键
-        robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+        // robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+        mouseReleaseLeftBtn();
+    }
+
+    public static void mouseReleaseLeftBtn() {
+        robot.mouseRelease(leftMouseBtnDownMask);
+    }
+
+    public static void mousePressLeftBtn() {
+        robot.mousePress(leftMouseBtnDownMask);
+    }
+
+    /**
+     * 获取鼠标的坐标，获取鼠标位置
+     *
+     * @return 鼠标的位置
+     */
+    public static Point getMousePointerLocation() {
+        Point location = MouseInfo.getPointerInfo().getLocation();
+        return location;
+    }
+
+    public static void verticalScrolling(int x, int y, int times) {
+        if (times > 0 && times < Integer.MAX_VALUE) {
+            robot.keyPress(leftMouseBtnDownMask);
+            for (int i = 0; i < times; i++) {
+                robot.mouseMove(x, y + 100);
+                robot.mouseMove(x, y);
+            }
+            robot.keyRelease(leftMouseBtnDownMask);
+        }
+    }
+
+    public static void verticalScrolling(Point point, int times) {
+        if (times > 0 && times < Integer.MAX_VALUE) {
+            int x = ((int) point.getX());
+            int y = ((int) point.getY());
+            robot.keyPress(leftMouseBtnDownMask);
+            for (int i = 0; i < times; i++) {
+                robot.mouseMove(x, y + 100);
+                robot.delay(10);
+                robot.mouseMove(x, y);
+            }
+            robot.keyRelease(leftMouseBtnDownMask);
+        }
+    }
+
+    public static void verticalScrolling(Point point) {
+        int x = ((int) point.getX());
+        int y = ((int) point.getY());
+        // anInt = 100;
+        anInt = 200;
+        robot.mouseMove(x, y + anInt);
+        robot.delay(500);
+        // robot.delay(30);
+        robot.mouseMove(x, y);
     }
 
 
     /**
-     *
      * 在给定的位置，点击鼠标右键
+     *
      * @param point 屏幕坐标
      */
     public static void rightClickButton(Point point) {
@@ -64,10 +126,10 @@ public class Robots {
         System.out.println("机器人,单击右键");
         // 移动到位置
         robot.delay(50);
-        // 按下鼠标左键
+        // 按下鼠标右键
         robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
         robot.delay(50);
-        // 释放鼠标左键
+        // 释放鼠标右键
         robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
     }
 
@@ -97,5 +159,15 @@ public class Robots {
     public static void delay(int millisecond) {
         // 等待一小段时间，让解锁界面打开
         robot.delay(millisecond);
+    }
+
+    /**
+     * 等待指定秒数
+     *
+     * @param second 需要等待的秒数
+     */
+    public static void delaySecond(int second) {
+        // 等待一小段时间，让解锁界面打开
+        robot.delay(second * 1000);
     }
 }

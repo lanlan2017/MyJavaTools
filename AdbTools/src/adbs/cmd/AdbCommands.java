@@ -106,21 +106,21 @@ public class AdbCommands {
      * 在手机左侧，从下向上滑动
      */
     public static String swipeBottom2TopOnLeft(String id, int height) {
-        int y1 = (height / 100) * 30;
-        int y2 = (height / 100) * 70;
+        int y30 = (height / 100) * 30;
+        int y70 = (height / 100) * 70;
         // return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 1650 5 700 200");
-        return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 " + y2 + " 5 " + y1 + " 200");
+        return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 " + y70 + " 5 " + y30 + " 200");
     }
 
     /**
      * 在手机中间从下向上滑动
      */
     public static String swipeBottom2TopOnMiddle(String id, int width, int height) {
-        int x = (int) (width * 0.5);
-        int y1 = (height / 100) * 30;
-        int y2 = (height / 100) * 70;
+        int x50 = (int) (width * 0.5);
+        int y30 = (height / 100) * 30;
+        int y70 = (height / 100) * 70;
         // return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 1650 5 700 200");
-        return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe " + x + " " + y2 + " " + x + " " + y1 + " 200");
+        return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe " + x50 + " " + y70 + " " + x50 + " " + y30 + " 200");
     }
 
     /**
@@ -129,6 +129,17 @@ public class AdbCommands {
     public static void swipeTop2BottomOnLeft(String id) {
         // AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 700 5 1650 200");
         AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 800 5 1600 200");
+    }
+
+    /**
+     * 在手机左侧，从下向上滑动
+     */
+    public static String swipeTop2BottomOnLeft(String id, int height) {
+        int y30 = (height / 100) * 30;
+        int y70 = (height / 100) * 70;
+        // return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 1650 5 700 200");
+        // return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 " + y70 + " 5 " + y30 + " 200");
+        return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 " + y30 + " 5 " + y70 + " 200");
     }
 
     /**

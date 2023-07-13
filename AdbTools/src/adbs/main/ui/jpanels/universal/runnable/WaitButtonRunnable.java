@@ -21,7 +21,6 @@ public class WaitButtonRunnable extends CloseableRunnable {
      * 是否在等待结束之后 点击 停止按钮
      */
     private boolean isClickStopButton;
-    // private InOutputModel inOutputModel;
 
     private static WaitButtonRunnable instance = new WaitButtonRunnable();
     private TimePanels timePanels;
@@ -45,10 +44,6 @@ public class WaitButtonRunnable extends CloseableRunnable {
         isClickStopButton = clickStopButton;
     }
 
-    // public void setInOutputModel(InOutputModel inOutputModel) {
-    //     this.inOutputModel = inOutputModel;
-    // }
-
     @Override
     protected void setMsg() {
         // msg = "等待后返回线程2";
@@ -68,30 +63,13 @@ public class WaitButtonRunnable extends CloseableRunnable {
 
         // 设置文本框背景颜色为品红(MAGENTA)
         input1.setBackground(Color.PINK);
-        // input1.setBackground(Color.MAGENTA);
-        // // 设置文本框字体颜色
-        // input1.setForeground(Color.GREEN);
-
     }
 
     @Override
     protected void loopBody() {
-        // 获取输入文本框1
-        // JTextField input1 = inOutputModel.getInputPanelModel().getInput1();
-        // 测试替换
-        // TimePanels timePanels = inOutputModel.getTimePanels();
-
-
         int millisecond = Integer.parseInt(input1OldText) * 1000;
-        // 获取输入标签
-        // // JLabel timerJLabel = inOutputModel.getOutput();
-        // JLabel timerJLabel = timePanels.getTimerJLabel();
-
-        // AdbTools.setIsRunning(this);
         int count = 0;
         int timeSlice = 250;
-        // String oldOutput;
-        // String newOutput;
         while (!stop) {
             // 等待指定时间
             Threads.sleep(timeSlice);
@@ -102,40 +80,18 @@ public class WaitButtonRunnable extends CloseableRunnable {
                 stop = true;
                 break;
             }
-            // // 获取
-            // oldOutput = timerJLabel.getText();
-            // newOutput = msg + ":等待" + ((millisecond - count) / 1000) + "s";
-
-
-
-
             int waitingSeconds = (millisecond - count) / 1000;
             input1.setText(String.valueOf(waitingSeconds));
+            // 禁止编辑 输入框1
             if (input1.isEditable()) {
                 input1.setEditable(false);
             }
-
-
-            // newOutput = msg + waitingSeconds + "s";
-            // if (!newOutput.equals(oldOutput)) {
-            //     timerJLabel.setText(newOutput);
-            // }
-
         }
     }
 
     @Override
     protected void afterLoop() {
         super.afterLoop();
-        // 触发返回键
-        // AdbCommands.returnButton(DeviceListener.getPhoneId());
-        // inOutputModel.getOutput().setText(msg + ":已停止");
-        // inOutputModel.getTimePanels().getTimerJLabel().setText("等待结束");
-
-        // JLabel timerJLabel = inOutputModel.getTimePanels().getTimerJLabel();
-
-        // TimePanels timePanels = AdbTools.getInstance().getTimePanels();
-
         // 恢复原来的设置
         input1.setText(input1OldText);
         input1.setEditable(true);
@@ -145,18 +101,14 @@ public class WaitButtonRunnable extends CloseableRunnable {
 
         timerJLabel.setText("");
         AdbJPanels adbJPanels = AdbTools.getInstance().getAdbJPanels();
-        if (isClickTaskButton) {
-            adbJPanels.getTaskBtn().doClick();
-            isClickTaskButton = false;
-        }
         if (isClickStopButton) {
             adbJPanels.getStopBtn().doClick();
             isClickStopButton = false;
         }
-        // inOutputModel.getInputPanelModel().showConfirmDialog();
-        // 测试替换
-        // inOutputModel.getTimePanels().showConfirmDialog();
+        if (isClickTaskButton) {
+            adbJPanels.getTaskBtn().doClick();
+            isClickTaskButton = false;
+        }
         timePanels.showConfirmDialog();
-
     }
 }

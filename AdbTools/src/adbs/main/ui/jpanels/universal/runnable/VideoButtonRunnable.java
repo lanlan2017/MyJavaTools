@@ -36,6 +36,7 @@ public class VideoButtonRunnable extends CloseableRunnable {
     @Override
     protected void setMsg() {
         msg = "刷视频";
+        // msg = "";
     }
 
     // @Override
@@ -91,7 +92,8 @@ public class VideoButtonRunnable extends CloseableRunnable {
             // oldOutput = output.getText();
             oldOutput = output2.getText();
             // newOutput = msg + ":等待--" + ((msToWait - msCount) / 1000) + "s";
-            newOutput = ((msToWait - msCount) / 1000) + "s后" + msg;
+            // newOutput = ((msToWait - msCount) / 1000) + "s后" + msg;
+            newOutput = ((msToWait - msCount) / 1000) + "s↑";
             // 如果新旧内容不相等，则设置为新内容
             if (!newOutput.equals(oldOutput)) {
                 // output.setText(newOutput);
