@@ -3,9 +3,11 @@ package adbs.main.ui.jpanels.universal.runnable;
 import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
 import adbs.main.ui.inout.InOutputModel;
+import adbs.main.ui.jpanels.time.TimePanels;
 import tools.thead.Threads;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class ShoppingButtonRunnable extends CloseableRunnable {
     /**
@@ -20,6 +22,8 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
     private static ShoppingButtonRunnable instance = new ShoppingButtonRunnable();
     private int seconds;
     private int count;
+    private String oldInput1Text;
+    private Color input1Background;
 
     private ShoppingButtonRunnable() {
     }
@@ -39,6 +43,21 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
     @Override
     protected void setMsg() {
         msg = "逛街";
+    }
+
+    @Override
+    protected void beforeLoop() {
+        super.beforeLoop();
+        TimePanels timePanels = AdbTools.getInstance().getTimePanels();
+        if(timePanels.getTimerJLabel().isVisible()){
+            JTextField input1 = timePanels.getInput1();
+            // 保存原来设定的值
+            oldInput1Text = input1.getText();
+            input1.setEditable(false);
+            input1Background = input1.getBackground();
+            input1.setBackground(Color.PINK);
+
+        }
     }
 
     @Override
@@ -133,11 +152,23 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
     @Override
     protected void afterLoop() {
         super.afterLoop();
-        inOutputModel.getTimePanels().getTimerJLabel().setText("");
+        TimePanels timePanels = inOutputModel.getTimePanels();
+        timePanels.getTimerJLabel().setText("");
         if (isClickReturnBtn) {
-            AdbTools.getInstance().getAdbJPanels().getReturnBtn().doClick();
+            // AdbTools.getInstance().getAdbJPanels().getReturnBtn().doClick();
+            AdbTools.getInstance().getAdbJPanels().getTaskBtn().doClick();
             isClickReturnBtn = false;
         }
-
+        if(timePanels.getTimerJLabel().isVisible()){
+            JTextField input1 = timePanels.getInput1();
+            // 恢复原来的值
+            input1.setText(oldInput1Text);
+            // 可以重新编辑
+            input1.setEditable(true);
+            // 恢复原来的颜色
+            input1.setBackground(input1Background);
+        }
+        // 弹窗提醒
+        timePanels.showConfirmDialog();
     }
 }
