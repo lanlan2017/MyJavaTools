@@ -16,14 +16,6 @@ import java.awt.event.ActionListener;
 public class ControlJPanels {
     private final JPanel controlJPanel;
 
-    // private final JLabel label;
-    // private final JTextField hourTextField;
-    // private final JLabel hourLabel;
-    // private final JTextField minuteTextField;
-    // private final JLabel minuteLabel;
-    // private final JTextField secondTextField;
-    // private final JButton dormantOKButton;
-    // private final JButton cancelBtn;
     /**
      * 刷视频，等待65秒后按停止键和任务键
      */
@@ -42,12 +34,12 @@ public class ControlJPanels {
     private final JButton wait180s_TaskBtn;
 
     /**
-     *
      * 逛街35s后，按任务键
      */
 
     private final JButton shopping35s_TaskBtn;
     private final JButton shopping95s_TaskBtn;
+
     public ControlJPanels() {
         controlJPanel = new JPanel(FlowLayouts.flowLayoutLeft);
         // controlJPanel.setBorder(new TitledBorder("控制面板"));
@@ -60,7 +52,7 @@ public class ControlJPanels {
         // label = new JLabel("时间:");
 
         // videoStopTaskBtn
-        dianTaoBtn = new JButton("v65ST");
+        dianTaoBtn = new JButton("v65");
         dianTaoBtn.setToolTipText("刷视频65s后按下停止键和任务键");
         dianTaoBtn.addActionListener(new ActionListener() {
             @Override
@@ -93,14 +85,16 @@ public class ControlJPanels {
                 stopCheckBox_TimePanel.setSelected(true);
                 // // 勾选 时间面板的 任务多选框
                 timePanels.getTaskCheckBox().setSelected(true);
-                //   点击两次加号键
-                timePanels.getPlusBtn().doClick();
-                timePanels.getPlusBtn().doClick();
+                // //   点击两次加号键
+                // timePanels.getPlusBtn().doClick();
+                // timePanels.getPlusBtn().doClick();
+
+                setTimePanelsInput1Value(timePanels, 65);
                 // 按下开始等待按键
                 inputOkButton.doClick();
             }
         });
-        wait180s_TaskBtn = new JButton("w180T");
+        wait180s_TaskBtn = new JButton("w180");
         wait180s_TaskBtn.setToolTipText("等待180s后按下任务键");
         wait180s_TaskBtn.addActionListener(new ActionListener() {
             @Override
@@ -121,20 +115,8 @@ public class ControlJPanels {
                 // stopCheckBox_TimePanel.setSelected(true);
                 // // 勾选 时间面板的 任务多选框
                 timePanels.getTaskCheckBox().setSelected(true);
-                //   多次点击时间增加按钮
-                // 35s
-                timePanels.getPlusBtn().doClick();
-                // 65s
-                timePanels.getPlusBtn().doClick();
-                // 95s
-                timePanels.getPlusBtn().doClick();
-                // 120s
-                timePanels.getPlusBtn().doClick();
-                // 150s
-                timePanels.getPlusBtn().doClick();
-                // 180s
-                timePanels.getPlusBtn().doClick();
-
+                // 设置输入框1的值为180
+                setTimePanelsInput1Value(timePanels, 180);
                 // 获取时间面板的 确定按钮
                 JButton inputOkButton = timePanels.getInputOkButton();
                 // 按下开始等待按键
@@ -142,7 +124,7 @@ public class ControlJPanels {
             }
         });
 
-        wait95s_TaskBtn = new JButton("w95T");
+        wait95s_TaskBtn = new JButton("w95");
         wait95s_TaskBtn.setToolTipText("等待95s后按下任务键");
         wait95s_TaskBtn.addActionListener(new ActionListener() {
             @Override
@@ -164,28 +146,17 @@ public class ControlJPanels {
                 // stopCheckBox_TimePanel.setSelected(true);
                 // // 勾选 时间面板的 任务多选框
                 timePanels.getTaskCheckBox().setSelected(true);
-                //   多次点击时间增加按钮
-                // 35s
-                timePanels.getPlusBtn().doClick();
-                // 65s
-                timePanels.getPlusBtn().doClick();
-                // 95s
-                timePanels.getPlusBtn().doClick();
-                // 120s
-                // timePanels.getPlusBtn().doClick();
-                // 150s
-                // timePanels.getPlusBtn().doClick();
-                // 180s
-                // timePanels.getPlusBtn().doClick();
+                // //   多次点击时间增加按钮
 
+                setTimePanelsInput1Value(timePanels, 95);
                 // 获取时间面板的 确定按钮
                 JButton inputOkButton = timePanels.getInputOkButton();
                 // 按下开始等待按键
                 inputOkButton.doClick();
             }
         });
-        wait120s_TaskBtn = new JButton("w95T");
-        wait120s_TaskBtn.setToolTipText("等待95s后按下任务键");
+        wait120s_TaskBtn = new JButton("w120");
+        wait120s_TaskBtn.setToolTipText("等待120s后按下任务键");
         wait120s_TaskBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -206,19 +177,7 @@ public class ControlJPanels {
                 // stopCheckBox_TimePanel.setSelected(true);
                 // // 勾选 时间面板的 任务多选框
                 timePanels.getTaskCheckBox().setSelected(true);
-                //   多次点击时间增加按钮
-                // 35s
-                timePanels.getPlusBtn().doClick();
-                // 65s
-                timePanels.getPlusBtn().doClick();
-                // 95s
-                timePanels.getPlusBtn().doClick();
-                // 120s
-                timePanels.getPlusBtn().doClick();
-                // 150s
-                // timePanels.getPlusBtn().doClick();
-                // 180s
-                // timePanels.getPlusBtn().doClick();
+                setTimePanelsInput1Value(timePanels, 120);
 
                 // 获取时间面板的 确定按钮
                 JButton inputOkButton = timePanels.getInputOkButton();
@@ -227,7 +186,7 @@ public class ControlJPanels {
             }
         });
 
-        shopping35s_TaskBtn=new JButton("s35T");
+        shopping35s_TaskBtn = new JButton("s35");
         shopping35s_TaskBtn.setToolTipText("逛街35s后按下任务键");
         shopping35s_TaskBtn.addActionListener(new ActionListener() {
             @Override
@@ -249,20 +208,8 @@ public class ControlJPanels {
                 // stopCheckBox_TimePanel.setSelected(true);
                 // // 勾选 时间面板的 任务多选框
                 timePanels.getTaskCheckBox().setSelected(true);
-                //   多次点击时间增加按钮
-                // 35s
-                timePanels.getPlusBtn().doClick();
-                // // 65s
-                // timePanels.getPlusBtn().doClick();
-                // // 95s
-                // timePanels.getPlusBtn().doClick();
-                // 120s
-                // timePanels.getPlusBtn().doClick();
-                // 150s
-                // timePanels.getPlusBtn().doClick();
-                // 180s
-                // timePanels.getPlusBtn().doClick();
 
+                setTimePanelsInput1Value(timePanels, 35);
                 // 获取时间面板的 确定按钮
                 JButton inputOkButton = timePanels.getInputOkButton();
                 // 按下开始等待按键
@@ -271,7 +218,7 @@ public class ControlJPanels {
             }
         });
 
-        shopping95s_TaskBtn=new JButton("s95T");
+        shopping95s_TaskBtn = new JButton("s95");
         shopping95s_TaskBtn.setToolTipText("逛街35s后按下任务键");
         shopping95s_TaskBtn.addActionListener(new ActionListener() {
             @Override
@@ -293,20 +240,8 @@ public class ControlJPanels {
                 // stopCheckBox_TimePanel.setSelected(true);
                 // // 勾选 时间面板的 任务多选框
                 timePanels.getTaskCheckBox().setSelected(true);
-                //   多次点击时间增加按钮
-                // 35s
-                timePanels.getPlusBtn().doClick();
-                // // 65s
-                timePanels.getPlusBtn().doClick();
-                // // 95s
-                timePanels.getPlusBtn().doClick();
-                // 120s
-                // timePanels.getPlusBtn().doClick();
-                // 150s
-                // timePanels.getPlusBtn().doClick();
-                // 180s
-                // timePanels.getPlusBtn().doClick();
 
+                setTimePanelsInput1Value(timePanels, 95);
                 // 获取时间面板的 确定按钮
                 JButton inputOkButton = timePanels.getInputOkButton();
                 // 按下开始等待按键
@@ -314,7 +249,6 @@ public class ControlJPanels {
 
             }
         });
-
 
 
         // controlJPanel.add(label);
@@ -340,6 +274,21 @@ public class ControlJPanels {
 
         // AbstractButtons.setMarginInButtonJPanel(controlJPanel);
         AbstractButtons.setMarginInButtonJPanel(controlJPanel, 1);
+    }
+
+    /**
+     * 设置时间选择面板的输入框1的值
+     *
+     * @param timePanels 时间选择面板
+     * @param value      需要设置的时间
+     */
+    private void setTimePanelsInput1Value(TimePanels timePanels, int value) {
+        JTextField input1 = timePanels.getInput1();
+        // 获取输入框的文本
+        while (Integer.parseInt(input1.getText()) < value) {
+            // 35s
+            timePanels.getPlusBtn().doClick();
+        }
     }
 
     public JPanel getControlJPanel() {

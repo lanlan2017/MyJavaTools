@@ -25,8 +25,10 @@ public class WaitButtonActionListener extends ButtonFocusReleaseActionListener {
         timePanels.getTimeLabel().setText("时间:");
         // inputPanels.getTimeRadioPanel().setVisible(true);
         timePanels.getInputOkButton().setText("开始等待");
-        timePanels.getInput1().setColumns(4);
-        timePanels.getInput1().setText(String.valueOf(30));
+        JTextField input1 = timePanels.getInput1();
+        input1.setEditable(true);
+        input1.setColumns(4);
+        input1.setText(String.valueOf(30));
         timePanels.getInput2().setVisible(false);
         // inputPanels.getInput2().setVisible(true);
         // inputPanels.getPlusBtn().setVisible(false);
