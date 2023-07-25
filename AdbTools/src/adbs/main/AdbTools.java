@@ -45,6 +45,10 @@ public class AdbTools {
     private final AdbJPanels adbJPanels;
     // 通用面板
     private final UniversalPanels universalPanels;
+    // scrcpy面板
+    private final ScrcpyJPanels scrcpyJPanels;
+    private final ControlJPanels controlJPanels;
+
 
     // // 停止按钮
     // private JButton stopBtn;
@@ -58,6 +62,9 @@ public class AdbTools {
     private static final AdbTools instance = new AdbTools();
     private JPanel contentPane;
 
+    static class TopPanels {
+
+    }
 
     private AdbTools() {
         // 创建窗体
@@ -70,18 +77,27 @@ public class AdbTools {
         initDevicesPanel2();
 
         // 初始化第1个面板,adb面板
-        adbJPanels = initAdbJPanel();
+        // adbJPanels = initAdbJPanel();
+        adbJPanels = new AdbJPanels();
+        ;
 
-        ScrcpyJPanels scrcpyJPanels = new ScrcpyJPanels();
+        scrcpyJPanels = new ScrcpyJPanels();
 
         // 初始化第3个面板，控制面板
-        JPanel controlJPanel = initControlJPanel();
+        // JPanel controlJPanel = initControlJPanel().getControlJPanel();
+        // controlJPanels = initControlJPanel();
+        controlJPanels = new ControlJPanels();
+        ;
+
+        JPanel controlJPanel = controlJPanels.getControlJPanel();
 
         // 初始化 时间输入面板
-        timePanels = initTimePanels();
+        // timePanels = initTimePanels();
+        timePanels = new TimePanels();
 
         // 初始化通用功能面板
-        universalPanels = initUniversalPanel(timePanels);
+        // universalPanels = initUniversalPanel(timePanels);
+        universalPanels = new UniversalPanels(timePanels);
         // 初始化工具面板
         ToolsJPanels toolsJPanels = new ToolsJPanels();
 
@@ -119,7 +135,6 @@ public class AdbTools {
         toolsJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(toolsJPanels.getToolsJPanel()));
         // toolsJCheckBox.doClick();
         toolsJCheckBox.setToolTipText("usb上网，提前apk，安装apk功能");
-
 
 
         checkJPanel.add(adbJCheckBox);
@@ -171,25 +186,32 @@ public class AdbTools {
         frame.setVisible(true);
     }
 
-    private UniversalPanels initUniversalPanel(TimePanels timePanels) {
-        // 创建通用面板，并添加到窗体中
-        UniversalPanels universalPanels = new UniversalPanels(timePanels);
-        return universalPanels;
-    }
+    // private UniversalPanels initUniversalPanel(TimePanels timePanels) {
+    //     // 创建通用面板，并添加到窗体中
+    //     UniversalPanels universalPanels = new UniversalPanels(timePanels);
+    //     return universalPanels;
+    // }
 
-    /**
-     * 初始化第3个面板，控制面板
-     */
-    private JPanel initControlJPanel() {
-        final JPanel controlJPanel;
-        ControlJPanels controlJPanels = new ControlJPanels();
-        controlJPanel = controlJPanels.getControlJPanel();
-        return controlJPanel;
-    }
+    // /**
+    //  * 初始化第3个面板，控制面板
+    //  */
+    // private JPanel initControlJPanel() {
+    //     final JPanel controlJPanel;
+    //     ControlJPanels controlJPanels = new ControlJPanels();
+    //     controlJPanel = controlJPanels.getControlJPanel();
+    //     return controlJPanel;
+    // }
 
-    private TimePanels initTimePanels() {
-        return new TimePanels();
-    }
+    // /**
+    //  * 初始化第3个面板，控制面板
+    //  */
+    // private ControlJPanels initControlJPanel() {
+    //     return new ControlJPanels();
+    // }
+
+    // private TimePanels initTimePanels() {
+    //     return new TimePanels();
+    // }
 
     /**
      * 窗体内容面板设置。
@@ -284,14 +306,14 @@ public class AdbTools {
         }
     }
 
-    /**
-     * 初始化adb面板
-     */
-    private AdbJPanels initAdbJPanel() {
-        AdbJPanels adbJPanels = new AdbJPanels();
-        // stopBtn = adbJPanels.getStopBtn();
-        return adbJPanels;
-    }
+    // /**
+    //  * 初始化adb面板
+    //  */
+    // private AdbJPanels initAdbJPanel() {
+    //     AdbJPanels adbJPanels = new AdbJPanels();
+    //     // stopBtn = adbJPanels.getStopBtn();
+    //     return adbJPanels;
+    // }
 
     public static AdbTools getInstance() {
         return instance;
@@ -307,6 +329,14 @@ public class AdbTools {
 
     public UniversalPanels getUniversalPanels() {
         return universalPanels;
+    }
+
+    public ScrcpyJPanels getScrcpyJPanels() {
+        return scrcpyJPanels;
+    }
+
+    public ControlJPanels getControlJPanels() {
+        return controlJPanels;
     }
 
     public Device getDevice() {

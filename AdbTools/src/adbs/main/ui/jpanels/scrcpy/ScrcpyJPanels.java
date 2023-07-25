@@ -1,6 +1,7 @@
 package adbs.main.ui.jpanels.scrcpy;
 
 import adbs.main.AdbTools;
+import adbs.main.run.OppoR9ScrcpyRun;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.jpanels.adb.listener.OpenButtonListener;
 import adbs.main.ui.jpanels.adb.open.Taskkill;
@@ -70,6 +71,17 @@ public class ScrcpyJPanels {
         openScrcpyBtn.setToolTipText("使用scrcpy打开设备");
         // openScrcpyBtn.addActionListener(new OpenButtonListener());
         openScrcpyBtn.addActionListener(new OpenButtonListener(widthTextField));
+        openScrcpyBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String serial = AdbTools.getInstance().getDevice().getSerial();
+                if ("75aed56d".equals(serial)) {
+                    // System.out.println("我真是服了");
+                    new Thread(new OppoR9ScrcpyRun()).start();
+                }
+            }
+        });
+
         killScrcpyBtn = new JButton("kill");
         killScrcpyBtn.setToolTipText("杀死打开的scrcpy镜像");
         killScrcpyBtn.addActionListener(new ActionListener() {
@@ -84,19 +96,6 @@ public class ScrcpyJPanels {
         addBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //     String text = widthTextField.getText();
-                //     int oldWidth = Integer.parseInt(text);
-                //     int width = oldWidth;
-                //     if (width < 360) {
-                //         width = width + 10;
-                //     } else if (width < 600) {
-                //         // width = width + 60;
-                //         // width = width + 40;
-                //     }
-                //     if (width != oldWidth) {
-                //         widthTextField.setText(String.valueOf(width));
-                //     }
-
                 if (index > 0) {
                     widthTextField.setText(widthArr[--index]);
                 }
@@ -105,30 +104,6 @@ public class ScrcpyJPanels {
         decreaseBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // String text = widthTextField.getText();
-                // int oldWidth = Integer.parseInt(text);
-                // int width = oldWidth;
-                // // 600
-                // if (width > 540) {
-                //     width = width - 60;
-                //     // 600-60=540
-                // } else if (width > 500) {
-                //     width = width - 40;
-                //     // 540-40=500
-                // } else if (width > 480) {
-                //     width = width - 20;
-                //     // 500-20=480
-                // } else if (width > 360) {
-                //     width = width - 60;
-                //     //    480-60=420
-                //     //    420-60=360
-                // } else if (width > 340) {
-                //     width = width - 10;
-                // }
-                // if (width != oldWidth) {
-                //     widthTextField.setText(String.valueOf(width));
-                // }
-
                 if (index < widthArr.length - 1) {
                     widthTextField.setText(widthArr[++index]);
                 }
@@ -148,5 +123,13 @@ public class ScrcpyJPanels {
 
     public JPanel getScrcpyJPanel() {
         return scrcpyJPanel;
+    }
+
+    public JButton getOpenScrcpyBtn() {
+        return openScrcpyBtn;
+    }
+
+    public JButton getKillScrcpyBtn() {
+        return killScrcpyBtn;
     }
 }

@@ -25,11 +25,11 @@ public class OpenButtonRunnable implements Runnable {
         // String id = AdbTools.device.getId();
         // String simpleId = AdbTools.device.getSimpleId();
 
-
+        // 获取序列号
         String id = AdbTools.getInstance().getDevice().getSerial();
         String simpleId = AdbTools.getInstance().getDevice().getName();
 
-
+        // 获取宽度
         String scrcpyWidth=widthTextField.getText();
         // 如果存在id
         if (id != null && !"".equals(id)) {

@@ -30,7 +30,13 @@ public class AdbShellPmListPackages_3 {
         String serial = AdbTools.getInstance().getDevice().getSerial();
         // System.out.println("serial = " + serial);
         // String run = CmdRun.run("adb shell pm list packages -3");
-        String run = CmdRun.run("adb -s " + serial + " shell pm list packages -3");
+        String code = "adb -s " + serial + " shell pm list packages -3";
+        // System.out.println("code = " + code);
+        String run = CmdRun.run(code);
+        // System.out.println("111111 = " + run);
+        // 如果命令中存在空行的话，把空行替换成空字符串，则可以删除掉这个空行。
+        run = run.replaceAll("(?m)^$\n", "");
+        // run = run.replaceAll("^$\n", "");
         // System.out.println("111111 = " + run);
         if (run != null && !"".equals(run)) {
             BufferedReader reader = new BufferedReader(new StringReader(run));
@@ -38,11 +44,13 @@ public class AdbShellPmListPackages_3 {
             try {
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    line = line.substring(line.indexOf(flag) + flag.length());
-                    // System.out.println("line =" + line + "=");
-                    String property = AdbToolsProperties.moneyApkPro.getProperty(line);
-                    if (!line.equals(property)) {
-                        packages_3_money.add(property);
+                    if (line.startsWith(flag)) {
+                        line = line.substring(line.indexOf(flag) + flag.length());
+                        // System.out.println("line =" + line + "=");
+                        String property = AdbToolsProperties.moneyApkPro.getProperty(line);
+                        if (!line.equals(property)) {
+                            packages_3_money.add(property);
+                        }
                     }
                 }
             } catch (IOException e) {
