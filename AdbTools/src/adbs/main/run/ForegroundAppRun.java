@@ -151,22 +151,11 @@ public class ForegroundAppRun implements Runnable {
             ThreadSleep.minutes(1);
 
             // ThreadSleep.seconds(3);
-            // 测试是使用 5秒钟
+            // 测试时使用 5秒钟
             // ThreadSleep.seconds(5);
 
             // 在凌晨的时候，移除所有apk的打开记录
-            if (isNextDay()) {
-                // // 如果已经签到完成了，则全部删除签到记录
-                // if (apkOpenedToday.size() == packages_3_money.size()) {
-                //     // 遍历签到记录列表
-                //     Iterator<String> iterator = apkOpenedToday.iterator();
-                //     while (iterator.hasNext()) {
-                //         iterator.next();
-                //         // 删除签到记录
-                //         iterator.remove();
-                //     }
-                // }
-
+            if (isNextDay() && apkOpenedToday.size() > 0) {
                 // 遍历签到记录列表
                 Iterator<String> iterator = apkOpenedToday.iterator();
                 while (iterator.hasNext()) {
@@ -174,7 +163,6 @@ public class ForegroundAppRun implements Runnable {
                     // 删除签到记录
                     iterator.remove();
                 }
-
                 // 开启签到检查
                 stopCheckInInspection = false;
             }

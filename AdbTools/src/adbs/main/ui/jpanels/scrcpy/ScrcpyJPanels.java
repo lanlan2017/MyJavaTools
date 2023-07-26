@@ -22,6 +22,7 @@ public class ScrcpyJPanels {
     private JButton addBtn;
     private JButton decreaseBtn;
     private JTextField widthTextField;
+
     private JButton openScrcpyBtn;
     private JButton killScrcpyBtn;
     /**
@@ -72,13 +73,28 @@ public class ScrcpyJPanels {
         // openScrcpyBtn.addActionListener(new OpenButtonListener());
         openScrcpyBtn.addActionListener(new OpenButtonListener(widthTextField));
         openScrcpyBtn.addActionListener(new ActionListener() {
+            boolean isFirstTimeRun = true;
+
             @Override
             public void actionPerformed(ActionEvent e) {
-                String serial = AdbTools.getInstance().getDevice().getSerial();
-                if ("75aed56d".equals(serial)) {
-                    // System.out.println("我真是服了");
-                    new Thread(new OppoR9ScrcpyRun()).start();
+                if (isFirstTimeRun) {
+                    // 只启动一次线程即可，不可多次启动
+                    String serial = AdbTools.getInstance().getDevice().getSerial();
+                    if ("75aed56d".equals(serial)) {
+                        System.out.println("zzzzzzzzzzz启动一次线程");
+                        new Thread(new OppoR9ScrcpyRun()).start();
+                        isFirstTimeRun = false;
+                    }
                 }
+
+
+                // // 只启动一次线程即可，不可多次启动
+                // String serial = AdbTools.getInstance().getDevice().getSerial();
+                // if ("75aed56d".equals(serial)) {
+                //     System.out.println("zzzzzzzzzzz启动一次线程");
+                //     new Thread(new OppoR9ScrcpyRun()).start();
+                //     isFirstTimeRun = false;
+                // }
             }
         });
 
