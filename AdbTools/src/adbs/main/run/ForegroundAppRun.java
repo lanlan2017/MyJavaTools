@@ -2,10 +2,12 @@ package adbs.main.run;
 
 import adbs.cmd.CmdRun;
 import adbs.main.AdbTools;
+import adbs.main.ui.jpanels.universal.UniversalPanels;
 import adbs.tools.thread.ThreadSleep;
 import config.AdbToolsProperties;
 
 import javax.swing.*;
+import java.awt.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -29,6 +31,9 @@ public class ForegroundAppRun implements Runnable {
      * 判断是否需要进行签到检查
      */
     private boolean stopCheckInInspection;
+    private Color background;
+    private JPanel universalPanel;
+    private UniversalPanels universalPanels;
 
     public static void setStop(boolean stop) {
         ForegroundAppRun.stop = stop;
@@ -38,8 +43,14 @@ public class ForegroundAppRun implements Runnable {
     public void run() {
         // 等待4秒
         ThreadSleep.seconds(4);
-        final String id = AdbTools.getInstance().getDevice().getSerial();
         AdbTools adbTools = AdbTools.getInstance();
+        //
+        universalPanels = adbTools.getUniversalPanels();
+        universalPanel = universalPanels.getUniversalPanel();
+        background = universalPanel.getBackground();
+
+        final String id = adbTools.getDevice().getSerial();
+        // AdbTools adbTools = adbTools1;
         while (!stop) {
             String topActivityCommand = getTopActivityCommand(id);
             System.out.println("Command =" + topActivityCommand);
@@ -79,13 +90,15 @@ public class ForegroundAppRun implements Runnable {
                     appName = "非赚钱apk";
                 }
                 // 输出应用的名称
-                System.out.println("appName = " + appName);
+                System.out.println("应用 = " + appName);
 
                 if (!stopCheckInInspection && apkOpenedToday.size() == packages_3_money.size()) {
                     stopCheckInInspection = true;
                     // 把apk的名称放到列表中
                     System.out.println("已打开:" + apkOpenedToday);
                     System.out.println("所有的apk签到完成!");
+                    // // 改变背景色，表示签到完成
+                    universalPanel.setBackground(Color.pink);
                 }
                 if (!stopCheckInInspection) {
                     // 把apk的名称放到列表中
@@ -145,14 +158,14 @@ public class ForegroundAppRun implements Runnable {
                     frame.setTitle(title);
                 }
             }
-            // 等到5分钟
-            // ThreadSleep.minutes(2);
-            // 运行时使用 1分钟
-            ThreadSleep.minutes(1);
 
-            // ThreadSleep.seconds(3);
-            // 测试时使用 5秒钟
-            // ThreadSleep.seconds(5);
+            if (IsTest.isIsTest()) {
+                // 测试时使用 5秒钟
+                ThreadSleep.seconds(5);
+            } else {
+                // 运行时使用 1分钟
+                ThreadSleep.minutes(1);
+            }
 
             // 在凌晨的时候，移除所有apk的打开记录
             if (isNextDay() && apkOpenedToday.size() > 0) {
@@ -165,10 +178,13 @@ public class ForegroundAppRun implements Runnable {
                 }
                 // 开启签到检查
                 stopCheckInInspection = false;
+                // 恢复原来的背景色，表示还没签到完成
+                universalPanel.setBackground(background);
             }
 
         }
     }
+
 
     /**
      * 判断 是否已经到了第2天
@@ -180,7 +196,7 @@ public class ForegroundAppRun implements Runnable {
         LocalDateTime localDateTime = LocalDateTime.now();
         // String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         String format = localDateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-        System.out.println("format = " + format);
+        System.out.println("时间 = " + format);
         // 如果当前时间 在0到3分钟 之内的话，则认为现在到了第2天
         return format.startsWith("00:00") || format.startsWith("00:01") || format.startsWith("00:02") || format.startsWith("00:03");
     }

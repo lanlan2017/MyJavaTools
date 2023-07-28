@@ -16,16 +16,23 @@ import java.awt.event.ActionListener;
 public class ControlJPanels {
     private final JPanel controlJPanel;
 
+    // V65s_S_T
     /**
      * 刷视频，等待65秒后按停止键和任务键
      */
-    // V65s_S_T
     private final JButton v65s_Stop_TaskBtn;
+    /**
+     * 等待335秒后 按 任务键
+     */
+    private final JButton wait35s_TaskBtn;
+    /**
+     * 等待65秒后 按 任务键
+     */
+    private final JButton wait65s_TaskBtn;
     /**
      * 等待95s后，按任务键
      */
     private final JButton wait95s_TaskBtn;
-    private final JButton wait65s_TaskBtn;
 
     private final JButton wait120s_TaskBtn;
 
@@ -54,6 +61,7 @@ public class ControlJPanels {
 
         // videoStopTaskBtn
         v65s_Stop_TaskBtn = gVideoBtn(65);
+        wait35s_TaskBtn = gWaitBtn(35);
         wait65s_TaskBtn = gWaitBtn(65);
         wait95s_TaskBtn = gWaitBtn(95);
         wait120s_TaskBtn = gWaitBtn(120);
@@ -77,6 +85,7 @@ public class ControlJPanels {
 
 
         controlJPanel.add(v65s_Stop_TaskBtn);
+        controlJPanel.add(wait35s_TaskBtn);
         controlJPanel.add(wait65s_TaskBtn);
         controlJPanel.add(wait95s_TaskBtn);
         controlJPanel.add(wait120s_TaskBtn);

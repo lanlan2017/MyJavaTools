@@ -9,6 +9,7 @@ import adbs.model.Device;
 import tools.copy.SystemClipboard;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 /**
  * 补全器
@@ -23,7 +24,7 @@ public class AddSerial {
         // 如果剪贴板中的文本以adb开头
         if (canAddASerialNumber(sysClipboardText)) {
             // 设备序列号列表
-            ArrayList<String> idList = new ArrayList<>();
+            ArrayList<String> NameList = new ArrayList<>();
             // 设备别名
             LinkedHashMap<String, Device> simpleId_Device_map = new LinkedHashMap<>();
             // 执行adb命令
@@ -47,17 +48,29 @@ public class AddSerial {
                     // 分割得到的第1段是设备id，第2段是设备的描述信息
                     Device device = new Device(deviceStrs[0], deviceStrs[1]);
                     // 添加设备的id到列表中
-                    idList.add(device.getName());
+                    NameList.add(device.getName());
                     // 把id和设备作为键值对放入map中
                     simpleId_Device_map.put(device.getName(), device);
                 }
             }
+
+
             // 打印设备的简称列表
             System.out.println("-------------------------");
-            for (int i = 0; i < idList.size(); i++) {
-                System.out.println(i + "\t" + idList.get(i));
+            for (int i = 0; i < NameList.size(); i++) {
+                System.out.println(i + "\t" + NameList.get(i));
             }
             System.out.println("-------------------------");
+
+            Set<Map.Entry<String, Device>> entries = simpleId_Device_map.entrySet();
+            entries.forEach(new Consumer<Map.Entry<String, Device>>() {
+                @Override
+                public void accept(Map.Entry<String, Device> stringDeviceEntry) {
+                    System.out.println(stringDeviceEntry.getKey());
+                }
+            });
+
+
             // 要求用户输入
             System.out.print("输入设备编号:");
 
@@ -67,10 +80,11 @@ public class AddSerial {
             System.out.println("-------------------------");
             // 如果输入的是数字
             if (inputNumber.matches("\\d+")) {
+                // 获取设备编号
                 int selected = Integer.parseInt(inputNumber);
-                if (selected >= 0 && selected <= idList.size()) {
+                if (selected >= 0 && selected <= NameList.size()) {
                     // 获取选中的设备
-                    Device device = simpleId_Device_map.get(idList.get(selected));
+                    Device device = simpleId_Device_map.get(NameList.get(selected));
                     String adb_ = null;
                     //如果是adb命令
                     if (sysClipboardText.startsWith("adb")) {

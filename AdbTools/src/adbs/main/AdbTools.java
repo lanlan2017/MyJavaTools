@@ -47,11 +47,9 @@ public class AdbTools {
     private final UniversalPanels universalPanels;
     // scrcpy面板
     private final ScrcpyJPanels scrcpyJPanels;
+    // 控制面板
     private final ControlJPanels controlJPanels;
 
-
-    // // 停止按钮
-    // private JButton stopBtn;
 
 
     // 当前选择的设备
@@ -61,10 +59,6 @@ public class AdbTools {
     private final HashSet<Runnable> isRunningSet = new HashSet<>();
     private static final AdbTools instance = new AdbTools();
     private JPanel contentPane;
-
-    static class TopPanels {
-
-    }
 
     private AdbTools() {
         // 创建窗体
@@ -77,26 +71,19 @@ public class AdbTools {
         initDevicesPanel2();
 
         // 初始化第1个面板,adb面板
-        // adbJPanels = initAdbJPanel();
         adbJPanels = new AdbJPanels();
-        ;
-
+        // 投屏面板
         scrcpyJPanels = new ScrcpyJPanels();
 
         // 初始化第3个面板，控制面板
-        // JPanel controlJPanel = initControlJPanel().getControlJPanel();
-        // controlJPanels = initControlJPanel();
         controlJPanels = new ControlJPanels();
-        ;
-
-        JPanel controlJPanel = controlJPanels.getControlJPanel();
+        // JPanel controlJPanel = controlJPanels.getControlJPanel();
 
         // 初始化 时间输入面板
         // timePanels = initTimePanels();
         timePanels = new TimePanels();
 
         // 初始化通用功能面板
-        // universalPanels = initUniversalPanel(timePanels);
         universalPanels = new UniversalPanels(timePanels);
         // 初始化工具面板
         ToolsJPanels toolsJPanels = new ToolsJPanels();
@@ -125,7 +112,7 @@ public class AdbTools {
 
         // 控制复选框
         JCheckBox controlJCheckBox = new JCheckBox("控制", true);
-        controlJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(controlJPanel));
+        controlJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(controlJPanels.getControlJPanel()));
         // 现在就触发
         controlJCheckBox.doClick();
 
@@ -164,7 +151,7 @@ public class AdbTools {
         // 添加 时间输入面板 到第4行
         frame.add(timePanels.getTimePanel());
         // 添加 控制面板 到第5行
-        frame.add(controlJPanel);
+        frame.add(controlJPanels.getControlJPanel());
         frame.add(toolsJPanels.getToolsJPanel());
 
         // 需要先初始化通用面板 要放在 initUniversalPanel(inputPanels, inOut);之后
@@ -186,32 +173,6 @@ public class AdbTools {
         frame.setVisible(true);
     }
 
-    // private UniversalPanels initUniversalPanel(TimePanels timePanels) {
-    //     // 创建通用面板，并添加到窗体中
-    //     UniversalPanels universalPanels = new UniversalPanels(timePanels);
-    //     return universalPanels;
-    // }
-
-    // /**
-    //  * 初始化第3个面板，控制面板
-    //  */
-    // private JPanel initControlJPanel() {
-    //     final JPanel controlJPanel;
-    //     ControlJPanels controlJPanels = new ControlJPanels();
-    //     controlJPanel = controlJPanels.getControlJPanel();
-    //     return controlJPanel;
-    // }
-
-    // /**
-    //  * 初始化第3个面板，控制面板
-    //  */
-    // private ControlJPanels initControlJPanel() {
-    //     return new ControlJPanels();
-    // }
-
-    // private TimePanels initTimePanels() {
-    //     return new TimePanels();
-    // }
 
     /**
      * 窗体内容面板设置。
