@@ -3,6 +3,7 @@ package adbs.main.ui.jpanels.universal.listener;
 import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.adb.listener.ButtonFocusReleaseActionListener;
 import adbs.main.ui.jpanels.time.TimePanels;
+import adbs.main.ui.jpanels.time.listener.WaitValues;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -28,7 +29,11 @@ public class WaitButtonActionListener extends ButtonFocusReleaseActionListener {
         JTextField input1 = timePanels.getInput1();
         input1.setEditable(true);
         input1.setColumns(4);
-        input1.setText(String.valueOf(30));
+        // input1.setText(String.valueOf(30));
+        int index = 5;
+        WaitValues.setIndex(index);
+        input1.setText(String.valueOf(WaitValues.values[index]));
+
         timePanels.getInput2().setVisible(false);
         // inputPanels.getInput2().setVisible(true);
         // inputPanels.getPlusBtn().setVisible(false);
