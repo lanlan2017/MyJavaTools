@@ -31,10 +31,15 @@ public class OppoR9ScrcpyRun extends CloseableRunnable {
 
     @Override
     protected void loopBody() {
-        // 测试
-        // ThreadSleep.seconds(10);
-        // 等待40分钟
-        ThreadSleep.minutes(40);
+        if (IsTest.isIsTest()) {
+            // 测试时，每隔10秒检测一次
+            ThreadSleep.seconds(10);
+        } else {
+            // 等待35分钟
+            ThreadSleep.minutes(35);
+        }
+
+
         // 杀死scrcpy.exe投屏
         scrcpyJPanels.getKillScrcpyBtn().doClick();
         ThreadSleep.seconds(3);

@@ -164,7 +164,8 @@ public class ForegroundAppRun implements Runnable {
                 ThreadSleep.seconds(5);
             } else {
                 // 运行时使用 1分钟
-                ThreadSleep.minutes(1);
+                // ThreadSleep.minutes(1);
+                ThreadSleep.seconds(45);
             }
 
             // 在凌晨的时候，移除所有apk的打开记录
