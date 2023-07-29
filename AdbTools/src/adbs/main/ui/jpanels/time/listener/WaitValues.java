@@ -10,6 +10,10 @@ public class WaitValues {
         WaitValues.index = index;
     }
 
+    public static int getIndex() {
+        return index;
+    }
+
     /**
      * 获取正整数的位数，获取整数的长度。
      *

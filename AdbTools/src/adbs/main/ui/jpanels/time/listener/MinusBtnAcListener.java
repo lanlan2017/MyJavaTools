@@ -75,8 +75,8 @@ public class MinusBtnAcListener extends WaitValues implements ActionListener {
                 if (index > 0) {
                     index--;
                     int value = values[index];
+                    System.out.println("minus index = " + index + ", value = " + value);
                     input1.setText(String.valueOf(value));
-
                     int length = getNumLength(value);
                     input1.setColumns(greaterOrEqual4(length));
                     if (value >= 95) {

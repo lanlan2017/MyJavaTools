@@ -4,6 +4,7 @@ import adbs.main.AdbTools;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.jpanels.time.TimePanels;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
+import adbs.tools.thread.ThreadSleep;
 import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
@@ -57,8 +58,6 @@ public class ControlJPanels {
         // 使用微软的等宽字体
         // Font font2 = new Font("Consolas", Font.PLAIN, 14);
 
-        // label = new JLabel("时间:");
-
         // videoStopTaskBtn
         v65s_Stop_TaskBtn = gVideoBtn(65);
         wait35s_TaskBtn = gWaitBtn(35);
@@ -69,19 +68,6 @@ public class ControlJPanels {
 
         shopping35s_TaskBtn = gShoppingBtn(35);
         shopping95s_TaskBtn = gShoppingBtn(95);
-
-        // controlJPanel.add(label);
-        // controlJPanel.add(hourTextField);
-        // controlJPanel.add(hourLabel);
-        // // controlJPanel.add(hour);
-        // controlJPanel.add(minuteTextField);
-        // // controlJPanel.add(minute);
-        // controlJPanel.add(minuteLabel);
-        // controlJPanel.add(secondTextField);
-        // // controlJPanel.add(second);
-        // // controlJPanel.add(secondLabel);
-        // controlJPanel.add(dormantOKButton);
-        // controlJPanel.add(cancelBtn);
 
 
         controlJPanel.add(v65s_Stop_TaskBtn);
@@ -125,7 +111,6 @@ public class ControlJPanels {
                 JButton inputOkButton = timePanels.getInputOkButton();
                 // 点击时间面板的OK按钮
                 inputOkButton.doClick();
-                // adbTools.getFrame().pack();
 
 
                 // 获取时间时间选择面板的等待按钮
@@ -138,10 +123,7 @@ public class ControlJPanels {
                 stopCheckBox_TimePanel.setSelected(true);
                 // // 勾选 时间面板的 任务多选框
                 timePanels.getTaskCheckBox().setSelected(true);
-                // //   点击两次加号键
-                // timePanels.getPlusBtn().doClick();
-                // timePanels.getPlusBtn().doClick();
-
+                // 设置等待时间
                 setTimePanelsInput1Value(timePanels, time);
                 // 按下开始等待按键
                 inputOkButton.doClick();
@@ -246,7 +228,6 @@ public class ControlJPanels {
         JTextField input1 = timePanels.getInput1();
         // 获取输入框的文本
         while (Integer.parseInt(input1.getText()) < value) {
-            // 35s
             timePanels.getPlusBtn().doClick();
         }
     }

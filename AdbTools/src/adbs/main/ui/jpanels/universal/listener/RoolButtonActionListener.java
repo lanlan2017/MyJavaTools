@@ -3,6 +3,7 @@ package adbs.main.ui.jpanels.universal.listener;
 import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.adb.listener.ButtonFocusReleaseActionListener;
 import adbs.main.ui.jpanels.time.TimePanels;
+import adbs.main.ui.jpanels.time.listener.WaitValues;
 import adbs.main.ui.jpanels.universal.runnable.RoolBtnRunnable;
 
 import javax.swing.*;
@@ -27,9 +28,11 @@ public class RoolButtonActionListener  extends ButtonFocusReleaseActionListener 
         // 逛街20分钟
         JTextField input1 = timePanels.getInput1();
         input1.setVisible(true);
-        // input1.setText(String.valueOf(20 * 60));
-        input1.setText(String.valueOf(30));
-        input1.setColumns(4);
+
+        int index = 5;
+        WaitValues.setIndex(index);
+        input1.setText(String.valueOf(WaitValues.values[index]));
+
         timePanels.getInput2().setVisible(false);
 
         // inputPanels.getPlusBtn().setVisible(false);

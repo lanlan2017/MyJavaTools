@@ -33,11 +33,6 @@ public class JFramePack {
                 frame = (JFrame) parent;
             }
         }
-        // else {
-        //     System.out.println("已经存在frame对象无需再次查找");
-        //     // frame.pack();
-        //     packAfterSleep(millisecond, frame);
-        // }
         if (frame != null) {
             packAfterSleep(millisecond, frame);
         }

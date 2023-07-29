@@ -69,10 +69,15 @@ public class PlusBtnAcListener extends WaitValues implements ActionListener {
             }
             // 如果第1个文本框可见，第2个文本框不可见
             else {
+                // 下标小于长度
                 if (index < values.length - 1) {
+                    // 下标加1
                     index++;
                     int value = values[index];
+                    System.out.println("plus index = " + index + ", value = " + value);
+                    // 设置文本内容
                     input1.setText(String.valueOf(value));
+                    input1.updateUI();
                     int length = getNumLength(value);
                     input1.setColumns(greaterOrEqual4(length));
 

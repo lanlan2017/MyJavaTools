@@ -4,6 +4,7 @@ import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.adb.listener.ButtonFocusReleaseActionListener;
 import adbs.main.ui.jpanels.time.TimePanels;
 import adbs.main.ui.jpanels.time.listener.WaitValues;
+import adbs.tools.thread.ThreadSleep;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -28,11 +29,13 @@ public class WaitButtonActionListener extends ButtonFocusReleaseActionListener {
         timePanels.getInputOkButton().setText("开始等待");
         JTextField input1 = timePanels.getInput1();
         input1.setEditable(true);
-        input1.setColumns(4);
-        // input1.setText(String.valueOf(30));
+
         int index = 5;
         WaitValues.setIndex(index);
         input1.setText(String.valueOf(WaitValues.values[index]));
+
+        // int index1 = WaitValues.getIndex();
+        // System.out.println("index1 = " + index1);
 
         timePanels.getInput2().setVisible(false);
         // inputPanels.getInput2().setVisible(true);
@@ -51,5 +54,6 @@ public class WaitButtonActionListener extends ButtonFocusReleaseActionListener {
 
         timePanels.getTimerJLabel().setVisible(true);
         JFramePack.onJComponentActionEvent(e);
+        // ThreadSleep.minutes(1);
     }
 }
