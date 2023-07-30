@@ -108,29 +108,10 @@ public class Device {
         return brand;
     }
 
-    public void setSerial(String serial) {
-        this.serial = serial;
-    }
-
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    /**
-     * 获取adb设备的宽度(像素)
-     *
-     * @return
-     */
-    public int getWidth() {
-        if (width == 0 || height == 0) {
-            initWidthHeight();
-        }
-        return width;
-    }
 
     /**
      * 初始化设备的屏幕宽度和屏幕高度
@@ -140,7 +121,7 @@ public class Device {
         String run = CmdRun.run("adb -s " + serial + " shell wm size").trim();
         // String run = CmdRun.run("adb -s " + selectedPhoneId + " shell wm size").trim();
         // 打印adb命令结果
-        System.out.println("设备像素：" + run);
+        // System.out.println("设备像素：" + run);
         // int width = 0;
         // int height = 0;
         if (run.startsWith("Physical size")) {
@@ -172,6 +153,19 @@ public class Device {
         }
         return height;
     }
+
+    /**
+     * 获取adb设备的宽度(像素)
+     *
+     * @return
+     */
+    public int getWidth() {
+        if (width == 0 || height == 0) {
+            initWidthHeight();
+        }
+        return width;
+    }
+
 
     @Override
     public boolean equals(Object o) {

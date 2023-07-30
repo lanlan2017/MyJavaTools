@@ -29,7 +29,6 @@ public class AddSerial {
             LinkedHashMap<String, Device> simpleId_Device_map = new LinkedHashMap<>();
             // 执行adb命令
             String devicesListStr = AdbCommands.runAbdCmd("adb devices -l");
-
             // 分析adb devices -l命令结果
             Scanner scanner = new Scanner(devicesListStr);
             String line;
@@ -62,6 +61,8 @@ public class AddSerial {
             }
             System.out.println("-------------------------");
 
+            System.out.println("-------------------------");
+            System.out.println("通过map打印");
             Set<Map.Entry<String, Device>> entries = simpleId_Device_map.entrySet();
             entries.forEach(new Consumer<Map.Entry<String, Device>>() {
                 @Override
@@ -69,6 +70,7 @@ public class AddSerial {
                     System.out.println(stringDeviceEntry.getKey());
                 }
             });
+            System.out.println("-------------------------");
 
 
             // 要求用户输入
