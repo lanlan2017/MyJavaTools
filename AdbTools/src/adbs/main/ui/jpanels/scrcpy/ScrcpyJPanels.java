@@ -1,6 +1,7 @@
 package adbs.main.ui.jpanels.scrcpy;
 
 import adbs.main.AdbTools;
+import adbs.main.run.ForegroundAppRun;
 import adbs.main.run.OppoR9ScrcpyRun;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.jpanels.adb.listener.OpenButtonListener;
@@ -25,6 +26,11 @@ public class ScrcpyJPanels {
 
     private JButton openScrcpyBtn;
     private JButton killScrcpyBtn;
+    /**
+     * 更新赚钱APP列表
+     * updateEarningApps
+     */
+    private JButton updateEarningApps;
     /**
      * scrcpy.exe内部镜像宽度数组
      */
@@ -127,6 +133,15 @@ public class ScrcpyJPanels {
         });
 
 
+        updateEarningApps = new JButton("UAL");
+        updateEarningApps.setToolTipText("更新赚钱应用列表");
+        updateEarningApps.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ForegroundAppRun.updatePackages_3_money();
+            }
+        });
+
         // adb面板添加按钮
         scrcpyJPanel.add(label);
         scrcpyJPanel.add(widthTextField);
@@ -134,6 +149,7 @@ public class ScrcpyJPanels {
         scrcpyJPanel.add(addBtn);
         scrcpyJPanel.add(openScrcpyBtn);
         scrcpyJPanel.add(killScrcpyBtn);
+        scrcpyJPanel.add(updateEarningApps);
         AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, 1);
     }
 

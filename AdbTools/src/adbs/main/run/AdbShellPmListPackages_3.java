@@ -61,9 +61,4 @@ public class AdbShellPmListPackages_3 {
         Collections.sort(packages_3_money);
         // System.out.println(packages_3_money);
     }
-
-    // public static void main(String[] args) {
-    //     AdbTools.getInstance();
-    //     new AdbShellPmListPackages_3();
-    // }
 }
