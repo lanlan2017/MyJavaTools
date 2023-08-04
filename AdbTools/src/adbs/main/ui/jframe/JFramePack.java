@@ -12,6 +12,33 @@ public class JFramePack {
     private static JFrame frame;
 
     /**
+     * 立即调用fram.pack()
+     *
+     * @param panel JFrame中的JPanel对象
+     */
+    public static void byJPanel(JPanel panel) {
+        byJPanel(panel, 0);
+    }
+
+    /**
+     * 等待一段时间后调用frame.pack()
+     *
+     * @param panel       JFrame中的JPanel对象
+     * @param millisecond 要等待的毫秒数
+     */
+    public static void byJPanel(JPanel panel, int millisecond) {
+        if (panel != null) {
+            Container parent = panel.getParent();
+            while (parent instanceof JComponent) {
+                parent = parent.getParent();
+            }
+            if (parent instanceof JFrame) {
+                packAfterSleep(millisecond, (JFrame) parent);
+            }
+        }
+    }
+
+    /**
      * 点击按钮后，调用JFrame.pack()方法，更新界面。
      *
      * @param e           AWTEvent对象

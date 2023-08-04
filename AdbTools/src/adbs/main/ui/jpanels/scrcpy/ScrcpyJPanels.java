@@ -31,6 +31,8 @@ public class ScrcpyJPanels {
      * updateEarningApps
      */
     private JButton updateEarningApps;
+    private JButton signedInBtn;
+
     /**
      * scrcpy.exe内部镜像宽度数组
      */
@@ -92,15 +94,6 @@ public class ScrcpyJPanels {
                         isFirstTimeRun = false;
                     }
                 }
-
-
-                // // 只启动一次线程即可，不可多次启动
-                // String serial = AdbTools.getInstance().getDevice().getSerial();
-                // if ("75aed56d".equals(serial)) {
-                //     System.out.println("zzzzzzzzzzz启动一次线程");
-                //     new Thread(new OppoR9ScrcpyRun()).start();
-                //     isFirstTimeRun = false;
-                // }
             }
         });
 

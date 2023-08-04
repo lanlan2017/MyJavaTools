@@ -57,9 +57,9 @@ public class AdbTaskAll {
                 // 按任务键底部的清除按钮
                 if (killAll) {
                     clickDeleteBtn(device);
+                    // 按home键
+                    home(serial);
                 }
-                // 按home键
-                home(serial);
                 // 打开运动健康APP
                 if (open) {
                     openSportsAndHealthApp(serial);
