@@ -62,12 +62,15 @@ public class ScrcpyJPanels {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         // 获取显示器分辨率
         Dimension dimension = toolkit.getScreenSize();
-        System.out.println(dimension.height);
-        System.out.println(dimension.width);
+        // System.out.println(dimension.height);
+        // System.out.println(dimension.width);
+        // System.out.println("dimension.height = " + dimension.height);
+        // System.out.println("dimension.width = " + dimension.width);
         if (dimension.height == 1080) {
             index = 2;
         } else {
-            index = 1;
+            // index = 1;
+            index = 2;
         }
 
         widthTextField.setText(String.valueOf(widthArr[index]));
@@ -134,6 +137,15 @@ public class ScrcpyJPanels {
                 ForegroundAppRun.updatePackages_3_money();
             }
         });
+        signedInBtn = new JButton("√");
+        signedInBtn.setToolTipText("当前APP已签到");
+
+        signedInBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ForegroundAppRun.setStopWait(true);
+            }
+        });
 
         // adb面板添加按钮
         scrcpyJPanel.add(label);
@@ -143,6 +155,7 @@ public class ScrcpyJPanels {
         scrcpyJPanel.add(openScrcpyBtn);
         scrcpyJPanel.add(killScrcpyBtn);
         scrcpyJPanel.add(updateEarningApps);
+        scrcpyJPanel.add(signedInBtn);
         AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, 1);
     }
 

@@ -21,9 +21,9 @@ public class BatteryLevelRun2 implements Runnable {
         String name = adbTools.getDevice().getName();
         BatteryModel batteryModel = new BatteryModel(serial);
         batteryModel.update();
-        System.out.print("--------------------------");
-        System.out.print(batteryModel);
-        System.out.println("--------------------------");
+        // System.out.print("--------------------------");
+        // System.out.print(batteryModel);
+        // System.out.println("--------------------------");
         while (!stop) {
             // 更新电池信息
             batteryModel.update();

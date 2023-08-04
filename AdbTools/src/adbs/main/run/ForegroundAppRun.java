@@ -33,6 +33,7 @@ public class ForegroundAppRun implements Runnable {
     }
 
     private static boolean stop;
+    private static boolean stopWait;
 
     /**
      * 判断是否需要进行签到检查
@@ -45,6 +46,10 @@ public class ForegroundAppRun implements Runnable {
 
     public static void setStop(boolean stop) {
         ForegroundAppRun.stop = stop;
+    }
+
+    public static void setStopWait(boolean stopWait) {
+        ForegroundAppRun.stopWait = stopWait;
     }
 
     @Override
@@ -82,7 +87,7 @@ public class ForegroundAppRun implements Runnable {
                     }
                     // 把apk的名称放到列表中
                     System.out.println("已打开:" + apkOpenedToday);
-
+                    // 打印没有打开的可赚钱APP
                     printAppNamesThatAreNotOpen();
                 }
 
@@ -92,6 +97,8 @@ public class ForegroundAppRun implements Runnable {
             }
             // 等待一定的时间
             wait_();
+            stopWait = false;
+            // System.out.println("等待结束，，，，，，，，，，，，，，，");
             // 更新签到记录
             clearCheckInRecords();
 
@@ -253,14 +260,32 @@ public class ForegroundAppRun implements Runnable {
     }
 
     private void wait_() {
+        int seconds = 2;
         if (IsTest.isIsTest()) {
             // 测试时使用 5秒钟
-            ThreadSleep.seconds(5);
+            ThreadSleep.seconds(seconds);
         } else {
+            // System.out.println("非测，，，，，，，，，，，，，，，，，，，，试");
             // 运行时使用 1分钟
             // ThreadSleep.minutes(1);
-            ThreadSleep.seconds(45);
+            // ThreadSleep.seconds(45);
+            int endWait = 40;
+            int count = 0;
+            //
+            while (!stopWait) {
+                // System.out.println("stopWait = " + stopWait);
+                // 等待5秒
+                ThreadSleep.seconds(seconds);
+                count += seconds;
+                if (count >= endWait) {
+                    stopWait = true;
+                    break;
+                }
+            }
+            // System.out.println();
+            // System.out.println("count = " + count);
         }
+        // System.out.println("等待结束。。。。。。。。。。。。。。。。。。。");
     }
 
 
