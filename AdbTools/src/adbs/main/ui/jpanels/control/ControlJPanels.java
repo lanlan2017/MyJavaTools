@@ -3,6 +3,7 @@ package adbs.main.ui.jpanels.control;
 import adbs.main.AdbTools;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.jpanels.time.TimePanels;
+import adbs.main.ui.jpanels.time.listener.WaitValues;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
 import adbs.tools.thread.ThreadSleep;
 import tools.swing.button.AbstractButtons;
@@ -14,7 +15,7 @@ import java.awt.event.ActionListener;
 /**
  * 控制面板
  */
-public class ControlJPanels {
+public class ControlJPanels extends WaitValues {
     private final JPanel controlJPanel;
 
     // V65s_S_T
@@ -41,6 +42,11 @@ public class ControlJPanels {
      * 等待180秒后，按任务键
      */
     private final JButton wait180s_TaskBtn;
+    /**
+     * 等待超过3小时
+     */
+    private final JButton wait3Hmore_TaskBtn;
+
 
     /**
      * 逛街35s后，按任务键
@@ -60,13 +66,15 @@ public class ControlJPanels {
 
         // videoStopTaskBtn
         v65s_Stop_TaskBtn = gVideoBtn(65);
+
+        shopping35s_TaskBtn = gShoppingBtn(35);
         wait35s_TaskBtn = gWaitBtn(35);
         wait65s_TaskBtn = gWaitBtn(65);
         wait95s_TaskBtn = gWaitBtn(95);
         wait120s_TaskBtn = gWaitBtn(120);
         wait180s_TaskBtn = gWaitBtn(180);
+        wait3Hmore_TaskBtn = gWaitBtn(3 * 60 * 60);
 
-        shopping35s_TaskBtn = gShoppingBtn(35);
         shopping95s_TaskBtn = gShoppingBtn(95);
 
 
@@ -76,6 +84,7 @@ public class ControlJPanels {
         controlJPanel.add(wait95s_TaskBtn);
         controlJPanel.add(wait120s_TaskBtn);
         controlJPanel.add(wait180s_TaskBtn);
+        controlJPanel.add(wait3Hmore_TaskBtn);
         controlJPanel.add(shopping35s_TaskBtn);
         controlJPanel.add(shopping95s_TaskBtn);
 
@@ -182,8 +191,27 @@ public class ControlJPanels {
      */
     private JButton gWaitBtn(int time) {
         final JButton wait65s_TaskBtn;
-        wait65s_TaskBtn = new JButton("w" + time);
-        wait65s_TaskBtn.setToolTipText("等待" + time + "s后按下任务键");
+        int index = getIndex(time);
+        System.out.println("index_zzz = " + index);
+        String valueStr = valueStrs[index];
+        System.out.println("valueStrs[index] = " + valueStr);
+
+
+        // wait65s_TaskBtn = new JButton("w" + time);
+        if (!"".equals(valueStr)) {
+
+            String upperCase = valueStr.toUpperCase();
+            // wait65s_TaskBtn = new JButton("w" + valueStr);
+            wait65s_TaskBtn = new JButton("w" + upperCase);
+            wait65s_TaskBtn.setToolTipText("等待" + upperCase + "后按下任务键");
+        } else {
+
+            wait65s_TaskBtn = new JButton("w" + time);
+            wait65s_TaskBtn.setToolTipText("等待" + time + "s后按下任务键");
+        }
+
+
+        // wait65s_TaskBtn.setToolTipText("等待" + time + "s后按下任务键");
         wait65s_TaskBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -202,12 +230,15 @@ public class ControlJPanels {
                 // JCheckBox stopCheckBox_TimePanel = timePanels.getStopCheckBox();
                 // // // 勾选 时间面板的 停止多选框
                 // stopCheckBox_TimePanel.setSelected(true);
-                // // 勾选 时间面板的 任务多选框
-                timePanels.getTaskCheckBox().setSelected(true);
+                if (time <= 180) {
+                    // // 勾选 时间面板的 任务多选框
+                    timePanels.getTaskCheckBox().setSelected(true);
+                }
+                if (time >= 60 * 60) {
+                    timePanels.getStopCheckBox().setSelected(true);
+                }
                 // //   多次点击时间增加按钮
 
-                // setTimePanelsInput1Value(timePanels, 65);
-                // setTimePanelsInput1Value(timePanels, Integer.parseInt(time));
                 setTimePanelsInput1Value(timePanels, time);
                 // 获取时间面板的 确定按钮
                 JButton inputOkButton = timePanels.getInputOkButton();
@@ -216,6 +247,20 @@ public class ControlJPanels {
             }
         });
         return wait65s_TaskBtn;
+    }
+
+    private int getIndex(int time) {
+        /**
+         * 根据value查找对应的字符串
+         */
+        int index = -1;
+        for (int i = 0; i < values.length; i++) {
+            if (values[i] == time) {
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
 
     /**

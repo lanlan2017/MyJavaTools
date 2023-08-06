@@ -57,5 +57,4 @@ public class WaitValues {
         return Math.max(numLength, 4);
     }
 
-
 }

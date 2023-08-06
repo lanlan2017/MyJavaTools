@@ -17,6 +17,7 @@ import adbs.main.ui.jpanels.tools.ToolsJPanels;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
 import adbs.model.Device;
 import com.formdev.flatlaf.FlatLightLaf;
+import tools.copy.SystemClipboard;
 import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
@@ -49,7 +50,6 @@ public class AdbTools {
     private final ScrcpyJPanels scrcpyJPanels;
     // 控制面板
     private final ControlJPanels controlJPanels;
-
 
 
     // 当前选择的设备
@@ -254,13 +254,15 @@ public class AdbTools {
         // 如果用户选择了某个按钮
         if (dialogReturn >= 0) {
             // 获取编号对应的字符串
-            String adbSelected = options[dialogReturn];
+            String devieceSelected = options[dialogReturn];
+            System.out.println("你选择了:" + devieceSelected);
+            SystemClipboard.setSysClipboardText(devieceSelected);
             // 把这个编号对应的字符串设置到窗体的标题
-            frame.setTitle(adbSelected);
+            frame.setTitle(devieceSelected);
             // frame.setTitle(Device.map.get(options[dialogReturn]));
             // System.out.println("simpleId_Device_map.get(options[dialogReturn]) = " + simpleId_Device_map.get(options[dialogReturn]));
-            device = simpleId_Device_map.get(adbSelected);
-            // CmdRun.run("title " + adbSelected);
+            device = simpleId_Device_map.get(devieceSelected);
+            // CmdRun.run("title " + devieceSelected);
         } else {
             System.out.println("退出程序");
             System.exit(-1);

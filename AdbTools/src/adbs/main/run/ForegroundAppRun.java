@@ -97,7 +97,6 @@ public class ForegroundAppRun implements Runnable {
             }
             // 等待一定的时间
             wait_();
-            stopWait = false;
             // System.out.println("等待结束，，，，，，，，，，，，，，，");
             // 更新签到记录
             clearCheckInRecords();
@@ -286,6 +285,7 @@ public class ForegroundAppRun implements Runnable {
             // System.out.println("count = " + count);
         }
         // System.out.println("等待结束。。。。。。。。。。。。。。。。。。。");
+        stopWait = false;
     }
 
 
