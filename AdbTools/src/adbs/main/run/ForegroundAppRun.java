@@ -18,22 +18,36 @@ public class ForegroundAppRun implements Runnable {
 
     /**
      * 保存今日签到的app名称的列表
+     * <p>
+     * 今日打开的APP
      */
     private ArrayList<String> apkOpenedToday = new ArrayList<>();
     /**
      * 保存所有可赚钱的APP名称的列表
      */
-    private static ArrayList<String> packages_3_money;
+    private static ArrayList<String> apps;
 
 
     public static void updatePackages_3_money() {
-        ForegroundAppRun.packages_3_money = null;
+        ForegroundAppRun.apps = null;
         System.out.println("更新可赚钱APP列表");
-        ForegroundAppRun.packages_3_money = new AdbShellPmListPackages_3().getPackages_3_money();
+        ForegroundAppRun.apps = new AdbShellPmListPackages_3().getPackages_3_money();
+        System.out.println("可赚钱APP列表: " + apps);
     }
 
     private static boolean stop;
+    /**
+     * 是否停止等待，直接进行下一步的签到检查。
+     */
     private static boolean stopWait;
+    /**
+     * 是否所有的APP都签到完毕。
+     */
+    private static boolean isAllAppSignedIn;
+
+    public static void setIsAllAppSignedIn(boolean isAllAppSignedIn) {
+        ForegroundAppRun.isAllAppSignedIn = isAllAppSignedIn;
+    }
 
     /**
      * 判断是否需要进行签到检查
@@ -48,9 +62,6 @@ public class ForegroundAppRun implements Runnable {
         ForegroundAppRun.stop = stop;
     }
 
-    public static void setStopWait(boolean stopWait) {
-        ForegroundAppRun.stopWait = stopWait;
-    }
 
     @Override
     public void run() {
@@ -68,7 +79,7 @@ public class ForegroundAppRun implements Runnable {
         // AdbTools adbTools = adbTools1;
         while (!stop) {
             String topActivityCommand = getTopActivityCommand(id);
-            System.out.println("Command =" + topActivityCommand);
+            System.out.println("ActivityCommand =" + topActivityCommand);
             String run = CmdRun.run(topActivityCommand).trim();
             // System.out.println("run =" + run);
             // System.out.println("执行中...");
@@ -79,10 +90,11 @@ public class ForegroundAppRun implements Runnable {
 
                 System.out.println("包名 =" + run);
                 String appName = getAppName(run);
-
+                // 如果还没停止签到检查的话
                 if (!stopCheckInInspection) {
-                    // 签到完成设置
-                    if (apkOpenedToday.size() == packages_3_money.size()) {
+                    // 如果已签到列表和应用列表的长度一样，则说明所有APP都签到完毕了
+                    if (apkOpenedToday.size() == apps.size()) {
+                        // 签到完成设置
                         afterOpeningAllAPKs();
                     }
                     // 把apk的名称放到列表中
@@ -100,7 +112,24 @@ public class ForegroundAppRun implements Runnable {
             // System.out.println("等待结束，，，，，，，，，，，，，，，");
             // 更新签到记录
             clearCheckInRecords();
-
+            /**
+             * 如果还没停止签到的话，并且全部签到标记被设置为true,
+             * 如果所有的APP都签到完毕
+             */
+            if (!stopCheckInInspection && isAllAppSignedIn) {
+                // 删除所有的签到记录
+                Iterator<String> iterator = apkOpenedToday.iterator();
+                while (iterator.hasNext()) {
+                    iterator.next();
+                    iterator.remove();
+                }
+                Iterator<String> iall = apps.iterator();
+                while (iall.hasNext()) {
+                    String next = iall.next();
+                    apkOpenedToday.add(next);
+                }
+                afterOpeningAllAPKs();
+            }
         }
     }
 
@@ -111,16 +140,6 @@ public class ForegroundAppRun implements Runnable {
      * @return 包名字符串
      */
     private String getPackageName(String adbOutput) {
-        // // 后面的activity不要了，
-        // // System.out.println(adbOutput);
-        // adbOutput = adbOutput.substring(0, adbOutput.lastIndexOf("/"));
-        // // System.out.println(adbOutput);
-        // adbOutput = adbOutput.substring(adbOutput.lastIndexOf(" ") + 1);
-        // // System.out.println("--" + adbOutput + "--");
-        // return adbOutput;
-
-
-        // 后面的activity不要了，
         // System.out.println(adbOutput);
         String packageName = adbOutput.substring(0, adbOutput.lastIndexOf("/"));
         // System.out.println(adbOutput);
@@ -134,8 +153,8 @@ public class ForegroundAppRun implements Runnable {
      */
     private void printAppNamesThatAreNotOpen() {
         System.out.print("未打开:");
-        for (int i = 0, size = packages_3_money.size(), count = 0; i < size; i++) {
-            String apkName = packages_3_money.get(i);
+        for (int i = 0, size = apps.size(), count = 0; i < size; i++) {
+            String apkName = apps.get(i);
             // 在所有的apk名称列表中查找 已打开的apk名称
             int index = Collections.binarySearch(apkOpenedToday, apkName);
             // 小于零，说明 该apk名称 不再已打开的apk名称列表里吗
@@ -228,6 +247,7 @@ public class ForegroundAppRun implements Runnable {
      * 签到完成设置
      */
     private void afterOpeningAllAPKs() {
+        // 已签到完成，停止签到检查
         stopCheckInInspection = true;
         // 把apk的名称放到列表中
         System.out.println("已打开:" + apkOpenedToday);
@@ -257,6 +277,16 @@ public class ForegroundAppRun implements Runnable {
             universalPanel.setBackground(background);
         }
     }
+
+    /**
+     * 停止等待
+     *
+     * @param stopWait
+     */
+    public static void setStopWait(boolean stopWait) {
+        ForegroundAppRun.stopWait = stopWait;
+    }
+
 
     private void wait_() {
         int seconds = 2;

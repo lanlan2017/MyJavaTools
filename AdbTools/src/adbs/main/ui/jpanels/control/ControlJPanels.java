@@ -9,6 +9,8 @@ import adbs.tools.thread.ThreadSleep;
 import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -73,23 +75,41 @@ public class ControlJPanels extends WaitValues {
         wait95s_TaskBtn = gWaitBtn(95);
         wait120s_TaskBtn = gWaitBtn(120);
         wait180s_TaskBtn = gWaitBtn(180);
-        wait3Hmore_TaskBtn = gWaitBtn(3 * 60 * 60);
+        wait3Hmore_TaskBtn = gWaitBtn(values[values.length - 1]);
 
         shopping95s_TaskBtn = gShoppingBtn(95);
 
+        JPanel waitPanel = new JPanel();
+        waitPanel.setLayout(FlowLayouts.flowLayoutLeft);
+        JLabel waitLabel = new JLabel("w");
+        waitPanel.setBorder(new LineBorder(Color.LIGHT_GRAY));
+        waitPanel.add(waitLabel);
+
+        waitPanel.add(wait3Hmore_TaskBtn);
+        waitPanel.add(wait35s_TaskBtn);
+        waitPanel.add(wait65s_TaskBtn);
+        waitPanel.add(wait95s_TaskBtn);
+        waitPanel.add(wait120s_TaskBtn);
+        waitPanel.add(wait180s_TaskBtn);
+
 
         controlJPanel.add(v65s_Stop_TaskBtn);
-        controlJPanel.add(wait35s_TaskBtn);
-        controlJPanel.add(wait65s_TaskBtn);
-        controlJPanel.add(wait95s_TaskBtn);
-        controlJPanel.add(wait120s_TaskBtn);
-        controlJPanel.add(wait180s_TaskBtn);
-        controlJPanel.add(wait3Hmore_TaskBtn);
+
+        // controlJPanel.add(wait35s_TaskBtn);
+        // controlJPanel.add(wait65s_TaskBtn);
+        // controlJPanel.add(wait95s_TaskBtn);
+        // controlJPanel.add(wait120s_TaskBtn);
+        // controlJPanel.add(wait180s_TaskBtn);
+        // controlJPanel.add(wait3Hmore_TaskBtn);
+
+        controlJPanel.add(waitPanel);
+
         controlJPanel.add(shopping35s_TaskBtn);
         controlJPanel.add(shopping95s_TaskBtn);
 
         // AbstractButtons.setMarginInButtonJPanel(controlJPanel);
         AbstractButtons.setMarginInButtonJPanel(controlJPanel, 1);
+        AbstractButtons.setMarginInButtonJPanel(waitPanel, 1);
     }
 
     /**
@@ -202,11 +222,13 @@ public class ControlJPanels extends WaitValues {
 
             String upperCase = valueStr.toUpperCase();
             // wait65s_TaskBtn = new JButton("w" + valueStr);
-            wait65s_TaskBtn = new JButton("w" + upperCase);
+            // wait65s_TaskBtn = new JButton("w" + upperCase);
+            wait65s_TaskBtn = new JButton(upperCase);
             wait65s_TaskBtn.setToolTipText("等待" + upperCase + "后按下任务键");
         } else {
 
-            wait65s_TaskBtn = new JButton("w" + time);
+            // wait65s_TaskBtn = new JButton("w" + time);
+            wait65s_TaskBtn = new JButton(String.valueOf(time));
             wait65s_TaskBtn.setToolTipText("等待" + time + "s后按下任务键");
         }
 

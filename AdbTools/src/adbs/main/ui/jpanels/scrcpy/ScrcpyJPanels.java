@@ -31,7 +31,12 @@ public class ScrcpyJPanels {
      * updateEarningApps
      */
     private JButton updateEarningApps;
+    /**
+     * 当前APP已签到
+     */
     private JButton signedInBtn;
+
+    private JButton allCheckedInBtn;
 
     /**
      * scrcpy.exe内部镜像宽度数组
@@ -53,7 +58,8 @@ public class ScrcpyJPanels {
         decreaseBtn = new JButton("-");
         addBtn = new JButton("+");
 
-        widthTextField = new JTextField(4);
+        // widthTextField = new JTextField(4);
+        widthTextField = new JTextField(3);
         // 设置投屏的 默认高度
         // widthTextField.setText(String.valueOf(540));
         // widthTextField.setText(String.valueOf(600));
@@ -129,7 +135,7 @@ public class ScrcpyJPanels {
         });
 
 
-        updateEarningApps = new JButton("UAL");
+        updateEarningApps = new JButton("UL");
         updateEarningApps.setToolTipText("更新赚钱应用列表");
         updateEarningApps.addActionListener(new ActionListener() {
             @Override
@@ -147,6 +153,16 @@ public class ScrcpyJPanels {
             }
         });
 
+        allCheckedInBtn = new JButton("all");
+        allCheckedInBtn.setToolTipText("所有的APP都签到过了");
+        allCheckedInBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ForegroundAppRun.setStopWait(true);
+                ForegroundAppRun.setIsAllAppSignedIn(true);
+            }
+        });
+
         // adb面板添加按钮
         scrcpyJPanel.add(label);
         scrcpyJPanel.add(widthTextField);
@@ -156,6 +172,7 @@ public class ScrcpyJPanels {
         scrcpyJPanel.add(killScrcpyBtn);
         scrcpyJPanel.add(updateEarningApps);
         scrcpyJPanel.add(signedInBtn);
+        scrcpyJPanel.add(allCheckedInBtn);
         AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, 1);
     }
 

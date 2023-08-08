@@ -1,6 +1,7 @@
 package adbs.main;
 
 import adbs.cmd.AdbCommands;
+import adbs.cmd.CmdRun;
 import adbs.main.run.BatteryLevelRun2;
 import adbs.main.run.ForegroundAppRun;
 import adbs.main.ui.config.FlowLayouts;
@@ -257,6 +258,7 @@ public class AdbTools {
             String devieceSelected = options[dialogReturn];
             System.out.println("你选择了:" + devieceSelected);
             SystemClipboard.setSysClipboardText(devieceSelected);
+            // CmdRun.run("title " + devieceSelected);
             // 把这个编号对应的字符串设置到窗体的标题
             frame.setTitle(devieceSelected);
             // frame.setTitle(Device.map.get(options[dialogReturn]));
