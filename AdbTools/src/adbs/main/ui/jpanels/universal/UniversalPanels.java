@@ -38,11 +38,11 @@ public class UniversalPanels {
      * 逛街按钮
      */
     private JButton shoppingButton;
-
-    /**
-     * 滚动
-     */
-    private JButton rollingButton;
+    //
+    // /**
+    //  * 滚动
+    //  */
+    // private JButton rollingButton;
     /**
      * 通用面板输出功能
      */
@@ -75,9 +75,8 @@ public class UniversalPanels {
         shoppingButton = new JButton("逛街");
         shoppingButton.setToolTipText("连续从下向上滑动三次，然后上下来回滑动");
 
-        rollingButton=new JButton("锁定");
-
-        rollingButton.setToolTipText("锁定鼠标左键");
+        // rollingButton=new JButton("锁定");
+        // rollingButton.setToolTipText("锁定鼠标左键");
 
         // output2 = new JLabel("输出2");
         output2 = new JLabel("");
@@ -103,7 +102,7 @@ public class UniversalPanels {
         //     }
         // });
 
-        rollingButton.addActionListener(new RoolButtonActionListener(timePanels));
+        // rollingButton.addActionListener(new RoolButtonActionListener(timePanels));
 
         // 添加到面板中
         universalPanel.add(readButton);
@@ -111,7 +110,7 @@ public class UniversalPanels {
         universalPanel.add(waitButton);
         universalPanel.add(videoButton);
         universalPanel.add(shoppingButton);
-        universalPanel.add(rollingButton);
+        // universalPanel.add(rollingButton);
         universalPanel.add(output2);
 
         AbstractButtons.setMarginInButtonJPanel(universalPanel, 1);
@@ -145,7 +144,7 @@ public class UniversalPanels {
         return shoppingButton;
     }
 
-    public JButton getRollingButton() {
-        return rollingButton;
-    }
+    // public JButton getRollingButton() {
+    //     return rollingButton;
+    // }
 }
