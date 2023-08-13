@@ -41,7 +41,7 @@ public class AdbTaskAll {
      */
     private static void taskKillOpenAll(boolean killAll, boolean open) {
         // 获取当前电脑上的所有adb设备的LinkedHashMap集合
-        LinkedHashMap<String, Device> simpleId_Device_map = getStringDeviceLinkedHashMap();
+        LinkedHashMap<String, Device> simpleId_Device_map = Devices.getStringDeviceLinkedHashMap();
         System.out.println("-------------------------");
         // System.out.println("通过map打印");
         Set<Map.Entry<String, Device>> entries = simpleId_Device_map.entrySet();
@@ -125,42 +125,5 @@ public class AdbTaskAll {
 
         String tapCode = "adb -s " + serial + " shell input tap " + x + " " + y;
         AdbCommands.runAbdCmd(tapCode);
-    }
-
-    /**
-     * 获取保存所有adb设备的LinkedHashMap
-     *
-     * @return
-     */
-    private static LinkedHashMap<String, Device> getStringDeviceLinkedHashMap() {
-        // 设备别名
-        LinkedHashMap<String, Device> simpleId_Device_map = new LinkedHashMap<>();
-        // 执行adb命令
-        String devicesListStr = AdbCommands.runAbdCmd("adb devices -l");
-        // 分析adb devices -l命令结果
-        Scanner scanner = new Scanner(devicesListStr);
-        String line;
-        while (scanner.hasNextLine()) {
-            // 逐行读入
-            line = scanner.nextLine();
-            // System.out.println("line = " + line);
-            // List of devices attached表示没有设备，
-            // 如果是设备输出信息
-            if (!line.equals("List of devices attached") && !"".equals(line)) {
-                // 按两个或者更多的空格符作为分界 来分割字符串
-                String[] deviceStrs = line.split("[ ]{2,}");
-                // System.out.println("ID = " + deviceStrs[0]);
-                // System.out.println("dir = " + deviceStrs[1]);
-                // 创建设备对象
-                // 分割得到的第1段是设备id，第2段是设备的描述信息
-                Device device = new Device(deviceStrs[0], deviceStrs[1]);
-                // 添加设备的id到列表中
-                // NameList.add(device.getName());
-                System.out.println(device.getName());
-                // 把id和设备作为键值对放入map中
-                simpleId_Device_map.put(device.getName(), device);
-            }
-        }
-        return simpleId_Device_map;
     }
 }

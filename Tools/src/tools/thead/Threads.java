@@ -17,6 +17,7 @@ public class Threads {
             e.printStackTrace();
         }
     }
+
     /**
      * 判断thread是否位null,或者已经死亡。
      *
