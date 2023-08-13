@@ -64,8 +64,6 @@ public class AdbTaskAll {
                 if (open) {
                     openSportsAndHealthApp(serial);
                 }
-
-
             }
         });
         System.out.println("-------------------------");

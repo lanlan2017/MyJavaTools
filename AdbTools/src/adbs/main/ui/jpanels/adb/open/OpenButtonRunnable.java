@@ -36,25 +36,20 @@ public class OpenButtonRunnable implements Runnable {
         // 如果存在id
         if (serial != null && !"".equals(serial)) {
             System.out.println("scrcpy.exe 打开镜像");
-            // 关闭亮度自动调节
             // turnOffAutoBrightness
 
+            // 关闭亮度自动调节
             // String turnOffAutoBrightness = "adb -s U8ENW18118023171 shell settings put system screen_brightness_mode 0";
             String turnOffAutoBrightness = "adb -s " + serial + " shell settings put system screen_brightness_mode 0";
             AdbCommands.runAbdCmd(turnOffAutoBrightness);
-            ThreadSleep.seconds(3);
-            // 亮度调为0
-            // 最小亮度
-            // miniBrightness
-            // String xxx="adb -s U8ENW18118023171 shell settings put system screen_brightness 0";
-            // String miniBrightness = "adb -s " + serial + " shell settings put system screen_brightness ";
-            // if ("jjqsqst4aim7f675".equals(serial)) {
-            //     miniBrightness += "2";
-            // } else {
-            //     miniBrightness += "0";
-            // }
+            ThreadSleep.seconds(1);
+            //调整屏幕亮度为0
             String miniBrightness = "adb -s " + serial + " shell settings put system screen_brightness 0";
             AdbCommands.runAbdCmd(miniBrightness);
+            ThreadSleep.seconds(1);
+            // 镜像静音
+            String turnOffVolume = "adb -s " + serial + " shell input keyevent 164";
+            AdbCommands.runAbdCmd(turnOffVolume);
 
 
             // 拼接命令
