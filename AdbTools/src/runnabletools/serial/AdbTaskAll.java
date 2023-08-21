@@ -5,7 +5,6 @@ import adbs.model.Device;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.Set;
 import java.util.function.Consumer;
 
@@ -24,6 +23,9 @@ public class AdbTaskAll {
             taskKillOpenAll(true, false);
         } else if (argsStr.matches("kill yd")) {
             taskKillOpenAll(true, true);
+
+        } else if (argsStr.matches("yd")) {
+            taskKillOpenAll(false, true);
         }
 
 
