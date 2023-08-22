@@ -74,7 +74,7 @@ public class PlusBtnAcListener extends WaitValues implements ActionListener {
                     // 下标加1
                     index++;
                     int value = values[index];
-                    System.out.println("plus index = " + index + ", value = " + value);
+                    // System.out.println("plus index = " + index + ", value = " + value);
                     // 设置文本内容
                     input1.setText(String.valueOf(value));
                     input1.updateUI();

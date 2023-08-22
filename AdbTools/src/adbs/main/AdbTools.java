@@ -17,6 +17,7 @@ import adbs.main.ui.jpanels.time.listener.PlusBtnAcListener;
 import adbs.main.ui.jpanels.tools.ToolsJPanels;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
 import adbs.model.Device;
+import adbs.tools.thread.ThreadSleep;
 import com.formdev.flatlaf.FlatLightLaf;
 import tools.copy.SystemClipboard;
 import tools.swing.button.AbstractButtons;
@@ -331,10 +332,14 @@ public class AdbTools {
     }
 
     public static void main(String[] args) {
-        AdbTools.getInstance();
+        AdbTools instance = AdbTools.getInstance();
         // 启动电池监测线程
         // new Thread(new BatteryLevelRun()).start();
         new Thread(new ForegroundAppRun()).start();
         new Thread(new BatteryLevelRun2()).start();
+        ThreadSleep.seconds(2);
+        // 在打开应用的时候，就触发投屏按钮
+        instance.getScrcpyJPanels().getOpenScrcpyBtn().doClick();
+
     }
 }

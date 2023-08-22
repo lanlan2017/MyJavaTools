@@ -212,9 +212,9 @@ public class ControlJPanels extends WaitValues {
     private JButton gWaitBtn(int time) {
         final JButton wait65s_TaskBtn;
         int index = getIndex(time);
-        System.out.println("index_zzz = " + index);
+        // System.out.println("index_zzz = " + index);
         String valueStr = valueStrs[index];
-        System.out.println("valueStrs[index] = " + valueStr);
+        // System.out.println("valueStrs[index] = " + valueStr);
 
 
         // wait65s_TaskBtn = new JButton("w" + time);
