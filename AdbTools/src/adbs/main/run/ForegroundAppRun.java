@@ -75,10 +75,12 @@ public class ForegroundAppRun implements Runnable {
 
         updatePackages_3_money();
 
-        final String id = adbTools.getDevice().getSerial();
+        // final String serial = adbTools.getDevice().getSerial();
+        String serial;
         // AdbTools adbTools = adbTools1;
         while (!stop) {
-            String topActivityCommand = getTopActivityCommand(id);
+            serial = adbTools.getDevice().getSerial();
+            String topActivityCommand = getTopActivityCommand(serial);
             System.out.println("ActivityCommand =" + topActivityCommand);
             String run = CmdRun.run(topActivityCommand).trim();
             // System.out.println("run =" + run);
@@ -88,7 +90,7 @@ public class ForegroundAppRun implements Runnable {
             if (run.contains("/")) {
                 run = getPackageName(run);
 
-                System.out.println("包名 =" + run);
+                System.out.println("包名 = " + run);
                 String appName = getAppName(run);
                 // 如果还没停止签到检查的话
                 if (!stopCheckInInspection) {
@@ -289,7 +291,8 @@ public class ForegroundAppRun implements Runnable {
 
 
     private void wait_() {
-        int seconds = 2;
+        // int seconds = 2;
+        int seconds = 8;
         if (IsTest.isIsTest()) {
             // 测试时使用 5秒钟
             ThreadSleep.seconds(seconds);

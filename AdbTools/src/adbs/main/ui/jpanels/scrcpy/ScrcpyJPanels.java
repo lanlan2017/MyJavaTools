@@ -1,11 +1,16 @@
 package adbs.main.ui.jpanels.scrcpy;
 
+import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
+import adbs.main.run.BatteryLevelRun2;
 import adbs.main.run.ForegroundAppRun;
 import adbs.main.run.OppoR9ScrcpyRun;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.jpanels.adb.listener.OpenButtonListener;
 import adbs.main.ui.jpanels.adb.open.Taskkill;
+import adbs.model.Device;
+import adbs.tools.thread.ThreadSleep;
+import config.AdbConnectPortProperties;
 import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
@@ -14,6 +19,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ScrcpyJPanels {
+
+    private static String serialOld;
+    private static String nameOld;
+    private static String ip;
     /**
      * 面板
      */
@@ -25,6 +34,7 @@ public class ScrcpyJPanels {
     private JTextField widthTextField;
 
     private JButton openScrcpyBtn;
+    private JButton switchNetworkDebugBtn;
     private JButton killScrcpyBtn;
     /**
      * 更新赚钱APP列表
@@ -46,6 +56,7 @@ public class ScrcpyJPanels {
      * 内部镜像宽度数组的下标
      */
     private int index = 1;
+    private Color switchNetworkDebugBtnBackground;
     // private int index = 0;
 
     public ScrcpyJPanels() {
@@ -53,7 +64,8 @@ public class ScrcpyJPanels {
         // adbJPanel.setBorder(new TitledBorder(""));
         scrcpyJPanel.setLayout(FlowLayouts.flowLayoutLeft);
 
-        label = new JLabel("高度:");
+        // label = new JLabel("高度:");
+        label = new JLabel("");
 
         decreaseBtn = new JButton("-");
         addBtn = new JButton("+");
@@ -84,7 +96,10 @@ public class ScrcpyJPanels {
         // widthTextField.setEditable(false);
 
 
-        openScrcpyBtn = new JButton(new ImageIcon(AdbTools.class.getClassLoader().getResource("open.png")));
+        // openScrcpyBtn = new JButton(new ImageIcon(AdbTools.class.getClassLoader().getResource("open.png")));
+        // openScrcpyBtn = new JButton("➚");
+        openScrcpyBtn = new JButton("➤");
+
 
         openScrcpyBtn.setToolTipText("使用scrcpy打开设备");
         // openScrcpyBtn.addActionListener(new OpenButtonListener());
@@ -103,6 +118,11 @@ public class ScrcpyJPanels {
                         isFirstTimeRun = false;
                     }
                 }
+                // 停止电池监测线程
+                BatteryLevelRun2.stop();
+                // 重启电源监测
+                new Thread(new BatteryLevelRun2()).start();
+                ThreadSleep.seconds(2);
             }
         });
 
@@ -134,6 +154,66 @@ public class ScrcpyJPanels {
             }
         });
 
+        switchNetworkDebugBtn = new JButton("网调");
+        switchNetworkDebugBtn.setToolTipText("切换网络调试");
+        switchNetworkDebugBtn.addActionListener(new ActionListener() {
+            Device device = null;
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AdbTools adbTools = AdbTools.getInstance();
+                // 停止自动线程
+                adbTools.getAdbJPanels().getStopBtn().doClick();
+                if (device == null) {
+                    device = AdbTools.getInstance().getDevice();
+                }
+                if ("网调".equals(switchNetworkDebugBtn.getText())) {
+                    String serial = device.getSerial();
+                    serialOld = serial;
+                    nameOld = device.getName();
+
+                    String ipCode = "adb -s " + serial + " shell netcfg| findstr wlan0";
+                    String adbOutput = AdbCommands.runAbdCmd(ipCode);
+                    if (adbOutput.contains("wlan0") && adbOutput.contains("/")) {
+
+                        System.out.println("adbOutput = " + adbOutput);
+                        // String ip = getIp(adbOutput);
+                        ip = getIp(adbOutput);
+
+                        // String port = "5555";
+                        String port = AdbConnectPortProperties.getPort();
+                        String tcp = "adb -s " + serial + " tcpip " + port;
+                        AdbCommands.runAbdCmd(tcp);
+                        String connectCode = "adb connect " + ip + ":" + port;
+                        AdbCommands.runAbdCmd(connectCode);
+                        device.setSerial(ip + ":" + port);
+                        device.setName(device.getName() + "+");
+                        switchNetworkDebugBtn.setText("线调");
+                        switchNetworkDebugBtnBackground = switchNetworkDebugBtn.getBackground();
+                        switchNetworkDebugBtn.setBackground(Color.PINK);
+                        // reopenScrcpy();
+                        killScrcpyBtn.doClick();
+                        // ThreadSleep.seconds(2);
+                        openScrcpyBtn.doClick();
+
+
+                    }
+                } else {
+                    killScrcpyBtn.doClick();
+                    String ip_serial = device.getSerial();
+                    device.setSerial(serialOld);
+                    device.setName(nameOld);
+                    switchNetworkDebugBtn.setText("网调");
+                    switchNetworkDebugBtn.setBackground(switchNetworkDebugBtnBackground);
+                    String code = "adb disconnect " + ip_serial;
+                    AdbCommands.runAbdCmd(code);
+                    // reopenScrcpy();
+                    // ThreadSleep.seconds(2);
+                    openScrcpyBtn.doClick();
+                }
+
+            }
+        });
 
         updateEarningApps = new JButton("UL");
         updateEarningApps.setToolTipText("更新赚钱应用列表");
@@ -170,11 +250,25 @@ public class ScrcpyJPanels {
         scrcpyJPanel.add(addBtn);
         scrcpyJPanel.add(openScrcpyBtn);
         scrcpyJPanel.add(killScrcpyBtn);
+        scrcpyJPanel.add(switchNetworkDebugBtn);
         scrcpyJPanel.add(updateEarningApps);
         scrcpyJPanel.add(signedInBtn);
         scrcpyJPanel.add(allCheckedInBtn);
         AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, 1);
     }
+
+    private String getIp(String adbOutput) {
+        String ip = adbOutput.substring(0, adbOutput.lastIndexOf("/"));
+        ip = ip.substring(ip.lastIndexOf(" ") + 1);
+        System.out.println("ip = |" + ip + "|");
+        return ip;
+    }
+
+    // private void reopenScrcpy() {
+    //     killScrcpyBtn.doClick();
+    //     // ThreadSleep.seconds(2);
+    //     openScrcpyBtn.doClick();
+    // }
 
     public JPanel getScrcpyJPanel() {
         return scrcpyJPanel;

@@ -166,6 +166,13 @@ public class Device {
         return width;
     }
 
+    public void setSerial(String serial) {
+        this.serial = serial;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     @Override
     public boolean equals(Object o) {

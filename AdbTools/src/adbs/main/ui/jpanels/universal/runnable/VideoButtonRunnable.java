@@ -39,22 +39,10 @@ public class VideoButtonRunnable extends CloseableRunnable {
         // msg = "";
     }
 
-    // @Override
-    // protected void beforeLoop() {
-    //     super.beforeLoop();
-    //     // if (min == 0) {
-    //     //     min = 7;
-    //     // }
-    //     // if (max == 0) {
-    //     //     max = 14;
-    //     // }
-    //     System.out.println("随机等待时间[" + min + "~" + max + "]s");
-    // }
-
     @Override
     protected void loopBody() {
-        // String id = AdbTools.device.getId();
-        String id = AdbTools.getInstance().getDevice().getSerial();
+        // String serial = AdbTools.device.getId();
+        String serial = AdbTools.getInstance().getDevice().getSerial();
 
         String oldOutput;
         String newOutput;
@@ -67,12 +55,12 @@ public class VideoButtonRunnable extends CloseableRunnable {
         int msToWait = randomInt * 1000;
 
         // // 在手机左侧，从下往上滑动
-        // String adbResult = AdbCommands.swipeBottom2TopOnLeft(id);
+        // String adbResult = AdbCommands.swipeBottom2TopOnLeft(serial);
 
         // // 在手机左侧，从下往上滑动
-        // String adbResult = AdbCommands.swipeBottom2TopOnLeft(id, DeviceListener.getHeight());
-        // String adbResult = AdbCommands.swipeBottom2TopOnLeft(id, AdbTools.device.getHeight());
-        String adbResult = AdbCommands.swipeBottom2TopOnLeft(id, AdbTools.getInstance().getDevice().getHeight());
+        // String adbResult = AdbCommands.swipeBottom2TopOnLeft(serial, DeviceListener.getHeight());
+        // String adbResult = AdbCommands.swipeBottom2TopOnLeft(serial, AdbTools.device.getHeight());
+        String adbResult = AdbCommands.swipeBottom2TopOnLeft(serial, AdbTools.getInstance().getDevice().getHeight());
         // 如果设备断开，则终止线程
         if (AdbCommands.ifDeviceNotExist(adbResult))
             return;

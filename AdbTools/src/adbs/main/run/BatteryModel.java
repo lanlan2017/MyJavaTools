@@ -72,6 +72,28 @@ public class BatteryModel {
         // return !isAcPowered && level <= 100;
     }
 
+    /**
+     * 判断是否需要使用USB充电。
+     *
+     * @return 如果没有使用充电头充电，也没有用使用USB充电，并且电池电量小于50%，
+     * 则需要使用USB进行充电，返回true。
+     */
+    public boolean isNeedUSBPower() {
+        // System.out.println("isUSBPowered = " + isUSBPowered);
+        return !isAcPowered && !isUSBPowered && level < 75;
+    }
+
+    /**
+     * 判断是否需要停止使用USB充电。
+     *
+     * @return 如果没有AC充电，并且正在USB充电，并且电量又大于80%，则返回true，表示应该停止USB充电。
+     */
+    public boolean isStopUSBPower() {
+        // System.out.println("isUSBPowered = " + isUSBPowered);
+        return !isAcPowered && isUSBPowered && level > 95;
+    }
+
+
     public BatteryModel(String serial) {
         // String serial = AdbTools.getInstance().getDevice().getId();
         // String serial = "75aed56d";
@@ -208,6 +230,10 @@ public class BatteryModel {
 
     public String getTechnology() {
         return technology;
+    }
+
+    public void setUSBPowered(boolean USBPowered) {
+        isUSBPowered = USBPowered;
     }
 
     /**

@@ -24,8 +24,7 @@ import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -165,6 +164,20 @@ public class AdbTools {
         // 添加输出面包到最后一行
         // frame.add(outputJPanel);
 
+        frameSettings();
+    }
+
+    private void frameSettings() {
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                adbJPanels.getStopBtn().doClick();
+                scrcpyJPanels.getKillScrcpyBtn().doClick();
+                System.out.println("窗体正在关闭。。。。。。。。。。。。");
+                // ThreadSleep.seconds(5);
+            }
+        });
         // 永远置顶
         frame.setAlwaysOnTop(true);
         // 设置关闭按钮功能
@@ -333,11 +346,11 @@ public class AdbTools {
 
     public static void main(String[] args) {
         AdbTools instance = AdbTools.getInstance();
-        // 启动电池监测线程
-        // new Thread(new BatteryLevelRun()).start();
         new Thread(new ForegroundAppRun()).start();
-        new Thread(new BatteryLevelRun2()).start();
-        ThreadSleep.seconds(2);
+        // // 启动电池监测线程
+        // // new Thread(new BatteryLevelRun()).start();
+        // new Thread(new BatteryLevelRun2()).start();
+        // ThreadSleep.seconds(2);
         // 在打开应用的时候，就触发投屏按钮
         instance.getScrcpyJPanels().getOpenScrcpyBtn().doClick();
 
