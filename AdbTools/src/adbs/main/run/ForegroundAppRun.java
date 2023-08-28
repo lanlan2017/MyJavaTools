@@ -90,7 +90,9 @@ public class ForegroundAppRun implements Runnable {
             if (run.contains("/")) {
                 run = getPackageName(run);
 
-                System.out.println("包名 = " + run);
+                // System.out.println("包名 = " + run);
+
+                System.out.print("包名 = " + run+" ");
                 String appName = getAppName(run);
                 // 如果还没停止签到检查的话
                 if (!stopCheckInInspection) {
@@ -99,6 +101,7 @@ public class ForegroundAppRun implements Runnable {
                         // 签到完成设置
                         afterOpeningAllAPKs();
                     }
+                    System.out.println();
                     // 把apk的名称放到列表中
                     System.out.println("已打开:" + apkOpenedToday);
                     // 打印没有打开的可赚钱APP
@@ -172,6 +175,7 @@ public class ForegroundAppRun implements Runnable {
             }
         }
         System.out.println();
+        // System.out.println();
     }
 
     /**
@@ -216,9 +220,10 @@ public class ForegroundAppRun implements Runnable {
         JFrame frame = adbTools.getFrame();
         String title = frame.getTitle();
         // 如果标题中有下划线，这表明标题中有旧的应用名称
-        if (title.contains("|")) {
+        String delimiter2 = "|";
+        if (title.contains(delimiter2)) {
             // 获取下划线在标题中的下标
-            int nameFlagIndex = title.lastIndexOf("|") + 1;
+            int nameFlagIndex = title.lastIndexOf(delimiter2) + 1;
             // 截取下旧的应用名称
             String oldAppName = title.substring(nameFlagIndex);
             // System.out.println("oldAppName =" + oldAppName+"|");
@@ -240,7 +245,7 @@ public class ForegroundAppRun implements Runnable {
         else if (title.endsWith("%")) {
             // title=title+run;
             // 标题=原来的标题+下划线+应用名
-            title = title + "|" + appName;
+            title = title + delimiter2 + appName;
             frame.setTitle(title);
         }
     }
@@ -292,7 +297,7 @@ public class ForegroundAppRun implements Runnable {
 
     private void wait_() {
         // int seconds = 2;
-        int seconds = 8;
+        int seconds = 16;
         if (IsTest.isIsTest()) {
             // 测试时使用 5秒钟
             ThreadSleep.seconds(seconds);

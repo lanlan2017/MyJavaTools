@@ -23,8 +23,8 @@ public class BatteryLevelRun2 implements Runnable {
         ThreadSleep.seconds(2);
 
         adbTools = AdbTools.getInstance();
-        // 获取设备的序列号
-        serial = adbTools.getDevice().getSerial();
+        // // 获取设备的序列号
+        // serial = adbTools.getDevice().getSerial();
         // 获取设备名
         name = adbTools.getDevice().getName();
         // 根据序列号 创建电池模型对象
@@ -38,6 +38,8 @@ public class BatteryLevelRun2 implements Runnable {
         // System.out.print(batteryModel);
         // System.out.println("--------------------------");
         while (!stop) {
+            serial = adbTools.getDevice().getSerial();
+            batteryModel.setSerial(serial);
             // 更新电池信息
             batteryModel.update();
             // 获取电池电量百分比
@@ -57,7 +59,7 @@ public class BatteryLevelRun2 implements Runnable {
 
     private void wait_() {
         if (IsTest.isIsTest()) {
-            ThreadSleep.seconds(8);
+            ThreadSleep.seconds(20);
         } else {
             // 等待一段时间，再进行更新电池信息
             ThreadSleep.minutes(2);
@@ -118,22 +120,45 @@ public class BatteryLevelRun2 implements Runnable {
         // 缓存旧标题
         String oldFrameTitle = frame.getTitle();
 
-        String frameTitle = oldFrameTitle;
+        String newFrameTitle = oldFrameTitle;
         // 如果原来的标题中已经有了百分号
-        if (frameTitle.contains("%")) {
-            // System.out.println("old frameTitle = " + frameTitle);
+        String delimiter1 = ",";
+        if (newFrameTitle.contains("%")) {
+            // System.out.println("old newFrameTitle = " + newFrameTitle);
             //替换其中的百分号
-            frameTitle = frameTitle.replaceAll(":[0-9]{1,2}%", ":" + level + "%");
-            // System.out.println("new frameTitle = " + frameTitle);
+            // newFrameTitle = newFrameTitle.replaceAll(":[0-9]{1,2}%", ":" + level + "%");
+            String previous = newFrameTitle.substring(0, newFrameTitle.indexOf(delimiter1));
+            // System.out.println("previous = " + previous);
+            // 简写端口号
+            previous = portAbbr(previous);
+            // System.out.println("previous = " + previous);
+            String behind = newFrameTitle.substring(newFrameTitle.indexOf("%"));
+            // System.out.println("level = " + level);
+            // System.out.println("behind = " + behind);
+            newFrameTitle = previous + delimiter1 + level + behind;
+            // System.out.println("title:" + newFrameTitle + "_");
+            // System.out.println("new newFrameTitle = " + newFrameTitle);
         } else {
             // 在标题上加上百分号
-            frameTitle = frameTitle + ":" + level + "%";
+            newFrameTitle = oldFrameTitle + delimiter1 + level + "%";
         }
+
+        // System.out.println("oldFrameTitle = " + oldFrameTitle);
+        // System.out.println("newFrameTitle = " + newFrameTitle);
         // 如果标题有改变的话
-        if (!frameTitle.equals(oldFrameTitle)) {
-            // System.out.println("update Title");
-            frame.setTitle(frameTitle);
+        if (!newFrameTitle.equals(oldFrameTitle)) {
+            System.out.println("。。。。。。。。。。。update Title、、、、、、、、、、、");
+            frame.setTitle(newFrameTitle);
+            // frame.pack();
         }
+    }
+
+    private String portAbbr(String ip_port) {
+        if (ip_port.matches("[0-9.:]+")) {
+            // System.out.println("序列号是IP地址");
+            ip_port = ip_port.substring(ip_port.length() - 2);
+        }
+        return ip_port;
     }
 
     public static void stop() {

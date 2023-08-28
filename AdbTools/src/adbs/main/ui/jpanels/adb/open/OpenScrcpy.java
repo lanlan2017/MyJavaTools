@@ -36,6 +36,7 @@ public class OpenScrcpy {
 
     private static String scrcpyCall(String id, String title, String window_hight) {
         String code;
+        title = portAbbr(title);
         // 对以指定字符串开头的设备
         if (title.startsWith("HuaWei")) {
             // 启动scrcpy.exe镜像的时候不息屏
@@ -54,6 +55,7 @@ public class OpenScrcpy {
      * @param title 窗口标题
      */
     private static String scrcpyCall(String id, String title) {
+        title = portAbbr(title);
         String code;
         // 对以指定字符串开头的设备
         if (title.startsWith("HuaWei")) {
@@ -64,5 +66,14 @@ public class OpenScrcpy {
             code = "scrcpy.exe -s " + id + " --turn-screen-off -b 2M -m 600 --stay-awake --window-title " + title;
         }
         return code;
+    }
+
+
+    private static String portAbbr(String ip_port) {
+        if (ip_port.matches("[0-9.:]+")) {
+            System.out.println("序列号是IP地址");
+            ip_port = ip_port.substring(ip_port.length() - 2);
+        }
+        return ip_port;
     }
 }

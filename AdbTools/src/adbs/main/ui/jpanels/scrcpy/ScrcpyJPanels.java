@@ -2,14 +2,12 @@ package adbs.main.ui.jpanels.scrcpy;
 
 import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
-import adbs.main.run.BatteryLevelRun2;
 import adbs.main.run.ForegroundAppRun;
 import adbs.main.run.OppoR9ScrcpyRun;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.jpanels.adb.listener.OpenButtonListener;
 import adbs.main.ui.jpanels.adb.open.Taskkill;
 import adbs.model.Device;
-import adbs.tools.thread.ThreadSleep;
 import config.AdbConnectPortProperties;
 import tools.swing.button.AbstractButtons;
 
@@ -26,32 +24,32 @@ public class ScrcpyJPanels {
     /**
      * 面板
      */
-    private JPanel scrcpyJPanel;
+    private final JPanel scrcpyJPanel;
 
-    private JLabel label;
-    private JButton addBtn;
-    private JButton decreaseBtn;
-    private JTextField widthTextField;
+    private final JLabel label;
+    private final JButton addBtn;
+    private final JButton decreaseBtn;
+    private final JTextField widthTextField;
 
-    private JButton openScrcpyBtn;
-    private JButton switchNetworkDebugBtn;
-    private JButton killScrcpyBtn;
+    private final JButton openScrcpyBtn;
+    private final JButton switchNetworkDebugBtn;
+    private final JButton killScrcpyBtn;
     /**
      * 更新赚钱APP列表
      * updateEarningApps
      */
-    private JButton updateEarningApps;
+    private final JButton updateEarningApps;
     /**
      * 当前APP已签到
      */
-    private JButton signedInBtn;
+    private final JButton signedInBtn;
 
-    private JButton allCheckedInBtn;
+    private final JButton allCheckedInBtn;
 
     /**
      * scrcpy.exe内部镜像宽度数组
      */
-    private String[] widthArr = {"600", "540", "500", "480", "420", "360", "350", "340"};
+    private final String[] widthArr = {"600", "540", "500", "480", "420", "360", "350", "340"};
     /**
      * 内部镜像宽度数组的下标
      */
@@ -97,8 +95,8 @@ public class ScrcpyJPanels {
 
 
         // openScrcpyBtn = new JButton(new ImageIcon(AdbTools.class.getClassLoader().getResource("open.png")));
-        // openScrcpyBtn = new JButton("➚");
-        openScrcpyBtn = new JButton("➤");
+        openScrcpyBtn = new JButton("➚");
+        // openScrcpyBtn = new JButton("➤");
 
 
         openScrcpyBtn.setToolTipText("使用scrcpy打开设备");
@@ -118,11 +116,11 @@ public class ScrcpyJPanels {
                         isFirstTimeRun = false;
                     }
                 }
-                // 停止电池监测线程
-                BatteryLevelRun2.stop();
-                // 重启电源监测
-                new Thread(new BatteryLevelRun2()).start();
-                ThreadSleep.seconds(2);
+                // // 停止电池监测线程
+                // BatteryLevelRun2.stop();
+                // // 重启电源监测
+                // new Thread(new BatteryLevelRun2()).start();
+                // ThreadSleep.seconds(2);
             }
         });
 

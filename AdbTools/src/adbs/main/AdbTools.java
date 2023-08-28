@@ -346,13 +346,14 @@ public class AdbTools {
 
     public static void main(String[] args) {
         AdbTools instance = AdbTools.getInstance();
+        // 在打开应用的时候，就触发投屏按钮
+        instance.getScrcpyJPanels().getOpenScrcpyBtn().doClick();
+
+        ThreadSleep.seconds(2);
         new Thread(new ForegroundAppRun()).start();
         // // 启动电池监测线程
         // // new Thread(new BatteryLevelRun()).start();
-        // new Thread(new BatteryLevelRun2()).start();
-        // ThreadSleep.seconds(2);
-        // 在打开应用的时候，就触发投屏按钮
-        instance.getScrcpyJPanels().getOpenScrcpyBtn().doClick();
+        new Thread(new BatteryLevelRun2()).start();
 
     }
 }

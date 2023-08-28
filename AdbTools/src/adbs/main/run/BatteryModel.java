@@ -1,5 +1,6 @@
 package adbs.main.run;
 
+import adbs.cmd.AdbCommands;
 import adbs.cmd.CmdRun;
 
 import java.util.*;
@@ -68,7 +69,7 @@ public class BatteryModel {
     public boolean needAcPower() {
         // 更新电池信息
         // update();
-        return !isAcPowered && level < 30;
+        return !isAcPowered && level < 30 && level > 0;
         // return !isAcPowered && level <= 100;
     }
 
@@ -102,78 +103,88 @@ public class BatteryModel {
         // return loopTimes;
     }
 
+    public void setSerial(String serial) {
+        this.serial = serial;
+    }
+
     /**
      * 查询电池信息。
      */
     public void update() {
         // 拼接命令
-        String code = "adb -s " + serial + " shell dumpsys battery";
+        String battery_code = "adb -s " + serial + " shell dumpsys battery";
         // 执行命令
-        String run = CmdRun.run(code);
-        // System.out.println("run = " + run);
-        // System.out.println("----------------------------");
-        // 创建一个和标记数组长度一样的列表
-        ArrayList<String> mameList = new ArrayList<>(flag.length);
-        // 把标记字符串数组复制到列表中
-        Collections.addAll(mameList, flag);
+        // String bettery_code_output = CmdRun.run(battery_code);
+        String bettery_code_output = AdbCommands.runAbdCmd(battery_code);
+        // System.out.println("bettery_code_output = " + bettery_code_output);
+        if (!bettery_code_output.startsWith("Error!ExitCode")) {
+            // System.out.println("----------------------------");
+            // 创建一个和标记数组长度一样的列表
+            ArrayList<String> mameList = new ArrayList<>(flag.length);
+            // 把标记字符串数组复制到列表中
+            Collections.addAll(mameList, flag);
 
+            // 从list中取出信息开始的标记字符串
+            String startFlag = mameList.get(0);
+            // 移除标记字符串，后续不需要使用了
+            mameList.remove(0);
+            // 遍历命令的结果
+            Scanner scanner = new Scanner(bettery_code_output);
+            int flagIndex = 0;
+            boolean start = false;
 
-        // 从list中取出信息开始的标记字符串
-        String startFlag = mameList.get(0);
-        // 移除标记字符串，后续不需要使用了
-        mameList.remove(0);
-
-        // 遍历命令的结果
-        Scanner scanner = new Scanner(run);
-        int flagIndex = 0;
-        boolean start = false;
-
-        // long loopTimes = 0;
-        while (scanner.hasNext()) {
-            // loopTimes++;
-            String line = scanner.nextLine();
-            // 如果遇到空行，则跳过
-            if ("".equals(line)) {
-                continue;
-            }
-            // System.out.println("line =|" + line + "|");
-            // if (!start && line.contains(flag[0])) {
-            // 如果假的，则执行后面的判断
-            if (!start && line.contains(startFlag)) {
-                // 我们需要的信息开始了
-                start = true;
-                // System.out.println("--------------------");
-                continue;
-            }
-            // 电池信息开始后
-            if (start) {
-                // 获取电池信息名称的迭代器
-                Iterator iterator = mameList.iterator();
-                while (iterator.hasNext()) {
-                    // 获取当前
-                    String name = (String) iterator.next();
-                    // 如果这行命令输出有这个名称
-                    if (line.contains(name)) {
-                        // 从集合中删除这个key
-                        // System.out.println("包含：" + name);
-                        // 从这行命令中取出名称对应的值
-                        String value = line.substring(line.indexOf(name) + name.length()).trim();
-                        // System.out.println("value = |" + value + "|");
-                        // model.setter(name, value);
-                        // 根据名称给成员变量赋值
-                        setter(name, value);
-                        // 这个名称的值已经设置到对象中，后续不需要再次设置了，把这个名称从列表中删除掉
-                        iterator.remove();
-                        // 找到匹配项了，结束查找
-                        break;
-                    }
-                    // else {
-                    //     System.out.println("不包含：" + name);
-                    // }
+            // long loopTimes = 0;
+            while (scanner.hasNext()) {
+                // loopTimes++;
+                String line = scanner.nextLine();
+                // 如果遇到空行，则跳过
+                if ("".equals(line)) {
+                    continue;
                 }
+                // System.out.println("line =|" + line + "|");
+                // if (!start && line.contains(flag[0])) {
+                // 如果假的，则执行后面的判断
+                if (!start && line.contains(startFlag)) {
+                    // 我们需要的信息开始了
+                    start = true;
+                    // System.out.println("--------------------");
+                    continue;
+                }
+                // 电池信息开始后
+                if (start) {
+                    // 获取电池信息名称的迭代器
+                    Iterator iterator = mameList.iterator();
+                    while (iterator.hasNext()) {
+                        // 获取当前
+                        String name = (String) iterator.next();
+                        // 如果这行命令输出有这个名称
+                        if (line.contains(name)) {
+                            // 从集合中删除这个key
+                            // System.out.println("包含：" + name);
+                            // 从这行命令中取出名称对应的值
+                            String value = line.substring(line.indexOf(name) + name.length()).trim();
+                            // System.out.println("value = |" + value + "|");
+                            // model.setter(name, value);
+                            // 根据名称给成员变量赋值
+                            setter(name, value);
+                            // 这个名称的值已经设置到对象中，后续不需要再次设置了，把这个名称从列表中删除掉
+                            iterator.remove();
+                            // 找到匹配项了，结束查找
+                            break;
+                        }
+                        // else {
+                        //     System.out.println("不包含：" + name);
+                        // }
+                    }
 
+                }
             }
+        } else {
+            level = -1;
+            System.out.println("bettery_code_output = " + bettery_code_output);
         }
+
+
     }
 
     public boolean isAcPowered() {
