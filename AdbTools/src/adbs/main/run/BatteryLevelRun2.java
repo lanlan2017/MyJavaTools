@@ -85,28 +85,16 @@ public class BatteryLevelRun2 implements Runnable {
         switch (confirmDialog) {
             case JOptionPane.OK_OPTION:
                 System.out.println("点击 是 按钮");
-
-                PropertiesTools propertiesTools = AdbToolsProperties.propertiesTools;
-                String IpPort = propertiesTools.findKey(name + "-");
-                // 如果找到对应的可以
-                if (!IpPort.equals(PropertiesTools.withoutThisVlaue)) {
-                    System.out.println("IP:端口=" + IpPort);
-                    String port = IpPort.substring(IpPort.lastIndexOf(":") + ":".length());
-                    System.out.println("port = " + port);
-                    String code = "adb -s " + serial + " tcpip " + port + " && adb connect " + IpPort;
-                    System.out.println("code = " + code);
-                    CmdRun.run("adb -s " + serial + " tcpip 5560 && adb connect 192.168.0.109:5560");
-                } else {
-                    System.out.println("没有在配置文件中配置 设备：“" + name + "”的网络地址");
-                }
                 break;
             case JOptionPane.NO_OPTION:
                 System.out.println("点击 否 按钮");
+                ThreadSleep.minutes(10);
                 break;
             case JOptionPane.CANCEL_OPTION:
                 System.out.println("点击 取消 按钮");
+                ThreadSleep.minutes(30);
                 // 停止电池检测线程
-                stop = true;
+                // stop = true;
                 break;
         }
     }
