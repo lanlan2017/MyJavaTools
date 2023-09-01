@@ -9,6 +9,7 @@ import adbs.main.ui.jpanels.adb.listener.OpenButtonListener;
 import adbs.main.ui.jpanels.adb.open.Taskkill;
 import adbs.model.Device;
 import config.AdbConnectPortProperties;
+import runnabletools.serial.AdbTaskAll;
 import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
@@ -113,14 +114,11 @@ public class ScrcpyJPanels {
                     if ("75aed56d".equals(serial)) {
                         System.out.println("zzzzzzzzzzz启动一次线程");
                         new Thread(new OppoR9ScrcpyRun()).start();
-                        isFirstTimeRun = false;
                     }
+                    isFirstTimeRun = false;
+                    // 启动运动健康APP
+                    AdbTaskAll.openSportsAndHealthApp(serial);
                 }
-                // // 停止电池监测线程
-                // BatteryLevelRun2.stop();
-                // // 重启电源监测
-                // new Thread(new BatteryLevelRun2()).start();
-                // ThreadSleep.seconds(2);
             }
         });
 
@@ -170,32 +168,11 @@ public class ScrcpyJPanels {
                     serialOld = serial;
                     nameOld = device.getName();
 
-                    String ipCode = "adb -s " + serial + " shell netcfg| findstr wlan0";
-                    String adbOutput = AdbCommands.runAbdCmd(ipCode);
-                    if (adbOutput.contains("wlan0") && adbOutput.contains("/")) {
+                    String ipCode = getIpCode(serial);
 
-                        System.out.println("adbOutput = " + adbOutput);
-                        // String ip = getIp(adbOutput);
-                        ip = getIp(adbOutput);
-
-                        // String port = "5555";
-                        String port = AdbConnectPortProperties.getPort();
-                        String tcp = "adb -s " + serial + " tcpip " + port;
-                        AdbCommands.runAbdCmd(tcp);
-                        String connectCode = "adb connect " + ip + ":" + port;
-                        AdbCommands.runAbdCmd(connectCode);
-                        device.setSerial(ip + ":" + port);
-                        device.setName(device.getName() + "+");
-                        switchNetworkDebugBtn.setText("线调");
-                        switchNetworkDebugBtnBackground = switchNetworkDebugBtn.getBackground();
-                        switchNetworkDebugBtn.setBackground(Color.PINK);
-                        // reopenScrcpy();
-                        killScrcpyBtn.doClick();
-                        // ThreadSleep.seconds(2);
-                        openScrcpyBtn.doClick();
+                    networkDebug(serial);
 
 
-                    }
                 } else {
                     killScrcpyBtn.doClick();
                     String ip_serial = device.getSerial();
@@ -210,6 +187,24 @@ public class ScrcpyJPanels {
                     openScrcpyBtn.doClick();
                 }
 
+            }
+
+            private void networkDebug(String serial) {
+                // String port = "5555";
+                String port = AdbConnectPortProperties.getPort();
+                String tcp = "adb -s " + serial + " tcpip " + port;
+                AdbCommands.runAbdCmd(tcp);
+                String connectCode = "adb connect " + ip + ":" + port;
+                AdbCommands.runAbdCmd(connectCode);
+                device.setSerial(ip + ":" + port);
+                device.setName(device.getName() + "+");
+                switchNetworkDebugBtn.setText("线调");
+                switchNetworkDebugBtnBackground = switchNetworkDebugBtn.getBackground();
+                switchNetworkDebugBtn.setBackground(Color.PINK);
+                // reopenScrcpy();
+                killScrcpyBtn.doClick();
+                // ThreadSleep.seconds(2);
+                openScrcpyBtn.doClick();
             }
         });
 
@@ -255,11 +250,47 @@ public class ScrcpyJPanels {
         AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, 1);
     }
 
-    private String getIp(String adbOutput) {
+    private String getIpCode(String serial) {
+        String ipCode;
+        // 获取手机型号
+        String phoneModel = AdbCommands.runAbdCmd("adb -s " + serial + " shell getprop ro.product.model");
+        phoneModel = phoneModel.trim();
+        System.out.println("phoneModel = " + phoneModel);
+        if (phoneModel.equals("MX6")) {
+            ipCode = "adb -s " + serial + " shell ifconfig|findstr Bcast";
+            String adbOutput = AdbCommands.runAbdCmd(ipCode);
+            /*
+             *  C:\Users\lan>adb -s 95AQACQJCMZPA shell ifconfig|findstr Bcast
+             *       inet addr:192.168.0.103  Bcast:192.168.0.255  Mask:255.255.255.0
+             *  C:\Users\lan>
+             */
+            if (adbOutput.contains("Bcast:")) {
+                // String substring = adbOutput.substring(adbOutput.indexOf("Bcast:"));
+                ip = getIfconfigIp(adbOutput);
+            }
+        } else {
+            ipCode = "adb -s " + serial + " shell netcfg| findstr wlan0";
+
+            String adbOutput = AdbCommands.runAbdCmd(ipCode);
+            if (adbOutput.contains("wlan0") && adbOutput.contains("/")) {
+                System.out.println("adbOutput = " + adbOutput);
+                // String ip = getNetcfgIp(adbOutput);
+                ip = getNetcfgIp(adbOutput);
+            }
+
+        }
+        return ipCode;
+    }
+
+    private String getNetcfgIp(String adbOutput) {
         String ip = adbOutput.substring(0, adbOutput.lastIndexOf("/"));
         ip = ip.substring(ip.lastIndexOf(" ") + 1);
         System.out.println("ip = |" + ip + "|");
         return ip;
+    }
+
+    private String getIfconfigIp(String input) {
+        return input.substring(input.indexOf("addr:") + "addr:".length(), input.indexOf("Bcast:")).trim();
     }
 
     // private void reopenScrcpy() {

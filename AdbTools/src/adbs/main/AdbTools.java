@@ -349,7 +349,7 @@ public class AdbTools {
         // 在打开应用的时候，就触发投屏按钮
         instance.getScrcpyJPanels().getOpenScrcpyBtn().doClick();
 
-        ThreadSleep.seconds(2);
+        ThreadSleep.seconds(5);
         new Thread(new ForegroundAppRun()).start();
         // // 启动电池监测线程
         // // new Thread(new BatteryLevelRun()).start();

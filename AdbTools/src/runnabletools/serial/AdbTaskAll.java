@@ -91,11 +91,11 @@ public class AdbTaskAll {
      *
      * @param serial adb设备的序列号
      */
-    private static void openSportsAndHealthApp(String serial) {
+    public static void openSportsAndHealthApp(String serial) {
         // String openYunDong="adb -s 75aed56d shell am start -n com.kmxs.reader/.home.ui.HomeActivity";
         // String openYunDong="adb -s 75aed56d shell am start -n com.huawei.health/.home.ui.HomeActivity";
         // String openYunDong = "adb -s 75aed56d shell am start -n com.huawei.health/.MainActivity";
-        if (!"75aed56d".equals(serial) && !"jjqsqst4aim7f675".equals(serial)) {
+        if (!"75aed56d".equals(serial) && !"jjqsqst4aim7f675".equals(serial) && !"95AQACQJCMZPA".equals(serial)) {
             String huaWaiYunDong = "adb -s " + serial + " shell am start -n com.huawei.health/.MainActivity";
             // 打开华为运动健康
             AdbCommands.runAbdCmd(huaWaiYunDong);

@@ -1,10 +1,7 @@
 package adbs.main.run;
 
-import adbs.cmd.CmdRun;
 import adbs.main.AdbTools;
 import adbs.tools.thread.ThreadSleep;
-import config.AdbToolsProperties;
-import tools.config.properties.PropertiesTools;
 
 import javax.swing.*;
 
@@ -27,31 +24,40 @@ public class BatteryLevelRun2 implements Runnable {
         // serial = adbTools.getDevice().getSerial();
         // 获取设备名
         name = adbTools.getDevice().getName();
+        // System.out.println("name = " + name);
         // 根据序列号 创建电池模型对象
-        batteryModel = new BatteryModel(serial);
         // 更新电池信息
-        batteryModel.update();
+        // batteryModel.update();
         frame = adbTools.getFrame();
 
         stop = false;
-        // System.out.print("--------------------------");
-        // System.out.print(batteryModel);
-        // System.out.println("--------------------------");
         while (!stop) {
-            serial = adbTools.getDevice().getSerial();
-            batteryModel.setSerial(serial);
-            // 更新电池信息
-            batteryModel.update();
-            // 获取电池电量百分比
-            int level = batteryModel.getLevel();
-            System.out.println("level = " + level);
-            // 更新窗体标题中的电池电量值
-            updateJFrameTitle(level);
-            // 并且判断是否需要使用充电头充电
-            if (batteryModel.needAcPower()) {
-                // 弹窗提醒用户充电
-                remindAC(level);
+            if (serial == null) {
+                serial = adbTools.getDevice().getSerial();
+            } else {
+                if (batteryModel == null) {
+                    batteryModel = new BatteryModel(serial);
+                    // System.out.print("--------------------------");
+                    // System.out.print(batteryModel);
+                    // System.out.println("--------------------------");
+                }
+
+                batteryModel.setSerial(adbTools.getDevice().getSerial());
+                // 更新电池信息
+                batteryModel.update();
+                // 获取电池电量百分比
+                int level = batteryModel.getLevel();
+                System.out.println("level = " + level);
+                // 更新窗体标题中的电池电量值
+                updateJFrameTitle(level);
+                // 并且判断是否需要使用充电头充电
+                if (batteryModel.needAcPower()) {
+                    // 弹窗提醒用户充电
+                    remindAC(level);
+                }
             }
+
+
             wait_();
 
         }
