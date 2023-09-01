@@ -226,7 +226,10 @@ public class ScrcpyJPanels {
             }
         });
 
-        allCheckedInBtn = new JButton("all");
+        // allCheckedInBtn = new JButton("all");
+        // √√
+        // all
+        allCheckedInBtn = new JButton("√√");
         allCheckedInBtn.setToolTipText("所有的APP都签到过了");
         allCheckedInBtn.addActionListener(new ActionListener() {
             @Override

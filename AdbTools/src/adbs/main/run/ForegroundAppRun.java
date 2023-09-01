@@ -80,7 +80,9 @@ public class ForegroundAppRun implements Runnable {
         // AdbTools adbTools = adbTools1;
         while (!stop) {
             serial = adbTools.getDevice().getSerial();
-            String topActivityCommand = getTopActivityCommand(serial);
+            // String topActivityCommand = getTopActivityCommand(serial);
+            String topActivityCommand = AdbGetPackage.getTopActivityCommand(serial);
+
             System.out.println("ActivityCommand =" + topActivityCommand);
             String run = CmdRun.run(topActivityCommand).trim();
             // System.out.println("run =" + run);
@@ -88,11 +90,11 @@ public class ForegroundAppRun implements Runnable {
             // run = run.trim();
             // 如果命令结果中有反斜杠，说明有包名
             if (run.contains("/")) {
-                run = getPackageName(run);
-
+                // run = getPackageName(run);
+                run = AdbGetPackage.getPackageName(run);
                 // System.out.println("包名 = " + run);
 
-                System.out.print("包名 = " + run+" ");
+                System.out.print("包名 = " + run + " ");
                 String appName = getAppName(run);
                 // 如果还没停止签到检查的话
                 if (!stopCheckInInspection) {
@@ -138,20 +140,20 @@ public class ForegroundAppRun implements Runnable {
         }
     }
 
-    /**
-     * 从命令的输出中取出包名
-     *
-     * @param adbOutput adb命令输出结果
-     * @return 包名字符串
-     */
-    private String getPackageName(String adbOutput) {
-        // System.out.println(adbOutput);
-        String packageName = adbOutput.substring(0, adbOutput.lastIndexOf("/"));
-        // System.out.println(adbOutput);
-        packageName = packageName.substring(packageName.lastIndexOf(" ") + 1);
-        // System.out.println("--" + adbOutput + "--");
-        return packageName;
-    }
+    // /**
+    //  * 从命令的输出中取出包名
+    //  *
+    //  * @param adbOutput adb命令输出结果
+    //  * @return 包名字符串
+    //  */
+    // private String getPackageName(String adbOutput) {
+    //     // System.out.println(adbOutput);
+    //     String packageName = adbOutput.substring(0, adbOutput.lastIndexOf("/"));
+    //     // System.out.println(adbOutput);
+    //     packageName = packageName.substring(packageName.lastIndexOf(" ") + 1);
+    //     // System.out.println("--" + adbOutput + "--");
+    //     return packageName;
+    // }
 
     /**
      * 打印还没打开的APP名称
@@ -342,19 +344,19 @@ public class ForegroundAppRun implements Runnable {
         return format.startsWith("00:00") || format.startsWith("00:01") || format.startsWith("00:02") || format.startsWith("00:03");
     }
 
-    /**
-     * 根据不同的手机序列号返回不同的查询当前activity的adb命令
-     *
-     * @param id 手机的序列号
-     * @return 查询当前activity的adb命令
-     */
-    private String getTopActivityCommand(String id) {
-        String code;
-        if (id.equals("jjqsqst4aim7f675")) {
-            code = "adb -s " + id + " shell dumpsys activity | findstr topResumedActivity";
-        } else {
-            code = "adb -s " + id + " shell dumpsys activity | findstr \"mResume\"";
-        }
-        return code;
-    }
+    // /**
+    //  * 根据不同的手机序列号返回不同的查询当前activity的adb命令
+    //  *
+    //  * @param id 手机的序列号
+    //  * @return 查询当前activity的adb命令
+    //  */
+    // private String getTopActivityCommand(String id) {
+    //     String code;
+    //     if (id.equals("jjqsqst4aim7f675")) {
+    //         code = "adb -s " + id + " shell dumpsys activity | findstr topResumedActivity";
+    //     } else {
+    //         code = "adb -s " + id + " shell dumpsys activity | findstr \"mResume\"";
+    //     }
+    //     return code;
+    // }
 }

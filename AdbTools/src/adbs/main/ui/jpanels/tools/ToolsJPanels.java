@@ -1,9 +1,11 @@
 package adbs.main.ui.jpanels.tools;
 
 import adbs.main.AdbTools;
+import adbs.main.run.AdbGetPackage;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.model.Device;
 import runnabletools.pull.AdbPullApk;
+import tools.copy.SystemClipboard;
 import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
@@ -18,11 +20,10 @@ public class ToolsJPanels {
     /**
      * 提取apk按钮
      */
-    private JRadioButton getApk;
-    /**
-     * 安装apk到Android
-     */
-    private JRadioButton installApk;
+    private JRadioButton apkBtn;
+    private final String apkBtnFlag = ".apk";
+    private JRadioButton packBtn;
+    private final String packBtnFlag = "获取";
 
 
     /**
@@ -41,6 +42,7 @@ public class ToolsJPanels {
     // private Device device;
 
     public ToolsJPanels() {
+
         toolsJPanel = new JPanel();
         toolsJPanel.setLayout(FlowLayouts.flowLayoutLeft);
         // toolsJPanel.setLayout(new BorderLayout());
@@ -49,29 +51,35 @@ public class ToolsJPanels {
         toolsJPanel.setBorder(new TitledBorder(new LineBorder(Color.BLACK), "工具面板"));
         tips = new JLabel("");
 
-        getApk = new JRadioButton("提取");
-        installApk = new JRadioButton("安装");
+        apkBtn = new JRadioButton("提取");
+        // installApk = new JRadioButton("安装");
 
+        packBtn = new JRadioButton("包名");
 
         ButtonGroup buttonGroup = new ButtonGroup();
-        buttonGroup.add(getApk);
-        buttonGroup.add(installApk);
+        buttonGroup.add(apkBtn);
+        buttonGroup.add(packBtn);
+
+        // buttonGroup.add(installApk);
 
 
-        getApk.setToolTipText("提取屏幕顶部的APP的apk文件");
-        input = new JTextField(5);
+        apkBtn.setToolTipText("提取屏幕顶部的APP的apk文件");
+        packBtn.setToolTipText("保存当前应用的包名和应用名");
+
+        // 华为运动健康
+        input = new JTextField(7);
         input.setVisible(false);
         okButton = new JButton("确定");
         okButton.setVisible(false);
         cancelButton = new JButton("取消");
         cancelButton.setVisible(false);
 
-        getApk.addActionListener(new ActionListener() {
+        apkBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 input.setVisible(true);
-                tips.setText(" apk名称:");
-                okButton.setText("开始提取");
+                // tips.setText("应用名:");
+                okButton.setText(apkBtnFlag);
                 okButton.setVisible(true);
                 AdbTools.getInstance().getFrame().pack();
                 // AdbPullApk.setParentComponent(AdbTools.getInstance().getFrame());
@@ -79,13 +87,24 @@ public class ToolsJPanels {
             }
         });
 
-        installApk.addActionListener(new ActionListener() {
+        // installApk.addActionListener(new ActionListener() {
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         input.setVisible(true);
+        //         tips.setText(" apk编号:");
+        //         okButton.setText("开始安装");
+        //         okButton.setVisible(true);
+        //         AdbTools.getInstance().getFrame().pack();
+        //     }
+        // });
+
+        packBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                input.setVisible(true);
-                tips.setText(" apk编号:");
-                okButton.setText("开始安装");
+                okButton.setText(packBtnFlag);
                 okButton.setVisible(true);
+                input.setVisible(true);
+                // tips.setText("应用名:");
                 AdbTools.getInstance().getFrame().pack();
             }
         });
@@ -98,19 +117,21 @@ public class ToolsJPanels {
                 String okText = ok.getText();
                 switch (okText) {
                     // case "开始提取":
-                    case "开始提取":
+                    case apkBtnFlag:
                         pullTopApk();
                         break;
                     // case "install":
-                    case "开始安装":
+                    case packBtnFlag:
                         // pullTopApk();
-                        System.out.println("洗洗");
+                        soutPackageNameAppName();
+                        // System.out.println("洗洗");
                         break;
                 }
             }
         });
 
-        toolsJPanel.add(getApk);
+        toolsJPanel.add(apkBtn);
+        toolsJPanel.add(packBtn);
         // toolsJPanel.add(installApk);
         toolsJPanel.add(tips);
         toolsJPanel.add(input);
@@ -119,6 +140,25 @@ public class ToolsJPanels {
         // toolsJPanel.add(cancelButton);
         // AbstractButtons.setMarginInButtonJPanel(toolsJPanel,0);
         AbstractButtons.setMarginInButtonJPanel(toolsJPanel, 1);
+    }
+
+    private void soutPackageNameAppName() {
+        String appName = input.getText();
+        if (!"".equals(appName)) {
+            String serial = AdbTools.getInstance().getDevice().getSerial();
+            String packageName = AdbGetPackage.getTopPackageName(serial);
+            if (!"".equals(packageName)) {
+                // System.out.println("packageName = " + packageName);
+                // System.out.println("appName = " + appName);
+                // System.out.printf("%-40s%s\n", packageName, appName);
+
+                // String format = String.format("%-50s%s\n", packageName, appName);
+                String format = String.format("%-40s%s\r\n", packageName, appName);
+                System.out.println(format);
+                SystemClipboard.setSysClipboardText(format);
+
+            }
+        }
     }
 
     /**
