@@ -1,5 +1,6 @@
 package adbs.main.ui.jpanels.universal;
 
+import adbs.cmd.RobotsDraw;
 import adbs.main.ui.jpanels.time.TimePanels;
 import adbs.main.ui.jpanels.universal.listener.*;
 import adbs.main.ui.config.FlowLayouts;
@@ -15,7 +16,7 @@ import java.awt.event.ActionListener;
  */
 public class UniversalPanels {
     /**
-     * 通用面板
+     * 通用面板体
      */
     private final JPanel universalPanel;
     /**
@@ -43,6 +44,10 @@ public class UniversalPanels {
     //  * 滚动
     //  */
     // private JButton rollingButton;
+    /**
+     * 快手上下滚动滑动功能
+     */
+    private final JButton btnSlideUpAndDown;
     /**
      * 通用面板输出功能
      */
@@ -104,6 +109,16 @@ public class UniversalPanels {
 
         // rollingButton.addActionListener(new RoolButtonActionListener(timePanels));
 
+        btnSlideUpAndDown = new JButton("⇅");
+        btnSlideUpAndDown.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                RobotsDraw.slideUpAndDown();
+            }
+        });
+
+
+
         // 添加到面板中
         universalPanel.add(readButton);
         universalPanel.add(browseButton);
@@ -111,6 +126,7 @@ public class UniversalPanels {
         universalPanel.add(videoButton);
         universalPanel.add(shoppingButton);
         // universalPanel.add(rollingButton);
+        universalPanel.add(btnSlideUpAndDown);
         universalPanel.add(output2);
 
         AbstractButtons.setMarginInButtonJPanel(universalPanel, 1);

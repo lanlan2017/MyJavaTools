@@ -26,12 +26,18 @@ public class Test2 {
         // frame.setVisible(true);
 
 
-        String input = "          inet addr:192.168.0.103  Bcast:192.168.0.255  Mask:255.255.255.0";
+        // test1();
+        String str = "com.sankuai.meituan.takeoutnew  美团外卖";
+        str = str.substring(0, str.indexOf(" "));
+        System.out.println("|" + str + "|");
+        System.out.println(str.length());
 
+    }
+
+    private static void test1() {
+        String input = "          inet addr:192.168.0.103  Bcast:192.168.0.255  Mask:255.255.255.0";
         String output = getIfconfigIp(input);
         System.out.println("output =|" + output + "|");
-
-
     }
 
     private static String getIfconfigIp(String input) {

@@ -1,11 +1,11 @@
 package adbs.main.ui.jpanels.control;
 
+import adbs.cmd.RobotsDraw;
 import adbs.main.AdbTools;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.jpanels.time.TimePanels;
 import adbs.main.ui.jpanels.time.listener.WaitValues;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
-import adbs.tools.thread.ThreadSleep;
 import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
@@ -43,11 +43,13 @@ public class ControlJPanels extends WaitValues {
     /**
      * 等待180秒后，按任务键
      */
-    private final JButton wait180s_TaskBtn;
+    private final JButton btnWait180s_Task;
     /**
      * 等待超过3小时
      */
-    private final JButton wait3Hmore_TaskBtn;
+    private final JButton btnWait3Hmore_Task;
+
+    // private final JButton btnSlideUpAndDown;
 
 
     /**
@@ -74,38 +76,38 @@ public class ControlJPanels extends WaitValues {
         wait65s_TaskBtn = gWaitBtn(65);
         wait95s_TaskBtn = gWaitBtn(95);
         wait120s_TaskBtn = gWaitBtn(120);
-        wait180s_TaskBtn = gWaitBtn(180);
-        wait3Hmore_TaskBtn = gWaitBtn(values[values.length - 1]);
+        btnWait180s_Task = gWaitBtn(180);
+        btnWait3Hmore_Task = gWaitBtn(values[values.length - 1]);
 
         shopping95s_TaskBtn = gShoppingBtn(95);
 
         JPanel waitPanel = new JPanel();
         waitPanel.setLayout(FlowLayouts.flowLayoutLeft);
-        JLabel waitLabel = new JLabel("w");
         waitPanel.setBorder(new LineBorder(Color.LIGHT_GRAY));
+        JLabel waitLabel = new JLabel("w");
         waitPanel.add(waitLabel);
-
-        waitPanel.add(wait3Hmore_TaskBtn);
+        waitPanel.add(btnWait3Hmore_Task);
         waitPanel.add(wait35s_TaskBtn);
         waitPanel.add(wait65s_TaskBtn);
         waitPanel.add(wait95s_TaskBtn);
         waitPanel.add(wait120s_TaskBtn);
-        waitPanel.add(wait180s_TaskBtn);
+        waitPanel.add(btnWait180s_Task);
+
+
+        // btnSlideUpAndDown = new JButton("⇅");
+        // btnSlideUpAndDown.addActionListener(new ActionListener() {
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         RobotsDraw.slideUpAndDown();
+        //     }
+        // });
 
 
         controlJPanel.add(v65s_Stop_TaskBtn);
-
-        // controlJPanel.add(wait35s_TaskBtn);
-        // controlJPanel.add(wait65s_TaskBtn);
-        // controlJPanel.add(wait95s_TaskBtn);
-        // controlJPanel.add(wait120s_TaskBtn);
-        // controlJPanel.add(wait180s_TaskBtn);
-        // controlJPanel.add(wait3Hmore_TaskBtn);
-
         controlJPanel.add(waitPanel);
-
         controlJPanel.add(shopping35s_TaskBtn);
         controlJPanel.add(shopping95s_TaskBtn);
+        // controlJPanel.add(btnSlideUpAndDown);
 
         // AbstractButtons.setMarginInButtonJPanel(controlJPanel);
         AbstractButtons.setMarginInButtonJPanel(controlJPanel, 1);
