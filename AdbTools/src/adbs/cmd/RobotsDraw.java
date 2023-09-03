@@ -42,7 +42,7 @@ public class RobotsDraw {
 
     public static void slideUpAndDown() {
         // ThreadSleep.seconds(3);
-        ThreadSleep.seconds(4);
+        ThreadSleep.seconds(6);
 
         int x;
         int y;

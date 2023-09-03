@@ -85,7 +85,7 @@ public class AdbConnectPortProperties {
         propertiesTools.setProperty(key, nextPort);
         // 保存到配置文件中
         propertiesTools.store();
-        return nextPort;
+        return String.valueOf(port);
     }
 
 }

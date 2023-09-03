@@ -87,17 +87,6 @@ public class ToolsJPanels {
             }
         });
 
-        // installApk.addActionListener(new ActionListener() {
-        //     @Override
-        //     public void actionPerformed(ActionEvent e) {
-        //         input.setVisible(true);
-        //         tips.setText(" apk编号:");
-        //         okButton.setText("开始安装");
-        //         okButton.setVisible(true);
-        //         AdbTools.getInstance().getFrame().pack();
-        //     }
-        // });
-
         packBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -119,6 +108,10 @@ public class ToolsJPanels {
                     // case "开始提取":
                     case apkBtnFlag:
                         pullTopApk();
+                        // 输出包名和应用名，复制包名和应用名都剪贴板中
+                        // copyPackage_AppName
+                        copyPackage_AppName();
+
                         break;
                     // case "install":
                     case packBtnFlag:
@@ -127,6 +120,14 @@ public class ToolsJPanels {
                         // System.out.println("洗洗");
                         break;
                 }
+            }
+
+            /**
+             * 复制包名和应用名到剪贴板中
+             */
+            private void copyPackage_AppName() {
+                packBtn.doClick();
+                okButton.doClick();
             }
         });
 

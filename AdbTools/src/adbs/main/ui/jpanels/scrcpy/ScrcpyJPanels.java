@@ -17,6 +17,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * 投屏面板
+ */
 public class ScrcpyJPanels {
 
     private static String serialOld;
@@ -158,18 +161,18 @@ public class ScrcpyJPanels {
             @Override
             public void actionPerformed(ActionEvent e) {
                 AdbTools adbTools = AdbTools.getInstance();
+
                 // 停止自动线程
-                adbTools.getAdbJPanels().getStopBtn().doClick();
+                // adbTools.getAdbJPanels().getStopBtn().doClick();
+
                 if (device == null) {
-                    device = AdbTools.getInstance().getDevice();
+                    device =adbTools.getDevice();
                 }
                 if ("网调".equals(switchNetworkDebugBtn.getText())) {
                     String serial = device.getSerial();
                     serialOld = serial;
                     nameOld = device.getName();
-
-                    String ipCode = getIpCode(serial);
-
+                    getIpCode(serial);
                     networkDebug(serial);
 
 
@@ -194,6 +197,7 @@ public class ScrcpyJPanels {
                 String port = AdbConnectPortProperties.getPort();
                 String tcp = "adb -s " + serial + " tcpip " + port;
                 AdbCommands.runAbdCmd(tcp);
+
                 String connectCode = "adb connect " + ip + ":" + port;
                 AdbCommands.runAbdCmd(connectCode);
                 device.setSerial(ip + ":" + port);
