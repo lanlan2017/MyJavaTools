@@ -1,5 +1,6 @@
 package adbs.main.ui.jpanels.tools;
 
+import adbs.cmd.AdbUninstall;
 import adbs.main.AdbTools;
 import adbs.main.run.AdbGetPackage;
 import adbs.main.ui.config.FlowLayouts;
@@ -15,6 +16,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * apk面板 工具面板，操作应用的面板
+ */
 public class ToolsJPanels {
     private JPanel toolsJPanel;
     /**
@@ -24,7 +28,7 @@ public class ToolsJPanels {
     private final String apkBtnFlag = ".apk";
     private JRadioButton packBtn;
     private final String packBtnFlag = "获取";
-
+    private JButton btnUninstallUseless;
 
     /**
      * 提示文本
@@ -48,7 +52,8 @@ public class ToolsJPanels {
         // toolsJPanel.setLayout(new BorderLayout());
 
 
-        toolsJPanel.setBorder(new TitledBorder(new LineBorder(Color.BLACK), "工具面板"));
+        // toolsJPanel.setBorder(new TitledBorder(new LineBorder(Color.BLACK), "工具面板"));
+
         tips = new JLabel("");
 
         apkBtn = new JRadioButton("提取");
@@ -66,8 +71,19 @@ public class ToolsJPanels {
         apkBtn.setToolTipText("提取屏幕顶部的APP的apk文件");
         packBtn.setToolTipText("保存当前应用的包名和应用名");
 
+        btnUninstallUseless = new JButton("卸载");
+        btnUninstallUseless.setToolTipText("一键卸载保存在配置文件中的无用的APP");
+        btnUninstallUseless.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AdbUninstall.uninstallAllNonEssentialApps();
+            }
+        });
+
+
         // 华为运动健康
-        input = new JTextField(7);
+        // input = new JTextField(7);
+        input = new JTextField(5);
         input.setVisible(false);
         okButton = new JButton("确定");
         okButton.setVisible(false);
@@ -131,6 +147,7 @@ public class ToolsJPanels {
             }
         });
 
+        toolsJPanel.add(btnUninstallUseless);
         toolsJPanel.add(apkBtn);
         toolsJPanel.add(packBtn);
         // toolsJPanel.add(installApk);
