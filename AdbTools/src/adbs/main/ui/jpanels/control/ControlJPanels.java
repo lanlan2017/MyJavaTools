@@ -48,6 +48,7 @@ public class ControlJPanels extends WaitValues {
      * 等待超过3小时
      */
     private final JButton btnWait3Hmore_Task;
+    private final JButton btnWait4H_Task;
 
     // private final JButton btnSlideUpAndDown;
 
@@ -77,7 +78,8 @@ public class ControlJPanels extends WaitValues {
         wait95s_TaskBtn = gWaitBtn(95);
         wait120s_TaskBtn = gWaitBtn(120);
         btnWait180s_Task = gWaitBtn(180);
-        btnWait3Hmore_Task = gWaitBtn(values[values.length - 1]);
+        btnWait3Hmore_Task = gWaitBtn(values[values.length - 2]);
+        btnWait4H_Task = gWaitBtn(values[values.length - 1]);
 
         shopping95s_TaskBtn = gShoppingBtn(95);
 
@@ -87,6 +89,7 @@ public class ControlJPanels extends WaitValues {
         JLabel waitLabel = new JLabel("w");
         waitPanel.add(waitLabel);
         waitPanel.add(btnWait3Hmore_Task);
+        waitPanel.add(btnWait4H_Task);
         waitPanel.add(wait35s_TaskBtn);
         waitPanel.add(wait65s_TaskBtn);
         waitPanel.add(wait95s_TaskBtn);

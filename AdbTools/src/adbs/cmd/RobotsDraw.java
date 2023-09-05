@@ -71,9 +71,9 @@ public class RobotsDraw {
         int times;
         // 随机循环次数
         if (IsTest.isIsTest()) {
-            times = Randoms.getRandomInt(30, 50);
+            times = Randoms.getRandomInt(10, 30);
         } else {
-            times = Randoms.getRandomInt(200, 300);
+            times = Randoms.getRandomInt(150, 250);
         }
 
 

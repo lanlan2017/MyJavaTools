@@ -1,5 +1,8 @@
 package adbs.main;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class Test2 {
     public static void main(String[] args) {
         // JButton login = new JButton();
@@ -27,11 +30,35 @@ public class Test2 {
 
 
         // test1();
+        // test2();
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice[] gs = ge.getScreenDevices();
+        for (int j = 0; j < gs.length; j++) {
+            GraphicsDevice gd = gs[j];
+            GraphicsConfiguration[] gc = gd.getConfigurations();
+            for (int i = 0; i < gc.length; i++) {
+                JFrame f = new JFrame(gs[j].getDefaultConfiguration());
+                Canvas c = new Canvas(gc[i]);
+                Rectangle gcBounds = gc[i].getBounds();
+                int xoffs = gcBounds.x;
+                int yoffs = gcBounds.y;
+                f.getContentPane().add(c);
+
+                f.setLocation((i * 50) + xoffs, (i * 60) + yoffs);
+
+                // f.show();
+                f.setVisible(true);
+            }
+        }
+
+
+    }
+
+    private static void test2() {
         String str = "com.sankuai.meituan.takeoutnew  美团外卖";
         str = str.substring(0, str.indexOf(" "));
         System.out.println("|" + str + "|");
         System.out.println(str.length());
-
     }
 
     private static void test1() {
