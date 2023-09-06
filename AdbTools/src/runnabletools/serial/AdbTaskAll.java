@@ -1,7 +1,9 @@
 package runnabletools.serial;
 
 import adbs.cmd.AdbCommands;
+import adbs.main.AdbTools;
 import adbs.model.Device;
+import adbs.tools.thread.ThreadSleep;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -99,7 +101,26 @@ public class AdbTaskAll {
             String huaWaiYunDong = "adb -s " + serial + " shell am start -n com.huawei.health/.MainActivity";
             // 打开华为运动健康
             AdbCommands.runAbdCmd(huaWaiYunDong);
+            wait_TaskBtn();
         }
+
+        if ("95AQACQJCMZPA".equals(serial)) {
+            wait_TaskBtn();
+        }
+    }
+
+    /**
+     * 等待一段时间后触发任务键
+     */
+    private static void wait_TaskBtn() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ThreadSleep.minutes(1);
+                AdbTools.getInstance().getAdbJPanels().getTaskBtn().doClick();
+
+            }
+        }).start();
     }
 
     /**

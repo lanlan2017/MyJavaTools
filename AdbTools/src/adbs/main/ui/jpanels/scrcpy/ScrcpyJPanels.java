@@ -8,6 +8,7 @@ import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.jpanels.adb.listener.OpenButtonListener;
 import adbs.main.ui.jpanels.adb.open.Taskkill;
 import adbs.model.Device;
+import adbs.tools.thread.ThreadSleep;
 import config.AdbConnectPortProperties;
 import runnabletools.serial.AdbTaskAll;
 import tools.swing.button.AbstractButtons;
@@ -113,7 +114,8 @@ public class ScrcpyJPanels {
             public void actionPerformed(ActionEvent e) {
                 if (isFirstTimeRun) {
                     // 只启动一次线程即可，不可多次启动
-                    String serial = AdbTools.getInstance().getDevice().getSerial();
+                    AdbTools adbTools = AdbTools.getInstance();
+                    String serial = adbTools.getDevice().getSerial();
                     if ("75aed56d".equals(serial)) {
                         System.out.println("zzzzzzzzzzz启动一次线程");
                         new Thread(new OppoR9ScrcpyRun()).start();
@@ -121,6 +123,7 @@ public class ScrcpyJPanels {
                     isFirstTimeRun = false;
                     // 启动运动健康APP
                     AdbTaskAll.openSportsAndHealthApp(serial);
+
                 }
             }
         });
@@ -166,7 +169,7 @@ public class ScrcpyJPanels {
                 // adbTools.getAdbJPanels().getStopBtn().doClick();
 
                 if (device == null) {
-                    device =adbTools.getDevice();
+                    device = adbTools.getDevice();
                 }
                 if ("网调".equals(switchNetworkDebugBtn.getText())) {
                     String serial = device.getSerial();
