@@ -67,6 +67,7 @@ public class RobotsDraw {
         robot.mouseMove(x, yTop);
         // 按下鼠标左键
         robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+        robot.delay(10);
         // 循环次数
         int times;
         // 随机循环次数
@@ -96,6 +97,10 @@ public class RobotsDraw {
         }
 
         robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+        // 按下鼠标右键
+        robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
+        robot.delay(10);
+        robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
     }
 
     private static int getRandomsY(int yTop) {
