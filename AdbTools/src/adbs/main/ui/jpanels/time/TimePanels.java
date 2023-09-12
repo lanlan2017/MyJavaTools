@@ -152,7 +152,7 @@ public class TimePanels {
 
         // 得到窗体的内容面板
         Container parent = timePanel.getParent();
-        // String simpleId = AdbTools.device.getSimpleId();
+        // String simpleId = AdbTools.device.getName();
         String simpleId = AdbTools.getInstance().getDevice().getName();
         int returnVal = -100;
         String message = simpleId + "再次执行?";

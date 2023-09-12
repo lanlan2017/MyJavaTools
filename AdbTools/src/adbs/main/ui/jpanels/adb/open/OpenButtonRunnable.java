@@ -25,7 +25,7 @@ public class OpenButtonRunnable implements Runnable {
     public void run() {
         // 获取选择的id
         // String serial = AdbTools.device.getId();
-        // String name = AdbTools.device.getSimpleId();
+        // String name = AdbTools.device.getName();
 
         // 获取序列号
         String serial = AdbTools.getInstance().getDevice().getSerial();

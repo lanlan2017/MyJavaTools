@@ -52,9 +52,9 @@ public class Device {
     public Device(String serial, String description) {
         this.serial = serial;
         this.description = description;
-        // String simpleId = getSimpleId(id);
+        // String simpleId = getName(id);
         // map.put(simpleId, id);
-        name = getSimpleId(serial);
+        name = getName(serial);
         map.put(name, serial);
         // System.out.println("id=" + id + ",simpleId=" + simpleId);
 
@@ -67,20 +67,31 @@ public class Device {
         //
         // }
 
-        ArrayList<String> package_3 = new AdbShellPmListPackages_3(serial).getPackage_3();
+        setIsKuaiShouInstalled(serial);
 
-        // com.kuaishou.nebula                     快手极速版
-        int i1 = Collections.binarySearch(package_3, "com.kuaishou.nebula");
-        if (i1 > 0) {
-            isKuaiShouInstalled = true;
+    }
+
+    private void setIsKuaiShouInstalled(String serial) {
+        // getName()
+        String installedFlag = getInstalledFlag(serial);
+        // System.out.println("installedFlag = " + installedFlag);
+        if ("true".equals(installedFlag) || "false".equals(installedFlag)) {
+            isKuaiShouInstalled = Boolean.valueOf(installedFlag);
         } else {
-            // com.smile.gifmaker                      快手
-            int i2 = Collections.binarySearch(package_3, "com.smile.gifmaker");
-            if (i2 > 0) {
+            ArrayList<String> package_3 = new AdbShellPmListPackages_3(serial).getPackage_3();
+            // com.kuaishou.nebula                     快手极速版
+            int i1 = Collections.binarySearch(package_3, "com.kuaishou.nebula");
+            if (i1 > 0) {
                 isKuaiShouInstalled = true;
+            } else {
+                // com.smile.gifmaker                      快手
+                int i2 = Collections.binarySearch(package_3, "com.smile.gifmaker");
+                if (i2 > 0) {
+                    isKuaiShouInstalled = true;
+                }
             }
+            System.out.println(serial + " isKuaiShouInstalled=" + name + "_" + isKuaiShouInstalled);
         }
-        System.out.println(serial+" isKuaiShouInstalled = " + isKuaiShouInstalled);
 
     }
 
@@ -167,14 +178,30 @@ public class Device {
     /**
      * AdbTools.properties
      *
-     * @param id 设备的ID
+     * @param serial 设备的ID
      * @return 设备的别名
      */
-    public String getSimpleId(String id) {
+    public String getName(String serial) {
         PropertiesTools propertiesTools = AdbToolsProperties.propertiesTools;
-        String property = propertiesTools.getProperty(id);
+        String property = propertiesTools.getProperty(serial);
+        // System.out.println("property = " + property);
         // System.out.println("通过 配置文件 获取设备别名");
-        // System.out.println(id + " = " + property);
+        // System.out.println(serial + " = " + property);
+        if (property.contains("_")) {
+            property = property.substring(0, property.indexOf("_"));
+        }
+        // System.out.println("property = " + property);
+        return property;
+    }
+
+    public String getInstalledFlag(String serial) {
+        PropertiesTools propertiesTools = AdbToolsProperties.propertiesTools;
+        String property = propertiesTools.getProperty(serial);
+        // System.out.println("property = " + property);
+        if (property.contains("_")) {
+            property = property.substring(property.indexOf("_") + 1);
+        }
+        // System.out.println("property = " + property);
         return property;
     }
 
