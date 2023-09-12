@@ -36,8 +36,17 @@ public class AdbShellPmListPackages_3 {
         return package_3;
     }
 
+    public AdbShellPmListPackages_3(String serial) {
+        initPackages(serial);
+    }
+
     public AdbShellPmListPackages_3() {
+
         String serial = AdbTools.getInstance().getDevice().getSerial();
+        initPackages(serial);
+    }
+
+    private void initPackages(String serial) {
         // System.out.println("serial = " + serial);
         // String run = CmdRun.run("adb shell pm list packages -3");
         String code = "adb -s " + serial + " shell pm list packages -3";

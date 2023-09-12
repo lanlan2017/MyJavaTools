@@ -2,6 +2,7 @@ package adbs.model;
 
 import adbs.cmd.AdbCommands;
 import adbs.cmd.CmdRun;
+import adbs.main.run.AdbShellPmListPackages_3;
 import config.AdbToolsProperties;
 import tools.config.properties.PropertiesTools;
 
@@ -33,8 +34,17 @@ public class Device {
      */
     private int height;
 
+    /**
+     * 产品型号
+     */
     private String productModel;
+    /**
+     * 主机名称
+     */
     private String netHostName;
+
+
+    private boolean isKuaiShouInstalled;
 
 
     public static HashMap<String, String> map = new HashMap<>();
@@ -47,6 +57,31 @@ public class Device {
         name = getSimpleId(serial);
         map.put(name, serial);
         // System.out.println("id=" + id + ",simpleId=" + simpleId);
+
+        // com.kuaishou.nebula                     快手极速版
+        // com.smile.gifmaker                      快手
+
+        // String code1 = "adb -s " + serial + " shell pm list packages | find \"com.kuaishou.nebula\"";
+        // String r1 = AdbCommands.runAbdCmd(code).trim();
+        // if ("".equals(r1) && r1.startsWith("")) {
+        //
+        // }
+
+        ArrayList<String> package_3 = new AdbShellPmListPackages_3(serial).getPackage_3();
+
+        // com.kuaishou.nebula                     快手极速版
+        int i1 = Collections.binarySearch(package_3, "com.kuaishou.nebula");
+        if (i1 > 0) {
+            isKuaiShouInstalled = true;
+        } else {
+            // com.smile.gifmaker                      快手
+            int i2 = Collections.binarySearch(package_3, "com.smile.gifmaker");
+            if (i2 > 0) {
+                isKuaiShouInstalled = true;
+            }
+        }
+        System.out.println(serial+" isKuaiShouInstalled = " + isKuaiShouInstalled);
+
     }
 
     public String getSerial() {
@@ -55,6 +90,10 @@ public class Device {
 
     public String getName() {
         return name;
+    }
+
+    public boolean isKuaiShouInstalled() {
+        return isKuaiShouInstalled;
     }
 
     /**
@@ -105,6 +144,7 @@ public class Device {
         }
         return netHostName;
     }
+
 
     /**
      * 获取设备编号对应的短名称

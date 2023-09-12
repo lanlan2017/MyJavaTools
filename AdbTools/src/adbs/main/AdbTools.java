@@ -1,6 +1,7 @@
 package adbs.main;
 
 import adbs.cmd.AdbCommands;
+import adbs.main.run.AdbShellPmListPackages_3;
 import adbs.main.run.BatteryLevelRun2;
 import adbs.main.run.ForegroundAppRun;
 import adbs.main.ui.config.FlowLayouts;
@@ -24,10 +25,7 @@ import tools.swing.button.AbstractButtons;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.Scanner;
+import java.util.*;
 
 public class AdbTools {
 
@@ -179,6 +177,7 @@ public class AdbTools {
                 scrcpyJPanels.getKillScrcpyBtn().doClick();
                 System.out.println("窗体正在关闭。。。。。。。。。。。。");
                 // ThreadSleep.seconds(5);
+                System.exit(0);
             }
         });
         // 永远置顶
@@ -250,6 +249,12 @@ public class AdbTools {
                 simpleId_Device_map.put(device.getName(), device);
             }
         }
+        /**
+         * 排序设备名
+         */
+        sortIdList(idList, simpleId_Device_map);
+
+
         // 打印id列表
         System.out.println("idList = " + idList);
 
@@ -275,39 +280,58 @@ public class AdbTools {
             String devieceSelected = options[dialogReturn];
             System.out.println("你选择了:" + devieceSelected);
             SystemClipboard.setSysClipboardText(devieceSelected);
-
-            // new Thread(new Runnable() {
-            //     @Override
-            //     public void run() {
-            //         ThreadSleep.seconds(10);
-            //         System.out.println("。。。。。。。设置标题");
-            //         String code = "title " + devieceSelected;
-            //         System.out.println("code = " + code);
-            //         CmdRun.run(code);
-            //     }
-            // }).start();
-
-            // CmdRun.run("title " + devieceSelected);
             // 把这个编号对应的字符串设置到窗体的标题
             frame.setTitle(devieceSelected);
-            // frame.setTitle(Device.map.get(options[dialogReturn]));
-            // System.out.println("simpleId_Device_map.get(options[dialogReturn]) = " + simpleId_Device_map.get(options[dialogReturn]));
             device = simpleId_Device_map.get(devieceSelected);
-            // CmdRun.run("title " + devieceSelected);
         } else {
             System.out.println("退出程序");
             System.exit(-1);
         }
     }
 
-    // /**
-    //  * 初始化adb面板
-    //  */
-    // private AdbJPanels initAdbJPanel() {
-    //     AdbJPanels adbJPanels = new AdbJPanels();
-    //     // stopBtn = adbJPanels.getStopBtn();
-    //     return adbJPanels;
-    // }
+    private void sortIdList(ArrayList<String> idList, LinkedHashMap<String, Device> simpleId_Device_map) {
+        Collections.sort(idList, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                // com.kuaishou.nebula                     快手极速版
+                // com.smile.gifmaker                      快手
+                Device device1 = simpleId_Device_map.get(o1);
+                Device device2 = simpleId_Device_map.get(o2);
+                // 如果两个设备都安装了快手 或者快手极速版APP
+                if (device1.isKuaiShouInstalled() && device2.isKuaiShouInstalled()) {
+                    // t t
+                    // 比较名称来决定顺序
+                    return o1.compareTo(o2);
+                }
+                /*
+                    t f
+                    f t
+                    f f
+                 */
+                else if (device1.isKuaiShouInstalled()) {
+                    // t f
+                    return -1;
+                }
+                /*
+                f t
+                f f
+                 */
+
+                else if (device2.isKuaiShouInstalled()) {
+                    //    f t
+                    return 1;
+                }
+                /*
+                ff
+                 */
+                else {
+                    return o1.compareTo(o2);
+                }
+
+                // return 0;
+            }
+        });
+    }
 
     public static AdbTools getInstance() {
         return instance;
