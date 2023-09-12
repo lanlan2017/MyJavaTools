@@ -1,14 +1,13 @@
 package adbs.main;
 
 import adbs.cmd.AdbCommands;
-import adbs.cmd.CmdRun;
 import adbs.main.run.BatteryLevelRun2;
 import adbs.main.run.ForegroundAppRun;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.inout.InOutputModel;
 import adbs.main.ui.jpanels.adb.AdbJPanels;
 import adbs.main.ui.jpanels.check.JCheckBoxControlJPanelItemListener;
-import adbs.main.ui.jpanels.control.ControlJPanels;
+import adbs.main.ui.jpanels.control.TimingPanels;
 import adbs.main.ui.jpanels.scrcpy.ScrcpyJPanels;
 import adbs.main.ui.jpanels.time.TimePanels;
 import adbs.main.ui.jpanels.time.listener.InputOkButtonActionListener;
@@ -50,7 +49,7 @@ public class AdbTools {
     // scrcpy面板
     private final ScrcpyJPanels scrcpyJPanels;
     // 控制面板
-    private final ControlJPanels controlJPanels;
+    private final TimingPanels timingPanels;
 
 
     // 当前选择的设备
@@ -77,7 +76,7 @@ public class AdbTools {
         scrcpyJPanels = new ScrcpyJPanels();
 
         // 初始化第3个面板，控制面板
-        controlJPanels = new ControlJPanels();
+        timingPanels = new TimingPanels();
         // JPanel controlJPanel = controlJPanels.getControlJPanel();
 
         // 初始化 时间输入面板
@@ -97,23 +96,27 @@ public class AdbTools {
         checkJPanel.setLayout(FlowLayouts.flowLayoutLeft);
 
         // 通用复选框
-        JCheckBox generalJCheckBox = new JCheckBox("通用", true);
+        // JCheckBox generalJCheckBox = new JCheckBox("通用", true);
+        JCheckBox generalJCheckBox = new JCheckBox("动", true);
         // JCheckBox generalJCheckBox = new JCheckBox("", true);
         generalJCheckBox.setToolTipText("展开/折叠 通用功能");
 
-        JCheckBox adbJCheckBox = new JCheckBox("系统", true);
+        // JCheckBox adbJCheckBox = new JCheckBox("系统", true);
+        // JCheckBox adbJCheckBox = new JCheckBox("system", true);
+        JCheckBox adbJCheckBox = new JCheckBox("系", true);
         // JCheckBox adbJCheckBox = new JCheckBox("", true);
-        adbJCheckBox.setToolTipText("展开/折叠 系统功能");
+        adbJCheckBox.setToolTipText("展开/折叠 系统功能 面板");
         adbJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(adbJPanels.getAdbJPanel()));
 
-        JCheckBox scrcpyJCheckBox = new JCheckBox("投屏", true);
+        // JCheckBox scrcpyJCheckBox = new JCheckBox("投屏", true);
+        JCheckBox scrcpyJCheckBox = new JCheckBox("投", true);
         // JCheckBox adbJCheckBox = new JCheckBox("", true);
         scrcpyJCheckBox.setToolTipText("展开/折叠 scrcpy设置功能");
         scrcpyJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(scrcpyJPanels.getScrcpyJPanel()));
 
         // 控制复选框
-        JCheckBox controlJCheckBox = new JCheckBox("控制", true);
-        controlJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(controlJPanels.getControlJPanel()));
+        JCheckBox controlJCheckBox = new JCheckBox("等", true);
+        controlJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(timingPanels.getTimingPanel()));
         // 现在就触发
         controlJCheckBox.doClick();
 
@@ -152,7 +155,7 @@ public class AdbTools {
         // 添加 时间输入面板 到第4行
         frame.add(timePanels.getTimePanel());
         // 添加 控制面板 到第5行
-        frame.add(controlJPanels.getControlJPanel());
+        frame.add(timingPanels.getTimingPanel());
         frame.add(toolsJPanels.getToolsJPanel());
 
         // 需要先初始化通用面板 要放在 initUniversalPanel(inputPanels, inOut);之后
@@ -272,6 +275,18 @@ public class AdbTools {
             String devieceSelected = options[dialogReturn];
             System.out.println("你选择了:" + devieceSelected);
             SystemClipboard.setSysClipboardText(devieceSelected);
+
+            // new Thread(new Runnable() {
+            //     @Override
+            //     public void run() {
+            //         ThreadSleep.seconds(10);
+            //         System.out.println("。。。。。。。设置标题");
+            //         String code = "title " + devieceSelected;
+            //         System.out.println("code = " + code);
+            //         CmdRun.run(code);
+            //     }
+            // }).start();
+
             // CmdRun.run("title " + devieceSelected);
             // 把这个编号对应的字符串设置到窗体的标题
             frame.setTitle(devieceSelected);
@@ -314,8 +329,8 @@ public class AdbTools {
         return scrcpyJPanels;
     }
 
-    public ControlJPanels getControlJPanels() {
-        return controlJPanels;
+    public TimingPanels getControlJPanels() {
+        return timingPanels;
     }
 
     public Device getDevice() {

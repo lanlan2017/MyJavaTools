@@ -15,6 +15,7 @@ import java.util.Collections;
  * 获取第三方所有可赚钱的apk的名称列表
  */
 public class AdbShellPmListPackages_3 {
+    private ArrayList<String> package_3 = new ArrayList<>();
     private ArrayList<String> packages_3_money = new ArrayList<>();
 
     /**
@@ -24,6 +25,15 @@ public class AdbShellPmListPackages_3 {
      */
     public ArrayList<String> getPackages_3_money() {
         return packages_3_money;
+    }
+
+    /**
+     * 获取手机上安装的所有第三方APP的包名列表
+     *
+     * @return 保存Android设备上所有的第三方APP的包名的ArrayList对象。
+     */
+    public ArrayList<String> getPackage_3() {
+        return package_3;
     }
 
     public AdbShellPmListPackages_3() {
@@ -43,13 +53,17 @@ public class AdbShellPmListPackages_3 {
             String flag = "package:";
             try {
                 String line;
+                String packageName;
                 while ((line = reader.readLine()) != null) {
                     if (line.startsWith(flag)) {
-                        line = line.substring(line.indexOf(flag) + flag.length());
+                        packageName = line.substring(line.indexOf(flag) + flag.length());
+                        package_3.add(packageName);
+
                         // System.out.println("line =" + line + "=");
-                        String property = AdbToolsProperties.moneyApkPro.getProperty(line);
-                        if (!line.equals(property)) {
-                            packages_3_money.add(property);
+                        String appName = AdbToolsProperties.moneyApkPro.getProperty(packageName);
+                        // 如果没有返回传入的参数，则说明配置文件中有这个包名
+                        if (!packageName.equals(appName)) {
+                            packages_3_money.add(appName);
                         }
                     }
                 }
@@ -57,8 +71,19 @@ public class AdbShellPmListPackages_3 {
                 e.printStackTrace();
             }
         }
-        // 排序
+        // 排序可赚钱应用名列表
         Collections.sort(packages_3_money);
+        // 排序第三方APP的包名列表
+        Collections.sort(package_3);
         // System.out.println(packages_3_money);
+    }
+
+    public static void main(String[] args) {
+        AdbShellPmListPackages_3 adbShellPmListPackages_3 = new AdbShellPmListPackages_3();
+        ArrayList<String> packages_3_money = adbShellPmListPackages_3.getPackages_3_money();
+        System.out.println("packages_3_money = " + packages_3_money);
+
+        ArrayList<String> package_3 = adbShellPmListPackages_3.getPackage_3();
+        System.out.println("package_3 = " + package_3);
     }
 }

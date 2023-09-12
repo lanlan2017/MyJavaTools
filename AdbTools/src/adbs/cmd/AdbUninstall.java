@@ -30,7 +30,6 @@ public class AdbUninstall {
 
         String serial = AdbTools.getInstance().getDevice().getSerial();
 
-
         ArrayList<String> package3List = getPackage3List(serial);
         // printList(package3List);
         Collections.sort(package3List);
@@ -49,11 +48,17 @@ public class AdbUninstall {
      * @param package3List 保存该Android设备中的所有第三方APP的列表
      */
     private static void binarySearchUninstall(String serial, ArrayList<String> package3List) {
+
+        // 获取第三方APP列表的迭代器
         Iterator<String> itPackage3 = package3List.iterator();
+
         while (itPackage3.hasNext()) {
+            // 获取一个第第三方APP的包名
             String nextPackage3 = itPackage3.next();
+            // 在要卸载的APP包名列表中查找 这个第三方APP的包名
             int i = Collections.binarySearch(uninstallPackageList, nextPackage3);
             // System.out.println("i = " + i);
+            // 如果找到这个包名
             if (i >= 0) {
                 System.out.println();
                 System.out.println("要卸载 nextPackage3 = " + nextPackage3);

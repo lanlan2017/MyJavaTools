@@ -1,6 +1,5 @@
 package adbs.main.ui.jpanels.control;
 
-import adbs.cmd.RobotsDraw;
 import adbs.main.AdbTools;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.jpanels.time.TimePanels;
@@ -16,9 +15,14 @@ import java.awt.event.ActionListener;
 
 /**
  * 控制面板
+ *
+ * 等待面板
+ * 计时面板
+ * 快速计时面板
+ * TimingPanel
  */
-public class ControlJPanels extends WaitValues {
-    private final JPanel controlJPanel;
+public class TimingPanels extends WaitValues {
+    private final JPanel timingPanel;
 
     // V65s_S_T
     /**
@@ -60,8 +64,8 @@ public class ControlJPanels extends WaitValues {
     private final JButton shopping35s_TaskBtn;
     private final JButton shopping95s_TaskBtn;
 
-    public ControlJPanels() {
-        controlJPanel = new JPanel(FlowLayouts.flowLayoutLeft);
+    public TimingPanels() {
+        timingPanel = new JPanel(FlowLayouts.flowLayoutLeft);
         // controlJPanel.setBorder(new TitledBorder("控制面板"));
         // Font font1 = new Font(Font.SANS_SERIF, Font.BOLD, 16);
         // Font font2 = new Font(Font.SANS_SERIF, Font.BOLD, 12);
@@ -106,14 +110,14 @@ public class ControlJPanels extends WaitValues {
         // });
 
 
-        controlJPanel.add(v65s_Stop_TaskBtn);
-        controlJPanel.add(waitPanel);
-        controlJPanel.add(shopping35s_TaskBtn);
-        controlJPanel.add(shopping95s_TaskBtn);
+        timingPanel.add(v65s_Stop_TaskBtn);
+        timingPanel.add(waitPanel);
+        timingPanel.add(shopping35s_TaskBtn);
+        timingPanel.add(shopping95s_TaskBtn);
         // controlJPanel.add(btnSlideUpAndDown);
 
         // AbstractButtons.setMarginInButtonJPanel(controlJPanel);
-        AbstractButtons.setMarginInButtonJPanel(controlJPanel, 1);
+        AbstractButtons.setMarginInButtonJPanel(timingPanel, 1);
         AbstractButtons.setMarginInButtonJPanel(waitPanel, 1);
     }
 
@@ -304,7 +308,7 @@ public class ControlJPanels extends WaitValues {
         }
     }
 
-    public JPanel getControlJPanel() {
-        return controlJPanel;
+    public JPanel getTimingPanel() {
+        return timingPanel;
     }
 }

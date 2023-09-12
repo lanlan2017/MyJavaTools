@@ -98,7 +98,7 @@ public class RobotsDraw {
 
         robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
 
-        ThreadSleep.seconds(5);
+        ThreadSleep.seconds(10);
         // 按下鼠标右键
         robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
         robot.delay(10);

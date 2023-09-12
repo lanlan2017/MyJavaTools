@@ -5,6 +5,7 @@ import adbs.main.AdbTools;
 import adbs.main.run.ForegroundAppRun;
 import adbs.main.run.OppoR9ScrcpyRun;
 import adbs.main.ui.config.FlowLayouts;
+import adbs.main.ui.config.Fonts;
 import adbs.main.ui.jpanels.adb.listener.OpenButtonListener;
 import adbs.main.ui.jpanels.adb.open.Taskkill;
 import adbs.model.Device;
@@ -48,8 +49,13 @@ public class ScrcpyJPanels {
      * 当前APP已签到
      */
     private final JButton signedInBtn;
-
+    /**
+     * 所有的APP已经签到完毕
+     */
     private final JButton allCheckedInBtn;
+
+    private final JButton openMobileButlerApp;
+
 
     /**
      * scrcpy.exe内部镜像宽度数组
@@ -75,6 +81,7 @@ public class ScrcpyJPanels {
 
         // widthTextField = new JTextField(4);
         widthTextField = new JTextField(3);
+        widthTextField.setFont(Fonts.Consolas_PLAIN_12);
         // 设置投屏的 默认高度
         // widthTextField.setText(String.valueOf(540));
         // widthTextField.setText(String.valueOf(600));
@@ -101,6 +108,8 @@ public class ScrcpyJPanels {
 
         // openScrcpyBtn = new JButton(new ImageIcon(AdbTools.class.getClassLoader().getResource("open.png")));
         openScrcpyBtn = new JButton("➚");
+        // openScrcpyBtn = new JButton("s");
+        // openScrcpyBtn = new JButton("投");
         // openScrcpyBtn = new JButton("➤");
 
 
@@ -128,7 +137,9 @@ public class ScrcpyJPanels {
             }
         });
 
-        killScrcpyBtn = new JButton("kill");
+        // killScrcpyBtn = new JButton("kill");
+        // killScrcpyBtn = new JButton("×");
+        killScrcpyBtn = new JButton("k");
         killScrcpyBtn.setToolTipText("杀死打开的scrcpy镜像");
         killScrcpyBtn.addActionListener(new ActionListener() {
             @Override
@@ -156,7 +167,12 @@ public class ScrcpyJPanels {
             }
         });
 
-        switchNetworkDebugBtn = new JButton("网调");
+        // final String networkDebugging = "网调";
+        // final String usbDebugging = "线调";
+        final String networkDebugging = "网";
+        final String usbDebugging = "线";
+
+        switchNetworkDebugBtn = new JButton(networkDebugging);
         switchNetworkDebugBtn.setToolTipText("切换网络调试");
         switchNetworkDebugBtn.addActionListener(new ActionListener() {
             Device device = null;
@@ -171,7 +187,7 @@ public class ScrcpyJPanels {
                 if (device == null) {
                     device = adbTools.getDevice();
                 }
-                if ("网调".equals(switchNetworkDebugBtn.getText())) {
+                if (networkDebugging.equals(switchNetworkDebugBtn.getText())) {
                     String serial = device.getSerial();
                     serialOld = serial;
                     nameOld = device.getName();
@@ -184,7 +200,7 @@ public class ScrcpyJPanels {
                     String ip_serial = device.getSerial();
                     device.setSerial(serialOld);
                     device.setName(nameOld);
-                    switchNetworkDebugBtn.setText("网调");
+                    switchNetworkDebugBtn.setText(networkDebugging);
                     switchNetworkDebugBtn.setBackground(switchNetworkDebugBtnBackground);
                     String code = "adb disconnect " + ip_serial;
                     AdbCommands.runAbdCmd(code);
@@ -205,7 +221,8 @@ public class ScrcpyJPanels {
                 AdbCommands.runAbdCmd(connectCode);
                 device.setSerial(ip + ":" + port);
                 device.setName(device.getName() + "+");
-                switchNetworkDebugBtn.setText("线调");
+
+                switchNetworkDebugBtn.setText(usbDebugging);
                 switchNetworkDebugBtnBackground = switchNetworkDebugBtn.getBackground();
                 switchNetworkDebugBtn.setBackground(Color.PINK);
                 // reopenScrcpy();
@@ -246,6 +263,15 @@ public class ScrcpyJPanels {
             }
         });
 
+        openMobileButlerApp = new JButton("管家");
+        openMobileButlerApp.setToolTipText("打开手机管家APP");
+        openMobileButlerApp.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
         // adb面板添加按钮
         scrcpyJPanel.add(label);
         scrcpyJPanel.add(widthTextField);
@@ -257,7 +283,9 @@ public class ScrcpyJPanels {
         scrcpyJPanel.add(updateEarningApps);
         scrcpyJPanel.add(signedInBtn);
         scrcpyJPanel.add(allCheckedInBtn);
-        AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, 1);
+        // AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, 1);
+        // AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, -1);
+        AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, 0);
     }
 
     private String getIpCode(String serial) {

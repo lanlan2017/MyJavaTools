@@ -1,5 +1,6 @@
 package adbs.model;
 
+import adbs.cmd.AdbCommands;
 import adbs.cmd.CmdRun;
 import config.AdbToolsProperties;
 import tools.config.properties.PropertiesTools;
@@ -32,6 +33,9 @@ public class Device {
      */
     private int height;
 
+    private String productModel;
+    private String netHostName;
+
 
     public static HashMap<String, String> map = new HashMap<>();
 
@@ -40,7 +44,6 @@ public class Device {
         this.description = description;
         // String simpleId = getSimpleId(id);
         // map.put(simpleId, id);
-
         name = getSimpleId(serial);
         map.put(name, serial);
         // System.out.println("id=" + id + ",simpleId=" + simpleId);
@@ -52,6 +55,55 @@ public class Device {
 
     public String getName() {
         return name;
+    }
+
+    /**
+     * 获取产品型号
+     *
+     * @return
+     */
+    public String getProductModel() {
+        if (productModel == null) {
+            // String code = "adb -s " + serial + " shell getprop";
+            // String code = "adb -s " + serial + " shell getprop ro.build.display.innerver";
+            // 获取型号
+            String code = "adb -s " + serial + " shell getprop ro.product.model";
+            // String code = "adb -s " + serial + " shell getprop | findstr product";
+            // 获取主机名
+            // String code = "adb -s " + serial + " shell getprop | findstr net.hostname";
+
+            String innerver = AdbCommands.runAbdCmd(code);
+            // String innerver = CmdRun.run(code).trim();
+            // System.out.println("产品型号 = |" + innerver + "|");
+            productModel = innerver;
+        }
+        return productModel;
+    }
+
+
+    /**
+     * 获取产品型号
+     *
+     * @return
+     */
+    public String getNetHostName() {
+
+        if (netHostName == null) {
+            // String code = "adb -s " + serial + " shell getprop";
+            // String code = "adb -s " + serial + " shell getprop ro.build.display.innerver";
+            // 获取型号
+            // String code = "adb -s " + serial + " shell getprop ro.product.model";
+            // String code = "adb -s " + serial + " shell getprop | findstr product";
+            // 获取主机名
+            // String code = "adb -s " + serial + " shell getprop | findstr net.hostname";
+            String code = "adb -s " + serial + " shell getprop net.hostname";
+
+            String innerver = AdbCommands.runAbdCmd(code);
+            // String innerver = CmdRun.run(code).trim();
+            // System.out.println("产品型号 = |" + innerver + "|");
+            netHostName = innerver;
+        }
+        return netHostName;
     }
 
     /**

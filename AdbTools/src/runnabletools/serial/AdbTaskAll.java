@@ -109,6 +109,23 @@ public class AdbTaskAll {
         }
     }
 
+    public static void openTheMobileButler(String serial) {
+        /*
+         *
+         * adb -s U8ENW17C13004746 shell am start -n com.huawei.systemmanager/.mainscreen.MainScreenActivity
+         * adb -s U8ENW17C13004746 shell am start -n com.huawei.systemmanager/.mainscreen.MainScreenActivity
+         *
+         * 判断，只有当前的act不是手机管家，才打开华为手机管家
+         *
+         * 在打开镜像的时候，就获取设备的型号，到时候根据型号来判断
+         * */
+        if ("75aed56d".equals(serial)) {
+
+        } else if ("95AQACQJCMZPA".equals(serial)) {
+
+        }
+    }
+
     /**
      * 等待一段时间后触发任务键
      */

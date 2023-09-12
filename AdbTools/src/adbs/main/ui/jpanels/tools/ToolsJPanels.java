@@ -3,8 +3,10 @@ package adbs.main.ui.jpanels.tools;
 import adbs.cmd.AdbUninstall;
 import adbs.main.AdbTools;
 import adbs.main.run.AdbGetPackage;
+import adbs.main.run.AdbShellPmListPackages_3;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.model.Device;
+import adbs.tools.thread.ThreadSleep;
 import runnabletools.pull.AdbPullApk;
 import tools.copy.SystemClipboard;
 import tools.swing.button.AbstractButtons;
@@ -15,6 +17,8 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * apk面板 工具面板，操作应用的面板
@@ -72,11 +76,38 @@ public class ToolsJPanels {
         packBtn.setToolTipText("保存当前应用的包名和应用名");
 
         btnUninstallUseless = new JButton("卸载");
+
         btnUninstallUseless.setToolTipText("一键卸载保存在配置文件中的无用的APP");
+        // Color oldColor = btnUninstallUseless.getBackground();
+        // btnUninstallUseless.setOpaque(true);
+        // btnUninstallUseless.setBorderPainted(false);
         btnUninstallUseless.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // 在后续的操作没有结束之前，禁用按钮
+                // toolsJPanel.setBackground(Color.red);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        btnUninstallUseless.setText("卸载中...");
+                        AdbTools.getInstance().getFrame().pack();
+                        btnUninstallUseless.setEnabled(false);
+                    }
+                }).start();
+
                 AdbUninstall.uninstallAllNonEssentialApps();
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ThreadSleep.seconds(3);
+                        btnUninstallUseless.setText("卸载");
+                        AdbTools.getInstance().getFrame().pack();
+                        btnUninstallUseless.setEnabled(true);
+                    }
+                }).start();
+
+
             }
         });
 
@@ -169,11 +200,24 @@ public class ToolsJPanels {
                 // System.out.println("packageName = " + packageName);
                 // System.out.println("appName = " + appName);
                 // System.out.printf("%-40s%s\n", packageName, appName);
-
+                // if (packageName.startsWith("com.android.")) {
+                //     System.out.println(packageName + " " + appName + "是 安卓系统程序，不可卸载！");
+                // } else if (packageName.startsWith("com.huawei.")) {
+                //     System.out.println(packageName + " " + appName + "是 华为系统程序，不可卸载！");
+                // }
                 // String format = String.format("%-50s%s\n", packageName, appName);
-                String format = String.format("%-40s%s\r\n", packageName, appName);
-                System.out.println(format);
-                SystemClipboard.setSysClipboardText(format);
+                String format = String.format("%-40s%-8s", packageName, appName);
+                format = format.trim() + "\r\n";
+                System.out.println("|" + format + "|");
+
+                ArrayList<String> package_3 = new AdbShellPmListPackages_3().getPackage_3();
+                int i = Collections.binarySearch(package_3, packageName);
+                // 如果这个包名，在第三方APP包名列表中，则表示可以卸载
+                if (i >= 0) {
+                    SystemClipboard.setSysClipboardText(format);
+                } else {
+                    SystemClipboard.setSysClipboardText("非第三方APP！谨慎卸载：" + format);
+                }
 
             }
         }
