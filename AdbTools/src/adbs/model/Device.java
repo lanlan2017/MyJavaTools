@@ -34,6 +34,7 @@ public class Device {
      */
     private int height;
 
+    private String product;
     /**
      * 产品型号
      */
@@ -43,7 +44,9 @@ public class Device {
      */
     private String netHostName;
 
-
+    /**
+     * 是否安装快手或者快手极速版APP
+     */
     private boolean isKuaiShouInstalled;
 
 
@@ -52,27 +55,28 @@ public class Device {
     public Device(String serial, String description) {
         this.serial = serial;
         this.description = description;
+        // System.out.println("description = " + description);
+        String productFlag = "product:";
+        if (description.contains(productFlag)) {
+            product = description.substring(description.indexOf(productFlag) + productFlag.length());
+            product = product.substring(0, product.indexOf(" "));
+            // System.out.println("product = |" + product + "|");
+        }
+
         // String simpleId = getName(id);
         // map.put(simpleId, id);
         name = getName(serial);
         map.put(name, serial);
         // System.out.println("id=" + id + ",simpleId=" + simpleId);
-
-        // com.kuaishou.nebula                     快手极速版
-        // com.smile.gifmaker                      快手
-
-        // String code1 = "adb -s " + serial + " shell pm list packages | find \"com.kuaishou.nebula\"";
-        // String r1 = AdbCommands.runAbdCmd(code).trim();
-        // if ("".equals(r1) && r1.startsWith("")) {
-        //
-        // }
-
         setIsKuaiShouInstalled(serial);
 
     }
 
     private void setIsKuaiShouInstalled(String serial) {
+        // com.kuaishou.nebula                     快手极速版
+        // com.smile.gifmaker                      快手
         // getName()
+        // 先在配置文件中查找标记
         String installedFlag = getInstalledFlag(serial);
         // System.out.println("installedFlag = " + installedFlag);
         if ("true".equals(installedFlag) || "false".equals(installedFlag)) {
@@ -132,7 +136,7 @@ public class Device {
 
 
     /**
-     * 获取产品型号
+     * 获取产品网络名称
      *
      * @return
      */

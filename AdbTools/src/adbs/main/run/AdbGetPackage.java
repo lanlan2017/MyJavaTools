@@ -34,6 +34,13 @@ public class AdbGetPackage {
         return packageName;
     }
 
+    public static String getActName(String adbOuput) {
+        // mResumedActivity: ActivityRecord{7fbc105 u0 com.huawei.health/.MainActivity t1573}
+        adbOuput = adbOuput.substring(0, adbOuput.lastIndexOf(" "));
+        adbOuput = adbOuput.substring(adbOuput.lastIndexOf(" ") + 1);
+        return adbOuput;
+    }
+
     public static String getTopPackageName(String serial) {
         String packageName = "";
         String activityCode = getTopActivityCommand(serial).trim();

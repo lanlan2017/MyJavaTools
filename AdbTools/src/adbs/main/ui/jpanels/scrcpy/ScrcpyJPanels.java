@@ -283,6 +283,7 @@ public class ScrcpyJPanels {
         scrcpyJPanel.add(updateEarningApps);
         scrcpyJPanel.add(signedInBtn);
         scrcpyJPanel.add(allCheckedInBtn);
+        scrcpyJPanel.add(openMobileButlerApp);
         // AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, 1);
         // AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, -1);
         AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, 0);

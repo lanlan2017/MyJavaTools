@@ -90,6 +90,11 @@ public class ForegroundAppRun implements Runnable {
             // run = run.trim();
             // 如果命令结果中有反斜杠，说明有包名
             if (run.contains("/")) {
+                //mResumedActivity: ActivityRecord{7fbc105 u0 com.huawei.health/.MainActivity t1573}
+                String actName = AdbGetPackage.getActName(run);
+                System.out.print("act名 =" + actName + " ");
+
+
                 // run = getPackageName(run);
                 run = AdbGetPackage.getPackageName(run);
                 // System.out.println("包名 = " + run);
