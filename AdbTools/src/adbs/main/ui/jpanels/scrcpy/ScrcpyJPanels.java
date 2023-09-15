@@ -1,7 +1,6 @@
 package adbs.main.ui.jpanels.scrcpy;
 
 import adbs.cmd.AdbCommands;
-import adbs.cmd.AdbOpenApp;
 import adbs.main.AdbTools;
 import adbs.main.run.AdbGetPackage;
 import adbs.main.run.ForegroundAppRun;
@@ -11,7 +10,6 @@ import adbs.main.ui.config.Fonts;
 import adbs.main.ui.jpanels.adb.listener.OpenButtonListener;
 import adbs.main.ui.jpanels.adb.open.Taskkill;
 import adbs.main.ui.jpanels.tools.BtnActionListener;
-import adbs.main.ui.jpanels.tools.BtnClickOnes;
 import adbs.model.Device;
 import config.AdbConnectPortProperties;
 import runnabletools.serial.AdbTaskAll;
@@ -57,8 +55,13 @@ public class ScrcpyJPanels {
      * 所有的APP已经签到完毕
      */
     private final JButton btnAllCheckedIn;
+    /**
+     * 获取顶部APP的activity
+     */
     private final JButton btnGetAct;
-
+    /**
+     * 打开手机管家
+     */
     private final JButton btnOpenMobileButlerApp;
 
 
@@ -136,7 +139,9 @@ public class ScrcpyJPanels {
                     }
                     isFirstTimeRun = false;
                     // 启动运动健康APP
-                    AdbTaskAll.openSportsAndHealthApp(serial);
+                    // AdbTaskAll.openSportsAndHealthApp(serial);
+                    OpenApp.openPedometerAPP();
+                    AdbTaskAll.wait_TaskBtn();
 
                 }
             }
@@ -268,62 +273,34 @@ public class ScrcpyJPanels {
             }
         });
 
-        // openMobileButlerApp = new JButton("管家");
-        btnOpenMobileButlerApp = new JButton("GJ");
-        btnOpenMobileButlerApp.setToolTipText("打开手机管家APP");
-
-        // btnOpenMobileButlerApp.addActionListener(new ActionListener() {
-        //     @Override
-        //     public void actionPerformed(ActionEvent e) {
-        //         // JButton button = before(e);
-        //         BtnClickOnes.before(e);
-        //
-        //         OpenApp.openGuanJiaApp();
-        //
-        //         BtnClickOnes.after(e);
-        //
-        //     }
-        //
-        //     // private JButton before(ActionEvent e) {
-        //     //     JButton button = (JButton) e.getSource();
-        //     //     BtnClickOnes.before(button);
-        //     //     return button;
-        //     // }
-        // });
-        btnOpenMobileButlerApp.addActionListener(new BtnActionListener() {
-            @Override
-            public void action(ActionEvent e) {
-                OpenApp.openGuanJiaApp();
-            }
-        });
-
-        btnGetAct = new JButton("ACT");
+        // btnGetAct = new JButton("ACT");
+        // btnGetAct = new JButton("Act");
+        btnGetAct = new JButton("A");
         btnGetAct.setToolTipText("获取顶部APP的activity");
         btnGetAct.addActionListener(new BtnActionListener() {
             @Override
             public void action(ActionEvent e) {
                 String actName = AdbGetPackage.getActName();
                 System.out.println();
+                String serial = AdbTools.getInstance().getDevice().getSerial();
                 System.out.println("actName = " + actName);
+                String openAct = "adb -s " + serial + " shell am start -n " + actName;
+                System.out.println("openAct = " + openAct);
                 System.out.println();
-                SystemClipboard.setSysClipboardText(actName);
+                String clipOut = actName + "\n" + openAct;
+                SystemClipboard.setSysClipboardText(clipOut);
             }
         });
-        // btnGetAct.addActionListener(new ActionListener() {
-        //     @Override
-        //     public void actionPerformed(ActionEvent e) {
-        //         BtnClickOnes.before(btnGetAct);
-        //
-        //         String actName = AdbGetPackage.getActName();
-        //         System.out.println();
-        //         System.out.println("actName = " + actName);
-        //         System.out.println();
-        //         SystemClipboard.setSysClipboardText(actName);
-        //
-        //         BtnClickOnes.after(btnGetAct);
-        //     }
-        // });
 
+        // openMobileButlerApp = new JButton("管家");
+        btnOpenMobileButlerApp = new JButton("GJ");
+        btnOpenMobileButlerApp.setToolTipText("打开手机管家APP");
+        btnOpenMobileButlerApp.addActionListener(new BtnActionListener() {
+            @Override
+            public void action(ActionEvent e) {
+                OpenApp.openGuanJiaApp();
+            }
+        });
 
         // adb面板添加按钮
         scrcpyJPanel.add(label);

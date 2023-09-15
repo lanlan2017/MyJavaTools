@@ -14,7 +14,6 @@ public class OpenApp {
     /**
      *
      */
-    private static String MeizuGuanJiaAct = "com.meizu.safe/.SecurityMainActivity";
 
     /**
      * OPPO
@@ -22,21 +21,51 @@ public class OpenApp {
      * Redmi
      * Meizu
      */
-
-    public final static Map<String, String> mobileButlerMap = new HashMap();
+    /**
+     * key手机品牌
+     * value 手机管家APP的activity全限定名
+     */
+    public final static Map<String, String> mapBrand_MobileButler = new HashMap();
 
     static {
-        mobileButlerMap.put("Meizu", "com.meizu.safe/.SecurityMainActivity");
-        mobileButlerMap.put("key2", "value2");
+        mapBrand_MobileButler.put("Meizu", "com.meizu.safe/.SecurityMainActivity");
+        mapBrand_MobileButler.put("HONOR", "com.huawei.systemmanager/.mainscreen.MainScreenActivity");
+        mapBrand_MobileButler.put("OPPO", "com.coloros.safecenter/.SecureSafeMainActivity");
+        mapBrand_MobileButler.put("Redmi", "com.miui.securitycenter/com.miui.securityscan.MainActivity");
+    }
+
+    /*
+     * key手机品牌
+     * value 运动健康APP的activity全限定名
+     */
+    public final static Map<String, String> mapBrand_Pedometer = new HashMap();
+
+    static {
+        mapBrand_Pedometer.put("Meizu", "com.meizu.net.pedometer/.ui.PedometerMainActivitys");
+        mapBrand_Pedometer.put("HONOR", "com.huawei.health/.MainActivity");
+        mapBrand_Pedometer.put("OPPO", "com.free.pedometer/com.base.basepedo.ui.MainActivity");
+        mapBrand_Pedometer.put("Redmi", "com.mi.health/com.xiaomi.fitness.main.MainActivity");
     }
 
     public static void openGuanJiaApp() {
         Device device = AdbTools.getInstance().getDevice();
         String brand = device.getBrand();
         System.out.println("brand = " + brand);
-        String act = mobileButlerMap.get(brand);
+        String act = mapBrand_MobileButler.get(brand);
         System.out.println("act = " + act);
         // String huaWaiYunDong = "adb -s " + serial + " shell am start -n com.huawei.health/.MainActivity";
+        // String huaWaiYunDong = "adb shell am start -n com.huawei.health/.MainActivity";
+        // String huaWaiYunDong = "adb shell am start -n com.huawei.systemmanager/.mainscreen.MainScreenActivity";
+        String serial = device.getSerial();
+        openAct(serial, act);
+    }
+
+    public static void openPedometerAPP() {
+        Device device = AdbTools.getInstance().getDevice();
+        String brand = device.getBrand();
+        System.out.println("brand = " + brand);
+        String act = mapBrand_Pedometer.get(brand);
+        System.out.println("act = " + act);
         String serial = device.getSerial();
         openAct(serial, act);
     }

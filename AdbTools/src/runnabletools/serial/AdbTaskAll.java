@@ -2,6 +2,7 @@ package runnabletools.serial;
 
 import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
+import adbs.main.ui.jpanels.scrcpy.OpenApp;
 import adbs.model.Device;
 import adbs.tools.thread.ThreadSleep;
 
@@ -66,7 +67,9 @@ public class AdbTaskAll {
                 }
                 // 打开运动健康APP
                 if (open) {
-                    openSportsAndHealthApp(serial);
+                    // openSportsAndHealthApp(serial);
+                    OpenApp.openPedometerAPP();
+                    wait_TaskBtn();
                 }
             }
         });
@@ -86,50 +89,34 @@ public class AdbTaskAll {
         // x=540,y=1930
         AdbCommands.runAbdCmd(code);
     }
+    //
+    // /**
+    //  * 打开运动健康APP
+    //  * openSportsAndHealthApp
+    //  *
+    //  * @param serial adb设备的序列号
+    //  */
+    // public static void openSportsAndHealthApp(String serial) {
+    //     // String openYunDong="adb -s 75aed56d shell am start -n com.kmxs.reader/.home.ui.HomeActivity";
+    //     // String openYunDong="adb -s 75aed56d shell am start -n com.huawei.health/.home.ui.HomeActivity";
+    //     // String openYunDong = "adb -s 75aed56d shell am start -n com.huawei.health/.MainActivity";
+    //     if (!"75aed56d".equals(serial) && !"jjqsqst4aim7f675".equals(serial) && !"95AQACQJCMZPA".equals(serial)) {
+    //         String huaWaiYunDong = "adb -s " + serial + " shell am start -n com.huawei.health/.MainActivity";
+    //         // 打开华为运动健康
+    //         AdbCommands.runAbdCmd(huaWaiYunDong);
+    //         wait_TaskBtn();
+    //     }
+    //
+    //     if ("95AQACQJCMZPA".equals(serial)) {
+    //         wait_TaskBtn();
+    //     }
+    // }
 
-    /**
-     * 打开运动健康APP
-     * openSportsAndHealthApp
-     *
-     * @param serial adb设备的序列号
-     */
-    public static void openSportsAndHealthApp(String serial) {
-        // String openYunDong="adb -s 75aed56d shell am start -n com.kmxs.reader/.home.ui.HomeActivity";
-        // String openYunDong="adb -s 75aed56d shell am start -n com.huawei.health/.home.ui.HomeActivity";
-        // String openYunDong = "adb -s 75aed56d shell am start -n com.huawei.health/.MainActivity";
-        if (!"75aed56d".equals(serial) && !"jjqsqst4aim7f675".equals(serial) && !"95AQACQJCMZPA".equals(serial)) {
-            String huaWaiYunDong = "adb -s " + serial + " shell am start -n com.huawei.health/.MainActivity";
-            // 打开华为运动健康
-            AdbCommands.runAbdCmd(huaWaiYunDong);
-            wait_TaskBtn();
-        }
-
-        if ("95AQACQJCMZPA".equals(serial)) {
-            wait_TaskBtn();
-        }
-    }
-
-    public static void openTheMobileButler(String serial) {
-        /*
-         *
-         * adb -s U8ENW17C13004746 shell am start -n com.huawei.systemmanager/.mainscreen.MainScreenActivity
-         * adb -s U8ENW17C13004746 shell am start -n com.huawei.systemmanager/.mainscreen.MainScreenActivity
-         *
-         * 判断，只有当前的act不是手机管家，才打开华为手机管家
-         *
-         * 在打开镜像的时候，就获取设备的型号，到时候根据型号来判断
-         * */
-        if ("75aed56d".equals(serial)) {
-
-        } else if ("95AQACQJCMZPA".equals(serial)) {
-
-        }
-    }
 
     /**
      * 等待一段时间后触发任务键
      */
-    private static void wait_TaskBtn() {
+    public static void wait_TaskBtn() {
         new Thread(new Runnable() {
             @Override
             public void run() {

@@ -37,14 +37,6 @@ public class Device {
      * 产品型号
      */
     private String product;
-    /**
-     * 产品型号
-     */
-    private String productModel;
-    /**
-     * 主机名称
-     */
-    private String netHostName;
 
     /**
      * 品牌名
@@ -116,55 +108,6 @@ public class Device {
 
     public boolean isKuaiShouInstalled() {
         return isKuaiShouInstalled;
-    }
-
-    /**
-     * 获取产品型号
-     *
-     * @return
-     */
-    public String getProductModel() {
-        if (productModel == null) {
-            // String code = "adb -s " + serial + " shell getprop";
-            // String code = "adb -s " + serial + " shell getprop ro.build.display.innerver";
-            // 获取型号
-            String code = "adb -s " + serial + " shell getprop ro.product.model";
-            // String code = "adb -s " + serial + " shell getprop | findstr product";
-            // 获取主机名
-            // String code = "adb -s " + serial + " shell getprop | findstr net.hostname";
-
-            String innerver = AdbCommands.runAbdCmd(code);
-            // String innerver = CmdRun.run(code).trim();
-            // System.out.println("产品型号 = |" + innerver + "|");
-            productModel = innerver;
-        }
-        return productModel;
-    }
-
-
-    /**
-     * 获取产品网络名称
-     *
-     * @return
-     */
-    public String getNetHostName() {
-
-        if (netHostName == null) {
-            // String code = "adb -s " + serial + " shell getprop";
-            // String code = "adb -s " + serial + " shell getprop ro.build.display.innerver";
-            // 获取型号
-            // String code = "adb -s " + serial + " shell getprop ro.product.model";
-            // String code = "adb -s " + serial + " shell getprop | findstr product";
-            // 获取主机名
-            // String code = "adb -s " + serial + " shell getprop | findstr net.hostname";
-            String code = "adb -s " + serial + " shell getprop net.hostname";
-
-            String innerver = AdbCommands.runAbdCmd(code);
-            // String innerver = CmdRun.run(code).trim();
-            // System.out.println("产品型号 = |" + innerver + "|");
-            netHostName = innerver;
-        }
-        return netHostName;
     }
 
 
