@@ -1,6 +1,8 @@
 package adbs.main.run;
 
 import adbs.cmd.AdbCommands;
+import adbs.cmd.CmdRun;
+import adbs.main.AdbTools;
 
 public class AdbGetPackage {
     /**
@@ -39,6 +41,29 @@ public class AdbGetPackage {
         adbOuput = adbOuput.substring(0, adbOuput.lastIndexOf(" "));
         adbOuput = adbOuput.substring(adbOuput.lastIndexOf(" ") + 1);
         return adbOuput;
+    }
+
+    /**
+     * 获取当前Android设备中顶部APP的activity名称
+     *
+     * @return 全限定activity名称字符串
+     */
+    public static String getActName() {
+        String run = runActCmd();
+        // 如果命令结果中有反斜杠，说明有包名
+        String actName = "";
+        if (run.contains("/")) {
+            actName = getActName(run);
+        }
+
+        return actName;
+    }
+
+    private static String runActCmd() {
+        String serial = AdbTools.getInstance().getDevice().getSerial();
+        String activityCommand = getTopActivityCommand(serial);
+        String run = CmdRun.run(activityCommand).trim();
+        return run;
     }
 
     public static String getTopPackageName(String serial) {

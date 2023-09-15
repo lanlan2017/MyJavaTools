@@ -1,17 +1,21 @@
 package adbs.main.ui.jpanels.scrcpy;
 
 import adbs.cmd.AdbCommands;
+import adbs.cmd.AdbOpenApp;
 import adbs.main.AdbTools;
+import adbs.main.run.AdbGetPackage;
 import adbs.main.run.ForegroundAppRun;
 import adbs.main.run.OppoR9ScrcpyRun;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.config.Fonts;
 import adbs.main.ui.jpanels.adb.listener.OpenButtonListener;
 import adbs.main.ui.jpanels.adb.open.Taskkill;
+import adbs.main.ui.jpanels.tools.BtnActionListener;
+import adbs.main.ui.jpanels.tools.BtnClickOnes;
 import adbs.model.Device;
-import adbs.tools.thread.ThreadSleep;
 import config.AdbConnectPortProperties;
 import runnabletools.serial.AdbTaskAll;
+import tools.copy.SystemClipboard;
 import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
@@ -34,27 +38,28 @@ public class ScrcpyJPanels {
 
     private final JLabel label;
     private final JButton addBtn;
-    private final JButton decreaseBtn;
+    private final JButton btnDecrease;
     private final JTextField widthTextField;
 
-    private final JButton openScrcpyBtn;
-    private final JButton switchNetworkDebugBtn;
-    private final JButton killScrcpyBtn;
+    private final JButton btnOpenScrcpy;
+    private final JButton btnSwitchNetworkDebug;
+    private final JButton btnKillScrcpy;
     /**
      * 更新赚钱APP列表
      * updateEarningApps
      */
-    private final JButton updateEarningApps;
+    private final JButton btnUpdateEarningApps;
     /**
      * 当前APP已签到
      */
-    private final JButton signedInBtn;
+    private final JButton btnSignedIn;
     /**
      * 所有的APP已经签到完毕
      */
-    private final JButton allCheckedInBtn;
+    private final JButton btnAllCheckedIn;
+    private final JButton btnGetAct;
 
-    private final JButton openMobileButlerApp;
+    private final JButton btnOpenMobileButlerApp;
 
 
     /**
@@ -76,7 +81,7 @@ public class ScrcpyJPanels {
         // label = new JLabel("高度:");
         label = new JLabel("");
 
-        decreaseBtn = new JButton("-");
+        btnDecrease = new JButton("-");
         addBtn = new JButton("+");
 
         // widthTextField = new JTextField(4);
@@ -107,16 +112,16 @@ public class ScrcpyJPanels {
 
 
         // openScrcpyBtn = new JButton(new ImageIcon(AdbTools.class.getClassLoader().getResource("open.png")));
-        openScrcpyBtn = new JButton("➚");
+        btnOpenScrcpy = new JButton("➚");
         // openScrcpyBtn = new JButton("s");
         // openScrcpyBtn = new JButton("投");
         // openScrcpyBtn = new JButton("➤");
 
 
-        openScrcpyBtn.setToolTipText("使用scrcpy打开设备");
+        btnOpenScrcpy.setToolTipText("使用scrcpy打开设备");
         // openScrcpyBtn.addActionListener(new OpenButtonListener());
-        openScrcpyBtn.addActionListener(new OpenButtonListener(widthTextField));
-        openScrcpyBtn.addActionListener(new ActionListener() {
+        btnOpenScrcpy.addActionListener(new OpenButtonListener(widthTextField));
+        btnOpenScrcpy.addActionListener(new ActionListener() {
             boolean isFirstTimeRun = true;
 
             @Override
@@ -139,9 +144,9 @@ public class ScrcpyJPanels {
 
         // killScrcpyBtn = new JButton("kill");
         // killScrcpyBtn = new JButton("×");
-        killScrcpyBtn = new JButton("k");
-        killScrcpyBtn.setToolTipText("杀死打开的scrcpy镜像");
-        killScrcpyBtn.addActionListener(new ActionListener() {
+        btnKillScrcpy = new JButton("k");
+        btnKillScrcpy.setToolTipText("杀死打开的scrcpy镜像");
+        btnKillScrcpy.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // String id = AdbTools.device.getId();
@@ -158,7 +163,7 @@ public class ScrcpyJPanels {
                 }
             }
         });
-        decreaseBtn.addActionListener(new ActionListener() {
+        btnDecrease.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (index < widthArr.length - 1) {
@@ -172,9 +177,9 @@ public class ScrcpyJPanels {
         final String networkDebugging = "网";
         final String usbDebugging = "线";
 
-        switchNetworkDebugBtn = new JButton(networkDebugging);
-        switchNetworkDebugBtn.setToolTipText("切换网络调试");
-        switchNetworkDebugBtn.addActionListener(new ActionListener() {
+        btnSwitchNetworkDebug = new JButton(networkDebugging);
+        btnSwitchNetworkDebug.setToolTipText("切换网络调试");
+        btnSwitchNetworkDebug.addActionListener(new ActionListener() {
             Device device = null;
 
             @Override
@@ -187,7 +192,7 @@ public class ScrcpyJPanels {
                 if (device == null) {
                     device = adbTools.getDevice();
                 }
-                if (networkDebugging.equals(switchNetworkDebugBtn.getText())) {
+                if (networkDebugging.equals(btnSwitchNetworkDebug.getText())) {
                     String serial = device.getSerial();
                     serialOld = serial;
                     nameOld = device.getName();
@@ -196,17 +201,17 @@ public class ScrcpyJPanels {
 
 
                 } else {
-                    killScrcpyBtn.doClick();
+                    btnKillScrcpy.doClick();
                     String ip_serial = device.getSerial();
                     device.setSerial(serialOld);
                     device.setName(nameOld);
-                    switchNetworkDebugBtn.setText(networkDebugging);
-                    switchNetworkDebugBtn.setBackground(switchNetworkDebugBtnBackground);
+                    btnSwitchNetworkDebug.setText(networkDebugging);
+                    btnSwitchNetworkDebug.setBackground(switchNetworkDebugBtnBackground);
                     String code = "adb disconnect " + ip_serial;
                     AdbCommands.runAbdCmd(code);
                     // reopenScrcpy();
                     // ThreadSleep.seconds(2);
-                    openScrcpyBtn.doClick();
+                    btnOpenScrcpy.doClick();
                 }
 
             }
@@ -222,28 +227,28 @@ public class ScrcpyJPanels {
                 device.setSerial(ip + ":" + port);
                 device.setName(device.getName() + "+");
 
-                switchNetworkDebugBtn.setText(usbDebugging);
-                switchNetworkDebugBtnBackground = switchNetworkDebugBtn.getBackground();
-                switchNetworkDebugBtn.setBackground(Color.PINK);
+                btnSwitchNetworkDebug.setText(usbDebugging);
+                switchNetworkDebugBtnBackground = btnSwitchNetworkDebug.getBackground();
+                btnSwitchNetworkDebug.setBackground(Color.PINK);
                 // reopenScrcpy();
-                killScrcpyBtn.doClick();
+                btnKillScrcpy.doClick();
                 // ThreadSleep.seconds(2);
-                openScrcpyBtn.doClick();
+                btnOpenScrcpy.doClick();
             }
         });
 
-        updateEarningApps = new JButton("UL");
-        updateEarningApps.setToolTipText("更新赚钱应用列表");
-        updateEarningApps.addActionListener(new ActionListener() {
+        btnUpdateEarningApps = new JButton("UL");
+        btnUpdateEarningApps.setToolTipText("更新赚钱应用列表");
+        btnUpdateEarningApps.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ForegroundAppRun.updatePackages_3_money();
             }
         });
-        signedInBtn = new JButton("√");
-        signedInBtn.setToolTipText("当前APP已签到");
+        btnSignedIn = new JButton("√");
+        btnSignedIn.setToolTipText("当前APP已签到");
 
-        signedInBtn.addActionListener(new ActionListener() {
+        btnSignedIn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ForegroundAppRun.setStopWait(true);
@@ -253,9 +258,9 @@ public class ScrcpyJPanels {
         // allCheckedInBtn = new JButton("all");
         // √√
         // all
-        allCheckedInBtn = new JButton("√√");
-        allCheckedInBtn.setToolTipText("所有的APP都签到过了");
-        allCheckedInBtn.addActionListener(new ActionListener() {
+        btnAllCheckedIn = new JButton("√√");
+        btnAllCheckedIn.setToolTipText("所有的APP都签到过了");
+        btnAllCheckedIn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ForegroundAppRun.setStopWait(true);
@@ -263,27 +268,76 @@ public class ScrcpyJPanels {
             }
         });
 
-        openMobileButlerApp = new JButton("管家");
-        openMobileButlerApp.setToolTipText("打开手机管家APP");
-        openMobileButlerApp.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        // openMobileButlerApp = new JButton("管家");
+        btnOpenMobileButlerApp = new JButton("GJ");
+        btnOpenMobileButlerApp.setToolTipText("打开手机管家APP");
 
+        // btnOpenMobileButlerApp.addActionListener(new ActionListener() {
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         // JButton button = before(e);
+        //         BtnClickOnes.before(e);
+        //
+        //         OpenApp.openGuanJiaApp();
+        //
+        //         BtnClickOnes.after(e);
+        //
+        //     }
+        //
+        //     // private JButton before(ActionEvent e) {
+        //     //     JButton button = (JButton) e.getSource();
+        //     //     BtnClickOnes.before(button);
+        //     //     return button;
+        //     // }
+        // });
+        btnOpenMobileButlerApp.addActionListener(new BtnActionListener() {
+            @Override
+            public void action(ActionEvent e) {
+                OpenApp.openGuanJiaApp();
             }
         });
+
+        btnGetAct = new JButton("ACT");
+        btnGetAct.setToolTipText("获取顶部APP的activity");
+        btnGetAct.addActionListener(new BtnActionListener() {
+            @Override
+            public void action(ActionEvent e) {
+                String actName = AdbGetPackage.getActName();
+                System.out.println();
+                System.out.println("actName = " + actName);
+                System.out.println();
+                SystemClipboard.setSysClipboardText(actName);
+            }
+        });
+        // btnGetAct.addActionListener(new ActionListener() {
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         BtnClickOnes.before(btnGetAct);
+        //
+        //         String actName = AdbGetPackage.getActName();
+        //         System.out.println();
+        //         System.out.println("actName = " + actName);
+        //         System.out.println();
+        //         SystemClipboard.setSysClipboardText(actName);
+        //
+        //         BtnClickOnes.after(btnGetAct);
+        //     }
+        // });
+
 
         // adb面板添加按钮
         scrcpyJPanel.add(label);
         scrcpyJPanel.add(widthTextField);
-        scrcpyJPanel.add(decreaseBtn);
+        scrcpyJPanel.add(btnDecrease);
         scrcpyJPanel.add(addBtn);
-        scrcpyJPanel.add(openScrcpyBtn);
-        scrcpyJPanel.add(killScrcpyBtn);
-        scrcpyJPanel.add(switchNetworkDebugBtn);
-        scrcpyJPanel.add(updateEarningApps);
-        scrcpyJPanel.add(signedInBtn);
-        scrcpyJPanel.add(allCheckedInBtn);
-        scrcpyJPanel.add(openMobileButlerApp);
+        scrcpyJPanel.add(btnOpenScrcpy);
+        scrcpyJPanel.add(btnKillScrcpy);
+        scrcpyJPanel.add(btnSwitchNetworkDebug);
+        scrcpyJPanel.add(btnUpdateEarningApps);
+        scrcpyJPanel.add(btnSignedIn);
+        scrcpyJPanel.add(btnAllCheckedIn);
+        scrcpyJPanel.add(btnGetAct);
+        scrcpyJPanel.add(btnOpenMobileButlerApp);
         // AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, 1);
         // AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, -1);
         AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, 0);
@@ -342,11 +396,11 @@ public class ScrcpyJPanels {
         return scrcpyJPanel;
     }
 
-    public JButton getOpenScrcpyBtn() {
-        return openScrcpyBtn;
+    public JButton getBtnOpenScrcpy() {
+        return btnOpenScrcpy;
     }
 
-    public JButton getKillScrcpyBtn() {
-        return killScrcpyBtn;
+    public JButton getBtnKillScrcpy() {
+        return btnKillScrcpy;
     }
 }

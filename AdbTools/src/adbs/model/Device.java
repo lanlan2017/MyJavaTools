@@ -33,7 +33,9 @@ public class Device {
      * 设备的高度(像素)
      */
     private int height;
-
+    /**
+     * 产品型号
+     */
     private String product;
     /**
      * 产品型号
@@ -43,6 +45,11 @@ public class Device {
      * 主机名称
      */
     private String netHostName;
+
+    /**
+     * 品牌名
+     */
+    private String brand;
 
     /**
      * 是否安装快手或者快手极速版APP
@@ -228,6 +235,20 @@ public class Device {
             brand = serial;
         }
         System.out.println("brand = " + brand);
+        return brand;
+    }
+
+    // public String getBrand() {
+    //     String code = "adb -s " + serial + " shell getprop ro.product.brand";
+    // }
+
+
+    public String getBrand() {
+        if (brand == null) {
+            String code = "adb -s " + serial + " shell getprop ro.product.brand";
+            String s = AdbCommands.runAbdCmd(code).trim();
+            brand = s;
+        }
         return brand;
     }
 

@@ -12,9 +12,6 @@ import tools.copy.SystemClipboard;
 import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -82,33 +79,53 @@ public class ToolsJPanels {
         // btnUninstallUseless.setOpaque(true);
         // btnUninstallUseless.setBorderPainted(false);
         btnUninstallUseless.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 // 在后续的操作没有结束之前，禁用按钮
                 // toolsJPanel.setBackground(Color.red);
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        btnUninstallUseless.setText("卸载中...");
-                        AdbTools.getInstance().getFrame().pack();
-                        btnUninstallUseless.setEnabled(false);
-                    }
-                }).start();
+                BtnClickOnes.before(btnUninstallUseless);
 
                 AdbUninstall.uninstallAllNonEssentialApps();
 
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        ThreadSleep.seconds(3);
-                        btnUninstallUseless.setText("卸载");
-                        AdbTools.getInstance().getFrame().pack();
-                        btnUninstallUseless.setEnabled(true);
-                    }
-                }).start();
+                BtnClickOnes.after(btnUninstallUseless);
 
 
             }
+
+            // private final String suffix = "...";
+            // private void before(final JButton button) {
+            //     new Thread(new Runnable() {
+            //         @Override
+            //         public void run() {
+            //             String text = button.getText();
+            //             if (!text.endsWith(suffix)) {
+            //                 // button.setText("卸载...");
+            //                 button.setText(text + suffix);
+            //                 AdbTools.getInstance().getFrame().pack();
+            //                 btnUninstallUseless.setEnabled(false);
+            //             }
+            //         }
+            //     }).start();
+            // }
+            //
+            // private void after(final JButton button) {
+            //     new Thread(new Runnable() {
+            //         @Override
+            //         public void run() {
+            //             String text = button.getText();
+            //             if (text.endsWith(suffix)) {
+            //                 text = text.substring(0, text.lastIndexOf(suffix));
+            //                 ThreadSleep.seconds(3);
+            //                 // button.setText("卸载");
+            //                 button.setText(text);
+            //                 AdbTools.getInstance().getFrame().pack();
+            //                 btnUninstallUseless.setEnabled(true);
+            //             }
+            //
+            //         }
+            //     }).start();
+            // }
         });
 
 

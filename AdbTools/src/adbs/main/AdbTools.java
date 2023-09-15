@@ -1,7 +1,6 @@
 package adbs.main;
 
 import adbs.cmd.AdbCommands;
-import adbs.main.run.AdbShellPmListPackages_3;
 import adbs.main.run.BatteryLevelRun2;
 import adbs.main.run.ForegroundAppRun;
 import adbs.main.ui.config.FlowLayouts;
@@ -174,7 +173,7 @@ public class AdbTools {
             public void windowClosing(WindowEvent e) {
                 super.windowClosing(e);
                 adbJPanels.getStopBtn().doClick();
-                scrcpyJPanels.getKillScrcpyBtn().doClick();
+                scrcpyJPanels.getBtnKillScrcpy().doClick();
                 System.out.println("窗体正在关闭。。。。。。。。。。。。");
                 // ThreadSleep.seconds(5);
                 System.exit(0);
@@ -386,7 +385,7 @@ public class AdbTools {
     public static void main(String[] args) {
         AdbTools instance = AdbTools.getInstance();
         // 在打开应用的时候，就触发投屏按钮
-        instance.getScrcpyJPanels().getOpenScrcpyBtn().doClick();
+        instance.getScrcpyJPanels().getBtnOpenScrcpy().doClick();
 
         ThreadSleep.seconds(5);
         new Thread(new ForegroundAppRun()).start();

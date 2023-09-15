@@ -93,8 +93,6 @@ public class ForegroundAppRun implements Runnable {
                 //mResumedActivity: ActivityRecord{7fbc105 u0 com.huawei.health/.MainActivity t1573}
                 String actName = AdbGetPackage.getActName(run);
                 System.out.print("act名 =" + actName + " ");
-
-
                 // run = getPackageName(run);
                 run = AdbGetPackage.getPackageName(run);
                 // System.out.println("包名 = " + run);

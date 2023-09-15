@@ -64,9 +64,9 @@ public class OppoR9ScrcpyRun extends CloseableRunnable {
      */
     private void reopenScrcpy() {
         // 杀死scrcpy.exe投屏
-        scrcpyJPanels.getKillScrcpyBtn().doClick();
+        scrcpyJPanels.getBtnKillScrcpy().doClick();
         ThreadSleep.seconds(3);
         // 重新开始scrcpy.exe投屏
-        scrcpyJPanels.getOpenScrcpyBtn().doClick();
+        scrcpyJPanels.getBtnOpenScrcpy().doClick();
     }
 }
