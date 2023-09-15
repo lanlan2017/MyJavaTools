@@ -308,6 +308,8 @@ public class AdbTools {
                     f f
                  */
                 else if (device1.isKuaiShouInstalled()) {
+                    // 如果第1个设备安装了快手，第2个没有，
+                    // 返回-1，排序在前
                     // t f
                     return -1;
                 }
@@ -318,12 +320,22 @@ public class AdbTools {
 
                 else if (device2.isKuaiShouInstalled()) {
                     //    f t
+                    // 如果第1个设备没安装快手APP，第2个设备有快手APP，
                     return 1;
                 }
                 /*
                 ff
                  */
                 else {
+                    // 两个设备都没有安装快手APP
+                    // 但是这两个设备都安装了点淘APP
+                    if (device1.isDianTaoInstalled() && device2.isDianTaoInstalled()) {
+                        return o1.compareTo(o2);
+                    } else if (device1.isDianTaoInstalled()) {
+                        return -1;
+                    } else if (device2.isDianTaoInstalled()) {
+                        return 1;
+                    }
                     return o1.compareTo(o2);
                 }
 

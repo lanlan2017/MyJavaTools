@@ -62,13 +62,17 @@ public class OpenApp {
 
     public static void openPedometerAPP() {
         Device device = AdbTools.getInstance().getDevice();
+        String serial = device.getSerial();
         String brand = device.getBrand();
         System.out.println("brand = " + brand);
         String act = mapBrand_Pedometer.get(brand);
         System.out.println("act = " + act);
-        String serial = device.getSerial();
         openAct(serial, act);
     }
+
+    // public static void openPedometerAPP(String serial) {
+    //
+    // }
 
     /**
      * 执行adb命令打开指定的activity

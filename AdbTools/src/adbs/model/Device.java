@@ -46,7 +46,9 @@ public class Device {
     /**
      * 是否安装快手或者快手极速版APP
      */
-    private boolean isKuaiShouInstalled;
+    private boolean kuaiShouInstalled;
+
+    private boolean dianTaoInstalled;
 
 
     public static HashMap<String, String> map = new HashMap<>();
@@ -76,24 +78,40 @@ public class Device {
         // com.smile.gifmaker                      快手
         // getName()
         // 先在配置文件中查找标记
-        String installedFlag = getInstalledFlag(serial);
+        String installedFlag = getInstalledFlags(serial);
         // System.out.println("installedFlag = " + installedFlag);
-        if ("true".equals(installedFlag) || "false".equals(installedFlag)) {
-            isKuaiShouInstalled = Boolean.valueOf(installedFlag);
-        } else {
-            ArrayList<String> package_3 = new AdbShellPmListPackages_3(serial).getPackage_3();
-            // com.kuaishou.nebula                     快手极速版
-            int i1 = Collections.binarySearch(package_3, "com.kuaishou.nebula");
-            if (i1 > 0) {
-                isKuaiShouInstalled = true;
-            } else {
-                // com.smile.gifmaker                      快手
-                int i2 = Collections.binarySearch(package_3, "com.smile.gifmaker");
-                if (i2 > 0) {
-                    isKuaiShouInstalled = true;
+        // 如果有下划线，说明有两个标记
+        if (installedFlag.contains("_")) {
+            String[] flags = installedFlag.split("_");
+            if (flags.length == 2) {
+                if (flags[0].equals("true")) {
+                    kuaiShouInstalled = true;
+                }
+                if (flags[1].equals("true")) {
+                    dianTaoInstalled = true;
                 }
             }
-            System.out.println(serial + " isKuaiShouInstalled=" + name + "_" + isKuaiShouInstalled);
+        } else {
+
+            if ("true".equals(installedFlag) || "false".equals(installedFlag)) {
+                kuaiShouInstalled = Boolean.valueOf(installedFlag);
+            } else {
+                // 获取安装的所有第三方APP
+                ArrayList<String> package_3 = new AdbShellPmListPackages_3(serial).getPackage_3();
+                // com.kuaishou.nebula                     快手极速版
+                // 在所有的第三方APP中查找快手APP
+                int i1 = Collections.binarySearch(package_3, "com.kuaishou.nebula");
+                if (i1 > 0) {
+                    kuaiShouInstalled = true;
+                } else {
+                    // com.smile.gifmaker                      快手
+                    int i2 = Collections.binarySearch(package_3, "com.smile.gifmaker");
+                    if (i2 > 0) {
+                        kuaiShouInstalled = true;
+                    }
+                }
+                System.out.println(serial + " isKuaiShouInstalled=" + name + "_" + kuaiShouInstalled);
+            }
         }
 
     }
@@ -107,9 +125,12 @@ public class Device {
     }
 
     public boolean isKuaiShouInstalled() {
-        return isKuaiShouInstalled;
+        return kuaiShouInstalled;
     }
 
+    public boolean isDianTaoInstalled() {
+        return dianTaoInstalled;
+    }
 
     /**
      * 获取设备编号对应的短名称
@@ -148,7 +169,7 @@ public class Device {
         return property;
     }
 
-    public String getInstalledFlag(String serial) {
+    public String getInstalledFlags(String serial) {
         PropertiesTools propertiesTools = AdbToolsProperties.propertiesTools;
         String property = propertiesTools.getProperty(serial);
         // System.out.println("property = " + property);
