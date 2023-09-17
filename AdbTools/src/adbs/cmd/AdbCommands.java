@@ -5,7 +5,6 @@ import tools.process.ProcessRunner;
 import tools.random.Randoms;
 
 import javax.swing.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,49 +32,6 @@ public class AdbCommands {
         String id = "192.168.10.4:5555";
         AdbCommands.swipeBottom2TopOnLeft(id);
     }
-
-    /**
-     * 按下手机的返回键
-     */
-    public static void returnButton(String id) {
-        // add命令出发返回键
-        AdbCommands.runAbdCmd("adb -s " + id + " shell input keyevent 4");
-    }
-
-    /**
-     * 在手机顶部从右向左滑动
-     */
-    public static void swipeRight2LeftOnTop(String id) {
-        AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 893 233 73 228 200");
-    }
-
-    /**
-     * 在手机顶部从右向左滑动
-     */
-    public static void swipeRight2LeftOnTop(String id, int width, int height) {
-        int x_right = (width / 100) * 90;
-        int x_left = (width / 100) * 10;
-        int y = (height / 100) * 60;
-        AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe " + x_right + " " + y + " " + x_left + " " + y + " 200");
-    }
-
-    // /**
-    //  * 单击屏幕右侧
-    //  *
-    //  * @param id     手机的设备ID，可通过adb devices -l查看
-    //  * @param width  手机设备的宽度
-    //  * @param height 手机设备的高度
-    //  */
-    // public static void clickScreenRightSide(String id, int width, int height) {
-    //     // y的范围位20%到80%之间
-    //     int y = (height / 100) * Randoms.getRandomInt(20, 80);
-    //     // int x = (width / 100) * 98;
-    //     // 假设width=1080，则1080/270=4,4*260=1040,4*269=1076
-    //     // int x = (width / 270) * Randoms.getRandomInt(267, 269);
-    //     int x = (width / 120) * Randoms.getRandomInt(119, 120) - Randoms.getRandomInt(2,7);
-    //     //adb shell input tap 250 250
-    //     AdbCommands.runAbdCmd("adb -s " + id + " shell input tap " + x + " " + y);
-    // }
 
     /**
      * 单击屏幕右侧
@@ -113,33 +69,11 @@ public class AdbCommands {
     }
 
     /**
-     * 在手机中间从下向上滑动
-     */
-    public static String swipeBottom2TopOnMiddle(String id, int width, int height) {
-        int x50 = (int) (width * 0.5);
-        int y30 = (height / 100) * 30;
-        int y70 = (height / 100) * 70;
-        // return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 1650 5 700 200");
-        return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe " + x50 + " " + y70 + " " + x50 + " " + y30 + " 200");
-    }
-
-    /**
      * 在手机左侧，从下向上滑动
      */
     public static void swipeTop2BottomOnLeft(String id) {
         // AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 700 5 1650 200");
         AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 800 5 1600 200");
-    }
-
-    /**
-     * 在手机左侧，从下向上滑动
-     */
-    public static String swipeTop2BottomOnLeft(String id, int height) {
-        int y30 = (height / 100) * 30;
-        int y70 = (height / 100) * 70;
-        // return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 1650 5 700 200");
-        // return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 " + y70 + " 5 " + y30 + " 200");
-        return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 " + y30 + " 5 " + y70 + " 200");
     }
 
     /**
@@ -163,31 +97,6 @@ public class AdbCommands {
         // System.out.println("adbResult = " + adbResult);
     }
 
-    /**
-     * 运行cmd命令
-     *
-     * @param command 保存要执行命令的<code>List&lt;String&gt;</code>。
-     */
-    private static void runCmd(List<String> command) {
-        ProcessBuilder processBuilder = new ProcessBuilder(command);
-        // 子进程和父进程使用相同的输入输出流.
-        processBuilder = processBuilder.inheritIO();
-        Process process = null;
-        try {
-            // 启动子进程
-            process = processBuilder.start();
-            // System.out.println("阅读线程:从右向左滑动手机");
-            // output("阅读线程:从右向左滑动手机");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        try {
-            //等待子进程结束.
-            process.waitFor();
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
-        }
-    }
     public static boolean ifDeviceNotExist(String adbResult) {
         if (adbResult.startsWith("Error!ExitCode=")) {
             System.out.println("adb命令运行错误，退出程序." + adbResult);

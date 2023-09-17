@@ -1,9 +1,11 @@
 package adbs.main.run;
 
 import adbs.cmd.AdbCommands;
-import adbs.cmd.CmdRun;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.Scanner;
 
 /**
  * 电池信息类，封装"adb shell dumpsys battery"命令的执行结果
@@ -179,12 +181,11 @@ public class BatteryModel {
 
                 }
             }
+            scanner.close();
         } else {
             level = -1;
             System.out.println("bettery_code_output = " + bettery_code_output);
         }
-
-
     }
 
     public boolean isAcPowered() {

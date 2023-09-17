@@ -150,6 +150,7 @@ public class AdbUninstall {
                 package3List.add(packageName);
             }
         }
+        scanner.close();
         return package3List;
     }
 }

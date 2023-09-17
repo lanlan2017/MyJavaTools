@@ -41,6 +41,7 @@ public class Devices {
                 simpleId_Device_map.put(device.getName(), device);
             }
         }
+        scanner.close();
         return simpleId_Device_map;
     }
 }

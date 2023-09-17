@@ -62,6 +62,10 @@ public class OpenApp {
 
     public static void openPedometerAPP() {
         Device device = AdbTools.getInstance().getDevice();
+        openPedometerAPP(device);
+    }
+
+    public static void openPedometerAPP(Device device) {
         String serial = device.getSerial();
         String brand = device.getBrand();
         System.out.println("brand = " + brand);
@@ -70,6 +74,10 @@ public class OpenApp {
         openAct(serial, act);
     }
 
+    // public static void openPedometerAPP(String serial) {
+    //     new Device()
+    //
+    // }
     // public static void openPedometerAPP(String serial) {
     //
     // }
@@ -81,9 +89,11 @@ public class OpenApp {
      * @param act    要打开的APP的启动activity全限定名
      */
     private static void openAct(String serial, String act) {
-        String openAct = "adb -s " + serial + " shell am start -n " + act;
-        String actOut = AdbCommands.runAbdCmd(openAct);
-        System.out.println("actOut = " + actOut);
+        if (serial != null && act != null) {
+            String openAct = "adb -s " + serial + " shell am start -n " + act;
+            String actOut = AdbCommands.runAbdCmd(openAct);
+            System.out.println("actOut = " + actOut);
+        }
     }
 
     public static void main(String[] args) {

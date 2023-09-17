@@ -248,6 +248,7 @@ public class AdbTools {
                 simpleId_Device_map.put(device.getName(), device);
             }
         }
+        scanner.close();
         /**
          * 排序设备名
          */
@@ -292,54 +293,65 @@ public class AdbTools {
         Collections.sort(idList, new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
-                // com.kuaishou.nebula                     快手极速版
-                // com.smile.gifmaker                      快手
+                //     // com.kuaishou.nebula                     快手极速版
+                //     // com.smile.gifmaker                      快手
+                //     Device device1 = simpleId_Device_map.get(o1);
+                //     Device device2 = simpleId_Device_map.get(o2);
+                //     // 如果两个设备都安装了快手 或者快手极速版APP
+                //     if (device1.isKuaiShouInstalled() && device2.isKuaiShouInstalled()) {
+                //         // t t
+                //         // 比较名称来决定顺序
+                //         return o1.compareTo(o2);
+                //     }
+                //     /*
+                //         t f
+                //         f t
+                //         f f
+                //      */
+                //     else if (device1.isKuaiShouInstalled()) {
+                //         // 如果第1个设备安装了快手，第2个没有，
+                //         // 返回-1，排序在前
+                //         // t f
+                //         return -1;
+                //     }
+                //     /*
+                //     f t
+                //     f f
+                //      */
+                //
+                //     else if (device2.isKuaiShouInstalled()) {
+                //         //    f t
+                //         // 如果第1个设备没安装快手APP，第2个设备有快手APP，
+                //         return 1;
+                //     }
+                //     /*
+                //     ff
+                //      */
+                //     else {
+                //         // 两个设备都没有安装快手APP
+                //         // 但是这两个设备都安装了点淘APP
+                //         if (device1.isDianTaoInstalled() && device2.isDianTaoInstalled()) {
+                //             return o1.compareTo(o2);
+                //         } else if (device1.isDianTaoInstalled()) {
+                //             return -1;
+                //         } else if (device2.isDianTaoInstalled()) {
+                //             return 1;
+                //         }
+                //         return o1.compareTo(o2);
+                //     }
+                //
+                //     // return 0;
+
+
                 Device device1 = simpleId_Device_map.get(o1);
                 Device device2 = simpleId_Device_map.get(o2);
-                // 如果两个设备都安装了快手 或者快手极速版APP
-                if (device1.isKuaiShouInstalled() && device2.isKuaiShouInstalled()) {
-                    // t t
-                    // 比较名称来决定顺序
-                    return o1.compareTo(o2);
-                }
-                /*
-                    t f
-                    f t
-                    f f
-                 */
-                else if (device1.isKuaiShouInstalled()) {
-                    // 如果第1个设备安装了快手，第2个没有，
-                    // 返回-1，排序在前
-                    // t f
-                    return -1;
-                }
-                /*
-                f t
-                f f
-                 */
 
-                else if (device2.isKuaiShouInstalled()) {
-                    //    f t
-                    // 如果第1个设备没安装快手APP，第2个设备有快手APP，
+                if (device1.getPriority() > device2.getPriority()) {
+                    return -1;
+                } else if (device1.getPriority() < device2.getPriority()) {
                     return 1;
                 }
-                /*
-                ff
-                 */
-                else {
-                    // 两个设备都没有安装快手APP
-                    // 但是这两个设备都安装了点淘APP
-                    if (device1.isDianTaoInstalled() && device2.isDianTaoInstalled()) {
-                        return o1.compareTo(o2);
-                    } else if (device1.isDianTaoInstalled()) {
-                        return -1;
-                    } else if (device2.isDianTaoInstalled()) {
-                        return 1;
-                    }
-                    return o1.compareTo(o2);
-                }
-
-                // return 0;
+                return 0;
             }
         });
     }

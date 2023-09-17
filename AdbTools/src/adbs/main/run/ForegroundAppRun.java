@@ -1,6 +1,6 @@
 package adbs.main.run;
 
-import adbs.cmd.CmdRun;
+import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
 import adbs.tools.thread.ThreadSleep;
@@ -84,10 +84,8 @@ public class ForegroundAppRun implements Runnable {
             String topActivityCommand = AdbGetPackage.getTopActivityCommand(serial);
 
             System.out.println("ActivityCommand =" + topActivityCommand);
-            String run = CmdRun.run(topActivityCommand).trim();
-            // System.out.println("run =" + run);
-            // System.out.println("执行中...");
-            // run = run.trim();
+            String run = AdbCommands.runAbdCmd(topActivityCommand).trim();
+            // String run = CmdRun.run(topActivityCommand).trim();
             // 如果命令结果中有反斜杠，说明有包名
             if (run.contains("/")) {
                 //mResumedActivity: ActivityRecord{7fbc105 u0 com.huawei.health/.MainActivity t1573}
@@ -96,7 +94,6 @@ public class ForegroundAppRun implements Runnable {
                 // run = getPackageName(run);
                 run = AdbGetPackage.getPackageName(run);
                 // System.out.println("包名 = " + run);
-
                 System.out.print("包名 = " + run + " ");
                 String appName = getAppName(run);
                 // 如果还没停止签到检查的话
@@ -142,21 +139,6 @@ public class ForegroundAppRun implements Runnable {
             }
         }
     }
-
-    // /**
-    //  * 从命令的输出中取出包名
-    //  *
-    //  * @param adbOutput adb命令输出结果
-    //  * @return 包名字符串
-    //  */
-    // private String getPackageName(String adbOutput) {
-    //     // System.out.println(adbOutput);
-    //     String packageName = adbOutput.substring(0, adbOutput.lastIndexOf("/"));
-    //     // System.out.println(adbOutput);
-    //     packageName = packageName.substring(packageName.lastIndexOf(" ") + 1);
-    //     // System.out.println("--" + adbOutput + "--");
-    //     return packageName;
-    // }
 
     /**
      * 打印还没打开的APP名称
@@ -239,9 +221,6 @@ public class ForegroundAppRun implements Runnable {
                 String prefix = title.substring(0, nameFlagIndex);
                 // 新的标题=应用名前面的字符串+新的应用名
                 title = prefix + appName;
-
-                // System.out.println("prefix = " + prefix);
-                // System.out.println("title = " + title);
                 frame.setTitle(title);
             }
 

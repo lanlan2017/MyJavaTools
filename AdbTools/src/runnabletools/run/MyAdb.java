@@ -38,7 +38,7 @@ public class MyAdb {
             // AdbCommands.runAbdCmd(clipboardText);
         }
 
-
+        sysInSc.close();
     }
 
     private static void noDevice() {
