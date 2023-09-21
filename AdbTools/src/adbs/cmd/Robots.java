@@ -151,6 +151,10 @@ public class Robots {
         }
     }
 
+    public static void mouseMove(Point point) {
+        robot.mouseMove(point.x, point.y);
+    }
+
     /**
      * 等待指定毫秒数
      *

@@ -6,6 +6,7 @@ import adbs.main.run.ForegroundAppRun;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.inout.InOutputModel;
 import adbs.main.ui.jpanels.adb.AdbJPanels;
+import adbs.main.ui.jpanels.auto.AutoPanels;
 import adbs.main.ui.jpanels.check.JCheckBoxControlJPanelItemListener;
 import adbs.main.ui.jpanels.control.TimingPanels;
 import adbs.main.ui.jpanels.scrcpy.ScrcpyJPanels;
@@ -47,6 +48,8 @@ public class AdbTools {
     private final ScrcpyJPanels scrcpyJPanels;
     // 控制面板
     private final TimingPanels timingPanels;
+    // 机器人面板，自动化面板
+    // private final AutoPanels autoPanels;
 
 
     // 当前选择的设备
@@ -84,6 +87,8 @@ public class AdbTools {
         universalPanels = new UniversalPanels(timePanels);
         // 初始化工具面板
         ToolsJPanels toolsJPanels = new ToolsJPanels();
+
+        AutoPanels autoPanels = new AutoPanels();
 
         // private final JPanel otherJPanel;
         // // 输出标签
@@ -124,12 +129,17 @@ public class AdbTools {
         // toolsJCheckBox.doClick();
         toolsJCheckBox.setToolTipText("usb上网，提前apk，安装apk功能");
 
+        JCheckBox jcbAuto = new JCheckBox("Auto");
+        jcbAuto.setToolTipText("打开自动化面板");
+        jcbAuto.addItemListener(new JCheckBoxControlJPanelItemListener(autoPanels.getAutoJPanel()));
+
 
         checkJPanel.add(adbJCheckBox);
         checkJPanel.add(scrcpyJCheckBox);
         checkJPanel.add(generalJCheckBox);
         checkJPanel.add(controlJCheckBox);
         checkJPanel.add(toolsJCheckBox);
+        checkJPanel.add(jcbAuto);
 
         // 创建输入面板的模型
         InOutputModel inOut = new InOutputModel(timePanels, universalPanels);
@@ -154,6 +164,7 @@ public class AdbTools {
         // 添加 控制面板 到第5行
         frame.add(timingPanels.getTimingPanel());
         frame.add(toolsJPanels.getToolsJPanel());
+        frame.add(autoPanels.getAutoJPanel());
 
         // 需要先初始化通用面板 要放在 initUniversalPanel(inputPanels, inOut);之后
         generalJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(universalPanels.getUniversalPanel()));
@@ -293,59 +304,8 @@ public class AdbTools {
         Collections.sort(idList, new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
-                //     // com.kuaishou.nebula                     快手极速版
-                //     // com.smile.gifmaker                      快手
-                //     Device device1 = simpleId_Device_map.get(o1);
-                //     Device device2 = simpleId_Device_map.get(o2);
-                //     // 如果两个设备都安装了快手 或者快手极速版APP
-                //     if (device1.isKuaiShouInstalled() && device2.isKuaiShouInstalled()) {
-                //         // t t
-                //         // 比较名称来决定顺序
-                //         return o1.compareTo(o2);
-                //     }
-                //     /*
-                //         t f
-                //         f t
-                //         f f
-                //      */
-                //     else if (device1.isKuaiShouInstalled()) {
-                //         // 如果第1个设备安装了快手，第2个没有，
-                //         // 返回-1，排序在前
-                //         // t f
-                //         return -1;
-                //     }
-                //     /*
-                //     f t
-                //     f f
-                //      */
-                //
-                //     else if (device2.isKuaiShouInstalled()) {
-                //         //    f t
-                //         // 如果第1个设备没安装快手APP，第2个设备有快手APP，
-                //         return 1;
-                //     }
-                //     /*
-                //     ff
-                //      */
-                //     else {
-                //         // 两个设备都没有安装快手APP
-                //         // 但是这两个设备都安装了点淘APP
-                //         if (device1.isDianTaoInstalled() && device2.isDianTaoInstalled()) {
-                //             return o1.compareTo(o2);
-                //         } else if (device1.isDianTaoInstalled()) {
-                //             return -1;
-                //         } else if (device2.isDianTaoInstalled()) {
-                //             return 1;
-                //         }
-                //         return o1.compareTo(o2);
-                //     }
-                //
-                //     // return 0;
-
-
                 Device device1 = simpleId_Device_map.get(o1);
                 Device device2 = simpleId_Device_map.get(o2);
-
                 if (device1.getPriority() > device2.getPriority()) {
                     return -1;
                 } else if (device1.getPriority() < device2.getPriority()) {

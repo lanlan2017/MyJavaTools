@@ -17,9 +17,34 @@ public class MyAdb {
     public static void main(String[] args) {
         // SystemClipboard.setSysClipboardText("adb devices -l");
         test();
+        if (args.length > 0) {
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < args.length; i++) {
+                sb.append(args[i]).append(" ");
+            }
+            String argstr = sb.toString().trim();
+            System.out.println("argstr = " + argstr);
+            // String adb_ = "adb ";
+            // if (argstr.startsWith(adb_)) {
+            //     argstr = argstr.substring(argstr.indexOf(adb_) + adb_.length());
+            //
+            // }
+            // adb -s BBBDU18106019646 shell dumpsys activity | findstr "mResume"
+            cAdbs(argstr);
 
-        String clipboardText = SystemClipboard.getSysClipboardText().trim();
-        System.out.println("clipboardText = " + clipboardText);
+            // if()
+        } else {
+
+            String clipboardText = SystemClipboard.getSysClipboardText().trim();
+            System.out.println("clipboardText = " + clipboardText);
+            cAdbs(clipboardText);
+        }
+
+
+        sysInSc.close();
+    }
+
+    private static void cAdbs(String clipboardText) {
         if (isAdb(clipboardText)) {
             String adb_devices = CmdRun.run("adb devices").trim();
             // String adb_devices = AdbCommands.runAbdCmd("adb devices").trim();
@@ -37,8 +62,6 @@ public class MyAdb {
 
             // AdbCommands.runAbdCmd(clipboardText);
         }
-
-        sysInSc.close();
     }
 
     private static void noDevice() {
