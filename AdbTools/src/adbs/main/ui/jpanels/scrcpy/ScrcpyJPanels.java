@@ -64,6 +64,7 @@ public class ScrcpyJPanels {
      */
     private final JButton btnOpenMobileButlerApp;
 
+    private final JButton btnWiFiSettings;
 
     /**
      * scrcpy.exe内部镜像宽度数组
@@ -84,99 +85,50 @@ public class ScrcpyJPanels {
         // label = new JLabel("高度:");
         label = new JLabel("");
 
-        btnDecrease = new JButton("-");
-        addBtn = new JButton("+");
 
-        // widthTextField = new JTextField(4);
-        widthTextField = new JTextField(3);
-        widthTextField.setFont(Fonts.Consolas_PLAIN_12);
-        // 设置投屏的 默认高度
-        // widthTextField.setText(String.valueOf(540));
-        // widthTextField.setText(String.valueOf(600));
+        widthTextField = getWidthTextField();
 
+        btnOpenScrcpy = initBtnOpenScrcpy();
+        btnKillScrcpy = getKillScrcpy();
 
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
-        // 获取显示器分辨率
-        Dimension dimension = toolkit.getScreenSize();
-        // System.out.println(dimension.height);
-        // System.out.println(dimension.width);
-        // System.out.println("dimension.height = " + dimension.height);
-        // System.out.println("dimension.width = " + dimension.width);
-        if (dimension.height == 1080) {
-            index = 2;
-        } else {
-            // index = 1;
-            index = 2;
-        }
+        addBtn = getAddBtn();
+        btnDecrease = getBtnDecrease();
 
-        widthTextField.setText(String.valueOf(widthArr[index]));
-        // 禁止用户修改宽度
-        // widthTextField.setEditable(false);
+        btnSwitchNetworkDebug = getBtnSwitchNetworkDebug();
+
+        btnUpdateEarningApps = getBtnUpdateEarningApps();
+        btnSignedIn = getBtnSignedIn();
+
+        btnAllCheckedIn = getBtnAllCheckedIn();
+
+        btnGetAct = getBtnGetAct();
+
+        btnOpenMobileButlerApp = getBtnOpenMobileButlerApp();
+
+        btnWiFiSettings = getBtnWiFiSettings();
 
 
-        // openScrcpyBtn = new JButton(new ImageIcon(AdbTools.class.getClassLoader().getResource("open.png")));
-        btnOpenScrcpy = new JButton("➚");
-        // openScrcpyBtn = new JButton("s");
-        // openScrcpyBtn = new JButton("投");
-        // openScrcpyBtn = new JButton("➤");
+        // adb面板添加按钮
+        scrcpyJPanel.add(label);
+        scrcpyJPanel.add(widthTextField);
+        scrcpyJPanel.add(btnDecrease);
+        scrcpyJPanel.add(addBtn);
+        scrcpyJPanel.add(btnOpenScrcpy);
+        scrcpyJPanel.add(btnKillScrcpy);
+        scrcpyJPanel.add(btnSwitchNetworkDebug);
+        scrcpyJPanel.add(btnUpdateEarningApps);
+        scrcpyJPanel.add(btnSignedIn);
+        scrcpyJPanel.add(btnAllCheckedIn);
+        scrcpyJPanel.add(btnGetAct);
+        scrcpyJPanel.add(btnOpenMobileButlerApp);
+        scrcpyJPanel.add(btnWiFiSettings);
+        // AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, 1);
+        // AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, -1);
+        AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, 0);
+    }
 
-
-        btnOpenScrcpy.setToolTipText("使用scrcpy打开设备");
-        // openScrcpyBtn.addActionListener(new OpenButtonListener());
-        btnOpenScrcpy.addActionListener(new OpenButtonListener(widthTextField));
-        btnOpenScrcpy.addActionListener(new ActionListener() {
-            boolean isFirstTimeRun = true;
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (isFirstTimeRun) {
-                    // 只启动一次线程即可，不可多次启动
-                    AdbTools adbTools = AdbTools.getInstance();
-                    String serial = adbTools.getDevice().getSerial();
-                    if ("75aed56d".equals(serial)) {
-                        System.out.println("zzzzzzzzzzz启动一次线程");
-                        new Thread(new OppoR9ScrcpyRun()).start();
-                    }
-                    isFirstTimeRun = false;
-                    // 启动运动健康APP
-                    // AdbTaskAll.openSportsAndHealthApp(serial);
-                    OpenApp.openPedometerAPP();
-                    AdbTaskAll.wait_TaskBtn();
-
-                }
-            }
-        });
-
-        // killScrcpyBtn = new JButton("kill");
-        // killScrcpyBtn = new JButton("×");
-        btnKillScrcpy = new JButton("k");
-        btnKillScrcpy.setToolTipText("杀死打开的scrcpy镜像");
-        btnKillScrcpy.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // String id = AdbTools.device.getId();
-                String id = AdbTools.getInstance().getDevice().getSerial();
-                Taskkill.killScrcpy(id);
-            }
-        });
-
-        addBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (index > 0) {
-                    widthTextField.setText(widthArr[--index]);
-                }
-            }
-        });
-        btnDecrease.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (index < widthArr.length - 1) {
-                    widthTextField.setText(widthArr[++index]);
-                }
-            }
-        });
-
+    private JButton getBtnSwitchNetworkDebug() {
+        final JButton btnSwitchNetworkDebug;
         // final String networkDebugging = "网调";
         // final String usbDebugging = "线调";
         final String networkDebugging = "网";
@@ -241,7 +193,123 @@ public class ScrcpyJPanels {
                 btnOpenScrcpy.doClick();
             }
         });
+        return btnSwitchNetworkDebug;
+    }
 
+    private JTextField getWidthTextField() {
+        final JTextField widthTextField;
+        // widthTextField = new JTextField(4);
+        widthTextField = new JTextField(3);
+        widthTextField.setFont(Fonts.Consolas_PLAIN_12);
+        // 设置投屏的 默认高度
+        // widthTextField.setText(String.valueOf(540));
+        // widthTextField.setText(String.valueOf(600));
+
+
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        // 获取显示器分辨率
+        Dimension dimension = toolkit.getScreenSize();
+        // System.out.println(dimension.height);
+        // System.out.println(dimension.width);
+        // System.out.println("dimension.height = " + dimension.height);
+        // System.out.println("dimension.width = " + dimension.width);
+        if (dimension.height == 1080) {
+            index = 2;
+        } else {
+            // index = 1;
+            index = 2;
+        }
+
+        widthTextField.setText(String.valueOf(widthArr[index]));
+        // 禁止用户修改宽度
+        // widthTextField.setEditable(false);
+        return widthTextField;
+    }
+
+    private JButton getBtnDecrease() {
+        final JButton btnDecrease;
+        btnDecrease = new JButton("-");
+        btnDecrease.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (index < widthArr.length - 1) {
+                    widthTextField.setText(widthArr[++index]);
+                }
+            }
+        });
+        return btnDecrease;
+    }
+
+    private JButton getAddBtn() {
+        final JButton addBtn;
+        addBtn = new JButton("+");
+        addBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (index > 0) {
+                    widthTextField.setText(widthArr[--index]);
+                }
+            }
+        });
+        return addBtn;
+    }
+
+    private JButton initBtnOpenScrcpy() {
+        final JButton btnOpenScrcpy;
+        // openScrcpyBtn = new JButton(new ImageIcon(AdbTools.class.getClassLoader().getResource("open.png")));
+        btnOpenScrcpy = new JButton("➚");
+        // openScrcpyBtn = new JButton("s");
+        // openScrcpyBtn = new JButton("投");
+        // openScrcpyBtn = new JButton("➤");
+
+
+        btnOpenScrcpy.setToolTipText("使用scrcpy打开设备");
+        // openScrcpyBtn.addActionListener(new OpenButtonListener());
+        btnOpenScrcpy.addActionListener(new OpenButtonListener(widthTextField));
+        btnOpenScrcpy.addActionListener(new ActionListener() {
+            boolean isFirstTimeRun = true;
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (isFirstTimeRun) {
+                    // 只启动一次线程即可，不可多次启动
+                    AdbTools adbTools = AdbTools.getInstance();
+                    String serial = adbTools.getDevice().getSerial();
+                    if ("75aed56d".equals(serial)) {
+                        System.out.println("zzzzzzzzzzz启动一次线程");
+                        new Thread(new OppoR9ScrcpyRun()).start();
+                    }
+                    isFirstTimeRun = false;
+                    // 启动运动健康APP
+                    // AdbTaskAll.openSportsAndHealthApp(serial);
+                    OpenApp.openPedometerAPP();
+                    AdbTaskAll.wait_TaskBtn();
+
+                }
+            }
+        });
+        return btnOpenScrcpy;
+    }
+
+    private JButton getKillScrcpy() {
+        final JButton btnKillScrcpy;
+        // killScrcpyBtn = new JButton("kill");
+        // killScrcpyBtn = new JButton("×");
+        btnKillScrcpy = new JButton("k");
+        btnKillScrcpy.setToolTipText("杀死打开的scrcpy镜像");
+        btnKillScrcpy.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // String id = AdbTools.device.getId();
+                String id = AdbTools.getInstance().getDevice().getSerial();
+                Taskkill.killScrcpy(id);
+            }
+        });
+        return btnKillScrcpy;
+    }
+
+    private JButton getBtnUpdateEarningApps() {
+        final JButton btnUpdateEarningApps;
         btnUpdateEarningApps = new JButton("UL");
         btnUpdateEarningApps.setToolTipText("更新赚钱应用列表");
         btnUpdateEarningApps.addActionListener(new ActionListener() {
@@ -250,16 +318,24 @@ public class ScrcpyJPanels {
                 ForegroundAppRun.updatePackages_3_money();
             }
         });
+        return btnUpdateEarningApps;
+    }
+
+    private JButton getBtnSignedIn() {
+        final JButton btnSignedIn;
         btnSignedIn = new JButton("√");
         btnSignedIn.setToolTipText("当前APP已签到");
-
         btnSignedIn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ForegroundAppRun.setStopWait(true);
             }
         });
+        return btnSignedIn;
+    }
 
+    private JButton getBtnAllCheckedIn() {
+        final JButton btnAllCheckedIn;
         // allCheckedInBtn = new JButton("all");
         // √√
         // all
@@ -272,7 +348,11 @@ public class ScrcpyJPanels {
                 ForegroundAppRun.setIsAllAppSignedIn(true);
             }
         });
+        return btnAllCheckedIn;
+    }
 
+    private JButton getBtnGetAct() {
+        final JButton btnGetAct;
         // btnGetAct = new JButton("ACT");
         // btnGetAct = new JButton("Act");
         btnGetAct = new JButton("A");
@@ -291,7 +371,25 @@ public class ScrcpyJPanels {
                 SystemClipboard.setSysClipboardText(clipOut);
             }
         });
+        return btnGetAct;
+    }
 
+    private JButton getBtnWiFiSettings() {
+        final JButton btnWiFiSettings;
+        // btnWiFiSettings = new JButton("WiFi");
+        btnWiFiSettings = new JButton("WF");
+        btnWiFiSettings.setToolTipText("打开WiFi设置界面");
+        btnWiFiSettings.addActionListener(new BtnActionListener() {
+            @Override
+            public void action(ActionEvent e) {
+                OpenApp.openWiFiSetting();
+            }
+        });
+        return btnWiFiSettings;
+    }
+
+    private JButton getBtnOpenMobileButlerApp() {
+        final JButton btnOpenMobileButlerApp;
         // openMobileButlerApp = new JButton("管家");
         btnOpenMobileButlerApp = new JButton("GJ");
         btnOpenMobileButlerApp.setToolTipText("打开手机管家APP");
@@ -301,23 +399,7 @@ public class ScrcpyJPanels {
                 OpenApp.openGuanJiaApp();
             }
         });
-
-        // adb面板添加按钮
-        scrcpyJPanel.add(label);
-        scrcpyJPanel.add(widthTextField);
-        scrcpyJPanel.add(btnDecrease);
-        scrcpyJPanel.add(addBtn);
-        scrcpyJPanel.add(btnOpenScrcpy);
-        scrcpyJPanel.add(btnKillScrcpy);
-        scrcpyJPanel.add(btnSwitchNetworkDebug);
-        scrcpyJPanel.add(btnUpdateEarningApps);
-        scrcpyJPanel.add(btnSignedIn);
-        scrcpyJPanel.add(btnAllCheckedIn);
-        scrcpyJPanel.add(btnGetAct);
-        scrcpyJPanel.add(btnOpenMobileButlerApp);
-        // AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, 1);
-        // AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, -1);
-        AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, 0);
+        return btnOpenMobileButlerApp;
     }
 
     private String getIpCode(String serial) {
