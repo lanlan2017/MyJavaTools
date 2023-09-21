@@ -183,7 +183,8 @@ public class AdbTools {
             @Override
             public void windowClosing(WindowEvent e) {
                 super.windowClosing(e);
-                adbJPanels.getStopBtn().doClick();
+                // adbJPanels.getStopBtn().doClick();
+                universalPanels.getBtnStop().doClick();
                 scrcpyJPanels.getBtnKillScrcpy().doClick();
                 System.out.println("窗体正在关闭。。。。。。。。。。。。");
                 // ThreadSleep.seconds(5);

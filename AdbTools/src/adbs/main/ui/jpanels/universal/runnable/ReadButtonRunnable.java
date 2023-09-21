@@ -35,7 +35,8 @@ public class ReadButtonRunnable extends CloseableRunnable {
 
     @Override
     protected void setMsg() {
-        msg = "阅读";
+        // msg = "阅读";
+        msg = "读";
     }
 
     @Override
@@ -87,7 +88,8 @@ public class ReadButtonRunnable extends CloseableRunnable {
 
         JLabel output2 = inOutputModel.getUniversalPanels().getOutput2();
 
-        output2.setText(s + "s后" + msg);
+        output2.setText(s + "s:" + msg);
+        // output2.setText(s + "s后" + msg);
         String oldText;
         String newText;
         s = s * 1000;
@@ -103,7 +105,8 @@ public class ReadButtonRunnable extends CloseableRunnable {
             // oldText = output.getText();
             oldText = output2.getText();
             // newText = msg + "等待" + (s - count) / 1000 + "s";
-            newText = (s - count) / 1000 + "s后" + msg;
+            // newText = (s - count) / 1000 + "s后" + msg;
+            newText = (s - count) / 1000 + "s:" + msg;
             if (!oldText.equals(newText)) {
                 // output.setText(newText);
                 output2.setText(newText);

@@ -55,16 +55,19 @@ public class ScrcpyJPanels {
      * 所有的APP已经签到完毕
      */
     private final JButton btnAllCheckedIn;
-    /**
-     * 获取顶部APP的activity
-     */
-    private final JButton btnGetAct;
-    /**
-     * 打开手机管家
-     */
-    private final JButton btnOpenMobileButlerApp;
-
-    private final JButton btnWiFiSettings;
+    // /**
+    //  * 获取顶部APP的activity
+    //  */
+    // private final JButton btnGetAct;
+    // // /**
+    //  * 打开手机管家
+    //  */
+    // private final JButton btnOpenMobileButlerApp;
+    //
+    // /**
+    //  * 打开WiFi设置界面
+    //  */
+    // private final JButton btnWiFiSettings;
 
     /**
      * scrcpy.exe内部镜像宽度数组
@@ -101,11 +104,11 @@ public class ScrcpyJPanels {
 
         btnAllCheckedIn = getBtnAllCheckedIn();
 
-        btnGetAct = getBtnGetAct();
+        // btnGetAct = getBtnGetAct();
 
-        btnOpenMobileButlerApp = getBtnOpenMobileButlerApp();
-
-        btnWiFiSettings = getBtnWiFiSettings();
+        // btnOpenMobileButlerApp = getBtnOpenMobileButlerApp();
+        //
+        // btnWiFiSettings = getBtnWiFiSettings();
 
 
         // adb面板添加按钮
@@ -119,9 +122,9 @@ public class ScrcpyJPanels {
         scrcpyJPanel.add(btnUpdateEarningApps);
         scrcpyJPanel.add(btnSignedIn);
         scrcpyJPanel.add(btnAllCheckedIn);
-        scrcpyJPanel.add(btnGetAct);
-        scrcpyJPanel.add(btnOpenMobileButlerApp);
-        scrcpyJPanel.add(btnWiFiSettings);
+        // scrcpyJPanel.add(btnGetAct);
+        // scrcpyJPanel.add(btnOpenMobileButlerApp);
+        // scrcpyJPanel.add(btnWiFiSettings);
         // AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, 1);
         // AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, -1);
         AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, 0);
@@ -310,7 +313,7 @@ public class ScrcpyJPanels {
 
     private JButton getBtnUpdateEarningApps() {
         final JButton btnUpdateEarningApps;
-        btnUpdateEarningApps = new JButton("UL");
+        btnUpdateEarningApps = new JButton("U");
         btnUpdateEarningApps.setToolTipText("更新赚钱应用列表");
         btnUpdateEarningApps.addActionListener(new ActionListener() {
             @Override
@@ -351,56 +354,59 @@ public class ScrcpyJPanels {
         return btnAllCheckedIn;
     }
 
-    private JButton getBtnGetAct() {
-        final JButton btnGetAct;
-        // btnGetAct = new JButton("ACT");
-        // btnGetAct = new JButton("Act");
-        btnGetAct = new JButton("A");
-        btnGetAct.setToolTipText("获取顶部APP的activity");
-        btnGetAct.addActionListener(new BtnActionListener() {
-            @Override
-            public void action(ActionEvent e) {
-                String actName = AdbGetPackage.getActName();
-                System.out.println();
-                String serial = AdbTools.getInstance().getDevice().getSerial();
-                System.out.println("actName = " + actName);
-                String openAct = "adb -s " + serial + " shell am start -n " + actName;
-                System.out.println("openAct = " + openAct);
-                System.out.println();
-                String clipOut = actName + "\n" + openAct;
-                SystemClipboard.setSysClipboardText(clipOut);
-            }
-        });
-        return btnGetAct;
-    }
-
-    private JButton getBtnWiFiSettings() {
-        final JButton btnWiFiSettings;
-        // btnWiFiSettings = new JButton("WiFi");
-        btnWiFiSettings = new JButton("WF");
-        btnWiFiSettings.setToolTipText("打开WiFi设置界面");
-        btnWiFiSettings.addActionListener(new BtnActionListener() {
-            @Override
-            public void action(ActionEvent e) {
-                OpenApp.openWiFiSetting();
-            }
-        });
-        return btnWiFiSettings;
-    }
-
-    private JButton getBtnOpenMobileButlerApp() {
-        final JButton btnOpenMobileButlerApp;
-        // openMobileButlerApp = new JButton("管家");
-        btnOpenMobileButlerApp = new JButton("GJ");
-        btnOpenMobileButlerApp.setToolTipText("打开手机管家APP");
-        btnOpenMobileButlerApp.addActionListener(new BtnActionListener() {
-            @Override
-            public void action(ActionEvent e) {
-                OpenApp.openGuanJiaApp();
-            }
-        });
-        return btnOpenMobileButlerApp;
-    }
+    // private JButton getBtnGetAct() {
+    //     final JButton btnGetAct;
+    //     // btnGetAct = new JButton("ACT");
+    //     // btnGetAct = new JButton("Act");
+    //     btnGetAct = new JButton("a");
+    //     btnGetAct.setToolTipText("获取顶部APP的activity");
+    //     btnGetAct.addActionListener(new BtnActionListener() {
+    //         @Override
+    //         public void action(ActionEvent e) {
+    //             String actName = AdbGetPackage.getActName();
+    //             System.out.println();
+    //             String serial = AdbTools.getInstance().getDevice().getSerial();
+    //             System.out.println("actName = " + actName);
+    //             String openAct = "adb -s " + serial + " shell am start -n " + actName;
+    //             System.out.println("openAct = " + openAct);
+    //             System.out.println();
+    //             String clipOut = actName + "\n" + openAct;
+    //             SystemClipboard.setSysClipboardText(clipOut);
+    //         }
+    //     });
+    //     return btnGetAct;
+    // }
+    //
+    // private JButton getBtnWiFiSettings() {
+    //     final JButton btnWiFiSettings;
+    //     // btnWiFiSettings = new JButton("WiFi");
+    //     // btnWiFiSettings = new JButton("W");
+    //     btnWiFiSettings = new JButton("w");
+    //     // btnWiFiSettings = new JButton("WF");
+    //     btnWiFiSettings.setToolTipText("打开WiFi设置界面");
+    //     btnWiFiSettings.addActionListener(new BtnActionListener() {
+    //         @Override
+    //         public void action(ActionEvent e) {
+    //             OpenApp.openWiFiSetting();
+    //         }
+    //     });
+    //     return btnWiFiSettings;
+    // }
+    //
+    // private JButton getBtnOpenMobileButlerApp() {
+    //     final JButton btnOpenMobileButlerApp;
+    //     // openMobileButlerApp = new JButton("管家");
+    //     btnOpenMobileButlerApp = new JButton("g");
+    //     // btnOpenMobileButlerApp = new JButton("GJ");
+    //     btnOpenMobileButlerApp.setToolTipText("打开手机管家APP");
+    //     btnOpenMobileButlerApp.addActionListener(new BtnActionListener() {
+    //         @Override
+    //         public void action(ActionEvent e) {
+    //             OpenApp.openGuanJiaApp();
+    //         }
+    //     });
+    //     return btnOpenMobileButlerApp;
+    // }
 
     private String getIpCode(String serial) {
         String ipCode;
@@ -444,12 +450,6 @@ public class ScrcpyJPanels {
     private String getIfconfigIp(String input) {
         return input.substring(input.indexOf("addr:") + "addr:".length(), input.indexOf("Bcast:")).trim();
     }
-
-    // private void reopenScrcpy() {
-    //     killScrcpyBtn.doClick();
-    //     // ThreadSleep.seconds(2);
-    //     openScrcpyBtn.doClick();
-    // }
 
     public JPanel getScrcpyJPanel() {
         return scrcpyJPanel;

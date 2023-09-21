@@ -156,7 +156,7 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
         timePanels.getTimerJLabel().setText("");
         if (isClickReturnBtn) {
             // AdbTools.getInstance().getAdbJPanels().getReturnBtn().doClick();
-            AdbTools.getInstance().getAdbJPanels().getTaskBtn().doClick();
+            AdbTools.getInstance().getAdbJPanels().getBtnTask().doClick();
             isClickReturnBtn = false;
         }
         if(timePanels.getTimerJLabel().isVisible()){

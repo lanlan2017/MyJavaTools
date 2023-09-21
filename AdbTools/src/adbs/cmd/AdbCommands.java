@@ -46,9 +46,9 @@ public class AdbCommands {
         // int x = (width / 100) * 98;
         // 假设width=1080，则1080/270=4,4*260=1040,4*269=1076
         // int x = (width / 270) * Randoms.getRandomInt(267, 269);
-        int x = (width / 120) * Randoms.getRandomInt(119, 120) - Randoms.getRandomInt(2,7);
+        int x = (width / 120) * Randoms.getRandomInt(119, 120) - Randoms.getRandomInt(2, 7);
         //adb shell input tap 250 250
-       return AdbCommands.runAbdCmd("adb -s " + id + " shell input tap " + x + " " + y);
+        return AdbCommands.runAbdCmd("adb -s " + id + " shell input tap " + x + " " + y);
     }
 
     /**
@@ -102,7 +102,10 @@ public class AdbCommands {
             System.out.println("adb命令运行错误，退出程序." + adbResult);
             // System.exit(0);
             // JButton stopBtn = AdbTools.getInstance().getStopBtn();
-            JButton stopBtn = AdbTools.getInstance().getAdbJPanels().getStopBtn();
+            // JButton stopBtn = AdbTools.getInstance().getAdbJPanels().getStopBtn();
+
+            JButton stopBtn = AdbTools.getInstance().getUniversalPanels().getBtnStop();
+
             if (stopBtn != null && stopBtn instanceof JButton) {
                 System.out.println("点击停止按钮" + adbResult);
                 stopBtn.doClick();

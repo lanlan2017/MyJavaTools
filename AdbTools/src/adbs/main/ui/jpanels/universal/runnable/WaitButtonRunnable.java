@@ -1,9 +1,9 @@
 package adbs.main.ui.jpanels.universal.runnable;
 
 import adbs.main.AdbTools;
-import adbs.main.ui.inout.InOutputModel;
 import adbs.main.ui.jpanels.adb.AdbJPanels;
 import adbs.main.ui.jpanels.time.TimePanels;
+import adbs.main.ui.jpanels.universal.UniversalPanels;
 import tools.thead.Threads;
 
 import javax.swing.*;
@@ -100,13 +100,17 @@ public class WaitButtonRunnable extends CloseableRunnable {
 
 
         timerJLabel.setText("");
-        AdbJPanels adbJPanels = AdbTools.getInstance().getAdbJPanels();
+
+        AdbTools adbTools = AdbTools.getInstance();
+        AdbJPanels adbJPanels = adbTools.getAdbJPanels();
+        UniversalPanels universalPanels = adbTools.getUniversalPanels();
         if (isClickStopButton) {
-            adbJPanels.getStopBtn().doClick();
+            // adbJPanels.getStopBtn().doClick();
+            universalPanels.getBtnStop().doClick();
             isClickStopButton = false;
         }
         if (isClickTaskButton) {
-            adbJPanels.getTaskBtn().doClick();
+            adbJPanels.getBtnTask().doClick();
             isClickTaskButton = false;
         }
         timePanels.showConfirmDialog();

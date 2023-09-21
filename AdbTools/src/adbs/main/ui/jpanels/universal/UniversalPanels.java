@@ -1,6 +1,7 @@
 package adbs.main.ui.jpanels.universal;
 
 import adbs.cmd.RobotsDraw;
+import adbs.main.ui.inout.listener.StopBtnAcListener2;
 import adbs.main.ui.jpanels.time.TimePanels;
 import adbs.main.ui.jpanels.universal.listener.*;
 import adbs.main.ui.config.FlowLayouts;
@@ -48,6 +49,8 @@ public class UniversalPanels {
      * 快手上下滚动滑动功能
      */
     private final JButton btnSlideUpAndDown;
+
+    private final JButton btnStop;
     /**
      * 通用面板输出功能
      */
@@ -58,8 +61,6 @@ public class UniversalPanels {
      *
      * @param timePanels
      */
-    // public UniversalPanels(JFrame frame, InOutputModel inout2) {
-    // public UniversalPanels(InOutputModel inout2) {
     public UniversalPanels(TimePanels timePanels) {
         // 创建通用功能面板
         universalPanel = new JPanel();
@@ -74,7 +75,8 @@ public class UniversalPanels {
 
         waitButton = new JButton("等待");
         waitButton.setToolTipText("等待一定时间后提示");
-        videoButton = new JButton("刷视频");
+        // videoButton = new JButton("刷视频");
+        videoButton = new JButton("视频");
         videoButton.setToolTipText("等待随机秒数后，从下向上滑动一次");
 
         shoppingButton = new JButton("逛街");
@@ -85,7 +87,6 @@ public class UniversalPanels {
 
         // output2 = new JLabel("输出2");
         output2 = new JLabel("");
-
 
 
         // readButton.addActionListener(new PyImgFindAcListener(ReadButtonRunnable.getInstance(), inout2));
@@ -100,24 +101,9 @@ public class UniversalPanels {
         // 逛街按钮
         shoppingButton.addActionListener(new ShoppingButtonActionListener(timePanels));
 
-        // rollingButton.addActionListener(new ActionListener() {
-        //     @Override
-        //     public void actionPerformed(ActionEvent e) {
-        //         new Thread(new RoolBtnRunnable()).start();
-        //     }
-        // });
+        btnSlideUpAndDown = getBtnSlideUpAndDown();
 
-        // rollingButton.addActionListener(new RoolButtonActionListener(timePanels));
-
-        btnSlideUpAndDown = new JButton("⇅");
-        btnSlideUpAndDown.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                RobotsDraw.slideUpAndDown();
-            }
-        });
-
-
+        btnStop = initBtnStop();
 
         // 添加到面板中
         universalPanel.add(readButton);
@@ -127,9 +113,22 @@ public class UniversalPanels {
         universalPanel.add(shoppingButton);
         // universalPanel.add(rollingButton);
         universalPanel.add(btnSlideUpAndDown);
+        universalPanel.add(btnStop);
         universalPanel.add(output2);
 
         AbstractButtons.setMarginInButtonJPanel(universalPanel, 1);
+    }
+
+    private JButton getBtnSlideUpAndDown() {
+        final JButton btnSlideUpAndDown;
+        btnSlideUpAndDown = new JButton("⇅");
+        btnSlideUpAndDown.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                RobotsDraw.slideUpAndDown();
+            }
+        });
+        return btnSlideUpAndDown;
     }
 
     public JPanel getUniversalPanel() {
@@ -160,7 +159,14 @@ public class UniversalPanels {
         return shoppingButton;
     }
 
-    // public JButton getRollingButton() {
-    //     return rollingButton;
-    // }
+    private JButton initBtnStop() {
+        JButton stopBtn = new JButton("停止");
+        stopBtn.setToolTipText("停止所有后台线程,刷新界面");
+        stopBtn.addActionListener(new StopBtnAcListener2());
+        return stopBtn;
+    }
+
+    public JButton getBtnStop() {
+        return btnStop;
+    }
 }

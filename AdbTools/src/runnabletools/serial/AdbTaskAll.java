@@ -99,7 +99,7 @@ public class AdbTaskAll {
             @Override
             public void run() {
                 ThreadSleep.minutes(1);
-                AdbTools.getInstance().getAdbJPanels().getTaskBtn().doClick();
+                AdbTools.getInstance().getAdbJPanels().getBtnTask().doClick();
 
             }
         }).start();
