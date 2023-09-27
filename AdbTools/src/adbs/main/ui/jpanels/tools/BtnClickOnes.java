@@ -26,11 +26,11 @@ public class BtnClickOnes {
                     // button.setText("卸载...");
                     button.setText(text + suffix);
                     // AdbTools.getInstance().getFrame().pack();
-                    button.setEnabled(false);
                     // button.updateUI();
                     // AdbTools.getInstance().getFrame().pack();
                     // ThreadSleep.seconds(1);
                 }
+                button.setEnabled(false);
             }
         }).start();
     }
@@ -51,11 +51,11 @@ public class BtnClickOnes {
                     // ThreadSleep.seconds(10);
                     ThreadSleep.seconds(3);
                     button.setText(text);
-                    button.setEnabled(true);
                     AdbTools.getInstance().getFrame().pack();
                     // ThreadSleep.seconds(1);
                 }
 
+                button.setEnabled(true);
             }
         }).start();
     }

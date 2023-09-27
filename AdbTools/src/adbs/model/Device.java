@@ -88,68 +88,27 @@ public class Device {
         // getName()
         // 先在配置文件中查找标记
         String installedFlags = getInstalledFlags(serial);
-        // System.out.println("installedFlags = " + installedFlags);
-        // // 如果有下划线，说明有两个标记
-        // if (installedFlags.contains("_")) {
-        //     String[] flags = installedFlags.split("_");
-        //     if (flags.length == 2) {
-        //         if (flags[0].equals("true")) {
-        //             kuaiShouInstalled = true;
-        //         }
-        //         if (flags[1].equals("true")) {
-        //             dianTaoInstalled = true;
-        //         }
-        //     }
-        // } else {
-        //
-        //     if ("true".equals(installedFlags) || "false".equals(installedFlags)) {
-        //         kuaiShouInstalled = Boolean.valueOf(installedFlags);
-        //     } else {
-        //         // 获取安装的所有第三方APP
-        //         ArrayList<String> package_3 = new AdbShellPmListPackages_3(serial).getPackage_3();
-        //         // com.kuaishou.nebula                     快手极速版
-        //         // 在所有的第三方APP中查找快手APP
-        //         int i1 = Collections.binarySearch(package_3, "com.kuaishou.nebula");
-        //         if (i1 > 0) {
-        //             kuaiShouInstalled = true;
-        //         } else {
-        //             // com.smile.gifmaker                      快手
-        //             int i2 = Collections.binarySearch(package_3, "com.smile.gifmaker");
-        //             if (i2 > 0) {
-        //                 kuaiShouInstalled = true;
-        //             }
-        //         }
-        //         System.out.println(serial + " isKuaiShouInstalled=" + name + "_" + kuaiShouInstalled);
-        //     }
-        // }
         System.out.print(name + " " + serial + " ");
+        System.out.println();
         if (installedFlags.contains("QuTouTiao")) {
             priority = priority * Priority.priority[0];
-            System.out.print(",趣头条=" + Priority.priority[0]);
+            // System.out.print(",趣头条=" + Priority.priority[0]);
         }
         if (installedFlags.contains("DianTao")) {
             dianTaoInstalled = true;
             priority = priority * Priority.priority[1];
-            System.out.print(",点淘=" + Priority.priority[1]);
+            // System.out.print(",点淘=" + Priority.priority[1]);
         }
         if (installedFlags.contains("BaiDuJiSuBan")) {
             priority = priority * Priority.priority[2];
-            System.out.print(",百度极速版=" + Priority.priority[2]);
+            // System.out.print(",百度极速版=" + Priority.priority[2]);
         }
         if (installedFlags.contains("KuaiShou")) {
             kuaiShouInstalled = true;
             priority = priority * Priority.priority[3];
-            System.out.print(",快手(极速版)=" + Priority.priority[3]);
+            // System.out.print(",快手(极速版)=" + Priority.priority[3]);
         }
-        // System.out.println();
-        // if (isDianTaoInstalled()) {
-        //     priority = priority * Priority.priority[0];
-        // }
-        // if (isKuaiShouInstalled()) {
-        //     priority = priority * Priority.priority[1];
-        // }
-
-        System.out.println(" priority = " + priority);
+        // System.out.println(" priority = " + priority);
     }
 
     public int getPriority() {

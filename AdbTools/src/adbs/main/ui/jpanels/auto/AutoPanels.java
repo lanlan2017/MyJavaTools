@@ -1,9 +1,11 @@
 package adbs.main.ui.jpanels.auto;
 
-import adbs.cmd.Robots;
+import adbs.main.AdbTools;
+import adbs.main.run.AdbGetPackage;
 import adbs.main.ui.config.FlowLayouts;
-import adbs.main.ui.config.Fonts;
+import adbs.main.ui.jpanels.auto.runnable.*;
 import adbs.main.ui.jpanels.tools.BtnActionListener;
+import adbs.model.Device;
 import adbs.tools.thread.ThreadSleep;
 import tools.swing.button.AbstractButtons;
 
@@ -11,25 +13,26 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 /**
  * 自动控制面板
  */
-public class AutoPanels {
+public class AutoPanels implements CoinsType {
     /**
      * 主面板
      */
-    private JPanel autoJPanel;
+    private final JPanel autoJPanel;
+
+    private final JComboBox<String> comboBox;
     /**
      *
      */
-    private JTextField input;
-    private JRadioButton jrbClick;
-    private JRadioButton jrbClickTwoPlaces;
-    /**
-     *
-     */
-    private JButton button;
+    private final JButton btnOk;
+    private final JButton btnStop;
+    private boolean stop;
+    private DefaultNewWebActivityCloseRunnable closeRun;
 
 
     public JPanel getAutoJPanel() {
@@ -40,108 +43,124 @@ public class AutoPanels {
         autoJPanel = new JPanel();
         autoJPanel.setLayout(FlowLayouts.flowLayoutLeft);
 
-        input = new JTextField(2);
-        input.setFont(Fonts.Consolas_PLAIN_12);
+        comboBox = initComboBox();
+        btnOk = initBtnOk();
+        btnOk.setText(ReadCoins);
+        btnStop = initBtnStop();
 
-        jrbClick = new JRadioButton("1");
-        final String textClickOnOnePlace = "点击一处";
-        final String textClickOnTwoPlaces = "点击两处";
-        jrbClick.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                button.setText(textClickOnOnePlace);
-            }
-        });
-
-        jrbClickTwoPlaces = new JRadioButton("2");
-        jrbClickTwoPlaces.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                button.setText(textClickOnTwoPlaces);
-            }
-        });
-        ButtonGroup buttonGroup = new ButtonGroup();
-
-        buttonGroup.add(jrbClick);
-        buttonGroup.add(jrbClickTwoPlaces);
-
-        button = new JButton("连续点击");
-        button.setToolTipText("连续多次点击");
-        button.addActionListener(new BtnActionListener() {
-            /**
-             * 第一次点击的位置
-             */
-            private Point point;
-
-            @Override
-            public void action(ActionEvent e) {
-                String buttonText = button.getText();
-                switch (buttonText) {
-                    case textClickOnOnePlace:
-                        clickOnePlace();
-                        break;
-                    case textClickOnTwoPlaces:
-                        int times = getTimes();
-                        if (times > 0) {
-
-                        }
-                        break;
-                }
-
-
-            }
-
-            /**
-             * 循环点击一个地方
-             */
-            private void clickOnePlace() {
-                // String text = input.getText();
-                // if (text.matches("\\d+")) {
-                //     int times = Integer.parseInt(text);
-                //     ThreadSleep.seconds(5);
-                //     System.out.println("times = " + times);
-                //     point = Robots.getMousePointerLocation();
-                //     System.out.println("times = " + times);
-                //
-                // }
-                int times = getTimes();
-                if (times > 0) {
-                    // Robot robot = Robots.getRobot();
-                    // int times = 5;
-                    for (int i = 0; i < times; i++) {
-                        System.out.println("i = " + i);
-                        // 把鼠标移动到指定的位置
-                        Robots.mouseMove(point);
-                        Robots.delay(20);
-                        //点一下鼠标左键
-                        Robots.mousePressLeftBtn();
-                        Robots.delay(50);
-                        Robots.mouseReleaseLeftBtn();
-                        Robots.delaySecond(10);
-                        Robots.delay(1);
-                    }
-                    System.out.println("连续点击结束");
-                }
-            }
-        });
-
-
-        autoJPanel.add(jrbClick);
-        autoJPanel.add(jrbClickTwoPlaces);
-        autoJPanel.add(input);
-        autoJPanel.add(button);
+        autoJPanel.add(btnStop);
+        autoJPanel.add(comboBox);
+        autoJPanel.add(btnOk);
         autoJPanel.setVisible(false);
         AbstractButtons.setMarginInButtonJPanel(autoJPanel, 0);
     }
 
-    private int getTimes() {
-        int times = 0;
-        String text = input.getText();
-        if (text.matches("\\d+")) {
-            times = Integer.parseInt(text);
-        }
-        return times;
+    private JComboBox<String> initComboBox() {
+        final JComboBox<String> comboBox;
+        comboBox = new JComboBox<>();
+        comboBox.addItem(ReadCoins);
+        comboBox.addItem(AudioCoins);
+        comboBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                // int stateChange = e.getStateChange();
+                ComboBoxModel<String> model = comboBox.getModel();
+                String element = model.getElementAt(comboBox.getSelectedIndex());
+                btnOk.setText(element);
+
+            }
+        });
+        return comboBox;
+    }
+
+    private JButton initBtnStop() {
+        final JButton btnStop;
+        btnStop = new JButton("停止");
+        // btnStop.setText(ReadCoins);
+        btnStop.addActionListener(new BtnActionListener() {
+            @Override
+            public void action(ActionEvent e) {
+                if (closeRun != null) {
+                    closeRun.stop();
+                }
+            }
+        });
+        return btnStop;
+    }
+
+    private JButton initBtnOk() {
+        final JButton button;
+        button = new JButton("确定");
+        // button.setToolTipText("连续多次点击");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                stop = false;
+                Device device = AdbTools.getInstance().getDevice();
+                String buttonText = button.getText();
+                switch (buttonText) {
+                    case ReadCoins:
+                        // collecionCoins();
+                        System.out.println(ReadCoins);
+                        readCoinsCloseRun(device);
+                        break;
+                    case AudioCoins:
+                        System.out.println(AudioCoins);
+                        audioCoinsCloseRun(device);
+                        break;
+                }
+
+
+            }
+            //
+            // private void collecionCoins() {
+            //     Device device = AdbTools.getInstance().getDevice();
+            //     String actName = AdbGetPackage.getActName();
+            //     System.out.println("actName = " + actName);
+            //
+            //     // final String actQieZi = "com.qz.freader/com.kmxs.reader.webview.ui.DefaultNewWebActivity";
+            //     // // final String actXiongMao = "com.xm.freader/com.kmxs.reader.webview.ui.DefaultNewWebActivity";
+            //     // final String actXiongMao = "com.xm.freader/" + flag0;
+            //     // final String actXiongMao2 = "com.xm.freader/" + flag1;
+            //
+            //     String flag0 = "com.kmxs.reader.webview.ui.DefaultNewWebActivity";
+            //     String flag1 = "com.kmxs.reader.home.ui.HomeActivity";
+            //     if (actName.contains(flag0)) {
+            //         tap(device);
+            //     } else if (actName.contains(flag1)) {
+            //         tap(device);
+            //     }
+            //
+            //
+            // }
+
+
+            private void readCoinsCloseRun(Device device) {
+                String actName = AdbGetPackage.getActName();
+                System.out.println("actName = " + actName);
+                closeRun = QieZiReadCoinCloseRun.getInstance();
+                closeRun.setDevice(device);
+                closeRun.setBtnClose(Ratios.qieZiBtnClose);
+                closeRun.setBtnCoin(Ratios.qieZiReadCoin);
+                new Thread(closeRun).start();
+            }
+
+            private void audioCoinsCloseRun(Device device) {
+                closeRun = QieZiAudioCoinCloseRun.getInstance();
+                closeRun.setDevice(device);
+                closeRun.setBtnClose(Ratios.qieZiBtnClose);
+                closeRun.setBtnCoin(Ratios.qieZiAudioCoin);
+                System.out.println("closeableRunnable = " + closeRun);
+                new Thread(closeRun).start();
+            }
+
+            private void adbTap_Wait(Device device, ScreenPositionRatio closeButton) {
+                AdbTap.tap(device, closeButton);
+                ThreadSleep.seconds(3);
+            }
+
+        });
+
+        return button;
     }
 }

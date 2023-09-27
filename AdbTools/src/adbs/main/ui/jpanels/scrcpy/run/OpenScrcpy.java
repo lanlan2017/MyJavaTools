@@ -1,4 +1,4 @@
-package adbs.main.ui.jpanels.adb.open;
+package adbs.main.ui.jpanels.scrcpy.run;
 
 import adbs.cmd.CmdRun;
 
@@ -7,25 +7,25 @@ import adbs.cmd.CmdRun;
  */
 public class OpenScrcpy {
     public static void main(String[] args) {
-        String id;
+        String serial;
         String title;
         String window_width;
         String code = "";
         switch (args.length) {
             case 1:
-                id = args[0];
-                code = scrcpyCall(id, id);
+                serial = args[0];
+                code = scrcpyCall(serial, serial);
                 break;
             case 2:
-                id = args[0];
+                serial = args[0];
                 title = args[1];
-                code = scrcpyCall(id, title);
+                code = scrcpyCall(serial, title);
                 break;
             case 3:
-                id = args[0];
+                serial = args[0];
                 title = args[1];
                 window_width = args[2];
-                code = scrcpyCall(id, title, window_width);
+                code = scrcpyCall(serial, title, window_width);
 
         }
         // 打印执行的命令
@@ -42,8 +42,14 @@ public class OpenScrcpy {
             // 启动scrcpy.exe镜像的时候不息屏
             code = "scrcpy.exe -s " + id + " -b 2M --stay-awake --window-title " + title + " -m 600 --window-height=" + window_hight;
         } else {
-            // 其他设备，启动scrcpy.exe镜像时，关闭屏幕
-            code = "scrcpy.exe -s " + id + " --turn-screen-off -b 2M --stay-awake --window-title " + title + " -m 600 --window-height=" + window_hight;
+            // 如果是高度的话，则设置高度
+            if (window_hight.matches("\\d+")) {
+                // 其他设备，启动scrcpy.exe镜像时，关闭屏幕
+                code = "scrcpy.exe -s " + id + " --turn-screen-off -b 2M --stay-awake --window-title " + title + " -m 600 --window-height=" + window_hight;
+                // code="scrcpy.exe -s "+
+            } else {
+                code = "scrcpy.exe -s " + id + " --turn-screen-off --stay-awake --window-title " + title;
+            }
         }
         return code;
     }

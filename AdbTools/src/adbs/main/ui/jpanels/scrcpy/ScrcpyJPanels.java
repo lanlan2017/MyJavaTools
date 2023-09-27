@@ -2,18 +2,14 @@ package adbs.main.ui.jpanels.scrcpy;
 
 import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
-import adbs.main.run.AdbGetPackage;
 import adbs.main.run.ForegroundAppRun;
 import adbs.main.run.OppoR9ScrcpyRun;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.config.Fonts;
-import adbs.main.ui.jpanels.adb.listener.OpenButtonListener;
+import adbs.main.ui.jpanels.scrcpy.listener.OpenButtonListener;
 import adbs.main.ui.jpanels.adb.open.Taskkill;
-import adbs.main.ui.jpanels.tools.BtnActionListener;
 import adbs.model.Device;
 import config.AdbConnectPortProperties;
-import runnabletools.serial.AdbTaskAll;
-import tools.copy.SystemClipboard;
 import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
@@ -35,12 +31,35 @@ public class ScrcpyJPanels {
     private final JPanel scrcpyJPanel;
 
     private final JLabel label;
+    /**
+     * 增加高度
+     */
     private final JButton addBtn;
+    /**
+     * 减少高度
+     */
     private final JButton btnDecrease;
+    /**
+     * 高度输入框
+     */
     private final JTextField widthTextField;
 
+    /**
+     * 打开scrcpy.exe，限定高度
+     */
     private final JButton btnOpenScrcpy;
+
+    /**
+     * 直接调用scrcpy.exe，不设置高度
+     */
+    private final JButton btnOpenScrcpyFull;
+    /**
+     * 切换网络调试，并打开scrcpy.exe
+     */
     private final JButton btnSwitchNetworkDebug;
+    /**
+     * 杀死scrcpy.exe
+     */
     private final JButton btnKillScrcpy;
     /**
      * 更新赚钱APP列表
@@ -55,24 +74,13 @@ public class ScrcpyJPanels {
      * 所有的APP已经签到完毕
      */
     private final JButton btnAllCheckedIn;
-    // /**
-    //  * 获取顶部APP的activity
-    //  */
-    // private final JButton btnGetAct;
-    // // /**
-    //  * 打开手机管家
-    //  */
-    // private final JButton btnOpenMobileButlerApp;
-    //
-    // /**
-    //  * 打开WiFi设置界面
-    //  */
-    // private final JButton btnWiFiSettings;
 
     /**
      * scrcpy.exe内部镜像宽度数组
      */
     private final String[] widthArr = {"600", "540", "500", "480", "420", "360", "350", "340"};
+
+
     /**
      * 内部镜像宽度数组的下标
      */
@@ -92,6 +100,10 @@ public class ScrcpyJPanels {
         widthTextField = getWidthTextField();
 
         btnOpenScrcpy = initBtnOpenScrcpy();
+
+        btnOpenScrcpyFull = initBtnOpenScrcpyFull();
+
+
         btnKillScrcpy = getKillScrcpy();
 
         addBtn = getAddBtn();
@@ -104,12 +116,6 @@ public class ScrcpyJPanels {
 
         btnAllCheckedIn = getBtnAllCheckedIn();
 
-        // btnGetAct = getBtnGetAct();
-
-        // btnOpenMobileButlerApp = getBtnOpenMobileButlerApp();
-        //
-        // btnWiFiSettings = getBtnWiFiSettings();
-
 
         // adb面板添加按钮
         scrcpyJPanel.add(label);
@@ -117,6 +123,7 @@ public class ScrcpyJPanels {
         scrcpyJPanel.add(btnDecrease);
         scrcpyJPanel.add(addBtn);
         scrcpyJPanel.add(btnOpenScrcpy);
+        scrcpyJPanel.add(btnOpenScrcpyFull);
         scrcpyJPanel.add(btnKillScrcpy);
         scrcpyJPanel.add(btnSwitchNetworkDebug);
         scrcpyJPanel.add(btnUpdateEarningApps);
@@ -128,6 +135,14 @@ public class ScrcpyJPanels {
         // AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, 1);
         // AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, -1);
         AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, 0);
+    }
+
+    private JButton initBtnOpenScrcpyFull() {
+        final JButton btnOpenScrcpyFull;
+        btnOpenScrcpyFull = new JButton("➚➚");
+        btnOpenScrcpyFull.setToolTipText("调用scrcpy.exe不限定高度");
+        btnOpenScrcpyFull.addActionListener(new OpenButtonListener("full"));
+        return btnOpenScrcpyFull;
     }
 
     private JButton getBtnSwitchNetworkDebug() {
@@ -205,17 +220,11 @@ public class ScrcpyJPanels {
         widthTextField = new JTextField(3);
         widthTextField.setFont(Fonts.Consolas_PLAIN_12);
         // 设置投屏的 默认高度
-        // widthTextField.setText(String.valueOf(540));
-        // widthTextField.setText(String.valueOf(600));
 
 
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         // 获取显示器分辨率
         Dimension dimension = toolkit.getScreenSize();
-        // System.out.println(dimension.height);
-        // System.out.println(dimension.width);
-        // System.out.println("dimension.height = " + dimension.height);
-        // System.out.println("dimension.width = " + dimension.width);
         if (dimension.height == 1080) {
             index = 2;
         } else {
@@ -269,6 +278,9 @@ public class ScrcpyJPanels {
         btnOpenScrcpy.setToolTipText("使用scrcpy打开设备");
         // openScrcpyBtn.addActionListener(new OpenButtonListener());
         btnOpenScrcpy.addActionListener(new OpenButtonListener(widthTextField));
+        // btnOpenScrcpy.addActionListener(new OpenButtonListener(widthTextField.getText()));
+
+
         btnOpenScrcpy.addActionListener(new ActionListener() {
             boolean isFirstTimeRun = true;
 
@@ -283,10 +295,13 @@ public class ScrcpyJPanels {
                         new Thread(new OppoR9ScrcpyRun()).start();
                     }
                     isFirstTimeRun = false;
-                    // 启动运动健康APP
-                    // AdbTaskAll.openSportsAndHealthApp(serial);
-                    OpenApp.openPedometerAPP();
-                    AdbTaskAll.wait_TaskBtn();
+
+                    // if (!IsTest.isIsTest()) {
+                    //     // 启动运动健康APP
+                    //     // AdbTaskAll.openSportsAndHealthApp(serial);
+                    //     OpenApp.openPedometerAPP();
+                    //     AdbTaskAll.wait_TaskBtn();
+                    // }
 
                 }
             }
@@ -354,59 +369,6 @@ public class ScrcpyJPanels {
         return btnAllCheckedIn;
     }
 
-    // private JButton getBtnGetAct() {
-    //     final JButton btnGetAct;
-    //     // btnGetAct = new JButton("ACT");
-    //     // btnGetAct = new JButton("Act");
-    //     btnGetAct = new JButton("a");
-    //     btnGetAct.setToolTipText("获取顶部APP的activity");
-    //     btnGetAct.addActionListener(new BtnActionListener() {
-    //         @Override
-    //         public void action(ActionEvent e) {
-    //             String actName = AdbGetPackage.getActName();
-    //             System.out.println();
-    //             String serial = AdbTools.getInstance().getDevice().getSerial();
-    //             System.out.println("actName = " + actName);
-    //             String openAct = "adb -s " + serial + " shell am start -n " + actName;
-    //             System.out.println("openAct = " + openAct);
-    //             System.out.println();
-    //             String clipOut = actName + "\n" + openAct;
-    //             SystemClipboard.setSysClipboardText(clipOut);
-    //         }
-    //     });
-    //     return btnGetAct;
-    // }
-    //
-    // private JButton getBtnWiFiSettings() {
-    //     final JButton btnWiFiSettings;
-    //     // btnWiFiSettings = new JButton("WiFi");
-    //     // btnWiFiSettings = new JButton("W");
-    //     btnWiFiSettings = new JButton("w");
-    //     // btnWiFiSettings = new JButton("WF");
-    //     btnWiFiSettings.setToolTipText("打开WiFi设置界面");
-    //     btnWiFiSettings.addActionListener(new BtnActionListener() {
-    //         @Override
-    //         public void action(ActionEvent e) {
-    //             OpenApp.openWiFiSetting();
-    //         }
-    //     });
-    //     return btnWiFiSettings;
-    // }
-    //
-    // private JButton getBtnOpenMobileButlerApp() {
-    //     final JButton btnOpenMobileButlerApp;
-    //     // openMobileButlerApp = new JButton("管家");
-    //     btnOpenMobileButlerApp = new JButton("g");
-    //     // btnOpenMobileButlerApp = new JButton("GJ");
-    //     btnOpenMobileButlerApp.setToolTipText("打开手机管家APP");
-    //     btnOpenMobileButlerApp.addActionListener(new BtnActionListener() {
-    //         @Override
-    //         public void action(ActionEvent e) {
-    //             OpenApp.openGuanJiaApp();
-    //         }
-    //     });
-    //     return btnOpenMobileButlerApp;
-    // }
 
     private String getIpCode(String serial) {
         String ipCode;

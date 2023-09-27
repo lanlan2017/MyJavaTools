@@ -3,12 +3,13 @@ package adbs.main;
 import adbs.cmd.AdbCommands;
 import adbs.main.run.BatteryLevelRun2;
 import adbs.main.run.ForegroundAppRun;
+import adbs.main.run.IsTest;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.inout.InOutputModel;
 import adbs.main.ui.jpanels.adb.AdbJPanels;
 import adbs.main.ui.jpanels.auto.AutoPanels;
 import adbs.main.ui.jpanels.check.JCheckBoxControlJPanelItemListener;
-import adbs.main.ui.jpanels.control.TimingPanels;
+import adbs.main.ui.jpanels.timeauto.TimingPanels;
 import adbs.main.ui.jpanels.scrcpy.ScrcpyJPanels;
 import adbs.main.ui.jpanels.time.TimePanels;
 import adbs.main.ui.jpanels.time.listener.InputOkButtonActionListener;
@@ -222,7 +223,7 @@ public class AdbTools {
 
         // 设置窗体的内容面板
         frame.setContentPane(contentPane);
-        // 窗体使用箱型布局,垂直排列
+        // 窗体使用箱型布局,垂直排列,此布局不支持换行显示，超出容器的组件将会被隐藏
         frame.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
     }
 
@@ -271,19 +272,18 @@ public class AdbTools {
         System.out.println("idList = " + idList);
 
         // showConfirmDialog();
-        Component parentComponent = frame;
         // Component parentComponent = null;
+        Component parentComponent = frame;
         String message = "请选择要操作的adb设备：";
         String title = "选择Adb设备";
         // int optionType = JOptionPane.YES_NO_CANCEL_OPTION;
         int optionType = JOptionPane.YES_OPTION;
         int messageType = JOptionPane.PLAIN_MESSAGE;
         Icon icon = null;
+        int initialValue = 0;
         // String[] options = {"HonorWiFi", "RedmiWiFi"};
         // 弹出对话框的选项列表
         String[] options = idList.toArray(new String[idList.size()]);
-        //
-        int initialValue = 0;
         // 弹出选项框，获取用户选择的按钮编号
         int dialogReturn = JOptionPane.showOptionDialog(parentComponent, message, title, optionType, messageType, icon, options, initialValue);
         // 如果用户选择了某个按钮
@@ -369,14 +369,16 @@ public class AdbTools {
 
     public static void main(String[] args) {
         AdbTools instance = AdbTools.getInstance();
-        // 在打开应用的时候，就触发投屏按钮
-        instance.getScrcpyJPanels().getBtnOpenScrcpy().doClick();
+        if (!IsTest.isIsTest()) {
+            // 在打开应用的时候，就触发投屏按钮
+            instance.getScrcpyJPanels().getBtnOpenScrcpy().doClick();
 
-        ThreadSleep.seconds(5);
-        new Thread(new ForegroundAppRun()).start();
-        // // 启动电池监测线程
-        // // new Thread(new BatteryLevelRun()).start();
-        new Thread(new BatteryLevelRun2()).start();
+            ThreadSleep.seconds(5);
+            new Thread(new ForegroundAppRun()).start();
+            // // 启动电池监测线程
+            // // new Thread(new BatteryLevelRun()).start();
+            new Thread(new BatteryLevelRun2()).start();
+        }
 
     }
 }

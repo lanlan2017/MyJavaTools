@@ -163,7 +163,7 @@ public class MyAdb {
         System.out.println("原命令 = " + clipboardText);
         System.out.println("新命令 = " + code);
         SystemClipboard.setSysClipboardText(code);
-        run(code);
+        // run(code);
 
 
     }

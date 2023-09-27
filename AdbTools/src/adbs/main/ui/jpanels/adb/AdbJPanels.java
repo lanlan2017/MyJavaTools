@@ -184,9 +184,9 @@ public class AdbJPanels {
             @Override
             public void action(ActionEvent e) {
                 String actName = AdbGetPackage.getActName();
+                System.out.println("actName = " + actName);
                 System.out.println();
                 String serial = AdbTools.getInstance().getDevice().getSerial();
-                System.out.println("actName = " + actName);
                 String openAct = "adb -s " + serial + " shell am start -n " + actName;
                 System.out.println("openAct = " + openAct);
                 System.out.println();
@@ -227,36 +227,6 @@ public class AdbJPanels {
         });
         return btnWiFiSettings;
     }
-
-
-    // private JButton initBtnStop() {
-    //     JButton stopBtn = new JButton("停止");
-    //     stopBtn.setToolTipText("停止所有后台线程,刷新界面");
-    //     stopBtn.addActionListener(new StopBtnAcListener2());
-    //     return stopBtn;
-    // }
-
-
-    // private JButton initBtnStatusbasHide() {
-    //     String hideFlag = "↑";
-    //     JButton statusbarHide = new JButton(hideFlag);
-    //     statusbarHide.setToolTipText("收起状态栏");
-    //     statusbarHide.addActionListener(new ActionListener() {
-    //         @Override
-    //         public void actionPerformed(ActionEvent e) {
-    //
-    //             // 获取选中的adb设备的序列号
-    //             // String id = AdbTools.device.getId();
-    //             String id = AdbTools.getInstance().getDevice().getSerial();
-    //             // 拼接重启代码
-    //             String adbCmd = "adb -s " + id + " shell service call statusbar 2";
-    //             // System.out.println("adbCmd = " + adbCmd);
-    //             // 启动cmd进程执行adb命令
-    //             AdbCommands.runAbdCmd(adbCmd);
-    //         }
-    //     });
-    //     return statusbarHide;
-    // }
 
     private JButton initBtnStatusbasShow() {
         String showFlag = "↓";
@@ -383,10 +353,6 @@ public class AdbJPanels {
         return adbJPanel;
     }
 
-    // public JButton getStopBtn() {
-    //     return stopBtn;
-    // }
-
     public JButton getBtnReturn() {
         return btnReturn;
     }
@@ -397,5 +363,9 @@ public class AdbJPanels {
 
     public JButton getBtnTask() {
         return btnTask;
+    }
+
+    public JButton getBtnAct() {
+        return btnAct;
     }
 }

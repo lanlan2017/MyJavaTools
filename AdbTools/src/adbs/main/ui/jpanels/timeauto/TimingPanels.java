@@ -1,4 +1,4 @@
-package adbs.main.ui.jpanels.control;
+package adbs.main.ui.jpanels.timeauto;
 
 import adbs.main.AdbTools;
 import adbs.main.ui.config.FlowLayouts;
@@ -23,8 +23,6 @@ import java.awt.event.ActionListener;
  */
 public class TimingPanels extends WaitValues {
     private final JPanel timingPanel;
-
-    // V65s_S_T
     /**
      * 刷视频，等待65秒后按停止键和任务键
      */
@@ -54,7 +52,6 @@ public class TimingPanels extends WaitValues {
     private final JButton btnWait3Hmore_Task;
     private final JButton btnWait4H_Task;
 
-    // private final JButton btnSlideUpAndDown;
 
 
     /**
@@ -100,23 +97,11 @@ public class TimingPanels extends WaitValues {
         waitPanel.add(wait120s_TaskBtn);
         waitPanel.add(btnWait180s_Task);
 
-
-        // btnSlideUpAndDown = new JButton("⇅");
-        // btnSlideUpAndDown.addActionListener(new ActionListener() {
-        //     @Override
-        //     public void actionPerformed(ActionEvent e) {
-        //         RobotsDraw.slideUpAndDown();
-        //     }
-        // });
-
-
         timingPanel.add(v65s_Stop_TaskBtn);
         timingPanel.add(waitPanel);
         timingPanel.add(shopping35s_TaskBtn);
         timingPanel.add(shopping95s_TaskBtn);
-        // controlJPanel.add(btnSlideUpAndDown);
 
-        // AbstractButtons.setMarginInButtonJPanel(controlJPanel);
         AbstractButtons.setMarginInButtonJPanel(timingPanel, 1);
         AbstractButtons.setMarginInButtonJPanel(waitPanel, 1);
     }
@@ -219,31 +204,30 @@ public class TimingPanels extends WaitValues {
      * @return 可实现等待指定时间的功能的JButton对象
      */
     private JButton gWaitBtn(int time) {
-        final JButton wait65s_TaskBtn;
+        final JButton wait_TaskBtn;
         int index = getIndex(time);
         // System.out.println("index_zzz = " + index);
         String valueStr = valueStrs[index];
         // System.out.println("valueStrs[index] = " + valueStr);
 
 
-        // wait65s_TaskBtn = new JButton("w" + time);
+        // wait_TaskBtn = new JButton("w" + time);
         if (!"".equals(valueStr)) {
-
             String upperCase = valueStr.toUpperCase();
-            // wait65s_TaskBtn = new JButton("w" + valueStr);
-            // wait65s_TaskBtn = new JButton("w" + upperCase);
-            wait65s_TaskBtn = new JButton(upperCase);
-            wait65s_TaskBtn.setToolTipText("等待" + upperCase + "后按下任务键");
+            // wait_TaskBtn = new JButton("w" + valueStr);
+            // wait_TaskBtn = new JButton("w" + upperCase);
+            wait_TaskBtn = new JButton(upperCase);
+            wait_TaskBtn.setToolTipText("等待" + upperCase + "后按下任务键");
         } else {
 
-            // wait65s_TaskBtn = new JButton("w" + time);
-            wait65s_TaskBtn = new JButton(String.valueOf(time));
-            wait65s_TaskBtn.setToolTipText("等待" + time + "s后按下任务键");
+            // wait_TaskBtn = new JButton("w" + time);
+            wait_TaskBtn = new JButton(String.valueOf(time));
+            wait_TaskBtn.setToolTipText("等待" + time + "s后按下任务键");
         }
 
 
-        // wait65s_TaskBtn.setToolTipText("等待" + time + "s后按下任务键");
-        wait65s_TaskBtn.addActionListener(new ActionListener() {
+        // wait_TaskBtn.setToolTipText("等待" + time + "s后按下任务键");
+        wait_TaskBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // 获取工具的单例对象
@@ -277,7 +261,7 @@ public class TimingPanels extends WaitValues {
                 inputOkButton.doClick();
             }
         });
-        return wait65s_TaskBtn;
+        return wait_TaskBtn;
     }
 
     private int getIndex(int time) {
