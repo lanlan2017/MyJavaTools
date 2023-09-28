@@ -9,12 +9,12 @@ import adbs.main.ui.inout.InOutputModel;
 import adbs.main.ui.jpanels.adb.AdbJPanels;
 import adbs.main.ui.jpanels.auto.AutoPanels;
 import adbs.main.ui.jpanels.check.JCheckBoxControlJPanelItemListener;
-import adbs.main.ui.jpanels.timeauto.TimingPanels;
 import adbs.main.ui.jpanels.scrcpy.ScrcpyJPanels;
 import adbs.main.ui.jpanels.time.TimePanels;
 import adbs.main.ui.jpanels.time.listener.InputOkButtonActionListener;
 import adbs.main.ui.jpanels.time.listener.MinusBtnAcListener;
 import adbs.main.ui.jpanels.time.listener.PlusBtnAcListener;
+import adbs.main.ui.jpanels.timeauto2.TimingPanels2;
 import adbs.main.ui.jpanels.tools.ToolsJPanels;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
 import adbs.model.Device;
@@ -25,7 +25,10 @@ import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.*;
 
 public class AdbTools {
@@ -48,7 +51,7 @@ public class AdbTools {
     // scrcpy面板
     private final ScrcpyJPanels scrcpyJPanels;
     // 控制面板
-    private final TimingPanels timingPanels;
+    // private final TimingPanels timingPanels;
     // 机器人面板，自动化面板
     // private final AutoPanels autoPanels;
 
@@ -77,7 +80,8 @@ public class AdbTools {
         scrcpyJPanels = new ScrcpyJPanels();
 
         // 初始化第3个面板，控制面板
-        timingPanels = new TimingPanels();
+        // timingPanels = new TimingPanels();
+        TimingPanels2 timingPanels21 = new TimingPanels2();
         // JPanel controlJPanel = controlJPanels.getControlJPanel();
 
         // 初始化 时间输入面板
@@ -119,7 +123,8 @@ public class AdbTools {
 
         // 控制复选框
         JCheckBox controlJCheckBox = new JCheckBox("等", true);
-        controlJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(timingPanels.getTimingPanel()));
+        // controlJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(timingPanels.getTimingPanel()));
+        controlJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(timingPanels21.getTimingPanels2()));
         // 现在就触发
         controlJCheckBox.doClick();
 
@@ -152,6 +157,7 @@ public class AdbTools {
         timePanels.getPlusBtn().addActionListener(new PlusBtnAcListener(inOut));
         timePanels.getMinusBtn().addActionListener(new MinusBtnAcListener(inOut));
 
+
         // 添加 选项面板 到窗体中 第1列
         frame.add(checkJPanel);
         // 添加 adb面板 到窗体中 第2行
@@ -163,7 +169,14 @@ public class AdbTools {
         // 添加 时间输入面板 到第4行
         frame.add(timePanels.getTimePanel());
         // 添加 控制面板 到第5行
-        frame.add(timingPanels.getTimingPanel());
+        // frame.add(timingPanels.getTimingPanel());
+        frame.add(timingPanels21.getTimingPanels2());
+
+
+        // TimingPanels2 timingPanels2 = timingPanels21;
+        // frame.add(timingPanels2.getTimingPanels2());
+
+
         frame.add(toolsJPanels.getToolsJPanel());
         frame.add(autoPanels.getAutoJPanel());
 
@@ -335,10 +348,6 @@ public class AdbTools {
 
     public ScrcpyJPanels getScrcpyJPanels() {
         return scrcpyJPanels;
-    }
-
-    public TimingPanels getControlJPanels() {
-        return timingPanels;
     }
 
     public Device getDevice() {

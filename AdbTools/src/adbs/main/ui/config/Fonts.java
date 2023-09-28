@@ -28,6 +28,10 @@ public class Fonts {
      */
     public static Font Consolas_BOLD_12 = new Font("Consolas", Font.BOLD, 12);
     /**
+     * 英文等宽字体Consolas,12号,加粗。
+     */
+    public static Font Consolas_BOLD_13 = new Font("Consolas", Font.BOLD, 13);
+    /**
      * 英文等宽字体Consolas,14号
      */
     public static Font Consolas_PLAIN_14 = new Font("Consolas", Font.PLAIN, 14);

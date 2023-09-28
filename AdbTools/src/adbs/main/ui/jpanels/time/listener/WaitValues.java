@@ -57,4 +57,28 @@ public class WaitValues {
         return Math.max(numLength, 4);
     }
 
+    protected int getIndex(int time) {
+        /**
+         * 根据value查找对应的字符串
+         */
+        int index = -1;
+        for (int i = 0; i < values.length; i++) {
+            if (values[i] == time) {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+
+    protected String getValueStr(int value) {
+        int index = getIndex(value);
+        // System.out.println("index_zzz = " + index);
+        String valueStr = valueStrs[index];
+        if ("".equals(valueStr) || valueStr == null) {
+            valueStr = String.valueOf(value);
+        }
+        return valueStr;
+    }
+
 }
