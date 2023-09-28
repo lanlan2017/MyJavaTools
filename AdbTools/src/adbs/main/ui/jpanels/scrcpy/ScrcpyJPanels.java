@@ -123,8 +123,8 @@ public class ScrcpyJPanels {
         scrcpyJPanel.add(btnDecrease);
         scrcpyJPanel.add(addBtn);
         scrcpyJPanel.add(btnOpenScrcpy);
-        scrcpyJPanel.add(btnOpenScrcpyFull);
         scrcpyJPanel.add(btnKillScrcpy);
+        scrcpyJPanel.add(btnOpenScrcpyFull);
         scrcpyJPanel.add(btnSwitchNetworkDebug);
         scrcpyJPanel.add(btnUpdateEarningApps);
         scrcpyJPanel.add(btnSignedIn);
