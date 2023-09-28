@@ -152,9 +152,9 @@ public class TimingPanels2 extends WaitValues {
         Dimension jComboBoxPreferredSize = jComboBox.getPreferredSize();
         System.out.println("jComboBoxPreferredSize = " + jComboBoxPreferredSize);
         // 添加选项
-        jComboBox.addItem(textJrBtnVideo);
-        jComboBox.addItem(textJrBtnReadWait);
         jComboBox.addItem(textJrBtnWait);
+        jComboBox.addItem(textJrBtnReadWait);
+        jComboBox.addItem(textJrBtnVideo);
         jComboBox.addItem(textJrBtnShopping);
 
         jComboBox.addActionListener(new ActionListener() {
@@ -220,7 +220,8 @@ public class TimingPanels2 extends WaitValues {
                             // jrBtnWait.doClick();
                             universalPanels.getWaitButton().doClick();
                             // ThreadSleep.millisecond(200);
-                            timePanels.getTaskCheckBox().setSelected(true);
+                            // timePanels.getTaskCheckBox().setSelected(true);
+                            timePanels.getStopCheckBox().setSelected(true);
 
                             break;
                         case textJrBtnReadWait:
@@ -234,18 +235,20 @@ public class TimingPanels2 extends WaitValues {
                         case textJrBtnWait:
                             // 打开等待设置
                             universalPanels.getWaitButton().doClick();
+                            // timePanels.getTaskCheckBox().setSelected(true);
                             break;
 
                         case textJrBtnShopping:
                             universalPanels.getShoppingButton().doClick();
-                            timePanels.getTaskCheckBox().setSelected(true);
+                            // timePanels.getTaskCheckBox().setSelected(true);
 
                     }
 
 
                     // else {
 
-                    timePanels.getStopCheckBox().setSelected(true);
+                    // timePanels.getStopCheckBox().setSelected(true);
+                    timePanels.getTaskCheckBox().setSelected(true);
                     setTimePanelsInput1Value(timePanels, value);
                     okButton.doClick();
                     // }
