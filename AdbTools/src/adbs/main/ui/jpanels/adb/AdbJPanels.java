@@ -230,14 +230,14 @@ public class AdbJPanels {
 
     private JButton initBtnStatusbasShow() {
         String showFlag = "↓";
-        String hideFlag = "↑";
+        // String hideFlag = "↑";
         JButton statusbarShow = new JButton(showFlag);
         statusbarShow.setToolTipText("展开状态栏");
         statusbarShow.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String text = statusbarShow.getText();
-                if (text.equals(showFlag)) {
+                // String text = statusbarShow.getText();
+                // if (text.equals(showFlag)) {
                     // 获取选中的adb设备的序列号
                     // String id = AdbTools.device.getId();
                     String id = AdbTools.getInstance().getDevice().getSerial();
@@ -246,18 +246,18 @@ public class AdbJPanels {
                     // System.out.println("adbCmd = " + adbCmd);
                     // 启动cmd进程执行adb命令
                     AdbCommands.runAbdCmd(adbCmd);
-                    statusbarShow.setText(hideFlag);
+                    // statusbarShow.setText(hideFlag);
                     statusbarShow.setToolTipText("展开状态栏");
-                } else {
-                    String id = AdbTools.getInstance().getDevice().getSerial();
-                    // 拼接重启代码
-                    String adbCmd = "adb -s " + id + " shell service call statusbar 2";
-                    // System.out.println("adbCmd = " + adbCmd);
-                    // 启动cmd进程执行adb命令
-                    AdbCommands.runAbdCmd(adbCmd);
-                    statusbarShow.setText(showFlag);
-                    statusbarShow.setToolTipText("收起状态栏");
-                }
+                // } else {
+                //     String id = AdbTools.getInstance().getDevice().getSerial();
+                //     // 拼接重启代码
+                //     String adbCmd = "adb -s " + id + " shell service call statusbar 2";
+                //     // System.out.println("adbCmd = " + adbCmd);
+                //     // 启动cmd进程执行adb命令
+                //     AdbCommands.runAbdCmd(adbCmd);
+                //     statusbarShow.setText(showFlag);
+                //     statusbarShow.setToolTipText("收起状态栏");
+                // }
             }
         });
         return statusbarShow;
