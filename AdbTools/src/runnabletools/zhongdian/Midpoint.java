@@ -4,7 +4,12 @@ import tools.copy.SystemClipboard;
 
 import java.util.Scanner;
 
-public class Main {
+/**
+ * 求两个点的中点
+ *
+ * Midpoint
+ */
+public class Midpoint {
     public static void main(String[] args) {
 
         // String input = "bounds=\"[510,1735][570,1776]\"";
