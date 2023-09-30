@@ -22,7 +22,7 @@ vscode打开window_dump.xml文件，查找需要的按钮的坐标
 
 查找正则：
 ```
-(text=".*?")  .+ (bounds=".+?")
+(text=".*?") .+ (bounds=".+?")
 ```
 替换正则
 ```

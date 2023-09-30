@@ -188,9 +188,9 @@ public class ToolsJPanels {
             private ComboBoxModel<String> model = jComboBox.getModel();
             FocusListenerJTextFieldInfo focusL_X = new FocusListenerJTextFieldInfo("x坐标", input1);
             // FocusListenerJTextFieldInfo focusLApkName = new FocusListenerJTextFieldInfo("apk名", input1);
-            FocusListenerJTextFieldInfo focusLApkName = new FocusListenerJTextFieldInfo(flagJrbApkInfo, input1);
+            // FocusListenerJTextFieldInfo focusLApkName = new FocusListenerJTextFieldInfo(flagJrbApkInfo, input1);
             // FocusListenerJTextFieldInfo focusLAppName = new FocusListenerJTextFieldInfo("应用名", input1);
-            FocusListenerJTextFieldInfo focusLAppName = new FocusListenerJTextFieldInfo(flagJrbPackageInfo, input1);
+            // FocusListenerJTextFieldInfo focusLAppName = new FocusListenerJTextFieldInfo(flagJrbPackageInfo, input1);
             FocusListenerJTextFieldInfo focusL_Y = new FocusListenerJTextFieldInfo("y坐标", input2);
 
             // private boolean isRemoveFirst = false;
@@ -204,8 +204,8 @@ public class ToolsJPanels {
                 // input2.setText("");
                 // 全部移除监听器
                 input1.removeFocusListener(focusL_X);
-                input1.removeFocusListener(focusLApkName);
-                input1.removeFocusListener(focusLAppName);
+                // input1.removeFocusListener(focusLApkName);
+                // input1.removeFocusListener(focusLAppName);
                 input2.removeFocusListener(focusL_Y);
 
                 // jComboBox.setPrototypeDisplayValue(elementAt);
@@ -213,9 +213,10 @@ public class ToolsJPanels {
                 switch (elementAt) {
                     case flagJrbApk:
                         // input1.setText("apk名");
-                        input1.setText(flagJrbApkInfo);
+                        // input1.setText(flagJrbApkInfo);
                         input1.setColumns(6);
-                        input1.addFocusListener(focusLApkName);
+                        // input1.addFocusListener(focusLApkName);
+                        input1.setText("");
                         input1.setVisible(true);
                         input2.setVisible(false);
 
@@ -223,10 +224,11 @@ public class ToolsJPanels {
                         break;
                     case flagJrbPackage:
                         // input1.setText("应用名");
-                        input1.setText(flagJrbPackageInfo);
+                        // input1.setText(flagJrbPackageInfo);
                         input1.setColumns(6);
+                        input1.setText("");
                         input1.setVisible(true);
-                        input1.addFocusListener(focusLAppName);
+                        // input1.addFocusListener(focusLAppName);
                         input2.setVisible(false);
                         break;
                     case flagJrbUninstall:
@@ -255,7 +257,7 @@ public class ToolsJPanels {
         });
         // jComboBox.setSelectedIndex(1);
         jComboBox.setSelectedIndex(0);
-        input1.setText(flagJrbApkInfo);
+        // input1.setText(flagJrbApkInfo);
         input1.setVisible(true);
         okButton.setText(flagJrbApk);
 

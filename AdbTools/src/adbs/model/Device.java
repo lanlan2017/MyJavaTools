@@ -3,6 +3,7 @@ package adbs.model;
 import adbs.cmd.AdbCommands;
 import adbs.cmd.CmdRun;
 import adbs.main.run.AdbShellPmListPackages_3;
+import adbs.main.run.IsTest;
 import config.AdbToolsProperties;
 import tools.config.properties.PropertiesTools;
 
@@ -10,6 +11,8 @@ import java.util.*;
 
 /**
  * adb设备模型
+ * 设备模型
+ * 设备对象
  */
 public class Device {
     /**
@@ -79,7 +82,12 @@ public class Device {
         map.put(name, serial);
         // System.out.println("id=" + id + ",simpleId=" + simpleId);
         setIsKuaiShouInstalled(serial);
-
+        if (IsTest.isIsTest()) {
+            System.out.print(name + " " + serial + " ");
+            System.out.print(" width=" + getWidth());
+            System.out.print(" height=" + getHeight());
+            System.out.println();
+        }
     }
 
     private void setIsKuaiShouInstalled(String serial) {
@@ -88,8 +96,8 @@ public class Device {
         // getName()
         // 先在配置文件中查找标记
         String installedFlags = getInstalledFlags(serial);
-        System.out.print(name + " " + serial + " ");
-        System.out.println();
+        // System.out.print(name + " " + serial + " ");
+        // System.out.println();
         if (installedFlags.contains("QuTouTiao")) {
             priority = priority * Priority.priority[0];
             // System.out.print(",趣头条=" + Priority.priority[0]);

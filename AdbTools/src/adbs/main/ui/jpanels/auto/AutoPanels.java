@@ -10,7 +10,6 @@ import adbs.tools.thread.ThreadSleep;
 import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -138,11 +137,45 @@ public class AutoPanels implements CoinsType {
             private void readCoinsCloseRun(Device device) {
                 String actName = AdbGetPackage.getActName();
                 System.out.println("actName = " + actName);
-                closeRun = QieZiReadCoinCloseRun.getInstance();
-                closeRun.setDevice(device);
-                closeRun.setBtnClose(Ratios.qieZiBtnClose);
-                closeRun.setBtnCoin(Ratios.qieZiReadCoin);
-                new Thread(closeRun).start();
+                String actShortName = "";
+                if (actName.contains("/")) {
+                    actShortName = actName.substring(actName.indexOf("/") + 1);
+                    System.out.println("actShortName = " + actShortName);
+                }
+
+                int height = device.getHeight();
+                int width = device.getWidth();
+                System.out.println("height = " + height);
+                System.out.println("width = " + width);
+
+                switch (actShortName) {
+                    case "com.kmxs.reader.webview.ui.DefaultNewWebActivity":
+                        if (width == 1080) {
+                            if (height == 2160) {
+                                System.out.println("2160=" + height);
+                                ScreenPositionRatio closeBtn_1080_2160 = new ScreenPositionRatio(0.8472222222222222, 0.45555555555555555);
+                                ScreenPositionRatio readBtn_1080_2160 = new ScreenPositionRatio(0.8305555555555556, 0.5548611111111111);
+                                tapCloseTapRead(device, closeBtn_1080_2160, readBtn_1080_2160);
+                            } else if (height == 1920) {
+                                System.out.println("1920=" + height);
+                                // closeRun.setBtnClose(Ratios.qieZiBtnClose);
+                                // closeRun.setBtnCoin(Ratios.qieZiReadCoin);
+                                tapCloseTapRead(device, Ratios.qieZiBtnClose, Ratios.qieZiReadCoin);
+                            }
+                        }
+                        break;
+
+                    default:
+
+                        System.out.println("像素不对");
+                        break;
+
+                }
+
+
+                // closeRun.setBtnClose(Ratios.qieZiBtnClose);
+                // closeRun.setBtnCoin(Ratios.qieZiReadCoin);
+                // new Thread(closeRun).start();
             }
 
             private void audioCoinsCloseRun(Device device) {
@@ -162,5 +195,15 @@ public class AutoPanels implements CoinsType {
         });
 
         return button;
+    }
+
+    private void tapCloseTapRead(Device device, ScreenPositionRatio closeBtn_1080_2160, ScreenPositionRatio readBtn_1080_2160) {
+        closeRun = QieZiReadCoinCloseRun.getInstance();
+        closeRun.setDevice(device);
+        // closeRun.setBtnClose(closeBtn_1080_2160);
+        // closeRun.setBtnCoin(Ratios.qieZiReadCoin);
+        closeRun.setBtnClose(closeBtn_1080_2160);
+        closeRun.setBtnCoin(readBtn_1080_2160);
+        new Thread(closeRun).start();
     }
 }

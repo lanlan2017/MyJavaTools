@@ -31,14 +31,16 @@ public class TimingPanels2 extends WaitValues {
     private final JComboBox<String> jComboBox;
     private final JButton btn35s;
     private final JButton btn30s;
-    private final JButton btn65;
-    private final JButton btn95;
+    private final JButton btn65s;
+    private final JButton btn95s;
     private final JButton btn120s;
     private final JButton btn180s;
     private final JButton btn3HMore;
     private final JButton btn4H;
     private final JButton btn1H;
     private final JButton btn2H;
+    private final JButton btn20M;
+    private final JButton btn1_5H;
     private String selected;
 
     public TimingPanels2() {
@@ -91,12 +93,14 @@ public class TimingPanels2 extends WaitValues {
         // int value = 30;
         btn30s = getButton(30);
         btn35s = getButton(35);
-        btn65 = getButton(65);
-        btn95 = getButton(95);
+        btn65s = getButton(65);
+        btn95s = getButton(95);
         btn120s = getButton(120);
         btn180s = getButton(180);
         btn1H = getButton(1 * 60 * 60);
+        btn1_5H = getButton(1 * 60 * 60 + 30 * 60);
         btn2H = getButton(2 * 60 * 60);
+        btn20M = getButton(20 * 60);
         // btn1H= btn1H;
         btn3HMore = getButton(values[values.length - 2]);
         btn4H = getButton(values[values.length - 1]);
@@ -114,15 +118,17 @@ public class TimingPanels2 extends WaitValues {
         timingPanels2.add(jComboBox);
 
         timingPanels2.add(btn1H);
+        timingPanels2.add(btn1_5H);
         timingPanels2.add(btn2H);
         timingPanels2.add(btn3HMore);
         timingPanels2.add(btn4H);
         timingPanels2.add(btn30s);
         timingPanels2.add(btn35s);
-        timingPanels2.add(btn65);
-        timingPanels2.add(btn95);
+        timingPanels2.add(btn65s);
+        timingPanels2.add(btn95s);
         timingPanels2.add(btn120s);
         timingPanels2.add(btn180s);
+        timingPanels2.add(btn20M);
 
 
         AbstractButtons.setMarginInButtonJPanel(timingPanels2, 0);
@@ -131,16 +137,12 @@ public class TimingPanels2 extends WaitValues {
     private JComboBox<String> getComboBox() {
         final JComboBox<String> jComboBox;
         jComboBox = new JComboBox<>();
-        // jComboBox.setFont(Fonts.Cascadia_PLAIN_12);
-        // jComboBox.setFont(Fonts.Consolas_PLAIN_14);
-        // jComboBox.setFont(Fonts.Consolas_PLAIN_12);
-        // jComboBox.setFont(Fonts.Consolas_BOLD_12);
         jComboBox.setFont(Fonts.Consolas_BOLD_13);
         // new Font(Font.)
 
         // 获取其他按钮的首选大小
-        Dimension preferredSize = btn65.getPreferredSize();
-        System.out.println("preferredSize1111 = " + preferredSize);
+        Dimension preferredSize = btn65s.getPreferredSize();
+        // System.out.println("preferredSize1111 = " + preferredSize);
         // 设置下拉框的首选大小
         // jComboBox.setPreferredSize(new Dimension(preferredSize.height * 2, preferredSize.height));
         // jComboBox.setPreferredSize(new Dimension(preferredSize.height * 2 + 1, preferredSize.height));
@@ -150,7 +152,7 @@ public class TimingPanels2 extends WaitValues {
         // jComboBox.setPreferredSize(new Dimension(preferredSize.height * 2 + 5, preferredSize.height));
         // jComboBox.setPreferredSize(new Dimension(preferredSize.height * 3, preferredSize.height));
         Dimension jComboBoxPreferredSize = jComboBox.getPreferredSize();
-        System.out.println("jComboBoxPreferredSize = " + jComboBoxPreferredSize);
+        // System.out.println("jComboBoxPreferredSize = " + jComboBoxPreferredSize);
         // 添加选项
         jComboBox.addItem(textJrBtnWait);
         jComboBox.addItem(textJrBtnReadWait);
@@ -168,12 +170,12 @@ public class TimingPanels2 extends WaitValues {
 
                 switch (elementAt) {
                     case textJrBtnReadWait:
+                        showReadWaitButtons();
+                        break;
                     case textJrBtnWait:
-                        // universalPanels.getWaitButton().doClick();
                         showWaitButtons();
                         break;
                     case textJrBtnShopping:
-                        // universalPanels.getShoppingButton().doClick();
                         showShoppingButtons();
                         break;
                     case textJrBtnVideo:
@@ -209,49 +211,37 @@ public class TimingPanels2 extends WaitValues {
                 if (selected != null) {
                     switch (selected) {
                         case textJrBtnVideo:
+                            // 打开刷视频设置
                             universalPanels.getVideoButton().doClick();
                             // videoDo(timePanels, okButton);
-                            // 触发刷视频按钮
+                            // 开始刷视频
                             okButton.doClick();
-                            String text = okButton.getText();
-                            System.out.println("text = " + text);
-                            // ThreadSleep.millisecond(200);
-                            // ThreadSleep.seconds(5);
-                            // jrBtnWait.doClick();
+                            // 打开等待设置
                             universalPanels.getWaitButton().doClick();
-                            // ThreadSleep.millisecond(200);
-                            // timePanels.getTaskCheckBox().setSelected(true);
+                            // 勾选stop，结束等待之后，触发停止按钮
                             timePanels.getStopCheckBox().setSelected(true);
 
                             break;
                         case textJrBtnReadWait:
-                            // System.out.println("xxxxx");
-                            // System.out.println("xxxxx");
                             // 打开阅读设置
                             universalPanels.getReadButton().doClick();
-                            // timePanels.getInputOkButton().doClick();
                             // 点确定，开始阅读
                             okButton.doClick();
+                            timePanels.getStopCheckBox().setSelected(true);
                         case textJrBtnWait:
                             // 打开等待设置
                             universalPanels.getWaitButton().doClick();
-                            // timePanels.getTaskCheckBox().setSelected(true);
+                            timePanels.getStopCheckBox().setSelected(false);
                             break;
 
                         case textJrBtnShopping:
                             universalPanels.getShoppingButton().doClick();
-                            // timePanels.getTaskCheckBox().setSelected(true);
 
                     }
 
-
-                    // else {
-
-                    // timePanels.getStopCheckBox().setSelected(true);
                     timePanels.getTaskCheckBox().setSelected(true);
                     setTimePanelsInput1Value(timePanels, value);
                     okButton.doClick();
-                    // }
                 }
             }
         });
@@ -277,13 +267,30 @@ public class TimingPanels2 extends WaitValues {
     }
 
     private void showWaitButtons() {
-        btn30s.setVisible(false);
+        btn30s.setVisible(true);
         btn35s.setVisible(true);
-        btn65.setVisible(true);
-        btn95.setVisible(true);
+        btn65s.setVisible(true);
+        btn95s.setVisible(true);
         btn120s.setVisible(true);
         btn180s.setVisible(true);
+        btn20M.setVisible(false);
+        btn1H.setVisible(false);
+        btn2H.setVisible(false);
+        btn1_5H.setVisible(false);
+        btn3HMore.setVisible(false);
+        btn4H.setVisible(false);
+    }
+
+    private void showReadWaitButtons() {
+        btn30s.setVisible(true);
+        btn35s.setVisible(false);
+        btn65s.setVisible(false);
+        btn95s.setVisible(false);
+        btn120s.setVisible(false);
+        btn180s.setVisible(false);
+        btn20M.setVisible(true);
         btn1H.setVisible(true);
+        btn1_5H.setVisible(true);
         btn2H.setVisible(true);
         btn3HMore.setVisible(true);
         btn4H.setVisible(true);
@@ -292,11 +299,13 @@ public class TimingPanels2 extends WaitValues {
     private void showShoppingButtons() {
         btn30s.setVisible(false);
         btn35s.setVisible(true);
-        btn65.setVisible(true);
-        btn95.setVisible(true);
+        btn65s.setVisible(true);
+        btn95s.setVisible(true);
         btn120s.setVisible(false);
         btn180s.setVisible(false);
+        btn20M.setVisible(false);
         btn1H.setVisible(false);
+        btn1_5H.setVisible(false);
         btn2H.setVisible(false);
         btn3HMore.setVisible(false);
         btn4H.setVisible(false);
@@ -305,11 +314,13 @@ public class TimingPanels2 extends WaitValues {
     private void showVideoButtons() {
         btn30s.setVisible(false);
         btn35s.setVisible(false);
-        btn65.setVisible(true);
-        btn95.setVisible(false);
+        btn65s.setVisible(true);
+        btn95s.setVisible(false);
         btn120s.setVisible(false);
         btn180s.setVisible(false);
+        btn20M.setVisible(true);
         btn1H.setVisible(false);
+        btn1_5H.setVisible(false);
         btn2H.setVisible(false);
         btn3HMore.setVisible(false);
         btn4H.setVisible(false);
@@ -318,11 +329,13 @@ public class TimingPanels2 extends WaitValues {
     private void hideAllButtons() {
         btn30s.setVisible(false);
         btn35s.setVisible(false);
-        btn65.setVisible(false);
-        btn95.setVisible(false);
+        btn65s.setVisible(false);
+        btn95s.setVisible(false);
         btn120s.setVisible(false);
         btn180s.setVisible(false);
+        btn20M.setVisible(false);
         btn1H.setVisible(false);
+        btn1_5H.setVisible(false);
         btn2H.setVisible(false);
         btn3HMore.setVisible(false);
         btn4H.setVisible(false);
