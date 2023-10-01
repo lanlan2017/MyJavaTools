@@ -64,7 +64,7 @@ public class BatteryLevelRun2 implements Runnable {
     }
 
     private void wait_() {
-        if (IsTest.isIsTest()) {
+        if (IsTest.isTest()) {
             ThreadSleep.seconds(20);
         } else {
             // 等待一段时间，再进行更新电池信息

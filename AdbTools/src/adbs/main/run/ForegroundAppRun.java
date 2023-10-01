@@ -282,7 +282,7 @@ public class ForegroundAppRun implements Runnable {
     private void wait_() {
         // int seconds = 2;
         int seconds = 16;
-        if (IsTest.isIsTest()) {
+        if (IsTest.isTest()) {
             // 测试时使用 5秒钟
             ThreadSleep.seconds(seconds);
         } else {

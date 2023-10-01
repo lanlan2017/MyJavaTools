@@ -296,7 +296,7 @@ public class ScrcpyJPanels {
                     }
                     isFirstTimeRun = false;
 
-                    // if (!IsTest.isIsTest()) {
+                    // if (!IsTest.isTest()) {
                     //     // 启动运动健康APP
                     //     // AdbTaskAll.openSportsAndHealthApp(serial);
                     //     OpenApp.openPedometerAPP();

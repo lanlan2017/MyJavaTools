@@ -20,7 +20,7 @@ public class RobotsDraw {
     private static int ms = 1;
 
     static {
-        if (IsTest.isIsTest()) {
+        if (IsTest.isTest()) {
             ms = 1;
         } else {
             ms = 0;
@@ -71,7 +71,7 @@ public class RobotsDraw {
         // 循环次数
         int times;
         // 随机循环次数
-        if (IsTest.isIsTest()) {
+        if (IsTest.isTest()) {
             times = Randoms.getRandomInt(10, 30);
         } else {
             times = Randoms.getRandomInt(150, 250);

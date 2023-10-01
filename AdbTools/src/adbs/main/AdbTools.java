@@ -378,7 +378,7 @@ public class AdbTools {
 
     public static void main(String[] args) {
         AdbTools instance = AdbTools.getInstance();
-        if (!IsTest.isIsTest()) {
+        if (!IsTest.isTest()) {
             // 在打开应用的时候，就触发投屏按钮
             instance.getScrcpyJPanels().getBtnOpenScrcpy().doClick();
 

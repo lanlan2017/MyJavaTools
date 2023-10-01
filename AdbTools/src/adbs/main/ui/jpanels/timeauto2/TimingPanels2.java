@@ -21,9 +21,21 @@ public class TimingPanels2 extends WaitValues {
     // private final JRadioButton jrBtnWait;
 
     // private final String textJrBtnVideo = "v";
+    /**
+     * vw
+     */
     private final String textJrBtnVideo = "vw";
+    /**
+     * s
+     */
     private final String textJrBtnShopping = "s";
+    /**
+     * w
+     */
     private final String textJrBtnWait = "w";
+    /**
+     * rw
+     */
     private final String textJrBtnReadWait = "rw";
     // private final String textJrBtnReadWait = "r";
 
@@ -227,7 +239,10 @@ public class TimingPanels2 extends WaitValues {
                             universalPanels.getReadButton().doClick();
                             // 点确定，开始阅读
                             okButton.doClick();
+                            universalPanels.getWaitButton().doClick();
                             timePanels.getStopCheckBox().setSelected(true);
+                            break;
+
                         case textJrBtnWait:
                             // 打开等待设置
                             universalPanels.getWaitButton().doClick();
@@ -236,6 +251,7 @@ public class TimingPanels2 extends WaitValues {
 
                         case textJrBtnShopping:
                             universalPanels.getShoppingButton().doClick();
+                            break;
 
                     }
 
@@ -274,10 +290,10 @@ public class TimingPanels2 extends WaitValues {
         btn120s.setVisible(true);
         btn180s.setVisible(true);
         btn20M.setVisible(false);
-        btn1H.setVisible(false);
-        btn2H.setVisible(false);
-        btn1_5H.setVisible(false);
-        btn3HMore.setVisible(false);
+        btn1H.setVisible(true);
+        btn1_5H.setVisible(true);
+        btn2H.setVisible(true);
+        btn3HMore.setVisible(true);
         btn4H.setVisible(false);
     }
 

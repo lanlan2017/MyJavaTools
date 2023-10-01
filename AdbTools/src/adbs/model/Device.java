@@ -2,7 +2,6 @@ package adbs.model;
 
 import adbs.cmd.AdbCommands;
 import adbs.cmd.CmdRun;
-import adbs.main.run.AdbShellPmListPackages_3;
 import adbs.main.run.IsTest;
 import config.AdbToolsProperties;
 import tools.config.properties.PropertiesTools;
@@ -82,7 +81,7 @@ public class Device {
         map.put(name, serial);
         // System.out.println("id=" + id + ",simpleId=" + simpleId);
         setIsKuaiShouInstalled(serial);
-        if (IsTest.isIsTest()) {
+        if (IsTest.isTest()) {
             System.out.print(name + " " + serial + " ");
             System.out.print(" width=" + getWidth());
             System.out.print(" height=" + getHeight());

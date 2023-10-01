@@ -36,12 +36,18 @@ public class AdbGetPackage {
         return packageName;
     }
 
+    // /**
+    //  * 获取完成的
+    //  * @param adbOuput
+    //  * @return
+    //  */
     public static String getActName(String adbOuput) {
         // mResumedActivity: ActivityRecord{7fbc105 u0 com.huawei.health/.MainActivity t1573}
         adbOuput = adbOuput.substring(0, adbOuput.lastIndexOf(" "));
         adbOuput = adbOuput.substring(adbOuput.lastIndexOf(" ") + 1);
         return adbOuput;
     }
+
 
     /**
      * 获取当前Android设备中顶部APP的activity名称
@@ -57,6 +63,22 @@ public class AdbGetPackage {
         }
 
         return actName;
+    }
+
+    /**
+     * 获取当前activity名称，简称，不包括前面的包名。
+     *
+     * @return activity名称字符串
+     */
+    public static String getActShortName() {
+        String actName = AdbGetPackage.getActName();
+        System.out.println("actName = " + actName);
+        String actShortName = "";
+        if (actName.contains("/")) {
+            actShortName = actName.substring(actName.indexOf("/") + 1);
+            System.out.println("actShortName = " + actShortName);
+        }
+        return actShortName;
     }
 
     private static String runActCmd() {

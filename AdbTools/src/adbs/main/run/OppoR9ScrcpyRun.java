@@ -33,7 +33,7 @@ public class OppoR9ScrcpyRun extends CloseableRunnable {
 
     @Override
     protected void loopBody() {
-        if (IsTest.isIsTest()) {
+        if (IsTest.isTest()) {
             // 测试时，每隔10秒检测一次
             ThreadSleep.seconds(10);
         } else {

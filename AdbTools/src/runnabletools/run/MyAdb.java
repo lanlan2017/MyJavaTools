@@ -72,7 +72,7 @@ public class MyAdb {
      * 测试时使用，运行时忽略
      */
     private static void test() {
-        if (IsTest.isIsTest()) {
+        if (IsTest.isTest()) {
             // SystemClipboard.setSysClipboardText("adb shell dumpsys window | findstr mCurrentFocus");
             // SystemClipboard.setSysClipboardText("adb -s 621QACQC3962X shell dumpsys window | findstr mCurrentFocus");
             SystemClipboard.setSysClipboardText("adb -s 621QACQC3962X");

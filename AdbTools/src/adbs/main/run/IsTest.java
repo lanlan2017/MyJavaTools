@@ -11,7 +11,7 @@ public class IsTest {
             isTest = true;
         }
     }
-    public static boolean isIsTest() {
+    public static boolean isTest() {
         return isTest;
     }
 }

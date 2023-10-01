@@ -24,17 +24,9 @@ public abstract class DefaultNewWebActivityCloseRunnable extends CloseableRunnab
         msg = "";
     }
 
-    // public  void setDevice(d);
-
-
     public void setDevice(Device device) {
         this.device = device;
     }
-
-    // public  void setBtnClose();
-    //
-    // public  void setBtnCoin();
-
 
     public void setBtnClose(ScreenPositionRatio btnClose) {
         this.btnClose = btnClose;
@@ -53,6 +45,9 @@ public abstract class DefaultNewWebActivityCloseRunnable extends CloseableRunnab
         // adbTap_Wait(device, readGoldCoin);
         // 点击关闭按钮
         adbTap_Wait(device, btnClose);
+        if (stop) {
+            return;
+        }
         // 点击金币按钮
         adbTap_Wait(device, btnCoin);
     }
