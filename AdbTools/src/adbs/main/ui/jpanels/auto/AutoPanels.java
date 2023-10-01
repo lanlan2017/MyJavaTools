@@ -1,5 +1,6 @@
 package adbs.main.ui.jpanels.auto;
 
+import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
 import adbs.main.run.AdbGetPackage;
 import adbs.main.ui.config.FlowLayouts;
@@ -76,15 +77,27 @@ public class AutoPanels implements CoinsType {
         final JButton btnStop;
         btnStop = new JButton("停止");
         // btnStop.setText(ReadCoins);
-        btnStop.addActionListener(new BtnActionListener() {
+        // btnStop.addActionListener(new BtnActionListener() {
+        //     @Override
+        //     public void action(ActionEvent e) {
+        //         if (closeRun != null) {
+        //             closeRun.stop();
+        //             // btnStop.setEnabled(true);
+        //         }
+        //         btnStop.setEnabled(true);
+        //     }
+        // });
+        //
+
+        btnStop.addActionListener(new ActionListener() {
             @Override
-            public void action(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) {
                 if (closeRun != null) {
                     closeRun.stop();
-                    btnStop.setEnabled(true);
                 }
             }
         });
+
         return btnStop;
     }
 
@@ -97,6 +110,14 @@ public class AutoPanels implements CoinsType {
             public void actionPerformed(ActionEvent e) {
                 stop = false;
                 Device device = AdbTools.getInstance().getDevice();
+                String serial = device.getSerial();
+                // 隐藏导航栏
+                //
+                String hideNavigationBar = "adb -s " + serial + " shell settings put global policy_control immersive.navigation=*";
+                AdbCommands.runAbdCmd(hideNavigationBar);
+                // // 显示导航栏
+                // String showNB = "adb -s " + serial + " shell settings put global policy_control null";
+
                 String buttonText = button.getText();
                 switch (buttonText) {
                     case ReadCoins:
@@ -167,10 +188,14 @@ public class AutoPanels implements CoinsType {
                 ScreenPositionRatio audioBtn = new ScreenPositionRatio(0.825, 0.7662037037037037);
                 tapCloseTapCoins(device, closeBtn, audioBtn);
 
-
             } else if (height == 1920) {
                 System.out.println("1920=" + height);
                 // tapCloseTapCoins(device, audioCoinsBtn_1080_2160, audioCoinsBtn_1080_2160);
+                ScreenPositionRatio audioBtn = new ScreenPositionRatio(0.7592592592592593, 0.8635416666666667);
+                ScreenPositionRatio closeBtn = new ScreenPositionRatio(0.8185185185185185, 0.4265625);
+
+                tapCloseTapCoins(device, closeBtn, audioBtn);
+
             }
 
         }
