@@ -4,16 +4,17 @@ import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
 import adbs.main.ui.inout.InOutputModel;
 import adbs.main.ui.jpanels.time.TimePanels;
+import adbs.main.ui.jpanels.universal.UniversalPanels;
 import tools.thead.Threads;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class ShoppingButtonRunnable extends CloseableRunnable {
-    /**
-     * 输入输出汇总模型
-     */
-    private InOutputModel inOutputModel;
+    // /**
+    //  * 输入输出汇总模型
+    //  */
+    // private InOutputModel inOutputModel;
     /**
      * 是否触发返回按钮
      */
@@ -62,10 +63,18 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
 
     @Override
     protected void loopBody() {
-        // String id = AdbTools.device.getId();
-        String id = AdbTools.getInstance().getDevice().getSerial();
-        JLabel output = inOutputModel.getUniversalPanels().getOutput2();
-        JTextField input1 = inOutputModel.getTimePanels().getInput1();
+        // String serial = AdbTools.device.getId();
+        AdbTools adbTools = AdbTools.getInstance();
+        String serial = adbTools.getDevice().getSerial();
+
+        // UniversalPanels universalPanels = inOutputModel.getUniversalPanels();
+        UniversalPanels universalPanels = adbTools.getUniversalPanels();
+        JLabel output = universalPanels.getOutput2();
+        // TimePanels timePanels = inOutputModel.getTimePanels();
+        TimePanels timePanels = adbTools.getTimePanels();
+
+        JTextField input1 = timePanels.getInput1();
+
         // 读取文本框1中的秒数
         seconds = Integer.parseInt(input1.getText()) * 1000;
         // 计数器
@@ -73,16 +82,16 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
 
         output.setText("左↑滑3次");
         // 在左侧，从下向上滑动三次
-        if (swipeFromBottomToTopOnce(id, input1)) {
+        if (swipeFromBottomToTopOnce(serial, input1)) {
             // 如果到达了指定时间，
             stop = true;
             return;
         }
-        if (swipeFromBottomToTopOnce(id, input1)) {
+        if (swipeFromBottomToTopOnce(serial, input1)) {
             stop = true;
             return;
         }
-        if (swipeFromBottomToTopOnce(id, input1)) {
+        if (swipeFromBottomToTopOnce(serial, input1)) {
             stop = true;
             return;
         }
@@ -90,13 +99,13 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
         while (!stop) {
             output.setText("↓");
             // 休眠1秒
-            if (swipeFromBottomToTopOnce(id, input1)) {
+            if (swipeFromBottomToTopOnce(serial, input1)) {
                 System.out.println("到达指定时间1!");
                 stop = true;
                 break;
             }
             output.setText("↑");
-            if (swipeFromTopToBottomOnce(id, input1)) {
+            if (swipeFromTopToBottomOnce(serial, input1)) {
                 System.out.println("到达指定时间2!");
                 stop = true;
                 break;
@@ -152,7 +161,10 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
     @Override
     protected void afterLoop() {
         super.afterLoop();
-        TimePanels timePanels = inOutputModel.getTimePanels();
+
+        // TimePanels timePanels = inOutputModel.getTimePanels();
+        TimePanels timePanels =AdbTools.getInstance().getTimePanels();
+
         timePanels.getTimerJLabel().setText("");
         if (isClickReturnBtn) {
             // AdbTools.getInstance().getAdbJPanels().getReturnBtn().doClick();

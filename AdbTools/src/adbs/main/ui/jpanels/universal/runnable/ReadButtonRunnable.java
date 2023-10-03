@@ -2,6 +2,7 @@ package adbs.main.ui.jpanels.universal.runnable;
 
 import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
+import adbs.main.ui.jpanels.universal.UniversalPanels;
 import tools.random.Randoms;
 import tools.thead.Threads;
 
@@ -14,6 +15,7 @@ public class ReadButtonRunnable extends CloseableRunnable {
     private static final ReadButtonRunnable instance = new ReadButtonRunnable();
     private int min;
     private int max;
+    // private UniversalPanels universalPanels;
 
     private ReadButtonRunnable() {
         setMsg();
@@ -24,6 +26,10 @@ public class ReadButtonRunnable extends CloseableRunnable {
     public static ReadButtonRunnable getInstance() {
         return instance;
     }
+
+    // public void setUniversalPanels(UniversalPanels universalPanels) {
+    //     this.universalPanels = universalPanels;
+    // }
 
     public void setMin(int min) {
         this.min = min;
@@ -86,7 +92,10 @@ public class ReadButtonRunnable extends CloseableRunnable {
         // output.setText(msg + "等待" + s + "秒");
         // output2.setText(msg + "等待" + s + "s");
 
-        JLabel output2 = inOutputModel.getUniversalPanels().getOutput2();
+        UniversalPanels universalPanels = AdbTools.getInstance().getUniversalPanels();
+        // universalPanels = inOutputModel.getUniversalPanels();
+
+        JLabel output2 = universalPanels.getOutput2();
 
         output2.setText(s + "s:" + msg);
         // output2.setText(s + "s后" + msg);

@@ -42,7 +42,8 @@ public class VideoButtonRunnable extends CloseableRunnable {
     @Override
     protected void loopBody() {
         // String serial = AdbTools.device.getId();
-        String serial = AdbTools.getInstance().getDevice().getSerial();
+        AdbTools adbTools = AdbTools.getInstance();
+        String serial = adbTools.getDevice().getSerial();
 
         String oldOutput;
         String newOutput;
@@ -60,7 +61,7 @@ public class VideoButtonRunnable extends CloseableRunnable {
         // // 在手机左侧，从下往上滑动
         // String adbResult = AdbCommands.swipeBottom2TopOnLeft(serial, DeviceListener.getHeight());
         // String adbResult = AdbCommands.swipeBottom2TopOnLeft(serial, AdbTools.device.getHeight());
-        String adbResult = AdbCommands.swipeBottom2TopOnLeft(serial, AdbTools.getInstance().getDevice().getHeight());
+        String adbResult = AdbCommands.swipeBottom2TopOnLeft(serial, adbTools.getDevice().getHeight());
         // 如果设备断开，则终止线程
         if (AdbCommands.ifDeviceNotExist(adbResult))
             return;
@@ -76,7 +77,10 @@ public class VideoButtonRunnable extends CloseableRunnable {
             Threads.sleep(250);
             msCount += 250;
 
-            JLabel output2 = inOutputModel.getUniversalPanels().getOutput2();
+            // JLabel output2 = inOutputModel.getUniversalPanels().getOutput2();
+
+            JLabel output2 = adbTools.getUniversalPanels().getOutput2();
+
             // oldOutput = output.getText();
             oldOutput = output2.getText();
             // newOutput = msg + ":等待--" + ((msToWait - msCount) / 1000) + "s";

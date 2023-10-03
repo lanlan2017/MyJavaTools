@@ -92,7 +92,56 @@ public class AdbTools {
 
         // private final JPanel otherJPanel;
         // // 输出标签
+        //
+        JPanel checkJPanel = initCheckJPanel(timingPanels21, toolsJPanels, autoPanels);
 
+        // // 创建输入面板的模型
+        // InOutputModel inOut = new InOutputModel(timePanels, universalPanels);
+        // 测试替换
+
+
+        // 设置inputOK按钮事件监听器
+        // timePanels.getInputOkButton().addActionListener(new InputOkButtonActionListener(inOut));
+        // timePanels.getInputOkButton().addActionListener(new InputOkButtonActionListener());
+
+        // timePanels.getPlusBtn().addActionListener(new PlusBtnAcListener(inOut));
+        // timePanels.getPlusBtn().addActionListener(new PlusBtnAcListener(timePanels));
+
+
+        // timePanels.getMinusBtn().addActionListener(new MinusBtnAcListener(inOut));
+        // timePanels.getMinusBtn().addActionListener(new MinusBtnAcListener(timePanels));
+
+
+        // 添加 选项面板 到窗体中 第1列
+        frame.add(checkJPanel);
+        // 添加 adb面板 到窗体中 第2行
+        frame.add(adbJPanels.getAdbJPanel());
+        frame.add(scrcpyJPanels.getScrcpyJPanel());
+        // 添加 通用功能面板 到第3行
+        // frame.add(universalPanel);
+        frame.add(universalPanels.getUniversalPanel());
+        // 添加 时间输入面板 到第4行
+        frame.add(timePanels.getTimePanel());
+        // 添加 控制面板 到第5行
+        // frame.add(timingPanels.getTimingPanel());
+        frame.add(timingPanels21.getTimingPanels2());
+
+        frame.add(toolsJPanels.getToolsJPanel());
+        frame.add(autoPanels.getAutoJPanel());
+
+        // // 需要先初始化通用面板 要放在 initUniversalPanel(inputPanels, inOut);之后
+        // generalJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(universalPanels.getUniversalPanel()));
+
+        // 添加多选框面板到第3行
+        AbstractButtons.setMarginInButtonJPanel(checkJPanel, -1);
+        AbstractButtons.setMarginInButtonJPanel(checkJPanel, -1);
+        // 添加输出面包到最后一行
+        // frame.add(outputJPanel);
+
+        frameSettings();
+    }
+
+    private JPanel initCheckJPanel(TimingPanels2 timingPanels21, ToolsJPanels toolsJPanels, AutoPanels autoPanels) {
         // 初始化多选框面板
         JPanel checkJPanel = new JPanel();
         checkJPanel.setLayout(FlowLayouts.flowLayoutLeft);
@@ -102,6 +151,9 @@ public class AdbTools {
         JCheckBox generalJCheckBox = new JCheckBox("动", true);
         // JCheckBox generalJCheckBox = new JCheckBox("", true);
         generalJCheckBox.setToolTipText("展开/折叠 通用功能");
+        // 需要先初始化通用面板 要放在 initUniversalPanel(inputPanels, inOut);之后
+        generalJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(universalPanels.getUniversalPanel()));
+
 
         // JCheckBox adbJCheckBox = new JCheckBox("系统", true);
         // JCheckBox adbJCheckBox = new JCheckBox("system", true);
@@ -141,45 +193,7 @@ public class AdbTools {
         checkJPanel.add(controlJCheckBox);
         checkJPanel.add(toolsJCheckBox);
         checkJPanel.add(jcbAuto);
-
-        // 创建输入面板的模型
-        InOutputModel inOut = new InOutputModel(timePanels, universalPanels);
-        // 测试替换
-
-
-        // 设置inputOK按钮事件监听器
-        timePanels.getInputOkButton().addActionListener(new InputOkButtonActionListener(inOut));
-        timePanels.getPlusBtn().addActionListener(new PlusBtnAcListener(inOut));
-        timePanels.getMinusBtn().addActionListener(new MinusBtnAcListener(inOut));
-
-
-        // 添加 选项面板 到窗体中 第1列
-        frame.add(checkJPanel);
-        // 添加 adb面板 到窗体中 第2行
-        frame.add(adbJPanels.getAdbJPanel());
-        frame.add(scrcpyJPanels.getScrcpyJPanel());
-        // 添加 通用功能面板 到第3行
-        // frame.add(universalPanel);
-        frame.add(universalPanels.getUniversalPanel());
-        // 添加 时间输入面板 到第4行
-        frame.add(timePanels.getTimePanel());
-        // 添加 控制面板 到第5行
-        // frame.add(timingPanels.getTimingPanel());
-        frame.add(timingPanels21.getTimingPanels2());
-
-        frame.add(toolsJPanels.getToolsJPanel());
-        frame.add(autoPanels.getAutoJPanel());
-
-        // 需要先初始化通用面板 要放在 initUniversalPanel(inputPanels, inOut);之后
-        generalJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(universalPanels.getUniversalPanel()));
-
-        // 添加多选框面板到第3行
-        AbstractButtons.setMarginInButtonJPanel(checkJPanel, -1);
-        AbstractButtons.setMarginInButtonJPanel(checkJPanel, -1);
-        // 添加输出面包到最后一行
-        // frame.add(outputJPanel);
-
-        frameSettings();
+        return checkJPanel;
     }
 
     private void frameSettings() {

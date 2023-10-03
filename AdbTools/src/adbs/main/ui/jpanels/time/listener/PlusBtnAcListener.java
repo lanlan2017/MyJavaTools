@@ -2,6 +2,7 @@ package adbs.main.ui.jpanels.time.listener;
 
 import adbs.main.AdbTools;
 import adbs.main.ui.inout.InOutputModel;
+import adbs.main.ui.jpanels.time.TimePanels;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -20,6 +21,13 @@ public class PlusBtnAcListener extends WaitValues implements ActionListener {
         input1 = inOutputModel.getTimePanels().getInput1();
         input2 = inOutputModel.getTimePanels().getInput2();
         timerJLabel = inOutputModel.getTimePanels().getTimerJLabel();
+    }
+
+
+    public PlusBtnAcListener(TimePanels timePanels) {
+        input1 = timePanels.getInput1();
+        input2 = timePanels.getInput2();
+        timerJLabel = timePanels.getTimerJLabel();
     }
 
     @Override

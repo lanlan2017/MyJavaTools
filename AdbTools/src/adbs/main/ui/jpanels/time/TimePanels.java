@@ -4,6 +4,9 @@ import adbs.main.AdbTools;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.config.Fonts;
 import adbs.main.ui.jpanels.time.beep.BeepRunnable;
+import adbs.main.ui.jpanels.time.listener.InputOkButtonActionListener;
+import adbs.main.ui.jpanels.time.listener.MinusBtnAcListener;
+import adbs.main.ui.jpanels.time.listener.PlusBtnAcListener;
 import adbs.main.ui.jpanels.universal.runnable.CloseableRunnable;
 import adbs.tools.thread.ThreadSleep;
 import tools.swing.button.AbstractButtons;
@@ -106,6 +109,11 @@ public class TimePanels {
 
         AbstractButtons.setMarginInButtonJPanel(timePanel, 1);
         // AbstractButtons.setMarginInButtonJPanel(inputPanel,0);
+        plusBtn.addActionListener(new PlusBtnAcListener(this));
+        minusBtn.addActionListener(new MinusBtnAcListener(this));
+        inputOkButton.addActionListener(new InputOkButtonActionListener());
+
+
     }
 
     public JPanel getTimePanel() {
