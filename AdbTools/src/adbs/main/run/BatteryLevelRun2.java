@@ -54,6 +54,8 @@ public class BatteryLevelRun2 implements Runnable {
                 if (batteryModel.needAcPower()) {
                     // 弹窗提醒用户充电
                     remindAC(level);
+                } else if (batteryModel.isBatteryFullyCharged()) {
+                    showJOptionPane("电量充足,换数据线?");
                 }
             }
 
@@ -81,6 +83,10 @@ public class BatteryLevelRun2 implements Runnable {
         // 获取电池电量
         String message = "电量:" + level + "% 充电?";
         System.out.println(message);
+        showJOptionPane(message);
+    }
+
+    private void showJOptionPane(String message) {
         // 弹出确认对话框
         // int confirmDialog = JOptionPane.showConfirmDialog(null, message);
         // 弹出确认对话框，显示标题，显示“是，否，取消”三个按钮

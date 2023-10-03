@@ -50,11 +50,6 @@ public class AdbTools {
     private final UniversalPanels universalPanels;
     // scrcpy面板
     private final ScrcpyJPanels scrcpyJPanels;
-    // 控制面板
-    // private final TimingPanels timingPanels;
-    // 机器人面板，自动化面板
-    // private final AutoPanels autoPanels;
-
 
     // 当前选择的设备
     // public static Device device;
@@ -126,7 +121,7 @@ public class AdbTools {
         // controlJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(timingPanels.getTimingPanel()));
         controlJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(timingPanels21.getTimingPanels2()));
         // 现在就触发
-        controlJCheckBox.doClick();
+        // controlJCheckBox.doClick();
 
         // JCheckBox multitaskingJCheckBox = new JCheckBox("后台", false);
         // JCheckBox multitaskingJCheckBox = new JCheckBox("工具", true);
@@ -171,11 +166,6 @@ public class AdbTools {
         // 添加 控制面板 到第5行
         // frame.add(timingPanels.getTimingPanel());
         frame.add(timingPanels21.getTimingPanels2());
-
-
-        // TimingPanels2 timingPanels2 = timingPanels21;
-        // frame.add(timingPanels2.getTimingPanels2());
-
 
         frame.add(toolsJPanels.getToolsJPanel());
         frame.add(autoPanels.getAutoJPanel());

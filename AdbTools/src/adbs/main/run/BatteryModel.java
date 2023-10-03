@@ -68,10 +68,19 @@ public class BatteryModel {
      *
      * @return 如果没有使用充电头充电，并且电量小于百分之30，则返回true，否则返回false
      */
+
     public boolean needAcPower() {
         // 更新电池信息
         // update();
         return !isAcPowered && level < 30 && level > 0;
+        // return !isAcPowered && level <= 100;
+    }
+
+    public boolean isBatteryFullyCharged() {
+        // 更新电池信息
+        // update();
+        // return !isAcPowered && level == 100;
+        return !isAcPowered && level >= 98;
         // return !isAcPowered && level <= 100;
     }
 

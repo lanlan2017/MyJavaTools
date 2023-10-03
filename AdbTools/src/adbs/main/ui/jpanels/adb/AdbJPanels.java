@@ -157,8 +157,8 @@ public class AdbJPanels {
 
 
         // AbstractButtons.setMarginInButtonJPanel(adbJPanel);
-        // AbstractButtons.setMarginInButtonJPanel(adbJPanel, -1);
-        AbstractButtons.setMarginInButtonJPanel(adbJPanel, 0);
+        AbstractButtons.setMarginInButtonJPanel(adbJPanel, -1);
+        // AbstractButtons.setMarginInButtonJPanel(adbJPanel, 0);
         // AbstractButtons.setMarginInButtonJPanel(adbJPanel, 1);
 
         // AbstractButtons.setJButtonMargin(volumePlus, -1);

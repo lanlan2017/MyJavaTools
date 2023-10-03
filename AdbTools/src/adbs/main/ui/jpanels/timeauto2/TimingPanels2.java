@@ -58,51 +58,6 @@ public class TimingPanels2 extends WaitValues {
     public TimingPanels2() {
         timingPanels2 = new JPanel();
         timingPanels2.setLayout(FlowLayouts.flowLayoutLeft);
-
-        // jrBtnVideo = new JRadioButton(textJrBtnVideo);
-        // jrBtnShopping = new JRadioButton(textJrBtnShopping);
-        // jrBtnWait = new JRadioButton(textJrBtnWait);
-        // ButtonGroup group = new ButtonGroup();
-        // group.add(jrBtnVideo);
-        // group.add(jrBtnWait);
-        // group.add(jrBtnShopping);
-
-        // ActionListener sliceActionListener = new ActionListener() {
-        //     public void actionPerformed(ActionEvent actionEvent) {
-        //         AbstractButton button = (AbstractButton) actionEvent.getSource();
-        //         // System.out.println("Selected: " + button.getText());
-        //         AdbTools adbTools = AdbTools.getInstance();
-        //         // 获取通用面板对象
-        //         // UniversalPanels universalPanels = adbTools.getUniversalPanels();
-        //
-        //         String text = button.getText();
-        //         selected = text;
-        //
-        //
-        //         switch (text) {
-        //             case textJrBtnWait:
-        //                 // universalPanels.getWaitButton().doClick();
-        //                 showWaitButtons();
-        //                 break;
-        //             case textJrBtnShopping:
-        //                 // universalPanels.getShoppingButton().doClick();
-        //                 showShoppingButtons();
-        //                 break;
-        //             case textJrBtnVideo:
-        //                 showVideoButtons();
-        //                 // universalPanels.getVideoButton().doClick();
-        //                 break;
-        //         }
-        //
-        //     }
-        // };
-
-        // jrBtnWait.addActionListener(sliceActionListener);
-        // jrBtnVideo.addActionListener(sliceActionListener);
-        // jrBtnShopping.addActionListener(sliceActionListener);
-
-
-        // int value = 30;
         btn30s = getButton(30);
         btn35s = getButton(35);
         btn65s = getButton(65);
@@ -283,7 +238,7 @@ public class TimingPanels2 extends WaitValues {
     }
 
     private void showWaitButtons() {
-        btn30s.setVisible(true);
+        btn30s.setVisible(false);
         btn35s.setVisible(true);
         btn65s.setVisible(true);
         btn95s.setVisible(true);
@@ -298,7 +253,7 @@ public class TimingPanels2 extends WaitValues {
     }
 
     private void showReadWaitButtons() {
-        btn30s.setVisible(true);
+        btn30s.setVisible(false);
         btn35s.setVisible(false);
         btn65s.setVisible(false);
         btn95s.setVisible(false);

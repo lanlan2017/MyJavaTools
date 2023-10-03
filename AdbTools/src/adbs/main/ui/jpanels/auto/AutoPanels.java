@@ -95,6 +95,8 @@ public class AutoPanels implements CoinsType {
                 if (closeRun != null) {
                     closeRun.stop();
                 }
+                autoJPanel.setVisible(false);
+                AdbTools.getInstance().getFrame().pack();
             }
         });
 
@@ -219,7 +221,11 @@ public class AutoPanels implements CoinsType {
                 System.out.println("1920=" + height);
                 // closeRun.setBtnClose(Ratios.qieZiBtnClose);
                 // closeRun.setBtnCoin(Ratios.qieZiReadCoin);
-                tapCloseTapCoins(device, Ratios.qieZiBtnClose, Ratios.qieZiReadCoin);
+                ScreenPositionRatio closeBtn = new ScreenPositionRatio(0.8148148148148148, 0.4265625);
+                ScreenPositionRatio readBtn = new ScreenPositionRatio(0.8314814814814815, 0.6151041666666667);
+                tapCloseTapCoins(device, closeBtn, readBtn);
+                // tapCloseTapCoins(device, Ratios.qieZiBtnClose, Ratios.qieZiReadCoin);
+
             }
         }
     }
