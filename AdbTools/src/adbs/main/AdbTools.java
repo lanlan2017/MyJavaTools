@@ -4,16 +4,11 @@ import adbs.cmd.AdbCommands;
 import adbs.main.run.BatteryLevelRun2;
 import adbs.main.run.ForegroundAppRun;
 import adbs.main.run.IsTest;
-import adbs.main.ui.config.FlowLayouts;
-import adbs.main.ui.inout.InOutputModel;
+import adbs.main.ui.jpanels.check.CheckJPanels;
 import adbs.main.ui.jpanels.adb.AdbJPanels;
 import adbs.main.ui.jpanels.auto.AutoPanels;
-import adbs.main.ui.jpanels.check.JCheckBoxControlJPanelItemListener;
 import adbs.main.ui.jpanels.scrcpy.ScrcpyJPanels;
 import adbs.main.ui.jpanels.time.TimePanels;
-import adbs.main.ui.jpanels.time.listener.InputOkButtonActionListener;
-import adbs.main.ui.jpanels.time.listener.MinusBtnAcListener;
-import adbs.main.ui.jpanels.time.listener.PlusBtnAcListener;
 import adbs.main.ui.jpanels.timeauto2.TimingPanels2;
 import adbs.main.ui.jpanels.tools.ToolsJPanels;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
@@ -50,6 +45,7 @@ public class AdbTools {
     private final UniversalPanels universalPanels;
     // scrcpy面板
     private final ScrcpyJPanels scrcpyJPanels;
+    private final CheckJPanels checkJPanels;
 
     // 当前选择的设备
     // public static Device device;
@@ -93,7 +89,10 @@ public class AdbTools {
         // private final JPanel otherJPanel;
         // // 输出标签
         //
-        JPanel checkJPanel = initCheckJPanel(timingPanels21, toolsJPanels, autoPanels);
+        // JPanel checkJPanel = initCheckJPanel(timingPanels21, toolsJPanels, autoPanels, universalPanels, adbJPanels, scrcpyJPanels);
+        checkJPanels = new CheckJPanels(timingPanels21, toolsJPanels, autoPanels, universalPanels, adbJPanels, scrcpyJPanels);
+        JPanel checkJPanel = checkJPanels.getCheckJPanel();
+
 
         // // 创建输入面板的模型
         // InOutputModel inOut = new InOutputModel(timePanels, universalPanels);
@@ -140,61 +139,61 @@ public class AdbTools {
 
         frameSettings();
     }
-
-    private JPanel initCheckJPanel(TimingPanels2 timingPanels21, ToolsJPanels toolsJPanels, AutoPanels autoPanels) {
-        // 初始化多选框面板
-        JPanel checkJPanel = new JPanel();
-        checkJPanel.setLayout(FlowLayouts.flowLayoutLeft);
-
-        // 通用复选框
-        // JCheckBox generalJCheckBox = new JCheckBox("通用", true);
-        JCheckBox generalJCheckBox = new JCheckBox("动", true);
-        // JCheckBox generalJCheckBox = new JCheckBox("", true);
-        generalJCheckBox.setToolTipText("展开/折叠 通用功能");
-        // 需要先初始化通用面板 要放在 initUniversalPanel(inputPanels, inOut);之后
-        generalJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(universalPanels.getUniversalPanel()));
-
-
-        // JCheckBox adbJCheckBox = new JCheckBox("系统", true);
-        // JCheckBox adbJCheckBox = new JCheckBox("system", true);
-        JCheckBox adbJCheckBox = new JCheckBox("系", true);
-        // JCheckBox adbJCheckBox = new JCheckBox("", true);
-        adbJCheckBox.setToolTipText("展开/折叠 系统功能 面板");
-        adbJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(adbJPanels.getAdbJPanel()));
-
-        // JCheckBox scrcpyJCheckBox = new JCheckBox("投屏", true);
-        JCheckBox scrcpyJCheckBox = new JCheckBox("投", true);
-        // JCheckBox adbJCheckBox = new JCheckBox("", true);
-        scrcpyJCheckBox.setToolTipText("展开/折叠 scrcpy设置功能");
-        scrcpyJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(scrcpyJPanels.getScrcpyJPanel()));
-
-        // 控制复选框
-        JCheckBox controlJCheckBox = new JCheckBox("等", true);
-        // controlJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(timingPanels.getTimingPanel()));
-        controlJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(timingPanels21.getTimingPanels2()));
-        // 现在就触发
-        // controlJCheckBox.doClick();
-
-        // JCheckBox multitaskingJCheckBox = new JCheckBox("后台", false);
-        // JCheckBox multitaskingJCheckBox = new JCheckBox("工具", true);
-        JCheckBox toolsJCheckBox = new JCheckBox("工具", false);
-        toolsJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(toolsJPanels.getToolsJPanel()));
-        // toolsJCheckBox.doClick();
-        toolsJCheckBox.setToolTipText("usb上网，提前apk，安装apk功能");
-
-        JCheckBox jcbAuto = new JCheckBox("Auto");
-        jcbAuto.setToolTipText("打开自动化面板");
-        jcbAuto.addItemListener(new JCheckBoxControlJPanelItemListener(autoPanels.getAutoJPanel()));
-
-
-        checkJPanel.add(adbJCheckBox);
-        checkJPanel.add(scrcpyJCheckBox);
-        checkJPanel.add(generalJCheckBox);
-        checkJPanel.add(controlJCheckBox);
-        checkJPanel.add(toolsJCheckBox);
-        checkJPanel.add(jcbAuto);
-        return checkJPanel;
-    }
+    //
+    // private JPanel initCheckJPanel(TimingPanels2 timingPanels2, ToolsJPanels toolsJPanels, AutoPanels autoPanels, UniversalPanels universralPanels, AdbJPanels adbJPanels, ScrcpyJPanels scrcpyJPanels) {
+    //     // 初始化多选框面板
+    //     JPanel checkJPanel = new JPanel();
+    //     checkJPanel.setLayout(FlowLayouts.flowLayoutLeft);
+    //
+    //     // 通用复选框
+    //     // JCheckBox generalJCheckBox = new JCheckBox("通用", true);
+    //     JCheckBox generalJCheckBox = new JCheckBox("动", true);
+    //     // JCheckBox generalJCheckBox = new JCheckBox("", true);
+    //     generalJCheckBox.setToolTipText("展开/折叠 通用功能");
+    //     // 需要先初始化通用面板 要放在 initUniversalPanel(inputPanels, inOut);之后
+    //     generalJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(universralPanels.getUniversalPanel()));
+    //
+    //
+    //     // JCheckBox adbJCheckBox = new JCheckBox("系统", true);
+    //     // JCheckBox adbJCheckBox = new JCheckBox("system", true);
+    //     JCheckBox adbJCheckBox = new JCheckBox("系", true);
+    //     // JCheckBox adbJCheckBox = new JCheckBox("", true);
+    //     adbJCheckBox.setToolTipText("展开/折叠 系统功能 面板");
+    //     adbJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(adbJPanels.getAdbJPanel()));
+    //
+    //     // JCheckBox scrcpyJCheckBox = new JCheckBox("投屏", true);
+    //     JCheckBox scrcpyJCheckBox = new JCheckBox("投", true);
+    //     // JCheckBox adbJCheckBox = new JCheckBox("", true);
+    //     scrcpyJCheckBox.setToolTipText("展开/折叠 scrcpy设置功能");
+    //     scrcpyJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(scrcpyJPanels.getScrcpyJPanel()));
+    //
+    //     // 控制复选框
+    //     JCheckBox controlJCheckBox = new JCheckBox("等", true);
+    //     // controlJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(timingPanels.getTimingPanel()));
+    //     controlJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(timingPanels2.getTimingPanels2()));
+    //     // 现在就触发
+    //     // controlJCheckBox.doClick();
+    //
+    //     // JCheckBox multitaskingJCheckBox = new JCheckBox("后台", false);
+    //     // JCheckBox multitaskingJCheckBox = new JCheckBox("工具", true);
+    //     JCheckBox toolsJCheckBox = new JCheckBox("工具", false);
+    //     toolsJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(toolsJPanels.getToolsJPanel()));
+    //     // toolsJCheckBox.doClick();
+    //     toolsJCheckBox.setToolTipText("usb上网，提前apk，安装apk功能");
+    //
+    //     JCheckBox jcbAuto = new JCheckBox("Auto");
+    //     jcbAuto.setToolTipText("打开自动化面板");
+    //     jcbAuto.addItemListener(new JCheckBoxControlJPanelItemListener(autoPanels.getAutoJPanel()));
+    //
+    //
+    //     checkJPanel.add(adbJCheckBox);
+    //     checkJPanel.add(scrcpyJCheckBox);
+    //     checkJPanel.add(generalJCheckBox);
+    //     checkJPanel.add(controlJCheckBox);
+    //     checkJPanel.add(toolsJCheckBox);
+    //     checkJPanel.add(jcbAuto);
+    //     return checkJPanel;
+    // }
 
     private void frameSettings() {
         frame.addWindowListener(new WindowAdapter() {
@@ -348,6 +347,10 @@ public class AdbTools {
 
     public UniversalPanels getUniversalPanels() {
         return universalPanels;
+    }
+
+    public CheckJPanels getCheckJPanels() {
+        return checkJPanels;
     }
 
     public ScrcpyJPanels getScrcpyJPanels() {

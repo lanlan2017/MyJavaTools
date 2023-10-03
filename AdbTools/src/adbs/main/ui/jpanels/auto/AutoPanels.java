@@ -95,8 +95,14 @@ public class AutoPanels implements CoinsType {
                 if (closeRun != null) {
                     closeRun.stop();
                 }
-                autoJPanel.setVisible(false);
-                AdbTools.getInstance().getFrame().pack();
+                // autoJPanel.setVisible(false);
+
+                AdbTools adbTools = AdbTools.getInstance();
+                JCheckBox jCheckBox = adbTools.getCheckJPanels().getAutoCheckBox();
+                if (jCheckBox.isSelected()) {
+                    jCheckBox.doClick();
+                }
+                adbTools.getFrame().pack();
             }
         });
 
