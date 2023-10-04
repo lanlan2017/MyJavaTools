@@ -80,7 +80,7 @@ public class BatteryModel {
         // 更新电池信息
         // update();
         // return !isAcPowered && level == 100;
-        return !isAcPowered && level >= 98;
+        return !isAcPowered && level >= 95;
         // return !isAcPowered && level <= 100;
     }
 

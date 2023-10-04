@@ -150,6 +150,7 @@ public class TimingPanels2 extends WaitValues {
                         break;
                 }
 
+                AdbTools.getInstance().getFrame().pack();
 
             }
 

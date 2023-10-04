@@ -1,5 +1,6 @@
 package adbs.main.run;
 
+import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
 import adbs.tools.thread.ThreadSleep;
 
@@ -7,6 +8,7 @@ import javax.swing.*;
 
 public class BatteryLevelRun2 implements Runnable {
     private static boolean stop = false;
+    private static boolean displayJOptionPane = true;
     private JFrame frame;
     private AdbTools adbTools;
     private String serial;
@@ -31,6 +33,7 @@ public class BatteryLevelRun2 implements Runnable {
         frame = adbTools.getFrame();
 
         stop = false;
+
         while (!stop) {
             if (serial == null) {
                 serial = adbTools.getDevice().getSerial();
@@ -55,7 +58,45 @@ public class BatteryLevelRun2 implements Runnable {
                     // 弹窗提醒用户充电
                     remindAC(level);
                 } else if (batteryModel.isBatteryFullyCharged()) {
-                    showJOptionPane("电量充足,换数据线?");
+                    // showJOptionPane("电量充足,换数据线?");
+                    if (displayJOptionPane) {
+
+                        String message = "电量充足，禁止USB充电?";
+                        int confirmDialog = JOptionPane.showConfirmDialog(adbTools.getContentPane(), message, name, JOptionPane.YES_NO_CANCEL_OPTION);
+                        switch (confirmDialog) {
+                            case JOptionPane.OK_OPTION:
+                                displayJOptionPane = false;
+                                System.out.println("点击 是 按钮，禁用USB充电");
+                                String usbChargingProhibited = "adb -s " + serial + " shell dumpsys battery set usb 0";
+                                AdbCommands.runAbdCmd(usbChargingProhibited);
+
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        // 等待50
+                                        ThreadSleep.minutes(50);
+                                        String usbChargingAllowed = "adb -s " + serial + " shell dumpsys battery set usb 1";
+                                        AdbCommands.runAbdCmd(usbChargingAllowed);
+                                        // 允许弹窗
+                                        displayJOptionPane = true;
+                                    }
+                                }).start();
+                                // 禁止后续的弹窗
+
+                                break;
+                            case JOptionPane.NO_OPTION:
+                                System.out.println("点击 否 按钮");
+                                ThreadSleep.minutes(10);
+                                break;
+                            case JOptionPane.CANCEL_OPTION:
+                                System.out.println("点击 取消 按钮");
+                                ThreadSleep.minutes(30);
+                                // 停止电池检测线程
+                                // stop = true;
+                                break;
+                        }
+                    }
+
                 }
             }
 
@@ -109,6 +150,7 @@ public class BatteryLevelRun2 implements Runnable {
                 // stop = true;
                 break;
         }
+
     }
 
     /**

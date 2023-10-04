@@ -76,26 +76,17 @@ public class AutoPanels implements CoinsType {
     private JButton initBtnStop() {
         final JButton btnStop;
         btnStop = new JButton("停止");
-        // btnStop.setText(ReadCoins);
-        // btnStop.addActionListener(new BtnActionListener() {
-        //     @Override
-        //     public void action(ActionEvent e) {
-        //         if (closeRun != null) {
-        //             closeRun.stop();
-        //             // btnStop.setEnabled(true);
-        //         }
-        //         btnStop.setEnabled(true);
-        //     }
-        // });
-        //
-
         btnStop.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (closeRun != null) {
                     closeRun.stop();
                 }
-                // autoJPanel.setVisible(false);
+
+                String serial = AdbTools.getInstance().getDevice().getSerial();
+                // // 显示导航栏
+                String showNB = "adb -s " + serial + " shell settings put global policy_control null";
+                AdbCommands.runAbdCmd(showNB);
 
                 AdbTools adbTools = AdbTools.getInstance();
                 JCheckBox jCheckBox = adbTools.getCheckJPanels().getAutoCheckBox();
@@ -103,6 +94,8 @@ public class AutoPanels implements CoinsType {
                     jCheckBox.doClick();
                 }
                 adbTools.getFrame().pack();
+
+
             }
         });
 
