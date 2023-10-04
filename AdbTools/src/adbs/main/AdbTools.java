@@ -46,6 +46,7 @@ public class AdbTools {
     // scrcpy面板
     private final ScrcpyJPanels scrcpyJPanels;
     private final CheckJPanels checkJPanels;
+    private final TimingPanels2 timingPanels2;
 
     // 当前选择的设备
     // public static Device device;
@@ -72,7 +73,7 @@ public class AdbTools {
 
         // 初始化第3个面板，控制面板
         // timingPanels = new TimingPanels();
-        TimingPanels2 timingPanels21 = new TimingPanels2();
+        timingPanels2 = new TimingPanels2();
         // JPanel controlJPanel = controlJPanels.getControlJPanel();
 
         // 初始化 时间输入面板
@@ -89,8 +90,8 @@ public class AdbTools {
         // private final JPanel otherJPanel;
         // // 输出标签
         //
-        // JPanel checkJPanel = initCheckJPanel(timingPanels21, toolsJPanels, autoPanels, universalPanels, adbJPanels, scrcpyJPanels);
-        checkJPanels = new CheckJPanels(timingPanels21, toolsJPanels, autoPanels, universalPanels, adbJPanels, scrcpyJPanels);
+        // JPanel checkJPanel = initCheckJPanel(timingPanels2, toolsJPanels, autoPanels, universalPanels, adbJPanels, scrcpyJPanels);
+        checkJPanels = new CheckJPanels(timingPanels2, toolsJPanels, autoPanels, universalPanels, adbJPanels, scrcpyJPanels);
         JPanel checkJPanel = checkJPanels.getCheckJPanel();
 
 
@@ -123,7 +124,7 @@ public class AdbTools {
         frame.add(timePanels.getTimePanel());
         // 添加 控制面板 到第5行
         // frame.add(timingPanels.getTimingPanel());
-        frame.add(timingPanels21.getTimingPanels2());
+        frame.add(timingPanels2.getTimingPanels2());
 
         frame.add(toolsJPanels.getToolsJPanel());
         frame.add(autoPanels.getAutoJPanel());
@@ -138,6 +139,8 @@ public class AdbTools {
         // frame.add(outputJPanel);
 
         frameSettings();
+        // timingPanels2.getjComboBox().setSelectedIndex(0);
+
     }
     //
     // private JPanel initCheckJPanel(TimingPanels2 timingPanels2, ToolsJPanels toolsJPanels, AutoPanels autoPanels, UniversalPanels universralPanels, AdbJPanels adbJPanels, ScrcpyJPanels scrcpyJPanels) {
@@ -385,6 +388,8 @@ public class AdbTools {
 
     public static void main(String[] args) {
         AdbTools instance = AdbTools.getInstance();
+        instance.timingPanels2.getjComboBox().setSelectedIndex(0);
+        // timingPanels2.getjComboBox().setSelectedIndex(0);
         if (!IsTest.isTest()) {
             // 在打开应用的时候，就触发投屏按钮
             instance.getScrcpyJPanels().getBtnOpenScrcpy().doClick();

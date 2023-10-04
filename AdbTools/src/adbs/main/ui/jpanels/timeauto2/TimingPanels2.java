@@ -75,8 +75,8 @@ public class TimingPanels2 extends WaitValues {
 
         hideAllButtons();
 
-        jComboBox = getComboBox();
-        jComboBox.setSelectedIndex(0);
+        jComboBox = initComboBox();
+        // jComboBox.setSelectedIndex(0);
 
         // timingPanels.add(jrBtnVideo);
         // timingPanels.add(jrBtnWait);
@@ -101,7 +101,7 @@ public class TimingPanels2 extends WaitValues {
         AbstractButtons.setMarginInButtonJPanel(timingPanels2, 0);
     }
 
-    private JComboBox<String> getComboBox() {
+    private JComboBox<String> initComboBox() {
         final JComboBox<String> jComboBox;
         jComboBox = new JComboBox<>();
         jComboBox.setFont(Fonts.Consolas_BOLD_13);
@@ -118,7 +118,7 @@ public class TimingPanels2 extends WaitValues {
         // jComboBox.setPreferredSize(new Dimension(preferredSize.height * 2 + 4, preferredSize.height));
         // jComboBox.setPreferredSize(new Dimension(preferredSize.height * 2 + 5, preferredSize.height));
         // jComboBox.setPreferredSize(new Dimension(preferredSize.height * 3, preferredSize.height));
-        Dimension jComboBoxPreferredSize = jComboBox.getPreferredSize();
+        // Dimension jComboBoxPreferredSize = jComboBox.getPreferredSize();
         // System.out.println("jComboBoxPreferredSize = " + jComboBoxPreferredSize);
         // 添加选项
         jComboBox.addItem(textJrBtnWait);
@@ -150,7 +150,11 @@ public class TimingPanels2 extends WaitValues {
                         break;
                 }
 
-                AdbTools.getInstance().getFrame().pack();
+                JFrame frame = AdbTools.getInstance().getFrame();
+                if (frame != null) {
+                    frame.pack();
+                }
+
 
             }
 
@@ -222,6 +226,10 @@ public class TimingPanels2 extends WaitValues {
 
     public JPanel getTimingPanels2() {
         return timingPanels2;
+    }
+
+    public JComboBox<String> getjComboBox() {
+        return jComboBox;
     }
 
     /**
