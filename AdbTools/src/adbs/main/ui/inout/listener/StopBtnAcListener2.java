@@ -31,7 +31,6 @@ public class StopBtnAcListener2 implements ActionListener {
         AdbTools.getInstance().getTimePanels().getTimePanel().setVisible(false);
         // 通用面板的标签文字设置为空字符串
         AdbTools.getInstance().getUniversalPanels().getOutput2().setText("");
-
         // 更新JFrame界面
         JFramePack.onJComponentActionEvent(e);
     }

@@ -4,6 +4,7 @@ import adbs.cmd.AdbCommands;
 import adbs.main.run.BatteryLevelRun2;
 import adbs.main.run.ForegroundAppRun;
 import adbs.main.run.IsTest;
+import adbs.main.ui.jpanels.app.AppPanels;
 import adbs.main.ui.jpanels.check.CheckJPanels;
 import adbs.main.ui.jpanels.adb.AdbJPanels;
 import adbs.main.ui.jpanels.auto.AutoPanels;
@@ -47,6 +48,7 @@ public class AdbTools {
     private final ScrcpyJPanels scrcpyJPanels;
     private final CheckJPanels checkJPanels;
     private final TimingPanels2 timingPanels2;
+    private final AppPanels appPanels;
 
     // 当前选择的设备
     // public static Device device;
@@ -87,29 +89,12 @@ public class AdbTools {
 
         AutoPanels autoPanels = new AutoPanels();
 
-        // private final JPanel otherJPanel;
-        // // 输出标签
         //
+        appPanels = new AppPanels();
+
         // JPanel checkJPanel = initCheckJPanel(timingPanels2, toolsJPanels, autoPanels, universalPanels, adbJPanels, scrcpyJPanels);
-        checkJPanels = new CheckJPanels(timingPanels2, toolsJPanels, autoPanels, universalPanels, adbJPanels, scrcpyJPanels);
+        checkJPanels = new CheckJPanels(timingPanels2, toolsJPanels, autoPanels, universalPanels, adbJPanels, scrcpyJPanels, appPanels);
         JPanel checkJPanel = checkJPanels.getCheckJPanel();
-
-
-        // // 创建输入面板的模型
-        // InOutputModel inOut = new InOutputModel(timePanels, universalPanels);
-        // 测试替换
-
-
-        // 设置inputOK按钮事件监听器
-        // timePanels.getInputOkButton().addActionListener(new InputOkButtonActionListener(inOut));
-        // timePanels.getInputOkButton().addActionListener(new InputOkButtonActionListener());
-
-        // timePanels.getPlusBtn().addActionListener(new PlusBtnAcListener(inOut));
-        // timePanels.getPlusBtn().addActionListener(new PlusBtnAcListener(timePanels));
-
-
-        // timePanels.getMinusBtn().addActionListener(new MinusBtnAcListener(inOut));
-        // timePanels.getMinusBtn().addActionListener(new MinusBtnAcListener(timePanels));
 
 
         // 添加 选项面板 到窗体中 第1列
@@ -128,9 +113,7 @@ public class AdbTools {
 
         frame.add(toolsJPanels.getToolsJPanel());
         frame.add(autoPanels.getAutoJPanel());
-
-        // // 需要先初始化通用面板 要放在 initUniversalPanel(inputPanels, inOut);之后
-        // generalJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(universalPanels.getUniversalPanel()));
+        frame.add(appPanels.getAppPanel());
 
         // 添加多选框面板到第3行
         AbstractButtons.setMarginInButtonJPanel(checkJPanel, -1);
@@ -142,61 +125,6 @@ public class AdbTools {
         // timingPanels2.getjComboBox().setSelectedIndex(0);
 
     }
-    //
-    // private JPanel initCheckJPanel(TimingPanels2 timingPanels2, ToolsJPanels toolsJPanels, AutoPanels autoPanels, UniversalPanels universralPanels, AdbJPanels adbJPanels, ScrcpyJPanels scrcpyJPanels) {
-    //     // 初始化多选框面板
-    //     JPanel checkJPanel = new JPanel();
-    //     checkJPanel.setLayout(FlowLayouts.flowLayoutLeft);
-    //
-    //     // 通用复选框
-    //     // JCheckBox generalJCheckBox = new JCheckBox("通用", true);
-    //     JCheckBox generalJCheckBox = new JCheckBox("动", true);
-    //     // JCheckBox generalJCheckBox = new JCheckBox("", true);
-    //     generalJCheckBox.setToolTipText("展开/折叠 通用功能");
-    //     // 需要先初始化通用面板 要放在 initUniversalPanel(inputPanels, inOut);之后
-    //     generalJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(universralPanels.getUniversalPanel()));
-    //
-    //
-    //     // JCheckBox adbJCheckBox = new JCheckBox("系统", true);
-    //     // JCheckBox adbJCheckBox = new JCheckBox("system", true);
-    //     JCheckBox adbJCheckBox = new JCheckBox("系", true);
-    //     // JCheckBox adbJCheckBox = new JCheckBox("", true);
-    //     adbJCheckBox.setToolTipText("展开/折叠 系统功能 面板");
-    //     adbJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(adbJPanels.getAdbJPanel()));
-    //
-    //     // JCheckBox scrcpyJCheckBox = new JCheckBox("投屏", true);
-    //     JCheckBox scrcpyJCheckBox = new JCheckBox("投", true);
-    //     // JCheckBox adbJCheckBox = new JCheckBox("", true);
-    //     scrcpyJCheckBox.setToolTipText("展开/折叠 scrcpy设置功能");
-    //     scrcpyJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(scrcpyJPanels.getScrcpyJPanel()));
-    //
-    //     // 控制复选框
-    //     JCheckBox controlJCheckBox = new JCheckBox("等", true);
-    //     // controlJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(timingPanels.getTimingPanel()));
-    //     controlJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(timingPanels2.getTimingPanels2()));
-    //     // 现在就触发
-    //     // controlJCheckBox.doClick();
-    //
-    //     // JCheckBox multitaskingJCheckBox = new JCheckBox("后台", false);
-    //     // JCheckBox multitaskingJCheckBox = new JCheckBox("工具", true);
-    //     JCheckBox toolsJCheckBox = new JCheckBox("工具", false);
-    //     toolsJCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(toolsJPanels.getToolsJPanel()));
-    //     // toolsJCheckBox.doClick();
-    //     toolsJCheckBox.setToolTipText("usb上网，提前apk，安装apk功能");
-    //
-    //     JCheckBox jcbAuto = new JCheckBox("Auto");
-    //     jcbAuto.setToolTipText("打开自动化面板");
-    //     jcbAuto.addItemListener(new JCheckBoxControlJPanelItemListener(autoPanels.getAutoJPanel()));
-    //
-    //
-    //     checkJPanel.add(adbJCheckBox);
-    //     checkJPanel.add(scrcpyJCheckBox);
-    //     checkJPanel.add(generalJCheckBox);
-    //     checkJPanel.add(controlJCheckBox);
-    //     checkJPanel.add(toolsJCheckBox);
-    //     checkJPanel.add(jcbAuto);
-    //     return checkJPanel;
-    // }
 
     private void frameSettings() {
         frame.addWindowListener(new WindowAdapter() {
@@ -356,6 +284,10 @@ public class AdbTools {
         return checkJPanels;
     }
 
+    public AppPanels getAppPanels() {
+        return appPanels;
+    }
+
     public ScrcpyJPanels getScrcpyJPanels() {
         return scrcpyJPanels;
     }
@@ -368,9 +300,6 @@ public class AdbTools {
         return frame;
     }
 
-    // public JButton getStopBtn() {
-    //     return stopBtn;
-    // }
 
     public HashSet<Runnable> getIsRunningSet() {
         return isRunningSet;

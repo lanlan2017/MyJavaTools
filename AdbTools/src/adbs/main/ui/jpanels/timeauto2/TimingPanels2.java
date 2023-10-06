@@ -15,12 +15,6 @@ import java.awt.event.ActionListener;
 
 public class TimingPanels2 extends WaitValues {
     private final JPanel timingPanels2;
-
-    // private final JRadioButton jrBtnVideo;
-    // private final JRadioButton jrBtnShopping;
-    // private final JRadioButton jrBtnWait;
-
-    // private final String textJrBtnVideo = "v";
     /**
      * vw
      */
@@ -37,8 +31,6 @@ public class TimingPanels2 extends WaitValues {
      * rw
      */
     private final String textJrBtnReadWait = "rw";
-    // private final String textJrBtnReadWait = "r";
-
 
     private final JComboBox<String> jComboBox;
     private final JButton btn35s;
@@ -58,29 +50,22 @@ public class TimingPanels2 extends WaitValues {
     public TimingPanels2() {
         timingPanels2 = new JPanel();
         timingPanels2.setLayout(FlowLayouts.flowLayoutLeft);
-        btn30s = getButton(30);
-        btn35s = getButton(35);
-        btn65s = getButton(65);
-        btn95s = getButton(95);
-        btn120s = getButton(120);
-        btn180s = getButton(180);
-        btn1H = getButton(1 * 60 * 60);
-        btn1_5H = getButton(1 * 60 * 60 + 30 * 60);
-        btn2H = getButton(2 * 60 * 60);
-        btn20M = getButton(20 * 60);
+        btn30s = initButton(30);
+        btn35s = initButton(35);
+        btn65s = initButton(65);
+        btn95s = initButton(95);
+        btn120s = initButton(120);
+        btn180s = initButton(180);
+        btn1H = initButton(1 * 60 * 60);
+        btn1_5H = initButton(1 * 60 * 60 + 30 * 60);
+        btn2H = initButton(2 * 60 * 60);
+        btn20M = initButton(20 * 60);
         // btn1H= btn1H;
-        btn3HMore = getButton(values[values.length - 2]);
-        btn4H = getButton(values[values.length - 1]);
-
-
+        btn3HMore = initButton(values[values.length - 2]);
+        btn4H = initButton(values[values.length - 1]);
         hideAllButtons();
 
         jComboBox = initComboBox();
-        // jComboBox.setSelectedIndex(0);
-
-        // timingPanels.add(jrBtnVideo);
-        // timingPanels.add(jrBtnWait);
-        // timingPanels.add(jrBtnShopping);
 
         timingPanels2.add(jComboBox);
 
@@ -109,17 +94,8 @@ public class TimingPanels2 extends WaitValues {
 
         // 获取其他按钮的首选大小
         Dimension preferredSize = btn65s.getPreferredSize();
-        // System.out.println("preferredSize1111 = " + preferredSize);
         // 设置下拉框的首选大小
-        // jComboBox.setPreferredSize(new Dimension(preferredSize.height * 2, preferredSize.height));
-        // jComboBox.setPreferredSize(new Dimension(preferredSize.height * 2 + 1, preferredSize.height));
         jComboBox.setPreferredSize(new Dimension(preferredSize.height * 2 + 2, preferredSize.height));
-        // jComboBox.setPreferredSize(new Dimension(preferredSize.height * 2 + 3, preferredSize.height));
-        // jComboBox.setPreferredSize(new Dimension(preferredSize.height * 2 + 4, preferredSize.height));
-        // jComboBox.setPreferredSize(new Dimension(preferredSize.height * 2 + 5, preferredSize.height));
-        // jComboBox.setPreferredSize(new Dimension(preferredSize.height * 3, preferredSize.height));
-        // Dimension jComboBoxPreferredSize = jComboBox.getPreferredSize();
-        // System.out.println("jComboBoxPreferredSize = " + jComboBoxPreferredSize);
         // 添加选项
         jComboBox.addItem(textJrBtnWait);
         jComboBox.addItem(textJrBtnReadWait);
@@ -163,7 +139,7 @@ public class TimingPanels2 extends WaitValues {
     }
 
 
-    private JButton getButton(int value) {
+    private JButton initButton(int value) {
         final JButton jButton;
 
         String valueStr = getValueStr(value).toUpperCase();
@@ -297,7 +273,7 @@ public class TimingPanels2 extends WaitValues {
         btn65s.setVisible(true);
         btn95s.setVisible(false);
         btn120s.setVisible(false);
-        btn180s.setVisible(false);
+        btn180s.setVisible(true);
         btn20M.setVisible(true);
         btn1H.setVisible(false);
         btn1_5H.setVisible(false);

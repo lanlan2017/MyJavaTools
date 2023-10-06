@@ -1,10 +1,9 @@
 package adbs.main.ui.jpanels.universal.runnable;
 
 import adbs.main.AdbTools;
-import adbs.main.ui.inout.InOutputModel;
 
 public abstract class CloseableRunnable implements Runnable {
-    protected InOutputModel inOutputModel;
+    // protected InOutputModel inOutputModel;
 
     /**
      * 是否结束线程
@@ -15,10 +14,10 @@ public abstract class CloseableRunnable implements Runnable {
      */
     protected String msg;
 
-    public void setInOutputModel(InOutputModel inOutputModel) {
-        this.inOutputModel = inOutputModel;
-    }
-
+    // public void setInOutputModel(InOutputModel inOutputModel) {
+    //     this.inOutputModel = inOutputModel;
+    // }
+    //
 
     public CloseableRunnable() {
         setMsg();
@@ -66,9 +65,10 @@ public abstract class CloseableRunnable implements Runnable {
      * 循环之前要准备的工作
      */
     protected void beforeLoop() {
-        if (inOutputModel != null) {
-            inOutputModel.getUniversalPanels().getOutput2().setText(msg + ":开始");
-        }
+        // if (inOutputModel != null) {
+        //     inOutputModel.getUniversalPanels().getOutput2().setText(msg + ":开始");
+        // }
+        // AdbTools.getInstance().getUniversalPanels().getOutput2().setText(msg + ":开始");
     }
 
 
@@ -83,8 +83,9 @@ public abstract class CloseableRunnable implements Runnable {
      */
     protected void afterLoop() {
         // System.out.println("Closeable AfterLoop：" + this + " " + inOutputModel);
-        if (inOutputModel != null) {
-            inOutputModel.getUniversalPanels().getOutput2().setText("");
-        }
+        // if (inOutputModel != null) {
+        //     inOutputModel.getUniversalPanels().getOutput2().setText("");
+        // }
+        AdbTools.getInstance().getUniversalPanels().getOutput2().setText("");
     }
 }

@@ -1,7 +1,6 @@
 package adbs.main.ui.jpanels.time.listener;
 
 import adbs.main.AdbTools;
-import adbs.main.ui.inout.InOutputModel;
 import adbs.main.ui.jpanels.time.TimePanels;
 
 import javax.swing.*;
@@ -19,11 +18,11 @@ public class MinusBtnAcListener extends WaitValues implements ActionListener {
      */
     private  JLabel timerJLabel;
 
-    public MinusBtnAcListener(InOutputModel inOutputModel) {
-        input1 = inOutputModel.getTimePanels().getInput1();
-        input2 = inOutputModel.getTimePanels().getInput2();
-        timerJLabel = inOutputModel.getTimePanels().getTimerJLabel();
-    }
+    // public MinusBtnAcListener(InOutputModel inOutputModel) {
+    //     input1 = inOutputModel.getTimePanels().getInput1();
+    //     input2 = inOutputModel.getTimePanels().getInput2();
+    //     timerJLabel = inOutputModel.getTimePanels().getTimerJLabel();
+    // }
 
     public MinusBtnAcListener(TimePanels timePanels) {
         input1 = timePanels.getInput1();

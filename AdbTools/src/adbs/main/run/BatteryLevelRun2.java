@@ -74,7 +74,8 @@ public class BatteryLevelRun2 implements Runnable {
                                     @Override
                                     public void run() {
                                         // 等待50
-                                        ThreadSleep.minutes(50);
+                                        // ThreadSleep.minutes(50);
+                                        ThreadSleep.minutes(60);
                                         String usbChargingAllowed = "adb -s " + serial + " shell dumpsys battery set usb 1";
                                         AdbCommands.runAbdCmd(usbChargingAllowed);
                                         // 允许弹窗

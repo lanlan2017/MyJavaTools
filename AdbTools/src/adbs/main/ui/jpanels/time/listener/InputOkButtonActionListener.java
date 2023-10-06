@@ -3,7 +3,6 @@ package adbs.main.ui.jpanels.time.listener;
 import adbs.main.AdbTools;
 import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.adb.listener.ButtonFocusReleaseActionListener;
-import adbs.main.ui.inout.InOutputModel;
 import adbs.main.ui.jpanels.time.TimePanels;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
 import adbs.main.ui.jpanels.universal.runnable.*;
@@ -16,10 +15,11 @@ import java.awt.event.ActionEvent;
  * 确认按钮事件处理程序
  */
 public class InputOkButtonActionListener extends ButtonFocusReleaseActionListener {
-    /**
-     * 被操作的输入输出组件
-     */
-    private InOutputModel inOutputModel;
+    // /**
+    //  * 被操作的输入输出组件
+    //  */
+    // private InOutputModel inOutputModel;
+
     /**
      * 阅读线程体
      */
@@ -66,34 +66,34 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
     // private UniversalPanels universalPanels;
     // private TimePanels timePanels;
 
-    public InputOkButtonActionListener(InOutputModel inOutputModel) {
-        this.inOutputModel = inOutputModel;
-        // this.universalPanels = inOutputModel.getUniversalPanels();
-        // this.timePanels = inOutputModel.getTimePanels();
-
-        this.readButtonRunnable = ReadButtonRunnable.getInstance();
-        // readButtonRunnable.setInOutputModel(inOutputModel);
-        // readButtonRunnable.setUniversalPanels(universalPanels);
-
-
-        this.browseRunnable = BrowseRunnable.getInstance();
-        // browseRunnable.setInOutputModel(inOutputModel);
-        // browseRunnable.setTimePanels(timePanels);
-        // browseRunnable.setUniversalPanels(universalPanels);
-
-
-        this.waitReturnButtonRunnable = WaitButtonRunnable.getInstance();
-        // waitReturnButtonRunnable.setInOutputModel(inOutputModel);
-
-
-        this.videoButtonRunnable = VideoButtonRunnable.getInstance();
-        // videoButtonRunnable.setInOutputModel(inOutputModel);
-
-        this.shoppingButtonRunnable = ShoppingButtonRunnable.getInstance();
-        // shoppingButtonRunnable.setInOutputModel(inOutputModel);
-
-        this.roolBtnRunnable = RoolBtnRunnable.getInstance();
-    }
+    // public InputOkButtonActionListener(InOutputModel inOutputModel) {
+    //     this.inOutputModel = inOutputModel;
+    //     // this.universalPanels = inOutputModel.getUniversalPanels();
+    //     // this.timePanels = inOutputModel.getTimePanels();
+    //
+    //     this.readButtonRunnable = ReadButtonRunnable.getInstance();
+    //     // readButtonRunnable.setInOutputModel(inOutputModel);
+    //     // readButtonRunnable.setUniversalPanels(universalPanels);
+    //
+    //
+    //     this.browseRunnable = BrowseRunnable.getInstance();
+    //     // browseRunnable.setInOutputModel(inOutputModel);
+    //     // browseRunnable.setTimePanels(timePanels);
+    //     // browseRunnable.setUniversalPanels(universalPanels);
+    //
+    //
+    //     this.waitReturnButtonRunnable = WaitButtonRunnable.getInstance();
+    //     // waitReturnButtonRunnable.setInOutputModel(inOutputModel);
+    //
+    //
+    //     this.videoButtonRunnable = VideoButtonRunnable.getInstance();
+    //     // videoButtonRunnable.setInOutputModel(inOutputModel);
+    //
+    //     this.shoppingButtonRunnable = ShoppingButtonRunnable.getInstance();
+    //     // shoppingButtonRunnable.setInOutputModel(inOutputModel);
+    //
+    //     this.roolBtnRunnable = RoolBtnRunnable.getInstance();
+    // }
 
     public InputOkButtonActionListener() {
         // this.inOutputModel = inOutputModel;

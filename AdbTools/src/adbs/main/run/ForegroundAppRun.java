@@ -2,6 +2,7 @@ package adbs.main.run;
 
 import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
+import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
 import adbs.tools.thread.ThreadSleep;
 import config.AdbToolsProperties;
@@ -104,10 +105,11 @@ public class ForegroundAppRun implements Runnable {
                         afterOpeningAllAPKs();
                     }
                     System.out.println();
-                    // 把apk的名称放到列表中
-                    System.out.println("已打开:" + apkOpenedToday);
+
+                    printOpenedAppNames();
+
                     // 打印没有打开的可赚钱APP
-                    printAppNamesThatAreNotOpen();
+                    printNotOpenAppNames();
                 }
 
                 // updateFormTitle
@@ -140,10 +142,25 @@ public class ForegroundAppRun implements Runnable {
         }
     }
 
+    private void printOpenedAppNames() {
+        // 把apk的名称放到列表中
+        System.out.println("已打开:" + apkOpenedToday);
+        StringBuffer sb = new StringBuffer();
+        for (String s : apkOpenedToday) {
+            sb.append(s).append("\n");
+        }
+
+
+        JTextArea signedInApp = AdbTools.getInstance().getAppPanels().getSignedIn();
+        signedInApp.setText(sb.toString().trim());
+
+    }
+
     /**
      * 打印还没打开的APP名称
      */
-    private void printAppNamesThatAreNotOpen() {
+    private void printNotOpenAppNames() {
+        StringBuffer sb = new StringBuffer();
         System.out.print("未打开:");
         for (int i = 0, size = apps.size(), count = 0; i < size; i++) {
             String apkName = apps.get(i);
@@ -159,9 +176,12 @@ public class ForegroundAppRun implements Runnable {
                 count++;
                 // 输出这个没打开过的apk
                 System.out.print(apkName);
+                sb.append(apkName).append("\n");
             }
         }
         System.out.println();
+
+        AdbTools.getInstance().getAppPanels().getNotOpened().setText(sb.toString().trim());
         // System.out.println();
     }
 

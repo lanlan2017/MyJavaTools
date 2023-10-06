@@ -2,7 +2,6 @@ package adbs.main.ui.jpanels.universal.runnable;
 
 import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
-import adbs.main.ui.inout.InOutputModel;
 import adbs.main.ui.jpanels.time.TimePanels;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
 import tools.thead.Threads;
@@ -33,9 +32,9 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
         return instance;
     }
 
-    public void setInOutputModel(InOutputModel inOutputModel) {
-        this.inOutputModel = inOutputModel;
-    }
+    // public void setInOutputModel(InOutputModel inOutputModel) {
+    //     this.inOutputModel = inOutputModel;
+    // }
 
     public void setClickReturnBtn(boolean clickReturnBtn) {
         isClickReturnBtn = clickReturnBtn;
