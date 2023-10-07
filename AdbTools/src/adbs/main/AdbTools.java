@@ -49,6 +49,7 @@ public class AdbTools {
     private final CheckJPanels checkJPanels;
     private final TimingPanels2 timingPanels2;
     private final AppPanels appPanels;
+    private final AutoPanels autoPanels;
 
     // 当前选择的设备
     // public static Device device;
@@ -87,7 +88,7 @@ public class AdbTools {
         // 初始化工具面板
         ToolsJPanels toolsJPanels = new ToolsJPanels();
 
-        AutoPanels autoPanels = new AutoPanels();
+        autoPanels = new AutoPanels();
 
         //
         appPanels = new AppPanels();
@@ -272,6 +273,10 @@ public class AdbTools {
         return timePanels;
     }
 
+    public TimingPanels2 getTimingPanels2() {
+        return timingPanels2;
+    }
+
     public AdbJPanels getAdbJPanels() {
         return adbJPanels;
     }
@@ -318,11 +323,12 @@ public class AdbTools {
     public static void main(String[] args) {
         AdbTools instance = AdbTools.getInstance();
         instance.timingPanels2.getjComboBox().setSelectedIndex(0);
+        instance.autoPanels.defaultSelected();
+
         // timingPanels2.getjComboBox().setSelectedIndex(0);
         if (!IsTest.isTest()) {
             // 在打开应用的时候，就触发投屏按钮
             instance.getScrcpyJPanels().getBtnOpenScrcpy().doClick();
-
             ThreadSleep.seconds(5);
             new Thread(new ForegroundAppRun()).start();
             // // 启动电池监测线程

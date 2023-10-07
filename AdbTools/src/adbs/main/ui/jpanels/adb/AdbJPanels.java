@@ -168,7 +168,7 @@ public class AdbJPanels {
         AbstractButtons.setMarginInButtonJPanel(volumeJPanel, -1);
         AbstractButtons.setMarginInButtonJPanel(statusbarJPanel, -1);
         // 设置的内切
-        AbstractButtons.setMarginInButtonJPanel(navigationKeyJPanel, -1);
+        AbstractButtons.setMarginInButtonJPanel(navigationKeyJPanel, 0);
         // volumeNone.setMargin(new Insets(2, -1, -1, -1));
         // volumeNone.setMargin(new Insets(2, -1, 2, -1));
     }
@@ -190,7 +190,9 @@ public class AdbJPanels {
                 String openAct = "adb -s " + serial + " shell am start -n " + actName;
                 System.out.println("openAct = " + openAct);
                 System.out.println();
-                String clipOut = actName + "\n" + openAct;
+                String openActJavaStr = "String openAct = \"adb -s \" + device.getSerial() + \" shell am start -n " + actName + "\";";
+                System.out.println("openActJavaStr = " + openActJavaStr);
+                String clipOut = "// " + actName + "\n// " + openAct + "\n// " + openActJavaStr;
                 SystemClipboard.setSysClipboardText(clipOut);
             }
         });
@@ -238,16 +240,16 @@ public class AdbJPanels {
             public void actionPerformed(ActionEvent e) {
                 // String text = statusbarShow.getText();
                 // if (text.equals(showFlag)) {
-                    // 获取选中的adb设备的序列号
-                    // String id = AdbTools.device.getId();
-                    String id = AdbTools.getInstance().getDevice().getSerial();
-                    // 拼接重启代码
-                    String adbCmd = "adb -s " + id + " shell service call statusbar 1";
-                    // System.out.println("adbCmd = " + adbCmd);
-                    // 启动cmd进程执行adb命令
-                    AdbCommands.runAbdCmd(adbCmd);
-                    // statusbarShow.setText(hideFlag);
-                    statusbarShow.setToolTipText("展开状态栏");
+                // 获取选中的adb设备的序列号
+                // String id = AdbTools.device.getId();
+                String id = AdbTools.getInstance().getDevice().getSerial();
+                // 拼接重启代码
+                String adbCmd = "adb -s " + id + " shell service call statusbar 1";
+                // System.out.println("adbCmd = " + adbCmd);
+                // 启动cmd进程执行adb命令
+                AdbCommands.runAbdCmd(adbCmd);
+                // statusbarShow.setText(hideFlag);
+                statusbarShow.setToolTipText("展开状态栏");
                 // } else {
                 //     String id = AdbTools.getInstance().getDevice().getSerial();
                 //     // 拼接重启代码

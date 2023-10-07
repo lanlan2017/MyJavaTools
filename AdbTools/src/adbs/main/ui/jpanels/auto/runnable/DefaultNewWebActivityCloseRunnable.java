@@ -43,6 +43,7 @@ public abstract class DefaultNewWebActivityCloseRunnable extends CloseableRunnab
         System.out.println("xxxxxx btnCoin = " + btnCoin);
         // adbTap_Wait(device, btnCloseQieZi);
         // adbTap_Wait(device, readGoldCoin);
+
         // 点击关闭按钮
         adbTap_Wait(device, btnClose);
         if (stop) {
@@ -52,12 +53,17 @@ public abstract class DefaultNewWebActivityCloseRunnable extends CloseableRunnab
         adbTap_Wait(device, btnCoin);
     }
 
-    private void adbTap_Wait(Device device, ScreenPositionRatio closeButton) {
+    private void adbTap_Wait(Device device, ScreenPositionRatio ratio) {
         if (device != null) {
-            AdbTap.tap(device, closeButton);
+            // 点击设备上的指定位置
+            AdbTap.tap(device, ratio);
+            // 等待3秒
             ThreadSleep.seconds(3);
         } else {
             System.out.println("device = " + device);
         }
+
+
+
     }
 }

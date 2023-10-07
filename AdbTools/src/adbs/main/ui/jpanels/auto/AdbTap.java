@@ -3,6 +3,7 @@ package adbs.main.ui.jpanels.auto;
 import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
 import adbs.model.Device;
+import adbs.tools.thread.ThreadSleep;
 import tools.copy.SystemClipboard;
 
 import java.util.Scanner;
@@ -46,8 +47,15 @@ public class AdbTap {
 
     public static void tap(Device device, ScreenPositionRatio taskBtnRatio) {
         String adbTapCode = getAdbTapCode(device, taskBtnRatio);
-        System.out.println("adbTapCode = " + adbTapCode);
+        // System.out.println("adbTapCode = " + adbTapCode);
         AdbCommands.runAbdCmd(adbTapCode);
+        // ThreadSleep.minutes(1);
+        ThreadSleep.millisecond(600);
+    }
+
+    public static void tap_wait(Device device, ScreenPositionRatio readBtn, int i) {
+        AdbTap.tap(device, readBtn);
+        ThreadSleep.seconds(i);
     }
 
     private static String getAdbTapCode(Device device, ScreenPositionRatio taskBtnRatio) {
@@ -91,7 +99,7 @@ public class AdbTap {
     }
 
     private static ScreenPosition getPosition(int height, int width, ScreenPositionRatio ratio) {
-        System.out.println("ratio = " + ratio);
+        // System.out.println("ratio = " + ratio);
         int x1 = (int) (width * ratio.getxRatio());
         int y1 = (int) (height * ratio.getyRatio());
         ScreenPosition position = new ScreenPosition(x1, y1);

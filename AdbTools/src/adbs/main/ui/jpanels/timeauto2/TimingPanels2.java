@@ -208,6 +208,54 @@ public class TimingPanels2 extends WaitValues {
         return jComboBox;
     }
 
+    public JButton getBtn35s() {
+        return btn35s;
+    }
+
+    public JButton getBtn30s() {
+        return btn30s;
+    }
+
+    public JButton getBtn65s() {
+        return btn65s;
+    }
+
+    public JButton getBtn95s() {
+        return btn95s;
+    }
+
+    public JButton getBtn120s() {
+        return btn120s;
+    }
+
+    public JButton getBtn180s() {
+        return btn180s;
+    }
+
+    public JButton getBtn3HMore() {
+        return btn3HMore;
+    }
+
+    public JButton getBtn4H() {
+        return btn4H;
+    }
+
+    public JButton getBtn1H() {
+        return btn1H;
+    }
+
+    public JButton getBtn2H() {
+        return btn2H;
+    }
+
+    public JButton getBtn20M() {
+        return btn20M;
+    }
+
+    public JButton getBtn1_5H() {
+        return btn1_5H;
+    }
+
     /**
      * 设置时间选择面板的输入框1的值
      *

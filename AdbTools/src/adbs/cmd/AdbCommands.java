@@ -1,6 +1,7 @@
 package adbs.cmd;
 
 import adbs.main.AdbTools;
+import adbs.model.Device;
 import tools.process.ProcessRunner;
 import tools.random.Randoms;
 
@@ -75,6 +76,78 @@ public class AdbCommands {
         // AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 700 5 1650 200");
         AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 800 5 1600 200");
     }
+
+    /**
+     * 在手机顶部，从右向左滑动
+     * 在手机顶部，从右向左滑动
+     *
+     * @param device
+     */
+    public static void swipeRight2LeftOnTop(Device device) {
+
+        String serial = device.getSerial();
+        int width = device.getWidth();
+        // int height = device.getHeight();
+
+        int rightX = width - 10;
+        int y = 100;
+        int leftX = 50;
+
+        AdbCommands.runAbdCmd("adb -s " + serial + " shell input swipe " + rightX + " " + y + " " + leftX + " " + y + " 200");
+    }
+
+    /**
+     * 按下指定设备的home键
+     *
+     * @param device 需要按home键的设备
+     */
+    public static void home(Device device) {
+        String home = "adb -s " + device.getSerial() + " shell input keyevent 3";
+        AdbCommands.runAbdCmd(home);
+    }
+
+    public static void returnBtn(Device device) {
+        String code = "adb -s " + device.getSerial() + " shell input keyevent BACK";
+        // String code = "adb -s " + device.getSerial() + " shell input keyevent 4";
+        AdbCommands.runAbdCmd(code);
+    }
+
+    public static void taskBtn(Device device) {
+        // String code = "adb -s " + device.getSerial() + " shell input keyevent BACK";
+        // String code = "adb -s " + device.getSerial() + " shell input keyevent BACK";
+        String code = "adb -s " + device.getSerial() + " shell input keyevent 187";
+        AdbCommands.runAbdCmd(code);
+    }
+
+    /**
+     * 隐藏导航条
+     *
+     * @param device 要隐藏导航条的设备
+     */
+    public static void hideNavigationBar(Device device) {
+        String code = "adb -s " + device.getSerial() + " shell settings put global policy_control immersive.navigation=*";
+        AdbCommands.runAbdCmd(code);
+    }
+
+
+    // /**
+    //  * 在手机顶部，从右向左滑动
+    //  * 在手机顶部，从右向左滑动
+    //  *
+    //  * @param device
+    //  */
+    // public static void swipeRight2LeftOnTop() {
+    //
+    //     // String serial = device.getSerial();
+    //     // int width = device.getWidth();
+    //     // int height = device.getHeight();
+    //
+    //     int rightX = width - 10;
+    //     int y = 100;
+    //     int leftX = 50;
+    //
+    //     AdbCommands.runAbdCmd("adb -s " + serial + " shell input swipe " + rightX + " " + y + " " + leftX + " " + y + " 200");
+    // }
 
     /**
      * 运行adb命令
