@@ -210,6 +210,15 @@ public class AdbTools {
             }
         }
         scanner.close();
+        int size = simpleId_Device_map.size();
+        if (size == 1) {
+            device = simpleId_Device_map.get(idList.get(0));
+            System.out.println("device = " + device);
+            // return device;
+            frame.setTitle(device.getName());
+            return;
+        }
+
         /**
          * 排序设备名
          */

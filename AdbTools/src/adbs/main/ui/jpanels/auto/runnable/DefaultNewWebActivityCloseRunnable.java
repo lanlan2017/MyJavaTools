@@ -1,5 +1,7 @@
 package adbs.main.ui.jpanels.auto.runnable;
 
+import adbs.cmd.AdbCommands;
+import adbs.main.run.AdbGetPackage;
 import adbs.main.ui.jpanels.auto.AdbTap;
 import adbs.main.ui.jpanels.auto.ScreenPositionRatio;
 import adbs.main.ui.jpanels.universal.runnable.CloseableRunnable;
@@ -44,8 +46,42 @@ public abstract class DefaultNewWebActivityCloseRunnable extends CloseableRunnab
         // adbTap_Wait(device, btnCloseQieZi);
         // adbTap_Wait(device, readGoldCoin);
 
+        String actName = AdbGetPackage.getActName();
+        int endIndex = actName.indexOf("/");
+        String actShortName = actName.substring(endIndex + 1);
+        String packageName = actName.substring(0, endIndex);
+        System.out.println("packageName = " + packageName);
+        System.out.println("actShortName = " + actShortName);
+
+        switch (actShortName) {
+            case "com.kmxs.reader.webview.ui.DefaultNewWebActivity":
+                adbTap_Wait(device, btnClose);
+                break;
+            case "":
+                break;
+            default:
+                AdbCommands.returnBtn(device);
+                break;
+        }
+        // if (actName.endsWith("com.kmxs.reader.webview.ui.DefaultNewWebActivity")) {
+        //     System.out.println("广告界面");
+        //     adbTap_Wait(device, btnClose);
+        // } else if () {
+        //     //
+        //     String guanggao = "com.xm.freader/com.bytedance.sdk.openadsdk.stub.activity.Stub_Standard_Portrait_Activit";
+        //
+        // }
+
+
+        // com.xm.freader/com.kmxs.reader.webview.ui.DefaultNewWebActivity
+
+        // com.xm.freader/com.bytedance.sdk.openadsdk.stub.activity.Stub_Standard_Portrait_Activity
+        // adb -s RKK0218314002658 shell am start -n com.xm.freader/com.bytedance.sdk.openadsdk.stub.activity.Stub_Standard_Portrait_Activity
+        // String openAct = "adb -s " + device.getSerial() + " shell am start -n com.xm.freader/com.bytedance.sdk.openadsdk.stub.activity.Stub_Standard_Portrait_Activity";
+
+
         // 点击关闭按钮
-        adbTap_Wait(device, btnClose);
+        // adbTap_Wait(device, btnClose);
         if (stop) {
             return;
         }
@@ -62,7 +98,6 @@ public abstract class DefaultNewWebActivityCloseRunnable extends CloseableRunnab
         } else {
             System.out.println("device = " + device);
         }
-
 
 
     }

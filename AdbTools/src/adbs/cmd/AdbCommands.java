@@ -69,6 +69,18 @@ public class AdbCommands {
         return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 " + y70 + " 5 " + y30 + " 200");
     }
 
+    public static String swipeBotton2TopOnRight(Device device) {
+        int width = device.getWidth();
+        int rightX = (int) (width * 0.9);
+        int height = device.getHeight();
+        int yTop = (int) (height * 0.2);
+        int yButton = (int) (height * 0.6);
+
+        return AdbCommands.runAbdCmd("adb -s " + device.getSerial() + " shell input swipe " + rightX + " " + yButton + " " + rightX + " " + yTop + " 200");
+        // return AdbCommands.runAbdCmd("adb -s " + device.getSerial() + " shell input swipe 5 " + y70 + " 5 " + y30 + " 200");
+        // return AdbCommands.runAbdCmd("adb -s " +)
+    }
+
     /**
      * 在手机左侧，从下向上滑动
      */

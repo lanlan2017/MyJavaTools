@@ -274,26 +274,9 @@ public class AutoPanels implements CoinsType {
 
                             // clickReadBtn(device);
 
-                            // 点击书架界面
-                            ScreenPositionRatio bookshelf = new ScreenPositionRatio(0.09907407407407408, 0.95);
-                            // AdbTap.tap_wait(device, bookshelf, 3);
-                            AdbTap.tap_wait(device, bookshelf, 5);
-                            AdbTap.tap_wait(device, bookshelf, 5);
-                            // 点击今日推荐
-                            ScreenPositionRatio recommendedToday = new ScreenPositionRatio(0.5425925925925926, 0.24739583333333334);
-                            // AdbTap.tap_wait(device, recommendedToday, 5);
-                            AdbTap.tap_wait(device, recommendedToday, 5);
+                            readingRecommendedBooks(device);
 
-                            ScreenPositionRatio bookTuiJian1 = new ScreenPositionRatio(0.6314814814814815, 0.4984375);
-                            // AdbTap.tap_wait(device, bookTuiJian1, 4);
-                            AdbTap.tap_wait(device, bookTuiJian1, 5);
-
-                            // 阅读并等待
-                            TimingPanels2 timingPanels2 = AdbTools.getInstance().getTimingPanels2();
-                            timingPanels2.getjComboBox().setSelectedIndex(1);
-                            timingPanels2.getBtn3HMore().doClick();
-
-                        } else {
+                        } else if (deviceName.equals("op")) {
 
                             // // String openAct = "adb -s " + device.getSerial() + " shell am start -n com.qz.freader/com.kmxs.reader.home.ui.HomeActivity";
                             String openAct = "adb -s " + device.getSerial() + " shell am start -n com.qz.freader/com.kmxs.reader.home.ui.HomeActivity";
@@ -308,6 +291,9 @@ public class AutoPanels implements CoinsType {
 
 
                             AdbCommands.runAbdCmd(openAct);
+                            readingRecommendedBooks(device);
+
+
                         }
 
 
@@ -318,6 +304,27 @@ public class AutoPanels implements CoinsType {
         btnZhuanOk.setVisible(false);
 
         return btnZhuanOk;
+    }
+
+    private void readingRecommendedBooks(Device device) {
+        // 点击书架界面
+        ScreenPositionRatio bookshelf = new ScreenPositionRatio(0.09907407407407408, 0.95);
+        // AdbTap.tap_wait(device, bookshelf, 3);
+        AdbTap.tap_wait(device, bookshelf, 5);
+        AdbTap.tap_wait(device, bookshelf, 5);
+        // 点击今日推荐
+        ScreenPositionRatio recommendedToday = new ScreenPositionRatio(0.5425925925925926, 0.24739583333333334);
+        // AdbTap.tap_wait(device, recommendedToday, 5);
+        AdbTap.tap_wait(device, recommendedToday, 5);
+
+        ScreenPositionRatio bookTuiJian1 = new ScreenPositionRatio(0.6314814814814815, 0.4984375);
+        // AdbTap.tap_wait(device, bookTuiJian1, 4);
+        AdbTap.tap_wait(device, bookTuiJian1, 8);
+
+        // 阅读并等待
+        TimingPanels2 timingPanels2 = AdbTools.getInstance().getTimingPanels2();
+        timingPanels2.getjComboBox().setSelectedIndex(1);
+        timingPanels2.getBtn3HMore().doClick();
     }
 
     private void clickReadBtn(Device device) {
@@ -387,18 +394,30 @@ public class AutoPanels implements CoinsType {
      */
     private void openQieZiApp(Device device) {
         String actName;
-        AdbCommands.home(device);
-
-        // 隐藏导航栏
-        // hideNavigationBar
-        AdbCommands.hideNavigationBar(device);
-        ThreadSleep.seconds(1);
+        hideNav_home_wait(device);
 
         // 从右向左滑动一次
         AdbCommands.swipeRight2LeftOnTop(device);
         ThreadSleep.seconds(1);
         ScreenPositionRatio app_0_0 = new ScreenPositionRatio(0.14074074074074075, 0.12135416666666667);
         AdbTap.tap(device, app_0_0);
+    }
+
+    private void hideNav_home_wait(Device device) {
+        hideNavigationBar_wait(device);
+        home_wait(device);
+    }
+
+    private void home_wait(Device device) {
+        AdbCommands.home(device);
+        ThreadSleep.seconds(1);
+    }
+
+    private void hideNavigationBar_wait(Device device) {
+        // 隐藏导航栏
+        // hideNavigationBar
+        AdbCommands.hideNavigationBar(device);
+        ThreadSleep.seconds(1);
     }
 
     private void printActName() {

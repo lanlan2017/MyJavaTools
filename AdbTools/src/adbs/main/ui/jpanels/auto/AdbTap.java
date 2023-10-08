@@ -53,6 +53,26 @@ public class AdbTap {
         ThreadSleep.millisecond(600);
     }
 
+    public static void tap(Device device, int x, int y) {
+        // String adbTapCode = getAdbTapCode(device, taskBtnRatio);
+        String adbTapCode = "adb -s " + device.getSerial() + " shell input tap " + x + " " + y;
+        // System.out.println("adbTapCode = " + adbTapCode);
+        AdbCommands.runAbdCmd(adbTapCode);
+        // ThreadSleep.minutes(1);
+        // ThreadSleep.millisecond(600);
+    }
+
+    public static void tapCenterPosition(Device device) {
+        double centerX = device.getWidth() * 0.5;
+        double centerY = device.getHeight() * 0.5;
+        // String adbTapCode = getAdbTapCode(device, taskBtnRatio);
+        String adbTapCode = "adb -s " + device.getSerial() + " shell input tap " + centerX + " " + centerY;
+        // System.out.println("adbTapCode = " + adbTapCode);
+        AdbCommands.runAbdCmd(adbTapCode);
+        // ThreadSleep.minutes(1);
+        // ThreadSleep.millisecond(600);
+    }
+
     public static void tap_wait(Device device, ScreenPositionRatio readBtn, int i) {
         AdbTap.tap(device, readBtn);
         ThreadSleep.seconds(i);

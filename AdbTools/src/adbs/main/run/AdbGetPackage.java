@@ -3,6 +3,7 @@ package adbs.main.run;
 import adbs.cmd.AdbCommands;
 import adbs.cmd.CmdRun;
 import adbs.main.AdbTools;
+import adbs.main.run.model.AppNames;
 
 public class AdbGetPackage {
     /**
@@ -63,6 +64,12 @@ public class AdbGetPackage {
         }
 
         return actName;
+    }
+    public static AppNames getAppNames() {
+        String actName = AdbGetPackage.getActName();
+        // System.out.println("actName = " + actName);
+        AppNames appNames = new AppNames(actName);
+        return appNames;
     }
 
     /**
