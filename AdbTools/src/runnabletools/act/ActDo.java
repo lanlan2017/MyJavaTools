@@ -8,6 +8,8 @@ import adbs.main.ui.jpanels.auto.AdbTap;
 import adbs.model.Device;
 import adbs.tools.thread.ThreadSleep;
 
+import javax.swing.*;
+
 /**
  * 根据activity自动进行操作
  */
@@ -17,6 +19,7 @@ public class ActDo {
 
     public static void stop() {
         ActDo.stop = true;
+        JOptionPane.showMessageDialog(AdbTools.getInstance().getContentPane(), "自动Act停止了");
     }
 
     public static void main(String[] args) {
@@ -51,29 +54,23 @@ public class ActDo {
             // System.out.println("packageName = " + packageName);
             // System.out.println("actShortName = " + actShortName);
             switch (packageName) {
+                // 熊猫免费小说
+                // 茄子免费小说
+                // 星空免费小说
                 case "com.xm.freader":
+                case "com.qz.freader":
+                case "com.xk.qreader":
                     if (width == 1080 && height == 2160) {
 
                         freader(device, actShortName);
+                        // 记录打开的act短名称
                         arrActName[times % arrActName.length] = actShortName;
                     }
 
-                    // boolean isEnd = false;
-
-                    // for (String s : arrActName) {
-                    //     if (!s.equals(arrActName[0])) {
-                    //         stop = false;
-                    //     }
-                    // }
-                    // boolean b = isEnd();
                     if (isEnd()) {
                         stop();
                         // break;
                     }
-                    // if(b){
-                    //
-                    // }
-                    // System.out.println("b = " + b);
                     times++;
 
 
@@ -167,11 +164,4 @@ public class ActDo {
         AdbTap.tap(device, x, y);
         System.out.println();
     }
-
-    // private static AppNames getAppNames() {
-    //     String actName = AdbGetPackage.getActName();
-    //     System.out.println("actName = " + actName);
-    //     AppNames appNames = new AppNames(actName);
-    //     return appNames;
-    // }
 }

@@ -306,6 +306,73 @@ public class AutoPanels implements CoinsType {
         return btnZhuanOk;
     }
 
+
+
+    private JButton initBtnShouOk() {
+        final JButton button;
+        button = new JButton("确定");
+        button.setText(ReadCoins);
+        button.setVisible(false);
+        // button.setToolTipText("连续多次点击");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                stop = false;
+                Device device = AdbTools.getInstance().getDevice();
+                String serial = device.getSerial();
+                // 隐藏导航栏
+                //
+                String hideNavigationBar = "adb -s " + serial + " shell settings put global policy_control immersive.navigation=*";
+                AdbCommands.runAbdCmd(hideNavigationBar);
+                // // 显示导航栏
+                // String showNB = "adb -s " + serial + " shell settings put global policy_control null";
+
+                String buttonText = button.getText();
+                switch (buttonText) {
+                    case ReadCoins:
+                        // collecionCoins();
+                        System.out.println(ReadCoins);
+                        readCoinsCloseRun(device);
+                        break;
+                    case AudioCoins:
+                        System.out.println(AudioCoins);
+                        audioCoinsCloseRun(device);
+                        break;
+                }
+            }
+
+
+            private void readCoinsCloseRun(Device device) {
+                String actShortName = AdbGetPackage.getActShortName();
+                switch (actShortName) {
+                    case "com.kmxs.reader.webview.ui.DefaultNewWebActivity":
+                        readClose(device);
+                        break;
+                    default:
+                        System.out.println("像素不对");
+                        break;
+                }
+
+            }
+
+            private void audioCoinsCloseRun(Device device) {
+                String actShortName = AdbGetPackage.getActShortName();
+                switch (actShortName) {
+                    case "com.kmxs.reader.webview.ui.DefaultNewWebActivity":
+                        closeAudioDefaultNewWebActivity(device);
+                        break;
+
+                    default:
+                        System.out.println("听书金币，还没匹配当前的activity:" + actShortName);
+                        break;
+
+                }
+
+            }
+        });
+        return button;
+    }
+
     private void readingRecommendedBooks(Device device) {
         // 点击书架界面
         ScreenPositionRatio bookshelf = new ScreenPositionRatio(0.09907407407407408, 0.95);
@@ -432,78 +499,6 @@ public class AutoPanels implements CoinsType {
     //     AdbCommands.runAbdCmd(code);
     // }
 
-
-    private JButton initBtnShouOk() {
-        final JButton button;
-        button = new JButton("确定");
-        button.setText(ReadCoins);
-        button.setVisible(false);
-        // button.setToolTipText("连续多次点击");
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                stop = false;
-                Device device = AdbTools.getInstance().getDevice();
-                String serial = device.getSerial();
-                // 隐藏导航栏
-                //
-                String hideNavigationBar = "adb -s " + serial + " shell settings put global policy_control immersive.navigation=*";
-                AdbCommands.runAbdCmd(hideNavigationBar);
-                // // 显示导航栏
-                // String showNB = "adb -s " + serial + " shell settings put global policy_control null";
-
-                String buttonText = button.getText();
-                switch (buttonText) {
-                    case ReadCoins:
-                        // collecionCoins();
-                        System.out.println(ReadCoins);
-                        readCoinsCloseRun(device);
-                        break;
-                    case AudioCoins:
-                        System.out.println(AudioCoins);
-                        audioCoinsCloseRun(device);
-                        break;
-                }
-            }
-
-
-            private void readCoinsCloseRun(Device device) {
-                String actShortName = AdbGetPackage.getActShortName();
-                switch (actShortName) {
-                    case "com.kmxs.reader.webview.ui.DefaultNewWebActivity":
-                        readClose(device);
-                        break;
-                    default:
-                        System.out.println("像素不对");
-                        break;
-                }
-
-            }
-
-            private void audioCoinsCloseRun(Device device) {
-                String actShortName = AdbGetPackage.getActShortName();
-                switch (actShortName) {
-                    case "com.kmxs.reader.webview.ui.DefaultNewWebActivity":
-                        closeAudioDefaultNewWebActivity(device);
-                        break;
-
-                    default:
-                        System.out.println("听书金币，还没匹配当前的activity:" + actShortName);
-                        break;
-
-                }
-
-            }
-
-            // private void adbTap_Wait(Device device, ScreenPositionRatio closeButton) {
-            //     tap_wait(device, closeButton, 3);
-            // }
-
-        });
-
-
-        return button;
-    }
 
     private void closeAudioDefaultNewWebActivity(Device device) {
         int width = device.getWidth();
