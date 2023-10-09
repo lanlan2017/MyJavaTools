@@ -9,6 +9,7 @@ import adbs.main.ui.jpanels.timeauto2.TimingPanels2;
 import adbs.main.ui.jpanels.universal.runnable.CloseableRunnable;
 import adbs.model.Device;
 import adbs.tools.thread.ThreadSleep;
+import runnabletools.act.ActDo;
 import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
@@ -222,6 +223,8 @@ public class AutoPanels implements CoinsType {
         comboBox = new JComboBox<>();
         comboBox.addItem(ReadCoins);
         comboBox.addItem(AudioCoins);
+        comboBox.addItem(strYueDuZaiLing);
+        comboBox.addItem(strTingShuZaiLing);
         // comboBox.addItem(SuDuMianFeiXiaoShuo);
 
         comboBox.addItemListener(new ItemListener() {
@@ -303,7 +306,6 @@ public class AutoPanels implements CoinsType {
     }
 
 
-
     private JButton initBtnShouOk() {
         final JButton button;
         button = new JButton("确定");
@@ -334,6 +336,18 @@ public class AutoPanels implements CoinsType {
                         System.out.println(AudioCoins);
                         audioCoinsCloseRun(device);
                         break;
+                    case strTingShuZaiLing:
+                        // ActDo target = new ActDo(CoinsType.strTingShuZaiLing);
+                        ActDo runTingShuZaiLing = ActDo.getRunTingShuZaiLing();
+                        closeRun = runTingShuZaiLing;
+                        new Thread(runTingShuZaiLing).start();
+                        break;
+                    case strYueDuZaiLing:
+                        ActDo runYueDuZaiLing = ActDo.getRunYueDuZaiLing();
+                        closeRun = runYueDuZaiLing;
+                        new Thread(runYueDuZaiLing).start();
+                        break;
+
                 }
             }
 

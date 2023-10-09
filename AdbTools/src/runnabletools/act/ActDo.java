@@ -11,19 +11,36 @@ import adbs.model.Device;
 import adbs.tools.thread.ThreadSleep;
 
 import javax.swing.*;
+import java.util.Arrays;
 
 /**
  * 根据activity自动进行操作
  */
 public class ActDo extends CloseableRunnable implements CoinsType {
+    /**
+     * 用来记录当前的activity短名称，当整个数组中的短名称都一样时，说明操作无效，应该则停止线程结束操作
+     */
+    private static String[] arrActName = new String[3];
+
+    private static ActDo runYueDuZaiLing = new ActDo(strYueDuZaiLing);
+    private static ActDo runTingShuZaiLing = new ActDo(strTingShuZaiLing);
+
+
     private String coinType;
 
     public ActDo(String coinType) {
         this.coinType = coinType;
     }
 
+    public static ActDo getRunYueDuZaiLing() {
+        return runYueDuZaiLing;
+    }
+
+    public static ActDo getRunTingShuZaiLing() {
+        return runTingShuZaiLing;
+    }
+
     // private static boolean stop = false;
-    private static String[] arrActName = new String[3];
 
     @Override
     protected void setMsg() {
@@ -37,6 +54,32 @@ public class ActDo extends CloseableRunnable implements CoinsType {
         JOptionPane.showMessageDialog(AdbTools.getInstance().getContentPane(), "自动Act停止了");
     }
 
+    /**
+     * 判断是否应该停止操作。
+     *
+     * @return 当连续点击三次，当前的activity都没有改变改变的时候，就应该停止了。
+     */
+    private  boolean isEnd() {
+        // System.out.println("arrActName[0] = " + arrActName[0]);
+        int i = 1;
+        for (; i < arrActName.length; i++) {
+            // System.out.println("arrActName[" + i + "] = " + arrActName[i]);
+            // 如果找到不相等的元素
+            if (!arrActName[0].equals(arrActName[i])) {
+                // 停止搜索
+                break;
+            }
+        }
+
+        // System.out.println("i = " + i);
+        // System.out.println("arrActName.length = " + arrActName.length);
+
+        // boolean b =
+
+        return i == arrActName.length;
+    }
+
+
     @Override
     protected void loopBody() {
         autoActDo();
@@ -46,16 +89,25 @@ public class ActDo extends CloseableRunnable implements CoinsType {
 
         // autoActDo();
 
-        // new Thread(new ActDo(strTingShuZaiLing)).start();
-        new Thread(new ActDo(strYueDuZaiLing)).start();
+        // runTingShuZaiLing = new ActDo(strTingShuZaiLing);
 
+        // new Thread(runTingShuZaiLing).start();
+        // new Thread(runYueDuZaiLing).start();
+
+    }
+
+    @Override
+    protected void beforeLoop() {
+        super.beforeLoop();
+        zaiYunXingZhiQian();
     }
 
     /**
      * 根据activity自动操作
      */
     private void autoActDo() {
-        stop = false;
+        // zaiYunXingZhiQian();
+
         AdbTools adbTools = AdbTools.getInstance();
         Device device = adbTools.getDevice();
         int width = device.getWidth();
@@ -84,15 +136,13 @@ public class ActDo extends CloseableRunnable implements CoinsType {
                 case "com.qz.freader":
                 case "com.xk.qreader":
                     if (width == 1080 && height == 2160) {
-
-                        freader(device, actShortName);
+                        freader_1080_2160(device, actShortName);
                         // 记录打开的act短名称
                         arrActName[times % arrActName.length] = actShortName;
                     }
 
                     if (isEnd()) {
                         stop();
-                        // break;
                     }
                     times++;
 
@@ -118,31 +168,16 @@ public class ActDo extends CloseableRunnable implements CoinsType {
         System.out.println("自动操作停止...");
     }
 
-    /**
-     * 判断是否应该停止操作。
-     *
-     * @return 当连续点击三次，当前的activity都没有改变改变的时候，就应该停止了。
-     */
-    private static boolean isEnd() {
-        // System.out.println("arrActName[0] = " + arrActName[0]);
-        int i = 1;
-        for (; i < arrActName.length; i++) {
-            // System.out.println("arrActName[" + i + "] = " + arrActName[i]);
-            // 如果找到不相等的元素
-            if (!arrActName[0].equals(arrActName[i])) {
-                // 停止搜索
-                break;
-            }
-        }
-
-        // System.out.println("i = " + i);
-        // System.out.println("arrActName.length = " + arrActName.length);
-
-        boolean b = i == arrActName.length;
-        return b;
+    private void zaiYunXingZhiQian() {
+        stop = false;
+        Arrays.fill(arrActName, "");
+        // System.out.println("arrActName = " + arrActName);
     }
 
-    private void freader(Device device, String actShortName) {
+
+
+    private void freader_1080_2160(Device device, String actShortName) {
+        // System.out.println("actShortName = " + actShortName);
         switch (actShortName) {
             // 金币领取界面
             case "com.kmxs.reader.webview.ui.DefaultNewWebActivity":
@@ -184,7 +219,6 @@ public class ActDo extends CloseableRunnable implements CoinsType {
                 wait_tap(device, 35, new WeiZhi(989, 121));
                 break;
             // case "com.kwad.sdk.api.proxy.app.KsRewardVideoActivity":
-
 
             // case "":
             //     break;

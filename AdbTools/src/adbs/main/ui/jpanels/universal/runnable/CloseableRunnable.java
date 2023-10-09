@@ -65,10 +65,6 @@ public abstract class CloseableRunnable implements Runnable {
      * 循环之前要准备的工作
      */
     protected void beforeLoop() {
-        // if (inOutputModel != null) {
-        //     inOutputModel.getUniversalPanels().getOutput2().setText(msg + ":开始");
-        // }
-        // AdbTools.getInstance().getUniversalPanels().getOutput2().setText(msg + ":开始");
     }
 
 
@@ -82,10 +78,6 @@ public abstract class CloseableRunnable implements Runnable {
      * 循环之后要准备的工作
      */
     protected void afterLoop() {
-        // System.out.println("Closeable AfterLoop：" + this + " " + inOutputModel);
-        // if (inOutputModel != null) {
-        //     inOutputModel.getUniversalPanels().getOutput2().setText("");
-        // }
         AdbTools.getInstance().getUniversalPanels().getOutput2().setText("");
     }
 }
