@@ -221,8 +221,8 @@ public class AutoPanels implements CoinsType {
     private JComboBox<String> initJCBShou() {
         final JComboBox<String> comboBox;
         comboBox = new JComboBox<>();
-        comboBox.addItem(ReadCoins);
-        comboBox.addItem(AudioCoins);
+        comboBox.addItem(strYueDuJinBi);
+        comboBox.addItem(strTingShuJinBi);
         comboBox.addItem(strYueDuZaiLing);
         comboBox.addItem(strTingShuZaiLing);
         // comboBox.addItem(SuDuMianFeiXiaoShuo);
@@ -309,7 +309,7 @@ public class AutoPanels implements CoinsType {
     private JButton initBtnShouOk() {
         final JButton button;
         button = new JButton("确定");
-        button.setText(ReadCoins);
+        button.setText(strYueDuJinBi);
         button.setVisible(false);
         // button.setToolTipText("连续多次点击");
         button.addActionListener(new ActionListener() {
@@ -327,25 +327,40 @@ public class AutoPanels implements CoinsType {
 
                 String buttonText = button.getText();
                 switch (buttonText) {
-                    case ReadCoins:
-                        // collecionCoins();
-                        System.out.println(ReadCoins);
-                        readCoinsCloseRun(device);
+                    // case strYueDuJinBi:
+                    //     // collecionCoins();
+                    //     System.out.println(strYueDuJinBi);
+                    //     readCoinsCloseRun(device);
+                    //     break;
+
+                    case strYueDuJinBi:
+                        // // collecionCoins();
+                        // System.out.println(strYueDuJinBi);
+                        // readCoinsCloseRun(device);
+                        ActDo runYueDuJinBi = ActDo.getRunYueDuJinBi();
+                        startCloseRun(runYueDuJinBi);
                         break;
-                    case AudioCoins:
-                        System.out.println(AudioCoins);
-                        audioCoinsCloseRun(device);
+
+                    // case strTingShuJinBi:
+                    //     System.out.println(strTingShuJinBi);
+                    //     audioCoinsCloseRun(device);
+                    //     break;
+
+                    case strTingShuJinBi:
+                        // System.out.println(strTingShuJinBi);
+                        // audioCoinsCloseRun(device);
+                        ActDo runTingShuJinBi = ActDo.getRunTingShuJinBi();
+                        startCloseRun(runTingShuJinBi);
                         break;
+
                     case strTingShuZaiLing:
                         // ActDo target = new ActDo(CoinsType.strTingShuZaiLing);
                         ActDo runTingShuZaiLing = ActDo.getRunTingShuZaiLing();
-                        closeRun = runTingShuZaiLing;
-                        new Thread(runTingShuZaiLing).start();
+                        startCloseRun(runTingShuZaiLing);
                         break;
                     case strYueDuZaiLing:
                         ActDo runYueDuZaiLing = ActDo.getRunYueDuZaiLing();
-                        closeRun = runYueDuZaiLing;
-                        new Thread(runYueDuZaiLing).start();
+                        startCloseRun(runYueDuZaiLing);
                         break;
 
                 }
@@ -381,6 +396,11 @@ public class AutoPanels implements CoinsType {
             }
         });
         return button;
+    }
+
+    private void startCloseRun(ActDo runYueDuJinBi) {
+        closeRun = runYueDuJinBi;
+        new Thread(runYueDuJinBi).start();
     }
 
     private void readingRecommendedBooks(Device device) {

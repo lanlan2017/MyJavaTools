@@ -11,7 +11,6 @@ import adbs.model.Device;
 import adbs.tools.thread.ThreadSleep;
 
 import javax.swing.*;
-import java.util.Arrays;
 
 /**
  * 根据activity自动进行操作
@@ -24,9 +23,12 @@ public class ActDo extends CloseableRunnable implements CoinsType {
 
     private static ActDo runYueDuZaiLing = new ActDo(strYueDuZaiLing);
     private static ActDo runTingShuZaiLing = new ActDo(strTingShuZaiLing);
+    private static ActDo runYueDuJinBi = new ActDo(strYueDuJinBi);
+    private static ActDo runTingShuJinBi = new ActDo(strTingShuJinBi);
 
 
     private String coinType;
+    private int times;
 
     public ActDo(String coinType) {
         this.coinType = coinType;
@@ -40,6 +42,13 @@ public class ActDo extends CloseableRunnable implements CoinsType {
         return runTingShuZaiLing;
     }
 
+    public static ActDo getRunYueDuJinBi() {
+        return runYueDuJinBi;
+    }
+
+    public static ActDo getRunTingShuJinBi() {
+        return runTingShuJinBi;
+    }
     // private static boolean stop = false;
 
     @Override
@@ -47,11 +56,13 @@ public class ActDo extends CloseableRunnable implements CoinsType {
 
     }
 
-    @Override
-    public void stop() {
+    // @Override
+    public void stop(String message) {
         // ActDo.stop = true;
-        super.stop();
-        JOptionPane.showMessageDialog(AdbTools.getInstance().getContentPane(), "自动Act停止了");
+        stop();
+        // String message = "自动Act停止了";
+        message = message + " 停止了";
+        JOptionPane.showMessageDialog(AdbTools.getInstance().getContentPane(), message);
     }
 
     /**
@@ -59,8 +70,9 @@ public class ActDo extends CloseableRunnable implements CoinsType {
      *
      * @return 当连续点击三次，当前的activity都没有改变改变的时候，就应该停止了。
      */
-    private  boolean isEnd() {
+    private boolean isEnd() {
         // System.out.println("arrActName[0] = " + arrActName[0]);
+
         int i = 1;
         for (; i < arrActName.length; i++) {
             // System.out.println("arrActName[" + i + "] = " + arrActName[i]);
@@ -94,12 +106,22 @@ public class ActDo extends CloseableRunnable implements CoinsType {
         // new Thread(runTingShuZaiLing).start();
         // new Thread(runYueDuZaiLing).start();
 
+        // runYueDuJinBi = new ActDo(strYueDuJinBi);
+        // new Thread(runYueDuJinBi).start();
+        // runTingShuJinBi = new ActDo(strTingShuJinBi);
+        new Thread(runTingShuJinBi).start();
     }
 
     @Override
     protected void beforeLoop() {
         super.beforeLoop();
-        zaiYunXingZhiQian();
+        // zaiYunXingZhiQian();
+        stop = false;
+        // Arrays.fill(arrActName, "");
+        for (int i = 0; i < arrActName.length; i++) {
+            arrActName[i] = "" + i;
+        }
+        times = 0;
     }
 
     /**
@@ -115,7 +137,7 @@ public class ActDo extends CloseableRunnable implements CoinsType {
 
         System.out.println("width = " + width);
         System.out.println("height = " + height);
-        int times = 0;
+
         while (!stop) {
 
             AppNames appNames = AdbGetPackage.getAppNames();
@@ -137,67 +159,110 @@ public class ActDo extends CloseableRunnable implements CoinsType {
                 case "com.xk.qreader":
                     if (width == 1080 && height == 2160) {
                         freader_1080_2160(device, actShortName);
-                        // 记录打开的act短名称
-                        arrActName[times % arrActName.length] = actShortName;
                     }
-
-                    if (isEnd()) {
-                        stop();
-                    }
-                    times++;
-
 
                     break;
                 case "com.huawei.fastapp":
                 case "com.huawei.hwid":
                 default:
-                    ThreadSleep.seconds(3);
-                    AdbCommands.taskBtn(device);
-                    ThreadSleep.seconds(3);
-                    AdbCommands.swipeBotton2TopOnRight(device);
-                    ThreadSleep.seconds(3);
-                    AdbTap.tapCenterPosition(device);
-                    ThreadSleep.seconds(3);
-
+                    // 误操作，关闭其他APP，回到本APP
+                    killOtherApp(device);
                     break;
             }
+
+
             System.out.println("循环 等待5秒");
+            System.out.println();
             ThreadSleep.seconds(5);
         }
 
         System.out.println("自动操作停止...");
     }
 
-    private void zaiYunXingZhiQian() {
-        stop = false;
-        Arrays.fill(arrActName, "");
-        // System.out.println("arrActName = " + arrActName);
+    private void killOtherApp(Device device) {
+        ThreadSleep.seconds(3);
+        AdbCommands.taskBtn(device);
+        ThreadSleep.seconds(3);
+        AdbCommands.swipeBotton2TopOnRight(device);
+        ThreadSleep.seconds(3);
+        AdbTap.tapCenterPosition(device);
+        ThreadSleep.seconds(3);
     }
 
+    // private void zaiYunXingZhiQian() {
+    //
+    // }
 
 
     private void freader_1080_2160(Device device, String actShortName) {
-        // System.out.println("actShortName = " + actShortName);
+
+        switch (coinType) {
+            case strYueDuJinBi:
+                actDoYueDuJinBi(device, actShortName);
+                break;
+            case strTingShuJinBi:
+                actDoTingShuJinBi(device, actShortName);
+                break;
+            case strTingShuZaiLing:
+                actDoTingShuZaiLing(device, actShortName);
+                break;
+            case strYueDuZaiLing:
+                actDoYueDuZaiLing(device, actShortName);
+                break;
+
+
+        }
+
+
+        // old(device, actShortName);
+    }
+
+    private void actDoTingShuJinBi(Device device, String actShortName) {
         switch (actShortName) {
-            // 金币领取界面
             case "com.kmxs.reader.webview.ui.DefaultNewWebActivity":
+                WeiZhi closeBtn = new WeiZhi(881, 942);
+                wait_tap(device, 5, closeBtn);
 
-                switch (coinType) {
-                    case strTingShuZaiLing:
-                        System.out.println("金币模式：" + strTingShuZaiLing);
-                        tingShuZaiLing(device);
-                        break;
-                    case strYueDuZaiLing:
-                        System.out.println("金币模式：" + strYueDuZaiLing);
-                        wait_tap(device, 5, new WeiZhi(888, 1201));
-                        break;
+                WeiZhi tingShuJinBi = new WeiZhi(905, 1665);
+                wait_tap(device, 5, tingShuJinBi);
+                break;
 
-                }
+            default:
+                System.out.println("其他act界面，应该停止");
+                // stop();
+                stop(strTingShuJinBi);
+                break;
+        }
+    }
 
+    private void actDoYueDuJinBi(Device device, String actShortName) {
+        switch (actShortName) {
+            case "com.kmxs.reader.webview.ui.DefaultNewWebActivity":
+                WeiZhi closeBtn = new WeiZhi(881, 942);
+                wait_tap(device, 5, closeBtn);
+
+                WeiZhi yueDuJinBi = new WeiZhi(915, 1180);
+                wait_tap(device, 5, yueDuJinBi);
 
                 break;
-            case "com.bytedance.sdk.openadsdk.stub.activity.Stub_Standard_Portrait_Activity":
 
+            default:
+                System.out.println("其他act界面，应该停止");
+                // stop();
+                stop(strYueDuJinBi);
+                break;
+        }
+    }
+
+    private void actDoYueDuZaiLing(Device device, String actShortName) {
+        // 记录打开的act短名称
+        arrActName[times % arrActName.length] = actShortName;
+        switch (actShortName) {
+            case "com.kmxs.reader.webview.ui.DefaultNewWebActivity":
+                // System.out.println("金币模式：" + strYueDuZaiLing);
+                wait_tap(device, 5, new WeiZhi(888, 1201));
+                break;
+            case "com.bytedance.sdk.openadsdk.stub.activity.Stub_Standard_Portrait_Activity":
                 ThreadSleep.seconds(2);
                 System.out.println("右侧向上滑动");
                 AdbCommands.swipeBotton2TopOnRight(device);
@@ -207,33 +272,86 @@ public class ActDo extends CloseableRunnable implements CoinsType {
                 // wait_tap(device, 5, closeGuangGaoX, closeGuangGaoY);
                 // wait_tap(device, 35, closeGuangGaoX, closeGuangGaoY);
                 wait_tap(device, 35, closeGuangGao);
+                break;
 
             case "com.qq.e.ads.PortraitADActivity":
                 wait_tap(device, 35, new WeiZhi(979, 161));
                 break;
+
             case "com.qimao.qmreader.commonvoice.CommonVoiceActivityV2":
                 //
                 wait_tap(device, 5, new WeiZhi(952, 161));
                 break;
+
             case "com.kwad.sdk.api.proxy.app.KsRewardVideoActivity":
                 wait_tap(device, 35, new WeiZhi(989, 121));
                 break;
-            // case "com.kwad.sdk.api.proxy.app.KsRewardVideoActivity":
+
+            case "com.baidu.mobads.sdk.api.MobRewardVideoActivity":
+                wait_tap(device, 35, new WeiZhi(989, 111));
+                break;
+
 
             // case "":
             //     break;
 
 
         }
+
+        if (isEnd()) {
+            System.out.println("判断： 听书再领 结束了！");
+            stop(strYueDuZaiLing);
+        }
+        times++;
+
     }
 
-    private static void tingShuZaiLing(Device device) {
-        int audioX = 884;
-        int audioY = 1651;
-        WeiZhi tingShuZaiLing = new WeiZhi(audioX, audioY);
-        // wait_tap(device, 5, audioX, audioY);
-        wait_tap(device, 5, tingShuZaiLing);
+    private void actDoTingShuZaiLing(Device device, String actShortName) {
+        // 记录打开的act短名称
+        arrActName[times % arrActName.length] = actShortName;
+        switch (actShortName) {
+            case "com.kmxs.reader.webview.ui.DefaultNewWebActivity":
+                // tingShuZaiLing(device);
+                int audioX = 884;
+                int audioY = 1651;
+                WeiZhi tingShuZaiLing = new WeiZhi(audioX, audioY);
+                // wait_tap(device, 5, audioX, audioY);
+                wait_tap(device, 5, tingShuZaiLing);
+                break;
+
+            case "com.bytedance.sdk.openadsdk.stub.activity.Stub_Standard_Portrait_Activity":
+                ThreadSleep.seconds(2);
+                System.out.println("右侧向上滑动");
+                AdbCommands.swipeBotton2TopOnRight(device);
+                int closeGuangGaoX = 979;
+                int closeGuangGaoY = 97;
+                WeiZhi closeGuangGao = new WeiZhi(closeGuangGaoX, closeGuangGaoY);
+                // wait_tap(device, 5, closeGuangGaoX, closeGuangGaoY);
+                // wait_tap(device, 35, closeGuangGaoX, closeGuangGaoY);
+                wait_tap(device, 35, closeGuangGao);
+                break;
+
+            case "com.qq.e.ads.PortraitADActivity":
+                wait_tap(device, 35, new WeiZhi(979, 161));
+                break;
+
+            case "com.qimao.qmreader.commonvoice.CommonVoiceActivityV2":
+                //
+                wait_tap(device, 5, new WeiZhi(952, 161));
+                break;
+
+            case "com.kwad.sdk.api.proxy.app.KsRewardVideoActivity":
+                wait_tap(device, 35, new WeiZhi(989, 121));
+                break;
+        }
+
+        if (isEnd()) {
+            System.out.println("判断： 听书再领 结束了！");
+            stop(strTingShuZaiLing);
+        }
+        times++;
     }
+
 
     private static void wait_tap(Device device, int seconds, WeiZhi tingShuZaiLing) {
         wait_tap(device, seconds, tingShuZaiLing.getX(), tingShuZaiLing.getY());
@@ -246,6 +364,6 @@ public class ActDo extends CloseableRunnable implements CoinsType {
         System.out.print("点击:" + x + "," + y);
         System.out.println();
         AdbTap.tap(device, x, y);
-        System.out.println();
+        // System.out.println();
     }
 }
