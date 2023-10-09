@@ -225,6 +225,8 @@ public class AutoPanels implements CoinsType {
         comboBox.addItem(strTingShuJinBi);
         comboBox.addItem(strYueDuZaiLing);
         comboBox.addItem(strTingShuZaiLing);
+        comboBox.addItem(strTingShuHongBao);
+
         // comboBox.addItem(SuDuMianFeiXiaoShuo);
 
         comboBox.addItemListener(new ItemListener() {
@@ -326,44 +328,48 @@ public class AutoPanels implements CoinsType {
                 // String showNB = "adb -s " + serial + " shell settings put global policy_control null";
 
                 String buttonText = button.getText();
-                switch (buttonText) {
-                    // case strYueDuJinBi:
-                    //     // collecionCoins();
-                    //     System.out.println(strYueDuJinBi);
-                    //     readCoinsCloseRun(device);
-                    //     break;
 
-                    case strYueDuJinBi:
-                        // // collecionCoins();
-                        // System.out.println(strYueDuJinBi);
-                        // readCoinsCloseRun(device);
-                        ActDo runYueDuJinBi = ActDo.getRunYueDuJinBi();
-                        startCloseRun(runYueDuJinBi);
-                        break;
+                startCloseRun(ActDo.getRun(buttonText));
+                // switch (buttonText) {
+                //     // case strYueDuJinBi:
+                //     //     // collecionCoins();
+                //     //     System.out.println(strYueDuJinBi);
+                //     //     readCoinsCloseRun(device);
+                //     //     break;
+                //
+                //     case strYueDuJinBi:
+                //         // // collecionCoins();
+                //         // System.out.println(strYueDuJinBi);
+                //         // readCoinsCloseRun(device);
+                //         ActDo runYueDuJinBi = ActDo.getRunYueDuJinBi();
+                //         startCloseRun(runYueDuJinBi);
+                //         break;
+                //
+                //     // case strTingShuJinBi:
+                //     //     System.out.println(strTingShuJinBi);
+                //     //     audioCoinsCloseRun(device);
+                //     //     break;
+                //
+                //     case strTingShuJinBi:
+                //         // System.out.println(strTingShuJinBi);
+                //         // audioCoinsCloseRun(device);
+                //         ActDo runTingShuJinBi = ActDo.getRunTingShuJinBi();
+                //         startCloseRun(runTingShuJinBi);
+                //         break;
+                //
+                //     case strTingShuZaiLing:
+                //         // ActDo target = new ActDo(CoinsType.strTingShuZaiLing);
+                //         ActDo runTingShuZaiLing = ActDo.getRunTingShuZaiLing();
+                //         startCloseRun(runTingShuZaiLing);
+                //         break;
+                //     case strYueDuZaiLing:
+                //         ActDo runYueDuZaiLing = ActDo.getRunYueDuZaiLing();
+                //         startCloseRun(runYueDuZaiLing);
+                //         break;
+                //
+                // }
 
-                    // case strTingShuJinBi:
-                    //     System.out.println(strTingShuJinBi);
-                    //     audioCoinsCloseRun(device);
-                    //     break;
 
-                    case strTingShuJinBi:
-                        // System.out.println(strTingShuJinBi);
-                        // audioCoinsCloseRun(device);
-                        ActDo runTingShuJinBi = ActDo.getRunTingShuJinBi();
-                        startCloseRun(runTingShuJinBi);
-                        break;
-
-                    case strTingShuZaiLing:
-                        // ActDo target = new ActDo(CoinsType.strTingShuZaiLing);
-                        ActDo runTingShuZaiLing = ActDo.getRunTingShuZaiLing();
-                        startCloseRun(runTingShuZaiLing);
-                        break;
-                    case strYueDuZaiLing:
-                        ActDo runYueDuZaiLing = ActDo.getRunYueDuZaiLing();
-                        startCloseRun(runYueDuZaiLing);
-                        break;
-
-                }
             }
 
 
