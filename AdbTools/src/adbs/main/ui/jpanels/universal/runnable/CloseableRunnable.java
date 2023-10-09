@@ -49,8 +49,8 @@ public abstract class CloseableRunnable implements Runnable {
         // 默认循环不停止
         stop = false;
         // 表示当前进程正在运行
-        // AdbTools.getInstance().setIsRunning(this);
-        AdbTools.getInstance().setIsRunning(this);
+        // AdbTools.getInstance().addRunningInSet(this);
+        AdbTools.getInstance().addRunningInSet(this);
         // 循环之前要做的
         beforeLoop();
         // 如果不需要停止循环的话，就一直循环

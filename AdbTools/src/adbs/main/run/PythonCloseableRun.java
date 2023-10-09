@@ -87,7 +87,7 @@
 //         // 默认循环不停止
 //         stop = false;
 //         beforeLoop();
-//         AdbTools.getInstance().setIsRunning(this);
+//         AdbTools.getInstance().addRunningInSet(this);
 //         while (!stop) {
 //             loopBody();
 //         }

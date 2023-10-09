@@ -7,5 +7,7 @@ public interface CoinsType {
     // String Shou = "S";
     String ReadCoins = "阅读金币";
     String AudioCoins = "听书金币";
+    String strTingShuZaiLing = "听书再领";
+    String strYueDuZaiLing = "阅读再领";
     String SuDuMianFeiXiaoShuo = "速读免费小说";
 }

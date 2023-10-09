@@ -323,7 +323,7 @@ public class AdbTools {
         return contentPane;
     }
 
-    public void setIsRunning(Runnable isRunning) {
+    public void addRunningInSet(Runnable isRunning) {
         // System.out.println("正在运行的:" + isRunning);
         isRunningSet.add(isRunning);
         // System.out.println("set长度:" + isRunningSet.size());

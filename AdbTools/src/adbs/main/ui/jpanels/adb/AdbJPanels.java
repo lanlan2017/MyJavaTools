@@ -184,14 +184,16 @@ public class AdbJPanels {
             @Override
             public void action(ActionEvent e) {
                 String actName = AdbGetPackage.getActName();
-                System.out.println("actName = " + actName);
                 System.out.println();
+                System.out.println("actName = " + actName);
+                // System.out.println();
                 String serial = AdbTools.getInstance().getDevice().getSerial();
                 String openAct = "adb -s " + serial + " shell am start -n " + actName;
                 System.out.println("openAct = " + openAct);
-                System.out.println();
+                // System.out.println();
                 String openActJavaStr = "String openAct = \"adb -s \" + device.getSerial() + \" shell am start -n " + actName + "\";";
-                System.out.println("openActJavaStr = " + openActJavaStr);
+                // System.out.println("openActJavaStr = " + openActJavaStr);
+                System.out.println();
                 String clipOut = "// " + actName + "\n// " + openAct + "\n// " + openActJavaStr;
                 SystemClipboard.setSysClipboardText(clipOut);
             }

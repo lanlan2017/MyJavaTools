@@ -6,6 +6,7 @@ import adbs.main.run.AdbGetPackage;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.jpanels.auto.runnable.*;
 import adbs.main.ui.jpanels.timeauto2.TimingPanels2;
+import adbs.main.ui.jpanels.universal.runnable.CloseableRunnable;
 import adbs.model.Device;
 import adbs.tools.thread.ThreadSleep;
 import tools.swing.button.AbstractButtons;
@@ -64,7 +65,8 @@ public class AutoPanels implements CoinsType {
     /**
      * 线程体
      */
-    private DefaultNewWebActivityCloseRunnable closeRun;
+    // private DefaultNewWebActivityCloseRunnable closeRun;
+    private CloseableRunnable closeRun;
 
 
     public JPanel getAutoJPanel() {
@@ -205,12 +207,6 @@ public class AutoPanels implements CoinsType {
 
                 ComboBoxModel<String> model = jcbZhuanJinBi.getModel();
                 String elementAt = model.getElementAt(jcbZhuanJinBi.getSelectedIndex());
-                // switch (elementAt) {
-                //     case "茄子免费小说":
-                //         btnZhuanOk.setText("茄子免费小说");
-                //         break;
-                // }
-                //
                 btnZhuanOk.setText(elementAt);
                 AdbTools.getInstance().getFrame().pack();
             }
@@ -507,9 +503,6 @@ public class AutoPanels implements CoinsType {
         if (width == 1080) {
             if (height == 2160) {
                 System.out.println("听书2160=" + height);
-                // ScreenPositionRatio audioCloseBtn_1080_2160 = new ScreenPositionRatio(0.8111111111111111, 0.4337962962962963);
-                // ScreenPositionRatio audioCoinsBtn_1080_2160 = new ScreenPositionRatio(0.8296296296296296, 0.7731481481481481);
-                // tapCloseTapCoins(device, audioCoinsBtn_1080_2160, audioCoinsBtn_1080_2160);
 
                 ScreenPositionRatio closeBtn = new ScreenPositionRatio(0.812962962962963, 0.4361111111111111);
                 ScreenPositionRatio audioBtn = new ScreenPositionRatio(0.825, 0.7662037037037037);
@@ -549,7 +542,6 @@ public class AutoPanels implements CoinsType {
                 ScreenPositionRatio closeBtn = new ScreenPositionRatio(0.8148148148148148, 0.4265625);
                 ScreenPositionRatio readBtn = new ScreenPositionRatio(0.8314814814814815, 0.6151041666666667);
                 tapCloseTapCoins(device, closeBtn, readBtn);
-                // tapCloseTapCoins(device, Ratios.qieZiBtnClose, Ratios.qieZiReadCoin);
 
             }
         }
@@ -557,12 +549,14 @@ public class AutoPanels implements CoinsType {
 
 
     private void tapCloseTapCoins(Device device, ScreenPositionRatio closeBtn, ScreenPositionRatio coinsBtn) {
-        closeRun = QieZiReadCoinCloseRun.getInstance();
-        closeRun.setDevice(device);
+        QieZiReadCoinCloseRun qieZiReadCoinCloseRun = QieZiReadCoinCloseRun.getInstance();
+        closeRun = qieZiReadCoinCloseRun;
+        // closeRun.setDevice(device);
         // closeRun.setBtnClose(closeBtn);
-        // closeRun.setBtnCoin(Ratios.qieZiReadCoin);
-        closeRun.setBtnClose(closeBtn);
-        closeRun.setBtnCoin(coinsBtn);
+        // closeRun.setBtnCoin(coinsBtn);
+        qieZiReadCoinCloseRun.setDevice(device);
+        qieZiReadCoinCloseRun.setBtnClose(closeBtn);
+        qieZiReadCoinCloseRun.setBtnCoin(coinsBtn);
         new Thread(closeRun).start();
     }
 }

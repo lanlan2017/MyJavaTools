@@ -5,6 +5,8 @@ import adbs.main.AdbTools;
 import adbs.main.run.AdbGetPackage;
 import adbs.main.run.model.AppNames;
 import adbs.main.ui.jpanels.auto.AdbTap;
+import adbs.main.ui.jpanels.auto.CoinsType;
+import adbs.main.ui.jpanels.universal.runnable.CloseableRunnable;
 import adbs.model.Device;
 import adbs.tools.thread.ThreadSleep;
 
@@ -13,25 +15,46 @@ import javax.swing.*;
 /**
  * 根据activity自动进行操作
  */
-public class ActDo {
-    private static boolean stop = false;
+public class ActDo extends CloseableRunnable implements CoinsType {
+    private String coinType;
+
+    public ActDo(String coinType) {
+        this.coinType = coinType;
+    }
+
+    // private static boolean stop = false;
     private static String[] arrActName = new String[3];
 
-    public static void stop() {
-        ActDo.stop = true;
+    @Override
+    protected void setMsg() {
+
+    }
+
+    @Override
+    public void stop() {
+        // ActDo.stop = true;
+        super.stop();
         JOptionPane.showMessageDialog(AdbTools.getInstance().getContentPane(), "自动Act停止了");
+    }
+
+    @Override
+    protected void loopBody() {
+        autoActDo();
     }
 
     public static void main(String[] args) {
 
-        autoActDo();
+        // autoActDo();
+
+        // new Thread(new ActDo(strTingShuZaiLing)).start();
+        new Thread(new ActDo(strYueDuZaiLing)).start();
 
     }
 
     /**
      * 根据activity自动操作
      */
-    private static void autoActDo() {
+    private void autoActDo() {
         stop = false;
         AdbTools adbTools = AdbTools.getInstance();
         Device device = adbTools.getDevice();
@@ -88,8 +111,8 @@ public class ActDo {
 
                     break;
             }
-            System.out.println("循环 等待2秒");
-            ThreadSleep.seconds(2);
+            System.out.println("循环 等待5秒");
+            ThreadSleep.seconds(5);
         }
 
         System.out.println("自动操作停止...");
@@ -119,8 +142,25 @@ public class ActDo {
         return b;
     }
 
-    private static void freader(Device device, String actShortName) {
+    private void freader(Device device, String actShortName) {
         switch (actShortName) {
+            // 金币领取界面
+            case "com.kmxs.reader.webview.ui.DefaultNewWebActivity":
+
+                switch (coinType) {
+                    case strTingShuZaiLing:
+                        System.out.println("金币模式：" + strTingShuZaiLing);
+                        tingShuZaiLing(device);
+                        break;
+                    case strYueDuZaiLing:
+                        System.out.println("金币模式：" + strYueDuZaiLing);
+                        wait_tap(device, 5, new WeiZhi(888, 1201));
+                        break;
+
+                }
+
+
+                break;
             case "com.bytedance.sdk.openadsdk.stub.activity.Stub_Standard_Portrait_Activity":
 
                 ThreadSleep.seconds(2);
@@ -132,23 +172,33 @@ public class ActDo {
                 // wait_tap(device, 5, closeGuangGaoX, closeGuangGaoY);
                 // wait_tap(device, 35, closeGuangGaoX, closeGuangGaoY);
                 wait_tap(device, 35, closeGuangGao);
-            case "com.kmxs.reader.webview.ui.DefaultNewWebActivity":
-
-                int audioX = 884;
-                int audioY = 1651;
-                WeiZhi tingShuZaiLing = new WeiZhi(audioX, audioY);
-                // wait_tap(device, 5, audioX, audioY);
-                wait_tap(device, 5, tingShuZaiLing);
-
-                break;
 
             case "com.qq.e.ads.PortraitADActivity":
                 wait_tap(device, 35, new WeiZhi(979, 161));
                 break;
             case "com.qimao.qmreader.commonvoice.CommonVoiceActivityV2":
+                //
                 wait_tap(device, 5, new WeiZhi(952, 161));
+                break;
+            case "com.kwad.sdk.api.proxy.app.KsRewardVideoActivity":
+                wait_tap(device, 35, new WeiZhi(989, 121));
+                break;
+            // case "com.kwad.sdk.api.proxy.app.KsRewardVideoActivity":
+
+
+            // case "":
+            //     break;
+
 
         }
+    }
+
+    private static void tingShuZaiLing(Device device) {
+        int audioX = 884;
+        int audioY = 1651;
+        WeiZhi tingShuZaiLing = new WeiZhi(audioX, audioY);
+        // wait_tap(device, 5, audioX, audioY);
+        wait_tap(device, 5, tingShuZaiLing);
     }
 
     private static void wait_tap(Device device, int seconds, WeiZhi tingShuZaiLing) {
