@@ -120,11 +120,10 @@ public class AutoPanels implements CoinsType {
                     closeRun.stop();
                 }
 
-                String serial = AdbTools.getInstance().getDevice().getSerial();
-                // // 显示导航栏
-                String showNB = "adb -s " + serial + " shell settings put global policy_control null";
-                AdbCommands.runAbdCmd(showNB);
-
+                Device device = AdbTools.getInstance().getDevice();
+                // String serial = device.getSerial();
+                // showNavigationBar(serial);
+                AdbCommands.showNavigationBar(device);
                 AdbTools adbTools = AdbTools.getInstance();
                 JCheckBox jCheckBox = adbTools.getCheckJPanels().getAutoCheckBox();
                 if (jCheckBox.isSelected()) {
@@ -137,6 +136,12 @@ public class AutoPanels implements CoinsType {
 
         return btnStop;
     }
+
+    // private void showNavigationBar(String serial) {
+    //     // // 显示导航栏
+    //     String showNB = "adb -s " + serial + " shell settings put global policy_control null";
+    //     AdbCommands.runAbdCmd(showNB);
+    // }
 
 
     private JComboBox<String> initJCBXuanZhe() {
@@ -212,7 +217,6 @@ public class AutoPanels implements CoinsType {
                 AdbTools.getInstance().getFrame().pack();
             }
         });
-        // jcbZhuanJinBi.setSelectedIndex(0);
         jcbZhuanJinBi.setVisible(false);
         return jcbZhuanJinBi;
     }
@@ -226,8 +230,6 @@ public class AutoPanels implements CoinsType {
         comboBox.addItem(strYueDuZaiLing);
         comboBox.addItem(strTingShuZaiLing);
         comboBox.addItem(strTingShuHongBao);
-
-        // comboBox.addItem(SuDuMianFeiXiaoShuo);
 
         comboBox.addItemListener(new ItemListener() {
             @Override
@@ -266,31 +268,12 @@ public class AutoPanels implements CoinsType {
                             // 跳过广告
                             skipAd(device);
 
-                            // // 点击福利界面
-                            // intoJinBiJieMian(device);
-                            //
-                            // // 点击关闭按钮
-                            // clickCloseBtn(device);
-
-
-                            // clickReadBtn(device);
-
                             readingRecommendedBooks(device);
 
                         } else if (deviceName.equals("op")) {
 
                             // // String openAct = "adb -s " + device.getSerial() + " shell am start -n com.qz.freader/com.kmxs.reader.home.ui.HomeActivity";
                             String openAct = "adb -s " + device.getSerial() + " shell am start -n com.qz.freader/com.kmxs.reader.home.ui.HomeActivity";
-                            //com.qz.freader/com.km.app.home.view.LoadingActivity
-                            //adb -s 95AQACQJCMZPA shell am start -n com.qz.freader/com.km.app.home.view.LoadingActivity
-                            // String openAct = "adb -s " + device.getSerial() + " shell am start -n com.qz.freader/com.km.app.home.view.LoadingActivity";
-
-                            // com.qz.freader/com.kmxs.reader.home.ui.HomeActivity
-                            // adb -s 75aed56d shell am start -n com.qz.freader/com.kmxs.reader.home.ui.HomeActivity
-                            // com.qz.freader/com.kmxs.reader.home.ui.HomeActivity
-                            // adb -s 75aed56d shell am start -n com.qz.freader/com.kmxs.reader.home.ui.HomeActivity
-
-
                             AdbCommands.runAbdCmd(openAct);
                             readingRecommendedBooks(device);
 
@@ -322,54 +305,14 @@ public class AutoPanels implements CoinsType {
                 String serial = device.getSerial();
                 // 隐藏导航栏
                 //
-                String hideNavigationBar = "adb -s " + serial + " shell settings put global policy_control immersive.navigation=*";
-                AdbCommands.runAbdCmd(hideNavigationBar);
+                // String hideNavigationBar = "adb -s " + serial + " shell settings put global policy_control immersive.navigation=*";
+                //                 // AdbCommands.runAbdCmd(hideNavigationBar);
+
+                AdbCommands.hideNavigationBar(device);
                 // // 显示导航栏
                 // String showNB = "adb -s " + serial + " shell settings put global policy_control null";
-
                 String buttonText = button.getText();
-
                 startCloseRun(ActDo.getRun(buttonText));
-                // switch (buttonText) {
-                //     // case strYueDuJinBi:
-                //     //     // collecionCoins();
-                //     //     System.out.println(strYueDuJinBi);
-                //     //     readCoinsCloseRun(device);
-                //     //     break;
-                //
-                //     case strYueDuJinBi:
-                //         // // collecionCoins();
-                //         // System.out.println(strYueDuJinBi);
-                //         // readCoinsCloseRun(device);
-                //         ActDo runYueDuJinBi = ActDo.getRunYueDuJinBi();
-                //         startCloseRun(runYueDuJinBi);
-                //         break;
-                //
-                //     // case strTingShuJinBi:
-                //     //     System.out.println(strTingShuJinBi);
-                //     //     audioCoinsCloseRun(device);
-                //     //     break;
-                //
-                //     case strTingShuJinBi:
-                //         // System.out.println(strTingShuJinBi);
-                //         // audioCoinsCloseRun(device);
-                //         ActDo runTingShuJinBi = ActDo.getRunTingShuJinBi();
-                //         startCloseRun(runTingShuJinBi);
-                //         break;
-                //
-                //     case strTingShuZaiLing:
-                //         // ActDo target = new ActDo(CoinsType.strTingShuZaiLing);
-                //         ActDo runTingShuZaiLing = ActDo.getRunTingShuZaiLing();
-                //         startCloseRun(runTingShuZaiLing);
-                //         break;
-                //     case strYueDuZaiLing:
-                //         ActDo runYueDuZaiLing = ActDo.getRunYueDuZaiLing();
-                //         startCloseRun(runYueDuZaiLing);
-                //         break;
-                //
-                // }
-
-
             }
 
 

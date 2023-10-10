@@ -141,6 +141,26 @@ public class AdbCommands {
         AdbCommands.runAbdCmd(code);
     }
 
+    /**
+     * 显示导航栏
+     *
+     * @param serial
+     */
+    public static void showNavigationBar(String serial) {
+        // // 显示导航栏
+        String showNB = "adb -s " + serial + " shell settings put global policy_control null";
+        AdbCommands.runAbdCmd(showNB);
+    }
+
+    /**
+     * 显示导航栏
+     */
+    public static void showNavigationBar(Device device) {
+        // // 显示导航栏
+        String showNB = "adb -s " + device.getSerial() + " shell settings put global policy_control null";
+        AdbCommands.runAbdCmd(showNB);
+    }
+
 
     // /**
     //  * 在手机顶部，从右向左滑动
