@@ -1,6 +1,7 @@
 package adbs.main.run;
 
 import adbs.cmd.AdbCommands;
+import adbs.cmd.CmdRun;
 import adbs.main.AdbTools;
 import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
@@ -84,18 +85,19 @@ public class ForegroundAppRun implements Runnable {
             // String topActivityCommand = getTopActivityCommand(serial);
             String topActivityCommand = AdbGetPackage.getTopActivityCommand(serial);
 
-            System.out.println("ActivityCommand =" + topActivityCommand);
-            String run = AdbCommands.runAbdCmd(topActivityCommand).trim();
+            // System.out.println("ActivityCommand =" + topActivityCommand);
+            String run = CmdRun.run(topActivityCommand).trim();
+            // String run = AdbCommands.runAbdCmd(topActivityCommand).trim();
             // String run = CmdRun.run(topActivityCommand).trim();
             // 如果命令结果中有反斜杠，说明有包名
             if (run.contains("/")) {
                 //mResumedActivity: ActivityRecord{7fbc105 u0 com.huawei.health/.MainActivity t1573}
                 String actName = AdbGetPackage.getActName(run);
-                System.out.print("act名 =" + actName + " ");
+                // System.out.print("act名 =" + actName + " ");
                 // run = getPackageName(run);
                 run = AdbGetPackage.getPackageName(run);
                 // System.out.println("包名 = " + run);
-                System.out.print("包名 = " + run + " ");
+                // System.out.print("包名 = " + run + " ");
                 String appName = getAppName(run);
                 // 如果还没停止签到检查的话
                 if (!stopCheckInInspection) {
@@ -104,7 +106,7 @@ public class ForegroundAppRun implements Runnable {
                         // 签到完成设置
                         afterOpeningAllAPKs();
                     }
-                    System.out.println();
+                    // System.out.println();
 
                     printOpenedAppNames();
 
@@ -144,7 +146,7 @@ public class ForegroundAppRun implements Runnable {
 
     private void printOpenedAppNames() {
         // 把apk的名称放到列表中
-        System.out.println("已打开:" + apkOpenedToday);
+        // System.out.println("已打开:" + apkOpenedToday);
         StringBuffer sb = new StringBuffer();
         for (String s : apkOpenedToday) {
             sb.append(s).append("\n");
@@ -161,7 +163,7 @@ public class ForegroundAppRun implements Runnable {
      */
     private void printNotOpenAppNames() {
         StringBuffer sb = new StringBuffer();
-        System.out.print("未打开:");
+        // System.out.print("未打开:");
         for (int i = 0, size = apps.size(), count = 0; i < size; i++) {
             String apkName = apps.get(i);
             // 在所有的apk名称列表中查找 已打开的apk名称
@@ -169,17 +171,17 @@ public class ForegroundAppRun implements Runnable {
             // 小于零，说明 该apk名称 不再已打开的apk名称列表里吗
             // 如果该apk没打开过
             if (index < 0) {
-                // 最后一个逗号不
-                if (count > 0) {
-                    System.out.print(", ");
-                }
+                // // 最后一个逗号不
+                // if (count > 0) {
+                //     System.out.print(", ");
+                // }
                 count++;
                 // 输出这个没打开过的apk
-                System.out.print(apkName);
+                // System.out.print(apkName);
                 sb.append(apkName).append("\n");
             }
         }
-        System.out.println();
+        // System.out.println();
 
         AdbTools.getInstance().getAppPanels().getNotOpened().setText(sb.toString().trim());
         // System.out.println();
@@ -214,7 +216,7 @@ public class ForegroundAppRun implements Runnable {
             appName = "非赚钱apk";
         }
         // 输出应用的名称
-        System.out.println("应用 = " + appName);
+        // System.out.println("应用 = " + appName);
         return appName;
     }
 
@@ -261,7 +263,7 @@ public class ForegroundAppRun implements Runnable {
         // 已签到完成，停止签到检查
         stopCheckInInspection = true;
         // 把apk的名称放到列表中
-        System.out.println("已打开:" + apkOpenedToday);
+        // System.out.println("已打开:" + apkOpenedToday);
         System.out.println("所有的apk签到完成!");
         // // 改变背景色，表示签到完成
         universalPanel.setBackground(Color.pink);
@@ -346,19 +348,4 @@ public class ForegroundAppRun implements Runnable {
         return format.startsWith("00:00") || format.startsWith("00:01") || format.startsWith("00:02") || format.startsWith("00:03");
     }
 
-    // /**
-    //  * 根据不同的手机序列号返回不同的查询当前activity的adb命令
-    //  *
-    //  * @param id 手机的序列号
-    //  * @return 查询当前activity的adb命令
-    //  */
-    // private String getTopActivityCommand(String id) {
-    //     String code;
-    //     if (id.equals("jjqsqst4aim7f675")) {
-    //         code = "adb -s " + id + " shell dumpsys activity | findstr topResumedActivity";
-    //     } else {
-    //         code = "adb -s " + id + " shell dumpsys activity | findstr \"mResume\"";
-    //     }
-    //     return code;
-    // }
 }

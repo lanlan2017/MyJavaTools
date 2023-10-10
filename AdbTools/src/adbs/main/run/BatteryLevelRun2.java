@@ -190,7 +190,7 @@ public class BatteryLevelRun2 implements Runnable {
         // System.out.println("newFrameTitle = " + newFrameTitle);
         // 如果标题有改变的话
         if (!newFrameTitle.equals(oldFrameTitle)) {
-            System.out.println("。。。。。。。。。。。update Title、、、、、、、、、、、");
+            // System.out.println("。。。。。。。。。。。update Title、、、、、、、、、、、");
             frame.setTitle(newFrameTitle);
             // frame.pack();
         }

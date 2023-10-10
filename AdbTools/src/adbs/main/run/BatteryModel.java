@@ -1,6 +1,7 @@
 package adbs.main.run;
 
 import adbs.cmd.AdbCommands;
+import adbs.cmd.CmdRun;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -125,8 +126,9 @@ public class BatteryModel {
         // 拼接命令
         String battery_code = "adb -s " + serial + " shell dumpsys battery";
         // 执行命令
-        // String bettery_code_output = CmdRun.run(battery_code);
-        String bettery_code_output = AdbCommands.runAbdCmd(battery_code);
+        String bettery_code_output = CmdRun.run(battery_code);
+        // String bettery_code_output = AdbCommands.runAbdCmd(battery_code);
+
         // System.out.println("bettery_code_output = " + bettery_code_output);
         if (!bettery_code_output.startsWith("Error!ExitCode")) {
             // System.out.println("----------------------------");
