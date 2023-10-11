@@ -1,4 +1,4 @@
-package runnabletools.act;
+package adbs.main.ui.jpanels.auto.act;
 
 public class WeiZhi {
     private int x;

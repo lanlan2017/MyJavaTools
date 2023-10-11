@@ -41,9 +41,10 @@ public class TimingPanels2 extends WaitValues {
     private final JButton btn180s;
     private final JButton btn3HMore;
     private final JButton btn4H;
+    private final JButton btn20M;
+    private final JButton btn40M;
     private final JButton btn1H;
     private final JButton btn2H;
-    private final JButton btn20M;
     private final JButton btn1_5H;
     private String selected;
 
@@ -60,6 +61,8 @@ public class TimingPanels2 extends WaitValues {
         btn1_5H = initButton(1 * 60 * 60 + 30 * 60);
         btn2H = initButton(2 * 60 * 60);
         btn20M = initButton(20 * 60);
+        btn40M = initButton(40 * 60);
+
         // btn1H= btn1H;
         btn3HMore = initButton(values[values.length - 2]);
         btn4H = initButton(values[values.length - 1]);
@@ -81,6 +84,7 @@ public class TimingPanels2 extends WaitValues {
         timingPanels2.add(btn120s);
         timingPanels2.add(btn180s);
         timingPanels2.add(btn20M);
+        timingPanels2.add(btn40M);
 
 
         AbstractButtons.setMarginInButtonJPanel(timingPanels2, 0);
@@ -278,6 +282,7 @@ public class TimingPanels2 extends WaitValues {
         btn120s.setVisible(true);
         btn180s.setVisible(true);
         btn20M.setVisible(false);
+        btn40M.setVisible(false);
         btn1H.setVisible(true);
         btn1_5H.setVisible(true);
         btn2H.setVisible(true);
@@ -293,6 +298,7 @@ public class TimingPanels2 extends WaitValues {
         btn120s.setVisible(false);
         btn180s.setVisible(false);
         btn20M.setVisible(true);
+        btn40M.setVisible(false);
         btn1H.setVisible(true);
         btn1_5H.setVisible(true);
         btn2H.setVisible(true);
@@ -308,6 +314,7 @@ public class TimingPanels2 extends WaitValues {
         btn120s.setVisible(false);
         btn180s.setVisible(false);
         btn20M.setVisible(false);
+        btn40M.setVisible(false);
         btn1H.setVisible(false);
         btn1_5H.setVisible(false);
         btn2H.setVisible(false);
@@ -323,7 +330,8 @@ public class TimingPanels2 extends WaitValues {
         btn120s.setVisible(false);
         btn180s.setVisible(true);
         btn20M.setVisible(true);
-        btn1H.setVisible(false);
+        btn40M.setVisible(true);
+        btn1H.setVisible(true);
         btn1_5H.setVisible(false);
         btn2H.setVisible(false);
         btn3HMore.setVisible(false);

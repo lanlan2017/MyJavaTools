@@ -82,6 +82,29 @@ public class AdbCommands {
     }
 
     /**
+     * 小心向上滑动
+     *
+     * @param device
+     * @return
+     */
+    public static void swipeBotton2TopOnRightXiaoXiaoDe(Device device, int times) {
+        int width = device.getWidth();
+        int rightX = (int) (width * 0.9);
+        int height = device.getHeight();
+
+        int yTop = (int) (height * 0.45);
+        int yButton = (int) (height * 0.5);
+
+        for (int i = 0; i < times; i++) {
+
+            AdbCommands.runAbdCmd("adb -s " + device.getSerial() + " shell input swipe " + rightX + " " + yButton + " " + rightX + " " + yTop + " 100");
+        }
+
+        // return AdbCommands.runAbdCmd("adb -s " + device.getSerial() + " shell input swipe 5 " + y70 + " 5 " + y30 + " 200");
+        // return AdbCommands.runAbdCmd("adb -s " +)
+    }
+
+    /**
      * 在手机左侧，从下向上滑动
      */
     public static void swipeTop2BottomOnLeft(String id) {
@@ -159,6 +182,21 @@ public class AdbCommands {
         // // 显示导航栏
         String showNB = "adb -s " + device.getSerial() + " shell settings put global policy_control null";
         AdbCommands.runAbdCmd(showNB);
+    }
+
+
+    public static String getPackageVersion(Device device, String packageName) {
+        String code = "adb -s " + device.getSerial() + " shell dumpsys package " + packageName + " |findstr versionName";
+        // String version = AdbCommands.runAbdCmd(code).trim();
+        String version = AdbCommands.runAbdCmd(code);
+        System.out.println("version = " + version);
+        String versionsFlag = "versionName=";
+        if (version.contains(versionsFlag)) {
+            version = version.substring(version.indexOf(versionsFlag) + versionsFlag.length());
+            System.out.println("version = " + version);
+
+        }
+        return version;
     }
 
 

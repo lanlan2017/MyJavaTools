@@ -1,4 +1,4 @@
-package runnabletools.act;
+package adbs.main.ui.jpanels.auto.act;
 
 import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
@@ -26,30 +26,38 @@ public class ActDo extends CloseableRunnable implements CoinsType {
     private static ActDo runYueDuJinBi = new ActDo(strYueDuJinBi);
     private static ActDo runTingShuJinBi = new ActDo(strTingShuJinBi);
     private static ActDo runTingShuHongBao = new ActDo(strTingShuHongBao);
+    private static ActDo runFQMFXSTingShu = new ActDo(strFQMFXSTingShu);
+    private static ActDo runFQMFXSYueDu = new ActDo(strFQMFXSYueDu);
 
 
     private String coinType;
     private int times;
+    private String packageNameVersion;
+    boolean yijingShangHua = false;
+    private String version;
 
     public ActDo(String coinType) {
         this.coinType = coinType;
+        // switch (coinType) {
+        //     // case str
+        // }
     }
 
-    public static ActDo getRunYueDuZaiLing() {
-        return runYueDuZaiLing;
-    }
-
-    public static ActDo getRunTingShuZaiLing() {
-        return runTingShuZaiLing;
-    }
-
-    public static ActDo getRunYueDuJinBi() {
-        return runYueDuJinBi;
-    }
-
-    public static ActDo getRunTingShuJinBi() {
-        return runTingShuJinBi;
-    }
+    // public static ActDo getRunYueDuZaiLing() {
+    //     return runYueDuZaiLing;
+    // }
+    //
+    // public static ActDo getRunTingShuZaiLing() {
+    //     return runTingShuZaiLing;
+    // }
+    //
+    // public static ActDo getRunYueDuJinBi() {
+    //     return runYueDuJinBi;
+    // }
+    //
+    // public static ActDo getRunTingShuJinBi() {
+    //     return runTingShuJinBi;
+    // }
     // private static boolean stop = false;
 
     public static ActDo getRun(String coinType) {
@@ -57,27 +65,43 @@ public class ActDo extends CloseableRunnable implements CoinsType {
         ActDo actDo = null;
         switch (coinType) {
             case strYueDuJinBi:
-                actDo = getRunYueDuJinBi();
+                // actDo = getRunYueDuJinBi();
+                actDo = runYueDuJinBi;
                 break;
             case strTingShuJinBi:
-                actDo = getRunTingShuJinBi();
+                // actDo = getRunTingShuJinBi();
+                actDo = runTingShuJinBi;
                 break;
             case strYueDuZaiLing:
-                actDo = getRunYueDuZaiLing();
+                // actDo = getRunYueDuZaiLing();
+                actDo = runYueDuZaiLing;
+
                 break;
             case strTingShuZaiLing:
-                actDo = getRunTingShuZaiLing();
+                // actDo = getRunTingShuZaiLing();
+                actDo = runTingShuZaiLing;
                 break;
             case strTingShuHongBao:
-                actDo = getRunTingShuHongBao();
+                // actDo = getRunTingShuHongBao();
+                actDo = runTingShuHongBao;
                 break;
+
+            case strFQMFXSTingShu:
+                actDo = runFQMFXSTingShu;
+                break;
+
+            case strFQMFXSYueDu:
+                actDo = runFQMFXSYueDu;
+                break;
+
+
         }
         return actDo;
     }
 
-    public static ActDo getRunTingShuHongBao() {
-        return runTingShuHongBao;
-    }
+    // public static ActDo getRunTingShuHongBao() {
+    //     return runTingShuHongBao;
+    // }
 
     @Override
     protected void setMsg() {
@@ -139,7 +163,15 @@ public class ActDo extends CloseableRunnable implements CoinsType {
         // runTingShuJinBi = new ActDo(strTingShuJinBi);
         // new Thread(runTingShuJinBi).start();
         // runTingShuHongBao = new ActDo(strTingShuHongBao);
-        new Thread(runTingShuHongBao).start();
+        // new Thread(runTingShuHongBao).start();
+
+
+        runFQMFXSTingShu = new ActDo(strFQMFXSTingShu);
+        new Thread(runFQMFXSTingShu).start();
+        runFQMFXSYueDu = new ActDo(strFQMFXSYueDu);
+        new Thread(runFQMFXSYueDu).start();
+
+
     }
 
     @Override
@@ -188,7 +220,14 @@ public class ActDo extends CloseableRunnable implements CoinsType {
                 case "com.qz.freader":
                 case "com.xk.qreader":
                     if (width == 1080 && height == 2160) {
-                        freader_1080_2160(device, actShortName);
+                        shouJinBi_XM_QZ_XK_1080_2160(device, actShortName);
+                    }
+
+                    break;
+                case "com.dragon.read":
+                    if (width == 1080 && height == 2160) {
+                        // 番茄免费小说收金币
+                        shouJinBiFQMFXS(device, packageName, actShortName);
                     }
 
                     break;
@@ -208,6 +247,21 @@ public class ActDo extends CloseableRunnable implements CoinsType {
 
         System.out.println("自动操作停止...");
     }
+
+
+    // private String getPackageVersion(Device device, String packageName) {
+    //     String code = "adb -s " + device.getSerial() + " shell dumpsys package " + packageName + " |findstr versionName";
+    //     // String version = AdbCommands.runAbdCmd(code).trim();
+    //     String version = AdbCommands.runAbdCmd(code);
+    //     System.out.println("version = " + version);
+    //     String versionsFlag = "versionName=";
+    //     if (version.contains(versionsFlag)) {
+    //         version = version.substring(version.indexOf(versionsFlag) + versionsFlag.length());
+    //         System.out.println("version = " + version);
+    //
+    //     }
+    //     return version;
+    // }
 
     /**
      * 点击任务键，然后向上滑动，杀死右边的APP，接着点击屏幕中点，启动应用。
@@ -238,8 +292,13 @@ public class ActDo extends CloseableRunnable implements CoinsType {
         times++;
     }
 
-
-    private void freader_1080_2160(Device device, String actShortName) {
+    /**
+     * 茄子免费小说，熊猫免费小说，星空免费小说 1080*2160像素的手机金币收取功能
+     *
+     * @param device       要操作的设备
+     * @param actShortName 当前activity短名称
+     */
+    private void shouJinBi_XM_QZ_XK_1080_2160(Device device, String actShortName) {
 
         switch (coinType) {
             case strYueDuJinBi:
@@ -264,6 +323,200 @@ public class ActDo extends CloseableRunnable implements CoinsType {
         // old(device, actShortName);
     }
 
+    /**
+     * 番茄免费小说金币自动收取功能
+     *
+     * @param device
+     * @param packageName
+     * @param actShortName
+     */
+    private void shouJinBiFQMFXS(Device device, String packageName, String actShortName) {
+        System.out.println("番茄小说");
+        // version = "";
+        // if (packageNameVersion == null) {
+        if (version == null) {
+            version = AdbCommands.getPackageVersion(device, packageName);
+            // packageNameVersion = "com.dragon.read" + "@" + version;
+            // System.out.println("packageNameVersion = " + packageNameVersion);
+        }
+
+        // else {
+        //     System.out.println("packageNameVersion = " + packageNameVersion);
+        //     version = packageNameVersion.substring(packageNameVersion.lastIndexOf("@") + 1);
+        //     System.out.println("version = " + version);
+        // }
+
+        switch (coinType) {
+            case strFQMFXSYueDu:
+                switch (version) {
+                    case "5.6.7.32":
+                        actFQMFXS_V_5_6_7_32_YueDu(device, actShortName);
+                        break;
+                    case "5.8.9.32":
+                        System.out.println("番茄免费小说v" + version + "未适配");
+
+                        break;
+                    case "5.9.5.32":
+                    case "5.9.1.32":
+                        actFQMFXS_V_5_9_1_32(device, actShortName);
+                        break;
+
+                    default:
+
+                        System.out.println("番茄免费小说v" + version + "未适配");
+                        break;
+
+                }
+                break;
+
+            case strFQMFXSTingShu:
+
+                actFQMFXSTingShuByVersion(device, actShortName);
+
+                break;
+        }
+
+    }
+
+    private void actFQMFXS_V_5_9_1_32(Device device, String actShortName) {
+        if (!yijingShangHua) {
+            System.out.println("开始上划");
+            // 先小幅度上划6次让听书金币按钮出现
+            AdbCommands.swipeBotton2TopOnRightXiaoXiaoDe(device, 6);
+            yijingShangHua = true;
+        }
+        switch (actShortName) {
+            case ".pages.main.MainFragmentActivity":
+                // WeiZhi tingShuBtn = new WeiZhi(915, 1517);
+                // wait_tap(device, 5, tingShuBtn);
+                WeiZhi yueDuBtn = new WeiZhi(925, 901);
+                wait_tap(device, 5, yueDuBtn);
+
+                WeiZhi closeBtn = new WeiZhi(538, 1638);
+                wait_tap(device, 5, closeBtn);
+
+                break;
+            default:
+                stop(strFQMFXSTingShu);
+                break;
+        }
+    }
+
+    /**
+     * 收取不同版本的番茄免费小说听书金币
+     *
+     * @param device
+     * @param actShortName
+     */
+    private void actFQMFXSTingShuByVersion(Device device, String actShortName) {
+        switch (version) {
+            case "5.6.7.32":
+                actFQMFXS_V_5_6_7_32_TingShu(device, actShortName);
+                break;
+            case "5.8.9.32":
+                actFQMFXS_V_5_8_9_32_TingShu(device, actShortName);
+                break;
+            case "5.9.1.32":
+            case "5.9.5.32":
+                actFQMFXS_V_5_9_1_32_TingShu(device, actShortName);
+                // actFQMFXS_V
+                break;
+            default:
+                System.out.println("番茄免费小说v" + version + "未适配");
+                break;
+        }
+    }
+
+    private void actFQMFXS_V_5_9_1_32_TingShu(Device device, String actShortName) {
+        if (!yijingShangHua) {
+            System.out.println("开始上划");
+            // 先小幅度上划6次让听书金币按钮出现
+            AdbCommands.swipeBotton2TopOnRightXiaoXiaoDe(device, 6);
+            yijingShangHua = true;
+        }
+        switch (actShortName) {
+            case ".pages.main.MainFragmentActivity":
+                WeiZhi tingShuBtn = new WeiZhi(915, 1517);
+                wait_tap(device, 5, tingShuBtn);
+
+                WeiZhi closeBtn = new WeiZhi(538, 1638);
+                wait_tap(device, 5, closeBtn);
+
+                break;
+            default:
+                stop(strFQMFXSTingShu);
+                break;
+        }
+    }
+
+    // private void shouJinBiFQMFXS_V_5_8_9_32(Device device, String actShortName) {
+    //     switch (coinType) {
+    //         case strFQMFXSTingShu:
+    //             actFQMFXS_V_5_8_9_32_TingShu(device, actShortName);
+    //
+    //
+    //     }
+    // }
+
+    private void actFQMFXS_V_5_8_9_32_TingShu(Device device, String actShortName) {
+        switch (actShortName) {
+            case ".pages.main.MainFragmentActivity":
+                WeiZhi tingShuJinBi = new WeiZhi(874, 1991);
+                wait_tap(device, 5, tingShuJinBi);
+
+                WeiZhi closeBtn = new WeiZhi(538, 1638);
+                wait_tap(device, 5, closeBtn);
+                break;
+
+            default:
+                stop(strFQMFXSYueDu);
+                break;
+        }
+        return;
+    }
+
+    // private void shouJinBiFQMFXS_V_5_6_7_32(Device device, String actShortName) {
+    //     switch (coinType) {
+    //         case strFQMFXSTingShu:
+    //             actFQMFXS_V_5_6_7_32_TingShu(device, actShortName);
+    //             break;
+    //         case strFQMFXSYueDu:
+    //             actFQMFXS_V_5_6_7_32_YueDu(device, actShortName);
+    //             break;
+    //     }
+    // }
+
+    private void actFQMFXS_V_5_6_7_32_YueDu(Device device, String actShortName) {
+        switch (actShortName) {
+            case ".pages.main.MainFragmentActivity":
+                WeiZhi yueDuJinBi = new WeiZhi(921, 1103);
+                wait_tap(device, 5, yueDuJinBi);
+
+                WeiZhi closeBtn = new WeiZhi(538, 1638);
+                wait_tap(device, 5, closeBtn);
+
+                break;
+            default:
+                stop(strFQMFXSYueDu);
+                break;
+        }
+    }
+
+    private void actFQMFXS_V_5_6_7_32_TingShu(Device device, String actShortName) {
+        switch (actShortName) {
+            case ".pages.main.MainFragmentActivity":
+                WeiZhi tingShuJinBi = new WeiZhi(918, 1534);
+                wait_tap(device, 5, tingShuJinBi);
+
+                WeiZhi closeBtn = new WeiZhi(538, 1638);
+                wait_tap(device, 5, closeBtn);
+                break;
+            default:
+                // stop(strFQMFXSTingShu);
+                stop(coinType);
+                break;
+        }
+    }
 
     /**
      * 听书金币操作

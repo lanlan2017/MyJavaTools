@@ -10,5 +10,7 @@ public interface CoinsType {
     String strTingShuZaiLing = "听书再领";
     String strYueDuZaiLing = "阅读再领";
     String strTingShuHongBao = "听书红包";
+    String strFQMFXSYueDu = "番茄小说阅读";
+    String strFQMFXSTingShu = "番茄小说听书";
     String SuDuMianFeiXiaoShuo = "速读免费小说";
 }

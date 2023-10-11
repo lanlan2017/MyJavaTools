@@ -95,6 +95,7 @@ public class ProcessRunner {
             e.printStackTrace();
         }
         // 返回进程的标准输出
-        return sb.toString();
+        // return sb.toString();
+        return sb.toString().trim();
     }
 }

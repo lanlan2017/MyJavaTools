@@ -9,7 +9,7 @@ import adbs.main.ui.jpanels.timeauto2.TimingPanels2;
 import adbs.main.ui.jpanels.universal.runnable.CloseableRunnable;
 import adbs.model.Device;
 import adbs.tools.thread.ThreadSleep;
-import runnabletools.act.ActDo;
+import adbs.main.ui.jpanels.auto.act.ActDo;
 import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
@@ -104,7 +104,8 @@ public class AutoPanels implements CoinsType {
     }
 
     public void defaultSelected() {
-        jcbXuanZhe.setSelectedIndex(0);
+        // jcbXuanZhe.setSelectedIndex(0);
+        jcbXuanZhe.setSelectedIndex(1);
         jcbShou.setSelectedIndex(0);
         jcbZhuan.setSelectedIndex(0);
     }
@@ -230,6 +231,8 @@ public class AutoPanels implements CoinsType {
         comboBox.addItem(strYueDuZaiLing);
         comboBox.addItem(strTingShuZaiLing);
         comboBox.addItem(strTingShuHongBao);
+        comboBox.addItem(strFQMFXSTingShu);
+        comboBox.addItem(strFQMFXSYueDu);
 
         comboBox.addItemListener(new ItemListener() {
             @Override
@@ -238,7 +241,7 @@ public class AutoPanels implements CoinsType {
                 ComboBoxModel<String> model = comboBox.getModel();
                 String element = model.getElementAt(comboBox.getSelectedIndex());
                 btnShouOk.setText(element);
-
+                AdbTools.getInstance().getFrame().pack();
             }
         });
         // comboBox.setSelectedIndex(0);
