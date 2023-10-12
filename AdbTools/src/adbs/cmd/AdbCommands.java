@@ -1,7 +1,9 @@
 package adbs.cmd;
 
 import adbs.main.AdbTools;
+import adbs.main.ui.jpanels.auto.AdbTap;
 import adbs.model.Device;
+import adbs.tools.thread.ThreadSleep;
 import tools.process.ProcessRunner;
 import tools.random.Randoms;
 
@@ -184,6 +186,21 @@ public class AdbCommands {
         String showNB = "adb -s " + device.getSerial() + " shell settings put global policy_control null";
         AdbCommands.runAbdCmd(showNB);
     }
+    /**
+     * 点击任务键，然后向上滑动，杀死右边的APP，接着点击屏幕中点，启动应用。
+     *
+     * @param device
+     */
+    public static  void killOtherApp(Device device) {
+        ThreadSleep.seconds(3);
+        AdbCommands.taskBtn(device);
+        ThreadSleep.seconds(3);
+        AdbCommands.swipeBotton2TopOnRight(device);
+        ThreadSleep.seconds(3);
+        AdbTap.tapCenterPosition(device);
+        ThreadSleep.seconds(3);
+    }
+
 
 
     public static String getPackageVersion(Device device, String packageName) {
