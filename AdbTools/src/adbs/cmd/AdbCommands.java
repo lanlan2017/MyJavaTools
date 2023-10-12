@@ -89,11 +89,12 @@ public class AdbCommands {
      */
     public static void swipeBotton2TopOnRightXiaoXiaoDe(Device device, int times) {
         int width = device.getWidth();
-        int rightX = (int) (width * 0.9);
+        // int rightX = (int) (width * 0.9);
+        int rightX = 5;
         int height = device.getHeight();
 
-        int yTop = (int) (height * 0.45);
         int yButton = (int) (height * 0.5);
+        int yTop = yButton - 100;
 
         for (int i = 0; i < times; i++) {
 
