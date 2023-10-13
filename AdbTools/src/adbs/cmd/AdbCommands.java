@@ -200,7 +200,10 @@ public class AdbCommands {
         AdbTap.tapCenterPosition(device);
         ThreadSleep.seconds(3);
     }
-
+    public static void openSetting(Device device) {
+        String code = "adb -s " + device.getSerial() + " shell am start -n com.android.settings/.Settings";
+        AdbCommands.runAbdCmd(code);
+    }
 
 
     public static String getPackageVersion(Device device, String packageName) {

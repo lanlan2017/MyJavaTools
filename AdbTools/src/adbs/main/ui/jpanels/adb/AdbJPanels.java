@@ -8,6 +8,7 @@ import adbs.main.ui.config.Fonts;
 import adbs.main.ui.jpanels.adb.listener.*;
 import adbs.main.ui.jpanels.scrcpy.OpenApp;
 import adbs.main.ui.jpanels.tools.BtnActionListener;
+import adbs.model.Device;
 import config.AdbToolsProperties;
 import tools.config.properties.PropertiesTools;
 import tools.copy.SystemClipboard;
@@ -68,6 +69,7 @@ public class AdbJPanels {
      * 打开手机管家
      */
     private final JButton btnMobileButler;
+    private final JButton btnSetting;
     /**
      * 打开WiFi设置
      */
@@ -131,6 +133,17 @@ public class AdbJPanels {
         btnMobileButler = initBtnMobileButler();
         btnWiFiSettings = initBtnWiFiSettings();
 
+
+        btnSetting = new JButton("设");
+        btnSetting.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Device device = AdbTools.getInstance().getDevice();
+                // // openSetting(device);
+                // // AdbCommands.openSetting(device);
+                AdbCommands.openSetting(AdbTools.getInstance().getDevice());
+            }
+        });
         // adb面板添加按钮
         // adbJPanel.add(openScrcpyBtn);
         // adbJPanel.add(killScrcpyBtn);
@@ -153,6 +166,7 @@ public class AdbJPanels {
 
         adbJPanel.add(btnAct);
         adbJPanel.add(btnMobileButler);
+        adbJPanel.add(btnSetting);
         adbJPanel.add(btnWiFiSettings);
 
 
@@ -172,6 +186,11 @@ public class AdbJPanels {
         // volumeNone.setMargin(new Insets(2, -1, -1, -1));
         // volumeNone.setMargin(new Insets(2, -1, 2, -1));
     }
+
+    // public static void openSetting(Device device) {
+    //     String code = "adb -s " + device.getSerial() + " shell am start -n com.android.settings/.Settings";
+    //     AdbCommands.runAbdCmd(code);
+    // }
 
     private JButton intBtnAct() {
         final JButton btnGetAct;
