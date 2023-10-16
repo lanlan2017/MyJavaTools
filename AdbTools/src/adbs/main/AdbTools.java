@@ -135,8 +135,7 @@ public class AdbTools {
             @Override
             public void windowClosing(WindowEvent e) {
                 // int result = JOptionPane.showConfirmDialog(contentPane, "确认关闭");
-                int result = JOptionPane.showConfirmDialog(contentPane, "确定关闭", "是否关闭窗体", JOptionPane.YES_NO_OPTION);
-
+                int result = JOptionPane.showConfirmDialog(contentPane, "", "关闭窗体", JOptionPane.YES_NO_OPTION);
 
                 switch (result) {
                     case JOptionPane.OK_OPTION:

@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * 调用cmd,执行adb命令
  */
-public class AdbCommands {
+public class AdbCommands implements ActivityStr {
 
     /**
      * 存放命令的List
@@ -186,12 +186,13 @@ public class AdbCommands {
         String showNB = "adb -s " + device.getSerial() + " shell settings put global policy_control null";
         AdbCommands.runAbdCmd(showNB);
     }
+
     /**
      * 点击任务键，然后向上滑动，杀死右边的APP，接着点击屏幕中点，启动应用。
      *
      * @param device
      */
-    public static  void killOtherApp(Device device) {
+    public static void killOtherApp(Device device) {
         ThreadSleep.seconds(3);
         AdbCommands.taskBtn(device);
         ThreadSleep.seconds(3);
@@ -200,8 +201,27 @@ public class AdbCommands {
         AdbTap.tapCenterPosition(device);
         ThreadSleep.seconds(3);
     }
+
     public static void openSetting(Device device) {
-        String code = "adb -s " + device.getSerial() + " shell am start -n com.android.settings/.Settings";
+
+        String brand = device.getBrand();
+        // System.out.println("brand = " + brand);
+        // switch (brand) {
+        //     case
+        // }
+        String brandLC = brand.toLowerCase();
+        System.out.println("brand = " + brandLC);
+        String code = "";
+        switch (brandLC) {
+            case "honor":
+                code = "adb -s " + device.getSerial() + " shell am start -n " + huaweiSettings;
+                break;
+            default:
+                code = "adb -s " + device.getSerial() + " shell am start -n " + androidSettings;
+                break;
+        }
+
+        // String code = "adb -s " + device.getSerial() + " shell am start -n com.android.settings/.Settings";
         AdbCommands.runAbdCmd(code);
     }
 
