@@ -308,13 +308,7 @@ public class AutoPanels implements CoinsType {
                 Device device = AdbTools.getInstance().getDevice();
                 String serial = device.getSerial();
                 // 隐藏导航栏
-                //
-                // String hideNavigationBar = "adb -s " + serial + " shell settings put global policy_control immersive.navigation=*";
-                //                 // AdbCommands.runAbdCmd(hideNavigationBar);
-
                 AdbCommands.hideNavigationBar(device);
-                // // 显示导航栏
-                // String showNB = "adb -s " + serial + " shell settings put global policy_control null";
                 String buttonText = button.getText();
                 startCloseRun(ActDo.getRun(buttonText));
             }

@@ -109,7 +109,7 @@ public class AdbTap {
         return code;
     }
 
-    private static String getAdbTapCode(Device device, ScreenPosition position) {
+    public static String getAdbTapCode(Device device, ScreenPosition position) {
         String code = "";
         if (device != null) {
             String serial = device.getSerial();
@@ -118,7 +118,7 @@ public class AdbTap {
         return code;
     }
 
-    private static ScreenPosition getPosition(int height, int width, ScreenPositionRatio ratio) {
+    public static ScreenPosition getPosition(int height, int width, ScreenPositionRatio ratio) {
         // System.out.println("ratio = " + ratio);
         int x1 = (int) (width * ratio.getxRatio());
         int y1 = (int) (height * ratio.getyRatio());

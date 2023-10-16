@@ -19,4 +19,9 @@ public class ScreenPosition {
     public int getY() {
         return y;
     }
+
+    @Override
+    public String toString() {
+        return "ScreenPosition{" + "x,y=" + x + "," + y + '}';
+    }
 }
