@@ -128,22 +128,34 @@ public class AdbTools {
     }
 
     private void frameSettings() {
+        // 取消默认关闭操作
+        frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        // 自己实现windowClosing
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                super.windowClosing(e);
-                // adbJPanels.getStopBtn().doClick();
-                universalPanels.getBtnStop().doClick();
-                scrcpyJPanels.getBtnKillScrcpy().doClick();
-                System.out.println("窗体正在关闭。。。。。。。。。。。。");
-                // ThreadSleep.seconds(5);
-                System.exit(0);
+                // int result = JOptionPane.showConfirmDialog(contentPane, "确认关闭");
+                int result = JOptionPane.showConfirmDialog(contentPane, "确定关闭", "是否关闭窗体", JOptionPane.YES_NO_OPTION);
+
+
+                switch (result) {
+                    case JOptionPane.OK_OPTION:
+                        super.windowClosing(e);
+                        // adbJPanels.getStopBtn().doClick();
+                        universalPanels.getBtnStop().doClick();
+                        scrcpyJPanels.getBtnKillScrcpy().doClick();
+                        System.out.println("窗体正在关闭。。。。。。。。。。。。");
+                        // ThreadSleep.seconds(5);
+                        System.exit(0);
+                        break;
+                    // default:
+                    //     frame.pack();
+                    //     break;
+                }
             }
         });
         // 永远置顶
         frame.setAlwaysOnTop(true);
-        // 设置关闭按钮功能
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         // 调整窗体到最佳大小
         frame.pack();
         // 显示窗体
