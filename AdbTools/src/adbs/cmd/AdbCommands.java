@@ -216,6 +216,9 @@ public class AdbCommands implements ActivityStr {
             case "honor":
                 code = "adb -s " + device.getSerial() + " shell am start -n " + huaweiSettings;
                 break;
+            case "oppo":
+                code = "adb -s " + device.getSerial() + " shell am start -n " + oppoSetting;
+                break;
             default:
                 code = "adb -s " + device.getSerial() + " shell am start -n " + androidSettings;
                 break;

@@ -9,4 +9,5 @@ public interface ActivityStr {
      * 安卓手机，设置界面activity
      */
     String androidSettings = "com.android.settings/.Settings";
+    String oppoSetting = "com.android.settings/com.oppo.settings.SettingsActivity";
 }
