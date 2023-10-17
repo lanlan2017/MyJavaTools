@@ -1,16 +1,18 @@
-package adbs.main.ui.jpanels.auto.act;
+package adbs.main.ui.jpanels.auto.act.code;
 
 import adbs.cmd.AdbCommands;
 import adbs.main.ui.jpanels.auto.AdbTap;
 import adbs.main.ui.jpanels.auto.CoinsType;
+import adbs.main.ui.jpanels.auto.act.ActDo;
+import adbs.main.ui.jpanels.auto.act.WeiZhi;
 import adbs.model.Device;
 import adbs.tools.thread.ThreadSleep;
 
-public class DoXingMaoQieZiXingKong_1080_2160 implements CoinsType {
+public class XingMaoQieZiXingKong_1080_2160 implements CoinsType {
 
     ActDo actDo;
 
-    public DoXingMaoQieZiXingKong_1080_2160(ActDo actDo) {
+    public XingMaoQieZiXingKong_1080_2160(ActDo actDo) {
         this.actDo = actDo;
     }
 
@@ -21,7 +23,7 @@ public class DoXingMaoQieZiXingKong_1080_2160 implements CoinsType {
      * @param actShortName 当前activity短名称
      * @param coinType
      */
-    private void _XM_QZ_XK_1080_2160(String coinType, Device device, String actShortName) {
+    public void _XM_QZ_XK_1080_2160(String coinType, Device device, String actShortName) {
         switch (coinType) {
             case strYueDuJinBi:
                 actDoYueDuJinBi(device, actShortName);
