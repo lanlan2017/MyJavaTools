@@ -46,7 +46,7 @@ public class MyDocumentAdapter implements DocumentListener {
             boolean visible = parent.isVisible();
             // System.out.println("visible = " + visible);
             if (visible) {
-                // System.out.println("str = " + str);
+                System.out.println("str = " + str);
                 int lineCount = notOpened.getLineCount();
                 notOpened.setRows(lineCount);
                 System.out.println();

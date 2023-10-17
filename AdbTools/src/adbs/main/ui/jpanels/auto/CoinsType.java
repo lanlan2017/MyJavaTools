@@ -19,4 +19,16 @@ public interface CoinsType {
     String strFQMFXSTingShu = "番茄小说听书";
     String strFQCT = "番茄畅听";
     String SuDuMianFeiXiaoShuo = "速读免费小说";
+
+
+
+     int _40s = 40;
+     int _35s = 35;
+     int _45s = 45;
+     int _50s = 50;
+
+
+     int _1080 = 1080;
+     int _2160 = 2160;
+     int _1920 = 1920;
 }

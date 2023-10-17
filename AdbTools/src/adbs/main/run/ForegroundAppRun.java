@@ -107,10 +107,9 @@ public class ForegroundAppRun implements Runnable {
                         afterOpeningAllAPKs();
                     }
                     // System.out.println();
-
+                    // 打印已经打开的APP
                     printOpenedAppNames();
-
-                    // 打印没有打开的可赚钱APP
+                    // 打印没打开的APP
                     printNotOpenAppNames();
                 }
 
@@ -151,7 +150,6 @@ public class ForegroundAppRun implements Runnable {
         for (String s : apkOpenedToday) {
             sb.append(s).append("\n");
         }
-
 
         JTextArea signedInApp = AdbTools.getInstance().getAppPanels().getSignedIn();
         signedInApp.setText(sb.toString().trim());

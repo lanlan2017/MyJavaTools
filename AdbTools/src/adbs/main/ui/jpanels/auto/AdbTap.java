@@ -2,6 +2,7 @@ package adbs.main.ui.jpanels.auto;
 
 import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
+import adbs.main.ui.jpanels.auto.act.WeiZhi;
 import adbs.model.Device;
 import adbs.tools.thread.ThreadSleep;
 import tools.copy.SystemClipboard;
@@ -60,6 +61,20 @@ public class AdbTap {
         AdbCommands.runAbdCmd(adbTapCode);
         // ThreadSleep.minutes(1);
         // ThreadSleep.millisecond(600);
+    }
+
+    public static void wait_tap(Device device, int seconds, WeiZhi tingShuZaiLing) {
+        wait_tap(device, seconds, tingShuZaiLing.getX(), tingShuZaiLing.getY());
+    }
+
+    private static void wait_tap(Device device, int seconds, int x, int y) {
+        System.out.print("操作 等待" + seconds + "秒,");
+        ThreadSleep.seconds(seconds);
+        // ThreadSleep.seconds(35);
+        System.out.print("点击:" + x + "," + y);
+        System.out.println();
+        AdbTap.tap(device, x, y);
+        // System.out.println();
     }
 
     public static void tapCenterPosition(Device device) {
