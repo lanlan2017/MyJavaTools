@@ -271,12 +271,8 @@ public class ActDo extends CloseableRunnable implements CoinsType {
 
                 break;
             case "com.xs.fm":
-                // _width = 1080;
-                // height2160 = 2160;
                 if (width == p_1080 && height == p_2160) {
-                    // actFQCT(device, packageName, actShortName);
-                    // new FQMFXS(this).actFQMFXS(coinType, device, packageName, actShortName);
-                    new FQCT(this).actFQCT(coinType, device, packageName, actShortName);
+                    FQCT.actFQCT(this, coinType, device, packageName, actShortName);
                 }
                 break;
 
@@ -284,19 +280,6 @@ public class ActDo extends CloseableRunnable implements CoinsType {
                 if (width == p_1080) {
                     // _1920 = 1920;
                     if (height == p_1920) {
-                        // JOptionPane.showMessageDialog(AdbTools.getInstance().getContentPane(), "请将去浏览按钮移动到开箱");
-                        // JPanel contentPane = AdbTools.getInstance().getContentPane();
-                        // String message = "把\"去浏览\"按钮移动到宝箱底部";
-                        // String title = "滑动屏幕";
-                        // int messageType = JOptionPane.PLAIN_MESSAGE;
-                        //
-                        // int result = JOptionPane.showConfirmDialog(contentPane, message, title, messageType);
-                        // switch (result) {
-                        //     case JOptionPane.YES_OPTION:
-                        // new ShuDu(this).shuDuJinBi(coinType, device, packageName, actShortName);
-                        //         break;
-                        // }
-
                         ShuDu.shuDuJinBi(this, coinType, device, packageName, actShortName);
 
                     }

@@ -7,6 +7,9 @@ import adbs.main.ui.jpanels.auto.act.ActDo;
 import adbs.main.ui.jpanels.auto.act.WeiZhi;
 import adbs.model.Device;
 
+/**
+ * 番茄免费小说 要执行的操作
+ */
 public class FQMFXS implements CoinsType {
 
     private static ActDo actDo;

@@ -7,15 +7,19 @@ import adbs.main.ui.jpanels.auto.act.ActDo;
 import adbs.main.ui.jpanels.auto.act.WeiZhi;
 import adbs.model.Device;
 
+/**
+ * 番茄畅听要执行的操作
+ */
+
 public class FQCT implements CoinsType {
-    ActDo actDo;
-    private boolean yijingShangHua;
+    static ActDo actDo;
+    private static boolean yijingShangHua;
 
-    public FQCT(ActDo actDo) {
-        this.actDo = actDo;
-    }
+    // public FQCT(ActDo actDo) {
+    //     this.actDo = actDo;
+    // }
 
-    private String version;
+    private static String version;
 
     /**
      * 番茄畅听金币自动收取功能
@@ -24,7 +28,8 @@ public class FQCT implements CoinsType {
      * @param packageName
      * @param actShortName
      */
-    public void actFQCT(String coinType, Device device, String packageName, String actShortName) {
+    public static void actFQCT(ActDo actDo, String coinType, Device device, String packageName, String actShortName) {
+        FQCT.actDo = actDo;
         System.out.println("番茄畅听");
         if (version == null) {
             version = AdbCommands.getPackageVersion(device, packageName);
@@ -55,7 +60,7 @@ public class FQCT implements CoinsType {
     }
 
 
-    private void actFQCT_v_5_1_3_32(Device device, String actShortName) {
+    private static void actFQCT_v_5_1_3_32(Device device, String actShortName) {
         if (!yijingShangHua) {
             System.out.println("开始上划");
             // 先小幅度上划6次让听书金币按钮出现
@@ -84,7 +89,7 @@ public class FQCT implements CoinsType {
     }
 
 
-    private void wait_tap_FQCloseBtn(Device device) {
+    private static void wait_tap_FQCloseBtn(Device device) {
         WeiZhi closeBtn = new WeiZhi(538, 1638);
         // wait_tap(device, 5, closeBtn);
         AdbTap.wait_tap(device, 5, closeBtn);

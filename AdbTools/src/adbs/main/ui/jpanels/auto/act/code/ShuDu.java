@@ -9,14 +9,12 @@ import adbs.model.Device;
 
 import javax.swing.*;
 
+/**
+ * 速读免费小说要执行的操作
+ */
 public class ShuDu implements CoinsType {
     static ActDo actDo;
     static boolean isAdjustedPosition;
-
-    // public ShuDu(ActDo actDo) {
-    //     this.actDo = actDo;
-    // }
-
 
     /**
      * 番茄畅听金币自动收取功能
@@ -27,8 +25,8 @@ public class ShuDu implements CoinsType {
      */
     public static void shuDuJinBi(ActDo actDo, String coinType, Device device, String packageName, String actShortName) {
         ShuDu.actDo = actDo;
+        // 如果是首次执行
         if (!isAdjustedPosition) {
-
             // JOptionPane.showMessageDialog(AdbTools.getInstance().getContentPane(), "请将去浏览按钮移动到开箱");
             JPanel contentPane = AdbTools.getInstance().getContentPane();
             String message = "把\"去浏览\"按钮移动到宝箱底部";
@@ -47,61 +45,50 @@ public class ShuDu implements CoinsType {
 
             shuDuJinBi_(coinType, device, actShortName);
         }
-
-
-        // shuDuJinBi_(coinType, device, actShortName);
-
     }
 
     private static void shuDuJinBi_(String coinType, Device device, String actShortName) {
         System.out.println("速读免费小说");
-        // if (version == null) {
-        //     version = AdbCommands.getPackageVersion(device, packageName);
-        // }
         switch (coinType) {
-            case strShuDuYueDu:
             case strShuDuTingShu:
                 if (actShortName.equals("com.zhangyue.iReader.ui.activity.ActivityContainer")) {
                     WeiZhi shuDuTingShu = new WeiZhi(890, 1463);
                     AdbTap.wait_tap(device, 5, shuDuTingShu);
 
-                    WeiZhi kanShiPinZuiGaoLing = new WeiZhi(568, 1231);
-                    AdbTap.wait_tap(device, 5, kanShiPinZuiGaoLing);
+                    kanShiPinZuiGaoLing(device);
                 } else {
                     guangGao(device, actShortName);
                 }
 
                 break;
+            case strShuDuYueDu:
 
-            // case strShuDuYueDu:
-            //     if (actShortName.equals("com.zhangyue.iReader.ui.activity.ActivityContainer")) {
-            //
-            //     } else {
-            //         guangGao(device, actShortName);
-            //     }
-            //
-            //     break;
+                if (actShortName.equals("com.zhangyue.iReader.ui.activity.ActivityContainer")) {
 
-            // default:
-            //     actDo.stop(strFQCT);
-            //     break;
+                    WeiZhi yueDuJinBi = new WeiZhi(892, 900);
+                    AdbTap.wait_tap(device, s5, yueDuJinBi);
 
+                    kanShiPinZuiGaoLing(device);
+                } else {
+                    guangGao(device, actShortName);
+                }
+                break;
         }
     }
 
+    private static void kanShiPinZuiGaoLing(Device device) {
+        WeiZhi kanShiPinZuiGaoLing = new WeiZhi(568, 1231);
+        AdbTap.wait_tap(device, 5, kanShiPinZuiGaoLing);
+    }
+
+    /**
+     * 在广告activity界面执行的操作
+     *
+     * @param device
+     * @param actShortName
+     */
     private static void guangGao(Device device, String actShortName) {
         switch (actShortName) {
-            // case "com.zhangyue.iReader.ui.activity.ActivityContainer":
-            //
-            //     WeiZhi shuDuTingShu = new WeiZhi(890, 1463);
-            //
-            //     AdbTap.wait_tap(device, 5, shuDuTingShu);
-            //
-            //
-            //     WeiZhi kanShiPinZuiGaoLing = new WeiZhi(568, 1231);
-            //     AdbTap.wait_tap(device, 5, kanShiPinZuiGaoLing);
-            //
-            //     break;
             case "com.bytedance.sdk.openadsdk.stub.activity.Stub_Standard_Portrait_Activity":
 
                 WeiZhi closeBtn = new WeiZhi(987, 104);
@@ -109,8 +96,8 @@ public class ShuDu implements CoinsType {
 
                 break;
             case "com.qq.e.ads.PortraitADActivity":
-                WeiZhi closeBtn1 = new WeiZhi(981, 171);
-
+                // WeiZhi closeBtn1 = new WeiZhi(981, 171);
+                WeiZhi closeBtn1 = new WeiZhi(983, 167);
                 AdbTap.wait_tap(device, s60, closeBtn1);
                 break;
 
