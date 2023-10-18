@@ -96,12 +96,12 @@ public class XingMaoQieZiXingKong_1080_2160 implements CoinsType {
                 // wait_tap(device, 5, closeGuangGaoX, closeGuangGaoY);
                 // wait_tap(device, _35s, closeGuangGaoX, closeGuangGaoY);
                 // wait_tap(device, _40s, closeGuangGao);
-                AdbTap.wait_tap(device, _40s, closeGuangGao);
+                AdbTap.wait_tap(device, s40, closeGuangGao);
                 break;
 
             case "com.qq.e.ads.PortraitADActivity":
                 // wait_tap(device, _50s, new WeiZhi(979, 161));
-                AdbTap.wait_tap(device, _50s, new WeiZhi(979, 161));
+                AdbTap.wait_tap(device, s50, new WeiZhi(979, 161));
                 break;
 
             case "com.qimao.qmreader.commonvoice.CommonVoiceActivityV2":
@@ -112,13 +112,13 @@ public class XingMaoQieZiXingKong_1080_2160 implements CoinsType {
 
             case "com.kwad.sdk.api.proxy.app.KsRewardVideoActivity":
                 // wait_tap(device, _40s, new WeiZhi(989, 121));
-                AdbTap.wait_tap(device, _40s, new WeiZhi(989, 121));
+                AdbTap.wait_tap(device, s40, new WeiZhi(989, 121));
                 break;
 
             case "com.baidu.mobads.sdk.api.MobRewardVideoActivity":
                 // wait_tap(device, _35s, new WeiZhi(989, 111));
                 // wait_tap(device, _50s, new WeiZhi(998, 70));
-                AdbTap.wait_tap(device, _50s, new WeiZhi(998, 70));
+                AdbTap.wait_tap(device, s50, new WeiZhi(998, 70));
                 break;
 
 

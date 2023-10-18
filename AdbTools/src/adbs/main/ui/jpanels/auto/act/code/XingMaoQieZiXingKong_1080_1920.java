@@ -161,7 +161,7 @@ public class XingMaoQieZiXingKong_1080_1920 implements CoinsType {
 
             case "com.qq.e.ads.PortraitADActivity":
                 // wait_tap(device, _50s, new WeiZhi(983, 165));
-                AdbTap.wait_tap(device, _50s, new WeiZhi(983, 165));
+                AdbTap.wait_tap(device, s50, new WeiZhi(983, 165));
                 break;
 
             // case "com.qimao.qmreader.commonvoice.CommonVoiceActivityV2":
@@ -176,14 +176,14 @@ public class XingMaoQieZiXingKong_1080_1920 implements CoinsType {
             case "com.baidu.mobads.sdk.api.MobRewardVideoActivity":
                 // wait_tap(device, _35s, new WeiZhi(989, 111));
                 // wait_tap(device, _40s, new WeiZhi(991, 64));
-                AdbTap.wait_tap(device, _40s, new WeiZhi(991, 64));
+                AdbTap.wait_tap(device, s40, new WeiZhi(991, 64));
                 break;
 
 
             case "com.kmxs.mobad.core.ssp.rewardvideo.RewardVideoDspActivity":
 
                 // wait_tap(device, _40s, new WeiZhi(975, 104));
-                AdbTap.wait_tap(device, _40s, new WeiZhi(975, 104));
+                AdbTap.wait_tap(device, s40, new WeiZhi(975, 104));
                 break;
 
             case "com.baidu.mobads.sdk.api.AppActivity":

@@ -24,7 +24,7 @@ public class FQCT implements CoinsType {
      * @param packageName
      * @param actShortName
      */
-    private void actFQCT(String coinType, Device device, String packageName, String actShortName) {
+    public void actFQCT(String coinType, Device device, String packageName, String actShortName) {
         System.out.println("番茄畅听");
         if (version == null) {
             version = AdbCommands.getPackageVersion(device, packageName);
@@ -53,7 +53,6 @@ public class FQCT implements CoinsType {
         }
 
     }
-
 
 
     private void actFQCT_v_5_1_3_32(Device device, String actShortName) {

@@ -4,11 +4,8 @@ import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
 import adbs.main.run.AdbGetPackage;
 import adbs.main.run.model.AppNames;
-import adbs.main.ui.jpanels.auto.AdbTap;
 import adbs.main.ui.jpanels.auto.CoinsType;
-import adbs.main.ui.jpanels.auto.act.code.FQMFXS;
-import adbs.main.ui.jpanels.auto.act.code.XingMaoQieZiXingKong_1080_1920;
-import adbs.main.ui.jpanels.auto.act.code.XingMaoQieZiXingKong_1080_2160;
+import adbs.main.ui.jpanels.auto.act.code.*;
 import adbs.main.ui.jpanels.universal.runnable.CloseableRunnable;
 import adbs.model.Device;
 import adbs.tools.thread.ThreadSleep;
@@ -32,7 +29,9 @@ public class ActDo extends CloseableRunnable implements CoinsType {
     private static ActDo runFQMFXSTingShu = new ActDo(strFQMFXSTingShu);
     private static ActDo runFQMFXSYueDu = new ActDo(strFQMFXSYueDu);
     private static ActDo runFQCT = new ActDo(strFQCT);
-    private static ActDo actDo;
+    private static ActDo runShuDuTingShu = new ActDo(strShuDuTingShu);
+    private static ActDo runShuDuYueDu = new ActDo(strShuDuYueDu);
+    // private static ActDo actDo;
 
 
     private String coinType;
@@ -57,6 +56,7 @@ public class ActDo extends CloseableRunnable implements CoinsType {
     }
 
     public static ActDo getRun(String coinType) {
+        ActDo actDo = null;
         System.out.println("在GetRun中");
         // actDo = null;
         switch (coinType) {
@@ -92,7 +92,13 @@ public class ActDo extends CloseableRunnable implements CoinsType {
             case strFQCT:
                 actDo = runFQCT;
                 break;
+            case strShuDuTingShu:
+                actDo = runShuDuTingShu;
+                break;
 
+            case strShuDuYueDu:
+                // ActDo runShuDuYueDu = new ActDo(strShuDuYueDu);
+                actDo = runShuDuYueDu;
         }
         return actDo;
     }
@@ -171,7 +177,8 @@ public class ActDo extends CloseableRunnable implements CoinsType {
 
         AdbCommands.hideNavigationBar(AdbTools.getInstance().getDevice());
         // runFQCT = new ActDo(strFQCT);
-        new Thread(runFQCT).start();
+        // new Thread(runFQCT).start();
+        runShuDuTingShu = new ActDo(strShuDuTingShu);
 
 
     }
@@ -242,13 +249,12 @@ public class ActDo extends CloseableRunnable implements CoinsType {
             case "com.xm.freader":
             case "com.qz.freader":
             case "com.xk.qreader":
-                if (width == _1080) {
-                    if (height == _2160) {
+                if (width == p_1080) {
+                    if (height == p_2160) {
                         // _XM_QZ_XK_1080_2160(coinType, device, actShortName);
                         new XingMaoQieZiXingKong_1080_2160(this)._XM_QZ_XK_1080_2160(coinType, device, actShortName);
-                    } else if (height == 1920) {
+                    } else if (height == p_1920) {
                         // _XM_QZ_XK_1080_1920(device, actShortName);
-
                         new XingMaoQieZiXingKong_1080_1920(this)._XM_QZ_XK_1080_1920(coinType, device, actShortName);
                     }
                     // if (width ==  width1080 && height==  height2160) {
@@ -256,27 +262,42 @@ public class ActDo extends CloseableRunnable implements CoinsType {
 
                 break;
             case "com.dragon.read":
-                if (width == _1080 && height == _2160) {
+                if (width == p_1080 && height == p_2160) {
                     // 番茄免费小说收金币
                     // actFQMFXS(device, packageName, actShortName);
-
-                    new FQMFXS(this).actFQMFXS(coinType, device, packageName, actShortName);
+                    // new FQMFXS(this).actFQMFXS(coinType, device, packageName, actShortName);
+                    FQMFXS.actFQMFXS(this, coinType, device, packageName, actShortName);
                 }
 
                 break;
             case "com.xs.fm":
                 // _width = 1080;
                 // height2160 = 2160;
-                if (width == _1080 && height == _2160) {
+                if (width == p_1080 && height == p_2160) {
                     // actFQCT(device, packageName, actShortName);
-                    new FQMFXS(this).actFQMFXS(coinType, device, packageName, actShortName);
+                    // new FQMFXS(this).actFQMFXS(coinType, device, packageName, actShortName);
+                    new FQCT(this).actFQCT(coinType, device, packageName, actShortName);
                 }
                 break;
 
             case "com.dj.speed":
-                if (width == _1080) {
+                if (width == p_1080) {
                     // _1920 = 1920;
-                    if (height == _1920) {
+                    if (height == p_1920) {
+                        // JOptionPane.showMessageDialog(AdbTools.getInstance().getContentPane(), "请将去浏览按钮移动到开箱");
+                        // JPanel contentPane = AdbTools.getInstance().getContentPane();
+                        // String message = "把\"去浏览\"按钮移动到宝箱底部";
+                        // String title = "滑动屏幕";
+                        // int messageType = JOptionPane.PLAIN_MESSAGE;
+                        //
+                        // int result = JOptionPane.showConfirmDialog(contentPane, message, title, messageType);
+                        // switch (result) {
+                        //     case JOptionPane.YES_OPTION:
+                        // new ShuDu(this).shuDuJinBi(coinType, device, packageName, actShortName);
+                        //         break;
+                        // }
+
+                        ShuDu.shuDuJinBi(this, coinType, device, packageName, actShortName);
 
                     }
                 }

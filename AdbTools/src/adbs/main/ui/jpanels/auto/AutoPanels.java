@@ -234,6 +234,8 @@ public class AutoPanels implements CoinsType {
         comboBox.addItem(strFQMFXSTingShu);
         comboBox.addItem(strFQMFXSYueDu);
         comboBox.addItem(strFQCT);
+        comboBox.addItem(strShuDuTingShu);
+        comboBox.addItem(strShuDuYueDu);
 
         comboBox.addItemListener(new ItemListener() {
             @Override

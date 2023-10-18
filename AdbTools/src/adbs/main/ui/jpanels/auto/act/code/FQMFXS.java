@@ -9,13 +9,13 @@ import adbs.model.Device;
 
 public class FQMFXS implements CoinsType {
 
-    ActDo actDo;
-    private String version;
-    private boolean yijingShangHua;
+    private static ActDo actDo;
+    private static String version;
+    private static boolean yijingShangHua;
 
-    public FQMFXS(ActDo actDo) {
-        this.actDo = actDo;
-    }
+    // public FQMFXS(ActDo actDo) {
+    //     this.actDo = actDo;
+    // }
 
     /**
      * 番茄免费小说金币自动收取功能
@@ -24,7 +24,8 @@ public class FQMFXS implements CoinsType {
      * @param packageName
      * @param actShortName
      */
-    public void actFQMFXS(String coinType, Device device, String packageName, String actShortName) {
+    public static void actFQMFXS(ActDo actDo, String coinType, Device device, String packageName, String actShortName) {
+        FQMFXS.actDo = actDo;
         System.out.println("番茄小说");
         // if (actDo.version == null) {
         //     actDo.version = AdbCommands.getPackageVersion(device, packageName);
@@ -65,7 +66,7 @@ public class FQMFXS implements CoinsType {
     }
 
 
-    private void actFQMFXS_V_5_6_7_32_YueDu(Device device, String actShortName) {
+    private static void actFQMFXS_V_5_6_7_32_YueDu(Device device, String actShortName) {
         switch (actShortName) {
             case ".pages.main.MainFragmentActivity":
                 WeiZhi yueDuJinBi = new WeiZhi(921, 1103);
@@ -82,7 +83,7 @@ public class FQMFXS implements CoinsType {
         }
     }
 
-    private void actFQMFXS_V_5_6_7_32_TingShu(Device device, String actShortName) {
+    private static void actFQMFXS_V_5_6_7_32_TingShu(Device device, String actShortName) {
         switch (actShortName) {
             case ".pages.main.MainFragmentActivity":
                 WeiZhi tingShuJinBi = new WeiZhi(918, 1534);
@@ -101,7 +102,7 @@ public class FQMFXS implements CoinsType {
     }
 
 
-    private void actFQMFXS_V_5_9_1_32(Device device, String actShortName) {
+    private static void actFQMFXS_V_5_9_1_32(Device device, String actShortName) {
         if (!yijingShangHua) {
             System.out.println("开始上划");
             // 先小幅度上划6次让听书金币按钮出现
@@ -126,7 +127,7 @@ public class FQMFXS implements CoinsType {
         }
     }
 
-    private void wait_tap_FQCloseBtn(Device device) {
+    private static void wait_tap_FQCloseBtn(Device device) {
         WeiZhi closeBtn = new WeiZhi(538, 1638);
         // wait_tap(device, 5, closeBtn);
         AdbTap.wait_tap(device, 5, closeBtn);
@@ -139,7 +140,7 @@ public class FQMFXS implements CoinsType {
      * @param device
      * @param actShortName
      */
-    private void actFQMFXSTingShuByVersion(Device device, String actShortName) {
+    private static void actFQMFXSTingShuByVersion(Device device, String actShortName) {
         switch (version) {
             case "5.6.7.32":
                 actFQMFXS_V_5_6_7_32_TingShu(device, actShortName);
@@ -159,7 +160,7 @@ public class FQMFXS implements CoinsType {
     }
 
 
-    private void actFQMFXS_V_5_8_9_32_TingShu(Device device, String actShortName) {
+    private static void actFQMFXS_V_5_8_9_32_TingShu(Device device, String actShortName) {
         switch (actShortName) {
             case ".pages.main.MainFragmentActivity":
                 WeiZhi tingShuJinBi = new WeiZhi(874, 1991);
@@ -177,7 +178,7 @@ public class FQMFXS implements CoinsType {
     }
 
 
-    private void actFQMFXS_V_5_9_1_32_TingShu(Device device, String actShortName) {
+    private static void actFQMFXS_V_5_9_1_32_TingShu(Device device, String actShortName) {
         if (!yijingShangHua) {
             System.out.println("开始上划");
             // 先小幅度上划6次让听书金币按钮出现
