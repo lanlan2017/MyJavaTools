@@ -9,7 +9,7 @@ import adbs.main.ui.jpanels.timeauto2.TimingPanels2;
 import adbs.main.ui.jpanels.universal.runnable.CloseableRunnable;
 import adbs.model.Device;
 import adbs.tools.thread.ThreadSleep;
-import adbs.main.ui.jpanels.auto.act.ActDo;
+import adbs.main.ui.jpanels.auto.act.ActivityRun;
 import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
@@ -312,7 +312,7 @@ public class AutoPanels implements CoinsType {
                 // 隐藏导航栏
                 AdbCommands.hideNavigationBar(device);
                 String buttonText = button.getText();
-                startCloseRun(ActDo.getRun(buttonText));
+                startCloseRun(ActivityRun.getRun(buttonText));
             }
 
 
@@ -347,7 +347,7 @@ public class AutoPanels implements CoinsType {
         return button;
     }
 
-    private void startCloseRun(ActDo runYueDuJinBi) {
+    private void startCloseRun(ActivityRun runYueDuJinBi) {
         closeRun = runYueDuJinBi;
         new Thread(runYueDuJinBi).start();
     }

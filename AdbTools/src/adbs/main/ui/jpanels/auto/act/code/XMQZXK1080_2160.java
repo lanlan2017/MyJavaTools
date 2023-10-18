@@ -3,14 +3,20 @@ package adbs.main.ui.jpanels.auto.act.code;
 import adbs.cmd.AdbCommands;
 import adbs.main.ui.jpanels.auto.AdbTap;
 import adbs.main.ui.jpanels.auto.CoinsType;
-import adbs.main.ui.jpanels.auto.act.ActDo;
+import adbs.main.ui.jpanels.auto.act.ActivityRun;
 import adbs.main.ui.jpanels.auto.act.WeiZhi;
 import adbs.model.Device;
 import adbs.tools.thread.ThreadSleep;
 
-public class XingMaoQieZiXingKong_1080_2160 implements CoinsType {
+/**
+ * 熊猫免费小说
+ * 茄子免费小说
+ * 星空免费小说
+ * 自动收金币
+ */
+public class XMQZXK1080_2160 implements CoinsType {
 
-    static ActDo actDo;
+    static ActivityRun activityRun;
 
     // public XingMaoQieZiXingKong_1080_2160(ActDo actDo) {
     //     this.actDo = actDo;
@@ -23,8 +29,8 @@ public class XingMaoQieZiXingKong_1080_2160 implements CoinsType {
      * @param actShortName 当前activity短名称
      * @param coinType
      */
-    public static void _XM_QZ_XK_1080_2160(ActDo actDo, String coinType, Device device, String actShortName) {
-        XingMaoQieZiXingKong_1080_2160.actDo = actDo;
+    public static void shouJinBi(ActivityRun activityRun, String coinType, Device device, String actShortName) {
+        XMQZXK1080_2160.activityRun = activityRun;
         switch (coinType) {
             case strYueDuJinBi:
                 actDoYueDuJinBi(device, actShortName);
@@ -56,11 +62,12 @@ public class XingMaoQieZiXingKong_1080_2160 implements CoinsType {
             case "com.kmxs.reader.webview.ui.DefaultNewWebActivity":
                 WeiZhi closeBtn = new WeiZhi(881, 942);
                 // wait_tap(device, 5, closeBtn);
-                AdbTap.wait_tap(device, 5, closeBtn);
+                AdbTap.wait_tap(device, s3, closeBtn);
 
                 WeiZhi yueDuJinBi = new WeiZhi(915, 1180);
                 // wait_tap(device, 5, yueDuJinBi);
-                AdbTap.wait_tap(device, 5, yueDuJinBi);
+                // AdbTap.wait_tap(device, 5, yueDuJinBi);
+                AdbTap.wait_tap(device, s3, yueDuJinBi);
 
                 break;
 
@@ -68,7 +75,7 @@ public class XingMaoQieZiXingKong_1080_2160 implements CoinsType {
                 System.out.println("其他act界面，应该停止");
                 // stop();
                 // stop(strYueDuJinBi);
-                actDo.stop(strYueDuJinBi);
+                activityRun.stop(strYueDuJinBi);
                 break;
         }
     }
@@ -107,8 +114,8 @@ public class XingMaoQieZiXingKong_1080_2160 implements CoinsType {
 
             case "com.qimao.qmreader.commonvoice.CommonVoiceActivityV2":
                 //
-                // wait_tap(device, 5, new WeiZhi(952, 161));
-                AdbTap.wait_tap(device, 5, new WeiZhi(952, 161));
+                // wait_tap(device, s3, new WeiZhi(952, 161));
+                AdbTap.wait_tap(device, s3, new WeiZhi(952, 161));
                 break;
 
             case "com.kwad.sdk.api.proxy.app.KsRewardVideoActivity":
@@ -141,19 +148,19 @@ public class XingMaoQieZiXingKong_1080_2160 implements CoinsType {
         switch (actShortName) {
             case "com.kmxs.reader.webview.ui.DefaultNewWebActivity":
                 WeiZhi closeBtn = new WeiZhi(881, 942);
-                // wait_tap(device, 5, closeBtn);
-                AdbTap.wait_tap(device, 5, closeBtn);
+                // wait_tap(device, s3, closeBtn);
+                AdbTap.wait_tap(device, s3, closeBtn);
 
                 WeiZhi tingShuJinBi = new WeiZhi(905, 1665);
-                // wait_tap(device, 5, tingShuJinBi);
-                AdbTap.wait_tap(device, 5, tingShuJinBi);
+                // wait_tap(device, s3, tingShuJinBi);
+                AdbTap.wait_tap(device, s3, tingShuJinBi);
                 break;
 
             default:
                 System.out.println("其他act界面，应该停止");
                 // stop();
                 // stop(strTingShuJinBi);
-                actDo.stop(strTingShuJinBi);
+                activityRun.stop(strTingShuJinBi);
                 break;
         }
     }
@@ -168,20 +175,20 @@ public class XingMaoQieZiXingKong_1080_2160 implements CoinsType {
 
     private static void actDoTingShuZaiLing(Device device, String actShortName) {
         // addArrActName(actShortName);
-        actDo.addArrActName(actShortName);
+        activityRun.addArrActName(actShortName);
         if (actShortName.equals("com.kmxs.reader.webview.ui.DefaultNewWebActivity")) {
             // tingShuZaiLing(device);
             int audioX = 884;
             int audioY = 1651;
             WeiZhi tingShuZaiLing = new WeiZhi(audioX, audioY);
-            // wait_tap(device, 5, audioX, audioY);
-            // wait_tap(device, 5, tingShuZaiLing);
-            AdbTap.wait_tap(device, 5, tingShuZaiLing);
+            // wait_tap(device, s3, audioX, audioY);
+            // wait_tap(device, s3, tingShuZaiLing);
+            AdbTap.wait_tap(device, s3, tingShuZaiLing);
         } else {
             actDoGuangGao(device, actShortName);
         }
         // isEndTest(strTingShuZaiLing);
-        actDo.isEndTest(strTingShuZaiLing);
+        activityRun.isEndTest(strTingShuZaiLing);
     }
 
 
@@ -195,15 +202,15 @@ public class XingMaoQieZiXingKong_1080_2160 implements CoinsType {
     private static void actDoYueDuZaiLing(Device device, String actShortName) {
         // 记录打开的act短名称
         // addArrActName(actShortName);
-        actDo.addArrActName(actShortName);
+        activityRun.addArrActName(actShortName);
         if (actShortName.equals("com.kmxs.reader.webview.ui.DefaultNewWebActivity")) {
-            // wait_tap(device, 5, new WeiZhi(888, 1201));
-            AdbTap.wait_tap(device, 5, new WeiZhi(888, 1201));
+            // wait_tap(device, s3, new WeiZhi(888, 1201));
+            AdbTap.wait_tap(device, s3, new WeiZhi(888, 1201));
         } else {
             actDoGuangGao(device, actShortName);
         }
         // isEndTest(strYueDuZaiLing);
-        actDo.isEndTest(strYueDuZaiLing);
+        activityRun.isEndTest(strYueDuZaiLing);
 
     }
 
@@ -216,16 +223,16 @@ public class XingMaoQieZiXingKong_1080_2160 implements CoinsType {
      */
     private static void actDoTingShuHongBao(Device device, String actShortName) {
         // addArrActName(actShortName);
-        actDo.addArrActName(actShortName);
+        activityRun.addArrActName(actShortName);
         if ("com.qimao.qmreader.commonvoice.CommonVoiceActivityV2".equals(actShortName)) {
-            // wait_tap(device, 5, new WeiZhi(952, 161));
-            // wait_tap(device, 5, new WeiZhi(952, 161));
-            AdbTap.wait_tap(device, 5, new WeiZhi(952, 161));
+            // wait_tap(device, s3, new WeiZhi(952, 161));
+            // wait_tap(device, s3, new WeiZhi(952, 161));
+            AdbTap.wait_tap(device, s3, new WeiZhi(952, 161));
         } else {
             actDoGuangGao(device, actShortName);
         }
         // isEndTest(strTingShuZaiLing);
-        actDo.isEndTest(strTingShuZaiLing);
+        activityRun.isEndTest(strTingShuZaiLing);
     }
 
 }

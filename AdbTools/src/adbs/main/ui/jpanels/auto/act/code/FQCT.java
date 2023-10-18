@@ -3,7 +3,7 @@ package adbs.main.ui.jpanels.auto.act.code;
 import adbs.cmd.AdbCommands;
 import adbs.main.ui.jpanels.auto.AdbTap;
 import adbs.main.ui.jpanels.auto.CoinsType;
-import adbs.main.ui.jpanels.auto.act.ActDo;
+import adbs.main.ui.jpanels.auto.act.ActivityRun;
 import adbs.main.ui.jpanels.auto.act.WeiZhi;
 import adbs.model.Device;
 
@@ -12,7 +12,7 @@ import adbs.model.Device;
  */
 
 public class FQCT implements CoinsType {
-    static ActDo actDo;
+    static ActivityRun activityRun;
     private static boolean yijingShangHua;
 
     // public FQCT(ActDo actDo) {
@@ -28,8 +28,8 @@ public class FQCT implements CoinsType {
      * @param packageName
      * @param actShortName
      */
-    public static void actFQCT(ActDo actDo, String coinType, Device device, String packageName, String actShortName) {
-        FQCT.actDo = actDo;
+    public static void shouJinBi(ActivityRun activityRun, String coinType, Device device, String packageName, String actShortName) {
+        FQCT.activityRun = activityRun;
         System.out.println("番茄畅听");
         if (version == null) {
             version = AdbCommands.getPackageVersion(device, packageName);
@@ -52,7 +52,7 @@ public class FQCT implements CoinsType {
                 }
                 break;
             default:
-                actDo.stop(strFQCT);
+                activityRun.stop(strFQCT);
                 break;
 
         }
@@ -83,7 +83,7 @@ public class FQCT implements CoinsType {
                 wait_tap_FQCloseBtn(device);
                 break;
             default:
-                actDo.stop(strFQCT);
+                activityRun.stop(strFQCT);
                 break;
         }
     }

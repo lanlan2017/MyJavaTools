@@ -3,7 +3,7 @@ package adbs.main.ui.jpanels.auto.act.code;
 import adbs.main.AdbTools;
 import adbs.main.ui.jpanels.auto.AdbTap;
 import adbs.main.ui.jpanels.auto.CoinsType;
-import adbs.main.ui.jpanels.auto.act.ActDo;
+import adbs.main.ui.jpanels.auto.act.ActivityRun;
 import adbs.main.ui.jpanels.auto.act.WeiZhi;
 import adbs.model.Device;
 
@@ -13,7 +13,7 @@ import javax.swing.*;
  * 速读免费小说要执行的操作
  */
 public class ShuDu implements CoinsType {
-    static ActDo actDo;
+    static ActivityRun activityRun;
     static boolean isAdjustedPosition;
 
     /**
@@ -23,8 +23,8 @@ public class ShuDu implements CoinsType {
      * @param packageName
      * @param actShortName
      */
-    public static void shuDuJinBi(ActDo actDo, String coinType, Device device, String packageName, String actShortName) {
-        ShuDu.actDo = actDo;
+    public static void shuDuJinBi(ActivityRun activityRun, String coinType, Device device, String packageName, String actShortName) {
+        ShuDu.activityRun = activityRun;
         // 如果是首次执行
         if (!isAdjustedPosition) {
             // JOptionPane.showMessageDialog(AdbTools.getInstance().getContentPane(), "请将去浏览按钮移动到开箱");
@@ -106,7 +106,7 @@ public class ShuDu implements CoinsType {
 
             default:
 
-                actDo.stop(strShuDuTingShu);
+                activityRun.stop(strShuDuTingShu);
                 break;
         }
     }
