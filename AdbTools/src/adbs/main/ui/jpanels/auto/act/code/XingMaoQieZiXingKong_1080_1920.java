@@ -8,7 +8,7 @@ import adbs.main.ui.jpanels.auto.act.WeiZhi;
 import adbs.model.Device;
 
 public class XingMaoQieZiXingKong_1080_1920 implements CoinsType {
-    ActDo actDo;
+    static ActDo actDo;
 
     public XingMaoQieZiXingKong_1080_1920(ActDo actDo) {
         this.actDo = actDo;
@@ -20,7 +20,9 @@ public class XingMaoQieZiXingKong_1080_1920 implements CoinsType {
      * @param device       要操作的设备
      * @param actShortName 当前activity短名称
      */
-    public void _XM_QZ_XK_1080_1920(String coinType, Device device, String actShortName) {
+    public static  void _XM_QZ_XK_1080_1920(ActDo actDo, String coinType, Device device, String actShortName) {
+
+        XingMaoQieZiXingKong_1080_1920.actDo = actDo;
         switch (coinType) {
             case strYueDuJinBi:
                 // actDoYueDuJinBi(device, actShortName);
@@ -52,7 +54,7 @@ public class XingMaoQieZiXingKong_1080_1920 implements CoinsType {
     }
 
 
-    private void yueDuJinBi_1080_1920(Device device, String actShortName) {
+    private static void yueDuJinBi_1080_1920(Device device, String actShortName) {
         switch (actShortName) {
             case "com.kmxs.reader.webview.ui.DefaultNewWebActivity":
                 // WeiZhi closeBtn = new WeiZhi(881, 942);
@@ -83,7 +85,7 @@ public class XingMaoQieZiXingKong_1080_1920 implements CoinsType {
      * @param device
      * @param actShortName
      */
-    private void actDoTingShuJinBi_1080_1920(Device device, String actShortName) {
+    private static void actDoTingShuJinBi_1080_1920(Device device, String actShortName) {
         switch (actShortName) {
             case "com.kmxs.reader.webview.ui.DefaultNewWebActivity":
                 // WeiZhi closeBtn = new WeiZhi(881, 942);
@@ -114,7 +116,7 @@ public class XingMaoQieZiXingKong_1080_1920 implements CoinsType {
      * @param actShortName
      */
 
-    private void actDoTingShuZaiLing_1080_1920(Device device, String actShortName) {
+    private static void actDoTingShuZaiLing_1080_1920(Device device, String actShortName) {
         // addArrActName(actShortName);
         actDo.addArrActName(actShortName);
         if (actShortName.equals("com.kmxs.reader.webview.ui.DefaultNewWebActivity")) {
@@ -140,7 +142,7 @@ public class XingMaoQieZiXingKong_1080_1920 implements CoinsType {
      * @param device
      * @param actShortName
      */
-    private void actDoGuangGao_1080_1920(Device device, String actShortName) {
+    private static void actDoGuangGao_1080_1920(Device device, String actShortName) {
         switch (actShortName) {
             // case "com.kmxs.reader.webview.ui.DefaultNewWebActivity":
             //     // System.out.println("金币模式：" + strYueDuZaiLing);
@@ -205,7 +207,7 @@ public class XingMaoQieZiXingKong_1080_1920 implements CoinsType {
      * @param actShortName
      */
 
-    private void actDoYueDuZaiLing1080_1920(Device device, String actShortName) {
+    private static void actDoYueDuZaiLing1080_1920(Device device, String actShortName) {
         // 记录打开的act短名称
         actDo.addArrActName(actShortName);
         if (actShortName.equals("com.kmxs.reader.webview.ui.DefaultNewWebActivity")) {
@@ -226,7 +228,7 @@ public class XingMaoQieZiXingKong_1080_1920 implements CoinsType {
      * @param device
      * @param actShortName
      */
-    private void actDoTingShuHongBao_1080_1920(Device device, String actShortName) {
+    private static void actDoTingShuHongBao_1080_1920(Device device, String actShortName) {
         actDo.addArrActName(actShortName);
         if ("com.qimao.qmreader.commonvoice.CommonVoiceActivityV2".equals(actShortName)) {
             // wait_tap(device, 5, new WeiZhi(952, 161));

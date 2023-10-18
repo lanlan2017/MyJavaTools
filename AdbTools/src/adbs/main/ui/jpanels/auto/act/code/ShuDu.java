@@ -53,7 +53,8 @@ public class ShuDu implements CoinsType {
             case strShuDuTingShu:
                 if (actShortName.equals("com.zhangyue.iReader.ui.activity.ActivityContainer")) {
                     WeiZhi shuDuTingShu = new WeiZhi(890, 1463);
-                    AdbTap.wait_tap(device, 5, shuDuTingShu);
+                    // AdbTap.wait_tap(device, 5, shuDuTingShu);
+                    AdbTap.wait_tap(device, s3, shuDuTingShu);
 
                     kanShiPinZuiGaoLing(device);
                 } else {
@@ -66,7 +67,8 @@ public class ShuDu implements CoinsType {
                 if (actShortName.equals("com.zhangyue.iReader.ui.activity.ActivityContainer")) {
 
                     WeiZhi yueDuJinBi = new WeiZhi(892, 900);
-                    AdbTap.wait_tap(device, s5, yueDuJinBi);
+                    // AdbTap.wait_tap(device, s5, yueDuJinBi);
+                    AdbTap.wait_tap(device, s3, yueDuJinBi);
 
                     kanShiPinZuiGaoLing(device);
                 } else {
@@ -78,7 +80,8 @@ public class ShuDu implements CoinsType {
 
     private static void kanShiPinZuiGaoLing(Device device) {
         WeiZhi kanShiPinZuiGaoLing = new WeiZhi(568, 1231);
-        AdbTap.wait_tap(device, 5, kanShiPinZuiGaoLing);
+        // AdbTap.wait_tap(device, 5, kanShiPinZuiGaoLing);
+        AdbTap.wait_tap(device, s3, kanShiPinZuiGaoLing);
     }
 
     /**

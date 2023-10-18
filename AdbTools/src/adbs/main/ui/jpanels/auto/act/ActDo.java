@@ -252,10 +252,12 @@ public class ActDo extends CloseableRunnable implements CoinsType {
                 if (width == p_1080) {
                     if (height == p_2160) {
                         // _XM_QZ_XK_1080_2160(coinType, device, actShortName);
-                        new XingMaoQieZiXingKong_1080_2160(this)._XM_QZ_XK_1080_2160(coinType, device, actShortName);
+                        // new XingMaoQieZiXingKong_1080_2160(this)._XM_QZ_XK_1080_2160(coinType, device, actShortName);
+                        XingMaoQieZiXingKong_1080_2160._XM_QZ_XK_1080_2160(this, coinType, device, actShortName);
                     } else if (height == p_1920) {
                         // _XM_QZ_XK_1080_1920(device, actShortName);
-                        new XingMaoQieZiXingKong_1080_1920(this)._XM_QZ_XK_1080_1920(coinType, device, actShortName);
+                        // new XingMaoQieZiXingKong_1080_1920(this)._XM_QZ_XK_1080_1920(coinType, device, actShortName);
+                        XingMaoQieZiXingKong_1080_1920._XM_QZ_XK_1080_1920(this, coinType, device, actShortName);
                     }
                     // if (width ==  width1080 && height==  height2160) {
                 }
@@ -286,8 +288,8 @@ public class ActDo extends CloseableRunnable implements CoinsType {
                 }
 
                 break;
-            case "com.huawei.fastapp":
-            case "com.huawei.hwid":
+            // case "com.huawei.fastapp":
+            // case "com.huawei.hwid":
             default:
                 // 误操作，关闭其他APP，回到本APP
                 AdbCommands.killOtherApp(device);
