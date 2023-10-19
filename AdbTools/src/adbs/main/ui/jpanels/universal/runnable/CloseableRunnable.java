@@ -26,7 +26,11 @@ public abstract class CloseableRunnable implements Runnable {
     /**
      * 设置消息
      */
-    abstract protected void setMsg();
+    protected void setMsg() {
+        msg = "";
+    }
+
+    ;
 
     /**
      * 获取消息

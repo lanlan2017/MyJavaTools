@@ -40,10 +40,10 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
         isClickReturnBtn = clickReturnBtn;
     }
 
-    @Override
-    protected void setMsg() {
-        msg = "逛街";
-    }
+    // @Override
+    // protected void setMsg() {
+    //     // msg = "逛街";
+    // }
 
     @Override
     protected void beforeLoop() {

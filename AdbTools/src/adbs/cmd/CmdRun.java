@@ -28,6 +28,17 @@ public class CmdRun {
         return runCmd();
     }
 
+    public static void runOnly(String code) {
+        command.set(command.size() - 1, code);
+        ProcessBuilder builder = new ProcessBuilder(command);
+        ProcessRunner runner = new ProcessRunner();
+        // runner.runProcess(builder);
+        runner.runOnly(builder);
+
+        // return runCmd();
+    }
+
+
     private static String runCmd() {
         ProcessBuilder processBuilder = new ProcessBuilder(command);
         ProcessRunner processRunner = new ProcessRunner();

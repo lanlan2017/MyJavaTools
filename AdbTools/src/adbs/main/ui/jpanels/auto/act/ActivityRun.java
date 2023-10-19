@@ -94,10 +94,10 @@ public class ActivityRun extends CloseableRunnable implements CoinsType {
         return activityRun;
     }
 
-    @Override
-    protected void setMsg() {
-
-    }
+    // @Override
+    // protected void setMsg() {
+    //
+    // }
 
     // @Override
     public void stop(String message) {

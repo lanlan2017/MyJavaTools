@@ -95,12 +95,12 @@ public class AdbCommands implements ActivityStr {
         int rightX = 5;
         int height = device.getHeight();
 
-        int yButton = (int) (height * 0.5);
-        int yTop = yButton - 100;
+        int yBottom = (int) (height * 0.5);
+        int yTop = yBottom - 100;
 
         for (int i = 0; i < times; i++) {
 
-            AdbCommands.runAbdCmd("adb -s " + device.getSerial() + " shell input swipe " + rightX + " " + yButton + " " + rightX + " " + yTop + " 100");
+            AdbCommands.runAbdCmd("adb -s " + device.getSerial() + " shell input swipe " + rightX + " " + yBottom + " " + rightX + " " + yTop + " 100");
         }
 
         // return AdbCommands.runAbdCmd("adb -s " + device.getSerial() + " shell input swipe 5 " + y70 + " 5 " + y30 + " 200");

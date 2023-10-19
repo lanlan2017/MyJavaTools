@@ -1,11 +1,19 @@
 package adbs.main.ui.jpanels.universal;
 
+import adbs.cmd.AdbCommands;
+import adbs.cmd.CmdRun;
 import adbs.cmd.RobotsDraw;
+import adbs.main.AdbTools;
 import adbs.main.ui.inout.listener.StopBtnAcListener2;
 import adbs.main.ui.jpanels.time.TimePanels;
+import adbs.main.ui.jpanels.tools.BtnActionListener;
 import adbs.main.ui.jpanels.universal.listener.*;
 import adbs.main.ui.config.FlowLayouts;
+import adbs.main.ui.jpanels.universal.runnable.CloseableRunnable;
 import adbs.main.ui.jpanels.universal.runnable.RoolBtnRunnable;
+import adbs.model.Device;
+import adbs.tools.thread.ThreadSleep;
+import tools.copy.SystemClipboard;
 import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
@@ -49,6 +57,8 @@ public class UniversalPanels {
      * 快手上下滚动滑动功能
      */
     private final JButton btnSlideUpAndDown;
+
+    private final JButton btnSlideUpAndDown2;
 
     private final JButton btnStop;
     /**
@@ -103,6 +113,8 @@ public class UniversalPanels {
 
         btnSlideUpAndDown = getBtnSlideUpAndDown();
 
+        btnSlideUpAndDown2 = intiBtnSlideUpDown2();
+
         btnStop = initBtnStop();
 
         // 添加到面板中
@@ -113,10 +125,141 @@ public class UniversalPanels {
         universalPanel.add(shoppingButton);
         // universalPanel.add(rollingButton);
         universalPanel.add(btnSlideUpAndDown);
+        universalPanel.add(btnSlideUpAndDown2);
         universalPanel.add(btnStop);
         universalPanel.add(output2);
 
         AbstractButtons.setMarginInButtonJPanel(universalPanel, 1);
+    }
+
+    private JButton intiBtnSlideUpDown2() {
+        final JButton btnSlideUpAndDown2;
+        btnSlideUpAndDown2 = new JButton("滚");
+        btnSlideUpAndDown2.setToolTipText("上下滚动");
+        // btnSlideUpAndDown2.addActionListener(new ActionListener() {
+        btnSlideUpAndDown2.addActionListener(new BtnActionListener() {
+            @Override
+            public void action(ActionEvent e) {
+                upDowm();
+            }
+            //
+            // @Override
+            // public void actionPerformed(ActionEvent e) {
+            //     upDowm();
+            // }
+
+            private void upDowm() {
+                Device device = AdbTools.getInstance().getDevice();
+                int width = device.getWidth();
+                // int x = (int) (width * 0.5);
+                int x = 8;
+                int height = device.getHeight();
+
+                // int yBottom = (int) (height * 0.8);
+                // int yTop = (int) (height * 0.2);
+
+                int yBottom = (int) (height * 0.8);
+                int yTop = (int) (height * 0.2);
+
+                // int yBottom = (int) (height * 0.75);
+                // int yTop = (int) (height * 0.25);
+
+                // int yBottom = (int) (height * 0.7);
+                // int yTop = (int) (height * 0.3);
+
+                // int yBottom = (int) (height * 0.65);
+                // int yTop = (int) (height * 0.35);
+
+                // int yBottom = (int) (height * 0.6);
+                // int yTop = (int) (height * 0.4);
+
+                // AdbCommands.swipeBotton2TopOnRightXiaoXiaoDe();
+                // int millisecond = 10;
+                // int millisecond = 20;
+                // int millisecond = 30;
+                // int millisecond = 40;
+                // int millisecond = 50;
+                // int millisecond = 60;
+                // int millisecond = 70;
+                int millisecond = 80;
+                // int millisecond = 100;
+                // int millisecond = 200;
+                // int millisecond = 500;
+                // int millisecond = 1000;
+                // String bottomToTop = "adb -s " + device.getSerial() + " shell input swipe " + x + " " + yBottom + " " + x + " " + yTop + " " + millisecond;
+                // String topToBottom = "adb -s " + device.getSerial() + " shell input swipe " + x + " " + yTop + " " + x + " " + yBottom + " " + millisecond;
+
+                String bottomToTop = "adb -s " + device.getSerial() + " shell input touchscreen swipe " + x + " " + yBottom + " " + x + " " + yTop + " " + millisecond;
+                // String midpointToBottom = "adb -s " + device.getSerial() + " shell input touchscreen swipe " + x + " " + yTop + " " + x + " " + yBottom + " " + millisecond;
+                String topToBottom = "adb -s " + device.getSerial() + " shell input touchscreen swipe " + x + " " + yTop + " " + x + " " + yBottom + " " + millisecond;
+
+                // pinJieDaiMa(bottomToTop, topToBottom);
+
+                System.out.println("开始滚动");
+                ThreadSleep.seconds(5);
+                CloseableRunnable closeableRunnable = new CloseableRunnable() {
+                    @Override
+                    protected void beforeLoop() {
+                        // super.beforeLoop();
+                        System.out.println("启动线程");
+                    }
+
+                    // @Override
+                    // protected void setMsg() {
+                    //
+                    // }
+
+                    @Override
+                    protected void loopBody() {
+                        int times = 50;
+                        for (int i = 0; i < times && !stop; i++) {
+                            // AdbCommands.runAbdCmd(bottomToTop);
+                            // AdbCommands.runAbdCmd(topToBottom);
+                            // CmdRun.run(bottomToTop);
+                            // CmdRun.run(topToBottom);
+                            System.out.println("i = " + i);
+                            CmdRun.runOnly(bottomToTop);
+                            CmdRun.runOnly(topToBottom);
+                            // CmdRun.runOnly();
+                        }
+                        stop();
+                    }
+
+                    @Override
+                    protected void afterLoop() {
+                        super.afterLoop();
+
+                        System.out.println("线程结束");
+                    }
+                };
+                new Thread(closeableRunnable).start();
+            }
+
+            private void pinJieDaiMa(String bottomToTop, String topToBottom) {
+                StringBuffer sb = new StringBuffer();
+
+                // String commandSeparator = " & ";
+                // String commandSeparator = " & call ";
+                String commandSeparator = " & start ";
+                // String commandSeparator = " & start /b ";
+
+                int times = 50;
+                for (int i = 0; i < times; i++) {
+                    // sb += bottomToTop;
+                    // sb += topToBottom;
+                    if (i > 0) {
+                        sb.append(commandSeparator);
+                    }
+                    sb.append(topToBottom).append(commandSeparator).append(bottomToTop);
+
+                }
+                sb.append(commandSeparator).append(bottomToTop);
+                System.out.println(sb.toString());
+
+                SystemClipboard.setSysClipboardText(sb.toString());
+            }
+        });
+        return btnSlideUpAndDown2;
     }
 
     private JButton getBtnSlideUpAndDown() {

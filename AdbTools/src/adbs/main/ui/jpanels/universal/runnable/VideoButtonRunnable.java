@@ -33,11 +33,11 @@ public class VideoButtonRunnable extends CloseableRunnable {
         this.max = max;
     }
 
-    @Override
-    protected void setMsg() {
-        msg = "刷视频";
-        // msg = "";
-    }
+    // @Override
+    // protected void setMsg() {
+    //     msg = "刷视频";
+    //     // msg = "";
+    // }
 
     @Override
     protected void loopBody() {
