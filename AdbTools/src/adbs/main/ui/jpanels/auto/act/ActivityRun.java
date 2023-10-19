@@ -188,6 +188,7 @@ public class ActivityRun extends CloseableRunnable implements CoinsType {
             ThreadSleep.seconds(5);
         }
 
+        JOptionPane.showMessageDialog(AdbTools.getInstance().getContentPane(), "收金币已停止");
         System.out.println("自动操作停止...");
     }
 
