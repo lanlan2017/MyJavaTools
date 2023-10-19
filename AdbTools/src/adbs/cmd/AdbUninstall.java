@@ -3,6 +3,7 @@ package adbs.cmd;
 import adbs.main.AdbTools;
 import config.AdbToolsProperties;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -68,6 +69,8 @@ public class AdbUninstall {
             }
         }
         System.out.println("卸载完毕");
+
+        JOptionPane.showMessageDialog(AdbTools.getInstance().getContentPane(), "卸载完毕");
     }
 
     private static void findUninstall(ArrayList<String> package3List) {

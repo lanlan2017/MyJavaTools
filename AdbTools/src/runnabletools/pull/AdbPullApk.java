@@ -1,5 +1,6 @@
 package runnabletools.pull;
 
+import adbs.cmd.AdbCommands;
 import adbs.cmd.CmdRun;
 import adbs.model.Device;
 import runnabletools.install.AdbInstall;
@@ -95,7 +96,8 @@ public class AdbPullApk {
 
         // echo 找bai  apk  && adb -s U8ENW18117021408 shell pm path 包名
         command = "adb -s " + device.getSerial() + " shell pm path " + packagename;
-        String findApkCommandOut = CmdRun.run(command).trim();
+        // String findApkCommandOut = CmdRun.run(command).trim();
+        String findApkCommandOut = AdbCommands.runAbdCmd(command);
         System.out.println("findApkCommandOut = " + findApkCommandOut);
         return findApkCommandOut;
     }

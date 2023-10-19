@@ -25,7 +25,7 @@ public class CmdRun {
 
     public static String run(String code) {
         command.set(command.size() - 1, code);
-        return runCmd();
+        return runCmd().trim();
     }
 
     public static void runOnly(String code) {

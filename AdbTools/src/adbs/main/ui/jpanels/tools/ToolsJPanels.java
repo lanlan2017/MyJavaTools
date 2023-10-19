@@ -38,12 +38,12 @@ public class ToolsJPanels {
     private final String flagJrbPackage = "包|应用";
     private final String flagJrbPackageInfo = "应用名";
     private final String flagJrbUninstall = "全部卸载";
-    /**
-     *
-     */
-    private final String flagRatio = "比率";
-    private String flagRatioInfo1 = "x坐标";
-    private String flagRatioInfo2 = "y坐标";
+    // /**
+    //  *
+    //  */
+    // private final String flagRatio = "比率";
+    // private String flagRatioInfo1 = "x坐标";
+    // private String flagRatioInfo2 = "y坐标";
 
 
     private final JComboBox<String> jComboBox;
@@ -141,22 +141,22 @@ public class ToolsJPanels {
                     //     AdbUninstall.uninstallAllNonEssentialApps();
                     //     break;
 
-                    case flagRatio:
-
-                        String textX = input1.getText();
-                        String textY = input2.getText();
-                        System.out.println("textX = " + textX);
-                        System.out.println("textY = " + textY);
-
-                        String regexDouble = "[0-9.]+";
-                        if (textX.matches(regexDouble) && textY.matches(regexDouble)) {
-                            double x = Double.parseDouble(textX);
-                            double y = Double.parseDouble(textY);
-                            System.out.println("x = " + x);
-                            System.out.println("y = " + y);
-                            AdbTap.printRatio(x, y);
-                        }
-                        break;
+                    // case flagRatio:
+                    //
+                    //     String textX = input1.getText();
+                    //     String textY = input2.getText();
+                    //     System.out.println("textX = " + textX);
+                    //     System.out.println("textY = " + textY);
+                    //
+                    //     String regexDouble = "[0-9.]+";
+                    //     if (textX.matches(regexDouble) && textY.matches(regexDouble)) {
+                    //         double x = Double.parseDouble(textX);
+                    //         double y = Double.parseDouble(textY);
+                    //         System.out.println("x = " + x);
+                    //         System.out.println("y = " + y);
+                    //         AdbTap.printRatio(x, y);
+                    //     }
+                    //     break;
 
                 }
             }
@@ -176,7 +176,8 @@ public class ToolsJPanels {
     private JComboBox<String> initJComboBox() {
         // flagRatio = "比例";
         // String[] chioces = {flagJrbApk, flagJrbPackage, flagJrbUninstall, flagRatio};
-        String[] chioces = {flagJrbApk, flagJrbPackage, flagRatio};
+        // String[] chioces = {flagJrbApk, flagJrbPackage, flagRatio};
+        String[] chioces = {flagJrbApk, flagJrbPackage};
         JComboBox<String> jComboBox = new JComboBox(chioces);
         jComboBox.setFont(Fonts.Cascadia_PLAIN_12);
         // 设置原型显示值，选项的宽度以这个作为原型
@@ -237,21 +238,21 @@ public class ToolsJPanels {
                         input1.setVisible(false);
                         input2.setVisible(false);
                         break;
-                    case flagRatio:
-                        input1.setVisible(true);
-                        // input1.addFocusListener(focusL_X);
-                        // flagRatioInfo1 = "x坐标";
-                        // input1.setText(flagRatioInfo1);
-                        input1.setToolTipText("输入x坐标");
-                        input1.setColumns(4);
-
-                        input2.setVisible(true);
-                        // input2.addFocusListener(focusL_Y);
-                        // flagRatioInfo2 = "y坐标";
-                        // input2.setText(flagRatioInfo2);
-                        input2.setToolTipText("输入y坐标");
-                        input2.setColumns(4);
-                        break;
+                    // case flagRatio:
+                    //     input1.setVisible(true);
+                    //     // input1.addFocusListener(focusL_X);
+                    //     // flagRatioInfo1 = "x坐标";
+                    //     // input1.setText(flagRatioInfo1);
+                    //     input1.setToolTipText("输入x坐标");
+                    //     input1.setColumns(4);
+                    //
+                    //     input2.setVisible(true);
+                    //     // input2.addFocusListener(focusL_Y);
+                    //     // flagRatioInfo2 = "y坐标";
+                    //     // input2.setText(flagRatioInfo2);
+                    //     input2.setToolTipText("输入y坐标");
+                    //     input2.setColumns(4);
+                    //     break;
                 }
                 okButton.setText(elementAt);
                 okButton.setVisible(true);
@@ -358,6 +359,7 @@ public class ToolsJPanels {
         Device device = adbTools.getDevice();
         String apkName = input1.getText();
 
+        AdbPullApk.setParentComponent(AdbTools.getInstance().getContentPane());
         AdbPullApk.pullTopApk(device, apkName);
     }
 
