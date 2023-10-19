@@ -217,7 +217,7 @@ public class UniversalPanels {
                             // AdbCommands.runAbdCmd(topToBottom);
                             // CmdRun.run(bottomToTop);
                             // CmdRun.run(topToBottom);
-                            System.out.println("i = " + i);
+                            // System.out.println("i = " + i);
                             CmdRun.runOnly(bottomToTop);
                             CmdRun.runOnly(topToBottom);
                             // CmdRun.runOnly();

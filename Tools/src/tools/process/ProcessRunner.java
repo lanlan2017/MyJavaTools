@@ -98,4 +98,42 @@ public class ProcessRunner {
         // return sb.toString();
         return sb.toString().trim();
     }
+
+    /**
+     * 执行进程生成器中的程序和参数,并返回程序的输出.
+     *
+     * @param processBuilder 进程生成器.进程生成器中存放了要执行的程序,该程序的参数,该程序的工作空间等.
+     // * @param cmdEncoding    cmd的编码.程序将按照这个编码来读取程序的标准输出。
+     * @return 程序执行的结果字符串.
+     */
+    public void runOnly(ProcessBuilder processBuilder) {
+        Process process;
+        // StringBuffer sb = new StringBuffer();
+        try {
+            process = processBuilder.start();
+            // BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream(), cmdEncoding));
+            // String line;
+            // while ((line = reader.readLine()) != null) {
+            //     sb.append(line + "\n");
+            // }
+            // 等待进程运行结束
+            // int exitCode = process.waitFor();
+            process.waitFor();
+            // 进程结束了,关闭接收流.
+            // reader.close();
+            // 如果线程返回值不是0则表示线程执行失败.
+            // if (exitCode != 0) {
+            //     // return null;
+            //     return "Error!ExitCode=" + exitCode;
+            // }
+
+        } catch (IOException | InterruptedException e) {
+        // } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // 返回进程的标准输出
+        // return sb.toString();
+        // return sb.toString().trim();
+    }
+
 }
