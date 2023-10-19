@@ -229,6 +229,8 @@ public class UniversalPanels {
                     protected void afterLoop() {
                         super.afterLoop();
                         System.out.println("线程结束");
+                        ThreadSleep.seconds(5);
+                        AdbCommands.returnBtn(device);
                         JOptionPane.showMessageDialog(AdbTools.getInstance().getContentPane(), "循环拖动已结束");
                     }
                 };

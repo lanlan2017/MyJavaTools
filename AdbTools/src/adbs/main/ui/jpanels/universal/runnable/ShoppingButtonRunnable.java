@@ -79,7 +79,7 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
         // 计数器
         count = 0;
 
-        output.setText("左↑滑3次");
+        output.setText("↑3");
         // 在左侧，从下向上滑动三次
         if (swipeFromBottomToTopOnce(serial, input1)) {
             // 如果到达了指定时间，
