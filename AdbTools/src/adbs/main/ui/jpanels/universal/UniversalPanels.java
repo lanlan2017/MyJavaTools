@@ -228,8 +228,8 @@ public class UniversalPanels {
                     @Override
                     protected void afterLoop() {
                         super.afterLoop();
-
                         System.out.println("线程结束");
+                        JOptionPane.showMessageDialog(AdbTools.getInstance().getContentPane(), "循环拖动已结束");
                     }
                 };
                 new Thread(closeableRunnable).start();
