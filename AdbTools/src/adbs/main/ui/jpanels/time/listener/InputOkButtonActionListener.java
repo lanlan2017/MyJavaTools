@@ -135,10 +135,10 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
 
 
         if ("开始浏览".equals(ok.getText())) {
-            output.setText("浏览:开始");
+            // output.setText("浏览:开始");
             new Thread(browseRunnable).start();
         } else if ("开始逛街".equals(ok.getText())) {
-            output.setText("逛街:开始");
+            // output.setText("逛街:开始");
             // new Thread(shoppingButtonRunnable).start();
             JCheckBox checkBox = AdbTools.getInstance().getTimePanels().getTaskCheckBox();
             if (checkBox.isSelected()) {
@@ -200,7 +200,7 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
             // timePanels = inOutputModel.getTimePanels();
             TimePanels timePanels = AdbTools.getInstance().getTimePanels();
             if ("开始刷视频".equals(ok.getText())) {
-                output.setText("刷视频:开始");
+                // output.setText("刷视频:开始");
                 // 获取时间区间
                 String input1Str = timePanels.getInput1().getText();
                 String input2Str = timePanels.getInput2().getText();
@@ -217,7 +217,7 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
                     }
                 }
             } else if ("开始阅读".equals(ok.getText())) {
-                output.setText("阅读:开始");
+                // output.setText("阅读:开始");
                 // 获取时间区间
                 String input1Str = timePanels.getInput1().getText();
                 String input2Str = timePanels.getInput2().getText();

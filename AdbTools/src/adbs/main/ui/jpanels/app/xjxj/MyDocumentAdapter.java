@@ -1,6 +1,7 @@
 package adbs.main.ui.jpanels.app.xjxj;
 
-import adbs.main.ui.jframe.JFramePack;
+import adbs.main.AdbTools;
+import adbs.tools.thread.ThreadSleep;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -39,20 +40,31 @@ public class MyDocumentAdapter implements DocumentListener {
     }
 
     private void extracted(DocumentEvent e, String str) {
-        Container parent = notOpened.getParent();
-        // System.out.println("parent = " + parent);
-        if (parent instanceof JPanel) {
-            // System.out.println("tttttttttttttttt");
-            boolean visible = parent.isVisible();
-            // System.out.println("visible = " + visible);
-            if (visible) {
+        switch (str) {
+            case "insert":
                 System.out.println("str = " + str);
                 int lineCount = notOpened.getLineCount();
                 notOpened.setRows(lineCount);
-                System.out.println();
-                JPanel panel = (JPanel) parent;
-                JFramePack.byJPanel(panel);
-            }
+                // ThreadSleep.seconds(1);
+                AdbTools.getInstance().getFrame().pack();
+                break;
         }
+        //     // Container parent = notOpened.getParent();
+        //     // System.out.println("parent = " + parent);
+        //     // if (parent instanceof JPanel) {
+        //     // System.out.println("tttttttttttttttt");
+        //     // boolean visible = parent.isVisible();
+        //     // System.out.println("visible = " + visible);
+        //     // if (visible) {
+        //     System.out.println("str = " + str);
+        //     int lineCount = notOpened.getLineCount();
+        //     notOpened.setRows(lineCount);
+        //     // System.out.println();
+        //     // JPanel panel = (JPanel) parent;
+        //     // JFramePack.byJPanel(panel);
+        //     // AdbTools.getInstance().getFrame().pack();
+        //     // }
+        //     AdbTools.getInstance().getFrame().pack();
+        // }
     }
 }

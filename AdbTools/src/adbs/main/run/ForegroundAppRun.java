@@ -1,9 +1,7 @@
 package adbs.main.run;
 
-import adbs.cmd.AdbCommands;
 import adbs.cmd.CmdRun;
 import adbs.main.AdbTools;
-import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
 import adbs.tools.thread.ThreadSleep;
 import config.AdbToolsProperties;
@@ -23,7 +21,7 @@ public class ForegroundAppRun implements Runnable {
      * <p>
      * 今日打开的APP
      */
-    private ArrayList<String> apkOpenedToday = new ArrayList<>();
+    private ArrayList<String> appOpened = new ArrayList<>();
     /**
      * 保存所有可赚钱的APP名称的列表
      */
@@ -45,16 +43,17 @@ public class ForegroundAppRun implements Runnable {
     /**
      * 是否所有的APP都签到完毕。
      */
-    private static boolean isAllAppSignedIn;
+    private static boolean isAllAppOpened;
 
-    public static void setIsAllAppSignedIn(boolean isAllAppSignedIn) {
-        ForegroundAppRun.isAllAppSignedIn = isAllAppSignedIn;
+    public static void allAppOpened() {
+        // ForegroundAppRun.isAllAppOpened = isAllAppOpened;
+        ForegroundAppRun.isAllAppOpened = true;
     }
 
     /**
-     * 判断是否需要进行签到检查
+     * 是否停止签到检查
      */
-    private boolean stopCheckInInspection;
+    private boolean stopAppCheck;
     private Color background;
     private JPanel universalPanel;
     private UniversalPanels universalPanels;
@@ -62,6 +61,7 @@ public class ForegroundAppRun implements Runnable {
 
     public static void setStop(boolean stop) {
         ForegroundAppRun.stop = stop;
+        // ForegroundAppRun.stopWait = true;
     }
 
 
@@ -69,103 +69,142 @@ public class ForegroundAppRun implements Runnable {
     public void run() {
         // 等待4秒
         ThreadSleep.seconds(4);
-        adbTools = AdbTools.getInstance();
-        //
-        universalPanels = adbTools.getUniversalPanels();
-        universalPanel = universalPanels.getUniversalPanel();
-        background = universalPanel.getBackground();
+        // 更新操作的面板
+        updatePanels();
 
         updatePackages_3_money();
-
         // final String serial = adbTools.getDevice().getSerial();
-        String serial;
+        // String serial;
         // AdbTools adbTools = adbTools1;
         while (!stop) {
-            serial = adbTools.getDevice().getSerial();
-            // String topActivityCommand = getTopActivityCommand(serial);
-            String topActivityCommand = AdbGetPackage.getTopActivityCommand(serial);
-
-            // System.out.println("ActivityCommand =" + topActivityCommand);
-            String run = CmdRun.run(topActivityCommand).trim();
-            // String run = AdbCommands.runAbdCmd(topActivityCommand).trim();
-            // String run = CmdRun.run(topActivityCommand).trim();
-            // 如果命令结果中有反斜杠，说明有包名
-            if (run.contains("/")) {
-                //mResumedActivity: ActivityRecord{7fbc105 u0 com.huawei.health/.MainActivity t1573}
-                String actName = AdbGetPackage.getActName(run);
-                // System.out.print("act名 =" + actName + " ");
-                // run = getPackageName(run);
-                run = AdbGetPackage.getPackageName(run);
-                // System.out.println("包名 = " + run);
-                // System.out.print("包名 = " + run + " ");
-                String appName = getAppName(run);
-                // 如果还没停止签到检查的话
-                if (!stopCheckInInspection) {
-                    // 如果已签到列表和应用列表的长度一样，则说明所有APP都签到完毕了
-                    if (apkOpenedToday.size() == apps.size()) {
-                        // 签到完成设置
-                        afterOpeningAllAPKs();
-                    }
-                    // System.out.println();
-                    // 打印已经打开的APP
-                    printOpenedAppNames();
-                    // 打印没打开的APP
-                    printNotOpenAppNames();
-                }
-
-                // updateFormTitle
-                // 在窗体标题上显示当前打开的APP的名称
-                updateFormTitle(appName);
-            }
-            // 等待一定的时间
-            wait_();
-            // System.out.println("等待结束，，，，，，，，，，，，，，，");
-            // 更新签到记录
-            clearCheckInRecords();
-            /**
-             * 如果还没停止签到的话，并且全部签到标记被设置为true,
-             * 如果所有的APP都签到完毕
-             */
-            if (!stopCheckInInspection && isAllAppSignedIn) {
-                // 删除所有的签到记录
-                Iterator<String> iterator = apkOpenedToday.iterator();
-                while (iterator.hasNext()) {
-                    iterator.next();
-                    iterator.remove();
-                }
-                Iterator<String> iall = apps.iterator();
-                while (iall.hasNext()) {
-                    String next = iall.next();
-                    apkOpenedToday.add(next);
-                }
-                afterOpeningAllAPKs();
-            }
+            body();
         }
     }
 
-    private void printOpenedAppNames() {
+    private void updatePanels() {
+        adbTools = AdbTools.getInstance();
+        universalPanels = adbTools.getUniversalPanels();
+        universalPanel = universalPanels.getUniversalPanel();
+        background = universalPanel.getBackground();
+    }
+
+    private void body() {
+        String serial = adbTools.getDevice().getSerial();
+        // String topActivityCommand = getTopActivityCommand(serial);
+        String topActivityCommand = AdbGetPackage.getTopActivityCommand(serial);
+        // System.out.println("ActivityCommand =" + topActivityCommand);
+        String run = CmdRun.run(topActivityCommand).trim();
+        // String run = AdbCommands.runAbdCmd(topActivityCommand).trim();
+        // String run = CmdRun.run(topActivityCommand).trim();
+        // 如果命令结果中有反斜杠，说明有包名
+        if (run.contains("/")) {
+            //mResumedActivity: ActivityRecord{7fbc105 u0 com.huawei.health/.MainActivity t1573}
+            // String actName = AdbGetPackage.getActName(run);
+            // System.out.print("act名 =" + actName + " ");
+            // run = getPackageName(run);
+            run = AdbGetPackage.getPackageName(run);
+            // System.out.println("包名 = " + run);
+            // System.out.print("包名 = " + run + " ");
+            // 获取包名对应的应用名
+            String appName = isGoldCoinAppAddIntoAppRecord(run);
+            // updateFormTitle
+            // 在窗体标题上显示当前打开的APP的名称
+            updateFormTitle(appName);
+
+            // 如果还没停止签到检查的话
+            if (!stopAppCheck) {
+                // 如果用户勾选了所有应用都打开了
+                if (isAllAppOpened) {
+                    // 清空签到记录表
+                    clearCheckInForm();
+                    // 把所有的APP都填到签到记录表中
+                    copyAllAppsIntoCheckInForm();
+                    afterOpeningAllAPKs();
+                    stopAppCheck = true;
+                }
+                // 如果已签到列表和应用列表的长度一样，则说明所有APP都签到完毕了
+                if (appOpened.size() == apps.size()) {
+                    // 签到完成设置
+                    afterOpeningAllAPKs();
+                    stopAppCheck = true;
+                }
+                // System.out.println();
+                // 打印已经打开的APP
+                showOpenedApp();
+                // 打印没打开的APP
+                showNotOpenApp();
+            }
+
+        }
+        // 等待一定的时间
+        wait_();
+        // System.out.println("等待结束，，，，，，，，，，，，，，，");
+        // 如果刚好进入第2天
+        if (isNextDay()) {
+            // 更新签到记录
+            clearCheckInRecords();
+        }
+        // /**
+        //  * 如果还没停止签到的话，并且全部签到标记被设置为true,
+        //  * 如果所有的APP都签到完毕
+        //  */
+        // if (!stopAppCheck && isAllAppOpened) {
+        //     // 清空签到记录表
+        //     clearCheckInForm();
+        //     // 把所有的APP都填到签到记录表中
+        //     copyAllAppsIntoCheckInForm();
+        //     afterOpeningAllAPKs();
+        //     stopAppCheck = true;
+        // }
+
+    }
+
+    private void copyAllAppsIntoCheckInForm() {
+        // 把所有的APP都复制到签到记录表中。
+        Iterator<String> iApps = apps.iterator();
+        while (iApps.hasNext()) {
+            String next = iApps.next();
+            appOpened.add(next);
+        }
+    }
+
+    /**
+     * 清空签到记录表
+     */
+    private void clearCheckInForm() {
+        // 清空签到记录表
+        Iterator<String> iOpened = appOpened.iterator();
+        while (iOpened.hasNext()) {
+            iOpened.next();
+            iOpened.remove();
+        }
+    }
+
+    /**
+     * 显示已经打开的金币应用
+     */
+    private void showOpenedApp() {
         // 把apk的名称放到列表中
         // System.out.println("已打开:" + apkOpenedToday);
         StringBuffer sb = new StringBuffer();
-        for (String s : apkOpenedToday) {
+        for (String s : appOpened) {
             sb.append(s).append("\n");
         }
-
         JTextArea signedInApp = AdbTools.getInstance().getAppPanels().getSignedIn();
         signedInApp.setText(sb.toString().trim());
 
     }
 
     /**
-     * 打印还没打开的APP名称
+     * 显示没打开的金币应用名称
      */
-    private void printNotOpenAppNames() {
+    private void showNotOpenApp() {
         StringBuffer sb = new StringBuffer();
         // System.out.print("未打开:");
         for (int i = 0, size = apps.size(), count = 0; i < size; i++) {
             String apkName = apps.get(i);
             // 在所有的apk名称列表中查找 已打开的apk名称
-            int index = Collections.binarySearch(apkOpenedToday, apkName);
+            int index = Collections.binarySearch(appOpened, apkName);
             // 小于零，说明 该apk名称 不再已打开的apk名称列表里吗
             // 如果该apk没打开过
             if (index < 0) {
@@ -186,29 +225,31 @@ public class ForegroundAppRun implements Runnable {
     }
 
     /**
-     * 读取配置文件，根据当前APP的包名，获取APP的名称
+     * 如果是金币应用则添加到记录表中
+     * 查找
      *
      * @param packageName apk的包名
      * @return APP的应用名
      */
-    private String getAppName(String packageName) {
+    private String isGoldCoinAppAddIntoAppRecord(String packageName) {
         // 获取配置文件中的值
         // String appName = AdbToolsProperties.propertiesTools.getProperty(packageName);
         String appName = AdbToolsProperties.moneyApkPro.getProperty(packageName);
 
         // 如果返回的value 不等于原来的key,说明配置文件中有这个值
-        // 如果保存可赚钱apk名称的配置文件中找到这个apk
         if (!appName.equals(packageName)) {
+            // 如果保存可赚钱apk名称的配置文件中找到这个apk
             // Collections.binarySearch(apkOpenedToday,  , );
+
             // 在已打开过的apk名称列表中查找 当前apk名
-            int i = Collections.binarySearch(apkOpenedToday, appName);
+            int i = Collections.binarySearch(appOpened, appName);
             // System.out.println("i = " + i);
             // 如果没找到
             if (i < 0) {
-                // 把当前的apk名称添加到列表中
-                apkOpenedToday.add(appName);
-                // 排序，否则下次二分查找会有问题
-                Collections.sort(apkOpenedToday);
+                // 把这个赚金币应用 添加到签到记录表中
+                appOpened.add(appName);
+                // 排序签到记录表，否则下次二分查找会有问题
+                Collections.sort(appOpened);
             }
         } else {
             appName = "非赚钱apk";
@@ -258,8 +299,8 @@ public class ForegroundAppRun implements Runnable {
      * 签到完成设置
      */
     private void afterOpeningAllAPKs() {
-        // 已签到完成，停止签到检查
-        stopCheckInInspection = true;
+        // // 已签到完成，停止签到检查
+        // stopAppCheck = true;
         // 把apk的名称放到列表中
         // System.out.println("已打开:" + apkOpenedToday);
         System.out.println("所有的apk签到完成!");
@@ -270,20 +311,15 @@ public class ForegroundAppRun implements Runnable {
 
     /**
      * 清空签到记录
-     * clearCheckInRecords
      */
     private void clearCheckInRecords() {
         // 在凌晨的时候，移除所有apk的打开记录
-        if (isNextDay() && apkOpenedToday.size() > 0) {
-            // 遍历签到记录列表
-            Iterator<String> iterator = apkOpenedToday.iterator();
-            while (iterator.hasNext()) {
-                iterator.next();
-                // 删除签到记录
-                iterator.remove();
-            }
+        // if (isNextDay() && apkOpenedToday.size() > 0) {
+        if (appOpened.size() > 0) {
+            // 清空签到记录表
+            clearCheckInForm();
             // 开启签到检查
-            stopCheckInInspection = false;
+            stopAppCheck = false;
             // 恢复原来的背景色，表示还没签到完成
             universalPanel.setBackground(background);
         }
@@ -291,43 +327,46 @@ public class ForegroundAppRun implements Runnable {
 
     /**
      * 停止等待
-     *
-     * @param stopWait
      */
-    public static void setStopWait(boolean stopWait) {
-        ForegroundAppRun.stopWait = stopWait;
+    public static void stopWait() {
+        // ForegroundAppRun.stopWait = stopWait;
+        ForegroundAppRun.stopWait = true;
     }
 
 
     private void wait_() {
+        stopWait = false;
         // int seconds = 2;
-        int seconds = 16;
+        int s5 = 5;
+        int s2 = 2;
+        int endWait = 40;
+        int count = 0;
         if (IsTest.isTest()) {
             // 测试时使用 5秒钟
-            ThreadSleep.seconds(seconds);
+            ThreadSleep.seconds(s5);
         } else {
             // System.out.println("非测，，，，，，，，，，，，，，，，，，，，试");
             // 运行时使用 1分钟
             // ThreadSleep.minutes(1);
             // ThreadSleep.seconds(45);
-            int endWait = 40;
-            int count = 0;
             //
             while (!stopWait) {
                 // System.out.println("stopWait = " + stopWait);
                 // 等待5秒
-                ThreadSleep.seconds(seconds);
-                count += seconds;
+                ThreadSleep.seconds(s2);
+                System.out.println("签到线程等待中:" + count);
+                count += s2;
                 if (count >= endWait) {
-                    stopWait = true;
+                    // stopWait = true;
                     break;
                 }
             }
             // System.out.println();
             // System.out.println("count = " + count);
         }
+        System.out.println("签到线程等待结束:" + count);
         // System.out.println("等待结束。。。。。。。。。。。。。。。。。。。");
-        stopWait = false;
+
     }
 
 

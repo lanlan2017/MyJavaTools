@@ -25,14 +25,14 @@ public class AppPanels {
         this.notOpened = new JTextArea(1, 10);
         // notOpened.setBorder(new LineBorder(Color.CYAN));
         notOpened.setBorder(new TitledBorder(new LineBorder(Color.CYAN), "未打开"));
-        notOpened.getDocument().addDocumentListener(new MyDocumentAdapter(notOpened));
+        // notOpened.getDocument().addDocumentListener(new MyDocumentAdapter(notOpened));
 
 
         // this.signedInApp = new JTextArea();
         this.signedIn = new JTextArea(1, 10);
         // signedIn.setBorder(new LineBorder(Color.PINK));
         signedIn.setBorder(new TitledBorder(new LineBorder(Color.pink), "已打开"));
-        signedIn.getDocument().addDocumentListener(new MyDocumentAdapter(signedIn));
+        // signedIn.getDocument().addDocumentListener(new MyDocumentAdapter(signedIn));
 
 
         appPanel.add(notOpened, BorderLayout.WEST);

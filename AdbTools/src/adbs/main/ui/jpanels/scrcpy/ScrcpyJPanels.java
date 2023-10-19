@@ -346,7 +346,7 @@ public class ScrcpyJPanels {
         btnSignedIn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ForegroundAppRun.setStopWait(true);
+                ForegroundAppRun.stopWait();
             }
         });
         return btnSignedIn;
@@ -362,8 +362,9 @@ public class ScrcpyJPanels {
         btnAllCheckedIn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ForegroundAppRun.setStopWait(true);
-                ForegroundAppRun.setIsAllAppSignedIn(true);
+                // ForegroundAppRun.stopWait(true);
+                ForegroundAppRun.stopWait();
+                ForegroundAppRun.allAppOpened();
             }
         });
         return btnAllCheckedIn;
