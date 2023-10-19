@@ -36,16 +36,16 @@ public class XMQZXK1080_2160 implements CoinsType {
                 actDoYueDuJinBi(device, actShortName);
                 break;
             case strTingShuJinBi:
-                actDoTingShuJinBi(device, actShortName);
+                tingShuJinBi(device, actShortName);
                 break;
             case strTingShuZaiLing:
-                actDoTingShuZaiLing(device, actShortName);
+                tingShuZaiLing(device, actShortName);
                 break;
             case strYueDuZaiLing:
-                actDoYueDuZaiLing(device, actShortName);
+                yueDuZaiLing(device, actShortName);
                 break;
             case strTingShuHongBao:
-                actDoTingShuHongBao(device, actShortName);
+                tingShuHongBao(device, actShortName);
                 break;
         }
     }
@@ -86,7 +86,7 @@ public class XMQZXK1080_2160 implements CoinsType {
      * @param device
      * @param actShortName
      */
-    private static void actDoGuangGao(Device device, String actShortName) {
+    private static void guangGao(Device device, String actShortName) {
         // _40s = 35;
         switch (actShortName) {
             // case "com.kmxs.reader.webview.ui.DefaultNewWebActivity":
@@ -130,6 +130,11 @@ public class XMQZXK1080_2160 implements CoinsType {
                 break;
 
 
+            case "com.kmxs.mobad.core.ssp.rewardvideo.RewardVideoDspActivity":
+                AdbTap.wait_tap(device, s35, new WeiZhi(975, 106));
+
+                break;
+
             // case "":
             //     break;
 
@@ -144,7 +149,7 @@ public class XMQZXK1080_2160 implements CoinsType {
      * @param device
      * @param actShortName
      */
-    private static void actDoTingShuJinBi(Device device, String actShortName) {
+    private static void tingShuJinBi(Device device, String actShortName) {
         switch (actShortName) {
             case "com.kmxs.reader.webview.ui.DefaultNewWebActivity":
                 WeiZhi closeBtn = new WeiZhi(881, 942);
@@ -173,7 +178,7 @@ public class XMQZXK1080_2160 implements CoinsType {
      * @param actShortName
      */
 
-    private static void actDoTingShuZaiLing(Device device, String actShortName) {
+    private static void tingShuZaiLing(Device device, String actShortName) {
         // addArrActName(actShortName);
         activityRun.addArrActName(actShortName);
         if (actShortName.equals("com.kmxs.reader.webview.ui.DefaultNewWebActivity")) {
@@ -185,7 +190,7 @@ public class XMQZXK1080_2160 implements CoinsType {
             // wait_tap(device, s3, tingShuZaiLing);
             AdbTap.wait_tap(device, s3, tingShuZaiLing);
         } else {
-            actDoGuangGao(device, actShortName);
+            guangGao(device, actShortName);
         }
         // isEndTest(strTingShuZaiLing);
         activityRun.isEndTest(strTingShuZaiLing);
@@ -199,7 +204,7 @@ public class XMQZXK1080_2160 implements CoinsType {
      * @param actShortName
      */
 
-    private static void actDoYueDuZaiLing(Device device, String actShortName) {
+    private static void yueDuZaiLing(Device device, String actShortName) {
         // 记录打开的act短名称
         // addArrActName(actShortName);
         activityRun.addArrActName(actShortName);
@@ -207,7 +212,7 @@ public class XMQZXK1080_2160 implements CoinsType {
             // wait_tap(device, s3, new WeiZhi(888, 1201));
             AdbTap.wait_tap(device, s3, new WeiZhi(888, 1201));
         } else {
-            actDoGuangGao(device, actShortName);
+            guangGao(device, actShortName);
         }
         // isEndTest(strYueDuZaiLing);
         activityRun.isEndTest(strYueDuZaiLing);
@@ -221,7 +226,7 @@ public class XMQZXK1080_2160 implements CoinsType {
      * @param device
      * @param actShortName
      */
-    private static void actDoTingShuHongBao(Device device, String actShortName) {
+    private static void tingShuHongBao(Device device, String actShortName) {
         // addArrActName(actShortName);
         activityRun.addArrActName(actShortName);
         if ("com.qimao.qmreader.commonvoice.CommonVoiceActivityV2".equals(actShortName)) {
@@ -229,7 +234,7 @@ public class XMQZXK1080_2160 implements CoinsType {
             // wait_tap(device, s3, new WeiZhi(952, 161));
             AdbTap.wait_tap(device, s3, new WeiZhi(952, 161));
         } else {
-            actDoGuangGao(device, actShortName);
+            guangGao(device, actShortName);
         }
         // isEndTest(strTingShuZaiLing);
         activityRun.isEndTest(strTingShuZaiLing);
