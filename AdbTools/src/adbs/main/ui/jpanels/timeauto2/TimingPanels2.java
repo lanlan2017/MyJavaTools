@@ -46,6 +46,7 @@ public class TimingPanels2 extends WaitValues {
     private final JButton btn1H;
     private final JButton btn2H;
     private final JButton btn1_5H;
+    private final JButton btn5H;
     private String selected;
 
     public TimingPanels2() {
@@ -57,15 +58,24 @@ public class TimingPanels2 extends WaitValues {
         btn95s = initButton(95);
         btn120s = initButton(120);
         btn180s = initButton(180);
-        btn1H = initButton(1 * 60 * 60);
+        // btn1H = initButton(1 * 60 * 60);
+        btn1H = initButton(h1);
         btn1_5H = initButton(1 * 60 * 60 + 30 * 60);
-        btn2H = initButton(2 * 60 * 60);
-        btn20M = initButton(20 * 60);
-        btn40M = initButton(40 * 60);
+        // btn2H = initButton(2 * 60 * 60);
+        btn2H = initButton(h2);
+        // btn20M = initButton(20 * 60);
+        btn20M = initButton(m20);
+        // btn40M = initButton(40 * 60);
+        btn40M = initButton(m40);
 
         // btn1H= btn1H;
-        btn3HMore = initButton(values[values.length - 2]);
-        btn4H = initButton(values[values.length - 1]);
+        // btn3HMore = initButton(values[values.length - 2]);
+        // btn3HMore = initButton(3 * 60 * 60 + 10 * 60);
+        btn3HMore = initButton(h3m10);
+        // btn4H = initButton(values[values.length - 1]);
+        // btn4H = initButton(4 * 60 * 60);
+        btn4H = initButton(h4);
+        btn5H = initButton(h5);
         hideAllButtons();
 
         jComboBox = initComboBox();
@@ -77,6 +87,7 @@ public class TimingPanels2 extends WaitValues {
         timingPanels2.add(btn2H);
         timingPanels2.add(btn3HMore);
         timingPanels2.add(btn4H);
+        timingPanels2.add(btn5H);
         timingPanels2.add(btn30s);
         timingPanels2.add(btn35s);
         timingPanels2.add(btn65s);
@@ -288,6 +299,7 @@ public class TimingPanels2 extends WaitValues {
         btn2H.setVisible(true);
         btn3HMore.setVisible(true);
         btn4H.setVisible(false);
+        btn5H.setVisible(false);
     }
 
     private void showReadWaitButtons() {
@@ -304,6 +316,7 @@ public class TimingPanels2 extends WaitValues {
         btn2H.setVisible(true);
         btn3HMore.setVisible(true);
         btn4H.setVisible(true);
+        btn5H.setVisible(true);
     }
 
     private void showShoppingButtons() {
@@ -320,6 +333,7 @@ public class TimingPanels2 extends WaitValues {
         btn2H.setVisible(false);
         btn3HMore.setVisible(false);
         btn4H.setVisible(false);
+        btn5H.setVisible(false);
     }
 
     private void showVideoButtons() {
@@ -336,6 +350,7 @@ public class TimingPanels2 extends WaitValues {
         btn2H.setVisible(false);
         btn3HMore.setVisible(false);
         btn4H.setVisible(false);
+        btn5H.setVisible(false);
     }
 
     private void hideAllButtons() {
@@ -351,6 +366,7 @@ public class TimingPanels2 extends WaitValues {
         btn2H.setVisible(false);
         btn3HMore.setVisible(false);
         btn4H.setVisible(false);
+        btn5H.setVisible(false);
     }
 
 }
