@@ -106,8 +106,8 @@ public class AutoPanels implements CoinsType {
     public void defaultSelected() {
         // jcbXuanZhe.setSelectedIndex(0);
         jcbXuanZhe.setSelectedIndex(1);
-        jcbShou.setSelectedIndex(0);
         jcbZhuan.setSelectedIndex(0);
+        jcbShou.setSelectedIndex(1);
     }
 
 
