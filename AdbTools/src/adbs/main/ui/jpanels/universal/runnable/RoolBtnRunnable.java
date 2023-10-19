@@ -22,10 +22,10 @@ public class RoolBtnRunnable extends CloseableRunnable {
         return instance;
     }
 
-    @Override
-    protected void setMsg() {
-        msg = "滚动按钮线程";
-    }
+    // @Override
+    // protected void setMsg() {
+    //     msg = "滚动按钮线程";
+    // }
 
     @Override
     protected void beforeLoop() {

@@ -13,10 +13,10 @@ public class OppoR9ScrcpyRun extends CloseableRunnable {
     private ScrcpyJPanels scrcpyJPanels;
     // private ControlJPanels controlJPanels;
 
-    @Override
-    protected void setMsg() {
-        msg = "OppoR9投屏刷新线程";
-    }
+    // @Override
+    // protected void setMsg() {
+    //     msg = "OppoR9投屏刷新线程";
+    // }
 
     @Override
     protected void beforeLoop() {

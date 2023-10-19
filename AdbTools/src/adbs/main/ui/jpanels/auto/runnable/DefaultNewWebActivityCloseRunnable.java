@@ -22,10 +22,10 @@ public abstract class DefaultNewWebActivityCloseRunnable extends CloseableRunnab
     protected ScreenPositionRatio btnCoin;
 
 
-    @Override
-    protected void setMsg() {
-        msg = "";
-    }
+    // @Override
+    // protected void setMsg() {
+    //     msg = "";
+    // }
 
     public void setDevice(Device device) {
         this.device = device;

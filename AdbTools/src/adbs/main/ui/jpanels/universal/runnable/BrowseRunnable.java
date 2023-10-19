@@ -34,10 +34,10 @@ public class BrowseRunnable extends CloseableRunnable {
     //     this.universalPanels = universalPanels;
     // }
 
-    @Override
-    protected void setMsg() {
-        msg = "浏览";
-    }
+    // @Override
+    // protected void setMsg() {
+    //     msg = "浏览";
+    // }
 
     @Override
     protected void loopBody() {

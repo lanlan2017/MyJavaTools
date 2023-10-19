@@ -18,7 +18,7 @@ public class ReadButtonRunnable extends CloseableRunnable {
     // private UniversalPanels universalPanels;
 
     private ReadButtonRunnable() {
-        setMsg();
+        // setMsg();
         min = 5;
         max = 9;
     }
@@ -39,11 +39,11 @@ public class ReadButtonRunnable extends CloseableRunnable {
         this.max = max;
     }
 
-    @Override
-    protected void setMsg() {
-        // msg = "阅读";
-        msg = "读";
-    }
+    // @Override
+    // protected void setMsg() {
+    //     // msg = "阅读";
+    //     msg = "读";
+    // }
 
     @Override
     protected void beforeLoop() {
