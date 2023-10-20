@@ -71,6 +71,19 @@ public class AdbCommands implements ActivityStr {
         return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 " + y70 + " 5 " + y30 + " 200");
     }
 
+    /**
+     * 在手机左侧，从下向上滑动
+     */
+    public static String swipeBottom2TopOnLeft(Device device) {
+        String id = device.getSerial();
+        int height = device.getHeight();
+        int width = device.getWidth();
+        int y30 = (height / 100) * 30;
+        int y70 = (height / 100) * 70;
+        // return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 1650 5 700 200");
+        return AdbCommands.runAbdCmd("adb -s " + id + " shell input swipe 5 " + y70 + " 5 " + y30 + " 200");
+    }
+
     public static String swipeBotton2TopOnRight(Device device) {
         int width = device.getWidth();
         int rightX = (int) (width * 0.9);
@@ -292,7 +305,6 @@ public class AdbCommands implements ActivityStr {
             // JButton stopBtn = AdbTools.getInstance().getAdbJPanels().getStopBtn();
 
             JButton stopBtn = AdbTools.getInstance().getUniversalPanels().getBtnStop();
-
             if (stopBtn != null && stopBtn instanceof JButton) {
                 System.out.println("点击停止按钮" + adbResult);
                 stopBtn.doClick();
