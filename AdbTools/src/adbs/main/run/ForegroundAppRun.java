@@ -354,7 +354,7 @@ public class ForegroundAppRun implements Runnable {
                 // System.out.println("stopWait = " + stopWait);
                 // 等待5秒
                 ThreadSleep.seconds(s2);
-                System.out.println("签到线程等待中:" + count);
+                // System.out.println("签到线程等待中:" + count);
                 count += s2;
                 if (count >= endWait) {
                     // stopWait = true;
@@ -364,7 +364,7 @@ public class ForegroundAppRun implements Runnable {
             // System.out.println();
             // System.out.println("count = " + count);
         }
-        System.out.println("签到线程等待结束:" + count);
+        // System.out.println("签到线程等待结束:" + count);
         // System.out.println("等待结束。。。。。。。。。。。。。。。。。。。");
 
     }
