@@ -1,5 +1,6 @@
 package adbs.main.ui.jpanels.check;
 
+import adbs.main.AdbTools;
 import adbs.main.ui.jframe.JFramePack;
 
 import javax.swing.*;
@@ -30,7 +31,8 @@ public class JCheckBoxControlJPanelItemListener implements ItemListener {
             // 隐藏面板
             jPanel.setVisible(false);
         }
-        // 更新窗体界面，以最佳大小显示窗体
-        JFramePack.onJComponentActionEvent(e);
+        // // 更新窗体界面，以最佳大小显示窗体
+        // JFramePack.onJComponentActionEvent(e);
+        AdbTools.getInstance().getFrame().pack();
     }
 }
