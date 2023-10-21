@@ -192,6 +192,8 @@ public class ForegroundAppRun implements Runnable {
         }
         JTextArea signedInApp = AdbTools.getInstance().getAppPanels().getSignedIn();
         signedInApp.setText(sb.toString().trim());
+        // ThreadSleep.seconds(1);
+        ThreadSleep.millisecond(500);
 
     }
 
@@ -222,6 +224,8 @@ public class ForegroundAppRun implements Runnable {
 
         AdbTools.getInstance().getAppPanels().getNotOpened().setText(sb.toString().trim());
         // System.out.println();
+        // ThreadSleep.minutes(1);
+        ThreadSleep.seconds(1);
     }
 
     /**

@@ -46,6 +46,13 @@ public class AdbGetPackage {
         // mResumedActivity: ActivityRecord{7fbc105 u0 com.huawei.health/.MainActivity t1573}
         adbOuput = adbOuput.substring(0, adbOuput.lastIndexOf(" "));
         adbOuput = adbOuput.substring(adbOuput.lastIndexOf(" ") + 1);
+        // "adb -s " + id + " shell dumpsys activity | findstr topResumedActivity" 命令执行的结果
+        /**
+         * topResumedActivity=ActivityRecord{1a70f4a u0 com.smile.gifmaker/com.yxcorp.gifshow.HomeActivity} t6294}
+         */
+        if (adbOuput.endsWith("}")) {
+            adbOuput = adbOuput.substring(0, adbOuput.length() - 1);
+        }
         return adbOuput;
     }
 
@@ -65,6 +72,7 @@ public class AdbGetPackage {
 
         return actName;
     }
+
     public static AppNames getAppNames() {
         String actName = AdbGetPackage.getActName();
         // System.out.println("actName = " + actName);

@@ -124,7 +124,6 @@ public class VideoButtonRunnable extends CloseableRunnable {
                 // stopWait = true;
                 // }
                 isNotVideoAct_KuaiShou(device, actShortName);
-
                 break;
 
         }
