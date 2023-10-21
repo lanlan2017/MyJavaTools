@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 
-public class AdbTaskAll {
+public class AdbAll {
     public static void main(String[] args) {
         String argsStr = "";
         for (int i = 0; i < args.length; i++) {
@@ -19,18 +19,32 @@ public class AdbTaskAll {
         }
         argsStr = argsStr.trim();
         System.out.println("argsStr ='" + argsStr + "'");
-        if ("".equals(argsStr)) {
-            taskAll();
-            // } else if (argsStr.startsWith("kill")) {
-        } else if (argsStr.matches("kill")) {
-            taskKillOpenAll(true, false);
-        } else if (argsStr.matches("kill yd")) {
-            taskKillOpenAll(true, true);
+        // if ("".equals(argsStr)) {
+        //     taskAll();
+        //     // } else if (argsStr.startsWith("kill")) {
+        // } else if (argsStr.matches("kill")) {
+        //     taskKillOpenAll(true, true, false);
+        // } else if (argsStr.matches("kill yd")) {
+        //     taskKillOpenAll(true, true, false);
+        //
+        // } else if (argsStr.matches("yd")) {
+        //     taskKillOpenAll(false, false, false);
+        // }
+        switch (argsStr) {
+            case "yd":
+                taskKillOpenAll(false, false, true);
+                break;
+            case "task":
+                taskKillOpenAll(true, false, false);
+                break;
+            case "task kill":
+                taskKillOpenAll(true, true, false);
+                break;
+            case "task kill yd":
+                taskKillOpenAll(true, true, true);
+                break;
 
-        } else if (argsStr.matches("yd")) {
-            taskKillOpenAll(false, true);
         }
-
 
     }
 
@@ -38,13 +52,17 @@ public class AdbTaskAll {
      * 打开所有的任务视图界面
      */
     private static void taskAll() {
-        taskKillOpenAll(false, false);
+        taskKillOpenAll(true, false, false);
     }
 
     /**
      * 打开所有设备的任务视图界面,并点击底部的清除按钮。
+     *
+     * @param task    是否按触发键
+     * @param killAll 杀死所有的前台APP
+     * @param open    是否打开运动健康
      */
-    private static void taskKillOpenAll(boolean killAll, boolean open) {
+    private static void taskKillOpenAll(boolean task, boolean killAll, boolean open) {
         // 获取当前电脑上的所有adb设备的LinkedHashMap集合
         LinkedHashMap<String, Device> simpleId_Device_map = Devices.getStringDeviceLinkedHashMap();
         System.out.println("-------------------------");
@@ -57,8 +75,12 @@ public class AdbTaskAll {
                 Device device = e.getValue();
                 String serial1 = device.getSerial();
                 String serial = serial1;
-                // 按任务键
-                taskView(serial);
+
+                if (task) {
+                    // 按任务键
+                    taskView(serial);
+
+                }
                 // 按任务键底部的清除按钮
                 if (killAll) {
                     clickDeleteBtn(device);
