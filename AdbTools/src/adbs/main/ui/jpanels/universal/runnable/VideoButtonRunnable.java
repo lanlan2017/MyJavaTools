@@ -93,7 +93,7 @@ public class VideoButtonRunnable extends CloseableRunnable {
             msCount += 250;
             // if (msCount % 3000 == 0) {
             if (msCount % 2000 == 0) {
-                System.out.println("msCount = " + msCount);
+                // System.out.println("msCount = " + msCount);
                 // 如果向上滑动之后，跳转到其他activity，则修复
                 isNotVideoActivity(device);
             }
