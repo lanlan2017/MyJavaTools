@@ -142,7 +142,7 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
             // new Thread(shoppingButtonRunnable).start();
             JCheckBox checkBox = AdbTools.getInstance().getTimePanels().getTaskCheckBox();
             if (checkBox.isSelected()) {
-                shoppingButtonRunnable.setClickReturnBtn(true);
+                shoppingButtonRunnable.setClickTaskBtn(true);
             }
 
             new Thread(shoppingButtonRunnable).start();

@@ -7,9 +7,14 @@ public class AppNames {
 
     public AppNames(String actLongName) {
         this.actLongName = actLongName;
-        int slpitIndex = actLongName.indexOf("/");
-        packageName = actLongName.substring(0, slpitIndex);
-        actShortName = actLongName.substring(slpitIndex + 1);
+        if (actLongName.contains("/")) {
+            int slpitIndex = actLongName.indexOf("/");
+            packageName = actLongName.substring(0, slpitIndex);
+            actShortName = actLongName.substring(slpitIndex + 1);
+        } else {
+            packageName = "";
+            actShortName = "";
+        }
 
     }
 
@@ -30,7 +35,7 @@ public class AppNames {
         // return "actLongName=" + actLongName + "\n" + "packageName=" + packageName + "\n" +
         //         // "actShortName=" + actLongName + "\n";
         //         "actShortName=" + actShortName;
-        return "actLongName =" + actLongName ;
+        return "actLongName =" + actLongName;
         // return "actLongName='" + actLongName + '\'' + ", packageName='" + packageName + '\'' + ", actShortName='" + actShortName + '\'' + '}';
     }
 }

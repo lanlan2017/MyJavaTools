@@ -77,19 +77,23 @@ public class UniversalPanels {
         // universalPanel.setBorder(new TitledBorder("通用功能"));
 
         universalPanel.setLayout(FlowLayouts.flowLayoutLeft);
-        readButton = new JButton("阅读");
+        // readButton = new JButton("阅读");
+        readButton = new JButton("读");
         readButton.setToolTipText("阅读功能:连续点击屏幕右侧");
 
-        browseButton = new JButton("浏览");
+        // browseButton = new JButton("浏览");
+        browseButton = new JButton("浏");
         browseButton.setToolTipText("连续在屏幕左侧从下向上滑动");
 
-        waitButton = new JButton("等待");
+        // waitButton = new JButton("等待");
+        waitButton = new JButton("等");
         waitButton.setToolTipText("等待一定时间后提示");
         // videoButton = new JButton("刷视频");
-        videoButton = new JButton("视频");
+        videoButton = new JButton("视");
         videoButton.setToolTipText("等待随机秒数后，从下向上滑动一次");
 
-        shoppingButton = new JButton("逛街");
+        // shoppingButton = new JButton("逛街");
+        shoppingButton = new JButton("逛");
         shoppingButton.setToolTipText("连续从下向上滑动三次，然后上下来回滑动");
 
         // rollingButton=new JButton("锁定");

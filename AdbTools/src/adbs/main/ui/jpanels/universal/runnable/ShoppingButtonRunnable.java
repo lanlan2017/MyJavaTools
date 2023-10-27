@@ -2,6 +2,7 @@ package adbs.main.ui.jpanels.universal.runnable;
 
 import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
+import adbs.main.run.AdbGetPackage;
 import adbs.main.ui.jpanels.time.TimePanels;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
 import tools.thead.Threads;
@@ -15,9 +16,9 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
     //  */
     // private InOutputModel inOutputModel;
     /**
-     * 是否触发返回按钮
+     * 是否触发任务键
      */
-    private boolean isClickReturnBtn;
+    private boolean isClickTaskBtn;
 
     private static ShoppingButtonRunnable instance = new ShoppingButtonRunnable();
     private int seconds;
@@ -36,8 +37,8 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
     //     this.inOutputModel = inOutputModel;
     // }
 
-    public void setClickReturnBtn(boolean clickReturnBtn) {
-        isClickReturnBtn = clickReturnBtn;
+    public void setClickTaskBtn(boolean clickTaskBtn) {
+        isClickTaskBtn = clickTaskBtn;
     }
 
     // @Override
@@ -49,7 +50,7 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
     protected void beforeLoop() {
         super.beforeLoop();
         TimePanels timePanels = AdbTools.getInstance().getTimePanels();
-        if(timePanels.getTimerJLabel().isVisible()){
+        if (timePanels.getTimerJLabel().isVisible()) {
             JTextField input1 = timePanels.getInput1();
             // 保存原来设定的值
             oldInput1Text = input1.getText();
@@ -79,21 +80,25 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
         // 计数器
         count = 0;
 
+        // 向上滑动三次
         output.setText("↑3");
-        // 在左侧，从下向上滑动三次
-        if (swipeFromBottomToTopOnce(serial, input1)) {
-            // 如果到达了指定时间，
-            stop = true;
-            return;
+        for (int i = 0; i < 3; i++) {
+            // 在左侧，从下向上滑动三次
+            if (swipeFromBottomToTopOnce(serial, input1)) {
+                // 如果到达了指定时间，
+                stop = true;
+                return;
+            }
         }
-        if (swipeFromBottomToTopOnce(serial, input1)) {
-            stop = true;
-            return;
-        }
-        if (swipeFromBottomToTopOnce(serial, input1)) {
-            stop = true;
-            return;
-        }
+
+        // if (swipeFromBottomToTopOnce(serial, input1)) {
+        //     stop = true;
+        //     return;
+        // }
+        // if (swipeFromBottomToTopOnce(serial, input1)) {
+        //     stop = true;
+        //     return;
+        // }
 
         while (!stop) {
             output.setText("↓");
@@ -162,15 +167,35 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
         super.afterLoop();
 
         // TimePanels timePanels = inOutputModel.getTimePanels();
-        TimePanels timePanels =AdbTools.getInstance().getTimePanels();
+        TimePanels timePanels = AdbTools.getInstance().getTimePanels();
 
         timePanels.getTimerJLabel().setText("");
-        if (isClickReturnBtn) {
-            // AdbTools.getInstance().getAdbJPanels().getReturnBtn().doClick();
-            AdbTools.getInstance().getAdbJPanels().getBtnTask().doClick();
-            isClickReturnBtn = false;
+        // if (isClickReturnBtn) {
+        //     // AdbTools.getInstance().getAdbJPanels().getReturnBtn().doClick();
+        //     AdbTools.getInstance().getAdbJPanels().getBtnReturn().doClick();
+        //     // AdbTools.getInstance().getAdbJPanels().getBtnTask().doClick();
+        //     isClickReturnBtn = false;
+        // }
+        String packageName = AdbGetPackage.getAppNames().getPackageName();
+
+        switch (packageName) {
+            case "com.taobao.live":
+                System.out.println("点淘APP,结束等待后 返回");
+                AdbTools.getInstance().getAdbJPanels().getBtnReturn().doClick();
+                break;
+            default:
+                if (isClickTaskBtn) {
+                    // AdbTools.getInstance().getAdbJPanels().getReturnBtn().doClick();
+                    // AdbTools.getInstance().getAdbJPanels().getBtnReturn().doClick();
+                    AdbTools.getInstance().getAdbJPanels().getBtnTask().doClick();
+                    isClickTaskBtn = false;
+                }
+                break;
         }
-        if(timePanels.getTimerJLabel().isVisible()){
+
+
+
+        if (timePanels.getTimerJLabel().isVisible()) {
             JTextField input1 = timePanels.getInput1();
             // 恢复原来的值
             input1.setText(oldInput1Text);

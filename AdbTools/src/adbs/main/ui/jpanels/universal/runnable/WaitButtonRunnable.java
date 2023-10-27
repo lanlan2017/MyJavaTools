@@ -1,6 +1,8 @@
 package adbs.main.ui.jpanels.universal.runnable;
 
 import adbs.main.AdbTools;
+import adbs.main.run.AdbGetPackage;
+import adbs.main.run.model.AppNames;
 import adbs.main.ui.jpanels.adb.AdbJPanels;
 import adbs.main.ui.jpanels.time.TimePanels;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
@@ -97,8 +99,6 @@ public class WaitButtonRunnable extends CloseableRunnable {
         input1.setEditable(true);
         input1.setBackground(input1Background);
         JLabel timerJLabel = timePanels.getTimerJLabel();
-
-
         timerJLabel.setText("");
 
         AdbTools adbTools = AdbTools.getInstance();
@@ -109,10 +109,34 @@ public class WaitButtonRunnable extends CloseableRunnable {
             universalPanels.getBtnStop().doClick();
             isClickStopButton = false;
         }
-        if (isClickTaskButton) {
-            adbJPanels.getBtnTask().doClick();
-            isClickTaskButton = false;
+        // if (isClickTaskButton) {
+        //     adbJPanels.getBtnTask().doClick();
+        //     isClickTaskButton = false;
+        // }
+
+        AppNames appNames = AdbGetPackage.getAppNames();
+        String packageName = appNames.getPackageName();
+        // if (packageName.equals("com.taobao.live")) {
+        //
+        // }
+        switch (packageName) {
+            case "com.taobao.live":
+                // 点淘APP,停止后返回
+                System.out.println("点淘APP,结束等待后 返回");
+                adbJPanels.getBtnReturn().doClick();
+                break;
+            default:
+                if (isClickTaskButton) {
+                    adbJPanels.getBtnTask().doClick();
+                    isClickTaskButton = false;
+                }
+                break;
         }
+
+        // if (isClickTaskButton) {
+        //     adbJPanels.getBtnTask().doClick();
+        //     isClickTaskButton = false;
+        // }
         timePanels.showConfirmDialog();
     }
 }

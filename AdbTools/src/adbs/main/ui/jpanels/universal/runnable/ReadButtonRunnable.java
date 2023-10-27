@@ -123,6 +123,4 @@ public class ReadButtonRunnable extends CloseableRunnable {
             count += 250;
         }
     }
-
-
 }
