@@ -1,6 +1,7 @@
 package adbs.main.ui.jpanels.timeauto2;
 
 import adbs.main.AdbTools;
+import adbs.main.run.AdbGetPackage;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.config.Fonts;
 import adbs.main.ui.jpanels.time.TimePanels;
@@ -177,6 +178,17 @@ public class TimingPanels2 extends WaitValues {
                             // 打开刷视频设置
                             universalPanels.getVideoButton().doClick();
                             // videoDo(timePanels, okButton);
+                            // @todo
+                            // String packageName = AdbGetPackage.getAppNames().getPackageName();
+                            // switch (packageName) {
+                            //     case "快手极速版":
+                            //     case "快手":
+                            //         adbTools.getTimePanels().getPlusBtn().doClick();
+                            //         break;
+                            //
+                            // }
+
+
                             // 开始刷视频
                             okButton.doClick();
                             // 打开等待设置

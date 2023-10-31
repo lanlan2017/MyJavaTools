@@ -107,7 +107,8 @@ public class ShiPinQuJian {
     }
 
     public static QuJian init() {
-        index = 5;
+        // index = 5;
+        index = 6;
         return next();
     }
 
