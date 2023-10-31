@@ -53,10 +53,16 @@ public class PlusBtnAcListener extends WaitValues implements ActionListener {
                 } else if (value1 == 20) {
                     value1 = 30;
                     value2 = 60;
-                } else if (value1 == 30) {
+                }
+                else if (value1 == 30) {
+                    value1 = 40;
+                    value2 = 80;
+                }
+                else if (value1 == 40) {
                     value1 = 60;
                     value2 = 90;
-                } else if (value1 == 60) {
+                }
+                else if (value1 == 60) {
                     value1 = 90;
                     value2 = 150;
                 } else if (value1 == 90) {

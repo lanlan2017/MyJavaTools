@@ -336,11 +336,14 @@ public class TimingPanels2 extends WaitValues {
         btn5H.setVisible(false);
     }
 
+    /**
+     * VW，需要的时间
+     */
     private void showVideoButtons() {
         btn30s.setVisible(false);
         btn35s.setVisible(false);
         btn65s.setVisible(true);
-        btn95s.setVisible(false);
+        btn95s.setVisible(true);
         btn120s.setVisible(false);
         btn180s.setVisible(true);
         btn20M.setVisible(true);
