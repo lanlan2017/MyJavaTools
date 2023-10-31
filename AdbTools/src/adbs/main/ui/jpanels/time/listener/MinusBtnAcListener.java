@@ -16,7 +16,7 @@ public class MinusBtnAcListener extends WaitValues implements ActionListener {
     /**
      * 倒计时标签
      */
-    private  JLabel timerJLabel;
+    private JLabel timerJLabel;
 
     // public MinusBtnAcListener(InOutputModel inOutputModel) {
     //     input1 = inOutputModel.getTimePanels().getInput1();
@@ -37,49 +37,61 @@ public class MinusBtnAcListener extends WaitValues implements ActionListener {
             int value1 = Integer.parseInt(input1.getText());
             // 如果输入框2也可见的话
             if (input2.isVisible()) {
-                // 输入框1，输入框2都可见
-                int value2;
-                if (value1 == 240) {
-                    value1 = 150;
-                    value2 = 240;
-                } else if (value1 == 150) {
-                    value1 = 120;
-                    value2 = 150;
-                } else if (value1 == 120) {
-                    value1 = 90;
-                    value2 = 120;
-                } else if (value1 == 90) {
-                    value1 = 60;
-                    value2 = 90;
+                // // 输入框1，输入框2都可见
+                // int value2;
+                // if (value1 == 240) {
+                //     value1 = 150;
+                //     value2 = 240;
+                // } else if (value1 == 150) {
+                //     value1 = 120;
+                //     value2 = 150;
+                // } else if (value1 == 120) {
+                //     value1 = 90;
+                //     value2 = 120;
+                // } else if (value1 == 90) {
+                //     value1 = 60;
+                //     value2 = 90;
+                // }
+                // else if (value1 == 60) {
+                //     value1 = 40;
+                //     value2 = 80;
+                // }
+                // else if (value1 == 40) {
+                //     value1 = 30;
+                //     value2 = 60;
+                // }
+                // else if (value1 == 30) {
+                //     value1 = 20;
+                //     value2 = 40;
+                // } else if (value1 == 20) {
+                //     value1 = 15;
+                //     value2 = 30;
+                // } else if (value1 == 15) {
+                //     value1 = 12;
+                //     value2 = 22;
+                // } else if (value1 == 12) {
+                //     value1 = 10;
+                //     value2 = 22;
+                // } else if (value1 > 5) {
+                //     value1 = value1 - 1;
+                //     value2 = value1 * 2;
+                // } else {
+                //     return;
+                // }
+                // input1.setText(String.valueOf(value1));
+                // input2.setText(String.valueOf(value2));
+
+                if (ShiPinQuJian.hasPrevious()) {
+                    QuJian previous = ShiPinQuJian.previous();
+                    System.out.println("previous = " + previous);
+                    // QuJian next = previous;
+                    int start = previous.getStart();
+                    int end = previous.getEnd();
+                    input1.setText(String.valueOf(start));
+                    input2.setText(String.valueOf(end));
+
                 }
-                else if (value1 == 60) {
-                    value1 = 40;
-                    value2 = 80;
-                }
-                else if (value1 == 40) {
-                    value1 = 30;
-                    value2 = 60;
-                }
-                else if (value1 == 30) {
-                    value1 = 20;
-                    value2 = 40;
-                } else if (value1 == 20) {
-                    value1 = 15;
-                    value2 = 30;
-                } else if (value1 == 15) {
-                    value1 = 12;
-                    value2 = 22;
-                } else if (value1 == 12) {
-                    value1 = 10;
-                    value2 = 22;
-                } else if (value1 > 5) {
-                    value1 = value1 - 1;
-                    value2 = value1 * 2;
-                } else {
-                    return;
-                }
-                input1.setText(String.valueOf(value1));
-                input2.setText(String.valueOf(value2));
+
             }
             // 第2个不可见
             else {

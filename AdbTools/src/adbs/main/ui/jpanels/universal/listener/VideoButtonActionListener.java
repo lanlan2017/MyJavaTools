@@ -3,6 +3,8 @@ package adbs.main.ui.jpanels.universal.listener;
 import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.adb.listener.ButtonFocusReleaseActionListener;
 import adbs.main.ui.jpanels.time.TimePanels;
+import adbs.main.ui.jpanels.time.listener.QuJian;
+import adbs.main.ui.jpanels.time.listener.ShiPinQuJian;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -30,13 +32,20 @@ public class VideoButtonActionListener extends ButtonFocusReleaseActionListener 
         input1.setVisible(true);
         input1.setColumns(3);
         // input1.setText(String.valueOf(9));
-        input1.setText(String.valueOf(12));
+        // input1.setText(String.valueOf(12));
+
+        QuJian quJian = ShiPinQuJian.init();
+        input1.setText(String.valueOf(quJian.getStart()));
+
         // 显示输入框2
         JTextField input2 = timePanels.getInput2();
         input2.setVisible(true);
         input2.setColumns(3);
+
         // input2.setText(String.valueOf(18));
-        input2.setText(String.valueOf(22));
+        // input2.setText(String.valueOf(22));
+        input2.setText(String.valueOf(quJian.getEnd()));
+
 
         timePanels.getPlusBtn().setVisible(true);
         timePanels.getMinusBtn().setVisible(true);
