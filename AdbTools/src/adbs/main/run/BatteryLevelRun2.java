@@ -87,6 +87,7 @@ public class BatteryLevelRun2 implements Runnable {
                                 break;
                             case JOptionPane.NO_OPTION:
                                 System.out.println("点击 否 按钮");
+                                // ThreadSleep.minutes(10);
                                 ThreadSleep.minutes(10);
                                 break;
                             case JOptionPane.CANCEL_OPTION:
@@ -100,8 +101,6 @@ public class BatteryLevelRun2 implements Runnable {
 
                 }
             }
-
-
             wait_();
 
         }
@@ -109,10 +108,14 @@ public class BatteryLevelRun2 implements Runnable {
 
     private void wait_() {
         if (IsTest.isTest()) {
+            // 20秒检测一次
             ThreadSleep.seconds(20);
         } else {
             // 等待一段时间，再进行更新电池信息
-            ThreadSleep.minutes(2);
+            // ThreadSleep.minutes(2);
+            // 10检测一次电池
+            ThreadSleep.minutes(10);
+            // ThreadSleep.seconds(10);
         }
     }
 
@@ -142,11 +145,13 @@ public class BatteryLevelRun2 implements Runnable {
                 break;
             case JOptionPane.NO_OPTION:
                 System.out.println("点击 否 按钮");
-                ThreadSleep.minutes(10);
+                // ThreadSleep.minutes(10);
+                ThreadSleep.minutes(20);
                 break;
             case JOptionPane.CANCEL_OPTION:
                 System.out.println("点击 取消 按钮");
-                ThreadSleep.minutes(30);
+                // ThreadSleep.minutes(30);
+                ThreadSleep.minutes(40);
                 // 停止电池检测线程
                 // stop = true;
                 break;

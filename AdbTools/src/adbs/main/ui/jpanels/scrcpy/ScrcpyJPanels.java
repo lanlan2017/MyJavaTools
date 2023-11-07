@@ -79,6 +79,7 @@ public class ScrcpyJPanels {
      * scrcpy.exe内部镜像宽度数组
      */
     private final String[] widthArr = {"600", "540", "500", "480", "420", "360", "350", "340"};
+    private final JButton btnNextDay;
 
 
     /**
@@ -112,8 +113,10 @@ public class ScrcpyJPanels {
         btnSwitchNetworkDebug = getBtnSwitchNetworkDebug();
 
         btnUpdateEarningApps = getBtnUpdateEarningApps();
-        btnSignedIn = getBtnSignedIn();
 
+        btnNextDay = getBtnNextDay();
+
+        btnSignedIn = getBtnSignedIn();
         btnAllCheckedIn = getBtnAllCheckedIn();
 
 
@@ -126,6 +129,7 @@ public class ScrcpyJPanels {
         scrcpyJPanel.add(btnKillScrcpy);
         scrcpyJPanel.add(btnOpenScrcpyFull);
         scrcpyJPanel.add(btnSwitchNetworkDebug);
+        scrcpyJPanel.add(btnNextDay);
         scrcpyJPanel.add(btnUpdateEarningApps);
         scrcpyJPanel.add(btnSignedIn);
         scrcpyJPanel.add(btnAllCheckedIn);
@@ -135,6 +139,20 @@ public class ScrcpyJPanels {
         // AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, 1);
         // AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, -1);
         AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, 0);
+    }
+
+    private JButton getBtnNextDay() {
+        // JButton btnNextDay=new JButton("重新签到");
+        // JButton btnNextDay = new JButton("清空签到记录");
+        JButton btnNextDay = new JButton("重签");
+        btnNextDay.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ForegroundAppRun.onNextDay();
+                // ForegroundAppRun.stopWait();
+            }
+        });
+        return btnNextDay;
     }
 
     private JButton initBtnOpenScrcpyFull() {
@@ -295,14 +313,6 @@ public class ScrcpyJPanels {
                         new Thread(new OppoR9ScrcpyRun()).start();
                     }
                     isFirstTimeRun = false;
-
-                    // if (!IsTest.isTest()) {
-                    //     // 启动运动健康APP
-                    //     // AdbTaskAll.openSportsAndHealthApp(serial);
-                    //     OpenApp.openPedometerAPP();
-                    //     AdbTaskAll.wait_TaskBtn();
-                    // }
-
                 }
             }
         });
@@ -334,6 +344,7 @@ public class ScrcpyJPanels {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ForegroundAppRun.updatePackages_3_money();
+                // ForegroundAppRun.onNextDay();
             }
         });
         return btnUpdateEarningApps;

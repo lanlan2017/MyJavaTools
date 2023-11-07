@@ -27,6 +27,8 @@ public class ForegroundAppRun implements Runnable {
      */
     private static ArrayList<String> apps;
 
+    private static boolean nextDay = false;
+
 
     public static void updatePackages_3_money() {
         ForegroundAppRun.apps = null;
@@ -46,7 +48,6 @@ public class ForegroundAppRun implements Runnable {
     private static boolean isAllAppOpened;
 
     public static void allAppOpened() {
-        // ForegroundAppRun.isAllAppOpened = isAllAppOpened;
         ForegroundAppRun.isAllAppOpened = true;
     }
 
@@ -71,11 +72,7 @@ public class ForegroundAppRun implements Runnable {
         ThreadSleep.seconds(4);
         // 更新操作的面板
         updatePanels();
-
         updatePackages_3_money();
-        // final String serial = adbTools.getDevice().getSerial();
-        // String serial;
-        // AdbTools adbTools = adbTools1;
         while (!stop) {
             body();
         }
@@ -94,6 +91,7 @@ public class ForegroundAppRun implements Runnable {
         String topActivityCommand = AdbGetPackage.getTopActivityCommand(serial);
         // System.out.println("ActivityCommand =" + topActivityCommand);
         String run = CmdRun.run(topActivityCommand).trim();
+        System.out.println(run);
         // String run = AdbCommands.runAbdCmd(topActivityCommand).trim();
         // String run = CmdRun.run(topActivityCommand).trim();
         // 如果命令结果中有反斜杠，说明有包名
@@ -123,7 +121,7 @@ public class ForegroundAppRun implements Runnable {
                     stopAppCheck = true;
                 }
                 // 如果已签到列表和应用列表的长度一样，则说明所有APP都签到完毕了
-                if (appOpened.size() == apps.size()) {
+                else if (appOpened.size() == apps.size()) {
                     // 签到完成设置
                     afterOpeningAllAPKs();
                     stopAppCheck = true;
@@ -138,25 +136,12 @@ public class ForegroundAppRun implements Runnable {
         }
         // 等待一定的时间
         wait_();
-        // System.out.println("等待结束，，，，，，，，，，，，，，，");
         // 如果刚好进入第2天
         if (isNextDay()) {
             // 更新签到记录
             clearCheckInRecords();
+            nextDay = false;
         }
-        // /**
-        //  * 如果还没停止签到的话，并且全部签到标记被设置为true,
-        //  * 如果所有的APP都签到完毕
-        //  */
-        // if (!stopAppCheck && isAllAppOpened) {
-        //     // 清空签到记录表
-        //     clearCheckInForm();
-        //     // 把所有的APP都填到签到记录表中
-        //     copyAllAppsIntoCheckInForm();
-        //     afterOpeningAllAPKs();
-        //     stopAppCheck = true;
-        // }
-
     }
 
     private void copyAllAppsIntoCheckInForm() {
@@ -192,9 +177,6 @@ public class ForegroundAppRun implements Runnable {
         }
         JTextArea signedInApp = AdbTools.getInstance().getAppPanels().getSignedIn();
         signedInApp.setText(sb.toString().trim());
-        // ThreadSleep.seconds(1);
-        ThreadSleep.millisecond(500);
-
     }
 
     /**
@@ -220,12 +202,7 @@ public class ForegroundAppRun implements Runnable {
                 sb.append(apkName).append("\n");
             }
         }
-        // System.out.println();
-
         AdbTools.getInstance().getAppPanels().getNotOpened().setText(sb.toString().trim());
-        // System.out.println();
-        // ThreadSleep.minutes(1);
-        ThreadSleep.seconds(1);
     }
 
     /**
@@ -333,7 +310,6 @@ public class ForegroundAppRun implements Runnable {
      * 停止等待
      */
     public static void stopWait() {
-        // ForegroundAppRun.stopWait = stopWait;
         ForegroundAppRun.stopWait = true;
     }
 
@@ -349,11 +325,6 @@ public class ForegroundAppRun implements Runnable {
             // 测试时使用 5秒钟
             ThreadSleep.seconds(s5);
         } else {
-            // System.out.println("非测，，，，，，，，，，，，，，，，，，，，试");
-            // 运行时使用 1分钟
-            // ThreadSleep.minutes(1);
-            // ThreadSleep.seconds(45);
-            //
             while (!stopWait) {
                 // System.out.println("stopWait = " + stopWait);
                 // 等待5秒
@@ -365,11 +336,7 @@ public class ForegroundAppRun implements Runnable {
                     break;
                 }
             }
-            // System.out.println();
-            // System.out.println("count = " + count);
         }
-        // System.out.println("签到线程等待结束:" + count);
-        // System.out.println("等待结束。。。。。。。。。。。。。。。。。。。");
 
     }
 
@@ -386,7 +353,10 @@ public class ForegroundAppRun implements Runnable {
         String format = localDateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
         System.out.println("时间 = " + format);
         // 如果当前时间 在0到3分钟 之内的话，则认为现在到了第2天
-        return format.startsWith("00:00") || format.startsWith("00:01") || format.startsWith("00:02") || format.startsWith("00:03");
+        return nextDay || format.startsWith("00:00") || format.startsWith("00:01") || format.startsWith("00:02") || format.startsWith("00:03");
     }
 
+    public static void onNextDay() {
+        ForegroundAppRun.nextDay = true;
+    }
 }

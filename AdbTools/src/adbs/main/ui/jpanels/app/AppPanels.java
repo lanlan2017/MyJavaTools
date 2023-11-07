@@ -1,12 +1,8 @@
 package adbs.main.ui.jpanels.app;
 
-import adbs.main.ui.jpanels.app.xjxj.MyDocumentAdapter;
-
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.*;
 
 /**
@@ -20,19 +16,10 @@ public class AppPanels {
     public AppPanels() {
         this.appPanel = new JPanel();
         appPanel.setLayout(new BorderLayout());
-
-        // this.allApp = new JTextArea();
         this.notOpened = new JTextArea(1, 10);
-        // notOpened.setBorder(new LineBorder(Color.CYAN));
         notOpened.setBorder(new TitledBorder(new LineBorder(Color.CYAN), "未打开"));
-        // notOpened.getDocument().addDocumentListener(new MyDocumentAdapter(notOpened));
-
-
-        // this.signedInApp = new JTextArea();
         this.signedIn = new JTextArea(1, 10);
-        // signedIn.setBorder(new LineBorder(Color.PINK));
         signedIn.setBorder(new TitledBorder(new LineBorder(Color.pink), "已打开"));
-        // signedIn.getDocument().addDocumentListener(new MyDocumentAdapter(signedIn));
 
 
         appPanel.add(notOpened, BorderLayout.WEST);
