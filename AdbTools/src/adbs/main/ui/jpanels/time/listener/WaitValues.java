@@ -56,7 +56,7 @@ public class WaitValues {
     }
 
     // static String[] valueStrs = {"5", "8", "10", "15", "20", "30", "35", "65", "95", "120", "150", "3m", "3m+30", "4m", "4m+30", "5m", "10m", "12m", "15m", "20m", "30m", "40m", "50m", "1h", "2h", "3h", "3h+"};
-    public static String[] valueStrs = {"", "", "", "", "", "", "", "", "", "2m", "2.5m", "3m", "3m+30", "4m", "4m+30", "5m", "10m", "12m", "15m", "20m", "30m", "40m", "50m", "1h", "1.5h", "2h", "2.5h", "3h", "3h+", "4h", "5h"};
+    public static String[] valueStrs = {"", "", "", "", "", "", "", "", "", "2m", "2.5m", "3m", "3.5m", "4m", "4.5m", "5m", "10m", "12m", "15m", "20m", "30m", "40m", "50m", "1h", "1.5h", "2h", "2.5h", "3h", "3h+", "4h", "5h"};
     protected static int index = 0;
 
     public static void setIndex(int index) {

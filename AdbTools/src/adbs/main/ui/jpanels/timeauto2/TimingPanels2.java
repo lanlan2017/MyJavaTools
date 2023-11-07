@@ -48,6 +48,7 @@ public class TimingPanels2 extends WaitValues {
     private final JButton btn2H;
     private final JButton btn1_5H;
     private final JButton btn5H;
+    private final JButton btn210s;
     private String selected;
 
     public TimingPanels2() {
@@ -59,6 +60,7 @@ public class TimingPanels2 extends WaitValues {
         btn95s = initButton(95);
         btn120s = initButton(120);
         btn180s = initButton(180);
+        btn210s = initButton(m3s30);
         // btn1H = initButton(1 * 60 * 60);
         btn1H = initButton(h1);
         btn1_5H = initButton(1 * 60 * 60 + 30 * 60);
@@ -95,6 +97,7 @@ public class TimingPanels2 extends WaitValues {
         timingPanels2.add(btn95s);
         timingPanels2.add(btn120s);
         timingPanels2.add(btn180s);
+        timingPanels2.add(btn210s);
         timingPanels2.add(btn20M);
         timingPanels2.add(btn40M);
 
@@ -304,6 +307,7 @@ public class TimingPanels2 extends WaitValues {
         btn95s.setVisible(true);
         btn120s.setVisible(true);
         btn180s.setVisible(true);
+        btn210s.setVisible(false);
         btn20M.setVisible(false);
         btn40M.setVisible(false);
         btn1H.setVisible(true);
@@ -321,6 +325,7 @@ public class TimingPanels2 extends WaitValues {
         btn95s.setVisible(false);
         btn120s.setVisible(false);
         btn180s.setVisible(false);
+        btn210s.setVisible(false);
         btn20M.setVisible(true);
         btn40M.setVisible(false);
         btn1H.setVisible(true);
@@ -338,6 +343,7 @@ public class TimingPanels2 extends WaitValues {
         btn95s.setVisible(true);
         btn120s.setVisible(false);
         btn180s.setVisible(false);
+        btn210s.setVisible(false);
         btn20M.setVisible(false);
         btn40M.setVisible(false);
         btn1H.setVisible(false);
@@ -358,6 +364,7 @@ public class TimingPanels2 extends WaitValues {
         btn95s.setVisible(true);
         btn120s.setVisible(false);
         btn180s.setVisible(true);
+        btn210s.setVisible(true);
         btn20M.setVisible(true);
         btn40M.setVisible(true);
         btn1H.setVisible(true);
