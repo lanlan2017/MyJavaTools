@@ -62,6 +62,7 @@ public class VideoButtonActionListener extends ButtonFocusReleaseActionListener 
 
         // frame.pack();
         // JFramePack.onJComponentActionEvent(e);
-        AdbTools.getInstance().getFrame().pack();
+        // AdbTools.getInstance().getFrame().pack();
+        JFramePack.pack();
     }
 }

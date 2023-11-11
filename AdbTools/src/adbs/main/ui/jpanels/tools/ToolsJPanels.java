@@ -6,6 +6,7 @@ import adbs.main.run.AdbGetPackage;
 import adbs.main.run.AdbShellPmListPackages_3;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.config.Fonts;
+import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.auto.AdbTap;
 import adbs.main.ui.jpanels.tools.example.FocusListenerJTextFieldInfo;
 import adbs.model.Device;
@@ -256,7 +257,8 @@ public class ToolsJPanels {
                 }
                 okButton.setText(elementAt);
                 okButton.setVisible(true);
-                AdbTools.getInstance().getFrame().pack();
+                // AdbTools.getInstance().getFrame().pack();
+                JFramePack.pack();
 
             }
         });
@@ -281,7 +283,8 @@ public class ToolsJPanels {
                 input1.setVisible(false);
                 input2.setVisible(false);
                 okButton.setText(flagJrbUninstall);
-                AdbTools.getInstance().getFrame().pack();
+                // AdbTools.getInstance().getFrame().pack();
+                JFramePack.pack();
             }
         });
         return jrbUninstall;
@@ -299,7 +302,8 @@ public class ToolsJPanels {
                 input1.setVisible(true);
                 input2.setVisible(false);
                 // tips.setText("应用名:");
-                AdbTools.getInstance().getFrame().pack();
+                // AdbTools.getInstance().getFrame().pack();
+                JFramePack.pack();
             }
         });
         return jrbPack;
@@ -318,7 +322,8 @@ public class ToolsJPanels {
                 // tips.setText("应用名:");
                 okButton.setText(flagJrbApk);
                 okButton.setVisible(true);
-                AdbTools.getInstance().getFrame().pack();
+                // AdbTools.getInstance().getFrame().pack();
+                JFramePack.pack();
                 // AdbPullApk.setParentComponent(AdbTools.getInstance().getFrame());
                 AdbPullApk.setParentComponent(AdbTools.getInstance().getContentPane());
             }
@@ -354,7 +359,8 @@ public class ToolsJPanels {
      */
     private void pullTopApk() {
         AdbTools adbTools = AdbTools.getInstance();
-        adbTools.getFrame().pack();
+        // adbTools.getFrame().pack();
+        JFramePack.pack();
 
         Device device = adbTools.getDevice();
         String apkName = input1.getText();

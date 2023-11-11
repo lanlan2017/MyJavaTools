@@ -4,6 +4,7 @@ import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
 import adbs.main.run.AdbGetPackage;
 import adbs.main.ui.config.FlowLayouts;
+import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.auto.runnable.*;
 import adbs.main.ui.jpanels.timeauto2.TimingPanels2;
 import adbs.main.ui.jpanels.universal.runnable.CloseableRunnable;
@@ -130,7 +131,8 @@ public class AutoPanels implements CoinsType {
                 if (jCheckBox.isSelected()) {
                     jCheckBox.doClick();
                 }
-                adbTools.getFrame().pack();
+                // adbTools.getFrame().pack();
+                JFramePack.pack();
 
             }
         });
@@ -197,7 +199,8 @@ public class AutoPanels implements CoinsType {
 
                 }
 
-                AdbTools.getInstance().getFrame().pack();
+                // AdbTools.getInstance().getFrame().pack();
+                JFramePack.pack();
             }
         });
         // comboBox.setSelectedIndex(0);
@@ -215,7 +218,8 @@ public class AutoPanels implements CoinsType {
                 ComboBoxModel<String> model = jcbZhuanJinBi.getModel();
                 String elementAt = model.getElementAt(jcbZhuanJinBi.getSelectedIndex());
                 btnZhuanOk.setText(elementAt);
-                AdbTools.getInstance().getFrame().pack();
+                // AdbTools.getInstance().getFrame().pack();
+                JFramePack.pack();
             }
         });
         jcbZhuanJinBi.setVisible(false);
@@ -244,7 +248,8 @@ public class AutoPanels implements CoinsType {
                 ComboBoxModel<String> model = comboBox.getModel();
                 String element = model.getElementAt(comboBox.getSelectedIndex());
                 btnShouOk.setText(element);
-                AdbTools.getInstance().getFrame().pack();
+                // AdbTools.getInstance().getFrame().pack();
+                JFramePack.pack();
             }
         });
         // comboBox.setSelectedIndex(0);

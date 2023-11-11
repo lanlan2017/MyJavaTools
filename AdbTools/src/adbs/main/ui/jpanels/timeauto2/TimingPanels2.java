@@ -4,6 +4,7 @@ import adbs.main.AdbTools;
 import adbs.main.run.AdbGetPackage;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.config.Fonts;
+import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.time.TimePanels;
 import adbs.main.ui.jpanels.time.listener.WaitValues;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
@@ -145,11 +146,11 @@ public class TimingPanels2 extends WaitValues {
                         break;
                 }
 
-                JFrame frame = AdbTools.getInstance().getFrame();
-                if (frame != null) {
-                    frame.pack();
-                }
-
+                // JFrame frame = AdbTools.getInstance().getFrame();
+                // if (frame != null) {
+                //     frame.pack();
+                // }
+                JFramePack.pack();
 
             }
 

@@ -1,6 +1,7 @@
 package adbs.main.ui.jpanels.time.listener;
 
 import adbs.main.AdbTools;
+import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.time.TimePanels;
 
 import javax.swing.*;
@@ -56,6 +57,7 @@ public class PlusBtnAcListener extends WaitValues implements ActionListener {
             }
         }
         // 刷新界面
-        AdbTools.getInstance().getFrame().pack();
+        // AdbTools.getInstance().getFrame().pack();
+        JFramePack.pack();
     }
 }

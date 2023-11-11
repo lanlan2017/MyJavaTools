@@ -2,6 +2,7 @@ package adbs.main.run;
 
 import adbs.cmd.CmdRun;
 import adbs.main.AdbTools;
+import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.app.AppPanels;
 import adbs.main.ui.jpanels.check.CheckJPanels;
 import adbs.main.ui.jpanels.tools.ToolsJPanels;
@@ -137,7 +138,18 @@ public class ForegroundAppRun implements Runnable {
                 if (appPanels.getAppPanel().isVisible()) {
                     // appPanels.getAppPanel().setVisible(false);
                     AdbTools.getInstance().getCheckJPanels().getSignInCheckBox().doClick();
-                    AdbTools.getInstance().getFrame().pack();
+                    // AdbTools.getInstance().getFrame().pack();
+
+                    // SwingUtilities.invokeLater(new Runnable() {
+                    //     public void run() {
+                    //         // 在这里编写需要在事件调度线程上执行的代码
+                    //         AdbTools.getInstance().getFrame().pack();
+                    //     }
+                    // });
+
+                    // JFramePack
+
+
                 }
                 // System.out.println();
                 // 打印已经打开的APP

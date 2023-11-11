@@ -1,6 +1,7 @@
 package adbs.main.ui.jpanels.tools;
 
 import adbs.main.AdbTools;
+import adbs.main.ui.jframe.JFramePack;
 import adbs.tools.thread.ThreadSleep;
 
 import javax.swing.*;
@@ -47,11 +48,13 @@ public class BtnClickOnes {
                 String text = button.getText();
                 if (text.endsWith(suffix)) {
                     text = text.substring(0, text.lastIndexOf(suffix));
-                    AdbTools.getInstance().getFrame().pack();
+                    // AdbTools.getInstance().getFrame().pack();
+                    JFramePack.pack();
                     // ThreadSleep.seconds(10);
                     ThreadSleep.seconds(3);
                     button.setText(text);
-                    AdbTools.getInstance().getFrame().pack();
+                    // AdbTools.getInstance().getFrame().pack();
+                    JFramePack.pack();
                     // ThreadSleep.seconds(1);
                 }
 

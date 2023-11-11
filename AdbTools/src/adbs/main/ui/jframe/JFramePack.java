@@ -1,5 +1,6 @@
 package adbs.main.ui.jframe;
 
+import adbs.main.AdbTools;
 import tools.thead.Threads;
 
 import javax.swing.*;
@@ -65,18 +66,6 @@ public class JFramePack {
         }
     }
 
-    private static void packAfterSleep(int millisecond, JFrame frame2) {
-        // 启动一个线程来刷新界面
-        new Thread(() -> {
-            if (millisecond > 0) {
-                // 等待指定的毫秒数之后
-                Threads.sleep(millisecond);
-            }
-            // System.out.println("jFrame_pack_刷新界面");
-            // 刷新界面
-            frame2.pack();
-        }).start();
-    }
 
     /**
      * 立即调用JFrame.pack方法更新窗体
@@ -86,4 +75,52 @@ public class JFramePack {
     public static void onJComponentActionEvent(AWTEvent e) {
         onJComponentActionEvent(e, 0);
     }
+
+    private static void packAfterSleep(int millisecond, JFrame frame2) {
+        // // 启动一个线程来刷新界面
+        // new Thread(() -> {
+        //     if (millisecond > 0) {
+        //         // 等待指定的毫秒数之后
+        //         Threads.sleep(millisecond);
+        //     }
+        //     // System.out.println("jFrame_pack_刷新界面");
+        //     // 刷新界面
+        //     frame2.pack();
+        // }).start();
+        //
+
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                // // 在这里编写需要在事件调度线程上执行的代码
+                // AdbTools.getInstance().getFrame().pack();
+
+                if (millisecond > 0) {
+                    // 等待指定的毫秒数之后
+                    Threads.sleep(millisecond);
+                }
+                // System.out.println("jFrame_pack_刷新界面");
+                // 刷新界面
+                frame2.pack();
+            }
+        });
+    }
+
+    /**
+     * 使用事件调度线程来调整JFrame界面的大小，免得出现死锁。
+     */
+    public static void pack() {
+        /**
+         * 在处理GUI应用程序时，通常建议在事件调度线程 (Event Dispatch Thread, EDT) 中进行所有的GUI操作，以避免潜在的并发问题。如果在EDT之外修改GUI组件的状态，可能会导致不可预知的行为，包括但不限于死锁。
+         *
+         * 总结来说，连续调用JFrame的pack()方法通常不会导致死锁，但在处理GUI时，请确保在事件调度线程中进行所有的操作。
+         */
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                // // 在这里编写需要在事件调度线程上执行的代码
+                AdbTools.getInstance().getFrame().pack();
+            }
+        });
+    }
+
+
 }

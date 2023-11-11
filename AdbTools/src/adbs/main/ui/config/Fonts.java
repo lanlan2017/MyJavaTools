@@ -58,35 +58,35 @@ public class Fonts {
      * 12号,加粗
      */
     public static Font Cascadia_BOLD_12 = new Font("Cascadia", Font.BOLD, 12);
-
-    public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        JLabel label1 = new JLabel("helloWorld，你好");
-        label1.setFont(f1);
-        JLabel label2 = new JLabel("helloWorld，你好");
-        label2.setFont(f2);
-        JLabel label3 = new JLabel("helloWorld，你好");
-        label3.setFont(f3);
-        JLabel label4 = new JLabel("helloWorld，你好");
-        label4.setFont(f4);
-        JLabel label5 = new JLabel("helloWorld，你好");
-        label5.setFont(f5);
-        // JLabel label6 = new JLabel("helloWorld，你好");
-        // label6.setFont(f1);
-        // JLabel label7 = new JLabel("helloWorld，你好");
-        // label1.setFont(f1);
-
-        frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
-        frame.setVisible(true);
-        frame.add(label1);
-        frame.add(label2);
-        frame.add(label3);
-        frame.add(label4);
-        frame.add(label5);
-        // frame.add(label6);
-        // frame.add(label7);
-        frame.pack();
-    }
+    //
+    // public static void main(String[] args) {
+    //     JFrame frame = new JFrame();
+    //     JLabel label1 = new JLabel("helloWorld，你好");
+    //     label1.setFont(f1);
+    //     JLabel label2 = new JLabel("helloWorld，你好");
+    //     label2.setFont(f2);
+    //     JLabel label3 = new JLabel("helloWorld，你好");
+    //     label3.setFont(f3);
+    //     JLabel label4 = new JLabel("helloWorld，你好");
+    //     label4.setFont(f4);
+    //     JLabel label5 = new JLabel("helloWorld，你好");
+    //     label5.setFont(f5);
+    //     // JLabel label6 = new JLabel("helloWorld，你好");
+    //     // label6.setFont(f1);
+    //     // JLabel label7 = new JLabel("helloWorld，你好");
+    //     // label1.setFont(f1);
+    //
+    //     frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+    //     frame.setVisible(true);
+    //     frame.add(label1);
+    //     frame.add(label2);
+    //     frame.add(label3);
+    //     frame.add(label4);
+    //     frame.add(label5);
+    //     // frame.add(label6);
+    //     // frame.add(label7);
+    //     frame.pack();
+    // }
 
     //     要设置Swing组件的字体，请使用组件的setFont()方法。
     //     JButton closeButton  = new JButton("Close");

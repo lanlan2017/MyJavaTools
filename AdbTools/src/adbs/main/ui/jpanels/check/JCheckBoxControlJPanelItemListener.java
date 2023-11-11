@@ -33,6 +33,7 @@ public class JCheckBoxControlJPanelItemListener implements ItemListener {
         }
         // // 更新窗体界面，以最佳大小显示窗体
         // JFramePack.onJComponentActionEvent(e);
-        AdbTools.getInstance().getFrame().pack();
+        // AdbTools.getInstance().getFrame().pack();
+        JFramePack.pack();
     }
 }
