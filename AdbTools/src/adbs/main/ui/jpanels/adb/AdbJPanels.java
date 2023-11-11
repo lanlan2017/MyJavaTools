@@ -77,6 +77,7 @@ public class AdbJPanels {
      * 打开WiFi设置
      */
     private final JButton btnWiFiSettings;
+    private final JButton btnPower;
 
     // /**
     //  * 停止后台线程按钮
@@ -120,6 +121,10 @@ public class AdbJPanels {
         // statusbarHide = initBtnStatusbasHide();
         btnReboot = intBtnReboot();
         btnPowerOff = initBntPowerOff();
+
+        // btnPower = new JButton("电源");
+        // 按下手机电源键
+        btnPower = initBtnPower();
         // 音量面板
         JPanel statusbarJPanel = new JPanel();
         statusbarJPanel.setLayout(FlowLayouts.flowLayoutLeft);
@@ -130,18 +135,9 @@ public class AdbJPanels {
         btnAct = intBtnAct();
         btnMobileButler = initBtnMobileButler();
         btnWiFiSettings = initBtnWiFiSettings();
+        // 打开系统设置
+        btnSetting = initBtnSetting();
 
-
-        btnSetting = new JButton("设");
-        btnSetting.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Device device = AdbTools.getInstance().getDevice();
-                // // openSetting(device);
-                // // AdbCommands.openSetting(device);
-                AdbCommands.openSetting(AdbTools.getInstance().getDevice());
-            }
-        });
         // adb面板添加按钮
         // adbJPanel.add(openScrcpyBtn);
         // adbJPanel.add(killScrcpyBtn);
@@ -162,6 +158,7 @@ public class AdbJPanels {
         adbJPanel.add(btnPowerOff);
         // adbJPanel.add(stopBtn);
 
+        adbJPanel.add(btnPower);
         adbJPanel.add(btnAct);
         adbJPanel.add(btnMobileButler);
         adbJPanel.add(btnSetting);
@@ -184,6 +181,51 @@ public class AdbJPanels {
         // volumeNone.setMargin(new Insets(2, -1, -1, -1));
         // volumeNone.setMargin(new Insets(2, -1, 2, -1));
     }
+
+    private JButton initBtnSetting() {
+        final JButton btnSetting;
+        btnSetting = new JButton("设");
+        btnSetting.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Device device = AdbTools.getInstance().getDevice();
+                // // openSetting(device);
+                // // AdbCommands.openSetting(device);
+                AdbCommands.openSetting(AdbTools.getInstance().getDevice());
+            }
+        });
+        return btnSetting;
+    }
+
+    private JButton initBtnPower() {
+        final JButton btnPower;
+        btnPower = new JButton("电");
+        btnPower.setToolTipText("按下电源键");
+        btnPower.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 按手机的电源键
+                // 当屏幕关闭时，按电源键后，屏幕会亮
+                // 当屏幕点亮时，按电源键后，屏幕会熄灭
+                // adb shell input keyevent 26
+                Device device = AdbTools.getInstance().getDevice();
+                // pressPowerButton(device);
+                AdbCommands.powerBtn(device);
+
+            }
+        });
+        return btnPower;
+    }
+    //
+    // /**
+    //  * 按下安卓设备的电源键
+    //  *
+    //  * @param device
+    //  */
+    // private void pressPowerButton(Device device) {
+    //     String serial = device.getSerial();
+    //     AdbCommands.runAbdCmd("adb -s" + serial + "shell input keyevent 26");
+    // }
 
     // public static void openSetting(Device device) {
     //     String code = "adb -s " + device.getSerial() + " shell am start -n com.android.settings/.Settings";
@@ -288,7 +330,7 @@ public class AdbJPanels {
         // 关机按钮
         // JButton powerOffBtn = new JButton("关机");
         JButton powerOffBtn = new JButton("关");
-        // powerOffBtn.setToolTipText("");
+        powerOffBtn.setToolTipText("关机");
         // closeBtn.addActionListener(new RebootBtnAcListener(frame, "shell reboot -p"));
         powerOffBtn.addActionListener(new RebootBtnAcListener(adbJPanel, "shell reboot -p"));
         return powerOffBtn;
@@ -298,7 +340,7 @@ public class AdbJPanels {
         // 重启按钮
         // JButton rebootBtn = new JButton("重启");
         JButton rebootBtn = new JButton("重");
-        // rebootBtn.setToolTipText("重启手机");
+        rebootBtn.setToolTipText("重启手机");
         // rebootBtn.addActionListener(new RebootBtnAcListener(frame, "reboot"));
         rebootBtn.addActionListener(new RebootBtnAcListener(adbJPanel, "reboot"));
         return rebootBtn;

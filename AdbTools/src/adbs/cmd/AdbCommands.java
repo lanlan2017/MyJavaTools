@@ -171,6 +171,16 @@ public class AdbCommands implements ActivityStr {
     }
 
     /**
+     * 按下安卓设备的电源键
+     *
+     * @param device
+     */
+    public static void powerBtn(Device device) {
+        String serial = device.getSerial();
+        AdbCommands.runAbdCmd("adb -s" + serial + " shell input keyevent 26");
+    }
+
+    /**
      * 隐藏导航条
      *
      * @param device 要隐藏导航条的设备
@@ -199,6 +209,17 @@ public class AdbCommands implements ActivityStr {
         String showNB = "adb -s " + device.getSerial() + " shell settings put global policy_control null";
         AdbCommands.runAbdCmd(showNB);
     }
+
+
+    // /**
+    //  * 按下安卓设备的电源键
+    //  *
+    //  * @param device
+    //  */
+    // private void powerBtn(Device device) {
+    //     String serial = device.getSerial();
+    //     AdbCommands.runAbdCmd("adb -s" + serial + "shell input keyevent 26");
+    // }
 
     /**
      * 点击任务键，然后向上滑动，杀死右边的APP，接着点击屏幕中点，启动应用。
