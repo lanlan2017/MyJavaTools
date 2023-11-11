@@ -134,23 +134,21 @@ public class ForegroundAppRun implements Runnable {
                     afterOpeningAllAPKs();
                     stopAppCheck = true;
                 }
-                // 隐藏面板，免得有问题
-                if (appPanels.getAppPanel().isVisible()) {
-                    // appPanels.getAppPanel().setVisible(false);
-                    AdbTools.getInstance().getCheckJPanels().getSignInCheckBox().doClick();
-                    // AdbTools.getInstance().getFrame().pack();
-
-                    // SwingUtilities.invokeLater(new Runnable() {
-                    //     public void run() {
-                    //         // 在这里编写需要在事件调度线程上执行的代码
-                    //         AdbTools.getInstance().getFrame().pack();
-                    //     }
-                    // });
-
-                    // JFramePack
-
-
-                }
+                // // 隐藏面板，免得有问题
+                // if (appPanels.getAppPanel().isVisible()) {
+                //     // appPanels.getAppPanel().setVisible(false);
+                //     AdbTools.getInstance().getCheckJPanels().getSignInCheckBox().doClick();
+                //     // AdbTools.getInstance().getFrame().pack();
+                //
+                //     // SwingUtilities.invokeLater(new Runnable() {
+                //     //     public void run() {
+                //     //         // 在这里编写需要在事件调度线程上执行的代码
+                //     //         AdbTools.getInstance().getFrame().pack();
+                //     //     }
+                //     // });
+                //
+                //     // JFramePack
+                // }
                 // System.out.println();
                 // 打印已经打开的APP
                 showOpenedApp();
@@ -216,8 +214,13 @@ public class ForegroundAppRun implements Runnable {
             sb.append(s).append("\n");
         }
         // appPanels = AdbTools.getInstance().getAppPanels();
-        JTextArea signedInApp = appPanels.getSignedIn();
-        signedInApp.setText(sb.toString().trim());
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                JTextArea signedInApp = appPanels.getSignedIn();
+                signedInApp.setText(sb.toString().trim());
+            }
+        });
     }
 
     /**
@@ -244,7 +247,14 @@ public class ForegroundAppRun implements Runnable {
             }
         }
         // AdbTools.getInstance().getAppPanels().getNotOpened().setText(sb.toString().trim());
-        appPanels.getNotOpened().setText(sb.toString().trim());
+        // appPanels.getNotOpened().setText(sb.toString().trim());
+        // 在事件调度线程中操作JTextArea以确保线程安全
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                appPanels.getNotOpened().setText(sb.toString().trim());
+            }
+        });
     }
 
     /**
