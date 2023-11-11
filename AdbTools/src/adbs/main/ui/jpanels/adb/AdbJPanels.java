@@ -69,6 +69,9 @@ public class AdbJPanels {
      * 打开手机管家
      */
     private final JButton btnMobileButler;
+    /**
+     * 打开系统设置
+     */
     private final JButton btnSetting;
     /**
      * 打开WiFi设置
@@ -117,11 +120,6 @@ public class AdbJPanels {
         // statusbarHide = initBtnStatusbasHide();
         btnReboot = intBtnReboot();
         btnPowerOff = initBntPowerOff();
-
-        // stopBtn = new JButton(propertiesTools.getProperty("stop"));
-        // String stopBtnText = propertiesTools.getProperty("停止");
-        // stopBtn = initBtnStop();
-
         // 音量面板
         JPanel statusbarJPanel = new JPanel();
         statusbarJPanel.setLayout(FlowLayouts.flowLayoutLeft);
@@ -390,5 +388,9 @@ public class AdbJPanels {
 
     public JButton getBtnAct() {
         return btnAct;
+    }
+
+    public JButton getBtnMobileButler() {
+        return btnMobileButler;
     }
 }

@@ -366,4 +366,8 @@ public class ToolsJPanels {
     public JPanel getToolsJPanel() {
         return toolsJPanel;
     }
+
+    public JButton getBtnUninstallAll() {
+        return btnUninstallAll;
+    }
 }

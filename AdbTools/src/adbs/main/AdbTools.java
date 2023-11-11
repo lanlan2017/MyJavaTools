@@ -50,6 +50,7 @@ public class AdbTools {
     private final TimingPanels2 timingPanels2;
     private final AppPanels appPanels;
     private final AutoPanels autoPanels;
+    private final ToolsJPanels toolsJPanels;
 
     // 当前选择的设备
     // public static Device device;
@@ -86,7 +87,7 @@ public class AdbTools {
         // 初始化通用功能面板
         universalPanels = new UniversalPanels(timePanels);
         // 初始化工具面板
-        ToolsJPanels toolsJPanels = new ToolsJPanels();
+        toolsJPanels = new ToolsJPanels();
 
         autoPanels = new AutoPanels();
 
@@ -311,6 +312,10 @@ public class AdbTools {
 
     public AppPanels getAppPanels() {
         return appPanels;
+    }
+
+    public ToolsJPanels getToolsJPanels() {
+        return toolsJPanels;
     }
 
     public ScrcpyJPanels getScrcpyJPanels() {

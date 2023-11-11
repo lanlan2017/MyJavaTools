@@ -8,30 +8,34 @@ import adbs.tools.thread.ThreadSleep;
 
 import javax.swing.*;
 
-public class OppoR9ScrcpyRun extends CloseableRunnable {
+// public class OppoR9ScrcpyRun extends CloseableRunnable {
+public class OppoR9ScrcpyRun implements Runnable {
+    private static OppoR9ScrcpyRun instance = new OppoR9ScrcpyRun();
+
+    public static OppoR9ScrcpyRun getInstance() {
+        return instance;
+    }
+
+    boolean stop;
+
+    private OppoR9ScrcpyRun() {
+    }
+
+    public void setStop(boolean stop) {
+        this.stop = stop;
+    }
 
     private ScrcpyJPanels scrcpyJPanels;
-    // private ControlJPanels controlJPanels;
 
     // @Override
-    // protected void setMsg() {
-    //     msg = "OppoR9投屏刷新线程";
-    // }
-
-    @Override
     protected void beforeLoop() {
-        super.beforeLoop();
+        // super.beforeLoop();
         // 获取 投屏面板
         AdbTools instance = AdbTools.getInstance();
         scrcpyJPanels = instance.getScrcpyJPanels();
-        // controlJPanels = instance.getControlJPanels();
-
-
-        // System.out.println("OppoR9投屏刷新线程");
-
     }
 
-    @Override
+    // @Override
     protected void loopBody() {
         if (IsTest.isTest()) {
             // 测试时，每隔10秒检测一次
@@ -51,10 +55,10 @@ public class OppoR9ScrcpyRun extends CloseableRunnable {
             // JFramePack.onJComponentActionEvent();
             // 杀死scrcpy.exe投屏
             // JFramePack.byJPanel(scrcpyJPanel);
-            JFramePack.byJPanel(scrcpyJPanel,1000);
+            JFramePack.byJPanel(scrcpyJPanel, 1000);
             reopenScrcpy();
             // JFramePack.byJPanel(scrcpyJPanel);
-            JFramePack.byJPanel(scrcpyJPanel,1000);
+            JFramePack.byJPanel(scrcpyJPanel, 1000);
             scrcpyJPanel.setVisible(false);
         }
     }
@@ -68,5 +72,13 @@ public class OppoR9ScrcpyRun extends CloseableRunnable {
         ThreadSleep.seconds(3);
         // 重新开始scrcpy.exe投屏
         scrcpyJPanels.getBtnOpenScrcpy().doClick();
+    }
+
+    @Override
+    public void run() {
+        beforeLoop();
+        while (stop) {
+            loopBody();
+        }
     }
 }

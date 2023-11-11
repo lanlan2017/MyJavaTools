@@ -2,6 +2,9 @@ package adbs.main.run;
 
 import adbs.cmd.CmdRun;
 import adbs.main.AdbTools;
+import adbs.main.ui.jpanels.app.AppPanels;
+import adbs.main.ui.jpanels.check.CheckJPanels;
+import adbs.main.ui.jpanels.tools.ToolsJPanels;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
 import adbs.tools.thread.ThreadSleep;
 import config.AdbToolsProperties;
@@ -28,6 +31,8 @@ public class ForegroundAppRun implements Runnable {
     private static ArrayList<String> apps;
 
     private static boolean nextDay = false;
+    private AppPanels appPanels;
+    private ToolsJPanels toolsJPanels;
 
 
     public static void updatePackages_3_money() {
@@ -82,6 +87,8 @@ public class ForegroundAppRun implements Runnable {
         adbTools = AdbTools.getInstance();
         universalPanels = adbTools.getUniversalPanels();
         universalPanel = universalPanels.getUniversalPanel();
+        appPanels = AdbTools.getInstance().getAppPanels();
+        toolsJPanels = AdbTools.getInstance().getToolsJPanels();
         background = universalPanel.getBackground();
     }
 
@@ -126,6 +133,12 @@ public class ForegroundAppRun implements Runnable {
                     afterOpeningAllAPKs();
                     stopAppCheck = true;
                 }
+                // 隐藏面板，免得有问题
+                if (appPanels.getAppPanel().isVisible()) {
+                    // appPanels.getAppPanel().setVisible(false);
+                    AdbTools.getInstance().getCheckJPanels().getSignInCheckBox().doClick();
+                    AdbTools.getInstance().getFrame().pack();
+                }
                 // System.out.println();
                 // 打印已经打开的APP
                 showOpenedApp();
@@ -138,10 +151,25 @@ public class ForegroundAppRun implements Runnable {
         wait_();
         // 如果刚好进入第2天
         if (isNextDay()) {
-            // 更新签到记录
-            clearCheckInRecords();
-            nextDay = false;
+            // 清空前一天的签到设置
+            nextDaySetting();
         }
+    }
+
+    /**
+     * 重新签到设置
+     */
+    private void nextDaySetting() {
+        // 更新签到记录
+        clearCheckInRecords();
+        nextDay = false;
+        // stopAppCheck = false;
+        isAllAppOpened = false;
+        // toolsJPanels = AdbTools.getInstance().getToolsJPanels();
+        // 卸载无用APP
+        toolsJPanels.getBtnUninstallAll().doClick();
+        // 打开手机管家
+        adbTools.getAdbJPanels().getBtnMobileButler().doClick();
     }
 
     private void copyAllAppsIntoCheckInForm() {
@@ -175,7 +203,8 @@ public class ForegroundAppRun implements Runnable {
         for (String s : appOpened) {
             sb.append(s).append("\n");
         }
-        JTextArea signedInApp = AdbTools.getInstance().getAppPanels().getSignedIn();
+        // appPanels = AdbTools.getInstance().getAppPanels();
+        JTextArea signedInApp = appPanels.getSignedIn();
         signedInApp.setText(sb.toString().trim());
     }
 
@@ -202,7 +231,8 @@ public class ForegroundAppRun implements Runnable {
                 sb.append(apkName).append("\n");
             }
         }
-        AdbTools.getInstance().getAppPanels().getNotOpened().setText(sb.toString().trim());
+        // AdbTools.getInstance().getAppPanels().getNotOpened().setText(sb.toString().trim());
+        appPanels.getNotOpened().setText(sb.toString().trim());
     }
 
     /**

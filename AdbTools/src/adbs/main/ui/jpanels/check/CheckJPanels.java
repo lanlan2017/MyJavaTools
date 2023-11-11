@@ -82,7 +82,6 @@ public class CheckJPanels {
         // signInCheckBox = new JCheckBox("签到");
         signInCheckBox = new JCheckBox("签");
         signInCheckBox.setToolTipText("显示已签到APP");
-
         signInCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(appPanels.getAppPanel()));
 
         checkJPanel.add(adbJCheckBox);
@@ -101,5 +100,9 @@ public class CheckJPanels {
 
     public JPanel getCheckJPanel() {
         return checkJPanel;
+    }
+
+    public JCheckBox getSignInCheckBox() {
+        return signInCheckBox;
     }
 }

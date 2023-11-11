@@ -80,7 +80,7 @@ public class ScrcpyJPanels {
      */
     private final String[] widthArr = {"600", "540", "500", "480", "420", "360", "350", "340"};
     private final JButton btnNextDay;
-
+    boolean isFirstTimeRun = true;
 
     /**
      * 内部镜像宽度数组的下标
@@ -149,6 +149,7 @@ public class ScrcpyJPanels {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ForegroundAppRun.onNextDay();
+                // isFirstTimeRun = true;
                 // ForegroundAppRun.stopWait();
             }
         });
@@ -300,7 +301,7 @@ public class ScrcpyJPanels {
 
 
         btnOpenScrcpy.addActionListener(new ActionListener() {
-            boolean isFirstTimeRun = true;
+
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -310,7 +311,10 @@ public class ScrcpyJPanels {
                     String serial = adbTools.getDevice().getSerial();
                     if ("75aed56d".equals(serial)) {
                         System.out.println("zzzzzzzzzzz启动一次线程");
-                        new Thread(new OppoR9ScrcpyRun()).start();
+                        // new Thread(new OppoR9ScrcpyRun()).start();
+                        OppoR9ScrcpyRun oppoR9ScrcpyRun = OppoR9ScrcpyRun.getInstance();
+                        // oppoR9ScrcpyRun.setStop(true);
+                        new Thread(oppoR9ScrcpyRun).start();
                     }
                     isFirstTimeRun = false;
                 }
