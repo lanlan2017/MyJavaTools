@@ -78,7 +78,15 @@ public class BrowseRunnable extends CloseableRunnable {
                     stop();
                     break;
                 }
-                output2.setText(msg + ":" + (s - count) + "s");
+                // output2.setText(msg + ":" + (s - count) + "s");
+                int finalCount = count;
+                // 确保JLable线程安全
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        output2.setText(msg + ":" + (s - finalCount) + "s");
+                    }
+                });
             }
         }
 

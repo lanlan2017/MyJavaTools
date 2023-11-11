@@ -194,7 +194,15 @@ public class VideoButtonRunnable extends CloseableRunnable {
         // 如果新旧内容不相等，则设置为新内容
         if (!newOutput.equals(oldOutput)) {
             // output.setText(newOutput);
-            output2.setText(newOutput);
+            // output2.setText(newOutput);
+            // output2.setText(newOutput);
+            // 确保JLable线程安全
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    output2.setText(newOutput);
+                }
+            });
         }
     }
 

@@ -2,6 +2,8 @@ package adbs.main.ui.jpanels.universal.runnable;
 
 import adbs.main.AdbTools;
 
+import javax.swing.*;
+
 public abstract class CloseableRunnable implements Runnable {
     // protected InOutputModel inOutputModel;
 
@@ -82,6 +84,13 @@ public abstract class CloseableRunnable implements Runnable {
      * 循环之后要准备的工作
      */
     protected void afterLoop() {
-        AdbTools.getInstance().getUniversalPanels().getOutput2().setText("");
+        // AdbTools.getInstance().getUniversalPanels().getOutput2().setText("");
+        // 确保JLabel线程安全
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                AdbTools.getInstance().getUniversalPanels().getOutput2().setText("");
+            }
+        });
     }
 }

@@ -131,7 +131,6 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
         // universalPanels = inOutputModel.getUniversalPanels();
         UniversalPanels universalPanels = AdbTools.getInstance().getUniversalPanels();
         // JLabel output = this.universalPanels.getOutput2();
-        JLabel output = universalPanels.getOutput2();
 
 
         if ("开始浏览".equals(ok.getText())) {

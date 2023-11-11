@@ -4,6 +4,7 @@ import adbs.main.AdbTools;
 import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.universal.runnable.CloseableRunnable;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Iterator;
@@ -25,12 +26,27 @@ public class StopBtnAcListener2 implements ActionListener {
             }
         }
 
-        // 时间面板的标签文字设为空字符串
-        AdbTools.getInstance().getTimePanels().getTimerJLabel().setText("");
-        // 隐藏时间面板
-        AdbTools.getInstance().getTimePanels().getTimePanel().setVisible(false);
-        // 通用面板的标签文字设置为空字符串
-        AdbTools.getInstance().getUniversalPanels().getOutput2().setText("");
+        // // 时间面板的标签文字设为空字符串
+        // AdbTools.getInstance().getTimePanels().getTimerJLabel().setText("");
+        // // 隐藏时间面板
+        // AdbTools.getInstance().getTimePanels().getTimePanel().setVisible(false);
+        // // 通用面板的标签文字设置为空字符串
+        // AdbTools.getInstance().getUniversalPanels().getOutput2().setText("");
+
+        // JLable线程不安全，在事件调度线程中执行，以确保线程安全
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                // 时间面板的标签文字设为空字符串
+                AdbTools.getInstance().getTimePanels().getTimerJLabel().setText("");
+                // 隐藏时间面板
+                AdbTools.getInstance().getTimePanels().getTimePanel().setVisible(false);
+                // 通用面板的标签文字设置为空字符串
+                AdbTools.getInstance().getUniversalPanels().getOutput2().setText("");
+
+            }
+        });
+
         // 更新JFrame界面
         JFramePack.onJComponentActionEvent(e);
     }

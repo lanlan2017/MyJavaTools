@@ -96,8 +96,15 @@ public class ReadButtonRunnable extends CloseableRunnable {
         // universalPanels = inOutputModel.getUniversalPanels();
 
         JLabel output2 = universalPanels.getOutput2();
+        // output2.setText(s + "s:" + msg);
+        int finalS = s;
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                output2.setText(finalS + "s:" + msg);
+            }
+        });
 
-        output2.setText(s + "s:" + msg);
         // output2.setText(s + "s后" + msg);
         String oldText;
         String newText;
@@ -118,7 +125,15 @@ public class ReadButtonRunnable extends CloseableRunnable {
             newText = (s - count) / 1000 + "s:" + msg;
             if (!oldText.equals(newText)) {
                 // output.setText(newText);
-                output2.setText(newText);
+                // output2.setText(newText);
+                // output2.setText(newText);
+                String finalNewText = newText;
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        output2.setText(finalNewText);
+                    }
+                });
             }
             count += 250;
         }
