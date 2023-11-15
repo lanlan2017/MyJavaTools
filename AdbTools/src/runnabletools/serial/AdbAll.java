@@ -19,17 +19,6 @@ public class AdbAll {
         }
         argsStr = argsStr.trim();
         System.out.println("argsStr ='" + argsStr + "'");
-        // if ("".equals(argsStr)) {
-        //     taskAll();
-        //     // } else if (argsStr.startsWith("kill")) {
-        // } else if (argsStr.matches("kill")) {
-        //     taskKillOpenAll(true, true, false);
-        // } else if (argsStr.matches("kill yd")) {
-        //     taskKillOpenAll(true, true, false);
-        //
-        // } else if (argsStr.matches("yd")) {
-        //     taskKillOpenAll(false, false, false);
-        // }
         switch (argsStr) {
             case "yd":
                 taskKillOpenAll(false, false, true);
@@ -46,13 +35,6 @@ public class AdbAll {
 
         }
 
-    }
-
-    /**
-     * 打开所有的任务视图界面
-     */
-    private static void taskAll() {
-        taskKillOpenAll(true, false, false);
     }
 
     /**
@@ -111,20 +93,6 @@ public class AdbAll {
         String code = "adb -s " + serial + " shell input keyevent 3";
         // x=540,y=1930
         AdbCommands.runAbdCmd(code);
-    }
-
-    /**
-     * 等待一段时间后触发任务键
-     */
-    public static void wait_TaskBtn() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                ThreadSleep.minutes(1);
-                AdbTools.getInstance().getAdbJPanels().getBtnTask().doClick();
-
-            }
-        }).start();
     }
 
     /**
