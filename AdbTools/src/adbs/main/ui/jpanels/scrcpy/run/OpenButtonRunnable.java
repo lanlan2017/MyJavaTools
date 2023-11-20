@@ -11,12 +11,12 @@ import javax.swing.*;
  * 打开设备 按钮事件处理程序
  */
 public class OpenButtonRunnable implements Runnable {
-    // private JTextField widthTextField;
+    private JTextField widthTextField;
     private String scrcpyHeight;
 
     public OpenButtonRunnable(JTextField widthTextField) {
-        // this.widthTextField = widthTextField;
-        scrcpyHeight = widthTextField.getText();
+        this.widthTextField = widthTextField;
+        // scrcpyHeight = widthTextField.getText();
     }
 
     public OpenButtonRunnable(String scrcpyHeight) {
@@ -36,15 +36,17 @@ public class OpenButtonRunnable implements Runnable {
         String serial = AdbTools.getInstance().getDevice().getSerial();
         String name = AdbTools.getInstance().getDevice().getName();
 
-        // 获取宽度
-        // scrcpyHeight = widthTextField.getText();
+        if (widthTextField != null) {
+            // 获取宽度
+            scrcpyHeight = widthTextField.getText();
+
+        }
         // 如果存在id
         if (serial != null && !"".equals(serial)) {
             System.out.println("scrcpy.exe 打开镜像");
             // turnOffAutoBrightness
 
             setBrightnessAndVolume(serial);
-
 
             // 拼接命令
             String code;
@@ -55,6 +57,12 @@ public class OpenButtonRunnable implements Runnable {
                 // } else {
                 code = "adbtools_open_scrcpy.bat " + serial + " " + name + " " + scrcpyHeight;
                 // }
+                if (scrcpyHeight.equals("0")) {
+                    scrcpyHeight = "full";
+                    code = "adbtools_open_scrcpy.bat " + serial + " " + name + " " + scrcpyHeight;
+
+                }
+
             } else {
                 code = "adbtools_open_scrcpy.bat " + serial + " " + name;
             }

@@ -6,8 +6,9 @@ import adbs.main.run.ForegroundAppRun;
 import adbs.main.run.OppoR9ScrcpyRun;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.config.Fonts;
-import adbs.main.ui.jpanels.scrcpy.listener.OpenButtonListener;
 import adbs.main.ui.jpanels.adb.open.Taskkill;
+// import adbs.main.ui.jpanels.scrcpy.listener.OpenButtonListener;
+import adbs.main.ui.jpanels.scrcpy.run.OpenButtonRunnable;
 import adbs.model.Device;
 import config.AdbConnectPortProperties;
 import tools.swing.button.AbstractButtons;
@@ -156,13 +157,6 @@ public class ScrcpyJPanels {
         return btnNextDay;
     }
 
-    private JButton initBtnOpenScrcpyFull() {
-        final JButton btnOpenScrcpyFull;
-        btnOpenScrcpyFull = new JButton("➚➚");
-        btnOpenScrcpyFull.setToolTipText("调用scrcpy.exe不限定高度");
-        btnOpenScrcpyFull.addActionListener(new OpenButtonListener("full"));
-        return btnOpenScrcpyFull;
-    }
 
     private JButton getBtnSwitchNetworkDebug() {
         final JButton btnSwitchNetworkDebug;
@@ -296,12 +290,15 @@ public class ScrcpyJPanels {
 
         btnOpenScrcpy.setToolTipText("使用scrcpy打开设备");
         // openScrcpyBtn.addActionListener(new OpenButtonListener());
-        btnOpenScrcpy.addActionListener(new OpenButtonListener(widthTextField));
-        // btnOpenScrcpy.addActionListener(new OpenButtonListener(widthTextField.getText()));
-
-
+        // btnOpenScrcpy.addActionListener(new OpenButtonListener(widthTextField));
         btnOpenScrcpy.addActionListener(new ActionListener() {
-
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new Thread(new OpenButtonRunnable(widthTextField.getText())).start();
+            }
+        });
+        // btnOpenScrcpy.addActionListener(new OpenButtonListener(widthTextField.getText()));
+        btnOpenScrcpy.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -322,6 +319,22 @@ public class ScrcpyJPanels {
         });
         return btnOpenScrcpy;
     }
+
+    private JButton initBtnOpenScrcpyFull() {
+        final JButton btnOpenScrcpyFull;
+        btnOpenScrcpyFull = new JButton("➚➚");
+        btnOpenScrcpyFull.setToolTipText("调用scrcpy.exe不限定高度");
+        // btnOpenScrcpyFull.addActionListener(new OpenButtonListener("full"));
+        // btnOpenScrcpyFull.addActionListener(new OpenButtonListener("0"));
+        btnOpenScrcpyFull.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new Thread(new OpenButtonRunnable("0")).start();
+            }
+        });
+        return btnOpenScrcpyFull;
+    }
+
 
     private JButton getKillScrcpy() {
         final JButton btnKillScrcpy;
