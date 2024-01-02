@@ -167,11 +167,28 @@ public class ForegroundAppRun implements Runnable {
     }
 
     /**
+     * 判断 是否已经到了第2天
+     *
+     * @return 如果到了第2天，返回true，如果不是，返回false
+     */
+    private boolean isNextDay() {
+        // 获取当前的时间
+        LocalDateTime localDateTime = LocalDateTime.now();
+        // String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        String format = localDateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+        System.out.println("时间 = " + format);
+        // 如果当前时间 在0到3分钟 之内的话，则认为现在到了第2天
+        // return nextDay || format.startsWith("00:00") || format.startsWith("00:01") || format.startsWith("00:02") || format.startsWith("00:03");
+        return nextDay || format.startsWith("00:00") || format.startsWith("00:01") || format.startsWith("00:02");
+    }
+
+    /**
      * 重新签到设置
      */
     private void nextDaySetting() {
         // 更新签到记录
         clearCheckInRecords();
+        // 第二天结束了
         nextDay = false;
         // stopAppCheck = false;
         isAllAppOpened = false;
@@ -180,6 +197,8 @@ public class ForegroundAppRun implements Runnable {
         toolsJPanels.getBtnUninstallAll().doClick();
         // 打开手机管家
         adbTools.getAdbJPanels().getBtnMobileButler().doClick();
+        // 停止线程，防止反复触发
+        ThreadSleep.minutes(4.0);
     }
 
     private void copyAllAppsIntoCheckInForm() {
@@ -392,21 +411,6 @@ public class ForegroundAppRun implements Runnable {
 
     }
 
-
-    /**
-     * 判断 是否已经到了第2天
-     *
-     * @return 如果到了第2天，返回true，如果不是，返回false
-     */
-    private boolean isNextDay() {
-        // 获取当前的时间
-        LocalDateTime localDateTime = LocalDateTime.now();
-        // String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        String format = localDateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-        System.out.println("时间 = " + format);
-        // 如果当前时间 在0到3分钟 之内的话，则认为现在到了第2天
-        return nextDay || format.startsWith("00:00") || format.startsWith("00:01") || format.startsWith("00:02") || format.startsWith("00:03");
-    }
 
     public static void onNextDay() {
         ForegroundAppRun.nextDay = true;
