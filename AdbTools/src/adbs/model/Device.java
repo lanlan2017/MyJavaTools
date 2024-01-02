@@ -63,6 +63,7 @@ public class Device {
     private int priority = 1;
 
     public static HashMap<String, String> map = new HashMap<>();
+    private boolean turnSreenOff;
 
     public Device(String serial, String description) {
         this.serial = serial;
@@ -78,14 +79,32 @@ public class Device {
         // String simpleId = getName(id);
         // map.put(simpleId, id);
         name = getName(serial);
+
+        initScreen(serial);
+
         map.put(name, serial);
         // System.out.println("id=" + id + ",simpleId=" + simpleId);
         setIsKuaiShouInstalled(serial);
+
         if (IsTest.isTest()) {
             System.out.print(name + " " + serial + " ");
             System.out.print(" width=" + getWidth());
             System.out.print(" height=" + getHeight());
             System.out.println();
+        }
+    }
+
+    /**
+     * 读取配置文件，确认打开投屏的时候是否要关闭设备的屏幕。
+     * @param serial
+     */
+    private void initScreen(String serial) {
+        PropertiesTools propertiesTools = AdbToolsProperties.propertiesTools;
+        String property = propertiesTools.getProperty(serial);
+        if (property.contains("ScreenOff")) {
+            turnSreenOff = true;
+        } else {
+            turnSreenOff = false;
         }
     }
 
@@ -278,6 +297,10 @@ public class Device {
             initWidthHeight();
         }
         return width;
+    }
+
+    public boolean isTurnSreenOff() {
+        return turnSreenOff;
     }
 
     public void setSerial(String serial) {

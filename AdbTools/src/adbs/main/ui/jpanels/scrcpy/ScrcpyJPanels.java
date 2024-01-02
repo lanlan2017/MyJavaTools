@@ -149,6 +149,7 @@ public class ScrcpyJPanels {
         btnNextDay.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // 设置
                 ForegroundAppRun.onNextDay();
                 // isFirstTimeRun = true;
                 // ForegroundAppRun.stopWait();

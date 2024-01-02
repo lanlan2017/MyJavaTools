@@ -21,16 +21,23 @@ public class AdbAll {
         System.out.println("argsStr ='" + argsStr + "'");
         switch (argsStr) {
             case "yd":
-                taskKillOpenAll(false, false, true);
+                taskKillOpenAll(false, false, false, true);
+                break;
+            case "home":
+                taskKillOpenAll(false, false, true, false);
                 break;
             case "task":
-                taskKillOpenAll(true, false, false);
+            case "task home":
+                taskKillOpenAll(true, false, true, false);
                 break;
             case "task kill":
-                taskKillOpenAll(true, true, false);
+            case "task kill home":
+                taskKillOpenAll(true, true, true, false);
                 break;
             case "task kill yd":
-                taskKillOpenAll(true, true, true);
+            case "task kill home yd":
+                taskKillOpenAll(true, true, true, true);
+                taskKillOpenAll(true, true, true, true);
                 break;
 
         }
@@ -44,7 +51,7 @@ public class AdbAll {
      * @param killAll 杀死所有的前台APP
      * @param open    是否打开运动健康
      */
-    private static void taskKillOpenAll(boolean task, boolean killAll, boolean open) {
+    private static void taskKillOpenAll(boolean task, boolean killAll, boolean home, boolean open) {
         // 获取当前电脑上的所有adb设备的LinkedHashMap集合
         LinkedHashMap<String, Device> simpleId_Device_map = Devices.getStringDeviceLinkedHashMap();
         System.out.println("-------------------------");
@@ -61,11 +68,12 @@ public class AdbAll {
                 if (task) {
                     // 按任务键
                     taskView(serial);
-
                 }
                 // 按任务键底部的清除按钮
                 if (killAll) {
                     clickDeleteBtn(device);
+                }
+                if (home) {
                     // 按home键
                     home(serial);
                 }

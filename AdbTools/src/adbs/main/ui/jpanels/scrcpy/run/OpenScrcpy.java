@@ -25,7 +25,15 @@ public class OpenScrcpy {
                 serial = args[0];
                 title = args[1];
                 window_width = args[2];
-                code = scrcpyCall(serial, title, window_width);
+                code = scrcpyCall(serial, title, window_width, true);
+            case 4:
+                serial = args[0];
+                title = args[1];
+                window_width = args[2];
+                String turnOff = args[3];
+                boolean turnScreenOff = Boolean.parseBoolean(turnOff);
+                code = scrcpyCall(serial, title, window_width, turnScreenOff);
+
 
         }
         // 打印执行的命令
@@ -34,21 +42,34 @@ public class OpenScrcpy {
         CmdRun.run(code);
     }
 
-    private static String scrcpyCall(String id, String title, String window_hight) {
+    /**
+     * @param serial       Android设备的序列号
+     * @param title        scrcpy.exe投屏窗体的标题
+     * @param window_hight scrcpy.exe投屏窗体的高度
+     * @return
+     */
+    private static String scrcpyCall(String serial, String title, String window_hight, boolean turnScreenOff) {
         String code;
         title = portAbbr(title);
         // 对以指定字符串开头的设备
         if (title.startsWith("HuaWei")) {
             // 启动scrcpy.exe镜像的时候不息屏
-            code = "scrcpy.exe -s " + id + " -b 2M --stay-awake --window-title " + title + " -m 600 --window-height=" + window_hight;
+            code = "scrcpy.exe -s " + serial + " -b 2M --stay-awake --window-title " + title + " -m 600 --window-height=" + window_hight;
         } else {
             // 如果是高度的话，则设置高度
             if (window_hight.matches("\\d+")) {
-                // 其他设备，启动scrcpy.exe镜像时，关闭屏幕
-                code = "scrcpy.exe -s " + id + " --turn-screen-off -b 2M --stay-awake --window-title " + title + " -m 600 --window-height=" + window_hight;
-                // code="scrcpy.exe -s "+
-            } else {
-                code = "scrcpy.exe -s " + id + " --turn-screen-off --stay-awake --window-title " + title;
+
+                if (turnScreenOff) {
+                    // 启动scrcpy.exe镜像时，不关闭屏幕
+                    code = "scrcpy.exe -s " + serial + " --turn-screen-off -b 2M --stay-awake --window-title " + title + " -m 600 --window-height=" + window_hight;
+                } else {
+                    // 启动scrcpy.exe镜像时，关闭屏幕
+                    code = "scrcpy.exe -s " + serial + " -b 2M --stay-awake --window-title " + title + " -m 600 --window-height=" + window_hight;
+                }
+            }
+            // 如果没有设置高度的话
+            else {
+                code = "scrcpy.exe -s " + serial + " --turn-screen-off --stay-awake --window-title " + title;
             }
         }
         return code;

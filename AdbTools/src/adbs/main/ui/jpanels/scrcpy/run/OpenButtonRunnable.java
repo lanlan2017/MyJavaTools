@@ -3,6 +3,7 @@ package adbs.main.ui.jpanels.scrcpy.run;
 import adbs.cmd.AdbCommands;
 import adbs.cmd.CmdRun;
 import adbs.main.AdbTools;
+import adbs.model.Device;
 import adbs.tools.thread.ThreadSleep;
 
 import javax.swing.*;
@@ -33,8 +34,9 @@ public class OpenButtonRunnable implements Runnable {
         // String name = AdbTools.device.getName();
 
         // 获取序列号
-        String serial = AdbTools.getInstance().getDevice().getSerial();
-        String name = AdbTools.getInstance().getDevice().getName();
+        Device device = AdbTools.getInstance().getDevice();
+        String serial = device.getSerial();
+        String name = device.getName();
 
         if (widthTextField != null) {
             // 获取宽度
@@ -60,12 +62,12 @@ public class OpenButtonRunnable implements Runnable {
                 if (scrcpyHeight.equals("0")) {
                     scrcpyHeight = "full";
                     code = "adbtools_open_scrcpy.bat " + serial + " " + name + " " + scrcpyHeight;
-
                 }
 
             } else {
                 code = "adbtools_open_scrcpy.bat " + serial + " " + name;
             }
+            code += " " + device.isTurnSreenOff();
             System.out.println("调用另一个Jar:" + code);
             CmdRun.run(code);
         }
@@ -78,25 +80,25 @@ public class OpenButtonRunnable implements Runnable {
      * @param serial Android设备的序列号
      */
     private void setBrightnessAndVolume(String serial) {
-        // 关闭亮度自动调节
-        // String turnOffAutoBrightness = "adb -s U8ENW18118023171 shell settings put system screen_brightness_mode 0";
-        String turnOffAutoBrightness = "adb -s " + serial + " shell settings put system screen_brightness_mode 0";
-        AdbCommands.runAbdCmd(turnOffAutoBrightness);
-        // ThreadSleep.seconds(1);
-        // int millisecond = 20;
-        int millisecond = 30;
-        ThreadSleep.millisecond(millisecond);
-        //调整屏幕亮度为0
-        String miniBrightness = "adb -s " + serial + " shell settings put system screen_brightness 0";
-        AdbCommands.runAbdCmd(miniBrightness);
-        // ThreadSleep.seconds(1);
-        ThreadSleep.millisecond(millisecond);
-        // ThreadSleep.millisecond(50);
-
-        // 音量减一
-        String volumeDecrease = "adb -s " + serial + " shell input keyevent 25";
-        AdbCommands.runAbdCmd(volumeDecrease);
-        ThreadSleep.millisecond(millisecond);
+        // // 关闭亮度自动调节
+        // // String turnOffAutoBrightness = "adb -s U8ENW18118023171 shell settings put system screen_brightness_mode 0";
+        // String turnOffAutoBrightness = "adb -s " + serial + " shell settings put system screen_brightness_mode 0";
+        // AdbCommands.runAbdCmd(turnOffAutoBrightness);
+        // // ThreadSleep.seconds(1);
+        // // int millisecond = 20;
+        // int millisecond = 30;
+        // ThreadSleep.millisecond(millisecond);
+        // //调整屏幕亮度为0
+        // String miniBrightness = "adb -s " + serial + " shell settings put system screen_brightness 0";
+        // AdbCommands.runAbdCmd(miniBrightness);
+        // // ThreadSleep.seconds(1);
+        // ThreadSleep.millisecond(millisecond);
+        // // ThreadSleep.millisecond(50);
+        //
+        // // 音量减一
+        // String volumeDecrease = "adb -s " + serial + " shell input keyevent 25";
+        // AdbCommands.runAbdCmd(volumeDecrease);
+        // ThreadSleep.millisecond(millisecond);
 
         // 镜像静音
         String turnOffVolume = "adb -s " + serial + " shell input keyevent 164";
