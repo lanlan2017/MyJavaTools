@@ -47,6 +47,7 @@ public class ShoppingButtonActionListener extends ButtonFocusReleaseActionListen
         JCheckBox stopCheckBox = timePanels.getStopCheckBox();
         stopCheckBox.setVisible(false);
 
-        JFramePack.onJComponentActionEvent(e);
+        // JFramePack.onJComponentActionEvent(e);
+        JFramePack.pack();
     }
 }

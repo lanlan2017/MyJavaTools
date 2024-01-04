@@ -35,6 +35,7 @@ public class BrowseButtonActionListener extends ButtonFocusReleaseActionListener
         timePanels.getInputOkButton().setText("开始浏览");
         // timePanels.getTimerJLabel().setVisible(false);
         // 调整窗体到最佳大小
-        JFramePack.onJComponentActionEvent(e);
+        // JFramePack.onJComponentActionEvent(e);
+        JFramePack.pack();
     }
 }

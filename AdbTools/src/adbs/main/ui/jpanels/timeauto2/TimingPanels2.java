@@ -82,8 +82,8 @@ public class TimingPanels2 extends WaitValues {
         btn5H = initButton(h5);
         hideAllButtons();
 
-        jComboBox = initComboBox();
 
+        jComboBox = initComboBox();
         timingPanels2.add(jComboBox);
 
         timingPanels2.add(btn1H);
@@ -145,13 +145,8 @@ public class TimingPanels2 extends WaitValues {
                         showVideoButtons();
                         break;
                 }
-
-                // JFrame frame = AdbTools.getInstance().getFrame();
-                // if (frame != null) {
-                //     frame.pack();
-                // }
+                // 更新界面
                 JFramePack.pack();
-
             }
 
         });
@@ -181,18 +176,6 @@ public class TimingPanels2 extends WaitValues {
                         case textJrBtnVideo:
                             // 打开刷视频设置
                             universalPanels.getVideoButton().doClick();
-                            // videoDo(timePanels, okButton);
-                            // @todo
-                            // String packageName = AdbGetPackage.getAppNames().getPackageName();
-                            // switch (packageName) {
-                            //     case "快手极速版":
-                            //     case "快手":
-                            //         adbTools.getTimePanels().getPlusBtn().doClick();
-                            //         break;
-                            //
-                            // }
-
-
                             // 开始刷视频
                             okButton.doClick();
                             // 打开等待设置
@@ -226,6 +209,8 @@ public class TimingPanels2 extends WaitValues {
                     setTimePanelsInput1Value(timePanels, value);
                     okButton.doClick();
                 }
+
+                // JFramePack.pack();
             }
         });
         return jButton;
@@ -391,5 +376,169 @@ public class TimingPanels2 extends WaitValues {
         btn4H.setVisible(false);
         btn5H.setVisible(false);
     }
+
+
+    public void w() {
+        System.out.println("等待模式");
+        if (jComboBox != null) {
+            int selectedIndex = jComboBox.getSelectedIndex();
+            System.out.println("selectedIndex = " + selectedIndex);
+            if (selectedIndex != 0) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        jComboBox.setSelectedIndex(0);
+                    }
+                });
+                // JFramePack.pack();
+            }
+        }
+    }
+
+    public void rw() {
+        System.out.println("阅读模式");
+        // int selectedIndex = jComboBox.getSelectedIndex();
+        // if (selectedIndex != 1) {
+        //     SwingUtilities.invokeLater(new Runnable() {
+        //         @Override
+        //         public void run() {
+        //             jComboBox.setSelectedIndex(1);
+        //         }
+        //     });
+        // }
+        if (jComboBox != null) {
+            int selectedIndex = jComboBox.getSelectedIndex();
+            if (selectedIndex != 1) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        jComboBox.setSelectedIndex(1);
+                    }
+                });
+                // JFramePack.pack();
+            }
+        }
+    }
+
+
+    public void vw() {
+        System.out.println("视频模式");
+        int selectedIndex = jComboBox.getSelectedIndex();
+        if (selectedIndex != 2) {
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    jComboBox.setSelectedIndex(2);
+                    JFramePack.pack();
+                }
+            });
+        }
+    }
+
+    public void s() {
+        System.out.println("逛街模式");
+        int selectedIndex = jComboBox.getSelectedIndex();
+        if (selectedIndex != 3) {
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    jComboBox.setSelectedIndex(3);
+                }
+            });
+            // JFramePack.pack();
+        }
+    }
+
+    public void auto(String code) {
+        if (code.matches("[a-z]+_[0-9a-zA-Z.+-]+")) {
+            String[] s = code.split("_");
+            System.out.println("auto");
+            String s0 = s[0];
+            String s2 = s[1];
+            switch (s0) {
+                case "w":
+                    w();
+                    break;
+                case "vw":
+                    vw();
+                    break;
+                case "rw":
+                    rw();
+                    break;
+                case "s":
+                    s();
+                    break;
+            }
+
+
+            switch (s2) {
+                case "30s":
+                    btn30s.doClick();
+                    break;
+                case "35s":
+                    btn35s.doClick();
+                    break;
+                case "65s":
+                    btn65s.doClick();
+                    break;
+                case "95s":
+                    btn95s.doClick();
+                    break;
+                case "120s":
+                    btn120s.doClick();
+                    break;
+                case "180s":
+                    btn180s.doClick();
+                    break;
+                case "210s":
+                    btn210s.doClick();
+                    break;
+                case "20M":
+                    btn20M.doClick();
+                    break;
+                case "40M":
+                    btn40M.doClick();
+                    break;
+                case "1H":
+                    btn1H.doClick();
+                    break;
+                case "2H":
+                    btn2H.doClick();
+                    break;
+                case "1.5H":
+                    btn1_5H.doClick();
+                    break;
+                case "3H+":
+                    btn3HMore.doClick();
+                    break;
+                case "4H":
+                    btn4H.doClick();
+                    break;
+                case "5H":
+                    btn5H.doClick();
+                    break;
+
+            }
+
+        }
+
+    }
+
+    public void w65s() {
+        auto("w_65s");
+    }
+
+    public void w35s() {
+        auto("w_35s");
+    }
+
+    public void w95s() {
+        auto("w_95s");
+    }
+
+    public void w180s() {
+        auto("w_180s");
+    }
+
 
 }

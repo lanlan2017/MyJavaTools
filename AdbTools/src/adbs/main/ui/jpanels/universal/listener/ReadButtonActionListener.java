@@ -50,6 +50,7 @@ public class ReadButtonActionListener extends ButtonFocusReleaseActionListener {
         // timePanels.getTimerJLabel().setVisible(false);
 
         // frame.pack();
-        JFramePack.onJComponentActionEvent(e);
+        // JFramePack.onJComponentActionEvent(e);
+        JFramePack.pack();
     }
 }

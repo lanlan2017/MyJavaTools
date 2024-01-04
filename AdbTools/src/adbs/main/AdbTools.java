@@ -1,6 +1,7 @@
 package adbs.main;
 
 import adbs.cmd.AdbCommands;
+import adbs.main.run.ActAutoRun;
 import adbs.main.run.BatteryLevelRun2;
 import adbs.main.run.ForegroundAppRun;
 import adbs.main.run.IsTest;
@@ -359,6 +360,7 @@ public class AdbTools {
             // // 启动电池监测线程
             // // new Thread(new BatteryLevelRun()).start();
             new Thread(new BatteryLevelRun2()).start();
+            new Thread(new ActAutoRun()).start();
         }
 
     }

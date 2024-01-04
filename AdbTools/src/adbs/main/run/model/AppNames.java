@@ -1,5 +1,7 @@
 package adbs.main.run.model;
 
+import java.util.Objects;
+
 public class AppNames {
     private String actLongName;
     private String packageName;
@@ -16,6 +18,21 @@ public class AppNames {
             actShortName = "";
         }
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        AppNames appNames = (AppNames) o;
+        return Objects.equals(actLongName, appNames.actLongName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(actLongName);
     }
 
     public String getPackageName() {
@@ -35,7 +52,8 @@ public class AppNames {
         // return "actLongName=" + actLongName + "\n" + "packageName=" + packageName + "\n" +
         //         // "actShortName=" + actLongName + "\n";
         //         "actShortName=" + actShortName;
-        return "actLongName =" + actLongName;
+        // return "actLongName =" + actLongName;
+        return actLongName;
         // return "actLongName='" + actLongName + '\'' + ", packageName='" + packageName + '\'' + ", actShortName='" + actShortName + '\'' + '}';
     }
 }

@@ -48,6 +48,7 @@ public class StopBtnAcListener2 implements ActionListener {
         });
 
         // 更新JFrame界面
-        JFramePack.onJComponentActionEvent(e);
+        // JFramePack.onJComponentActionEvent(e);
+        JFramePack.pack();
     }
 }

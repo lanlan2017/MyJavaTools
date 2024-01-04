@@ -2,9 +2,7 @@ package adbs.main.run;
 
 import adbs.cmd.CmdRun;
 import adbs.main.AdbTools;
-import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.app.AppPanels;
-import adbs.main.ui.jpanels.check.CheckJPanels;
 import adbs.main.ui.jpanels.tools.ToolsJPanels;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
 import adbs.tools.thread.ThreadSleep;
@@ -99,7 +97,9 @@ public class ForegroundAppRun implements Runnable {
         String topActivityCommand = AdbGetPackage.getTopActivityCommand(serial);
         // System.out.println("ActivityCommand =" + topActivityCommand);
         String run = CmdRun.run(topActivityCommand).trim();
-        System.out.println(run);
+
+        // System.out.println(run);
+
         // String run = AdbCommands.runAbdCmd(topActivityCommand).trim();
         // String run = CmdRun.run(topActivityCommand).trim();
         // 如果命令结果中有反斜杠，说明有包名
@@ -134,22 +134,6 @@ public class ForegroundAppRun implements Runnable {
                     afterOpeningAllAPKs();
                     stopAppCheck = true;
                 }
-                // // 隐藏面板，免得有问题
-                // if (appPanels.getAppPanel().isVisible()) {
-                //     // appPanels.getAppPanel().setVisible(false);
-                //     AdbTools.getInstance().getCheckJPanels().getSignInCheckBox().doClick();
-                //     // AdbTools.getInstance().getFrame().pack();
-                //
-                //     // SwingUtilities.invokeLater(new Runnable() {
-                //     //     public void run() {
-                //     //         // 在这里编写需要在事件调度线程上执行的代码
-                //     //         AdbTools.getInstance().getFrame().pack();
-                //     //     }
-                //     // });
-                //
-                //     // JFramePack
-                // }
-                // System.out.println();
                 // 打印已经打开的APP
                 showOpenedApp();
                 // 打印没打开的APP
@@ -179,7 +163,8 @@ public class ForegroundAppRun implements Runnable {
         System.out.println("时间 = " + format);
         // 如果当前时间 在0到3分钟 之内的话，则认为现在到了第2天
         // return nextDay || format.startsWith("00:00") || format.startsWith("00:01") || format.startsWith("00:02") || format.startsWith("00:03");
-        return nextDay || format.startsWith("00:00") || format.startsWith("00:01") || format.startsWith("00:02");
+        // return nextDay || format.startsWith("00:00") || format.startsWith("00:01") || format.startsWith("00:02");
+        return nextDay || format.startsWith("00:00") || format.startsWith("00:01");
     }
 
     /**
@@ -198,7 +183,8 @@ public class ForegroundAppRun implements Runnable {
         // 打开手机管家
         adbTools.getAdbJPanels().getBtnMobileButler().doClick();
         // 停止线程，防止反复触发
-        ThreadSleep.minutes(4.0);
+        ThreadSleep.minutes(1.5);
+        // ThreadSleep.minutes(4.0);
     }
 
     private void copyAllAppsIntoCheckInForm() {

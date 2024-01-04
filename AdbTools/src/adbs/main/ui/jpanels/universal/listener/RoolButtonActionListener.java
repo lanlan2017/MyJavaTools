@@ -9,7 +9,7 @@ import adbs.main.ui.jpanels.universal.runnable.RoolBtnRunnable;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
-public class RoolButtonActionListener  extends ButtonFocusReleaseActionListener {
+public class RoolButtonActionListener extends ButtonFocusReleaseActionListener {
     private TimePanels timePanels;
 
     public RoolButtonActionListener(TimePanels timePanels) {
@@ -50,6 +50,8 @@ public class RoolButtonActionListener  extends ButtonFocusReleaseActionListener 
         JCheckBox stopCheckBox = timePanels.getStopCheckBox();
         stopCheckBox.setVisible(false);
 
-        JFramePack.onJComponentActionEvent(e);
+        // JFramePack.onJComponentActionEvent(e);
+        // JFramePack.onJComponentActionEvent(e);
+        JFramePack.pack();
     }
 }

@@ -53,7 +53,8 @@ public class WaitButtonActionListener extends ButtonFocusReleaseActionListener {
         stopCheckBox.setToolTipText("等待结束后 点击 停止按钮");
 
         timePanels.getTimerJLabel().setVisible(true);
-        JFramePack.onJComponentActionEvent(e);
+        // JFramePack.onJComponentActionEvent(e);
+        JFramePack.pack();
         // ThreadSleep.minutes(1);
     }
 }
