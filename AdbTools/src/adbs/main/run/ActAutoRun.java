@@ -55,23 +55,52 @@ public class ActAutoRun implements Runnable {
             if (packageName.equals(offerPackageName)) {
                 // 在同一个APP内
                 System.out.println("在同一个APP内");
-                executeAction(appNames);
+                actChange(appNames);
             } else {
                 // 新的APP不是任务APP
                 if (isNotTaskApp(packageName)) {
-                    // 打开了新的APP
-                    System.out.println("打开了新的APP");
-                    switch (offerPackageName) {
-                        // 原来的应用是趣头条
-                        case "com.jifen.qukan":
-                            timingPanels2.w180s();
-                            break;
-                    }
+                    appChange(offerPackageName);
                 }
             }
         } else {
             // 在用户切换界面时，执行动作
-            executeAction(appNames);
+            actChange(appNames);
+        }
+    }
+
+    /**
+     * 从一个APP跳转到另一个APP是执行操作
+     *
+     * @param offerPackageName
+     */
+    private void appChange(String offerPackageName) {
+        // 打开了新的APP
+        System.out.println("打开了新的APP");
+        switch (offerPackageName) {
+            // 原来的应用是趣头条
+            case "com.jifen.qukan":
+                // timingPanels2.w180s();
+                // break;
+                //    今日头条极速版
+                // com.ss.android.article.lite
+            case "com.ss.android.article.lite":
+                //  今日头条
+            case "com.ss.android.article.news":
+                //    西瓜视频
+            case "com.ss.android.article.video":
+                //    番茄免费小说
+            case "com.dragon.read":
+            case "com.xs.fm":
+            case "com.ss.android.ugc.aweme.lite":
+                // 番茄畅听
+                timingPanels2.w180s();
+                break;
+
+            case "com.baidu.searchbox.lite":
+                // 百度极速版
+            case "com.kuaishou.nebula":
+                timingPanels2.w95s();
+                break;
         }
     }
 
@@ -84,10 +113,15 @@ public class ActAutoRun implements Runnable {
     private boolean isNotTaskApp(String packageName) {
         boolean b;
         switch (packageName) {
+            // 任务视图程序
             case "com.huawei.android.launcher":
             case "com.coloros.recents":
             case "com.miui.home":
             case "com.android.systemui":
+                //    应用市场
+            case "com.huawei.appmarket":
+                // 搞机工具箱
+            case "com.byyoung.setting":
                 b = false;
                 break;
             default:
@@ -102,12 +136,18 @@ public class ActAutoRun implements Runnable {
         System.out.println("等待一段时间...");
         // ThreadSleep.seconds(30);
         // ThreadSleep.seconds(5);
-        ThreadSleep.seconds(10);
+        ThreadSleep.seconds(8);
+        // ThreadSleep.seconds(10);
         // ThreadSleep.seconds(15);
         // ThreadSleep.seconds(20);
     }
 
-    private void executeAction(AppNames appNames) {
+    /**
+     * 同一个App的不同activity改变时
+     *
+     * @param appNames
+     */
+    private void actChange(AppNames appNames) {
         String packageName = appNames.getPackageName();
         String actShortName = appNames.getActShortName();
         System.out.println("\n界面改变，给出建议...");
@@ -127,6 +167,28 @@ public class ActAutoRun implements Runnable {
             // 点淘
             case "com.taobao.live":
                 dianTao(actShortName);
+                break;
+            case "com.taobao.taobao":
+                taobao(actShortName);
+                break;
+        }
+    }
+
+    private void taobao(String actShortName) {
+        switch (actShortName) {
+            // 主界面
+            case "com.taobao.tao.TBMainActivity":
+                // 显示刷视频系列按钮
+                timingPanels2.vw();
+                break;
+            //    签到红包界面
+            case "com.taobao.themis.container.app.TMSActivity":
+                timingPanels2.s();
+                break;
+            // 浏览领金币界面
+            case "com.taobao.browser.BrowserActivity":
+                // timingPanels2.s();
+                timingPanels2.s35s();
                 break;
         }
     }

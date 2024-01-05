@@ -450,77 +450,84 @@ public class TimingPanels2 extends WaitValues {
     }
 
     public void auto(String code) {
-        if (code.matches("[a-z]+_[0-9a-zA-Z.+-]+")) {
-            String[] s = code.split("_");
-            System.out.println("auto");
-            String s0 = s[0];
-            String s2 = s[1];
-            switch (s0) {
-                case "w":
-                    w();
-                    break;
-                case "vw":
-                    vw();
-                    break;
-                case "rw":
-                    rw();
-                    break;
-                case "s":
-                    s();
-                    break;
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+
+                if (code.matches("[a-z]+_[0-9a-zA-Z.+-]+")) {
+                    String[] s = code.split("_");
+                    System.out.println("auto");
+                    String s0 = s[0];
+                    String s2 = s[1];
+                    switch (s0) {
+                        case "w":
+                            w();
+                            break;
+                        case "vw":
+                            vw();
+                            break;
+                        case "rw":
+                            rw();
+                            break;
+                        case "s":
+                            s();
+                            break;
+                    }
+
+
+                    switch (s2) {
+                        case "30s":
+                            btn30s.doClick();
+                            break;
+                        case "35s":
+                            btn35s.doClick();
+                            break;
+                        case "65s":
+                            btn65s.doClick();
+                            break;
+                        case "95s":
+                            btn95s.doClick();
+                            break;
+                        case "120s":
+                            btn120s.doClick();
+                            break;
+                        case "180s":
+                            btn180s.doClick();
+                            break;
+                        case "210s":
+                            btn210s.doClick();
+                            break;
+                        case "20M":
+                            btn20M.doClick();
+                            break;
+                        case "40M":
+                            btn40M.doClick();
+                            break;
+                        case "1H":
+                            btn1H.doClick();
+                            break;
+                        case "2H":
+                            btn2H.doClick();
+                            break;
+                        case "1.5H":
+                            btn1_5H.doClick();
+                            break;
+                        case "3H+":
+                            btn3HMore.doClick();
+                            break;
+                        case "4H":
+                            btn4H.doClick();
+                            break;
+                        case "5H":
+                            btn5H.doClick();
+                            break;
+
+                    }
+
+                }
+
             }
-
-
-            switch (s2) {
-                case "30s":
-                    btn30s.doClick();
-                    break;
-                case "35s":
-                    btn35s.doClick();
-                    break;
-                case "65s":
-                    btn65s.doClick();
-                    break;
-                case "95s":
-                    btn95s.doClick();
-                    break;
-                case "120s":
-                    btn120s.doClick();
-                    break;
-                case "180s":
-                    btn180s.doClick();
-                    break;
-                case "210s":
-                    btn210s.doClick();
-                    break;
-                case "20M":
-                    btn20M.doClick();
-                    break;
-                case "40M":
-                    btn40M.doClick();
-                    break;
-                case "1H":
-                    btn1H.doClick();
-                    break;
-                case "2H":
-                    btn2H.doClick();
-                    break;
-                case "1.5H":
-                    btn1_5H.doClick();
-                    break;
-                case "3H+":
-                    btn3HMore.doClick();
-                    break;
-                case "4H":
-                    btn4H.doClick();
-                    break;
-                case "5H":
-                    btn5H.doClick();
-                    break;
-
-            }
-
-        }
+        });
 
     }
 
@@ -538,6 +545,18 @@ public class TimingPanels2 extends WaitValues {
 
     public void w180s() {
         auto("w_180s");
+    }
+
+    public void s35s() {
+        auto("s_35s");
+    }
+
+    public void s65s() {
+        auto("s_65s");
+    }
+
+    public void s95s() {
+        auto("s_95s");
     }
 
 
