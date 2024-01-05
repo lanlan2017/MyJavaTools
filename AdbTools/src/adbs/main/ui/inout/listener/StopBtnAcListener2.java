@@ -25,14 +25,6 @@ public class StopBtnAcListener2 implements ActionListener {
                 iterator.remove();
             }
         }
-
-        // // 时间面板的标签文字设为空字符串
-        // AdbTools.getInstance().getTimePanels().getTimerJLabel().setText("");
-        // // 隐藏时间面板
-        // AdbTools.getInstance().getTimePanels().getTimePanel().setVisible(false);
-        // // 通用面板的标签文字设置为空字符串
-        // AdbTools.getInstance().getUniversalPanels().getOutput2().setText("");
-
         // JLable线程不安全，在事件调度线程中执行，以确保线程安全
         SwingUtilities.invokeLater(new Runnable() {
             @Override

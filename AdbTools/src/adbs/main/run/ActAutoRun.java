@@ -58,7 +58,7 @@ public class ActAutoRun implements Runnable {
                 actChange(appNames);
             } else {
                 // 新的APP不是任务APP
-                if (isNotTaskApp(packageName)) {
+                if (isSystemApp(packageName)) {
                     appChange(offerPackageName);
                 }
             }
@@ -105,23 +105,25 @@ public class ActAutoRun implements Runnable {
     }
 
     /**
-     * 判断现在的APP是不是任务视图APP
+     * 判断现在的APP是否是系统应用
      *
      * @param packageName
      * @return
      */
-    private boolean isNotTaskApp(String packageName) {
+    private boolean isSystemApp(String packageName) {
         boolean b;
         switch (packageName) {
             // 任务视图程序
+            case "com.huawei.appmarket":
             case "com.huawei.android.launcher":
+            case "com.android.systemui":
+            case "com.byyoung.setting":
             case "com.coloros.recents":
             case "com.miui.home":
-            case "com.android.systemui":
+            case "com.miui.securitycenter":
                 //    应用市场
-            case "com.huawei.appmarket":
                 // 搞机工具箱
-            case "com.byyoung.setting":
+            //    小米安全检查?
                 b = false;
                 break;
             default:
@@ -129,7 +131,19 @@ public class ActAutoRun implements Runnable {
                 break;
         }
         return b;
-        // return !packageName.equals("com.huawei.android.launcher")&&!packageName.equals("com.coloros.recents")&&!packageName.equals("com.miui.home");
+
+        // return
+        //         // 不是安卓应用
+        //         packageName.startsWith("com.android.") &&
+        //                 // 不是MIUI应用
+        //                 packageName.startsWith("com.miui.") &&
+        //                 // 不是华为应用
+        //                 packageName.startsWith("com.huawei.") &&
+        //                 // 不是OPPO应用
+        //                 packageName.startsWith("com.coloros.") &&
+        //                 // 不是搞机工具箱
+        //                 packageName.equals("com.byyoung.setting");
+
     }
 
     private void _wait() {
@@ -168,11 +182,28 @@ public class ActAutoRun implements Runnable {
             case "com.taobao.live":
                 dianTao(actShortName);
                 break;
+            //  淘宝
             case "com.taobao.taobao":
                 taobao(actShortName);
                 break;
+            case "com.ss.android.article.video":
+                xiGuaShiPin(actShortName);
+                break;
         }
     }
+
+    private void xiGuaShiPin(String actShortName) {
+        switch (actShortName) {
+            case ".activity.SplashActivity":
+                // timingPanels2.vw();
+                // vidioBtn();
+                universalPanels.vidioBtnDoClick();
+                break;
+            default:
+                break;
+        }
+    }
+
 
     private void taobao(String actShortName) {
         switch (actShortName) {
@@ -187,6 +218,7 @@ public class ActAutoRun implements Runnable {
                 break;
             // 浏览领金币界面
             case "com.taobao.browser.BrowserActivity":
+            case "com.taobao.browser.exbrowser.BrowserUpperActivity":
                 // timingPanels2.s();
                 timingPanels2.s35s();
                 break;
@@ -196,12 +228,15 @@ public class ActAutoRun implements Runnable {
     private void dianTao(String actShortName) {
         switch (actShortName) {
             case ".h5.BrowserActivity":
-            case ".h5.BrowserUpperActivity":
             case ".pha.PHAContainerActivity":
                 // timingPanels2.auto("s_95");
                 timingPanels2.s();
                 // break;
                 // timingPanels2.s();
+                break;
+            // case ".h5.BrowserUpperActivity":
+            case ".h5.BrowserUpperActivity":
+                timingPanels2.s35s();
                 break;
             case ".TaoLiveVideoActivity":
                 timingPanels2.vw();

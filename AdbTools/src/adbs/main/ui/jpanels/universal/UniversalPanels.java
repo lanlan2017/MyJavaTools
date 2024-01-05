@@ -318,4 +318,15 @@ public class UniversalPanels {
     public JButton getBtnStop() {
         return btnStop;
     }
+
+    public void vidioBtnDoClick() {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                // universalPanels.getVideoButton().doClick();
+                videoButton.doClick();
+            }
+        });
+    }
+
 }

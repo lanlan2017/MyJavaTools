@@ -1,7 +1,6 @@
 package adbs.main.ui.jpanels.timeauto2;
 
 import adbs.main.AdbTools;
-import adbs.main.run.AdbGetPackage;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.config.Fonts;
 import adbs.main.ui.jframe.JFramePack;
@@ -377,26 +376,38 @@ public class TimingPanels2 extends WaitValues {
         btn5H.setVisible(false);
     }
 
-
-    public void w() {
-        System.out.println("等待模式");
+    /**
+     * 设置JComboBox的选项
+     *
+     * @param index JComboBox
+     */
+    private void selectedJComboBoxIndex(int index) {
         if (jComboBox != null) {
+            // 获取当前选项的
             int selectedIndex = jComboBox.getSelectedIndex();
-            System.out.println("selectedIndex = " + selectedIndex);
-            if (selectedIndex != 0) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        jComboBox.setSelectedIndex(0);
-                    }
-                });
+            int itemCount = jComboBox.getItemCount();
+            if (selectedIndex != index && index < itemCount) {
+                SwingUtilities.invokeLater(() -> jComboBox.setSelectedIndex(index));
                 // JFramePack.pack();
             }
         }
     }
 
+    public void w() {
+        System.out.println("    建议：等待模式");
+        // if (jComboBox != null) {
+        //     int selectedIndex = jComboBox.getSelectedIndex();
+        //     System.out.println("selectedIndex = " + selectedIndex);
+        //     if (selectedIndex != 0) {
+        //         SwingUtilities.invokeLater(() -> jComboBox.setSelectedIndex(0));
+        //         // JFramePack.pack();
+        //     }
+        // }
+        selectedJComboBoxIndex(0);
+    }
+
     public void rw() {
-        System.out.println("阅读模式");
+        System.out.println("    建议：阅读模式");
         // int selectedIndex = jComboBox.getSelectedIndex();
         // if (selectedIndex != 1) {
         //     SwingUtilities.invokeLater(new Runnable() {
@@ -406,137 +417,127 @@ public class TimingPanels2 extends WaitValues {
         //         }
         //     });
         // }
-        if (jComboBox != null) {
-            int selectedIndex = jComboBox.getSelectedIndex();
-            if (selectedIndex != 1) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        jComboBox.setSelectedIndex(1);
-                    }
-                });
-                // JFramePack.pack();
-            }
-        }
+        selectedJComboBoxIndex(1);
     }
 
 
     public void vw() {
-        System.out.println("视频模式");
-        int selectedIndex = jComboBox.getSelectedIndex();
-        if (selectedIndex != 2) {
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    jComboBox.setSelectedIndex(2);
-                    JFramePack.pack();
-                }
-            });
-        }
+        System.out.println("    建议：视频模式");
+        // int selectedIndex = jComboBox.getSelectedIndex();
+        // if (selectedIndex != 2) {
+        //     SwingUtilities.invokeLater(new Runnable() {
+        //         @Override
+        //         public void run() {
+        //             jComboBox.setSelectedIndex(2);
+        //             JFramePack.pack();
+        //         }
+        //     });
+        // }
+        selectedJComboBoxIndex(2);
     }
 
     public void s() {
-        System.out.println("逛街模式");
-        int selectedIndex = jComboBox.getSelectedIndex();
-        if (selectedIndex != 3) {
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    jComboBox.setSelectedIndex(3);
-                }
-            });
-            // JFramePack.pack();
-        }
+        System.out.println("    建议：逛街模式");
+        // int selectedIndex = jComboBox.getSelectedIndex();
+        // if (selectedIndex != 3) {
+        //     SwingUtilities.invokeLater(() -> jComboBox.setSelectedIndex(3));
+        //     // JFramePack.pack();
+        // }
+        selectedJComboBoxIndex(3);
     }
 
     public void auto(String code) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
+        if (code.matches("[a-z]+_[0-9a-zA-Z.+-]+")) {
+            String[] s = code.split("_");
+            System.out.println("auto");
+            String s0 = s[0];
+            String s2 = s[1];
+            // 改变JComboBox的选项
+            changeJComboBoxOption(s0);
+            // SwingUtilities.invokeLater(() -> btnDoClick(s2));
+            // 点击对应时间的按钮
+            btnDoClick(s2);
+        }
+    }
+    private void changeJComboBoxOption(String s0) {
+        switch (s0) {
+            case "w":
+                w();
+                break;
+            case "vw":
+                vw();
+                break;
+            case "rw":
+                rw();
+                break;
+            case "s":
+                s();
+                break;
+        }
+    }
 
-                if (code.matches("[a-z]+_[0-9a-zA-Z.+-]+")) {
-                    String[] s = code.split("_");
-                    System.out.println("auto");
-                    String s0 = s[0];
-                    String s2 = s[1];
-                    switch (s0) {
-                        case "w":
-                            w();
-                            break;
-                        case "vw":
-                            vw();
-                            break;
-                        case "rw":
-                            rw();
-                            break;
-                        case "s":
-                            s();
-                            break;
-                    }
+    private void btnDoClick(String s2) {
+        SwingUtilities.invokeLater(() -> {
 
-
-                    switch (s2) {
-                        case "30s":
-                            btn30s.doClick();
-                            break;
-                        case "35s":
-                            btn35s.doClick();
-                            break;
-                        case "65s":
-                            btn65s.doClick();
-                            break;
-                        case "95s":
-                            btn95s.doClick();
-                            break;
-                        case "120s":
-                            btn120s.doClick();
-                            break;
-                        case "180s":
-                            btn180s.doClick();
-                            break;
-                        case "210s":
-                            btn210s.doClick();
-                            break;
-                        case "20M":
-                            btn20M.doClick();
-                            break;
-                        case "40M":
-                            btn40M.doClick();
-                            break;
-                        case "1H":
-                            btn1H.doClick();
-                            break;
-                        case "2H":
-                            btn2H.doClick();
-                            break;
-                        case "1.5H":
-                            btn1_5H.doClick();
-                            break;
-                        case "3H+":
-                            btn3HMore.doClick();
-                            break;
-                        case "4H":
-                            btn4H.doClick();
-                            break;
-                        case "5H":
-                            btn5H.doClick();
-                            break;
-
-                    }
-
-                }
-
+            switch (s2) {
+                case "30s":
+                    btn30s.doClick();
+                    break;
+                case "35s":
+                    btn35s.doClick();
+                    break;
+                case "65s":
+                    btn65s.doClick();
+                    break;
+                case "95s":
+                    btn95s.doClick();
+                    break;
+                case "120s":
+                    btn120s.doClick();
+                    break;
+                case "180s":
+                    btn180s.doClick();
+                    break;
+                case "210s":
+                    btn210s.doClick();
+                    break;
+                case "20M":
+                    btn20M.doClick();
+                    break;
+                case "40M":
+                    btn40M.doClick();
+                    break;
+                case "1H":
+                    btn1H.doClick();
+                    break;
+                case "2H":
+                    btn2H.doClick();
+                    break;
+                case "1.5H":
+                    btn1_5H.doClick();
+                    break;
+                case "3H+":
+                    btn3HMore.doClick();
+                    break;
+                case "4H":
+                    btn4H.doClick();
+                    break;
+                case "5H":
+                    btn5H.doClick();
+                    break;
             }
-        });
 
+
+        });
+    }
+
+
+    public void w35s() {
+        auto("w_35s");
     }
 
     public void w65s() {
         auto("w_65s");
-    }
-
-    public void w35s() {
-        auto("w_35s");
     }
 
     public void w95s() {
