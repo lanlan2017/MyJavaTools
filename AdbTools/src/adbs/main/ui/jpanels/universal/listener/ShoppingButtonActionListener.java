@@ -1,5 +1,6 @@
 package adbs.main.ui.jpanels.universal.listener;
 
+import adbs.main.AdbTools;
 import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.adb.listener.ButtonFocusReleaseActionListener;
 import adbs.main.ui.jpanels.time.TimePanels;
@@ -17,37 +18,49 @@ public class ShoppingButtonActionListener extends ButtonFocusReleaseActionListen
 
     @Override
     protected void actionEvent(ActionEvent e) {
-        timePanels.getTimePanel().setVisible(true);
-        timePanels.getTimeLabel().setText("时长(s)");
-        // 关闭单选按钮组
-        // inputPanels.getTimeRadioPanel().setVisible(false);
-        // 逛街20分钟
-        JTextField input1 = timePanels.getInput1();
-        input1.setVisible(true);
 
-        int index = 5;
-        WaitValues.setIndex(index);
-        input1.setText(String.valueOf(WaitValues.values[index]));
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
 
 
-        timePanels.getInput2().setVisible(false);
+                timePanels.getTimePanel().setVisible(true);
+                timePanels.getTimeLabel().setText("时长(s)");
+                // 关闭单选按钮组
+                // inputPanels.getTimeRadioPanel().setVisible(false);
+                // 逛街20分钟
+                JTextField input1 = timePanels.getInput1();
+                input1.setVisible(true);
 
-        // inputPanels.getPlusBtn().setVisible(false);
-        // inputPanels.getMinusBtn().setVisible(false);
-        timePanels.getPlusBtn().setVisible(true);
-        timePanels.getMinusBtn().setVisible(true);
-        timePanels.getInputOkButton().setText("开始逛街");
+                int index = 5;
+                WaitValues.setIndex(index);
+                input1.setText(String.valueOf(WaitValues.values[index]));
 
-        // timePanels.getTimerJLabel().setVisible(false);
-        // timePanels.getTaskCheckBox().setVisible(false);
-        JCheckBox checkBox = timePanels.getTaskCheckBox();
-        checkBox.setVisible(true);
-        checkBox.setToolTipText("逛街结束时 点击 返回键");
 
-        JCheckBox stopCheckBox = timePanels.getStopCheckBox();
-        stopCheckBox.setVisible(false);
+                timePanels.getInput2().setVisible(false);
 
-        // JFramePack.onJComponentActionEvent(e);
-        JFramePack.pack();
+                // inputPanels.getPlusBtn().setVisible(false);
+                // inputPanels.getMinusBtn().setVisible(false);
+                timePanels.getPlusBtn().setVisible(true);
+                timePanels.getMinusBtn().setVisible(true);
+                timePanels.getInputOkButton().setText("开始逛街");
+
+                // timePanels.getTimerJLabel().setVisible(false);
+                // timePanels.getTaskCheckBox().setVisible(false);
+                JCheckBox checkBox = timePanels.getTaskCheckBox();
+                checkBox.setVisible(true);
+                checkBox.setToolTipText("逛街结束时 点击 返回键");
+
+                JCheckBox stopCheckBox = timePanels.getStopCheckBox();
+                stopCheckBox.setVisible(false);
+
+                // JFramePack.onJComponentActionEvent(e);
+                // JFramePack.pack();
+                AdbTools.getInstance().getFrame().pack();
+
+
+            }
+        });
+
     }
 }

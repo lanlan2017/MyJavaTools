@@ -47,26 +47,24 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
     private final RoolBtnRunnable roolBtnRunnable;
 
     /**
-     * 刷视频线程
+     * 刷视频。逛街，阅读,浏览，共用线程。这个几个操作不能同时进行，所以钥共用一个线程。
      */
-    private Thread videoBtnThread;
+    private Thread thread;
 
     /**
-     * 等待线程
-     *
-     * @param inOutputModel
+     * 等待线程，
      */
     private Thread waitBtnThread;
 
-    /**
-     * 锁定线程体
-     */
-
-    private Thread roolBtnThread;
-    /**
-     * 逛街线程体
-     */
-    private Thread shoppingBtnThread;
+    // /**
+    //  * 锁定线程体
+    //  */
+    //
+    // private Thread roolBtnThread;
+    // /**
+    //  * 逛街线程体
+    //  */
+    // private Thread shoppingBtnThread;
     // private UniversalPanels universalPanels;
     // private TimePanels timePanels;
 
@@ -139,7 +137,10 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
 
         if ("开始浏览".equals(ok.getText())) {
             // output.setText("浏览:开始");
-            new Thread(browseRunnable).start();
+            // new Thread(browseRunnable).start();
+
+            startThreadOnece(browseRunnable);
+
         } else if ("开始逛街".equals(ok.getText())) {
             // output.setText("逛街:开始");
             // new Thread(shoppingButtonRunnable).start();
@@ -150,14 +151,7 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
 
             // new Thread(shoppingButtonRunnable).start();
 
-            // 如果线程已经死掉了,或者线程还没创建
-            if (Threads.threadIsNullOrNotAlive(waitBtnThread)) {
-                this.shoppingBtnThread = new Thread(shoppingButtonRunnable);
-                // this.waitBtnThread = shoppingBtnThread;
-                this.shoppingBtnThread.start();
-            } else {
-                System.out.println(shoppingButtonRunnable.getMsg() + " 已经在运行中,请勿重复启动");
-            }
+            startThreadOnece(shoppingButtonRunnable);
 
 
         } else if ("开始锁定".equals(ok.getText())) {
@@ -171,13 +165,14 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
             // new Thread(shoppingButtonRunnable).start();
 
             // 如果线程已经死掉了,或者线程还没创建
-            if (Threads.threadIsNullOrNotAlive(roolBtnThread)) {
-                this.roolBtnThread = new Thread(roolBtnRunnable);
-                this.roolBtnThread.start();
-            } else {
-                System.out.println(roolBtnRunnable.getMsg() + " 已经在运行中,请勿重复启动");
-            }
+            // if (Threads.threadIsNullOrNotAlive(thread)) {
+            //     this.thread = new Thread(roolBtnRunnable);
+            //     this.thread.start();
+            // } else {
+            //     System.out.println(roolBtnRunnable.getMsg() + " 已经在运行中,请勿重复启动");
+            // }
 
+            startThreadOnece(roolBtnRunnable);
 
         } else if ("开始等待".equals(ok.getText())) {
             // output.setText("等待返回线程：开始等待");
@@ -222,12 +217,15 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
                     videoButtonRunnable.setMin(Integer.parseInt(input1Str));
                     videoButtonRunnable.setMax(Integer.parseInt(input2Str));
                     // 如果线程已经死掉了,或者线程还没创建
-                    if (Threads.threadIsNullOrNotAlive(videoBtnThread)) {
-                        videoBtnThread = new Thread(videoButtonRunnable);
-                        videoBtnThread.start();
-                    } else {
-                        System.out.println(videoButtonRunnable.getMsg() + " 已经在运行中,请勿重复启动");
-                    }
+                    // if (Threads.threadIsNullOrNotAlive(thread)) {
+                    //     thread = new Thread(videoButtonRunnable);
+                    //     thread.start();
+                    // } else {
+                    //     System.out.println(videoButtonRunnable.getMsg() + " 已经在运行中,请勿重复启动");
+                    // }
+
+                    startThreadOnece(videoButtonRunnable);
+
                 }
             } else if ("开始阅读".equals(ok.getText())) {
                 // output.setText("阅读:开始");
@@ -239,12 +237,13 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
                     readButtonRunnable.setMin(Integer.parseInt(input1Str));
                     readButtonRunnable.setMax(Integer.parseInt(input2Str));
                     // 如果线程已经死掉了,或者线程还没创建
-                    if (Threads.threadIsNullOrNotAlive(videoBtnThread)) {
-                        videoBtnThread = new Thread(readButtonRunnable);
-                        videoBtnThread.start();
-                    } else {
-                        System.out.println(readButtonRunnable.getMsg() + " 已经在运行中,请勿重复启动");
-                    }
+                    // if (Threads.threadIsNullOrNotAlive(thread)) {
+                    //     thread = new Thread(readButtonRunnable);
+                    //     thread.start();
+                    // } else {
+                    //     System.out.println(readButtonRunnable.getMsg() + " 已经在运行中,请勿重复启动");
+                    // }
+                    startThreadOnece(readButtonRunnable);
                 }
             }
         }
@@ -252,5 +251,16 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
         // JFramePack.onJComponentActionEvent(e, 500);
         JFramePack.onJComponentActionEvent(e, 200);
         // JFramePack.onJComponentActionEvent(e, 0);
+    }
+
+    private void startThreadOnece(CloseableRunnable runnable) {
+        // 如果线程已经死掉了,或者线程还没创建
+        if (Threads.threadIsNullOrNotAlive(thread)) {
+            this.thread = new Thread(runnable);
+            // this.waitBtnThread = shoppingBtnThread;
+            this.thread.start();
+        } else {
+            System.out.println(runnable.getMsg() + " 已经在运行中,请勿重复启动");
+        }
     }
 }

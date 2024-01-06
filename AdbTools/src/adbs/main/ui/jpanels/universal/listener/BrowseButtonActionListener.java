@@ -1,5 +1,6 @@
 package adbs.main.ui.jpanels.universal.listener;
 
+import adbs.main.AdbTools;
 import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.adb.listener.ButtonFocusReleaseActionListener;
 import adbs.main.ui.jpanels.time.TimePanels;
@@ -19,23 +20,32 @@ public class BrowseButtonActionListener extends ButtonFocusReleaseActionListener
 
     @Override
     protected void actionEvent(ActionEvent e) {
-        timePanels.getTimePanel().setVisible(true);
-        timePanels.getTimeLabel().setText("时间(s):");
-        // inputPanels.getTimeRadioPanel().setVisible(true);
-        timePanels.getInput1().setText(String.valueOf(5));
-        timePanels.getInput1().setColumns(4);
-        timePanels.getInput2().setVisible(false);
-        timePanels.getPlusBtn().setVisible(true);
-        timePanels.getMinusBtn().setVisible(true);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
 
-        timePanels.getTaskCheckBox().setVisible(false);
-        JCheckBox stopCheckBox = timePanels.getStopCheckBox();
-        stopCheckBox.setVisible(false);
 
-        timePanels.getInputOkButton().setText("开始浏览");
-        // timePanels.getTimerJLabel().setVisible(false);
-        // 调整窗体到最佳大小
-        // JFramePack.onJComponentActionEvent(e);
-        JFramePack.pack();
+                timePanels.getTimePanel().setVisible(true);
+                timePanels.getTimeLabel().setText("时间(s):");
+                // inputPanels.getTimeRadioPanel().setVisible(true);
+                timePanels.getInput1().setText(String.valueOf(5));
+                timePanels.getInput1().setColumns(4);
+                timePanels.getInput2().setVisible(false);
+                timePanels.getPlusBtn().setVisible(true);
+                timePanels.getMinusBtn().setVisible(true);
+
+                timePanels.getTaskCheckBox().setVisible(false);
+                JCheckBox stopCheckBox = timePanels.getStopCheckBox();
+                stopCheckBox.setVisible(false);
+
+                timePanels.getInputOkButton().setText("开始浏览");
+                // timePanels.getTimerJLabel().setVisible(false);
+                // 调整窗体到最佳大小
+                // JFramePack.onJComponentActionEvent(e);
+                // JFramePack.pack();
+                AdbTools.getInstance().getFrame().pack();
+            }
+        });
+
     }
 }

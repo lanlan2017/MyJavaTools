@@ -58,7 +58,7 @@ public class UniversalPanels {
      */
     private final JButton btnSlideUpAndDown;
 
-    private final JButton btnSlideUpAndDown2;
+    // private final JButton btnSlideUpAndDown2;
 
     private final JButton btnStop;
     /**
@@ -117,19 +117,19 @@ public class UniversalPanels {
 
         btnSlideUpAndDown = getBtnSlideUpAndDown();
 
-        btnSlideUpAndDown2 = intiBtnSlideUpDown2();
+        // btnSlideUpAndDown2 = intiBtnSlideUpDown2();
 
         btnStop = initBtnStop();
 
         // 添加到面板中
         universalPanel.add(readButton);
         universalPanel.add(browseButton);
-        universalPanel.add(waitButton);
         universalPanel.add(videoButton);
         universalPanel.add(shoppingButton);
+        universalPanel.add(waitButton);
         // universalPanel.add(rollingButton);
         universalPanel.add(btnSlideUpAndDown);
-        universalPanel.add(btnSlideUpAndDown2);
+        // universalPanel.add(btnSlideUpAndDown2);
         universalPanel.add(btnStop);
         universalPanel.add(output2);
 
