@@ -25,6 +25,7 @@ public class Threads {
      * @return 如果线程是null, 或者已经死掉, 则返回true.
      */
     public static boolean threadIsNullOrNotAlive(Thread thread) {
-        return thread == null || thread != null && !thread.isAlive();
+        // return thread == null || (thread != null && !thread.isAlive());
+        return thread == null || !thread.isAlive();
     }
 }

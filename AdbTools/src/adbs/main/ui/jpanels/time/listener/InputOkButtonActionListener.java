@@ -63,6 +63,10 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
      */
 
     private Thread roolBtnThread;
+    /**
+     * 逛街线程体
+     */
+    private Thread shoppingBtnThread;
     // private UniversalPanels universalPanels;
     // private TimePanels timePanels;
 
@@ -144,7 +148,17 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
                 shoppingButtonRunnable.setClickTaskBtn(true);
             }
 
-            new Thread(shoppingButtonRunnable).start();
+            // new Thread(shoppingButtonRunnable).start();
+
+            // 如果线程已经死掉了,或者线程还没创建
+            if (Threads.threadIsNullOrNotAlive(waitBtnThread)) {
+                this.shoppingBtnThread = new Thread(shoppingButtonRunnable);
+                // this.waitBtnThread = shoppingBtnThread;
+                this.shoppingBtnThread.start();
+            } else {
+                System.out.println(shoppingButtonRunnable.getMsg() + " 已经在运行中,请勿重复启动");
+            }
+
 
         } else if ("开始锁定".equals(ok.getText())) {
             // output.setText("锁定:开始");
@@ -158,8 +172,8 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
 
             // 如果线程已经死掉了,或者线程还没创建
             if (Threads.threadIsNullOrNotAlive(roolBtnThread)) {
-                roolBtnThread = new Thread(roolBtnRunnable);
-                roolBtnThread.start();
+                this.roolBtnThread = new Thread(roolBtnRunnable);
+                this.roolBtnThread.start();
             } else {
                 System.out.println(roolBtnRunnable.getMsg() + " 已经在运行中,请勿重复启动");
             }
