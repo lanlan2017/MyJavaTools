@@ -194,8 +194,17 @@ public class ScrcpyJPanels {
                     String ip_serial = device.getSerial();
                     device.setSerial(serialOld);
                     device.setName(nameOld);
-                    btnSwitchNetworkDebug.setText(networkDebugging);
-                    btnSwitchNetworkDebug.setBackground(switchNetworkDebugBtnBackground);
+
+
+                    SwingUtilities.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            btnSwitchNetworkDebug.setText(networkDebugging);
+                            btnSwitchNetworkDebug.setBackground(switchNetworkDebugBtnBackground);
+
+                        }
+                    });
+
                     String code = "adb disconnect " + ip_serial;
                     AdbCommands.runAbdCmd(code);
                     // reopenScrcpy();
@@ -216,9 +225,16 @@ public class ScrcpyJPanels {
                 device.setSerial(ip + ":" + port);
                 device.setName(device.getName() + "+");
 
-                btnSwitchNetworkDebug.setText(usbDebugging);
-                switchNetworkDebugBtnBackground = btnSwitchNetworkDebug.getBackground();
-                btnSwitchNetworkDebug.setBackground(Color.PINK);
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        btnSwitchNetworkDebug.setText(usbDebugging);
+                        switchNetworkDebugBtnBackground = btnSwitchNetworkDebug.getBackground();
+                        btnSwitchNetworkDebug.setBackground(Color.PINK);
+                    }
+                });
+
+
                 // reopenScrcpy();
                 btnKillScrcpy.doClick();
                 // ThreadSleep.seconds(2);

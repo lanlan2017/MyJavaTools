@@ -60,11 +60,16 @@ public class WaitButtonRunnable extends CloseableRunnable {
         input1 = timePanels.getInput1();
         // 解析输入文本1中的数字,并计算得到毫秒数
         input1OldText = input1.getText();
-
         input1Background = input1.getBackground();
 
         // 设置文本框背景颜色为品红(MAGENTA)
-        input1.setBackground(Color.PINK);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                input1.setBackground(Color.PINK);
+            }
+        });
+
     }
 
     @Override
@@ -97,7 +102,14 @@ public class WaitButtonRunnable extends CloseableRunnable {
         // 恢复原来的设置
         input1.setText(input1OldText);
         input1.setEditable(true);
-        input1.setBackground(input1Background);
+
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                input1.setBackground(input1Background);
+            }
+        });
+
         JLabel timerJLabel = timePanels.getTimerJLabel();
         timerJLabel.setText("");
 

@@ -145,6 +145,8 @@ public class ActAutoRun implements Runnable {
             case "com.miui.home":
                 //  小米应用市场
             case "com.xiaomi.market":
+                //     小米安装器
+            case "com.miui.packageinstaller":
 
                 //    小米安全中心
             case "com.miui.securitycenter":
@@ -182,7 +184,8 @@ public class ActAutoRun implements Runnable {
         System.out.println("等待一段时间...");
         // ThreadSleep.seconds(30);
         // ThreadSleep.seconds(5);
-        ThreadSleep.seconds(8);
+        ThreadSleep.seconds(7);
+        // ThreadSleep.seconds(8);
         // ThreadSleep.seconds(10);
         // ThreadSleep.seconds(15);
         // ThreadSleep.seconds(20);
@@ -227,6 +230,7 @@ public class ActAutoRun implements Runnable {
             case "com.kuaishou.kgx.novel":
                 switch (actShortName) {
                     case ".ui.activity.HomeActivity":
+                    case "com.kuaishou.novel.read.ReaderActivityV2":
                         timingPanels2.rw();
                         break;
                 }

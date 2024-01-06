@@ -343,7 +343,17 @@ public class ForegroundAppRun implements Runnable {
         // System.out.println("已打开:" + apkOpenedToday);
         System.out.println("所有的apk签到完成!");
         // // 改变背景色，表示签到完成
-        universalPanel.setBackground(Color.pink);
+
+
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                universalPanel.setBackground(Color.pink);
+
+            }
+        });
+
+
     }
 
 
@@ -358,8 +368,17 @@ public class ForegroundAppRun implements Runnable {
             clearCheckInForm();
             // 开启签到检查
             stopAppCheck = false;
-            // 恢复原来的背景色，表示还没签到完成
-            universalPanel.setBackground(background);
+
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+
+                    // 恢复原来的背景色，表示还没签到完成
+                    universalPanel.setBackground(background);
+                }
+            });
+
+
         }
     }
 

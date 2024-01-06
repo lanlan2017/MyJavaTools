@@ -56,7 +56,13 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
             oldInput1Text = input1.getText();
             input1.setEditable(false);
             input1Background = input1.getBackground();
-            input1.setBackground(Color.PINK);
+
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    input1.setBackground(Color.PINK);
+                }
+            });
 
         }
     }
@@ -194,7 +200,6 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
         }
 
 
-
         if (timePanels.getTimerJLabel().isVisible()) {
             JTextField input1 = timePanels.getInput1();
             // 恢复原来的值
@@ -202,7 +207,14 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
             // 可以重新编辑
             input1.setEditable(true);
             // 恢复原来的颜色
-            input1.setBackground(input1Background);
+
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    input1.setBackground(input1Background);
+                }
+            });
+
         }
         // 弹窗提醒
         timePanels.showConfirmDialog();
