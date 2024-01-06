@@ -77,7 +77,7 @@ public class ActAutoRun implements Runnable {
         // 打开了新的APP
         System.out.println("打开了新的APP");
         switch (offerPackageName) {
-            // 原来的应用是趣头条
+            // 趣头条
             case "com.jifen.qukan":
                 // timingPanels2.w180s();
                 // break;
@@ -92,13 +92,21 @@ public class ActAutoRun implements Runnable {
             case "com.dragon.read":
             case "com.xs.fm":
             case "com.ss.android.ugc.aweme.lite":
+            case "com.ss.android.ugc.live":
+                //    抖音
+            case "com.ss.android.ugc.aweme":
                 // 番茄畅听
                 timingPanels2.w180s();
                 break;
 
+            // 百度极速版
             case "com.baidu.searchbox.lite":
-                // 百度极速版
+                //    快手极速版
             case "com.kuaishou.nebula":
+                //    快手
+            case "com.smile.gifmaker":
+                //    悟空浏览器
+            case "com.cat.readall":
                 timingPanels2.w95s();
                 break;
         }
@@ -114,16 +122,40 @@ public class ActAutoRun implements Runnable {
         boolean b;
         switch (packageName) {
             // 任务视图程序
-            case "com.huawei.appmarket":
-            case "com.huawei.android.launcher":
             case "com.android.systemui":
+                // 安卓设置
+            case "com.android.settings":
+                // 安卓短信
+            case "com.android.mms":
+                //    搞机工具箱
             case "com.byyoung.setting":
+                //    华为应用市场
+            case "com.huawei.appmarket":
+                //    华为桌面
+            case "com.huawei.android.launcher":
+                //    华为运动健康
+            case "com.huawei.health":
+                //    OPPO任务视图
             case "com.coloros.recents":
+                //    OPPO桌面
+            case "com.oppo.launcher":
+                //    OPPO手机管家
+            case "com.coloros.safecenter":
+                //    小米桌面
             case "com.miui.home":
+                //  小米应用市场
+            case "com.xiaomi.market":
+
+                //    小米安全中心
             case "com.miui.securitycenter":
-                //    应用市场
-                // 搞机工具箱
-            //    小米安全检查?
+                //    运动健康OPPO
+            case "com.free.pedometer":
+                //  魅族桌面
+            case "com.meizu.flyme.launcher":
+                //    魅族运动
+            case "com.meizu.net.pedometer":
+                //    魅族应用商店
+            case "com.meizu.mstore":
                 b = false;
                 break;
             default:
@@ -189,6 +221,25 @@ public class ActAutoRun implements Runnable {
             case "com.ss.android.article.video":
                 xiGuaShiPin(actShortName);
                 break;
+            case "com.xunmeng.pinduoduo":
+                pinDuoDuo(actShortName);
+                break;
+            case "com.kuaishou.kgx.novel":
+                switch (actShortName) {
+                    case ".ui.activity.HomeActivity":
+                        timingPanels2.rw();
+                        break;
+                }
+                break;
+        }
+    }
+
+    private void pinDuoDuo(String actShortName) {
+        switch (actShortName) {
+            // case ".ui.activity.HomeActivity":
+            case ".ui.activity.HomeActivity":
+                timingPanels2.vw();
+                break;
         }
     }
 
@@ -214,10 +265,10 @@ public class ActAutoRun implements Runnable {
                 break;
             //    签到红包界面
             case "com.taobao.themis.container.app.TMSActivity":
+            case "com.taobao.browser.BrowserActivity":
                 timingPanels2.s();
                 break;
             // 浏览领金币界面
-            case "com.taobao.browser.BrowserActivity":
             case "com.taobao.browser.exbrowser.BrowserUpperActivity":
                 // timingPanels2.s();
                 timingPanels2.s35s();
@@ -239,6 +290,7 @@ public class ActAutoRun implements Runnable {
                 timingPanels2.s35s();
                 break;
             case ".TaoLiveVideoActivity":
+            case "com.taobao.video.VideoListActivity":
                 timingPanels2.vw();
                 break;
             case "com.qq.e.ads.PortraitADActivity":

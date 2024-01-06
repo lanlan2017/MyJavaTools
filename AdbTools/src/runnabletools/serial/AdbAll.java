@@ -37,7 +37,7 @@ public class AdbAll {
             case "task kill yd":
             case "task kill home yd":
                 taskKillOpenAll(true, true, true, true);
-                taskKillOpenAll(true, true, true, true);
+                // taskKillOpenAll(true, true, true, true);
                 break;
 
         }
