@@ -1,5 +1,7 @@
 package adbs.cmd;
 
+//import tools.process.ProcessRunner;
+
 import tools.process.ProcessRunner;
 
 import java.util.ArrayList;
@@ -32,7 +34,7 @@ public class CmdRun {
         command.set(command.size() - 1, code);
         ProcessBuilder builder = new ProcessBuilder(command);
         ProcessRunner runner = new ProcessRunner();
-        // runner.runProcess(builder);
+         runner.runProcess(builder);
         runner.runOnly(builder);
 
         // return runCmd();

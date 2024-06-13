@@ -3,6 +3,7 @@ package adbs.main.run;
 import adbs.cmd.CmdRun;
 import adbs.main.AdbTools;
 import adbs.main.ui.jpanels.app.AppPanels;
+import adbs.main.ui.jpanels.app.AppPanels;
 import adbs.main.ui.jpanels.tools.ToolsJPanels;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
 import adbs.tools.thread.ThreadSleep;
