@@ -67,22 +67,23 @@ public class SCal {
                             break;
                     }
 //                    拼接公式
-                    out = group_4 + g_1 + decimal + "=" + jieGuo;
+                    out = "\n" + group_4 + g_1 + decimal + "=" + jieGuo;
 
                     System.out.println(out);
 //                    ClipboardTools.toClip(out);
-                    SystemClipboard.setSysClipboardText(out);
+//                    SystemClipboard.setSysClipboardText(out);
 
                     System.out.print("加入日期?(y/n):");
                     String line = scanner.nextLine();
                     if (line.equalsIgnoreCase("y")) {
                         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                         String formatStr = dateFormat.format(new Date());
-                        out = "\n## " + formatStr + "\n" + out;
+                        out = "\n## " + formatStr + out;
                         System.out.println("-------------------");
                         System.out.println(out);
                         System.out.println("-------------------");
                     }
+                    SystemClipboard.setSysClipboardText(out);
                 }
             }
 
