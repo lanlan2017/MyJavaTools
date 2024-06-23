@@ -434,6 +434,7 @@ latex:
   ss: tools.markdown.math.LaTeX.ss
 
 hexo:
+  # FM。bat
   frontmatter:
     # 生成FrontMatter
     default: tools.markdown.hexo.frontmatter.FrontMatterGenerator.doOneArgIsFilePath

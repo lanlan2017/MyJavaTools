@@ -1,6 +1,4 @@
 @echo off
-@REM 修改当前cmd的编码为utf8
-@REM chcp 65001
 :: 进入当前盘符
 %~d0
 :: 进入当前文件所在目录
