@@ -5,10 +5,10 @@ import adbs.main.run.ActAutoRun;
 import adbs.main.run.BatteryLevelRun2;
 import adbs.main.run.ForegroundAppRun;
 import adbs.main.run.IsTest;
-import adbs.main.ui.jpanels.app.AppPanels;
-import adbs.main.ui.jpanels.check.CheckJPanels;
 import adbs.main.ui.jpanels.adb.AdbJPanels;
+import adbs.main.ui.jpanels.app.AppPanels;
 import adbs.main.ui.jpanels.auto.AutoPanels;
+import adbs.main.ui.jpanels.check.CheckJPanels;
 import adbs.main.ui.jpanels.scrcpy.ScrcpyJPanels;
 import adbs.main.ui.jpanels.time.TimePanels;
 import adbs.main.ui.jpanels.timeauto2.TimingPanels2;
@@ -22,10 +22,7 @@ import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.util.*;
 
 public class AdbTools {
@@ -129,9 +126,13 @@ public class AdbTools {
 
     }
 
+    /**
+     * 窗体设置，最小化，关闭按钮设置
+     */
     private void frameSettings() {
         // 取消默认关闭操作
         frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        // 关闭窗体之前提醒
         // 自己实现windowClosing
         frame.addWindowListener(new WindowAdapter() {
             @Override
@@ -152,11 +153,38 @@ public class AdbTools {
                     // default:
                     //     frame.pack();
                     //     break;
+                    default:
+                        break;
+                    // throw new IllegalStateException("Unexpected value: " + result);
                 }
             }
         });
+
+        // 添加窗口状态监听器
+        frame.addWindowStateListener(new WindowStateListener() {
+            @Override
+            public void windowStateChanged(WindowEvent e) {
+                if (e.getNewState() == Frame.ICONIFIED) {
+                    // 检查窗口是否被最小化
+                    String message = "最小化" + device.getName() + "?";
+//                     String title = "确认";
+                    String title = "";
+                    int result = JOptionPane.showConfirmDialog(frame,
+                            message, title,
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE);
+                    if (result != JOptionPane.YES_OPTION) {
+                        // 如果用户点击“否”，则取消最小化操作并恢复原窗口位置
+                        frame.setExtendedState(Frame.NORMAL);
+                    }
+                }
+            }
+        });
+
+
         // 永远置顶
-        frame.setAlwaysOnTop(true);
+        //        frame.setAlwaysOnTop(true);
+
         // 调整窗体到最佳大小
         frame.pack();
         // 显示窗体
