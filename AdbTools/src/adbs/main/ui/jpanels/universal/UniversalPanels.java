@@ -8,7 +8,7 @@ import adbs.main.ui.inout.listener.StopBtnAcListener2;
 import adbs.main.ui.jpanels.time.TimePanels;
 import adbs.main.ui.jpanels.universal.listener.*;
 import adbs.main.ui.jpanels.universal.pinyin.FileCreator;
-import adbs.main.ui.jpanels.universal.pinyin.PinyinUtils;
+import adbs.main.ui.jpanels.universal.pinyin.PinyinConverter;
 import adbs.python.Region;
 import config.AdbToolsProperties;
 import tools.swing.button.AbstractButtons;
@@ -155,42 +155,52 @@ public class UniversalPanels {
         btnPy.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String msg = "";
-                String name = AdbTools.getInstance().getDevice().getName();
 
-                System.out.println("name = " + name);
-                if (name.endsWith("+")) {
+                //如果线程不存在，或者线程存在，但是线程死掉了
+                if (pyThread == null || !pyThread.isAlive()) {
+                    System.out.println("创建新的py线程");
 
-                    name = name.substring(0, name.length() - 1);
-                }
-                System.out.println("name = " + name);
 
-                String packageName = AdbGetPackage.getTopPackageName(AdbTools.getInstance().getDevice().getSerial());
-                System.out.println("packageName = " + packageName);
+                    String msg = "";
+                    String deviceName = AdbTools.getInstance().getDevice().getName();
 
-                String property = AdbToolsProperties.moneyApkPro.getProperty(packageName);
-                System.out.println("property = " + property);
-                if (!property.equals(packageName)) {
-
-                    String pinyin = PinyinUtils.convertToPinyinWithCapitalizedFirstLetter(property);
-
-//                    String pyPath = "AdbToolsPythons"+"\\"+name+"\\"+property+"\\1.py";
-                    String pyPath = "AdbToolsPythons" + "\\" + name + "\\" + pinyin + "\\1.py";
-                    System.out.println("pyPath = " + pyPath);
-
-                    FileCreator.createFile(pyPath);
-//                    new File
-
-                    if (pyRun == null) {
-                        pyRun = new PythonCloseableRun(msg, pyPath, output2);
+//                    System.out.println("deviceName = " + deviceName);
+                    if (deviceName.endsWith("+")) {
+                        deviceName = deviceName.substring(0, deviceName.length() - 1);
                     }
-                    //如果线程不存在，或者线程存在，但是线程死掉了
-                    if (pyThread == null || !pyThread.isAlive()) {
+//                    System.out.println("deviceName = " + deviceName);
+
+                    String packageName = AdbGetPackage.getTopPackageName(AdbTools.getInstance().getDevice().getSerial());
+//                    System.out.println("packageName = " + packageName);
+
+                    // 获取应用名（中文名）
+                    String chName = AdbToolsProperties.moneyApkPro.getProperty(packageName);
+                    System.out.println("chName = " + chName);
+                    if (!chName.equals(packageName)) {
+//                    new File
+//                        if (pyRun == null) {
+//
+                            //获取应用中文名称对应的汉语拼音
+//                            String pinyin = PinyinUtils.convertToPinyinWithCapitalizedFirstLetter(chName);
+                            String pinyin = PinyinConverter.convertToPinyin(chName);
+
+                            System.out.println("pinyin = " + pinyin);
+//                    String pyPath = "AdbToolsPythons"+"\\"+deviceName+"\\"+chName+"\\1.py";
+                            //拼接Python文件的路径
+                            String pyPath = "AdbToolsPythons" + "\\" + deviceName + "\\" + pinyin + "\\1.py";
+                            System.out.println("pyPath = " + pyPath);
+                            // 如果文件不存在，则创建文件
+                            FileCreator.createFile(pyPath);
+                            pyRun = new PythonCloseableRun(msg, pyPath, output2);
+//                        }
                         //重新创建线程
                         pyThread = new Thread(pyRun);
                         pyThread.start();
                     }
 
+
+                } else {
+                    System.out.println("py线程运行中，请勿重复启动");
                 }
 
 

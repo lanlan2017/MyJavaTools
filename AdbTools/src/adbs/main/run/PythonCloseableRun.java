@@ -4,8 +4,6 @@ import adbs.cmd.CmdRun;
 import adbs.cmd.PyAutoGui;
 import adbs.cmd.PythonRun;
 import adbs.cmd.Robots;
-import adbs.main.AdbTools;
-import adbs.main.ui.jpanels.universal.runnable.CloseableRunnable;
 import adbs.python.PythonGenerator;
 import tools.file.Files;
 import tools.format.date.DateFormatters;
@@ -32,14 +30,14 @@ public class PythonCloseableRun implements Runnable {
      * python进程输出的标签
      */
     private JLabel output;
-    /**
-     * 可关闭线程体
-     */
-    private CloseableRunnable closeableRun;
-    /**
-     * Python进程结束后触发的按钮
-     */
-    private JButton afterBtn;
+//    /**
+//     * 可关闭线程体
+//     */
+//    private CloseableRunnable closeableRun;
+//    /**
+//     * Python进程结束后触发的按钮
+//     */
+//    private JButton afterBtn;
     /**
      * 是否结束线程
      */
@@ -47,7 +45,8 @@ public class PythonCloseableRun implements Runnable {
     /**
      * 默认等待时间
      */
-    private int waitSeconds = 35;
+//    private int waitSeconds = 35;
+    private int waitSeconds = 45;
 
     /**
      * 创建Python执行线程提
@@ -60,14 +59,6 @@ public class PythonCloseableRun implements Runnable {
         this.msg = msg;
         this.pyPath = pyPath;
         this.output = output;
-    }
-
-    public PythonCloseableRun(String msg, String pyPath, JLabel output, CloseableRunnable closeableRun, JButton afterBtn) {
-        this.msg = msg;
-        this.pyPath = pyPath;
-        this.output = output;
-        this.closeableRun = closeableRun;
-        this.afterBtn = afterBtn;
     }
 
     public void setStop(boolean stop) {
@@ -97,7 +88,7 @@ public class PythonCloseableRun implements Runnable {
         // 默认循环不停止
         stop = false;
         beforeLoop();
-        AdbTools.getInstance().addRunningInSet(this);
+//        AdbTools.getInstance().addRunningInSet(this);
         while (!stop) {
             loopBody();
         }
@@ -181,10 +172,10 @@ public class PythonCloseableRun implements Runnable {
         int extraWaitingTime = extraWaitingTime(img);
         // 如果图片以begin_开头的话
         if (img.startsWith("begin_")) {
-            // 先停止辅助的线程
-            if (closeableRun != null) {
-                closeableRun.stop();
-            }
+//            // 先停止辅助的线程
+//            if (closeableRun != null) {
+//                closeableRun.stop();
+//            }
             // 点击左键
             Robots.leftMouseButtonClick(point);
             // s2;
@@ -200,10 +191,10 @@ public class PythonCloseableRun implements Runnable {
             avoidOcclusion(point);
 
             Threads.sleep(1500);
-            // 触发后续的按键
-            if (afterBtn != null) {
-                afterBtn.doClick();
-            }
+//            // 触发后续的按键
+//            if (afterBtn != null) {
+//                afterBtn.doClick();
+//            }
         } else if (img.startsWith("click_")) {
             Robots.leftMouseButtonClick(point);
             // isNotStopThenWait(2 + extraWaitingTime);
@@ -220,21 +211,12 @@ public class PythonCloseableRun implements Runnable {
         } else if (img.startsWith("GuangJie_")) {
             isNotStopThenWait(3);
         }
-//         else if (img.startsWith("scrollUp")) {
-//             System.out.println("从下向上滑动,跳过精选里的直播");
-//             // AdbCommands.swipeBottom2TopOnLeft(DeviceListener.getPhoneId());
-//             // AdbCommands.swipeBottom2TopOnMiddle(DeviceListener.getPhoneId(), DeviceListener.getWidth(), DeviceListener.getHeight());
-//             // AdbCommands.swipeBottom2TopOnMiddle(DeviceListener.getPhoneId(), DeviceListener.getWidth(), DeviceListener.getHeight());
-//             // AdbCommands.swipeBottom2TopOnMiddle(DeviceListener.getSelectedPhoneId(), DeviceListener.getWidth(), DeviceListener.getHeight());
-//             AdbCommands.swipeBottom2TopOnMiddle(AdbTools.device.getId(), AdbTools.device.getWidth(), AdbTools.device.getHeight());
-//             //多等待3秒
-//             Robots.delay(3 * 1000);
-//         }
-        else {
-            Robots.leftMouseButtonClick(point);
-            // Robots.delay(4 * 1000);
-            isNotStopThenWait(3 + extraWaitingTime);
-        }
+
+//        else {
+//            Robots.leftMouseButtonClick(point);
+//            // Robots.delay(4 * 1000);
+//            isNotStopThenWait(3 + extraWaitingTime);
+//        }
         output.setText("无");
     }
 
