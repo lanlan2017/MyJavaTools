@@ -43,18 +43,18 @@ public class ActAutoRun implements Runnable {
      * @param offer    之前的APP
      */
     private void actChange(AppNames appNames, AppNames offer) {
-        System.out.println("   offer = " + offer);
-        System.out.println("appNames = " + appNames);
+//        System.out.println("   offer = " + offer);
+//        System.out.println("appNames = " + appNames);
         if (offer != null) {
             String offerPackageName = offer.getPackageName();
             String packageName = appNames.getPackageName();
             // System.out.println("offerPackageName = " + offerPackageName);
             // System.out.println("packageName = " + packageName);
-            System.out.println("offerPackageName = " + offerPackageName);
-            System.out.println("packageName = " + packageName);
+//            System.out.println("offerPackageName = " + offerPackageName);
+//            System.out.println("packageName = " + packageName);
             if (packageName.equals(offerPackageName)) {
                 // 在同一个APP内
-                System.out.println("在同一个APP内");
+//                System.out.println("在同一个APP内");
                 actChange(appNames);
             } else {
                 // 新的APP不是任务APP
@@ -75,7 +75,7 @@ public class ActAutoRun implements Runnable {
      */
     private void appChange(String offerPackageName) {
         // 打开了新的APP
-        System.out.println("打开了新的APP");
+//        System.out.println("打开了新的APP");
         switch (offerPackageName) {
             // 趣头条
             case "com.jifen.qukan":
@@ -199,9 +199,9 @@ public class ActAutoRun implements Runnable {
     private void actChange(AppNames appNames) {
         String packageName = appNames.getPackageName();
         String actShortName = appNames.getActShortName();
-        System.out.println("\n界面改变，给出建议...");
-        System.out.println("    packageName = " + packageName);
-        System.out.println("    actShortName = " + actShortName);
+//        System.out.println("\n界面改变，给出建议...");
+//        System.out.println("    packageName = " + packageName);
+//        System.out.println("    actShortName = " + actShortName);
         switch (packageName) {
             // case "com.android.dialer/.DialtactsActivity"
             case "com.android.dialer":
@@ -311,18 +311,18 @@ public class ActAutoRun implements Runnable {
      * @param actShortName
      */
     private void quTouTiao(String actShortName) {
-        System.out.println("趣头条APP");
+//        System.out.println("趣头条APP");
         switch (actShortName) {
             // 文章界面
             case ".content.newsdetail.news.NewsDetailNewActivity":
-                System.out.println("文章界面");
-                System.out.println();
+//                System.out.println("文章界面");
+//                System.out.println();
                 universalPanels.getBrowseButton().doClick();
                 break;
             //    广告界面
             case "com.iclicash.advlib.ui.front.InciteADActivity":
             case "com.qq.e.ads.PortraitADActivity":
-                System.out.println("广告界面");
+//                System.out.println("广告界面");
                 // timingPanels2.getjComboBox().setSelectedIndex(0);
                 // timingPanels2.auto("w_65s");
                 timingPanels2.w65s();
@@ -337,11 +337,11 @@ public class ActAutoRun implements Runnable {
      * @param actShortName
      */
     private void dianHua(String actShortName) {
-        System.out.println("电话");
+//        System.out.println("电话");
         switch (actShortName) {
             case ".DialtactsActivity":
             case ".activities.DialtactsActivity":
-                System.out.println("来了啊");
+//                System.out.println("来了啊");
                 // JComboBox<String> stringJComboBox = adbTools.getTimingPanels2().getjComboBox();
                 JComboBox<String> stringJComboBox = timingPanels2.getjComboBox();
                 SwingUtilities.invokeLater(new Runnable() {

@@ -4,6 +4,8 @@ import adbs.main.AdbTools;
 import tools.file.Files;
 import tools.format.date.DateFormatters;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
@@ -107,17 +109,33 @@ public class PythonGenerator {
         String pythonPathDir = pythonPath.substring(0, pythonPath.lastIndexOf("\\"));
         // String brand = Device.getBrand();
         // String brand = AdbTools.device.getBrand2();
-        String brand = AdbTools.getInstance().getDevice().getBrand2();
+        //String brand = AdbTools.getInstance().getDevice().getBrand2();
 
         // System.out.println("品牌名:" + simpleId);
         // System.out.println("厂商:" + brand);
         // 生成图片数组
-        String images = imagesInDir2Array(pythonPathDir, brand);
-         System.out.println(images);
+        String images = imagesInDir2Array(pythonPathDir);
+//        System.out.println(images);
+
+//        // 获取屏幕默认的Toolkit
+//        Toolkit toolkit = Toolkit.getDefaultToolkit();
+//        // 获取屏幕的尺寸（像素）
+//        Dimension screenSize = toolkit.getScreenSize();
+//        // 输出屏幕的宽度和高度
+//        System.out.println("屏幕宽度（像素）: " + screenSize.width);
+//        System.out.println("屏幕高度（像素）: " + screenSize.height);
+        JButton btnScrcpyOrder = AdbTools.getInstance().getUniversalPanels().getBtnScrcpyOrder();
+        String text = btnScrcpyOrder.getText();
+
+
+//        String regioncode = "";
+        String regionCode = Region.regionCode(text);
+
+
         // 拼接完整的Python代码
-        String pythonCode = getPythonHead() + images + getPythonTail();
+        String pythonCode = getPythonHead() + regionCode + images + getPythonTail();
         //
-         System.out.println(pythonCode);
+//        System.out.println(pythonCode);
         // 把完整的Python代码写入Python文件
         Files.writerFile(pythonFile, pythonCode);
         // imagesInDir2SwitchCases(pythonPathDir);
@@ -128,10 +146,9 @@ public class PythonGenerator {
      * 生成一个存放 目录下所有'.png'文件的python数组
      *
      * @param dirPath 目录的字符串名称（绝对路径）
-     * @param brand   手机的品牌，制造商
      * @return
      */
-    private static String imagesInDir2Array(String dirPath, String brand) {
+    private static String imagesInDir2Array(String dirPath) {
         File dir = new File(dirPath);
         if (dir.isDirectory()) {
             // 获取目录下的所有.png文件列表
@@ -163,15 +180,6 @@ public class PythonGenerator {
         return "";
     }
 
-//    /**
-//     * 是否需要添加转义字符
-//     *
-//     * @param s 图片名称
-//     * @return 如果图片以字母'b','a','r'开头，则返回true,否则返回false。
-//     */
-//    private static boolean isNeedToAddEscape(String s) {
-//        return s.startsWith("b") || s.startsWith("a") || s.startsWith("r");
-//    }
 
     /**
      * 获取Python头部代码
@@ -215,7 +223,8 @@ public class PythonGenerator {
         pythonTail.append("while flag:\n");
         pythonTail.append("    for x in images:\n");
         pythonTail.append("        # 在屏幕上查找指定的图片\n");
-        pythonTail.append("        location = pyautogui.locateCenterOnScreen(x, confidence=0.9)\n");
+//        pythonTail.append("        location = pyautogui.locateCenterOnScreen(x, confidence=0.9)\n");
+        pythonTail.append("        location = pyautogui.locateCenterOnScreen(x, confidence=0.9,region=region)\n");
         pythonTail.append("        # 如果找到指定的图片\n");
         pythonTail.append("        if location is not None:\n");
         pythonTail.append("            print(x[x.rfind(\"\\\\\")+1:], location)\n");

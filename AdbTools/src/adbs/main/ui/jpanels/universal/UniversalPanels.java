@@ -9,6 +9,7 @@ import adbs.main.ui.jpanels.time.TimePanels;
 import adbs.main.ui.jpanels.universal.listener.*;
 import adbs.main.ui.jpanels.universal.pinyin.FileCreator;
 import adbs.main.ui.jpanels.universal.pinyin.PinyinUtils;
+import adbs.python.Region;
 import config.AdbToolsProperties;
 import tools.swing.button.AbstractButtons;
 
@@ -44,17 +45,7 @@ public class UniversalPanels {
      * 逛街按钮
      */
     private JButton shoppingButton;
-    //
-    // /**
-    //  * 滚动
-    //  */
-    // private JButton rollingButton;
-//    /**
-//     * 快手上下滚动滑动功能
-//     */
-//    private final JButton btnSlideUpAndDown;
 
-    // private final JButton btnSlideUpAndDown2;
 
     private final JButton btnStop;
     /**
@@ -63,6 +54,15 @@ public class UniversalPanels {
     private JLabel output2;
     private PythonCloseableRun pyRun;
     private Thread pyThread;
+
+    private final JButton btnScrcpyOrder;
+
+    private static final int MAX_VALUE;
+    private int currentValue = 0;
+
+    static {
+        MAX_VALUE = Region.parts;
+    }
 
     /**
      * 初始化通用面板
@@ -109,6 +109,47 @@ public class UniversalPanels {
 
         btnStop = initBtnStop();
 
+        JButton btnPy = initBtnPy();
+        btnScrcpyOrder = new JButton("0");
+
+        btnScrcpyOrder.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                currentValue = (currentValue + 1) % (MAX_VALUE + 1); // 更新值并循环
+                btnScrcpyOrder.setText(String.valueOf(currentValue));
+            }
+        });
+
+        JButton btnKPy = intiBtnKPy();
+
+        // 添加到面板中
+        universalPanel.add(readButton);
+        universalPanel.add(browseButton);
+        universalPanel.add(videoButton);
+        universalPanel.add(shoppingButton);
+        universalPanel.add(waitButton);
+        universalPanel.add(btnStop);
+        universalPanel.add(btnScrcpyOrder);
+        universalPanel.add(btnPy);
+        universalPanel.add(btnKPy);
+        universalPanel.add(output2);
+
+        AbstractButtons.setMarginInButtonJPanel(universalPanel, 1);
+    }
+
+    private JButton intiBtnKPy() {
+        JButton btnKPy = new JButton("KP");
+        btnKPy.setToolTipText("杀死后台的Py线程");
+        btnKPy.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pyRun.stop();
+            }
+        });
+        return btnKPy;
+    }
+
+    private JButton initBtnPy() {
         JButton btnPy = new JButton("P");
         btnPy.setToolTipText("图片识别");
         btnPy.addActionListener(new ActionListener() {
@@ -155,27 +196,7 @@ public class UniversalPanels {
 
             }
         });
-        JButton btnKPy = new JButton("KP");
-        btnKPy.setToolTipText("杀死后台的Py线程");
-        btnKPy.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pyRun.stop();
-            }
-        });
-
-        // 添加到面板中
-        universalPanel.add(readButton);
-        universalPanel.add(browseButton);
-        universalPanel.add(videoButton);
-        universalPanel.add(shoppingButton);
-        universalPanel.add(waitButton);
-        universalPanel.add(btnStop);
-        universalPanel.add(btnPy);
-        universalPanel.add(btnKPy);
-        universalPanel.add(output2);
-
-        AbstractButtons.setMarginInButtonJPanel(universalPanel, 1);
+        return btnPy;
     }
 
 
@@ -216,6 +237,10 @@ public class UniversalPanels {
 
     public JButton getBtnStop() {
         return btnStop;
+    }
+
+    public JButton getBtnScrcpyOrder() {
+        return btnScrcpyOrder;
     }
 
     public void vidioBtnDoClick() {
