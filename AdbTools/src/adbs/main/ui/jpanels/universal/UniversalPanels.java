@@ -177,22 +177,15 @@ public class UniversalPanels {
                     String chName = AdbToolsProperties.moneyApkPro.getProperty(packageName);
                     System.out.println("chName = " + chName);
                     if (!chName.equals(packageName)) {
-//                    new File
-//                        if (pyRun == null) {
-//
-                            //获取应用中文名称对应的汉语拼音
-//                            String pinyin = PinyinUtils.convertToPinyinWithCapitalizedFirstLetter(chName);
-                            String pinyin = PinyinConverter.convertToPinyin(chName);
+                        String pinyin = PinyinConverter.convertToPinyin(chName);
 
-                            System.out.println("pinyin = " + pinyin);
-//                    String pyPath = "AdbToolsPythons"+"\\"+deviceName+"\\"+chName+"\\1.py";
-                            //拼接Python文件的路径
-                            String pyPath = "AdbToolsPythons" + "\\" + deviceName + "\\" + pinyin + "\\1.py";
-                            System.out.println("pyPath = " + pyPath);
-                            // 如果文件不存在，则创建文件
-                            FileCreator.createFile(pyPath);
-                            pyRun = new PythonCloseableRun(msg, pyPath, output2);
-//                        }
+                        System.out.println("pinyin = " + pinyin);
+                        //拼接Python文件的路径
+                        String pyPath = "AdbToolsPythons" + "\\" + deviceName + "\\" + pinyin + "\\1.py";
+                        System.out.println("pyPath = " + pyPath);
+                        // 如果文件不存在，则创建文件
+                        FileCreator.createFile(pyPath);
+                        pyRun = new PythonCloseableRun(msg, pyPath, output2);
                         //重新创建线程
                         pyThread = new Thread(pyRun);
                         pyThread.start();
