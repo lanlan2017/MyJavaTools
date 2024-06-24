@@ -13,6 +13,7 @@ import config.AdbToolsProperties;
 import tools.config.properties.PropertiesTools;
 import tools.copy.SystemClipboard;
 import tools.swing.button.AbstractButtons;
+import tools.swing.dialog.DialogFactory;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -239,22 +240,65 @@ public class AdbJPanels {
         btnGetAct = new JButton("A");
         // btnGetAct = new JButton("a");
         btnGetAct.setToolTipText("获取顶部APP的activity");
-        btnGetAct.addActionListener(new BtnActionListener() {
+//        btnGetAct.addActionListener(new BtnActionListener() {
+        btnGetAct.addActionListener(new ActionListener() {
             @Override
-            public void action(ActionEvent e) {
-                String actName = AdbGetPackage.getActName();
-                System.out.println();
-                System.out.println("actName = " + actName);
-                // System.out.println();
-                String serial = AdbTools.getInstance().getDevice().getSerial();
-                String openAct = "adb -s " + serial + " shell am start -n " + actName;
-                System.out.println("openAct = " + openAct);
-                // System.out.println();
-                String openActJavaStr = "String openAct = \"adb -s \" + device.getSerial() + \" shell am start -n " + actName + "\";";
-                // System.out.println("openActJavaStr = " + openActJavaStr);
-                System.out.println();
-                String clipOut = "// " + actName + "\n// " + openAct + "\n// " + openActJavaStr;
-                SystemClipboard.setSysClipboardText(clipOut);
+            public void actionPerformed(ActionEvent e) {
+
+//                JDialog dialogOk = DialogFactory.createDialogOk("", "获取顶部activity", new ActionListener() {
+//                    @Override
+//                    public void actionPerformed(ActionEvent e) {
+//                        String actName = AdbGetPackage.getActName();
+//                        System.out.println();
+//                        System.out.println("actName = " + actName);
+//                        // System.out.println();
+//                        String serial = AdbTools.getInstance().getDevice().getSerial();
+//                        String openAct = "adb -s " + serial + " shell am start -n " + actName;
+//                        System.out.println("openAct = " + openAct);
+//                        // System.out.println();
+//                        String openActJavaStr = "String openAct = \"adb -s \" + device.getSerial() + \" shell am start -n " + actName + "\";";
+//                        // System.out.println("openActJavaStr = " + openActJavaStr);
+//                        System.out.println();
+//                        String clipOut = "// " + actName + "\n// " + openAct + "\n// " + openActJavaStr;
+//                        SystemClipboard.setSysClipboardText(clipOut);
+//                    }
+//                });
+//                dialogOk.setLocationRelativeTo(AdbTools.getInstance().getFrame());
+//                dialogOk.setVisible(true);
+
+                DialogFactory.showDialogOk(AdbTools.getInstance().getFrame(), "ACT", "获取顶部APP的Activity", new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String actName = AdbGetPackage.getActName();
+                        System.out.println();
+                        System.out.println("actName = " + actName);
+                        // System.out.println();
+                        String serial = AdbTools.getInstance().getDevice().getSerial();
+                        String openAct = "adb -s " + serial + " shell am start -n " + actName;
+                        System.out.println("openAct = " + openAct);
+                        // System.out.println();
+                        String openActJavaStr = "String openAct = \"adb -s \" + device.getSerial() + \" shell am start -n " + actName + "\";";
+                        // System.out.println("openActJavaStr = " + openActJavaStr);
+                        System.out.println();
+                        String clipOut = "// " + actName + "\n// " + openAct + "\n// " + openActJavaStr;
+                        SystemClipboard.setSysClipboardText(clipOut);
+                    }
+                });
+
+
+//                String actName = AdbGetPackage.getActName();
+//                System.out.println();
+//                System.out.println("actName = " + actName);
+//                // System.out.println();
+//                String serial = AdbTools.getInstance().getDevice().getSerial();
+//                String openAct = "adb -s " + serial + " shell am start -n " + actName;
+//                System.out.println("openAct = " + openAct);
+//                // System.out.println();
+//                String openActJavaStr = "String openAct = \"adb -s \" + device.getSerial() + \" shell am start -n " + actName + "\";";
+//                // System.out.println("openActJavaStr = " + openActJavaStr);
+//                System.out.println();
+//                String clipOut = "// " + actName + "\n// " + openAct + "\n// " + openActJavaStr;
+//                SystemClipboard.setSysClipboardText(clipOut);
             }
         });
         return btnGetAct;
@@ -266,10 +310,23 @@ public class AdbJPanels {
         btnOpenMobileButlerApp = new JButton("G");
         // btnOpenMobileButlerApp = new JButton("GJ");
         btnOpenMobileButlerApp.setToolTipText("打开手机管家APP");
-        btnOpenMobileButlerApp.addActionListener(new BtnActionListener() {
+//        btnOpenMobileButlerApp.addActionListener(new BtnActionListener() {
+        btnOpenMobileButlerApp.addActionListener(new ActionListener() {
+//            @Override
+//            public void action(ActionEvent e) {
+//                OpenApp.openGuanJiaApp();
+//            }
+
+
             @Override
-            public void action(ActionEvent e) {
-                OpenApp.openGuanJiaApp();
+            public void actionPerformed(ActionEvent e) {
+                JFrame frame = AdbTools.getInstance().getFrame();
+                DialogFactory.showDialogOk(frame, "管家", "打开手机管家?", new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        OpenApp.openGuanJiaApp();
+                    }
+                });
             }
         });
         return btnOpenMobileButlerApp;
