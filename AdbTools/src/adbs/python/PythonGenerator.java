@@ -206,7 +206,7 @@ public class PythonGenerator {
         pythonHead.append("f = open(pidFile, \"w\")\n");
         pythonHead.append("# 把当前文件的pid写入文件中\n");
         pythonHead.append("f.write(str(os.getpid()))\n");
-        pythonHead.append("f.close()\n\n");
+        pythonHead.append("f.close()\n");
         return pythonHead;
     }
 

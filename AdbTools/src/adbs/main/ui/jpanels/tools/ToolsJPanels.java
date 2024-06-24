@@ -7,7 +7,7 @@ import adbs.main.run.AdbShellPmListPackages_3;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.config.Fonts;
 import adbs.main.ui.jframe.JFramePack;
-import adbs.main.ui.jpanels.auto.AdbTap;
+//import adbs.main.ui.jpanels.auto.AdbTap;
 import adbs.main.ui.jpanels.tools.example.FocusListenerJTextFieldInfo;
 import adbs.model.Device;
 import runnabletools.pull.AdbPullApk;

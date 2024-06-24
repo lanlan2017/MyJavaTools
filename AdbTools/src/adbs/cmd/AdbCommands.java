@@ -1,7 +1,7 @@
 package adbs.cmd;
 
 import adbs.main.AdbTools;
-import adbs.main.ui.jpanels.auto.AdbTap;
+//import adbs.main.ui.jpanels.auto.AdbTap;
 import adbs.model.Device;
 import adbs.tools.thread.ThreadSleep;
 import tools.process.ProcessRunner;
@@ -232,7 +232,7 @@ public class AdbCommands implements ActivityStr {
         ThreadSleep.seconds(3);
         AdbCommands.swipeBotton2TopOnRight(device);
         ThreadSleep.seconds(3);
-        AdbTap.tapCenterPosition(device);
+//        AdbTap.tapCenterPosition(device);
         ThreadSleep.seconds(3);
     }
 
