@@ -181,7 +181,7 @@ public class ActAutoRun implements Runnable {
     }
 
     private void _wait() {
-        System.out.println("等待一段时间...");
+//        System.out.println("等待一段时间...");
         // ThreadSleep.seconds(30);
         // ThreadSleep.seconds(5);
         ThreadSleep.seconds(7);

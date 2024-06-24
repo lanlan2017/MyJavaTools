@@ -182,8 +182,8 @@ public class AdbTools {
         });
 
 
-        // 永远置顶
-        //        frame.setAlwaysOnTop(true);
+        //永远置顶
+        frame.setAlwaysOnTop(true);
 
         // 调整窗体到最佳大小
         frame.pack();

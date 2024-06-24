@@ -113,11 +113,11 @@ public class PythonGenerator {
         // System.out.println("厂商:" + brand);
         // 生成图片数组
         String images = imagesInDir2Array(pythonPathDir, brand);
-        // System.out.println(images);
+         System.out.println(images);
         // 拼接完整的Python代码
         String pythonCode = getPythonHead() + images + getPythonTail();
         //
-        // System.out.println(pythonCode);
+         System.out.println(pythonCode);
         // 把完整的Python代码写入Python文件
         Files.writerFile(pythonFile, pythonCode);
         // imagesInDir2SwitchCases(pythonPathDir);
@@ -136,7 +136,8 @@ public class PythonGenerator {
         if (dir.isDirectory()) {
             // 获取目录下的所有.png文件列表
             String[] pngList = dir.list((dir1, name) -> {
-                return name.endsWith(".png") && name.toLowerCase().contains(brand);
+//                return name.endsWith(".png") && name.toLowerCase().contains(brand);
+                return name.endsWith(".png");
             });
             if (pngList != null) {
                 StringBuilder sb = new StringBuilder();
@@ -145,11 +146,7 @@ public class PythonGenerator {
                     sb.append("    ");
                     sb.append("sys.path[0]+");
                     sb.append("\"");
-                    sb.append("\\");
-                    // isEscape
-                    if (isNeedToAddEscape(pngList[i])) {
-                        sb.append("\\");
-                    }
+                    sb.append("\\\\");
                     sb.append(pngList[i]);
 
                     sb.append("\"");
@@ -166,14 +163,15 @@ public class PythonGenerator {
         return "";
     }
 
-    /**
-     * 是否需要添加转义字符
-     * @param s 图片名称
-     * @return 如果图片以字母'b','a','r'开头，则返回true,否则返回false。
-     */
-    private static boolean isNeedToAddEscape(String s) {
-        return s.startsWith("b") || s.startsWith("a")|| s.startsWith("r");
-    }
+//    /**
+//     * 是否需要添加转义字符
+//     *
+//     * @param s 图片名称
+//     * @return 如果图片以字母'b','a','r'开头，则返回true,否则返回false。
+//     */
+//    private static boolean isNeedToAddEscape(String s) {
+//        return s.startsWith("b") || s.startsWith("a") || s.startsWith("r");
+//    }
 
     /**
      * 获取Python头部代码
@@ -227,9 +225,9 @@ public class PythonGenerator {
         pythonTail.append("            break\n");
         pythonTail.append("        else:\n");
         pythonTail.append("            # 等待\n");
-        // pythonTail.append("            time.sleep(0.1)\n");
-        pythonTail.append("            time.sleep(0.05)\n");
-        // pythonTail.append("            time.sleep(0.02)\n");
+        pythonTail.append("            time.sleep(0.1)\n");
+        //pythonTail.append("            time.sleep(0.05)\n");
+        //pythonTail.append("            time.sleep(0.02)\n");
         return pythonTail;
     }
 }

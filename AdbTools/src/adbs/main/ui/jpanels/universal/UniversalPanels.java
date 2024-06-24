@@ -1,19 +1,15 @@
 package adbs.main.ui.jpanels.universal;
 
-import adbs.cmd.AdbCommands;
-import adbs.cmd.CmdRun;
-import adbs.cmd.RobotsDraw;
 import adbs.main.AdbTools;
+import adbs.main.run.AdbGetPackage;
+import adbs.main.run.PythonCloseableRun;
+import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.inout.listener.StopBtnAcListener2;
 import adbs.main.ui.jpanels.time.TimePanels;
-import adbs.main.ui.jpanels.tools.BtnActionListener;
 import adbs.main.ui.jpanels.universal.listener.*;
-import adbs.main.ui.config.FlowLayouts;
-import adbs.main.ui.jpanels.universal.runnable.CloseableRunnable;
-import adbs.main.ui.jpanels.universal.runnable.RoolBtnRunnable;
-import adbs.model.Device;
-import adbs.tools.thread.ThreadSleep;
-import tools.copy.SystemClipboard;
+import adbs.main.ui.jpanels.universal.pinyin.FileCreator;
+import adbs.main.ui.jpanels.universal.pinyin.PinyinUtils;
+import config.AdbToolsProperties;
 import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
@@ -65,6 +61,8 @@ public class UniversalPanels {
      * 通用面板输出功能
      */
     private JLabel output2;
+    private PythonCloseableRun pyRun;
+    private Thread pyThread;
 
     /**
      * 初始化通用面板
@@ -95,16 +93,10 @@ public class UniversalPanels {
         // shoppingButton = new JButton("逛街");
         shoppingButton = new JButton("逛");
         shoppingButton.setToolTipText("连续从下向上滑动三次，然后上下来回滑动");
-
-        // rollingButton=new JButton("锁定");
-        // rollingButton.setToolTipText("锁定鼠标左键");
-
         // output2 = new JLabel("输出2");
         output2 = new JLabel("");
 
 
-        // readButton.addActionListener(new PyImgFindAcListener(ReadButtonRunnable.getInstance(), inout2));
-        // readButton.addActionListener(new PyImgFindAcListener(ReadButtonRunnable.getInstance()));
         readButton.addActionListener(new ReadButtonActionListener(timePanels));
 
         browseButton.addActionListener(new BrowseButtonActionListener(timePanels));
@@ -115,11 +107,62 @@ public class UniversalPanels {
         // 逛街按钮
         shoppingButton.addActionListener(new ShoppingButtonActionListener(timePanels));
 
-//        btnSlideUpAndDown = getBtnSlideUpAndDown();
-
-        // btnSlideUpAndDown2 = intiBtnSlideUpDown2();
-
         btnStop = initBtnStop();
+
+        JButton btnPy = new JButton("P");
+        btnPy.setToolTipText("图片识别");
+        btnPy.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String msg = "";
+                String name = AdbTools.getInstance().getDevice().getName();
+
+                System.out.println("name = " + name);
+                if (name.endsWith("+")) {
+
+                    name = name.substring(0, name.length() - 1);
+                }
+                System.out.println("name = " + name);
+
+                String packageName = AdbGetPackage.getTopPackageName(AdbTools.getInstance().getDevice().getSerial());
+                System.out.println("packageName = " + packageName);
+
+                String property = AdbToolsProperties.moneyApkPro.getProperty(packageName);
+                System.out.println("property = " + property);
+                if (!property.equals(packageName)) {
+
+                    String pinyin = PinyinUtils.convertToPinyinWithCapitalizedFirstLetter(property);
+
+//                    String pyPath = "AdbToolsPythons"+"\\"+name+"\\"+property+"\\1.py";
+                    String pyPath = "AdbToolsPythons" + "\\" + name + "\\" + pinyin + "\\1.py";
+                    System.out.println("pyPath = " + pyPath);
+
+                    FileCreator.createFile(pyPath);
+//                    new File
+
+                    if (pyRun == null) {
+                        pyRun = new PythonCloseableRun(msg, pyPath, output2);
+                    }
+                    //如果线程不存在，或者线程存在，但是线程死掉了
+                    if (pyThread == null || !pyThread.isAlive()) {
+                        //重新创建线程
+                        pyThread = new Thread(pyRun);
+                        pyThread.start();
+                    }
+
+                }
+
+
+            }
+        });
+        JButton btnKPy = new JButton("KP");
+        btnKPy.setToolTipText("杀死后台的Py线程");
+        btnKPy.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pyRun.stop();
+            }
+        });
 
         // 添加到面板中
         universalPanel.add(readButton);
@@ -127,26 +170,14 @@ public class UniversalPanels {
         universalPanel.add(videoButton);
         universalPanel.add(shoppingButton);
         universalPanel.add(waitButton);
-        // universalPanel.add(rollingButton);
-//        universalPanel.add(btnSlideUpAndDown);
-        // universalPanel.add(btnSlideUpAndDown2);
         universalPanel.add(btnStop);
+        universalPanel.add(btnPy);
+        universalPanel.add(btnKPy);
         universalPanel.add(output2);
 
         AbstractButtons.setMarginInButtonJPanel(universalPanel, 1);
     }
 
-//    private JButton getBtnSlideUpAndDown() {
-//        final JButton btnSlideUpAndDown;
-//        btnSlideUpAndDown = new JButton("⇅");
-//        btnSlideUpAndDown.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                RobotsDraw.slideUpAndDown();
-//            }
-//        });
-//        return btnSlideUpAndDown;
-//    }
 
     public JPanel getUniversalPanel() {
         return universalPanel;
@@ -191,7 +222,6 @@ public class UniversalPanels {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                // universalPanels.getVideoButton().doClick();
                 videoButton.doClick();
             }
         });
