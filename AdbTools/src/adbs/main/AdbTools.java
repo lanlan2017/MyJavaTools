@@ -19,6 +19,7 @@ import adbs.tools.thread.ThreadSleep;
 import com.formdev.flatlaf.FlatLightLaf;
 import tools.copy.SystemClipboard;
 import tools.swing.button.AbstractButtons;
+import tools.swing.dialog.DialogFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -374,6 +375,19 @@ public class AdbTools {
         isRunningSet.add(isRunning);
         // System.out.println("set长度:" + isRunningSet.size());
     }
+
+
+    /**
+     * 在AdbTools程序中弹出有一个确认按钮的对话框
+     * @param title 对话框的标题
+     * @param message 消息
+     * @param actionListenerOk 点击确认按钮需要执行的操作
+     */
+    public void showDialogOk(String title, String message, ActionListener actionListenerOk) {
+//        JFrame frame = AdbTools.getInstance().getFrame();
+        DialogFactory.showDialogOk(frame, title, message, actionListenerOk);
+    }
+
 
     public static void main(String[] args) {
         AdbTools instance = AdbTools.getInstance();

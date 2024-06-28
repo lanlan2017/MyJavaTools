@@ -191,11 +191,37 @@ public class AdbJPanels {
                 // Device device = AdbTools.getInstance().getDevice();
                 // // openSetting(device);
                 // // AdbCommands.openSetting(device);
-                AdbCommands.openSetting(AdbTools.getInstance().getDevice());
+
+//                AdbCommands.openSetting(AdbTools.getInstance().getDevice());
+//                AdbCommands.openSetting(AdbTools.getInstance().getDevice());
+
+                String title = "设置";
+                String message = "打开设置？";
+
+                ActionListener actionListenerOk = new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        AdbCommands.openSetting(AdbTools.getInstance().getDevice());
+                    }
+                };
+
+                AdbTools.getInstance().showDialogOk(title, message, actionListenerOk);
+
             }
         });
         return btnSetting;
     }
+
+//    /**
+//     * 在AdbTools程序中弹出有一个确认按钮的对话框
+//     * @param title 对话框的标题
+//     * @param message 消息
+//     * @param actionListenerOk 点击确认按钮需要执行的操作
+//     */
+//    private void adbToolsShowDialogOk(String title, String message, ActionListener actionListenerOk) {
+//        JFrame frame = AdbTools.getInstance().getFrame();
+//        DialogFactory.showDialogOk(frame, title, message, actionListenerOk);
+//    }
 
     private JButton initBtnPower() {
         final JButton btnPower;
@@ -208,9 +234,19 @@ public class AdbJPanels {
                 // 当屏幕关闭时，按电源键后，屏幕会亮
                 // 当屏幕点亮时，按电源键后，屏幕会熄灭
                 // adb shell input keyevent 26
-                Device device = AdbTools.getInstance().getDevice();
-                // pressPowerButton(device);
-                AdbCommands.powerBtn(device);
+//                Device device = AdbTools.getInstance().getDevice();
+//                // pressPowerButton(device);
+//                AdbCommands.powerBtn(device);
+//
+                AdbTools.getInstance().showDialogOk("电源键", "按下手机电源键？", new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        Device device = AdbTools.getInstance().getDevice();
+                        // pressPowerButton(device);
+                        AdbCommands.powerBtn(device);
+
+                    }
+                });
 
             }
         });
@@ -319,8 +355,7 @@ public class AdbJPanels {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame frame = AdbTools.getInstance().getFrame();
-                DialogFactory.showDialogOk(frame, "管家", "打开手机管家?", new ActionListener() {
+                AdbTools.getInstance().showDialogOk("管家", "打开手机管家?", new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         OpenApp.openGuanJiaApp();
@@ -347,8 +382,7 @@ public class AdbJPanels {
             //            }
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame frame = AdbTools.getInstance().getFrame();
-                DialogFactory.showDialogOk(frame, "WiFi", "打开WiFi设置界面？", new ActionListener() {
+                AdbTools.getInstance().showDialogOk("WiFi", "打开WiFi设置界面？", new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         OpenApp.openWiFiSetting();
@@ -400,7 +434,24 @@ public class AdbJPanels {
         JButton powerOffBtn = new JButton("关");
         powerOffBtn.setToolTipText("关机");
         // closeBtn.addActionListener(new RebootBtnAcListener(frame, "shell reboot -p"));
-        powerOffBtn.addActionListener(new RebootBtnAcListener(adbJPanel, "shell reboot -p"));
+//        powerOffBtn.addActionListener(new RebootBtnAcListener(adbJPanel, "shell reboot -p"));
+        powerOffBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AdbTools.getInstance().showDialogOk("关机", "关机?", new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String serial = AdbTools.getInstance().getDevice().getSerial();
+                        // 拼接重启代码
+                        String adbCmd = "adb -s " + serial + " " + "shell reboot -p";
+                        System.out.println("adbCmd = " + adbCmd);
+                        // 启动cmd进程执行adb命令
+                        AdbCommands.runAbdCmd(adbCmd);
+                    }
+                });
+            }
+        });
+
         return powerOffBtn;
     }
 
@@ -410,7 +461,26 @@ public class AdbJPanels {
         JButton rebootBtn = new JButton("重");
         rebootBtn.setToolTipText("重启手机");
         // rebootBtn.addActionListener(new RebootBtnAcListener(frame, "reboot"));
-        rebootBtn.addActionListener(new RebootBtnAcListener(adbJPanel, "reboot"));
+//        rebootBtn.addActionListener(new RebootBtnAcListener(adbJPanel, "reboot"));
+        rebootBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AdbTools.getInstance().showDialogOk("重启", "重启手机?", new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String serial = AdbTools.getInstance().getDevice().getSerial();
+
+                        // 拼接重启代码
+//                        String adbCmd = "adb -s " + serial + " " + code;
+                        // 拼接重启代码
+                        String adbCmd = "adb -s " + serial + " " + "reboot";
+                        System.out.println("adbCmd = " + adbCmd);
+                        // 启动cmd进程执行adb命令
+                        AdbCommands.runAbdCmd(adbCmd);
+                    }
+                });
+            }
+        });
         return rebootBtn;
     }
 

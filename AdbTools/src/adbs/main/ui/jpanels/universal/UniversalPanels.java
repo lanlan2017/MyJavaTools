@@ -67,7 +67,7 @@ public class UniversalPanels {
     /**
      * 初始化通用面板
      *
-     * @param timePanels
+     * @param timePanels TimePanels面板对象
      */
     public UniversalPanels(TimePanels timePanels) {
         // 创建通用功能面板
@@ -143,7 +143,9 @@ public class UniversalPanels {
         btnKPy.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                pyRun.stop();
+                if (pyRun != null) {
+                    pyRun.stop();
+                }
             }
         });
         return btnKPy;
