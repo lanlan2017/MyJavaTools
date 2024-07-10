@@ -166,18 +166,6 @@ public class ActAutoRun implements Runnable {
         }
         return b;
 
-        // return
-        //         // 不是安卓应用
-        //         packageName.startsWith("com.android.") &&
-        //                 // 不是MIUI应用
-        //                 packageName.startsWith("com.miui.") &&
-        //                 // 不是华为应用
-        //                 packageName.startsWith("com.huawei.") &&
-        //                 // 不是OPPO应用
-        //                 packageName.startsWith("com.coloros.") &&
-        //                 // 不是搞机工具箱
-        //                 packageName.equals("com.byyoung.setting");
-
     }
 
     private void _wait() {
