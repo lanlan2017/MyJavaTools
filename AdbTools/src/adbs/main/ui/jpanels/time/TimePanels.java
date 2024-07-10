@@ -28,11 +28,11 @@ public class TimePanels {
     /**
      * 时间输入框1
      */
-    private JTextField input1;
+    private volatile JTextField input1;
     /**
      * 时间输入框2
      */
-    private JTextField input2;
+    private volatile JTextField input2;
     /**
      * 时间增加按钮
      */

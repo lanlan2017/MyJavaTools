@@ -1,6 +1,5 @@
 package adbs.main.ui.jpanels.universal.listener;
 
-import adbs.main.AdbTools;
 import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.adb.listener.ButtonFocusReleaseActionListener;
 import adbs.main.ui.jpanels.time.TimePanels;
@@ -20,9 +19,9 @@ public class BrowseButtonActionListener extends ButtonFocusReleaseActionListener
 
     @Override
     protected void actionEvent(ActionEvent e) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
+//        SwingUtilities.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
 
 
                 timePanels.getTimePanel().setVisible(true);
@@ -42,10 +41,10 @@ public class BrowseButtonActionListener extends ButtonFocusReleaseActionListener
                 // timePanels.getTimerJLabel().setVisible(false);
                 // 调整窗体到最佳大小
                 // JFramePack.onJComponentActionEvent(e);
-                // JFramePack.pack();
-                AdbTools.getInstance().getFrame().pack();
-            }
-        });
+                 JFramePack.pack();
+//                AdbTools.getInstance().getFrame().pack();
+//            }
+//        });
 
     }
 }

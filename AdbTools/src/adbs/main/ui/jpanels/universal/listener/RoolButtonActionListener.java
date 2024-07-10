@@ -1,11 +1,9 @@
 package adbs.main.ui.jpanels.universal.listener;
 
-import adbs.main.AdbTools;
 import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.adb.listener.ButtonFocusReleaseActionListener;
 import adbs.main.ui.jpanels.time.TimePanels;
 import adbs.main.ui.jpanels.time.listener.WaitValues;
-import adbs.main.ui.jpanels.universal.runnable.RoolBtnRunnable;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -21,9 +19,9 @@ public class RoolButtonActionListener extends ButtonFocusReleaseActionListener {
     protected void actionEvent(ActionEvent e) {
         // new Thread(new RoolBtnRunnable()).start();
 
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
+//        SwingUtilities.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
 
 
                 timePanels.getTimePanel().setVisible(true);
@@ -57,11 +55,11 @@ public class RoolButtonActionListener extends ButtonFocusReleaseActionListener {
 
                 // JFramePack.onJComponentActionEvent(e);
                 // JFramePack.onJComponentActionEvent(e);
-                // JFramePack.pack();
-                AdbTools.getInstance().getFrame().pack();
+                 JFramePack.pack();
+//                AdbTools.getInstance().getFrame().pack();
 
-            }
-        });
+//            }
+//        });
 
     }
 }

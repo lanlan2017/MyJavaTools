@@ -271,6 +271,20 @@ public class TimingPanels2 extends WaitValues {
         return btn1_5H;
     }
 
+//    /**
+//     * 设置时间选择面板的输入框1的值
+//     *
+//     * @param timePanels 时间选择面板
+//     * @param value      需要设置的时间
+//     */
+//    private void setTimePanelsInput1Value(TimePanels timePanels, int value) {
+//        JTextField input1 = timePanels.getInput1();
+//        // 获取输入框的文本
+//        while (Integer.parseInt(input1.getText()) < value) {
+//            timePanels.getPlusBtn().doClick();
+//        }
+//    }
+
     /**
      * 设置时间选择面板的输入框1的值
      *
@@ -279,11 +293,25 @@ public class TimingPanels2 extends WaitValues {
      */
     private void setTimePanelsInput1Value(TimePanels timePanels, int value) {
         JTextField input1 = timePanels.getInput1();
-        // 获取输入框的文本
-        while (Integer.parseInt(input1.getText()) < value) {
-            timePanels.getPlusBtn().doClick();
+        System.out.println("--------------------------------");
+        System.out.println("value sdfsgfsfdfds = " + value);
+
+        System.out.println("index = " + index);
+        System.out.println("values[index] = " + values[index]);
+
+        while (values[index] < value) {
+            index++;
         }
+
+        System.out.println("index 2 = " + index);
+        System.out.println("values[index] 2 = " + values[index]);
+        input1.setText(String.valueOf(values[index]));
+        input1.setColumns(greaterOrEqual4(getNumLength(values[index])));
+
+        System.out.println("--------------------------------");
     }
+
+
 
     private void showWaitButtons() {
         btn30s.setVisible(false);

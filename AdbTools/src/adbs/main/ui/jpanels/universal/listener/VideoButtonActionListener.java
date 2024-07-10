@@ -1,6 +1,5 @@
 package adbs.main.ui.jpanels.universal.listener;
 
-import adbs.main.AdbTools;
 import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.adb.listener.ButtonFocusReleaseActionListener;
 import adbs.main.ui.jpanels.time.TimePanels;
@@ -23,9 +22,9 @@ public class VideoButtonActionListener extends ButtonFocusReleaseActionListener 
     @Override
     protected void actionEvent(ActionEvent e) {
 
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
+//        SwingUtilities.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
 
 
 
@@ -75,8 +74,8 @@ public class VideoButtonActionListener extends ButtonFocusReleaseActionListener 
 
 
 
-            }
-        });
+//            }
+//        });
 
 
     }

@@ -1,6 +1,5 @@
 package adbs.main.ui.jpanels.universal.listener;
 
-import adbs.main.AdbTools;
 import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.adb.listener.ButtonFocusReleaseActionListener;
 import adbs.main.ui.jpanels.time.TimePanels;
@@ -19,11 +18,9 @@ public class ShoppingButtonActionListener extends ButtonFocusReleaseActionListen
     @Override
     protected void actionEvent(ActionEvent e) {
 
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-
-
+//        SwingUtilities.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
                 timePanels.getTimePanel().setVisible(true);
                 timePanels.getTimeLabel().setText("时长(s)");
                 // 关闭单选按钮组
@@ -55,12 +52,12 @@ public class ShoppingButtonActionListener extends ButtonFocusReleaseActionListen
                 stopCheckBox.setVisible(false);
 
                 // JFramePack.onJComponentActionEvent(e);
-                // JFramePack.pack();
-                AdbTools.getInstance().getFrame().pack();
+                JFramePack.pack();
+//                AdbTools.getInstance().getFrame().pack();
 
 
-            }
-        });
+//            }
+//        });
 
     }
 }

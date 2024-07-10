@@ -15,11 +15,6 @@ import java.awt.event.ActionEvent;
  * 确认按钮事件处理程序
  */
 public class InputOkButtonActionListener extends ButtonFocusReleaseActionListener {
-    // /**
-    //  * 被操作的输入输出组件
-    //  */
-    // private InOutputModel inOutputModel;
-
     /**
      * 阅读线程体
      */
@@ -56,73 +51,12 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
      */
     private Thread waitBtnThread;
 
-    // /**
-    //  * 锁定线程体
-    //  */
-    //
-    // private Thread roolBtnThread;
-    // /**
-    //  * 逛街线程体
-    //  */
-    // private Thread shoppingBtnThread;
-    // private UniversalPanels universalPanels;
-    // private TimePanels timePanels;
-
-    // public InputOkButtonActionListener(InOutputModel inOutputModel) {
-    //     this.inOutputModel = inOutputModel;
-    //     // this.universalPanels = inOutputModel.getUniversalPanels();
-    //     // this.timePanels = inOutputModel.getTimePanels();
-    //
-    //     this.readButtonRunnable = ReadButtonRunnable.getInstance();
-    //     // readButtonRunnable.setInOutputModel(inOutputModel);
-    //     // readButtonRunnable.setUniversalPanels(universalPanels);
-    //
-    //
-    //     this.browseRunnable = BrowseRunnable.getInstance();
-    //     // browseRunnable.setInOutputModel(inOutputModel);
-    //     // browseRunnable.setTimePanels(timePanels);
-    //     // browseRunnable.setUniversalPanels(universalPanels);
-    //
-    //
-    //     this.waitReturnButtonRunnable = WaitButtonRunnable.getInstance();
-    //     // waitReturnButtonRunnable.setInOutputModel(inOutputModel);
-    //
-    //
-    //     this.videoButtonRunnable = VideoButtonRunnable.getInstance();
-    //     // videoButtonRunnable.setInOutputModel(inOutputModel);
-    //
-    //     this.shoppingButtonRunnable = ShoppingButtonRunnable.getInstance();
-    //     // shoppingButtonRunnable.setInOutputModel(inOutputModel);
-    //
-    //     this.roolBtnRunnable = RoolBtnRunnable.getInstance();
-    // }
-
     public InputOkButtonActionListener() {
-        // this.inOutputModel = inOutputModel;
-        // this.universalPanels = inOutputModel.getUniversalPanels();
-        // this.timePanels = inOutputModel.getTimePanels();
-
         this.readButtonRunnable = ReadButtonRunnable.getInstance();
-        // readButtonRunnable.setInOutputModel(inOutputModel);
-        // readButtonRunnable.setUniversalPanels(universalPanels);
-
-
         this.browseRunnable = BrowseRunnable.getInstance();
-        // browseRunnable.setInOutputModel(inOutputModel);
-        // browseRunnable.setTimePanels(timePanels);
-        // browseRunnable.setUniversalPanels(universalPanels);
-
-
         this.waitReturnButtonRunnable = WaitButtonRunnable.getInstance();
-        // waitReturnButtonRunnable.setInOutputModel(inOutputModel);
-
-
         this.videoButtonRunnable = VideoButtonRunnable.getInstance();
-        // videoButtonRunnable.setInOutputModel(inOutputModel);
-
         this.shoppingButtonRunnable = ShoppingButtonRunnable.getInstance();
-        // shoppingButtonRunnable.setInOutputModel(inOutputModel);
-
         this.roolBtnRunnable = RoolBtnRunnable.getInstance();
     }
 
@@ -136,45 +70,39 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
 
 
         if ("开始浏览".equals(ok.getText())) {
-            // output.setText("浏览:开始");
-            // new Thread(browseRunnable).start();
-
             startThreadOnece(browseRunnable);
 
         } else if ("开始逛街".equals(ok.getText())) {
-            // output.setText("逛街:开始");
-            // new Thread(shoppingButtonRunnable).start();
             JCheckBox checkBox = AdbTools.getInstance().getTimePanels().getTaskCheckBox();
             if (checkBox.isSelected()) {
                 shoppingButtonRunnable.setClickTaskBtn(true);
             }
-
-            // new Thread(shoppingButtonRunnable).start();
-
             startThreadOnece(shoppingButtonRunnable);
 
-
-        } else if ("开始锁定".equals(ok.getText())) {
-            // output.setText("锁定:开始");
-            // new Thread(shoppingButtonRunnable).start();
-            // JCheckBox checkBox = AdbTools.getInstance().getTimePanels().getTaskCheckBox();
-            // if (checkBox.isSelected()) {
-            //     shoppingButtonRunnable.setClickReturnBtn(true);
-            // }
-
-            // new Thread(shoppingButtonRunnable).start();
-
-            // 如果线程已经死掉了,或者线程还没创建
-            // if (Threads.threadIsNullOrNotAlive(thread)) {
-            //     this.thread = new Thread(roolBtnRunnable);
-            //     this.thread.start();
-            // } else {
-            //     System.out.println(roolBtnRunnable.getMsg() + " 已经在运行中,请勿重复启动");
-            // }
-
-            startThreadOnece(roolBtnRunnable);
-
-        } else if ("开始等待".equals(ok.getText())) {
+        }
+//        else if ("开始锁定".equals(ok.getText())) {
+//            // output.setText("锁定:开始");
+//            // new Thread(shoppingButtonRunnable).start();
+//            // JCheckBox checkBox = AdbTools.getInstance().getTimePanels().getTaskCheckBox();
+//            // if (checkBox.isSelected()) {
+//            //     shoppingButtonRunnable.setClickReturnBtn(true);
+//            // }
+//
+//            // new Thread(shoppingButtonRunnable).start();
+//
+//            // 如果线程已经死掉了,或者线程还没创建
+//            // if (Threads.threadIsNullOrNotAlive(thread)) {
+//            //     this.thread = new Thread(roolBtnRunnable);
+//            //     this.thread.start();
+//            // } else {
+//            //     System.out.println(roolBtnRunnable.getMsg() + " 已经在运行中,请勿重复启动");
+//            // }
+//
+//            startThreadOnece(roolBtnRunnable);
+//
+//        }
+//
+        else if ("开始等待".equals(ok.getText())) {
             // output.setText("等待返回线程：开始等待");
             // new Thread(waitReturnButtonRunnable).start();
             TimePanels timePanels = AdbTools.getInstance().getTimePanels();
@@ -199,6 +127,8 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
             if (Threads.threadIsNullOrNotAlive(waitBtnThread)) {
                 waitBtnThread = new Thread(waitReturnButtonRunnable);
                 waitBtnThread.start();
+                // 调整窗体外观
+                JFramePack.pack();
             } else {
                 System.out.println(waitReturnButtonRunnable.getMsg() + " 已经在运行中,请勿重复启动");
             }
@@ -212,18 +142,11 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
                 // 获取时间区间
                 String input1Str = timePanels.getInput1().getText();
                 String input2Str = timePanels.getInput2().getText();
+
                 // 如果输入的都是数字
                 if (input1Str.matches("\\d+") && input2Str.matches("\\d+")) {
                     videoButtonRunnable.setMin(Integer.parseInt(input1Str));
                     videoButtonRunnable.setMax(Integer.parseInt(input2Str));
-                    // 如果线程已经死掉了,或者线程还没创建
-                    // if (Threads.threadIsNullOrNotAlive(thread)) {
-                    //     thread = new Thread(videoButtonRunnable);
-                    //     thread.start();
-                    // } else {
-                    //     System.out.println(videoButtonRunnable.getMsg() + " 已经在运行中,请勿重复启动");
-                    // }
-
                     startThreadOnece(videoButtonRunnable);
 
                 }
@@ -236,21 +159,11 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
                 if (input1Str.matches("\\d+") && input2Str.matches("\\d+")) {
                     readButtonRunnable.setMin(Integer.parseInt(input1Str));
                     readButtonRunnable.setMax(Integer.parseInt(input2Str));
-                    // 如果线程已经死掉了,或者线程还没创建
-                    // if (Threads.threadIsNullOrNotAlive(thread)) {
-                    //     thread = new Thread(readButtonRunnable);
-                    //     thread.start();
-                    // } else {
-                    //     System.out.println(readButtonRunnable.getMsg() + " 已经在运行中,请勿重复启动");
-                    // }
                     startThreadOnece(readButtonRunnable);
                 }
             }
         }
-        // 等待指定毫秒之后，刷新JFrame界面，以最佳大小显示
-        // JFramePack.onJComponentActionEvent(e, 500);
-        JFramePack.onJComponentActionEvent(e, 200);
-        // JFramePack.onJComponentActionEvent(e, 0);
+//        JFramePack.pack();
     }
 
     private void startThreadOnece(CloseableRunnable runnable) {

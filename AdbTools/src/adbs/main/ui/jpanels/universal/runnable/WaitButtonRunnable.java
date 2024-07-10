@@ -89,10 +89,10 @@ public class WaitButtonRunnable extends CloseableRunnable {
             }
             int waitingSeconds = (millisecond - count) / 1000;
             input1.setText(String.valueOf(waitingSeconds));
-            // 禁止编辑 输入框1
-            if (input1.isEditable()) {
-                input1.setEditable(false);
-            }
+//            // 禁止编辑 输入框1
+//            if (input1.isEditable()) {
+//                input1.setEditable(false);
+//            }
         }
     }
 
@@ -101,7 +101,7 @@ public class WaitButtonRunnable extends CloseableRunnable {
         super.afterLoop();
         // 恢复原来的设置
         input1.setText(input1OldText);
-        input1.setEditable(true);
+//        input1.setEditable(true);
 
         SwingUtilities.invokeLater(new Runnable() {
             @Override

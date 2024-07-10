@@ -54,7 +54,7 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
             JTextField input1 = timePanels.getInput1();
             // 保存原来设定的值
             oldInput1Text = input1.getText();
-            input1.setEditable(false);
+//            input1.setEditable(false);
             input1Background = input1.getBackground();
 
             SwingUtilities.invokeLater(new Runnable() {
@@ -205,7 +205,7 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
             // 恢复原来的值
             input1.setText(oldInput1Text);
             // 可以重新编辑
-            input1.setEditable(true);
+//            input1.setEditable(true);
             // 恢复原来的颜色
 
             SwingUtilities.invokeLater(new Runnable() {

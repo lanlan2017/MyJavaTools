@@ -1,6 +1,5 @@
 package adbs.main.ui.jpanels.time.listener;
 
-import adbs.main.AdbTools;
 import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.time.TimePanels;
 
@@ -46,7 +45,7 @@ public class PlusBtnAcListener extends WaitValues implements ActionListener {
                     // System.out.println("plus index = " + index + ", value = " + value);
                     // 设置文本内容
                     input1.setText(String.valueOf(value));
-                    input1.updateUI();
+//                    input1.updateUI();
                     int length = getNumLength(value);
                     input1.setColumns(greaterOrEqual4(length));
 
@@ -60,4 +59,5 @@ public class PlusBtnAcListener extends WaitValues implements ActionListener {
         // AdbTools.getInstance().getFrame().pack();
         JFramePack.pack();
     }
+
 }

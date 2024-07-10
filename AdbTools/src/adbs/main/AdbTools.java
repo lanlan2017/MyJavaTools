@@ -206,7 +206,7 @@ public class AdbTools {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON3) {
-                    System.out.println("双击主面板");
+                    System.out.println("双击主面板,调用一次frame.pack()");
                     frame.pack();
                 }
             }
@@ -404,6 +404,8 @@ public class AdbTools {
             // // new Thread(new BatteryLevelRun()).start();
             new Thread(new BatteryLevelRun2()).start();
             new Thread(new ActAutoRun()).start();
+
+
         }
 
     }

@@ -96,9 +96,9 @@ public class UniversalPanels {
         // output2 = new JLabel("输出2");
         output2 = new JLabel("");
 
-
+        // 阅读线程
         readButton.addActionListener(new ReadButtonActionListener(timePanels));
-
+        // 浏览线程
         browseButton.addActionListener(new BrowseButtonActionListener(timePanels));
         // 等待后返回按钮
         waitButton.addActionListener(new WaitButtonActionListener(timePanels));

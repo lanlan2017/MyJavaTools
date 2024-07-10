@@ -116,6 +116,7 @@ public class JFramePack {
          */
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
+                System.out.println("调用一次");
                 // // 在这里编写需要在事件调度线程上执行的代码
                 AdbTools.getInstance().getFrame().pack();
             }

@@ -1,6 +1,5 @@
 package adbs.main.ui.jpanels.universal.listener;
 
-import adbs.main.AdbTools;
 import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.adb.listener.ButtonFocusReleaseActionListener;
 import adbs.main.ui.jpanels.time.TimePanels;
@@ -18,16 +17,14 @@ public class ReadButtonActionListener extends ButtonFocusReleaseActionListener {
     @Override
     protected void actionEvent(ActionEvent e) {
 
-
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
+//        SwingUtilities.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
                 // 显示输入界面
                 timePanels.getTimePanel().setVisible(true);
                 // 设置标签
                 timePanels.getTimeLabel().setText("间隔(s):");
-                // 隐藏单选按钮组
-                // inputPanels.getTimeRadioPanel().setVisible(false);
+
                 // 显示输入框1
                 JTextField input1 = timePanels.getInput1();
                 input1.setVisible(true);
@@ -35,6 +32,7 @@ public class ReadButtonActionListener extends ButtonFocusReleaseActionListener {
                 // input1.setText(String.valueOf(9));
                 // input1.setText(String.valueOf(12));
                 input1.setText(String.valueOf(5));
+
                 // 显示输入框2
                 JTextField input2 = timePanels.getInput2();
                 input2.setVisible(true);
@@ -57,10 +55,11 @@ public class ReadButtonActionListener extends ButtonFocusReleaseActionListener {
 
                 // frame.pack();
                 // JFramePack.onJComponentActionEvent(e);
-                // JFramePack.pack();
-                AdbTools.getInstance().getFrame().pack();
-            }
-        });
+                 JFramePack.pack();
+//                AdbTools.getInstance().getFrame().pack();
+
+//            }
+//        });
 
 
     }
