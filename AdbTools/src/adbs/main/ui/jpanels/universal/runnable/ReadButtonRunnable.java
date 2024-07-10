@@ -15,8 +15,6 @@ public class ReadButtonRunnable extends CloseableRunnable {
     private static final ReadButtonRunnable instance = new ReadButtonRunnable();
     private int min;
     private int max;
-    // private UniversalPanels universalPanels;
-
     private ReadButtonRunnable() {
         // setMsg();
         min = 5;
@@ -27,10 +25,6 @@ public class ReadButtonRunnable extends CloseableRunnable {
         return instance;
     }
 
-    // public void setUniversalPanels(UniversalPanels universalPanels) {
-    //     this.universalPanels = universalPanels;
-    // }
-
     public void setMin(int min) {
         this.min = min;
     }
@@ -39,11 +33,6 @@ public class ReadButtonRunnable extends CloseableRunnable {
         this.max = max;
     }
 
-    // @Override
-    // protected void setMsg() {
-    //     // msg = "阅读";
-    //     msg = "读";
-    // }
 
     @Override
     protected void beforeLoop() {
@@ -58,20 +47,13 @@ public class ReadButtonRunnable extends CloseableRunnable {
     }
 
     private void body() {
-        // 获取选中的adb设备的序列号
-        // String id = AdbTools.device.getId();
-        // // 获取选中的adb设备的屏幕宽度
-        // int width = AdbTools.device.getWidth();
-        // // 获取选中的adb设备的屏幕高度
-        // int height = AdbTools.device.getHeight();
-
-        String id = AdbTools.getInstance().getDevice().getSerial();
+        String serial = AdbTools.getInstance().getDevice().getSerial();
         // 获取选中的adb设备的屏幕宽度
         int width = AdbTools.getInstance().getDevice().getWidth();
         // 获取选中的adb设备的屏幕高度
         int height = AdbTools.getInstance().getDevice().getHeight();
 
-        if (id == null) {
+        if (serial == null) {
             // 如果没有选择设备
             JOptionPane.showConfirmDialog(null, "请勾选要操作的设备");
             // return;
@@ -79,7 +61,7 @@ public class ReadButtonRunnable extends CloseableRunnable {
         } else {
             // 如果选择了设备
             // 点击屏幕右侧
-            String adbResult = AdbCommands.clickScreenRightSide(id, width, height);
+            String adbResult = AdbCommands.clickScreenRightSide(serial, width, height);
             // System.out.println("    " + adbResult);
             if (AdbCommands.ifDeviceNotExist(adbResult))
                 return;

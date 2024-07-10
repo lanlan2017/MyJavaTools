@@ -46,13 +46,6 @@ public class WaitButtonRunnable extends CloseableRunnable {
         isClickStopButton = clickStopButton;
     }
 
-    // @Override
-    // protected void setMsg() {
-    //     // msg = "等待后返回线程2";
-    //     // msg = "等待:";
-    //     // msg = "等待线程";
-    // }
-
     @Override
     protected void beforeLoop() {
         super.beforeLoop();

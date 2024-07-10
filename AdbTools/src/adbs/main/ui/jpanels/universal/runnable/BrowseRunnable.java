@@ -14,10 +14,6 @@ import javax.swing.*;
 public class BrowseRunnable extends CloseableRunnable {
 
     private static BrowseRunnable instance = new BrowseRunnable();
-    // private TimePanels timePanels;
-    // private UniversalPanels universalPanels;
-    // private TimePanels timePanels1;
-
 
     private BrowseRunnable() {
     }
@@ -25,19 +21,6 @@ public class BrowseRunnable extends CloseableRunnable {
     public static BrowseRunnable getInstance() {
         return instance;
     }
-
-    // public void setTimePanels(TimePanels timePanels) {
-    //     this.timePanels = timePanels;
-    // }
-    //
-    // public void setUniversalPanels(UniversalPanels universalPanels) {
-    //     this.universalPanels = universalPanels;
-    // }
-
-    // @Override
-    // protected void setMsg() {
-    //     msg = "浏览";
-    // }
 
     @Override
     protected void loopBody() {
@@ -95,9 +78,6 @@ public class BrowseRunnable extends CloseableRunnable {
     @Override
     protected void afterLoop() {
         super.afterLoop();
-        // 弹出确认框
-        // timePanels1 = inOutputModel.getTimePanels();
-        // timePanels.showConfirmDialog();
         AdbTools.getInstance().getTimePanels().showConfirmDialog();
     }
 }

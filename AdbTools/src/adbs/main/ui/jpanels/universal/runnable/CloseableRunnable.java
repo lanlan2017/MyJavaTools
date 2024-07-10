@@ -5,7 +5,6 @@ import adbs.main.AdbTools;
 import javax.swing.*;
 
 public abstract class CloseableRunnable implements Runnable {
-    // protected InOutputModel inOutputModel;
 
     /**
      * 是否结束线程
@@ -16,10 +15,6 @@ public abstract class CloseableRunnable implements Runnable {
      */
     protected String msg;
 
-    // public void setInOutputModel(InOutputModel inOutputModel) {
-    //     this.inOutputModel = inOutputModel;
-    // }
-    //
 
     public CloseableRunnable() {
         setMsg();

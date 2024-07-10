@@ -36,10 +36,6 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
      * 逛街 按钮功能 线程体
      */
     private final ShoppingButtonRunnable shoppingButtonRunnable;
-    /**
-     * 锁定线程体
-     */
-    private final RoolBtnRunnable roolBtnRunnable;
 
     /**
      * 刷视频。逛街，阅读,浏览，共用线程。这个几个操作不能同时进行，所以钥共用一个线程。
@@ -57,14 +53,11 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
         this.waitReturnButtonRunnable = WaitButtonRunnable.getInstance();
         this.videoButtonRunnable = VideoButtonRunnable.getInstance();
         this.shoppingButtonRunnable = ShoppingButtonRunnable.getInstance();
-        this.roolBtnRunnable = RoolBtnRunnable.getInstance();
     }
 
     @Override
     protected void actionEvent(ActionEvent e) {
         JButton ok = (JButton) e.getSource();
-        // JLabel output = inOutputModel.getOutput();
-        // universalPanels = inOutputModel.getUniversalPanels();
         UniversalPanels universalPanels = AdbTools.getInstance().getUniversalPanels();
         // JLabel output = this.universalPanels.getOutput2();
 
@@ -80,28 +73,6 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
             startThreadOnece(shoppingButtonRunnable);
 
         }
-//        else if ("开始锁定".equals(ok.getText())) {
-//            // output.setText("锁定:开始");
-//            // new Thread(shoppingButtonRunnable).start();
-//            // JCheckBox checkBox = AdbTools.getInstance().getTimePanels().getTaskCheckBox();
-//            // if (checkBox.isSelected()) {
-//            //     shoppingButtonRunnable.setClickReturnBtn(true);
-//            // }
-//
-//            // new Thread(shoppingButtonRunnable).start();
-//
-//            // 如果线程已经死掉了,或者线程还没创建
-//            // if (Threads.threadIsNullOrNotAlive(thread)) {
-//            //     this.thread = new Thread(roolBtnRunnable);
-//            //     this.thread.start();
-//            // } else {
-//            //     System.out.println(roolBtnRunnable.getMsg() + " 已经在运行中,请勿重复启动");
-//            // }
-//
-//            startThreadOnece(roolBtnRunnable);
-//
-//        }
-//
         else if ("开始等待".equals(ok.getText())) {
             // output.setText("等待返回线程：开始等待");
             // new Thread(waitReturnButtonRunnable).start();
