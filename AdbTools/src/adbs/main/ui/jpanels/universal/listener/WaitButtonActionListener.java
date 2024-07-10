@@ -58,6 +58,6 @@ public class WaitButtonActionListener extends ButtonFocusReleaseActionListener {
 
 //        AdbTools.getInstance().getFrame().pack();
         JFramePack.pack();
-        System.out.println("切换等待面板");
+//        System.out.println("切换等待面板");
     }
 }
