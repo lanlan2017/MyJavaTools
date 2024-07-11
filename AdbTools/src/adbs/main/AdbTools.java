@@ -7,7 +7,6 @@ import adbs.main.run.ForegroundAppRun;
 import adbs.main.run.IsTest;
 import adbs.main.ui.jpanels.adb.AdbJPanels;
 import adbs.main.ui.jpanels.app.AppPanels;
-//import adbs.main.ui.jpanels.auto.AutoPanels;
 import adbs.main.ui.jpanels.check.CheckJPanels;
 import adbs.main.ui.jpanels.scrcpy.ScrcpyJPanels;
 import adbs.main.ui.jpanels.time.TimePanels;
@@ -48,7 +47,7 @@ public class AdbTools {
     private final CheckJPanels checkJPanels;
     private final TimingPanels2 timingPanels2;
     private final AppPanels appPanels;
-//    private final AutoPanels autoPanels;
+    //    private final AutoPanels autoPanels;
     private final ToolsJPanels toolsJPanels;
 
     // 当前选择的设备
@@ -185,7 +184,7 @@ public class AdbTools {
 
 
         //永远置顶
-        frame.setAlwaysOnTop(true);
+//        frame.setAlwaysOnTop(true);
 
         // 调整窗体到最佳大小
         frame.pack();
@@ -379,8 +378,9 @@ public class AdbTools {
 
     /**
      * 在AdbTools程序中弹出有一个确认按钮的对话框
-     * @param title 对话框的标题
-     * @param message 消息
+     *
+     * @param title            对话框的标题
+     * @param message          消息
      * @param actionListenerOk 点击确认按钮需要执行的操作
      */
     public void showDialogOk(String title, String message, ActionListener actionListenerOk) {
