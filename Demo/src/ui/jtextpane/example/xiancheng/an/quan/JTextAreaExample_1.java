@@ -1,4 +1,4 @@
-package adbs.main.ui.jpanels.app.example.xiancheng.an.quan;
+package ui.jtextpane.example.xiancheng.an.quan;
 
 import javax.swing.*;
 import java.awt.*;

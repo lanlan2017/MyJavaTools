@@ -1,10 +1,8 @@
 package runnabletools.serial;
 
 import adbs.cmd.AdbCommands;
-import adbs.main.AdbTools;
 import adbs.main.ui.jpanels.scrcpy.OpenApp;
 import adbs.model.Device;
-import adbs.tools.thread.ThreadSleep;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -53,7 +51,8 @@ public class AdbAll {
      */
     private static void taskKillOpenAll(boolean task, boolean killAll, boolean home, boolean open) {
         // 获取当前电脑上的所有adb设备的LinkedHashMap集合
-        LinkedHashMap<String, Device> simpleId_Device_map = Devices.getStringDeviceLinkedHashMap();
+//        LinkedHashMap<String, Device> simpleId_Device_map = Devices.getStringDeviceLinkedHashMap();
+        LinkedHashMap<String, Device> simpleId_Device_map = Devices.getSerial_device_map();
         System.out.println("-------------------------");
         // System.out.println("通过map打印");
         Set<Map.Entry<String, Device>> entries = simpleId_Device_map.entrySet();

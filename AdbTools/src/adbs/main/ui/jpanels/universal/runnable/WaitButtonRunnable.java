@@ -12,7 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * 等待 线程体
+ * 等待线程体
  */
 public class WaitButtonRunnable extends CloseableRunnable {
     /**
@@ -82,29 +82,22 @@ public class WaitButtonRunnable extends CloseableRunnable {
             }
             int waitingSeconds = (millisecond - count) / 1000;
             input1.setText(String.valueOf(waitingSeconds));
-//            // 禁止编辑 输入框1
-//            if (input1.isEditable()) {
-//                input1.setEditable(false);
-//            }
         }
     }
 
     @Override
     protected void afterLoop() {
         super.afterLoop();
-        // 恢复原来的设置
-        input1.setText(input1OldText);
-//        input1.setEditable(true);
-
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
+                // 恢复原来的设置
+                input1.setText(input1OldText);
                 input1.setBackground(input1Background);
+                JLabel timerJLabel = timePanels.getTimerJLabel();
+                timerJLabel.setText("");
             }
         });
-
-        JLabel timerJLabel = timePanels.getTimerJLabel();
-        timerJLabel.setText("");
 
         AdbTools adbTools = AdbTools.getInstance();
         AdbJPanels adbJPanels = adbTools.getAdbJPanels();
@@ -114,16 +107,10 @@ public class WaitButtonRunnable extends CloseableRunnable {
             universalPanels.getBtnStop().doClick();
             isClickStopButton = false;
         }
-        // if (isClickTaskButton) {
-        //     adbJPanels.getBtnTask().doClick();
-        //     isClickTaskButton = false;
-        // }
 
         AppNames appNames = AdbGetPackage.getAppNames();
         String packageName = appNames.getPackageName();
-        // if (packageName.equals("com.taobao.live")) {
-        //
-        // }
+
         switch (packageName) {
             case "com.taobao.live":
                 // 点淘APP,停止后返回
@@ -137,11 +124,6 @@ public class WaitButtonRunnable extends CloseableRunnable {
                 }
                 break;
         }
-
-        // if (isClickTaskButton) {
-        //     adbJPanels.getBtnTask().doClick();
-        //     isClickTaskButton = false;
-        // }
         timePanels.showConfirmDialog();
     }
 }

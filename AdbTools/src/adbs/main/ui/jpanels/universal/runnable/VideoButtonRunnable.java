@@ -2,14 +2,15 @@ package adbs.main.ui.jpanels.universal.runnable;
 
 import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
-import adbs.main.run.AdbGetPackage;
-import adbs.main.run.model.AppNames;
 import adbs.model.Device;
 import tools.random.Randoms;
 import tools.thead.Threads;
 
 import javax.swing.*;
 
+/**
+ * 刷视频线程体
+ */
 public class VideoButtonRunnable extends CloseableRunnable {
     private boolean stopWait = false;
 
@@ -36,12 +37,6 @@ public class VideoButtonRunnable extends CloseableRunnable {
     public void setMax(int max) {
         this.max = max;
     }
-
-    // @Override
-    // protected void setMsg() {
-    //     msg = "刷视频";
-    //     // msg = "";
-    // }
 
     @Override
     protected void loopBody() {
@@ -97,72 +92,10 @@ public class VideoButtonRunnable extends CloseableRunnable {
             // 等待一小段时间
             Threads.sleep(250);
             msCount += 250;
-//            // if (msCount % 3000 == 0) {
-//            // if (msCount % 2000 == 0) {
-//            if (msCount % 5000 == 0) {
-//                // System.out.println("msCount = " + msCount);
-//                // 如果向上滑动之后，跳转到其他activity，则修复
-//                isNotVideoActivity(device);
-//            }
             // 显示倒计时
             showCountdown(output2, msCount, msToWait);
         }
     }
-
-//    /**
-//     * 检查是不是视频activity
-//     * <p>
-//     * 如果不是视频activity，则执行操作，回到视频activity
-//     *
-//     * @param device 要检查
-//     */
-//    private void isNotVideoActivity(Device device) {
-//        AppNames appNames = AdbGetPackage.getAppNames();
-//
-//        String packageName = appNames.getPackageName();
-//        String actShortName = appNames.getActShortName();
-//        switch (packageName) {
-//            case "com.smile.gifmaker":
-//                // 如果在其他界面
-//                // if (isNotVideoAct_KuaiShou(device, actShortName)) {
-//                // if (isNotVideoAct_KuaiShou(device, actShortName)) {
-//                // isSlideUpError(device)
-//                // slideUp(device);
-//                // stopWait = true;
-//                // }
-//                isNotVideoAct_KuaiShou(device, actShortName);
-//                break;
-//
-//        }
-//    }
-
-//    private void isNotVideoAct_KuaiShou(Device device, String actShortName) {
-//        // boolean inOtherActivity = false;
-//        // 如果是快手APP
-//        switch (actShortName) {
-//            case "com.yxcorp.gifshow.HomeActivity":
-//                // inOtherActivity = false;
-//                stopWait = false;
-//                break;
-//
-//            case "com.yxcorp.gifshow.detail.PhotoDetailActivity":
-//            case "com.yxcorp.gifshow.webview.KwaiYodaWebViewActivity":
-//            case "com.yxcorp.gifshow.profile.activity.UserProfileActivity":
-//            case "com.kuaishou.live.core.basic.activity.LiveSlideActivity":
-//            case "com.isNotVideoAct_KuaiShou.live.core.basic.activity.LiveSlideActivity":
-//                // case "com.isNotVideoAct_KuaiShou.live.core.basic.activity.LiveSlideActivity":
-//            default:
-//                // 如果是要求安全验证的界面
-//                // 按返回键
-//                AdbCommands.returnBtn(device);
-//                // AdbCommands.swipeBottom2TopOnLeft(device);
-//                // inOtherActivity = true;
-//                stopWait = true;
-//                break;
-//        }
-//        // return inOtherActivity;
-//    }
-
 
     /**
      * 向上滑动是否出错

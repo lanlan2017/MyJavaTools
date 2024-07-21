@@ -1,4 +1,4 @@
-package adbs.main.ui.jpanels.app.example;
+package ui.jtextpane.example;
 
 import javax.swing.*;
 import javax.swing.event.*;  

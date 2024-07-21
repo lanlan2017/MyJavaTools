@@ -9,14 +9,13 @@ import tools.thead.Threads;
 import javax.swing.*;
 
 /**
- * 阅读按钮执行体
+ * 阅读线程体
  */
 public class ReadButtonRunnable extends CloseableRunnable {
     private static final ReadButtonRunnable instance = new ReadButtonRunnable();
     private int min;
     private int max;
     private ReadButtonRunnable() {
-        // setMsg();
         min = 5;
         max = 9;
     }

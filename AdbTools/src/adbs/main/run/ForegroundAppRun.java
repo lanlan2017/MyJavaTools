@@ -222,7 +222,8 @@ public class ForegroundAppRun implements Runnable {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                JTextArea signedInApp = appPanels.getSignedIn();
+//                JTextArea signedInApp = appPanels.getSignedIn();
+                JTextPane signedInApp = appPanels.getSignedIn();
                 signedInApp.setText(sb.toString().trim());
             }
         });

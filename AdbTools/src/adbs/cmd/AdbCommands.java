@@ -1,7 +1,6 @@
 package adbs.cmd;
 
 import adbs.main.AdbTools;
-//import adbs.main.ui.jpanels.auto.AdbTap;
 import adbs.model.Device;
 import adbs.tools.thread.ThreadSleep;
 import tools.process.ProcessRunner;

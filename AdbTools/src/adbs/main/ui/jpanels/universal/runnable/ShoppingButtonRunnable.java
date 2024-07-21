@@ -10,11 +10,10 @@ import tools.thead.Threads;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * 逛街线程体
+ */
 public class ShoppingButtonRunnable extends CloseableRunnable {
-    // /**
-    //  * 输入输出汇总模型
-    //  */
-    // private InOutputModel inOutputModel;
     /**
      * 是否触发任务键
      */
@@ -33,18 +32,10 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
         return instance;
     }
 
-    // public void setInOutputModel(InOutputModel inOutputModel) {
-    //     this.inOutputModel = inOutputModel;
-    // }
-
     public void setClickTaskBtn(boolean clickTaskBtn) {
         isClickTaskBtn = clickTaskBtn;
     }
 
-    // @Override
-    // protected void setMsg() {
-    //     // msg = "逛街";
-    // }
 
     @Override
     protected void beforeLoop() {
@@ -96,15 +87,6 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
                 return;
             }
         }
-
-        // if (swipeFromBottomToTopOnce(serial, input1)) {
-        //     stop = true;
-        //     return;
-        // }
-        // if (swipeFromBottomToTopOnce(serial, input1)) {
-        //     stop = true;
-        //     return;
-        // }
 
         while (!stop) {
             output.setText("↓");

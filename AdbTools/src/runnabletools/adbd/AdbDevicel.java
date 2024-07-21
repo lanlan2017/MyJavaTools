@@ -1,11 +1,13 @@
 package runnabletools.adbd;
 
-import adbs.main.run.IsTest;
 import adbs.model.Device;
 import config.AdbToolsProperties;
 import runnabletools.serial.Devices;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
 
 /**
@@ -14,26 +16,28 @@ import java.util.function.Consumer;
  */
 public class AdbDevicel {
     public static void main(String[] args) {
-        LinkedHashMap<String, Device> connectedDeviceMap = Devices.getStringDeviceLinkedHashMap();
-        printConnectedDevices(connectedDeviceMap);
+//        LinkedHashMap<String, Device> connectedDeviceMap = Devices.getStringDeviceLinkedHashMap();
+        LinkedHashMap<String, Device> connectedDeviceMap = Devices.getSerial_device_map();
+        Devices.printConnectedDevices(connectedDeviceMap);
+        System.out.println();
         printUnconnectedDevices(connectedDeviceMap);
     }
 
-    /**
-     * 打印已连接到电脑上的所有设备
-     *
-     * @param connectedDeviceMap
-     */
-    private static void printConnectedDevices(LinkedHashMap<String, Device> connectedDeviceMap) {
-        int size = connectedDeviceMap.size();
-        if (size > 0) {
-            boolean isTest = IsTest.isTest();
-            String formatTest = "%4d %-8s%-22s%-6s%-6s\n";
-            String formatRun = "%4d %-8s%-22s\n";
-            printTitle(isTest, formatTest, formatRun);
-            printConnectedDevices(connectedDeviceMap, isTest, formatTest, formatRun);
-        }
-    }
+//    /**
+//     * 打印已连接到电脑上的所有设备
+//     *
+//     * @param connectedDeviceMap
+//     */
+//    private static void printConnectedDevices(LinkedHashMap<String, Device> connectedDeviceMap) {
+//        int size = connectedDeviceMap.size();
+//        if (size > 0) {
+//            boolean isTest = IsTest.isTest();
+//            String formatTest = "%4d %-8s%-22s%-6s%-6s\n";
+//            String formatRun = "%4d %-8s%-22s\n";
+//            printTitle(isTest, formatTest, formatRun);
+//            printConnectedDevices(connectedDeviceMap, isTest, formatTest, formatRun);
+//        }
+//    }
 
     private static void printUnconnectedDevices(LinkedHashMap<String, Device> connectedDeviceMap) {
         int size = connectedDeviceMap.size();
