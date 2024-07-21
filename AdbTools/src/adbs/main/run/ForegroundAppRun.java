@@ -224,7 +224,8 @@ public class ForegroundAppRun implements Runnable {
             public void run() {
 //                JTextArea signedInApp = appPanels.getSignedIn();
                 JTextPane signedInApp = appPanels.getSignedIn();
-                signedInApp.setText(sb.toString().trim());
+//                signedInApp.setText(sb.toString().trim());
+                signedInApp.setText(sb.toString());
             }
         });
     }
