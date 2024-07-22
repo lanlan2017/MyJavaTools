@@ -176,7 +176,7 @@ public class AdbCommands implements ActivityStr {
      */
     public static void powerBtn(Device device) {
         String serial = device.getSerial();
-        AdbCommands.runAbdCmd("adb -s" + serial + " shell input keyevent 26");
+        AdbCommands.runAbdCmd("adb -s " + serial + " shell input keyevent 26");
     }
 
     /**
