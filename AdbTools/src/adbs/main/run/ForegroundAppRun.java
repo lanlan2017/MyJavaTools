@@ -9,6 +9,8 @@ import adbs.tools.thread.ThreadSleep;
 import config.AdbToolsProperties;
 
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -32,6 +34,7 @@ public class ForegroundAppRun implements Runnable {
     private static boolean nextDay = false;
     private AppPanels appPanels;
     private ToolsJPanels toolsJPanels;
+    public static final String appNameEndFlag = " ";
 
 
     public static void updatePackages_3_money() {
@@ -214,10 +217,10 @@ public class ForegroundAppRun implements Runnable {
     private void showOpenedApp() {
         // 把apk的名称放到列表中
         // System.out.println("已打开:" + apkOpenedToday);
-        StringBuffer sb = new StringBuffer();
-        for (String s : appOpened) {
-            sb.append(s).append("\n");
-        }
+//        StringBuffer sb = new StringBuffer();
+//        for (String s : appOpened) {
+//            sb.append(s).append("\n");
+//        }
         // appPanels = AdbTools.getInstance().getAppPanels();
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -225,8 +228,38 @@ public class ForegroundAppRun implements Runnable {
 //                JTextArea signedInApp = appPanels.getSignedIn();
                 JTextPane signedInApp = appPanels.getSignedIn();
 //                signedInApp.setText(sb.toString().trim());
-                signedInApp.setText(sb.toString());
-            }
+//                signedInApp.setText(sb.toString());
+//                if (appOpened.size() <= 1) {
+//                    System.out.println("第一个元素");
+//                    signedInApp.setText(appOpened.get(0) + appNameEndFlag);
+//                } else {
+                    StyledDocument doc = signedInApp.getStyledDocument();
+                    String text = signedInApp.getText();
+//                System.out.println("text = " + text);
+//                System.out.println();
+//                if ("".equals(text)) {
+//                    signedInApp.setText();
+//                } else {
+                    for (String s : appOpened) {
+                        if (!text.contains(s)) {
+                            // 定位到文档末尾
+                            try {
+//                            String newAppName = "\nNew Line Added Here.\n";
+//                            appNameEndFlag = " ";
+                            String newAppName = s + appNameEndFlag + "\n";
+//                                String newAppName = "\n" + s + appNameEndFlag;
+                                doc.insertString(doc.getLength(), newAppName, null);
+                                // 如果需要特定样式，可以替换null为相应的AttributeSet
+                            } catch (BadLocationException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+
+
+//            }
+//            }
         });
     }
 

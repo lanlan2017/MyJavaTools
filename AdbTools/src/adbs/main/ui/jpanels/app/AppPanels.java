@@ -2,6 +2,7 @@ package adbs.main.ui.jpanels.app;
 
 import adbs.main.AdbTools;
 import adbs.main.run.AdbGetPackage;
+import adbs.main.run.ForegroundAppRun;
 import config.AdbToolsProperties;
 import tools.swing.button.AbstractButtons;
 
@@ -65,7 +66,9 @@ public class AppPanels {
 //                highlightString(signedIn, searchString, Color.pink);
 
 //                String searchString = appName;
-                String appName = getAppName() + "\n";
+//                String appName = getAppName() + "\n";
+//                String appName = getAppName() + " ";
+                String appName = getAppName() + ForegroundAppRun.appNameEndFlag;
                 highlightString(signedIn, appName, Color.pink);
             }
         });
@@ -78,7 +81,9 @@ public class AppPanels {
 //                removeSpecificHighlights(CustomHighlighter.this.textPane, CustomHighlighter.this.inputField.getText());
 
 //                String text = "";
-                removeSpecificHighlights(signedIn, getAppName() + "\n");
+//                removeSpecificHighlights(signedIn, getAppName() + "\n");
+//                removeSpecificHighlights(signedIn, getAppName() + " ");
+                removeSpecificHighlights(signedIn, getAppName() + ForegroundAppRun.appNameEndFlag);
             }
         });
 
