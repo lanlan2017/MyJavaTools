@@ -97,12 +97,14 @@ public class ForegroundAppRun implements Runnable {
 
             // 去除方括号
             String trimmedAppsStr = appOpenedStr.substring(1, appOpenedStr.length() - 1);
-            // 分割字符串
-            String[] split = trimmedAppsStr.split(", ");
-            // 转换为ArrayList
-            ArrayList<String> appOpened = new ArrayList<>(Arrays.asList(split));
-            System.out.println(appOpened);
-            this.appOpened.addAll(appOpened);
+            if(trimmedAppsStr.contains(", ")){
+                // 分割字符串
+                String[] split = trimmedAppsStr.split(", ");
+                // 转换为ArrayList
+                ArrayList<String> appOpened = new ArrayList<>(Arrays.asList(split));
+                System.out.println(appOpened);
+                this.appOpened.addAll(appOpened);
+            }
 
             // 移除apps中appOpened中存在的所有元素
 //            this.apps.removeAll(this.appOpened);
@@ -217,7 +219,7 @@ public class ForegroundAppRun implements Runnable {
         // 打开手机管家
         adbTools.getAdbJPanels().getBtnMobileButler().doClick();
         // 停止线程，防止反复触发
-        ThreadSleep.minutes(1.5);
+//        ThreadSleep.minutes(1.5);
         // ThreadSleep.minutes(4.0);
     }
 
@@ -284,7 +286,8 @@ public class ForegroundAppRun implements Runnable {
                         System.out.println("loginRecords = \n" + loginRecords);
                         System.out.println();
 
-                        String loginRecordsTxt = getLoginRecordsTxt();
+//                        String loginRecordsTxt = getLoginRecordsTxt();
+                        String loginRecordsTxt = AdbTools.getInstance().getDevice().getLoginRecordsTxt();
                         System.out.println("loginRecordsTxt = " + loginRecordsTxt);
                         FileUtil.writeStringToFile(loginRecords.toString(), loginRecordsTxt);
 
@@ -294,10 +297,10 @@ public class ForegroundAppRun implements Runnable {
 
             }
 
-            private String getLoginRecordsTxt() {
-//                return AdbTools.getInstance().getDevice().getFilePath() + "\\loginRecords.txt";
-                return AdbTools.getInstance().getDevice().getDeviceFilePath() + "\\loginRecords.txt";
-            }
+//            private String getLoginRecordsTxt() {
+////                return AdbTools.getInstance().getDevice().getFilePath() + "\\loginRecords.txt";
+//                return AdbTools.getInstance().getDevice().getDeviceFilePath() + "\\loginRecords.txt";
+//            }
         });
     }
 
@@ -445,9 +448,21 @@ public class ForegroundAppRun implements Runnable {
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-
                     // 恢复原来的背景色，表示还没签到完成
                     universalPanel.setBackground(background);
+                    JTextPane signedIn = appPanels.getSignedIn();
+                    showNotOpenApp();
+//                    清空签到记录表
+                    signedIn.setText("");
+//                   清空已打开APP记录对象变量
+                    loginRecords.setAppOpened("[]");
+                    System.out.println();
+                    System.out.println("loginRecords = " + loginRecords);
+                    System.out.println();
+//                    把清空后的值写文件
+                    String loginRecordsTxt = AdbTools.getInstance().getDevice().getLoginRecordsTxt();
+                    FileUtil.writeStringToFile(loginRecords.toString(), loginRecordsTxt);
+//                    showOpenedApp();
                 }
             });
 

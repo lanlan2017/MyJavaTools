@@ -339,14 +339,7 @@ public class AdbJPanels {
         btnOpenMobileButlerApp = new JButton("G");
         // btnOpenMobileButlerApp = new JButton("GJ");
         btnOpenMobileButlerApp.setToolTipText("打开手机管家APP");
-//        btnOpenMobileButlerApp.addActionListener(new BtnActionListener() {
         btnOpenMobileButlerApp.addActionListener(new ActionListener() {
-//            @Override
-//            public void action(ActionEvent e) {
-//                OpenApp.openGuanJiaApp();
-//            }
-
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 AdbTools.getInstance().showDialogOk("管家", "打开手机管家?", new ActionListener() {
@@ -367,13 +360,7 @@ public class AdbJPanels {
         // btnWiFiSettings = new JButton("w");
         // btnWiFiSettings = new JButton("WF");
         btnWiFiSettings.setToolTipText("打开WiFi设置界面");
-//        btnWiFiSettings.addActionListener(new BtnActionListener() {
         btnWiFiSettings.addActionListener(new ActionListener() {
-//            @Override
-//            public void action(ActionEvent e) {
-//                OpenApp.openWiFiSetting();
-
-            //            }
             @Override
             public void actionPerformed(ActionEvent e) {
                 AdbTools.getInstance().showDialogOk("WiFi", "打开WiFi设置界面？", new ActionListener() {

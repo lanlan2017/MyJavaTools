@@ -91,7 +91,8 @@ public class Device {
         // 设置该设备的配置文件的路径
         deviceFilePath = "AdbToolsPythons" + "\\" + name;
 //       该设备的签到记录文件的路径
-        loginRecordsTxt = deviceFilePath + "\\loginRecords.txt";
+//        loginRecordsTxt = deviceFilePath + "\\loginRecords.txt";
+        loginRecordsTxt = deviceFilePath + "\\SignIn.txt";
         if (IsTest.isTest()) {
             System.out.print(name + " " + serial + " ");
             System.out.print(" width=" + getWidth());

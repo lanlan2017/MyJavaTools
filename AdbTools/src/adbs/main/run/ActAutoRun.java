@@ -262,8 +262,8 @@ public class ActAutoRun implements Runnable {
                 break;
             // 浏览领金币界面
             case "com.taobao.browser.exbrowser.BrowserUpperActivity":
-                // timingPanels2.s();
-                timingPanels2.s35s();
+                 timingPanels2.s();
+//                timingPanels2.s35s();
                 break;
         }
     }
@@ -279,7 +279,8 @@ public class ActAutoRun implements Runnable {
                 break;
             // case ".h5.BrowserUpperActivity":
             case ".h5.BrowserUpperActivity":
-                timingPanels2.s35s();
+//                timingPanels2.s35s();
+                timingPanels2.s();
                 break;
             case ".TaoLiveVideoActivity":
             case "com.taobao.video.VideoListActivity":
@@ -288,7 +289,8 @@ public class ActAutoRun implements Runnable {
             case "com.qq.e.ads.PortraitADActivity":
             case "com.bytedance.sdk.openadsdk.stub.activity.Stub_Standard_Portrait_Activity":
                 // timingPanels2.auto("w_65s");
-                timingPanels2.w65s();
+                timingPanels2.s();
+//                timingPanels2.w65s();
                 break;
         }
     }
@@ -313,7 +315,8 @@ public class ActAutoRun implements Runnable {
 //                System.out.println("广告界面");
                 // timingPanels2.getjComboBox().setSelectedIndex(0);
                 // timingPanels2.auto("w_65s");
-                timingPanels2.w65s();
+//                timingPanels2.w65s();
+                timingPanels2.w();
                 break;
 
         }
