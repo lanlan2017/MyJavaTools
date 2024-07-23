@@ -2,6 +2,9 @@ package adbs.main.run;
 
 import adbs.cmd.CmdRun;
 import adbs.main.AdbTools;
+import adbs.main.run.signinlog.FileUtil;
+import adbs.main.run.signinlog.LoginRecords;
+import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.app.AppPanels;
 import adbs.main.ui.jpanels.tools.ToolsJPanels;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
@@ -12,29 +15,32 @@ import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
+import java.util.*;
 
 public class ForegroundAppRun implements Runnable {
 
+    /**
+     * 保存所有可赚钱的APP名称的列表
+     */
+    private static ArrayList<String> apps;
     /**
      * 保存今日签到的app名称的列表
      * <p>
      * 今日打开的APP
      */
     private ArrayList<String> appOpened = new ArrayList<>();
-    /**
-     * 保存所有可赚钱的APP名称的列表
-     */
-    private static ArrayList<String> apps;
 
     private static boolean nextDay = false;
     private AppPanels appPanels;
     private ToolsJPanels toolsJPanels;
     public static final String appNameEndFlag = " ";
+    /**
+     * 签到记录文件
+     */
+    private LoginRecords loginRecords = new LoginRecords();
 
 
     public static void updatePackages_3_money() {
@@ -76,10 +82,35 @@ public class ForegroundAppRun implements Runnable {
     @Override
     public void run() {
         // 等待4秒
-        ThreadSleep.seconds(4);
+//        ThreadSleep.seconds(4);
+//        ThreadSleep.seconds(2);
         // 更新操作的面板
         updatePanels();
         updatePackages_3_money();
+//        @todo 先读取文件获取之前程序的签到记录
+        String loginRecordsTxt = AdbTools.getInstance().getDevice().getLoginRecordsTxt();
+        LoginRecords loginRecords_old = new LoginRecords(loginRecordsTxt);
+        if (loginRecords.equals(loginRecords_old)) {
+            System.out.println("有历史记录");
+            String appOpenedStr = loginRecords_old.getAppOpened();
+            System.out.println("appOpenedStr = " + appOpenedStr);
+
+            // 去除方括号
+            String trimmedAppsStr = appOpenedStr.substring(1, appOpenedStr.length() - 1);
+            // 分割字符串
+            String[] split = trimmedAppsStr.split(", ");
+            // 转换为ArrayList
+            ArrayList<String> appOpened = new ArrayList<>(Arrays.asList(split));
+            System.out.println(appOpened);
+            this.appOpened.addAll(appOpened);
+
+            // 移除apps中appOpened中存在的所有元素
+//            this.apps.removeAll(this.appOpened);
+            showNotOpenApp();
+            showOpenedApp();
+
+        }
+
         while (!stop) {
             body();
         }
@@ -225,41 +256,48 @@ public class ForegroundAppRun implements Runnable {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-//                JTextArea signedInApp = appPanels.getSignedIn();
                 JTextPane signedInApp = appPanels.getSignedIn();
-//                signedInApp.setText(sb.toString().trim());
-//                signedInApp.setText(sb.toString());
-//                if (appOpened.size() <= 1) {
-//                    System.out.println("第一个元素");
-//                    signedInApp.setText(appOpened.get(0) + appNameEndFlag);
-//                } else {
-                    StyledDocument doc = signedInApp.getStyledDocument();
-                    String text = signedInApp.getText();
-//                System.out.println("text = " + text);
-//                System.out.println();
-//                if ("".equals(text)) {
-//                    signedInApp.setText();
-//                } else {
-                    for (String s : appOpened) {
-                        if (!text.contains(s)) {
-                            // 定位到文档末尾
-                            try {
-//                            String newAppName = "\nNew Line Added Here.\n";
-//                            appNameEndFlag = " ";
+                StyledDocument doc = signedInApp.getStyledDocument();
+                String text = signedInApp.getText();
+                for (String s : appOpened) {
+                    // 如果原来的记录里没有这个记录
+                    if (!text.contains(s + appNameEndFlag)) {
+                        // 定位到文档末尾
+                        try {
                             String newAppName = s + appNameEndFlag + "\n";
-//                                String newAppName = "\n" + s + appNameEndFlag;
-                                doc.insertString(doc.getLength(), newAppName, null);
-                                // 如果需要特定样式，可以替换null为相应的AttributeSet
-                            } catch (BadLocationException e) {
-                                e.printStackTrace();
-                            }
+                            doc.insertString(doc.getLength(), newAppName, null);
+                            // 如果需要特定样式，可以替换null为相应的AttributeSet
+                            JFramePack.pack();
+                        } catch (BadLocationException e) {
+                            e.printStackTrace();
                         }
+
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        String date = simpleDateFormat.format(new Date());
+
+//                        loginRecords = new LoginRecords(date, apps.toString(), appOpened.toString());
+
+                        loginRecords.setApps(apps.toString());
+                        loginRecords.setAppOpened(appOpened.toString());
+
+                        System.out.println();
+                        System.out.println("loginRecords = \n" + loginRecords);
+                        System.out.println();
+
+                        String loginRecordsTxt = getLoginRecordsTxt();
+                        System.out.println("loginRecordsTxt = " + loginRecordsTxt);
+                        FileUtil.writeStringToFile(loginRecords.toString(), loginRecordsTxt);
+
                     }
                 }
 
 
-//            }
-//            }
+            }
+
+            private String getLoginRecordsTxt() {
+//                return AdbTools.getInstance().getDevice().getFilePath() + "\\loginRecords.txt";
+                return AdbTools.getInstance().getDevice().getDeviceFilePath() + "\\loginRecords.txt";
+            }
         });
     }
 

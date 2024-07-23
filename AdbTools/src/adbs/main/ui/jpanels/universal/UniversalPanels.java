@@ -9,6 +9,7 @@ import adbs.main.ui.jpanels.time.TimePanels;
 import adbs.main.ui.jpanels.universal.listener.*;
 import adbs.main.ui.jpanels.universal.pinyin.FileCreator;
 import adbs.main.ui.jpanels.universal.pinyin.PinyinConverter;
+import adbs.model.Device;
 import adbs.python.Region;
 import config.AdbToolsProperties;
 import tools.swing.button.AbstractButtons;
@@ -164,7 +165,8 @@ public class UniversalPanels {
 
 
                     String msg = "";
-                    String deviceName = AdbTools.getInstance().getDevice().getName();
+                    Device device = AdbTools.getInstance().getDevice();
+                    String deviceName = device.getName();
 
 //                    System.out.println("deviceName = " + deviceName);
                     if (deviceName.endsWith("+")) {
@@ -172,7 +174,7 @@ public class UniversalPanels {
                     }
 //                    System.out.println("deviceName = " + deviceName);
 
-                    String packageName = AdbGetPackage.getTopPackageName(AdbTools.getInstance().getDevice().getSerial());
+                    String packageName = AdbGetPackage.getTopPackageName(device.getSerial());
 //                    System.out.println("packageName = " + packageName);
 
                     // 获取应用名（中文名）
@@ -182,8 +184,13 @@ public class UniversalPanels {
                         String pinyin = PinyinConverter.convertToPinyin(chName);
 
                         System.out.println("pinyin = " + pinyin);
-                        //拼接Python文件的路径
-                        String pyPath = "AdbToolsPythons" + "\\" + deviceName + "\\" + pinyin + "\\1.py";
+
+//                        //拼接Python文件的路径
+//                        String deviceFilePath = "AdbToolsPythons" + "\\" + deviceName;
+//                        String deviceFilePath = device.getFilePath();
+                        String deviceFilePath = device.getDeviceFilePath();
+
+                        String pyPath = deviceFilePath + "\\" + pinyin + "\\1.py";
                         System.out.println("pyPath = " + pyPath);
                         // 如果文件不存在，则创建文件
                         FileCreator.createFile(pyPath);
