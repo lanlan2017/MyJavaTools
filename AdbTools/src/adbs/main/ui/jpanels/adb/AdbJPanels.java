@@ -166,14 +166,8 @@ public class AdbJPanels {
 
 
         // AbstractButtons.setMarginInButtonJPanel(adbJPanel);
-        AbstractButtons.setMarginInButtonJPanel(adbJPanel, -1);
-        // AbstractButtons.setMarginInButtonJPanel(adbJPanel, 0);
-        // AbstractButtons.setMarginInButtonJPanel(adbJPanel, 1);
-
-        // AbstractButtons.setJButtonMargin(volumePlus, -1);
-        // AbstractButtons.setJButtonMargin(volumeMinus, -1);
-        // AbstractButtons.setJButtonMargin(volumeNone, -1);
-
+//        AbstractButtons.setMarginInButtonJPanel(adbJPanel, -1);
+        AbstractButtons.setMarginInButtonJPanel(adbJPanel, 0);
         AbstractButtons.setMarginInButtonJPanel(volumeJPanel, -1);
         AbstractButtons.setMarginInButtonJPanel(statusbarJPanel, -1);
         // 设置的内切
