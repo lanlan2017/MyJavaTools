@@ -77,31 +77,35 @@ public class LoginRecords {
     }
 
     public LoginRecords(String filePath) {
-        String string = FileUtil.readStringFromFile(filePath);
-//        System.out.println("string = " + string);
+        // 判断是否需要创建文件，如果文件不存在，则先创建文件，如果不需要创建文件，则说明有历史记录。
+        if (!FileUtil.isNeedToCreateFile(filePath)) {
+            // 读取文件内容
+            String string = FileUtil.readStringFromFile(filePath);
+            System.out.println("string = " + string);
+            if (string.contains(dateStartFlag) && string.contains(appStartFlag) && string.contains(oppenedStartFlag)) {
 
-        if (string.contains(dateStartFlag) && string.contains(appStartFlag) && string.contains(oppenedStartFlag)) {
-
-            String[] split = string.split("\n");
-            int length = split.length;
+                String[] split = string.split("\n");
+                int length = split.length;
 //            System.out.println("length = " + length);
-            if (length == 3) {
-                String dateStr = split[0];
-                String appStr = split[1];
-                String oppenedStr = split[2];
+                if (length == 3) {
+                    String dateStr = split[0];
+                    String appStr = split[1];
+                    String oppenedStr = split[2];
 
 
-                this.date = dateStr.substring(dateStartFlag.length());
+                    this.date = dateStr.substring(dateStartFlag.length());
 //                System.out.println("date = " + date);
 
-                this.apps = appStr.substring(appStartFlag.length());
+                    this.apps = appStr.substring(appStartFlag.length());
 //                System.out.println("apps = " + appStr);
 
-                this.appOpened = oppenedStr.substring(oppenedStartFlag.length());
+                    this.appOpened = oppenedStr.substring(oppenedStartFlag.length());
 //                System.out.println("appOpened = " + oppenedStr);
 
-                System.out.println("this = \n" + this);
+                    System.out.println("this = \n" + this);
+                }
             }
+
         }
 
 

@@ -83,12 +83,30 @@ public class ForegroundAppRun implements Runnable {
     public void run() {
         // 等待4秒
 //        ThreadSleep.seconds(4);
-//        ThreadSleep.seconds(2);
+        ThreadSleep.seconds(2);
         // 更新操作的面板
         updatePanels();
+        // 更新应用列表
         updatePackages_3_money();
-//        @todo 先读取文件获取之前程序的签到记录
+        // 如果有旧的记录的话
+        readLoginRecords();
+
+        while (!stop) {
+            body();
+        }
+    }
+
+    /**
+     * 读取签到记录文件
+     */
+    private void readLoginRecords() {
+        //        @todo 先读取文件获取之前程序的签到记录
         String loginRecordsTxt = AdbTools.getInstance().getDevice().getLoginRecordsTxt();
+        System.out.println("loginRecordsTxt = " + loginRecordsTxt);
+
+
+
+
         LoginRecords loginRecords_old = new LoginRecords(loginRecordsTxt);
         if (loginRecords.equals(loginRecords_old)) {
             System.out.println("有历史记录");
@@ -97,7 +115,7 @@ public class ForegroundAppRun implements Runnable {
 
             // 去除方括号
             String trimmedAppsStr = appOpenedStr.substring(1, appOpenedStr.length() - 1);
-            if(trimmedAppsStr.contains(", ")){
+            if (trimmedAppsStr.contains(", ")) {
                 // 分割字符串
                 String[] split = trimmedAppsStr.split(", ");
                 // 转换为ArrayList
@@ -111,10 +129,6 @@ public class ForegroundAppRun implements Runnable {
             showNotOpenApp();
             showOpenedApp();
 
-        }
-
-        while (!stop) {
-            body();
         }
     }
 
@@ -133,11 +147,6 @@ public class ForegroundAppRun implements Runnable {
         String topActivityCommand = AdbGetPackage.getTopActivityCommand(serial);
         // System.out.println("ActivityCommand =" + topActivityCommand);
         String run = CmdRun.run(topActivityCommand).trim();
-
-        // System.out.println(run);
-
-        // String run = AdbCommands.runAbdCmd(topActivityCommand).trim();
-        // String run = CmdRun.run(topActivityCommand).trim();
         // 如果命令结果中有反斜杠，说明有包名
         if (run.contains("/")) {
             //mResumedActivity: ActivityRecord{7fbc105 u0 com.huawei.health/.MainActivity t1573}
@@ -248,13 +257,6 @@ public class ForegroundAppRun implements Runnable {
      * 显示已经打开的金币应用
      */
     private void showOpenedApp() {
-        // 把apk的名称放到列表中
-        // System.out.println("已打开:" + apkOpenedToday);
-//        StringBuffer sb = new StringBuffer();
-//        for (String s : appOpened) {
-//            sb.append(s).append("\n");
-//        }
-        // appPanels = AdbTools.getInstance().getAppPanels();
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -294,13 +296,8 @@ public class ForegroundAppRun implements Runnable {
                     }
                 }
 
-
             }
 
-//            private String getLoginRecordsTxt() {
-////                return AdbTools.getInstance().getDevice().getFilePath() + "\\loginRecords.txt";
-//                return AdbTools.getInstance().getDevice().getDeviceFilePath() + "\\loginRecords.txt";
-//            }
         });
     }
 
