@@ -422,7 +422,6 @@ public class ForegroundAppRun implements Runnable {
             @Override
             public void run() {
                 universalPanel.setBackground(Color.pink);
-
             }
         });
 
