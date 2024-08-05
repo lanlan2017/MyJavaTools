@@ -96,7 +96,7 @@ public class LoginRecords {
                     // System.out.println("date = " + date);
 
                     this.apps = appStr.substring(appStartFlag.length());
-                    System.out.println("apps = " + appStr);
+//                    System.out.println("apps = " + appStr);
 
                     this.appOpened = oppenedStr.substring(oppenedStartFlag.length());
                     // System.out.println("appOpened = " + oppenedStr);

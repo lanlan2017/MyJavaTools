@@ -25,8 +25,6 @@ public class AdbJPanels {
 
     private final JPanel adbJPanel;
 
-    // private JButton openScrcpyBtn;
-    // private JButton killScrcpyBtn;
     /**
      * 返回键
      */
@@ -63,7 +61,9 @@ public class AdbJPanels {
      * 展开或者收起状态栏
      */
     private final JButton btnStatusbar;
-    // private final JButton statusbarHide;
+    /**
+     * 获取顶部应用的全限定Activity名称
+     */
     private final JButton btnAct;
     /**
      * 打开手机管家
@@ -77,12 +77,10 @@ public class AdbJPanels {
      * 打开WiFi设置
      */
     private final JButton btnWiFiSettings;
+    /**
+     * 电源按钮
+     */
     private final JButton btnPower;
-
-    // /**
-    //  * 停止后台线程按钮
-    //  */
-    // private final JButton stopBtn;
 
     public AdbJPanels() {
         adbJPanel = new JPanel();
@@ -122,7 +120,6 @@ public class AdbJPanels {
         btnReboot = intBtnReboot();
         btnPowerOff = initBntPowerOff();
 
-        // btnPower = new JButton("电源");
         // 按下手机电源键
         btnPower = initBtnPower();
         // 音量面板
@@ -137,10 +134,6 @@ public class AdbJPanels {
         btnWiFiSettings = initBtnWiFiSettings();
         // 打开系统设置
         btnSetting = initBtnSetting();
-
-        // adb面板添加按钮
-        // adbJPanel.add(openScrcpyBtn);
-        // adbJPanel.add(killScrcpyBtn);
 
         adbJPanel.add(btnReturn);
         adbJPanel.add(btnHome);
@@ -166,14 +159,12 @@ public class AdbJPanels {
 
 
         // AbstractButtons.setMarginInButtonJPanel(adbJPanel);
-//        AbstractButtons.setMarginInButtonJPanel(adbJPanel, -1);
+        // AbstractButtons.setMarginInButtonJPanel(adbJPanel, -1);
         AbstractButtons.setMarginInButtonJPanel(adbJPanel, 0);
         AbstractButtons.setMarginInButtonJPanel(volumeJPanel, -1);
         AbstractButtons.setMarginInButtonJPanel(statusbarJPanel, -1);
         // 设置的内切
         AbstractButtons.setMarginInButtonJPanel(navigationKeyJPanel, 0);
-        // volumeNone.setMargin(new Insets(2, -1, -1, -1));
-        // volumeNone.setMargin(new Insets(2, -1, 2, -1));
     }
 
     private JButton initBtnSetting() {
@@ -182,13 +173,6 @@ public class AdbJPanels {
         btnSetting.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Device device = AdbTools.getInstance().getDevice();
-                // // openSetting(device);
-                // // AdbCommands.openSetting(device);
-
-//                AdbCommands.openSetting(AdbTools.getInstance().getDevice());
-//                AdbCommands.openSetting(AdbTools.getInstance().getDevice());
-
                 String title = "设置";
                 String message = "打开设置？";
 
@@ -206,17 +190,11 @@ public class AdbJPanels {
         return btnSetting;
     }
 
-//    /**
-//     * 在AdbTools程序中弹出有一个确认按钮的对话框
-//     * @param title 对话框的标题
-//     * @param message 消息
-//     * @param actionListenerOk 点击确认按钮需要执行的操作
-//     */
-//    private void adbToolsShowDialogOk(String title, String message, ActionListener actionListenerOk) {
-//        JFrame frame = AdbTools.getInstance().getFrame();
-//        DialogFactory.showDialogOk(frame, title, message, actionListenerOk);
-//    }
-
+    /**
+     * 初始化电源按钮
+     *
+     * @return
+     */
     private JButton initBtnPower() {
         final JButton btnPower;
         btnPower = new JButton("电");
@@ -224,19 +202,10 @@ public class AdbJPanels {
         btnPower.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // 按手机的电源键
-                // 当屏幕关闭时，按电源键后，屏幕会亮
-                // 当屏幕点亮时，按电源键后，屏幕会熄灭
-                // adb shell input keyevent 26
-//                Device device = AdbTools.getInstance().getDevice();
-//                // pressPowerButton(device);
-//                AdbCommands.powerBtn(device);
-//
                 AdbTools.getInstance().showDialogOk("电源键", "按下手机电源键？", new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         Device device = AdbTools.getInstance().getDevice();
-                        // pressPowerButton(device);
                         AdbCommands.powerBtn(device);
 
                     }
@@ -246,21 +215,6 @@ public class AdbJPanels {
         });
         return btnPower;
     }
-    //
-    // /**
-    //  * 按下安卓设备的电源键
-    //  *
-    //  * @param device
-    //  */
-    // private void pressPowerButton(Device device) {
-    //     String serial = device.getSerial();
-    //     AdbCommands.runAbdCmd("adb -s" + serial + "shell input keyevent 26");
-    // }
-
-    // public static void openSetting(Device device) {
-    //     String code = "adb -s " + device.getSerial() + " shell am start -n com.android.settings/.Settings";
-    //     AdbCommands.runAbdCmd(code);
-    // }
 
     private JButton intBtnAct() {
         final JButton btnGetAct;
@@ -269,33 +223,11 @@ public class AdbJPanels {
         btnGetAct = new JButton("A");
         // btnGetAct = new JButton("a");
         btnGetAct.setToolTipText("获取顶部APP的activity");
-//        btnGetAct.addActionListener(new BtnActionListener() {
         btnGetAct.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-//                JDialog dialogOk = DialogFactory.createDialogOk("", "获取顶部activity", new ActionListener() {
-//                    @Override
-//                    public void actionPerformed(ActionEvent e) {
-//                        String actName = AdbGetPackage.getActName();
-//                        System.out.println();
-//                        System.out.println("actName = " + actName);
-//                        // System.out.println();
-//                        String serial = AdbTools.getInstance().getDevice().getSerial();
-//                        String openAct = "adb -s " + serial + " shell am start -n " + actName;
-//                        System.out.println("openAct = " + openAct);
-//                        // System.out.println();
-//                        String openActJavaStr = "String openAct = \"adb -s \" + device.getSerial() + \" shell am start -n " + actName + "\";";
-//                        // System.out.println("openActJavaStr = " + openActJavaStr);
-//                        System.out.println();
-//                        String clipOut = "// " + actName + "\n// " + openAct + "\n// " + openActJavaStr;
-//                        SystemClipboard.setSysClipboardText(clipOut);
-//                    }
-//                });
-//                dialogOk.setLocationRelativeTo(AdbTools.getInstance().getFrame());
-//                dialogOk.setVisible(true);
-
-                DialogFactory.showDialogOk(AdbTools.getInstance().getFrame(), "ACT", "获取顶部APP的Activity", new ActionListener() {
+                String message = "获取顶部APP的Activity";
+                DialogFactory.showDialogOk(AdbTools.getInstance().getFrame(), "ACT", message, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         String actName = AdbGetPackage.getActName();
@@ -307,27 +239,13 @@ public class AdbJPanels {
                         System.out.println("openAct = " + openAct);
                         // System.out.println();
                         String openActJavaStr = "String openAct = \"adb -s \" + device.getSerial() + \" shell am start -n " + actName + "\";";
-                        // System.out.println("openActJavaStr = " + openActJavaStr);
+                        System.out.println("openActJavaStr = " + openActJavaStr);
                         System.out.println();
                         String clipOut = "// " + actName + "\n// " + openAct + "\n// " + openActJavaStr;
-                        SystemClipboard.setSysClipboardText(clipOut);
+                        // SystemClipboard.setSysClipboardText(clipOut);
+                        SystemClipboard.setSysClipboardText(actName);
                     }
                 });
-
-
-//                String actName = AdbGetPackage.getActName();
-//                System.out.println();
-//                System.out.println("actName = " + actName);
-//                // System.out.println();
-//                String serial = AdbTools.getInstance().getDevice().getSerial();
-//                String openAct = "adb -s " + serial + " shell am start -n " + actName;
-//                System.out.println("openAct = " + openAct);
-//                // System.out.println();
-//                String openActJavaStr = "String openAct = \"adb -s \" + device.getSerial() + \" shell am start -n " + actName + "\";";
-//                // System.out.println("openActJavaStr = " + openActJavaStr);
-//                System.out.println();
-//                String clipOut = "// " + actName + "\n// " + openAct + "\n// " + openActJavaStr;
-//                SystemClipboard.setSysClipboardText(clipOut);
             }
         });
         return btnGetAct;
@@ -395,14 +313,14 @@ public class AdbJPanels {
                 // statusbarShow.setText(hideFlag);
                 statusbarShow.setToolTipText("展开状态栏");
                 // } else {
-                //     String id = AdbTools.getInstance().getDevice().getSerial();
-                //     // 拼接重启代码
-                //     String adbCmd = "adb -s " + id + " shell service call statusbar 2";
-                //     // System.out.println("adbCmd = " + adbCmd);
-                //     // 启动cmd进程执行adb命令
-                //     AdbCommands.runAbdCmd(adbCmd);
-                //     statusbarShow.setText(showFlag);
-                //     statusbarShow.setToolTipText("收起状态栏");
+                // String id = AdbTools.getInstance().getDevice().getSerial();
+                // // 拼接重启代码
+                // String adbCmd = "adb -s " + id + " shell service call statusbar 2";
+                // // System.out.println("adbCmd = " + adbCmd);
+                // // 启动cmd进程执行adb命令
+                // AdbCommands.runAbdCmd(adbCmd);
+                // statusbarShow.setText(showFlag);
+                // statusbarShow.setToolTipText("收起状态栏");
                 // }
             }
         });
@@ -415,7 +333,7 @@ public class AdbJPanels {
         JButton powerOffBtn = new JButton("关");
         powerOffBtn.setToolTipText("关机");
         // closeBtn.addActionListener(new RebootBtnAcListener(frame, "shell reboot -p"));
-//        powerOffBtn.addActionListener(new RebootBtnAcListener(adbJPanel, "shell reboot -p"));
+        // powerOffBtn.addActionListener(new RebootBtnAcListener(adbJPanel, "shell reboot -p"));
         powerOffBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -442,7 +360,7 @@ public class AdbJPanels {
         JButton rebootBtn = new JButton("重");
         rebootBtn.setToolTipText("重启手机");
         // rebootBtn.addActionListener(new RebootBtnAcListener(frame, "reboot"));
-//        rebootBtn.addActionListener(new RebootBtnAcListener(adbJPanel, "reboot"));
+        // rebootBtn.addActionListener(new RebootBtnAcListener(adbJPanel, "reboot"));
         rebootBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -452,7 +370,7 @@ public class AdbJPanels {
                         String serial = AdbTools.getInstance().getDevice().getSerial();
 
                         // 拼接重启代码
-//                        String adbCmd = "adb -s " + serial + " " + code;
+                        // String adbCmd = "adb -s " + serial + " " + code;
                         // 拼接重启代码
                         String adbCmd = "adb -s " + serial + " " + "reboot";
                         System.out.println("adbCmd = " + adbCmd);
@@ -505,13 +423,6 @@ public class AdbJPanels {
 
     private JButton initBtnHome() {
         // home键按钮
-        // homeBtn = new JButton(new ImageIcon(Buttons.class.getClassLoader().getResource("圆圈.png")));
-        // ◁ ○ □
-        /*
-        ◁○□▇◀●
-        xxx
-         */
-        // homeBtn = new JButton("○");
         JButton homeBtn = new JButton("o");
         homeBtn.setFont(Fonts.Consolas_BOLD_12);
         homeBtn.setToolTipText("home键");
@@ -521,7 +432,6 @@ public class AdbJPanels {
 
     private JButton initBtnRetun() {
         // ◁ ○ □
-        // returnBtn = new JButton("◁");
         JButton returnBtn = new JButton("<");
         returnBtn.setToolTipText("返回键");
         // returnBtn.setFont(Fonts.Consolas_BOLD_14);
@@ -539,16 +449,8 @@ public class AdbJPanels {
         return btnReturn;
     }
 
-    public JButton getBtnHome() {
-        return btnHome;
-    }
-
     public JButton getBtnTask() {
         return btnTask;
-    }
-
-    public JButton getBtnAct() {
-        return btnAct;
     }
 
     public JButton getBtnMobileButler() {

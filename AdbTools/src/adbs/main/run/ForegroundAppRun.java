@@ -16,8 +16,6 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class ForegroundAppRun implements Runnable {
@@ -50,11 +48,11 @@ public class ForegroundAppRun implements Runnable {
         System.out.println("可赚钱APP列表: " + apps);
     }
 
-    private static boolean stop;
+    private static volatile boolean stop;
     /**
      * 是否停止等待，直接进行下一步的签到检查。
      */
-    private static boolean stopWait;
+    private static volatile boolean stopWait;
     /**
      * 是否所有的APP都签到完毕。
      */
@@ -103,18 +101,20 @@ public class ForegroundAppRun implements Runnable {
         // System.out.println("loginRecordsTxt = " + loginRecordsTxt);
         LoginRecords loginRecords_old = new LoginRecords(loginRecordsTxt);
         if (loginRecords.equals(loginRecords_old)) {
-            System.out.println("有历史记录");
+            // System.out.println("有历史记录");
             String appOpenedStr = loginRecords_old.getAppOpened();
-            System.out.println("appOpenedStr = " + appOpenedStr);
+            // System.out.println("appOpenedStr = " + appOpenedStr);
 
             // 去除方括号
             String trimmedAppsStr = appOpenedStr.substring(1, appOpenedStr.length() - 1);
+            // 去除方括号之后还有其他元素            
             if (trimmedAppsStr.contains(", ")) {
                 // 分割字符串
                 String[] split = trimmedAppsStr.split(", ");
                 // 转换为ArrayList
                 ArrayList<String> appOpened = new ArrayList<>(Arrays.asList(split));
-                System.out.println(appOpened);
+
+                // System.out.println(appOpened);
                 this.appOpened.addAll(appOpened);
             }
 
@@ -196,14 +196,15 @@ public class ForegroundAppRun implements Runnable {
      */
     private boolean isNextDay() {
         // 获取当前的时间
-        LocalDateTime localDateTime = LocalDateTime.now();
+        // LocalDateTime localDateTime = LocalDateTime.now();
         // String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        String format = localDateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+        // String format = localDateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
         // System.out.println("时间 = " + format);
         // 如果当前时间 在0到3分钟 之内的话，则认为现在到了第2天
         // return nextDay || format.startsWith("00:00") || format.startsWith("00:01") || format.startsWith("00:02") || format.startsWith("00:03");
         // return nextDay || format.startsWith("00:00") || format.startsWith("00:01") || format.startsWith("00:02");
-        return nextDay || format.startsWith("00:00") || format.startsWith("00:01");
+        // return nextDay || format.startsWith("00:00") || format.startsWith("00:01");
+        return nextDay;
     }
 
     /**

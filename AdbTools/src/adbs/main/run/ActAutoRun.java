@@ -15,6 +15,27 @@ public class ActAutoRun implements Runnable {
     private TimingPanels2 timingPanels2;
     private static boolean stop;
     private UniversalPanels universalPanels;
+    private ArrayList<String> wait1H;
+    private ArrayList<String> wait30S;
+    private final ArrayList<String> wait3M;
+
+
+    public ActAutoRun() {
+
+        // 需要等待1个小时的Activity
+        wait1H = new ArrayList<>();
+        wait1H.add("com.kuaishou.kgx.novel/com.kuaishou.novel.read.ReaderActivityV2");
+
+        wait30S = new ArrayList<>();
+        wait30S.add("com.taobao.live/.h5.BrowserActivity");
+
+        wait3M = new ArrayList<>();
+        // com.phoenix.read/com.dragon.read.component.shortvideo.impl.ShortSeriesActivity
+        // adb -s UDN0217A17001140 shell am start -n com.phoenix.read/com.dragon.read.component.shortvideo.impl.ShortSeriesActivity
+        // String openAct = "adb -s " + device.getSerial() + " shell am start -n com.phoenix.read/com.dragon.read.component.shortvideo.impl.ShortSeriesActivity";
+        // 红果免费短剧，短剧播放界面
+        wait3M.add("com.phoenix.read/com.ss.android.excitingvideo.ExcitingVideoActivity");
+    }
 
     @Override
     public void run() {
@@ -46,18 +67,18 @@ public class ActAutoRun implements Runnable {
      * @param offer    之前的APP
      */
     private void actChange(AppNames appNames, AppNames offer) {
-//        System.out.println("   offer = " + offer);
-//        System.out.println("appNames = " + appNames);
+        // System.out.println("   offer = " + offer);
+        // System.out.println("appNames = " + appNames);
         if (offer != null) {
             String offerPackageName = offer.getPackageName();
             String packageName = appNames.getPackageName();
             // System.out.println("offerPackageName = " + offerPackageName);
             // System.out.println("packageName = " + packageName);
-//            System.out.println("offerPackageName = " + offerPackageName);
-//            System.out.println("packageName = " + packageName);
+            // System.out.println("offerPackageName = " + offerPackageName);
+            // System.out.println("packageName = " + packageName);
             if (packageName.equals(offerPackageName)) {
                 // 在同一个APP内
-//                System.out.println("在同一个APP内");
+                // System.out.println("在同一个APP内");
                 actChange(appNames);
             } else {
                 // 新的APP不是任务APP
@@ -78,25 +99,25 @@ public class ActAutoRun implements Runnable {
      */
     private void appChange(String offerPackageName) {
         // 打开了新的APP
-//        System.out.println("打开了新的APP");
+        // System.out.println("打开了新的APP");
         switch (offerPackageName) {
             // 趣头条
             case "com.jifen.qukan":
                 // timingPanels2.w180s();
                 // break;
-                //    今日头条极速版
+                // 今日头条极速版
                 // com.ss.android.article.lite
             case "com.ss.android.article.lite":
-                //  今日头条
+                // 今日头条
             case "com.ss.android.article.news":
-                //    西瓜视频
+                // 西瓜视频
             case "com.ss.android.article.video":
-                //    番茄免费小说
+                // 番茄免费小说
             case "com.dragon.read":
             case "com.xs.fm":
             case "com.ss.android.ugc.aweme.lite":
             case "com.ss.android.ugc.live":
-                //    抖音
+                // 抖音
             case "com.ss.android.ugc.aweme":
                 // 番茄畅听
                 timingPanels2.w180s();
@@ -104,11 +125,11 @@ public class ActAutoRun implements Runnable {
 
             // 百度极速版
             case "com.baidu.searchbox.lite":
-                //    快手极速版
+                // 快手极速版
             case "com.kuaishou.nebula":
-                //    快手
+                // 快手
             case "com.smile.gifmaker":
-                //    悟空浏览器
+                // 悟空浏览器
             case "com.cat.readall":
                 timingPanels2.w95s();
                 break;
@@ -130,36 +151,36 @@ public class ActAutoRun implements Runnable {
             case "com.android.settings":
                 // 安卓短信
             case "com.android.mms":
-                //    搞机工具箱
+                // 搞机工具箱
             case "com.byyoung.setting":
-                //    华为应用市场
+                // 华为应用市场
             case "com.huawei.appmarket":
-                //    华为桌面
+                // 华为桌面
             case "com.huawei.android.launcher":
-                //    华为运动健康
+                // 华为运动健康
             case "com.huawei.health":
-                //    OPPO任务视图
+                // OPPO任务视图
             case "com.coloros.recents":
-                //    OPPO桌面
+                // OPPO桌面
             case "com.oppo.launcher":
-                //    OPPO手机管家
+                // OPPO手机管家
             case "com.coloros.safecenter":
-                //    小米桌面
+                // 小米桌面
             case "com.miui.home":
-                //  小米应用市场
+                // 小米应用市场
             case "com.xiaomi.market":
-                //     小米安装器
+                // 小米安装器
             case "com.miui.packageinstaller":
 
-                //    小米安全中心
+                // 小米安全中心
             case "com.miui.securitycenter":
-                //    运动健康OPPO
+                // 运动健康OPPO
             case "com.free.pedometer":
-                //  魅族桌面
+                // 魅族桌面
             case "com.meizu.flyme.launcher":
-                //    魅族运动
+                // 魅族运动
             case "com.meizu.net.pedometer":
-                //    魅族应用商店
+                // 魅族应用商店
             case "com.meizu.mstore":
                 b = false;
                 break;
@@ -173,23 +194,33 @@ public class ActAutoRun implements Runnable {
 
     private void _wait(AppNames appNames) {
         String actLongName = appNames.getActLongName();
-        // 需要等待1个小时的Activity
-        ArrayList<String> wait1H = new ArrayList<>();
-        wait1H.add("com.kuaishou.kgx.novel/com.kuaishou.novel.read.ReaderActivityV2");
-        ArrayList<String> wait30S = new ArrayList<>();
-        wait30S.add("com.taobao.live/.h5.BrowserActivity");
+        // // 需要等待1个小时的Activity
+        // wait1H = new ArrayList<>();
+        // wait1H.add("com.kuaishou.kgx.novel/com.kuaishou.novel.read.ReaderActivityV2");
+        //
+        //
+        //
+        // wait30S = new ArrayList<>();
+        // wait30S.add("com.taobao.live/.h5.BrowserActivity");
+        //
+
         if (wait1H.contains(actLongName)) {
             _wait(1 * 60 * 60);
+        } else if (wait3M.contains(actLongName)) {
+            _wait(3 * 60);
         } else if (wait30S.contains(actLongName)) {
             _wait(30);
+        } else {
+            _wait(9);
         }
 
     }
 
     private void _wait(int seconds) {
-//        System.out.println("等待一段时间...");
+        // System.out.println("等待一段时间...");
         // ThreadSleep.seconds(30);
         // ThreadSleep.seconds(5);
+        System.out.println("act 等待：" + seconds);
         ThreadSleep.seconds(seconds);
         // ThreadSleep.seconds(8);
         // ThreadSleep.seconds(10);
@@ -205,9 +236,9 @@ public class ActAutoRun implements Runnable {
     private void actChange(AppNames appNames) {
         String packageName = appNames.getPackageName();
         String actShortName = appNames.getActShortName();
-//        System.out.println("\n界面改变，给出建议...");
-//        System.out.println("    packageName = " + packageName);
-//        System.out.println("    actShortName = " + actShortName);
+        // System.out.println("\n界面改变，给出建议...");
+        // System.out.println("    packageName = " + packageName);
+        // System.out.println("    actShortName = " + actShortName);
         switch (packageName) {
             // case "com.android.dialer/.DialtactsActivity"
             case "com.android.dialer":
@@ -223,7 +254,7 @@ public class ActAutoRun implements Runnable {
             case "com.taobao.live":
                 dianTao(actShortName);
                 break;
-            //  淘宝
+            // 淘宝
             case "com.taobao.taobao":
                 taobao(actShortName);
                 break;
@@ -273,7 +304,7 @@ public class ActAutoRun implements Runnable {
                 // 显示刷视频系列按钮
                 timingPanels2.vw();
                 break;
-            //    签到红包界面
+            // 签到红包界面
             case "com.taobao.themis.container.app.TMSActivity":
             case "com.taobao.browser.BrowserActivity":
                 timingPanels2.s();
@@ -281,7 +312,7 @@ public class ActAutoRun implements Runnable {
             // 浏览领金币界面
             case "com.taobao.browser.exbrowser.BrowserUpperActivity":
                 timingPanels2.s();
-//                timingPanels2.s35s();
+                // timingPanels2.s35s();
                 break;
         }
     }
@@ -297,7 +328,7 @@ public class ActAutoRun implements Runnable {
                 break;
             // case ".h5.BrowserUpperActivity":
             case ".h5.BrowserUpperActivity":
-//                timingPanels2.s35s();
+                // timingPanels2.s35s();
                 timingPanels2.s();
                 break;
             case ".TaoLiveVideoActivity":
@@ -308,7 +339,7 @@ public class ActAutoRun implements Runnable {
             case "com.bytedance.sdk.openadsdk.stub.activity.Stub_Standard_Portrait_Activity":
                 // timingPanels2.auto("w_65s");
                 timingPanels2.s();
-//                timingPanels2.w65s();
+                // timingPanels2.w65s();
                 break;
         }
     }
@@ -319,21 +350,21 @@ public class ActAutoRun implements Runnable {
      * @param actShortName
      */
     private void quTouTiao(String actShortName) {
-//        System.out.println("趣头条APP");
+        // System.out.println("趣头条APP");
         switch (actShortName) {
             // 文章界面
             case ".content.newsdetail.news.NewsDetailNewActivity":
-//                System.out.println("文章界面");
-//                System.out.println();
+                // System.out.println("文章界面");
+                // System.out.println();
                 universalPanels.getBrowseButton().doClick();
                 break;
-            //    广告界面
+            // 广告界面
             case "com.iclicash.advlib.ui.front.InciteADActivity":
             case "com.qq.e.ads.PortraitADActivity":
-//                System.out.println("广告界面");
+                // System.out.println("广告界面");
                 // timingPanels2.getjComboBox().setSelectedIndex(0);
                 // timingPanels2.auto("w_65s");
-//                timingPanels2.w65s();
+                // timingPanels2.w65s();
                 timingPanels2.w();
                 break;
 
@@ -346,11 +377,11 @@ public class ActAutoRun implements Runnable {
      * @param actShortName
      */
     private void dianHua(String actShortName) {
-//        System.out.println("电话");
+        // System.out.println("电话");
         switch (actShortName) {
             case ".DialtactsActivity":
             case ".activities.DialtactsActivity":
-//                System.out.println("来了啊");
+                // System.out.println("来了啊");
                 // JComboBox<String> stringJComboBox = adbTools.getTimingPanels2().getjComboBox();
                 JComboBox<String> stringJComboBox = timingPanels2.getjComboBox();
                 SwingUtilities.invokeLater(new Runnable() {
