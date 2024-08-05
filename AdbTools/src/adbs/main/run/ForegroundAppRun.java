@@ -79,10 +79,9 @@ public class ForegroundAppRun implements Runnable {
     }
 
 
-    @Override
-    public void run() {
+    @Override public void run() {
         // 等待4秒
-//        ThreadSleep.seconds(4);
+        // ThreadSleep.seconds(4);
         ThreadSleep.seconds(2);
         // 更新操作的面板
         updatePanels();
@@ -100,13 +99,8 @@ public class ForegroundAppRun implements Runnable {
      * 读取签到记录文件
      */
     private void readLoginRecords() {
-        //        @todo 先读取文件获取之前程序的签到记录
         String loginRecordsTxt = AdbTools.getInstance().getDevice().getLoginRecordsTxt();
-        System.out.println("loginRecordsTxt = " + loginRecordsTxt);
-
-
-
-
+        // System.out.println("loginRecordsTxt = " + loginRecordsTxt);
         LoginRecords loginRecords_old = new LoginRecords(loginRecordsTxt);
         if (loginRecords.equals(loginRecords_old)) {
             System.out.println("有历史记录");
@@ -125,7 +119,7 @@ public class ForegroundAppRun implements Runnable {
             }
 
             // 移除apps中appOpened中存在的所有元素
-//            this.apps.removeAll(this.appOpened);
+            // this.apps.removeAll(this.appOpened);
             showNotOpenApp();
             showOpenedApp();
 
@@ -205,7 +199,7 @@ public class ForegroundAppRun implements Runnable {
         LocalDateTime localDateTime = LocalDateTime.now();
         // String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         String format = localDateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-//        System.out.println("时间 = " + format);
+        // System.out.println("时间 = " + format);
         // 如果当前时间 在0到3分钟 之内的话，则认为现在到了第2天
         // return nextDay || format.startsWith("00:00") || format.startsWith("00:01") || format.startsWith("00:02") || format.startsWith("00:03");
         // return nextDay || format.startsWith("00:00") || format.startsWith("00:01") || format.startsWith("00:02");
@@ -228,7 +222,7 @@ public class ForegroundAppRun implements Runnable {
         // 打开手机管家
         adbTools.getAdbJPanels().getBtnMobileButler().doClick();
         // 停止线程，防止反复触发
-//        ThreadSleep.minutes(1.5);
+        // ThreadSleep.minutes(1.5);
         // ThreadSleep.minutes(4.0);
     }
 
@@ -258,8 +252,7 @@ public class ForegroundAppRun implements Runnable {
      */
     private void showOpenedApp() {
         SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
+            @Override public void run() {
                 JTextPane signedInApp = appPanels.getSignedIn();
                 StyledDocument doc = signedInApp.getStyledDocument();
                 String text = signedInApp.getText();
@@ -279,16 +272,16 @@ public class ForegroundAppRun implements Runnable {
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                         String date = simpleDateFormat.format(new Date());
 
-//                        loginRecords = new LoginRecords(date, apps.toString(), appOpened.toString());
+                        // loginRecords = new LoginRecords(date, apps.toString(), appOpened.toString());
 
                         loginRecords.setApps(apps.toString());
                         loginRecords.setAppOpened(appOpened.toString());
 
-                        System.out.println();
-                        System.out.println("loginRecords = \n" + loginRecords);
-                        System.out.println();
+                        // System.out.println();
+                        // System.out.println("loginRecords = \n" + loginRecords);
+                        // System.out.println();
 
-//                        String loginRecordsTxt = getLoginRecordsTxt();
+                        // String loginRecordsTxt = getLoginRecordsTxt();
                         String loginRecordsTxt = AdbTools.getInstance().getDevice().getLoginRecordsTxt();
                         System.out.println("loginRecordsTxt = " + loginRecordsTxt);
                         FileUtil.writeStringToFile(loginRecords.toString(), loginRecordsTxt);
@@ -316,7 +309,7 @@ public class ForegroundAppRun implements Runnable {
             if (index < 0) {
                 // // 最后一个逗号不
                 // if (count > 0) {
-                //     System.out.print(", ");
+                // System.out.print(", ");
                 // }
                 count++;
                 // 输出这个没打开过的apk
@@ -328,8 +321,7 @@ public class ForegroundAppRun implements Runnable {
         // appPanels.getNotOpened().setText(sb.toString().trim());
         // 在事件调度线程中操作JTextArea以确保线程安全
         SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
+            @Override public void run() {
                 appPanels.getNotOpened().setText(sb.toString().trim());
             }
         });
@@ -419,8 +411,7 @@ public class ForegroundAppRun implements Runnable {
 
 
         SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
+            @Override public void run() {
                 universalPanel.setBackground(Color.pink);
             }
         });
@@ -442,23 +433,22 @@ public class ForegroundAppRun implements Runnable {
             stopAppCheck = false;
 
             SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
+                @Override public void run() {
                     // 恢复原来的背景色，表示还没签到完成
                     universalPanel.setBackground(background);
                     JTextPane signedIn = appPanels.getSignedIn();
                     showNotOpenApp();
-//                    清空签到记录表
+                    // 清空签到记录表
                     signedIn.setText("");
-//                   清空已打开APP记录对象变量
+                    // 清空已打开APP记录对象变量
                     loginRecords.setAppOpened("[]");
                     System.out.println();
                     System.out.println("loginRecords = " + loginRecords);
                     System.out.println();
-//                    把清空后的值写文件
+                    // 把清空后的值写文件
                     String loginRecordsTxt = AdbTools.getInstance().getDevice().getLoginRecordsTxt();
                     FileUtil.writeStringToFile(loginRecords.toString(), loginRecordsTxt);
-//                    showOpenedApp();
+                    // showOpenedApp();
                 }
             });
 

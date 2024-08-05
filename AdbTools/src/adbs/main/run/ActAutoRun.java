@@ -7,6 +7,7 @@ import adbs.main.ui.jpanels.universal.UniversalPanels;
 import adbs.tools.thread.ThreadSleep;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class ActAutoRun implements Runnable {
 
@@ -32,7 +33,9 @@ public class ActAutoRun implements Runnable {
             if (!equals) {
                 actChange(appNames, offer);
             }
-            _wait();
+            // 根据当前的Activity来决定要等待多久
+            _wait(appNames);
+            // _wait(7);
         }
     }
 
@@ -168,11 +171,26 @@ public class ActAutoRun implements Runnable {
 
     }
 
-    private void _wait() {
+    private void _wait(AppNames appNames) {
+        String actLongName = appNames.getActLongName();
+        // 需要等待1个小时的Activity
+        ArrayList<String> wait1H = new ArrayList<>();
+        wait1H.add("com.kuaishou.kgx.novel/com.kuaishou.novel.read.ReaderActivityV2");
+        ArrayList<String> wait30S = new ArrayList<>();
+        wait30S.add("com.taobao.live/.h5.BrowserActivity");
+        if (wait1H.contains(actLongName)) {
+            _wait(1 * 60 * 60);
+        } else if (wait30S.contains(actLongName)) {
+            _wait(30);
+        }
+
+    }
+
+    private void _wait(int seconds) {
 //        System.out.println("等待一段时间...");
         // ThreadSleep.seconds(30);
         // ThreadSleep.seconds(5);
-        ThreadSleep.seconds(7);
+        ThreadSleep.seconds(seconds);
         // ThreadSleep.seconds(8);
         // ThreadSleep.seconds(10);
         // ThreadSleep.seconds(15);
@@ -262,7 +280,7 @@ public class ActAutoRun implements Runnable {
                 break;
             // 浏览领金币界面
             case "com.taobao.browser.exbrowser.BrowserUpperActivity":
-                 timingPanels2.s();
+                timingPanels2.s();
 //                timingPanels2.s35s();
                 break;
         }
