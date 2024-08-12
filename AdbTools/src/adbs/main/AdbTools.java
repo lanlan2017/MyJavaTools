@@ -5,6 +5,7 @@ import adbs.main.run.ActAutoRun;
 import adbs.main.run.BatteryLevelRun2;
 import adbs.main.run.ForegroundAppRun;
 import adbs.main.run.IsTest;
+import adbs.main.run.model.FrameTitle;
 import adbs.main.ui.jpanels.adb.AdbJPanels;
 import adbs.main.ui.jpanels.app.AppPanels;
 import adbs.main.ui.jpanels.check.CheckJPanels;
@@ -87,13 +88,13 @@ public class AdbTools {
         // 初始化工具面板
         toolsJPanels = new ToolsJPanels();
 
-//        autoPanels = new AutoPanels();
+        //        autoPanels = new AutoPanels();
 
         //
         appPanels = new AppPanels();
 
         // JPanel checkJPanel = initCheckJPanel(timingPanels2, toolsJPanels, autoPanels, universalPanels, adbJPanels, scrcpyJPanels);
-//        checkJPanels = new CheckJPanels(timingPanels2, toolsJPanels, autoPanels, universalPanels, adbJPanels, scrcpyJPanels, appPanels);
+        //        checkJPanels = new CheckJPanels(timingPanels2, toolsJPanels, autoPanels, universalPanels, adbJPanels, scrcpyJPanels, appPanels);
         checkJPanels = new CheckJPanels(timingPanels2, toolsJPanels, universalPanels, adbJPanels, scrcpyJPanels, appPanels);
         JPanel checkJPanel = checkJPanels.getCheckJPanel();
 
@@ -113,7 +114,7 @@ public class AdbTools {
         frame.add(timingPanels2.getTimingPanels2());
 
         frame.add(toolsJPanels.getToolsJPanel());
-//        frame.add(autoPanels.getAutoJPanel());
+        //        frame.add(autoPanels.getAutoJPanel());
         frame.add(appPanels.getAppPanel());
 
         // 添加多选框面板到第3行
@@ -168,12 +169,9 @@ public class AdbTools {
                 if (e.getNewState() == Frame.ICONIFIED) {
                     // 检查窗口是否被最小化
                     String message = "最小化" + device.getName() + "?";
-//                     String title = "确认";
+                    //                     String title = "确认";
                     String title = "";
-                    int result = JOptionPane.showConfirmDialog(frame,
-                            message, title,
-                            JOptionPane.YES_NO_OPTION,
-                            JOptionPane.QUESTION_MESSAGE);
+                    int result = JOptionPane.showConfirmDialog(frame, message, title, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                     if (result != JOptionPane.YES_OPTION) {
                         // 如果用户点击“否”，则取消最小化操作并恢复原窗口位置
                         frame.setExtendedState(Frame.NORMAL);
@@ -184,7 +182,7 @@ public class AdbTools {
 
 
         //永远置顶
-//        frame.setAlwaysOnTop(true);
+        //        frame.setAlwaysOnTop(true);
 
         // 调整窗体到最佳大小
         frame.pack();
@@ -257,7 +255,12 @@ public class AdbTools {
             device = simpleId_Device_map.get(idList.get(0));
             System.out.println("device = " + device);
             // return device;
-            frame.setTitle(device.getName());
+            //            frame.setTitle(device.getName());
+
+            FrameTitle frameTitle = FrameTitle.getFrameTitle();
+            frameTitle.setDeviceName(device.getName());
+            frame.setTitle(frameTitle.toString());
+
             return;
         }
 
@@ -292,7 +295,15 @@ public class AdbTools {
             System.out.println("你选择了:" + devieceSelected);
             SystemClipboard.setSysClipboardText(devieceSelected);
             // 把这个编号对应的字符串设置到窗体的标题
-            frame.setTitle(devieceSelected);
+            //            frame.setTitle(devieceSelected);
+
+            //            FrameTitle.getFrameTitle();
+            FrameTitle frameTitle = FrameTitle.getFrameTitle();
+            frameTitle.setDeviceName(devieceSelected);
+
+            frame.setTitle(frameTitle.toString());
+
+
             device = simpleId_Device_map.get(devieceSelected);
         } else {
             System.out.println("退出程序");
@@ -384,7 +395,7 @@ public class AdbTools {
      * @param actionListenerOk 点击确认按钮需要执行的操作
      */
     public void showDialogOk(String title, String message, ActionListener actionListenerOk) {
-//        JFrame frame = AdbTools.getInstance().getFrame();
+        //        JFrame frame = AdbTools.getInstance().getFrame();
         DialogFactory.showDialogOk(frame, title, message, actionListenerOk);
     }
 
@@ -392,7 +403,7 @@ public class AdbTools {
     public static void main(String[] args) {
         AdbTools instance = AdbTools.getInstance();
         instance.timingPanels2.getjComboBox().setSelectedIndex(0);
-//        instance.autoPanels.defaultSelected();
+        //        instance.autoPanels.defaultSelected();
 
         // timingPanels2.getjComboBox().setSelectedIndex(0);
         if (!IsTest.isTest()) {
@@ -401,11 +412,9 @@ public class AdbTools {
             ThreadSleep.seconds(5);
             new Thread(new ForegroundAppRun()).start();
             // // 启动电池监测线程
-            // // new Thread(new BatteryLevelRun()).start();
+            //              new Thread(new BatteryLevelRun()).start();
             new Thread(new BatteryLevelRun2()).start();
             new Thread(new ActAutoRun()).start();
-
-
         }
 
     }

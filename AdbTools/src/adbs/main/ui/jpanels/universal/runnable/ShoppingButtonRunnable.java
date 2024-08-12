@@ -164,7 +164,7 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
         //     // AdbTools.getInstance().getAdbJPanels().getBtnTask().doClick();
         //     isClickReturnBtn = false;
         // }
-        String packageName = AdbGetPackage.getAppNames().getPackageName();
+        String packageName = AdbGetPackage.getActivityInfo().getPackageName();
 
         switch (packageName) {
             case "com.taobao.live":

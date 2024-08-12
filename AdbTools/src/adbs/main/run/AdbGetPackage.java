@@ -73,7 +73,7 @@ public class AdbGetPackage {
         return actName;
     }
 
-    public static ActivityInfo getAppNames() {
+    public static ActivityInfo getActivityInfo() {
         String actName = AdbGetPackage.getActName();
         // System.out.println("actName = " + actName);
         ActivityInfo activityInfo = new ActivityInfo(actName);

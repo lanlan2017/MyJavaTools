@@ -29,7 +29,7 @@ public class ForegroundAppRun implements Runnable {
      * <p>
      * 今日打开的APP
      */
-    private ArrayList<String> appOpened = new ArrayList<>();
+    private final ArrayList<String> appOpened = new ArrayList<>();
 
     private static boolean nextDay = false;
     private AppPanels appPanels;
@@ -38,7 +38,7 @@ public class ForegroundAppRun implements Runnable {
     /**
      * 签到记录文件
      */
-    private LoginRecords loginRecords = new LoginRecords();
+    private final LoginRecords loginRecords = new LoginRecords();
 
 
     public static void updatePackages_3_money() {
@@ -77,7 +77,8 @@ public class ForegroundAppRun implements Runnable {
     }
 
 
-    @Override public void run() {
+    @Override
+    public void run() {
         // 等待4秒
         // ThreadSleep.seconds(4);
         ThreadSleep.seconds(2);
@@ -151,10 +152,10 @@ public class ForegroundAppRun implements Runnable {
             // System.out.println("包名 = " + run);
             // System.out.print("包名 = " + run + " ");
             // 获取包名对应的应用名
-            String appName = isGoldCoinAppAddIntoAppRecord(run);
+//            String appName = isGoldCoinAppAddIntoAppRecord(run);
             // updateFormTitle
             // 在窗体标题上显示当前打开的APP的名称
-            updateFormTitle(appName);
+//            updateFormTitle(appName);
 
             // 如果还没停止签到检查的话
             if (!stopAppCheck) {
@@ -253,7 +254,8 @@ public class ForegroundAppRun implements Runnable {
      */
     private void showOpenedApp() {
         SwingUtilities.invokeLater(new Runnable() {
-            @Override public void run() {
+            @Override
+            public void run() {
                 JTextPane signedInApp = appPanels.getSignedIn();
                 StyledDocument doc = signedInApp.getStyledDocument();
                 String text = signedInApp.getText();
@@ -322,7 +324,8 @@ public class ForegroundAppRun implements Runnable {
         // appPanels.getNotOpened().setText(sb.toString().trim());
         // 在事件调度线程中操作JTextArea以确保线程安全
         SwingUtilities.invokeLater(new Runnable() {
-            @Override public void run() {
+            @Override
+            public void run() {
                 appPanels.getNotOpened().setText(sb.toString().trim());
             }
         });
@@ -363,41 +366,21 @@ public class ForegroundAppRun implements Runnable {
         return appName;
     }
 
-    /**
-     * 更新窗体标题
-     *
-     * @param appName APP名称
-     */
-    private void updateFormTitle(String appName) {
-        JFrame frame = adbTools.getFrame();
-        String title = frame.getTitle();
-        // 如果标题中有下划线，这表明标题中有旧的应用名称
-        String delimiter2 = "|";
-        if (title.contains(delimiter2)) {
-            // 获取下划线在标题中的下标
-            int nameFlagIndex = title.lastIndexOf(delimiter2) + 1;
-            // 截取下旧的应用名称
-            String oldAppName = title.substring(nameFlagIndex);
-            // System.out.println("oldAppName =" + oldAppName+"|");
-
-            // 如果当然的APP名称与标题中的APP名称不一样
-            if (!appName.equals(oldAppName)) {
-                // 从标题中截取下标题标记以前的字符串，包括标题标记
-                String prefix = title.substring(0, nameFlagIndex);
-                // 新的标题=应用名前面的字符串+新的应用名
-                title = prefix + appName;
-                frame.setTitle(title);
-            }
-
-        }
-        // 如果标题以百分号结尾的话，说明还没有应用名称
-        else if (title.endsWith("%")) {
-            // title=title+run;
-            // 标题=原来的标题+下划线+应用名
-            title = title + delimiter2 + appName;
-            frame.setTitle(title);
-        }
-    }
+//    /**
+//     * 更新窗体标题
+//     *
+//     * @param appName APP名称
+//     */
+//    private void updateFormTitle(String appName) {
+//        JFrame frame = adbTools.getFrame();
+//        FrameTitle frameTitle = FrameTitle.getFrameTitle();
+//        String appName1 = frameTitle.getAppName();
+//        if (!appName1.equals(appName)) {
+//            System.out.println("应用名改变了更新窗体标题");
+//            frameTitle.setAppName(appName);
+//            frame.setTitle(frameTitle.toString());
+//        }
+//    }
 
     /**
      * 签到完成设置
@@ -412,7 +395,8 @@ public class ForegroundAppRun implements Runnable {
 
 
         SwingUtilities.invokeLater(new Runnable() {
-            @Override public void run() {
+            @Override
+            public void run() {
                 universalPanel.setBackground(Color.pink);
             }
         });
@@ -434,7 +418,8 @@ public class ForegroundAppRun implements Runnable {
             stopAppCheck = false;
 
             SwingUtilities.invokeLater(new Runnable() {
-                @Override public void run() {
+                @Override
+                public void run() {
                     // 恢复原来的背景色，表示还没签到完成
                     universalPanel.setBackground(background);
                     JTextPane signedIn = appPanels.getSignedIn();
@@ -470,6 +455,7 @@ public class ForegroundAppRun implements Runnable {
         // int seconds = 2;
         int s5 = 5;
         int s2 = 2;
+        //
         int endWait = 40;
         int count = 0;
         if (IsTest.isTest()) {

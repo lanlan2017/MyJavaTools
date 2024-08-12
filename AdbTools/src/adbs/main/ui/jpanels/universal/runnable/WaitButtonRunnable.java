@@ -108,7 +108,7 @@ public class WaitButtonRunnable extends CloseableRunnable {
             isClickStopButton = false;
         }
 
-        ActivityInfo activityInfo = AdbGetPackage.getAppNames();
+        ActivityInfo activityInfo = AdbGetPackage.getActivityInfo();
         String packageName = activityInfo.getPackageName();
 
         switch (packageName) {

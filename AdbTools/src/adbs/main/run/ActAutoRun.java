@@ -3,9 +3,11 @@ package adbs.main.run;
 import adbs.main.AdbTools;
 import adbs.main.run.act.DianTao;
 import adbs.main.run.model.ActivityInfo;
+import adbs.main.run.model.FrameTitle;
 import adbs.main.ui.jpanels.timeauto2.TimingPanels2;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
 import adbs.tools.thread.ThreadSleep;
+import config.AdbToolsProperties;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -24,7 +26,7 @@ public class ActAutoRun implements Runnable {
     private HashSet<String> wait20M_Act;
     private final HashSet<String> wait11s_Act;
     private HashSet<String> wait15s_Act;
-    private HashSet<String> wait30s_Act;
+    private final HashSet<String> wait20s_Act;
     private HashSet<String> wait3M_Act;
     private HashSet<String> wait95sApp;
     private HashSet<String> wait180sApp;
@@ -40,7 +42,7 @@ public class ActAutoRun implements Runnable {
         // 设置在哪些Activity界面钟，线程等待间隔为15秒
         initWait15sAct();
         // 设置在哪些Activity界面钟，线程等待间隔为30秒
-        initWait30sAct();
+        wait20s_Act = initWait30sAct();
         //设置在哪些Activity界面中，线程等待间隔为3分钟
         initWait3M_Act();
         // 设置在哪些Activity界面中，线程等待间隔为1小时
@@ -117,11 +119,12 @@ public class ActAutoRun implements Runnable {
         // wait15s_Act.add("com.taobao.live/.h5.BrowserActivity");
     }
 
-    private void initWait30sAct() {
+    private HashSet<String> initWait30sAct() {
         // HashSet<String> wait30S = new HashSet<>();
-        wait30s_Act = new HashSet<>();
+        HashSet<String> wait30s_Act = new HashSet<>();
         // 华为桌面
         wait30s_Act.add("com.huawei.android.launcher/.unihome.UniHomeLauncher");
+        return wait30s_Act;
     }
 
     /**
@@ -154,37 +157,42 @@ public class ActAutoRun implements Runnable {
         timingPanels2 = adbTools.getTimingPanels2();
         universalPanels = adbTools.getUniversalPanels();
         stop = false;
-        ActivityInfo activityInfo;
-        ActivityInfo offer = null;
+        // 现在的Activity信息
+        ActivityInfo act;
+        // 之前的Activity信息
+        //
+        ActivityInfo beforeAct = null;
         while (!stop) {
             // 获取当前act
-            activityInfo = AdbGetPackage.getAppNames();
+            act = AdbGetPackage.getActivityInfo();
 
-            boolean equals = activityInfo.equals(offer);
-            // System.out.println("offer.equals(appNames) = " + equals);
+            boolean equals = act.equals(beforeAct);
+            // System.out.println("beforeAct.equals(appNames) = " + equals);
             // 当act改变时，说明用户切换了界面。
             if (!equals) {
-                actChange(activityInfo, offer);
+                actChange(beforeAct, act);
             }
             // 根据当前的Activity来决定要等待多久
-            _wait(activityInfo);
+            _wait(act);
             //记录下上次的Activity详细信息
-            offer = activityInfo;
+            beforeAct = act;
         }
     }
 
     /**
      * 当activity改变时，要执行的操作
      *
-     * @param activityInfo 当前的APP
-     * @param offer        之前的APP
+     * @param act    当前的APP
+     * @param before 之前的APP
      */
-    private void actChange(ActivityInfo activityInfo, ActivityInfo offer) {
-        // System.out.println("   offer = " + offer);
+    private void actChange(ActivityInfo before, ActivityInfo act) {
+        // System.out.println("   before = " + before);
         // System.out.println("appNames = " + appNames);
-        if (offer != null) {
-            String offerPackageName = offer.getPackageName();
-            String packageName = activityInfo.getPackageName();
+        if (before != null) {
+            // 之前应用的包名
+            String offerPackageName = before.getPackageName();
+            // 现在应用的包名
+            String packageName = act.getPackageName();
             // System.out.println("offerPackageName = " + offerPackageName);
             // System.out.println("packageName = " + packageName);
             // System.out.println("offerPackageName = " + offerPackageName);
@@ -193,25 +201,57 @@ public class ActAutoRun implements Runnable {
             if (packageName.equals(offerPackageName)) {
                 // 在同一个APP内
                 // System.out.println("在同一个APP内");
-                actChangeInSameApp(offer, activityInfo);
+                actChangeInSameApp(before, act);
             } else {
+                // 从一个APP跳转到另一个APP
                 // 新的APP不是任务APP
                 if (!isSystemApp(packageName)) {
                     System.out.println("新打开的APP不是系统应用");
-                    appChange(offerPackageName);
+                    appChange(before, act);
                 }
+                // 根据当前的Activity更新应用标题
+                updateTitle(act);
+
+
             }
         } else {
             // 在用户切换界面时，执行动作
-            // actChange(activityInfo);
+            // actChange(act);
+        }
+    }
+
+    private void updateTitle(ActivityInfo act) {
+        String currentPackageName = act.getPackageName();
+        String currentAppName = AdbToolsProperties.moneyApkPro.getProperty(currentPackageName);
+        System.out.println("currentAppName = " + currentAppName);
+        // 如果不相等，说明是可赚钱的APP
+        if (!currentPackageName.equals(currentAppName)) {
+            updateFormTitle(currentAppName);
+        } else {
+            //                    相等，说明是其他应用，
+            FrameTitle frameTitle = FrameTitle.getFrameTitle();
+            String appName = frameTitle.getAppName();
+            if (!appName.startsWith("_")) {
+                appName = "_" + appName;
+                updateFormTitle(appName);
+            }
         }
     }
 
     /**
      * 从一个APP跳转到另一个APP是执行操作
      */
-    private void appChange(String offerPackageName) {
-        if (wait180sApp.contains(offerPackageName)) {
+    //    private void appChange(String offerPackageName) {
+    private void appChange(ActivityInfo before, ActivityInfo current) {
+
+        String beforePackageName = before.getPackageName();
+        //        String currentPackageName = current.getPackageName();
+        //        String currentAppName = AdbToolsProperties.moneyApkPro.getProperty(currentPackageName);
+        //        System.out.println("currentAppName = " + currentAppName);
+        //        updateFormTitle(currentAppName);
+
+
+        if (wait180sApp.contains(beforePackageName)) {
             String title = "应用跳转";
             String message = "要等待180秒？";
             AdbTools.getInstance().showDialogOk(title, message, new ActionListener() {
@@ -221,7 +261,7 @@ public class ActAutoRun implements Runnable {
                 }
             });
             // timingPanels2.w180s();
-        } else if (wait95sApp.contains(offerPackageName)) {
+        } else if (wait95sApp.contains(beforePackageName)) {
             // timingPanels2.w95s();
             String title = "应用跳转";
             String message = "要等待95秒？";
@@ -236,6 +276,22 @@ public class ActAutoRun implements Runnable {
 
         }
 
+    }
+
+    /**
+     * 更新窗体标题
+     *
+     * @param appName APP名称
+     */
+    private void updateFormTitle(String appName) {
+        JFrame frame = adbTools.getFrame();
+        FrameTitle frameTitle = FrameTitle.getFrameTitle();
+        String appName1 = frameTitle.getAppName();
+        if (!appName1.equals(appName)) {
+            System.out.println("应用名改变了更新窗体标题");
+            frameTitle.setAppName(appName);
+            frame.setTitle(frameTitle.toString());
+        }
     }
 
     /**
@@ -289,8 +345,8 @@ public class ActAutoRun implements Runnable {
             _wait(60 * 60);
         } else if (wait3M_Act.contains(actLongName)) {
             _wait(3 * 60);
-        } else if (wait30s_Act.contains(actLongName)) {
-            _wait(30);
+        } else if (wait20s_Act.contains(actLongName)) {
+            _wait(20);
         } else if (wait15s_Act.contains(actLongName)) {
             _wait(15);
         } else if (wait11s_Act.contains(actLongName)) {
