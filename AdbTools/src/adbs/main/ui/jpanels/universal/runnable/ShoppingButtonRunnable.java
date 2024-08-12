@@ -199,6 +199,6 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
 
         }
         // 弹窗提醒
-        timePanels.showConfirmDialog();
+//        timePanels.showConfirmDialog();
     }
 }

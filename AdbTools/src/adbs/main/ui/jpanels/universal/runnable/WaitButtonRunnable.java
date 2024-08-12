@@ -2,7 +2,7 @@ package adbs.main.ui.jpanels.universal.runnable;
 
 import adbs.main.AdbTools;
 import adbs.main.run.AdbGetPackage;
-import adbs.main.run.model.AppNames;
+import adbs.main.run.model.ActivityInfo;
 import adbs.main.ui.jpanels.adb.AdbJPanels;
 import adbs.main.ui.jpanels.time.TimePanels;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
@@ -108,8 +108,8 @@ public class WaitButtonRunnable extends CloseableRunnable {
             isClickStopButton = false;
         }
 
-        AppNames appNames = AdbGetPackage.getAppNames();
-        String packageName = appNames.getPackageName();
+        ActivityInfo activityInfo = AdbGetPackage.getAppNames();
+        String packageName = activityInfo.getPackageName();
 
         switch (packageName) {
             case "com.taobao.live":

@@ -1,40 +1,151 @@
 package adbs.main.run;
 
 import adbs.main.AdbTools;
-import adbs.main.run.model.AppNames;
+import adbs.main.run.act.DianTao;
+import adbs.main.run.model.ActivityInfo;
 import adbs.main.ui.jpanels.timeauto2.TimingPanels2;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
 import adbs.tools.thread.ThreadSleep;
 
 import javax.swing.*;
-import java.util.ArrayList;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashSet;
 
 public class ActAutoRun implements Runnable {
 
     private AdbTools adbTools;
     private TimingPanels2 timingPanels2;
-    private static boolean stop;
     private UniversalPanels universalPanels;
-    private ArrayList<String> wait1H;
-    private ArrayList<String> wait30S;
-    private final ArrayList<String> wait3M;
+
+    private static boolean stop;
+
+
+    private HashSet<String> wait20M_Act;
+    private final HashSet<String> wait11s_Act;
+    private HashSet<String> wait15s_Act;
+    private HashSet<String> wait30s_Act;
+    private HashSet<String> wait3M_Act;
+    private HashSet<String> wait95sApp;
+    private HashSet<String> wait180sApp;
 
 
     public ActAutoRun() {
+        //设置从哪些APP离开后需要等待180秒钟
+        initWait180sApp();
+        //射中从哪些APP离开后需要等待95秒钟
+        initWait95sApp();
 
-        // 需要等待1个小时的Activity
-        wait1H = new ArrayList<>();
-        wait1H.add("com.kuaishou.kgx.novel/com.kuaishou.novel.read.ReaderActivityV2");
+        wait11s_Act = initWait11sAct();
+        // 设置在哪些Activity界面钟，线程等待间隔为15秒
+        initWait15sAct();
+        // 设置在哪些Activity界面钟，线程等待间隔为30秒
+        initWait30sAct();
+        //设置在哪些Activity界面中，线程等待间隔为3分钟
+        initWait3M_Act();
+        // 设置在哪些Activity界面中，线程等待间隔为1小时
+        initWait1HAct();
 
-        wait30S = new ArrayList<>();
-        wait30S.add("com.taobao.live/.h5.BrowserActivity");
 
-        wait3M = new ArrayList<>();
-        // com.phoenix.read/com.dragon.read.component.shortvideo.impl.ShortSeriesActivity
-        // adb -s UDN0217A17001140 shell am start -n com.phoenix.read/com.dragon.read.component.shortvideo.impl.ShortSeriesActivity
-        // String openAct = "adb -s " + device.getSerial() + " shell am start -n com.phoenix.read/com.dragon.read.component.shortvideo.impl.ShortSeriesActivity";
+    }
+
+    /**
+     * 从哪些APP离开之后需要等待95秒。
+     */
+    private void initWait95sApp() {
+        wait95sApp = new HashSet<>();
+        // 百度极速版
+        wait95sApp.add("com.baidu.searchbox.lite");
+        // 快手极速版
+        wait95sApp.add("com.kuaishou.nebula");
+        // 快手
+        wait95sApp.add("com.smile.gifmaker");
+        // 悟空浏览器
+        wait95sApp.add("com.cat.readall");
+    }
+
+    /**
+     * 确定从哪些APP离开后需要等待180秒
+     */
+    private void initWait180sApp() {
+        wait180sApp = new HashSet<>();
+        // 趣头条
+        wait180sApp.add("com.jifen.qukan");
+        //今日头条极速版
+        wait180sApp.add("com.ss.android.article.lite");
+        // 今日头条
+        wait180sApp.add("com.ss.android.article.news");
+        // 西瓜视频
+        wait180sApp.add("com.ss.android.article.video");
+        // 番茄免费小说
+        wait180sApp.add("com.dragon.read");
+        //番茄畅听
+        wait180sApp.add("com.xs.fm");
+        //番茄畅听音乐版
+        wait180sApp.add("com.xs.fm.lite");
+        // 抖音
+        wait180sApp.add("com.ss.android.ugc.aweme");
+        //抖音极速版
+        wait180sApp.add("com.ss.android.ugc.aweme.lite");
+        //抖音火山版
+        wait180sApp.add("com.ss.android.ugc.live");
+        //红果免费短剧
+        wait180sApp.add("com.phoenix.read");
+    }
+
+    private HashSet<String> initWait11sAct() {
+        HashSet<String> wait11s_Act = new HashSet<>();
+        //
+        wait11s_Act.add("com.taobao.live/.h5.BrowserUpperActivity");
+        // 省钱特辑，
+        wait11s_Act.add("com.taobao.live/.h5.BrowserActivity");
+        return wait11s_Act;
+
+    }
+
+    /**
+     * 设置检查频率为15秒的Activity
+     */
+    private void initWait15sAct() {
+        // HashSet<String> wait30S = new HashSet<>();
+        wait15s_Act = new HashSet<>();
+        // 直播界面
+        wait15s_Act.add("com.taobao.live/.TaoLiveVideoActivity");
+        // //
+        // wait15s_Act.add("com.taobao.live/.h5.BrowserUpperActivity");
+        // //省钱特辑，
+        // wait15s_Act.add("com.taobao.live/.h5.BrowserActivity");
+    }
+
+    private void initWait30sAct() {
+        // HashSet<String> wait30S = new HashSet<>();
+        wait30s_Act = new HashSet<>();
+        // 华为桌面
+        wait30s_Act.add("com.huawei.android.launcher/.unihome.UniHomeLauncher");
+    }
+
+    /**
+     * 在哪些Activity中，线程等待间隔为3分钟
+     */
+    private void initWait3M_Act() {
+        wait3M_Act = new HashSet<>();
         // 红果免费短剧，短剧播放界面
-        wait3M.add("com.phoenix.read/com.ss.android.excitingvideo.ExcitingVideoActivity");
+        wait3M_Act.add("com.phoenix.read/com.ss.android.excitingvideo.ExcitingVideoActivity");
+        //番茄畅听音乐版，音频播放界面
+        wait3M_Act.add("com.xs.fm.lite/com.dragon.read.reader.speech.page.AudioPlayActivity");
+        //番茄畅听音乐版，全屏歌词显示界面
+        wait3M_Act.add("com.xs.fm.lite/com.dragon.read.music.lyric.FullScreenLyricActivity");
+    }
+
+    /**
+     * 在哪些Activity中，线程等待间隔时间为1小时
+     */
+    private void initWait1HAct() {
+        // 需要等待1个小时的Activity
+        // HashSet<String> wait1H_Act = new HashSet<>();
+        wait20M_Act = new HashSet<>();
+        wait20M_Act.add("com.kuaishou.kgx.novel/com.kuaishou.novel.read.ReaderActivityV2");
+        // return wait1H_Act;
     }
 
     @Override
@@ -43,177 +154,153 @@ public class ActAutoRun implements Runnable {
         timingPanels2 = adbTools.getTimingPanels2();
         universalPanels = adbTools.getUniversalPanels();
         stop = false;
-        FixedQueue<AppNames> fixedQueue = new FixedQueue<>(1);
+        ActivityInfo activityInfo;
+        ActivityInfo offer = null;
         while (!stop) {
             // 获取当前act
-            AppNames appNames = AdbGetPackage.getAppNames();
-            AppNames offer = fixedQueue.offer(appNames);
-            boolean equals = appNames.equals(offer);
+            activityInfo = AdbGetPackage.getAppNames();
+
+            boolean equals = activityInfo.equals(offer);
             // System.out.println("offer.equals(appNames) = " + equals);
             // 当act改变时，说明用户切换了界面。
             if (!equals) {
-                actChange(appNames, offer);
+                actChange(activityInfo, offer);
             }
             // 根据当前的Activity来决定要等待多久
-            _wait(appNames);
-            // _wait(7);
+            _wait(activityInfo);
+            //记录下上次的Activity详细信息
+            offer = activityInfo;
         }
     }
 
     /**
      * 当activity改变时，要执行的操作
      *
-     * @param appNames 当前的APP
-     * @param offer    之前的APP
+     * @param activityInfo 当前的APP
+     * @param offer        之前的APP
      */
-    private void actChange(AppNames appNames, AppNames offer) {
+    private void actChange(ActivityInfo activityInfo, ActivityInfo offer) {
         // System.out.println("   offer = " + offer);
         // System.out.println("appNames = " + appNames);
         if (offer != null) {
             String offerPackageName = offer.getPackageName();
-            String packageName = appNames.getPackageName();
+            String packageName = activityInfo.getPackageName();
             // System.out.println("offerPackageName = " + offerPackageName);
             // System.out.println("packageName = " + packageName);
             // System.out.println("offerPackageName = " + offerPackageName);
             // System.out.println("packageName = " + packageName);
+            //如果现在的包名和之前的包名相同
             if (packageName.equals(offerPackageName)) {
                 // 在同一个APP内
                 // System.out.println("在同一个APP内");
-                actChange(appNames);
+                actChangeInSameApp(offer, activityInfo);
             } else {
                 // 新的APP不是任务APP
-                if (isSystemApp(packageName)) {
+                if (!isSystemApp(packageName)) {
+                    System.out.println("新打开的APP不是系统应用");
                     appChange(offerPackageName);
                 }
             }
         } else {
             // 在用户切换界面时，执行动作
-            actChange(appNames);
+            // actChange(activityInfo);
         }
     }
 
     /**
      * 从一个APP跳转到另一个APP是执行操作
-     *
-     * @param offerPackageName
      */
     private void appChange(String offerPackageName) {
-        // 打开了新的APP
-        // System.out.println("打开了新的APP");
-        switch (offerPackageName) {
-            // 趣头条
-            case "com.jifen.qukan":
-                // timingPanels2.w180s();
-                // break;
-                // 今日头条极速版
-                // com.ss.android.article.lite
-            case "com.ss.android.article.lite":
-                // 今日头条
-            case "com.ss.android.article.news":
-                // 西瓜视频
-            case "com.ss.android.article.video":
-                // 番茄免费小说
-            case "com.dragon.read":
-            case "com.xs.fm":
-            case "com.ss.android.ugc.aweme.lite":
-            case "com.ss.android.ugc.live":
-                // 抖音
-            case "com.ss.android.ugc.aweme":
-                // 番茄畅听
-                timingPanels2.w180s();
-                break;
+        if (wait180sApp.contains(offerPackageName)) {
+            String title = "应用跳转";
+            String message = "要等待180秒？";
+            AdbTools.getInstance().showDialogOk(title, message, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    timingPanels2.w180s();
+                }
+            });
+            // timingPanels2.w180s();
+        } else if (wait95sApp.contains(offerPackageName)) {
+            // timingPanels2.w95s();
+            String title = "应用跳转";
+            String message = "要等待95秒？";
+            AdbTools.getInstance().showDialogOk(title, message, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    timingPanels2.w95s();
+                    // timingPanels2.w180s();
+                }
+            });
 
-            // 百度极速版
-            case "com.baidu.searchbox.lite":
-                // 快手极速版
-            case "com.kuaishou.nebula":
-                // 快手
-            case "com.smile.gifmaker":
-                // 悟空浏览器
-            case "com.cat.readall":
-                timingPanels2.w95s();
-                break;
+
         }
+
     }
 
     /**
      * 判断现在的APP是否是系统应用
-     *
-     * @param packageName
-     * @return
      */
     private boolean isSystemApp(String packageName) {
-        boolean b;
-        switch (packageName) {
-            // 任务视图程序
-            case "com.android.systemui":
-                // 安卓设置
-            case "com.android.settings":
-                // 安卓短信
-            case "com.android.mms":
-                // 搞机工具箱
-            case "com.byyoung.setting":
-                // 华为应用市场
-            case "com.huawei.appmarket":
-                // 华为桌面
-            case "com.huawei.android.launcher":
-                // 华为运动健康
-            case "com.huawei.health":
-                // OPPO任务视图
-            case "com.coloros.recents":
-                // OPPO桌面
-            case "com.oppo.launcher":
-                // OPPO手机管家
-            case "com.coloros.safecenter":
-                // 小米桌面
-            case "com.miui.home":
-                // 小米应用市场
-            case "com.xiaomi.market":
-                // 小米安装器
-            case "com.miui.packageinstaller":
+        HashSet<String> systemApp = new HashSet<>();
+        // 任务视图程序
+        systemApp.add("com.android.systemui");
+        // 安卓设置
+        systemApp.add("com.android.settings");
+        // 安卓短信
+        systemApp.add("com.android.mms");
+        // 搞机工具箱
+        systemApp.add("com.byyoung.setting");
+        // 华为应用市场
+        systemApp.add("com.huawei.appmarket");
+        // 华为桌面
+        systemApp.add("com.huawei.android.launcher");
+        // 华为运动健康
+        systemApp.add("com.huawei.health");
+        // OPPO任务视图
+        systemApp.add("com.coloros.recents");
+        // OPPO桌面
+        systemApp.add("com.oppo.launcher");
+        // OPPO手机管家
+        systemApp.add("com.coloros.safecenter");
+        // 小米桌面
+        systemApp.add("com.miui.home");
+        // 小米应用市场
+        systemApp.add("com.xiaomi.market");
+        // 小米安装器
+        systemApp.add("com.miui.packageinstaller");
+        // 小米安全中心
+        systemApp.add("com.miui.securitycenter");
+        // 运动健康OPPO
+        systemApp.add("com.free.pedometer");
+        // 魅族桌面
+        systemApp.add("com.meizu.flyme.launcher");
+        // 魅族运动
+        systemApp.add("com.meizu.net.pedometer");
+        // 魅族应用商店
+        systemApp.add("com.meizu.mstore");
 
-                // 小米安全中心
-            case "com.miui.securitycenter":
-                // 运动健康OPPO
-            case "com.free.pedometer":
-                // 魅族桌面
-            case "com.meizu.flyme.launcher":
-                // 魅族运动
-            case "com.meizu.net.pedometer":
-                // 魅族应用商店
-            case "com.meizu.mstore":
-                b = false;
-                break;
-            default:
-                b = true;
-                break;
-        }
-        return b;
-
+        return systemApp.contains(packageName);
     }
 
-    private void _wait(AppNames appNames) {
-        String actLongName = appNames.getActLongName();
-        // // 需要等待1个小时的Activity
-        // wait1H = new ArrayList<>();
-        // wait1H.add("com.kuaishou.kgx.novel/com.kuaishou.novel.read.ReaderActivityV2");
-        //
-        //
-        //
-        // wait30S = new ArrayList<>();
-        // wait30S.add("com.taobao.live/.h5.BrowserActivity");
-        //
-
-        if (wait1H.contains(actLongName)) {
-            _wait(1 * 60 * 60);
-        } else if (wait3M.contains(actLongName)) {
+    private void _wait(ActivityInfo activityInfo) {
+        String actLongName = activityInfo.getActLongName();
+        if (wait20M_Act.contains(actLongName)) {
+            _wait(60 * 60);
+        } else if (wait3M_Act.contains(actLongName)) {
             _wait(3 * 60);
-        } else if (wait30S.contains(actLongName)) {
+        } else if (wait30s_Act.contains(actLongName)) {
             _wait(30);
+        } else if (wait15s_Act.contains(actLongName)) {
+            _wait(15);
+        } else if (wait11s_Act.contains(actLongName)) {
+            _wait(11);
         } else {
+            // _wait(9);
             _wait(9);
+            // _wait(8);
+            // _wait(7);
         }
-
     }
 
     private void _wait(int seconds) {
@@ -230,42 +317,46 @@ public class ActAutoRun implements Runnable {
 
     /**
      * 同一个App的不同activity改变时
-     *
-     * @param appNames
      */
-    private void actChange(AppNames appNames) {
-        String packageName = appNames.getPackageName();
-        String actShortName = appNames.getActShortName();
+    private void actChangeInSameApp(ActivityInfo before, ActivityInfo current) {
+        String packageCurrent = current.getPackageName();
+        //现在的Activit名称
+        String actShorCurrent = current.getActShortName();
+        //之前的的Activit名称
+        String actShortBefore = before.getActShortName();
+        // System.out.println("act改变： " + actShortBefore + " -> " + actShorCurrent);
+        System.out.println("act改变： " + before + " -> " + current);
         // System.out.println("\n界面改变，给出建议...");
-        // System.out.println("    packageName = " + packageName);
-        // System.out.println("    actShortName = " + actShortName);
-        switch (packageName) {
+        // System.out.println("    packageCurrent = " + packageCurrent);
+        // System.out.println("    actShorCurrent = " + actShorCurrent);
+        switch (packageCurrent) {
             // case "com.android.dialer/.DialtactsActivity"
             case "com.android.dialer":
             case "com.android.contacts":
                 // case "com android dialer":
-                dianHua(actShortName);
+                dianHua(actShorCurrent);
                 break;
             // 趣头条
             case "com.jifen.qukan":
-                quTouTiao(actShortName);
+                quTouTiao(actShorCurrent);
                 break;
             // 点淘
             case "com.taobao.live":
-                dianTao(actShortName);
+                // dianTao(actShortBefore, actShorCurrent);
+                DianTao.dianTao(actShortBefore, actShorCurrent);
                 break;
             // 淘宝
             case "com.taobao.taobao":
-                taobao(actShortName);
+                taobao(actShorCurrent);
                 break;
             case "com.ss.android.article.video":
-                xiGuaShiPin(actShortName);
+                xiGuaShiPin(actShorCurrent);
                 break;
             case "com.xunmeng.pinduoduo":
-                pinDuoDuo(actShortName);
+                pinDuoDuo(actShorCurrent);
                 break;
             case "com.kuaishou.kgx.novel":
-                switch (actShortName) {
+                switch (actShorCurrent) {
                     case ".ui.activity.HomeActivity":
                     case "com.kuaishou.novel.read.ReaderActivityV2":
                         timingPanels2.rw();
@@ -316,33 +407,30 @@ public class ActAutoRun implements Runnable {
                 break;
         }
     }
-
-    private void dianTao(String actShortName) {
-        switch (actShortName) {
-            case ".h5.BrowserActivity":
-            case ".pha.PHAContainerActivity":
-                // timingPanels2.auto("s_95");
-                timingPanels2.s();
-                // break;
-                // timingPanels2.s();
-                break;
-            // case ".h5.BrowserUpperActivity":
-            case ".h5.BrowserUpperActivity":
-                // timingPanels2.s35s();
-                timingPanels2.s();
-                break;
-            case ".TaoLiveVideoActivity":
-            case "com.taobao.video.VideoListActivity":
-                timingPanels2.vw();
-                break;
-            case "com.qq.e.ads.PortraitADActivity":
-            case "com.bytedance.sdk.openadsdk.stub.activity.Stub_Standard_Portrait_Activity":
-                // timingPanels2.auto("w_65s");
-                timingPanels2.s();
-                // timingPanels2.w65s();
-                break;
-        }
-    }
+    //
+    // private void dianTao(String actBefore, String act) {
+    // switch (actBefore) {
+    // // 之前是元宝中心
+    // case ".pha.PHAContainerActivity":
+    // switch (act) {
+    // // 现在是精品推荐
+    // case ".h5.BrowserUpperActivity":
+    // timingPanels2.s();
+    // break;
+    // // 现在是直播界面
+    // case ".TaoLiveVideoActivity":
+    // // timingPanels2.vw();
+    // timingPanels2.vw180s();
+    // break;
+    // //现在是字节的广告界面
+    // case "com.bytedance.sdk.openadsdk.stub.activity.Stub_Standard_Portrait_Activity":
+    // timingPanels2.w65s();
+    // break;
+    // }
+    // break;
+    // }
+    //
+    // }
 
     /**
      * 趣头条APP
@@ -394,7 +482,6 @@ public class ActAutoRun implements Runnable {
 
                     }
                 });
-
                 break;
         }
     }

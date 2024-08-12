@@ -2,12 +2,26 @@ package adbs.main.run.model;
 
 import java.util.Objects;
 
-public class AppNames {
+/**
+ * Activity详细信息
+ *
+ */
+public class ActivityInfo {
+    /**
+     * 全限定Activity名称，例如“com.huawei.android.launcher/.unihome.UniHomeLauncher”
+     */
     private String actLongName;
+    /**
+     *
+     * 应用包名，例如“com.huawei.android.launcher”
+     */
     private String packageName;
+    /**
+     * 去掉包名的Activity名称，例如“.unihome.UniHomeLauncher”
+     */
     private String actShortName;
 
-    public AppNames(String actLongName) {
+    public ActivityInfo(String actLongName) {
         this.actLongName = actLongName;
         if (actLongName.contains("/")) {
             int slpitIndex = actLongName.indexOf("/");
@@ -26,8 +40,8 @@ public class AppNames {
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-        AppNames appNames = (AppNames) o;
-        return Objects.equals(actLongName, appNames.actLongName);
+        ActivityInfo activityInfo = (ActivityInfo) o;
+        return Objects.equals(actLongName, activityInfo.actLongName);
     }
 
     @Override
