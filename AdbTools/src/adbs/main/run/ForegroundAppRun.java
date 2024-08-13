@@ -148,7 +148,7 @@ public class ForegroundAppRun implements Runnable {
             // String actName = AdbGetPackage.getActName(run);
             // System.out.print("act名 =" + actName + " ");
             // run = getPackageName(run);
-            run = AdbGetPackage.getPackageName(run);
+//            run = AdbGetPackage.getPackageName(run);
             // System.out.println("包名 = " + run);
             // System.out.print("包名 = " + run + " ");
             // 获取包名对应的应用名
@@ -196,15 +196,6 @@ public class ForegroundAppRun implements Runnable {
      * @return 如果到了第2天，返回true，如果不是，返回false
      */
     private boolean isNextDay() {
-        // 获取当前的时间
-        // LocalDateTime localDateTime = LocalDateTime.now();
-        // String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        // String format = localDateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-        // System.out.println("时间 = " + format);
-        // 如果当前时间 在0到3分钟 之内的话，则认为现在到了第2天
-        // return nextDay || format.startsWith("00:00") || format.startsWith("00:01") || format.startsWith("00:02") || format.startsWith("00:03");
-        // return nextDay || format.startsWith("00:00") || format.startsWith("00:01") || format.startsWith("00:02");
-        // return nextDay || format.startsWith("00:00") || format.startsWith("00:01");
         return nextDay;
     }
 
@@ -366,21 +357,6 @@ public class ForegroundAppRun implements Runnable {
         return appName;
     }
 
-//    /**
-//     * 更新窗体标题
-//     *
-//     * @param appName APP名称
-//     */
-//    private void updateFormTitle(String appName) {
-//        JFrame frame = adbTools.getFrame();
-//        FrameTitle frameTitle = FrameTitle.getFrameTitle();
-//        String appName1 = frameTitle.getAppName();
-//        if (!appName1.equals(appName)) {
-//            System.out.println("应用名改变了更新窗体标题");
-//            frameTitle.setAppName(appName);
-//            frame.setTitle(frameTitle.toString());
-//        }
-//    }
 
     /**
      * 签到完成设置

@@ -2,6 +2,7 @@ package adbs.main.run;
 
 import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
+import adbs.main.run.model.FrameTitle;
 import adbs.tools.thread.ThreadSleep;
 
 import javax.swing.*;
@@ -20,7 +21,6 @@ public class BatteryLevelRun2 implements Runnable {
     public void run() {
         // 等待2秒
         ThreadSleep.seconds(2);
-
         adbTools = AdbTools.getInstance();
         // // 获取设备的序列号
         // serial = adbTools.getDevice().getSerial();
@@ -34,33 +34,33 @@ public class BatteryLevelRun2 implements Runnable {
 
         stop = false;
 
+        System.out.println("电池检测线程开始");
         while (!stop) {
-            if (serial == null) {
-                serial = adbTools.getDevice().getSerial();
-            } else {
-                if (batteryModel == null) {
-                    batteryModel = new BatteryModel(serial);
-                    // System.out.print("--------------------------");
-                    // System.out.print(batteryModel);
-                    // System.out.println("--------------------------");
-                }
-
-                batteryModel.setSerial(adbTools.getDevice().getSerial());
-                // 更新电池信息
-                batteryModel.update();
-                // 获取电池电量百分比
-                int level = batteryModel.getLevel();
-                System.out.println("level = " + level);
-                // 更新窗体标题中的电池电量值
-                updateJFrameTitle(level);
-                // 并且判断是否需要使用充电头充电
-                if (batteryModel.needAcPower()) {
-                    // 弹窗提醒用户充电
-                    remindAC(level);
-                } else if (batteryModel.isBatteryFullyCharged()) {
-                    whenFullyCharged();
-                }
+            //获取设备的序列号
+            this.serial = adbTools.getDevice().getSerial();
+            if (batteryModel == null) {
+                batteryModel = new BatteryModel(serial);
+                System.out.print("--------------------------");
+                System.out.print(batteryModel);
+                System.out.println("--------------------------");
             }
+            //更新设备序列号
+            batteryModel.setSerial(serial);
+            // 更新电池信息
+            batteryModel.update();
+            // 获取电池电量百分比
+            int level = batteryModel.getLevel();
+            System.out.println("level = " + level);
+            // 更新窗体标题中的电池电量值
+            updateJFrameTitle(level);
+            // 并且判断是否需要使用充电头充电
+            if (batteryModel.needAcPower()) {
+                // 弹窗提醒用户充电
+                remindAC(level);
+            } else if (batteryModel.isBatteryFullyCharged()) {
+                whenFullyCharged();
+            }
+            //等待一定的时间
             wait_();
 
         }
@@ -124,6 +124,7 @@ public class BatteryLevelRun2 implements Runnable {
             // 20秒检测一次
             ThreadSleep.seconds(20);
         } else {
+            //            ThreadSleep.seconds(10);
             // 等待一段时间，再进行更新电池信息
             // ThreadSleep.minutes(2);
             // 10检测一次电池
@@ -178,48 +179,18 @@ public class BatteryLevelRun2 implements Runnable {
      * @param level 当前的电池电量
      */
     private void updateJFrameTitle(int level) {
-        // 缓存旧标题
-        String oldFrameTitle = frame.getTitle();
-
-        String newFrameTitle = oldFrameTitle;
-        // 如果原来的标题中已经有了百分号
-        String delimiter1 = ",";
-        if (newFrameTitle.contains("%")) {
-            // System.out.println("old newFrameTitle = " + newFrameTitle);
-            //替换其中的百分号
-            // newFrameTitle = newFrameTitle.replaceAll(":[0-9]{1,2}%", ":" + level + "%");
-            String previous = newFrameTitle.substring(0, newFrameTitle.indexOf(delimiter1));
-            // System.out.println("previous = " + previous);
-            // 简写端口号
-            previous = portAbbr(previous);
-            // System.out.println("previous = " + previous);
-            String behind = newFrameTitle.substring(newFrameTitle.indexOf("%"));
-            // System.out.println("level = " + level);
-            // System.out.println("behind = " + behind);
-            newFrameTitle = previous + delimiter1 + level + behind;
-            // System.out.println("title:" + newFrameTitle + "_");
-            // System.out.println("new newFrameTitle = " + newFrameTitle);
-        } else {
-            // 在标题上加上百分号
-            newFrameTitle = oldFrameTitle + delimiter1 + level + "%";
+        FrameTitle frameTitle = FrameTitle.getFrameTitle();
+        int level1 = frameTitle.getBatteryLevel();
+        if (level1 != level) {
+            frameTitle.setBatteryLevel(level);
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    frame.setTitle(frameTitle.toString());
+                }
+            });
         }
 
-        // System.out.println("oldFrameTitle = " + oldFrameTitle);
-        // System.out.println("newFrameTitle = " + newFrameTitle);
-        // 如果标题有改变的话
-        if (!newFrameTitle.equals(oldFrameTitle)) {
-            // System.out.println("。。。。。。。。。。。update Title、、、、、、、、、、、");
-            frame.setTitle(newFrameTitle);
-            // frame.pack();
-        }
-    }
-
-    private String portAbbr(String ip_port) {
-        if (ip_port.matches("[0-9.:]+")) {
-            // System.out.println("序列号是IP地址");
-            ip_port = ip_port.substring(ip_port.length() - 2);
-        }
-        return ip_port;
     }
 
     public static void stop() {

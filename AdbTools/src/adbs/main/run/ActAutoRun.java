@@ -287,10 +287,18 @@ public class ActAutoRun implements Runnable {
         JFrame frame = adbTools.getFrame();
         FrameTitle frameTitle = FrameTitle.getFrameTitle();
         String appName1 = frameTitle.getAppName();
+        // 如果应用名和原来的不同
         if (!appName1.equals(appName)) {
             System.out.println("应用名改变了更新窗体标题");
+            //更新应用名
             frameTitle.setAppName(appName);
-            frame.setTitle(frameTitle.toString());
+            // 设置窗体标题
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    frame.setTitle(frameTitle.toString());
+                }
+            });
         }
     }
 

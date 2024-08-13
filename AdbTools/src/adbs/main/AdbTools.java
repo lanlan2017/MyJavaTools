@@ -259,7 +259,12 @@ public class AdbTools {
 
             FrameTitle frameTitle = FrameTitle.getFrameTitle();
             frameTitle.setDeviceName(device.getName());
-            frame.setTitle(frameTitle.toString());
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    frame.setTitle(frameTitle.toString());
+                }
+            });
 
             return;
         }
@@ -301,7 +306,12 @@ public class AdbTools {
             FrameTitle frameTitle = FrameTitle.getFrameTitle();
             frameTitle.setDeviceName(devieceSelected);
 
-            frame.setTitle(frameTitle.toString());
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    frame.setTitle(frameTitle.toString());
+                }
+            });
 
 
             device = simpleId_Device_map.get(devieceSelected);
