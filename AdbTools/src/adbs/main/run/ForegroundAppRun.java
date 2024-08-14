@@ -40,14 +40,6 @@ public class ForegroundAppRun implements Runnable {
      */
     private final LoginRecords loginRecords = new LoginRecords();
 
-
-    public static void updatePackages_3_money() {
-        ForegroundAppRun.apps = null;
-        System.out.println("更新可赚钱APP列表");
-        ForegroundAppRun.apps = new AdbShellPmListPackages_3().getPackages_3_money();
-        System.out.println("可赚钱APP列表: " + apps);
-    }
-
     private static volatile boolean stop;
     /**
      * 是否停止等待，直接进行下一步的签到检查。
@@ -57,11 +49,6 @@ public class ForegroundAppRun implements Runnable {
      * 是否所有的APP都签到完毕。
      */
     private static boolean isAllAppOpened;
-
-    public static void allAppOpened() {
-        ForegroundAppRun.isAllAppOpened = true;
-    }
-
     /**
      * 是否停止签到检查
      */
@@ -70,6 +57,19 @@ public class ForegroundAppRun implements Runnable {
     private JPanel universalPanel;
     private UniversalPanels universalPanels;
     private AdbTools adbTools;
+
+    public static void updatePackages_3_money() {
+        ForegroundAppRun.apps = null;
+        System.out.println("更新可赚钱APP列表");
+        ForegroundAppRun.apps = new AdbShellPmListPackages_3().getPackages_3_money();
+        System.out.println("可赚钱APP列表: " + apps);
+    }
+
+
+    public static void allAppOpened() {
+        ForegroundAppRun.isAllAppOpened = true;
+    }
+
 
     public static void setStop(boolean stop) {
         ForegroundAppRun.stop = stop;
@@ -89,7 +89,7 @@ public class ForegroundAppRun implements Runnable {
         // 如果有旧的记录的话
         readLoginRecords();
 
-        System.out.println("你好");
+//        System.out.println("你好");
         while (!stop) {
             body();
         }
@@ -119,9 +119,6 @@ public class ForegroundAppRun implements Runnable {
                 // System.out.println(appOpened);
                 this.appOpened.addAll(appOpened);
             }
-
-            // 移除apps中appOpened中存在的所有元素
-            // this.apps.removeAll(this.appOpened);
             showNotOpenApp();
             showOpenedApp();
 
@@ -140,6 +137,11 @@ public class ForegroundAppRun implements Runnable {
     private void body() {
         ActivityInfo activityInfo = AdbGetPackage.getActivityInfo();
         String packageName = activityInfo.getPackageName();
+        check_(packageName);
+
+    }
+
+    private void check_(String packageName) {
         if (!"".equals(packageName)) {
             check(packageName);
         }
@@ -298,8 +300,6 @@ public class ForegroundAppRun implements Runnable {
                 sb.append(apkName).append("\n");
             }
         }
-        // AdbTools.getInstance().getAppPanels().getNotOpened().setText(sb.toString().trim());
-        // appPanels.getNotOpened().setText(sb.toString().trim());
         // 在事件调度线程中操作JTextArea以确保线程安全
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -308,41 +308,6 @@ public class ForegroundAppRun implements Runnable {
             }
         });
     }
-
-    // /**
-    // * 如果是金币应用则添加到记录表中
-    // * 查找
-    // *
-    // * @param packageName apk的包名
-    // * @return APP的应用名
-    // */
-    // private String isGoldCoinAppAddIntoAppRecord(String packageName) {
-    // // 获取配置文件中的值
-    // // String appName = AdbToolsProperties.propertiesTools.getProperty(packageName);
-    // String appName = AdbToolsProperties.moneyApkPro.getProperty(packageName);
-    //
-    // // 如果返回的value 不等于原来的key,说明配置文件中有这个值
-    // if (!appName.equals(packageName)) {
-    // // 如果保存可赚钱apk名称的配置文件中找到这个apk
-    // // Collections.binarySearch(apkOpenedToday,  , );
-    //
-    // // 在已打开过的apk名称列表中查找 当前apk名
-    // int i = Collections.binarySearch(appOpened, appName);
-    // // System.out.println("i = " + i);
-    // // 如果没找到
-    // if (i < 0) {
-    // // 把这个赚金币应用 添加到签到记录表中
-    // appOpened.add(appName);
-    // // 排序签到记录表，否则下次二分查找会有问题
-    // Collections.sort(appOpened);
-    // }
-    // } else {
-    // appName = "非赚钱apk";
-    // }
-    // // 输出应用的名称
-    // // System.out.println("应用 = " + appName);
-    // return appName;
-    // }
 
     /**
      * 如果是金币应用则添加到记录表中
@@ -369,13 +334,6 @@ public class ForegroundAppRun implements Runnable {
                 Collections.sort(appOpened);
             }
         }
-
-        // else {
-        // appName = "非赚钱apk";
-        // }
-        // 输出应用的名称
-        // System.out.println("应用 = " + appName);
-        // return appName;
     }
 
 
