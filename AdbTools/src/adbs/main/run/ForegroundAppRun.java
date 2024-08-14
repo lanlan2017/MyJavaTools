@@ -1,7 +1,7 @@
 package adbs.main.run;
 
-import adbs.cmd.CmdRun;
 import adbs.main.AdbTools;
+import adbs.main.run.model.ActivityInfo;
 import adbs.main.run.signinlog.FileUtil;
 import adbs.main.run.signinlog.LoginRecords;
 import adbs.main.ui.jframe.JFramePack;
@@ -138,53 +138,10 @@ public class ForegroundAppRun implements Runnable {
     }
 
     private void body() {
-        String serial = adbTools.getDevice().getSerial();
-        // String topActivityCommand = getTopActivityCommand(serial);
-        String topActivityCommand = AdbGetPackage.getTopActivityCommand(serial);
-        // System.out.println("ActivityCommand =" + topActivityCommand);
-        String run = CmdRun.run(topActivityCommand).trim();
-        System.out.println("run = " + run);
-        // 如果命令结果中有反斜杠，说明有包名
-        if (run.contains("/")) {
-            //mResumedActivity: ActivityRecord{7fbc105 u0 com.huawei.health/.MainActivity t1573}
-            // String actName = AdbGetPackage.getActName(run);
-            // System.out.print("act名 =" + actName + " ");
-            // run = getPackageName(run);
-            // System.out.println("包名 = " + run);
-            // System.out.print("包名 = " + run + " ");
-            // 获取包名对应的应用名
-            // String appName = isGoldCoinAppAddIntoAppRecord(run);
-            // updateFormTitle
-            // 在窗体标题上显示当前打开的APP的名称
-            // updateFormTitle(appName);
-            //
-            // String appName = isGoldCoinAppAddIntoAppRecord(run);
-            
-            String packageName = AdbGetPackage.getPackageName(run);
-            updateAppOpened(packageName);
-            // 如果还没停止签到检查的话
-            if (!stopAppCheck) {
-                // 如果用户勾选了所有应用都打开了
-                if (isAllAppOpened) {
-                    // 清空签到记录表
-                    clearCheckInForm();
-                    // 把所有的APP都填到签到记录表中
-                    copyAllAppsIntoCheckInForm();
-                    afterOpeningAllAPKs();
-                    stopAppCheck = true;
-                }
-                // 如果已签到列表和应用列表的长度一样，则说明所有APP都签到完毕了
-                else if (appOpened.size() == apps.size()) {
-                    // 签到完成设置
-                    afterOpeningAllAPKs();
-                    stopAppCheck = true;
-                }
-                // 打印已经打开的APP
-                showOpenedApp();
-                // 打印没打开的APP
-                showNotOpenApp();
-            }
-
+        ActivityInfo activityInfo = AdbGetPackage.getActivityInfo();
+        String packageName = activityInfo.getPackageName();
+        if (!"".equals(packageName)) {
+            check(packageName);
         }
         // 等待一定的时间
         wait_();
@@ -192,6 +149,32 @@ public class ForegroundAppRun implements Runnable {
         if (isNextDay()) {
             // 清空前一天的签到设置
             nextDaySetting();
+        }
+    }
+
+    private void check(String packageName) {
+        updateAppOpened(packageName);
+        // 如果还没停止签到检查的话
+        if (!stopAppCheck) {
+            // 如果用户勾选了所有应用都打开了
+            if (isAllAppOpened) {
+                // 清空签到记录表
+                clearCheckInForm();
+                // 把所有的APP都填到签到记录表中
+                copyAllAppsIntoCheckInForm();
+                afterOpeningAllAPKs();
+                stopAppCheck = true;
+            }
+            // 如果已签到列表和应用列表的长度一样，则说明所有APP都签到完毕了
+            else if (appOpened.size() == apps.size()) {
+                // 签到完成设置
+                afterOpeningAllAPKs();
+                stopAppCheck = true;
+            }
+            // 打印已经打开的APP
+            showOpenedApp();
+            // 打印没打开的APP
+            showNotOpenApp();
         }
     }
 
@@ -214,13 +197,12 @@ public class ForegroundAppRun implements Runnable {
         nextDay = false;
         // stopAppCheck = false;
         isAllAppOpened = false;
-        // toolsJPanels = AdbTools.getInstance().getToolsJPanels();
         // 卸载无用APP
         toolsJPanels.getBtnUninstallAll().doClick();
         // 打开手机管家
         adbTools.getAdbJPanels().getBtnMobileButler().doClick();
         // 停止线程，防止反复触发
-        // ThreadSleep.minutes(1.5);
+         ThreadSleep.minutes(1.5);
         // ThreadSleep.minutes(4.0);
     }
 
