@@ -97,10 +97,12 @@ public class ActAutoRun implements Runnable {
 
     private HashSet<String> initWait11sAct() {
         HashSet<String> wait11s_Act = new HashSet<>();
-        //
+        // 点淘
         wait11s_Act.add("com.taobao.live/.h5.BrowserUpperActivity");
-        // 省钱特辑，
+        // 点淘省钱特辑，
         wait11s_Act.add("com.taobao.live/.h5.BrowserActivity");
+        //        番茄畅听，音乐播放界面
+        wait11s_Act.add("com.xs.fm.lite/com.dragon.read.pages.main.MainFragmentActivity");
         return wait11s_Act;
 
     }
@@ -390,6 +392,7 @@ public class ActAutoRun implements Runnable {
         String actShortBefore = before.getActShortName();
         // System.out.println("act改变： " + actShortBefore + " -> " + actShorCurrent);
         System.out.println("act改变： " + before + " -> " + current);
+        System.out.println("act改变： \"" + actShortBefore + "\",\"" + actShorCurrent + "\"");
         // System.out.println("\n界面改变，给出建议...");
         // System.out.println("    packageCurrent = " + packageCurrent);
         // System.out.println("    actShorCurrent = " + actShorCurrent);

@@ -409,6 +409,17 @@ public class AdbTools {
         DialogFactory.showDialogOk(frame, title, message, actionListenerOk);
     }
 
+    /**
+     * 在AdbTools程序中弹出有一个确认按钮的对话框
+     *
+     * @param message          消息
+     * @param actionListenerOk 点击确认按钮需要执行的操作
+     */
+    public void showDialogOk(String message, ActionListener actionListenerOk) {
+        //        JFrame frame = AdbTools.getInstance().getFrame();
+        DialogFactory.showDialogOk(frame, "", message, actionListenerOk);
+    }
+
 
     public static void main(String[] args) {
         AdbTools instance = AdbTools.getInstance();
@@ -422,7 +433,6 @@ public class AdbTools {
             ThreadSleep.seconds(5);
             new Thread(new ForegroundAppRun()).start();
             // // 启动电池监测线程
-            //              new Thread(new BatteryLevelRun()).start();
             new Thread(new BatteryLevelRun2()).start();
             new Thread(new ActAutoRun()).start();
         }

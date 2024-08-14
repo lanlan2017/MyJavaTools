@@ -149,7 +149,7 @@ public class ScrcpyJPanels {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // 设置
-//                ForegroundAppRun.onNextDay();
+                //                ForegroundAppRun.onNextDay();
                 // isFirstTimeRun = true;
                 // ForegroundAppRun.stopWait();
                 AdbTools.getInstance().showDialogOk("重签", "重置签到状态?", new ActionListener() {
@@ -178,7 +178,7 @@ public class ScrcpyJPanels {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-//                switchDebug();
+                //                switchDebug();
                 AdbTools.getInstance().showDialogOk("切换", "切换调试", new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -197,7 +197,7 @@ public class ScrcpyJPanels {
                 if (device == null) {
                     device = adbTools.getDevice();
                 }
-//                Device device = AdbTools.getInstance().getDevice();
+                //                Device device = AdbTools.getInstance().getDevice();
 
                 if (networkDebugging.equals(btnSwitchNetworkDebug.getText())) {
                     String serial = device.getSerial();
@@ -223,7 +223,7 @@ public class ScrcpyJPanels {
                         }
                     });
 
-//                    连接网络调试
+                    //                    连接网络调试
                     String code = "adb disconnect " + ip_serial;
                     AdbCommands.runAbdCmd(code);
                     // reopenScrcpy();
@@ -364,7 +364,7 @@ public class ScrcpyJPanels {
         btnOpenScrcpyFull.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                new Thread(new OpenButtonRunnable("0")).start();
+                //                new Thread(new OpenButtonRunnable("0")).start();
                 AdbTools.getInstance().showDialogOk("高清", "不带参数的scrcpy镜像(高清)", new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -386,9 +386,10 @@ public class ScrcpyJPanels {
         btnKillScrcpy.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // String id = AdbTools.device.getId();
-                String id = AdbTools.getInstance().getDevice().getSerial();
-                Taskkill.killScrcpy(id);
+                // String serial = AdbTools.device.getId();
+                String serial = AdbTools.getInstance().getDevice().getSerial();
+                System.out.println("关闭:" + serial);
+                Taskkill.killScrcpy(serial);
             }
         });
         return btnKillScrcpy;
@@ -401,7 +402,7 @@ public class ScrcpyJPanels {
         btnUpdateEarningApps.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                ForegroundAppRun.updatePackages_3_money();
+                //                ForegroundAppRun.updatePackages_3_money();
                 // ForegroundAppRun.onNextDay();
                 AdbTools.getInstance().showDialogOk("更新赚钱应用", "更新赚钱应用列表", new ActionListener() {
                     @Override
@@ -438,8 +439,8 @@ public class ScrcpyJPanels {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // ForegroundAppRun.stopWait(true);
-//                ForegroundAppRun.stopWait();
-//                ForegroundAppRun.allAppOpened();
+                //                ForegroundAppRun.stopWait();
+                //                ForegroundAppRun.allAppOpened();
                 AdbTools.getInstance().showDialogOk("都签了", "全部应用都签到完毕了?", new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {

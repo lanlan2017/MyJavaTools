@@ -81,7 +81,7 @@ public class ForegroundAppRun implements Runnable {
     public void run() {
         // 等待4秒
         // ThreadSleep.seconds(4);
-        ThreadSleep.seconds(2);
+        ThreadSleep.seconds(3);
         // 更新操作的面板
         updatePanels();
         // 更新应用列表
@@ -89,6 +89,7 @@ public class ForegroundAppRun implements Runnable {
         // 如果有旧的记录的话
         readLoginRecords();
 
+        System.out.println("你好");
         while (!stop) {
             body();
         }
@@ -142,21 +143,25 @@ public class ForegroundAppRun implements Runnable {
         String topActivityCommand = AdbGetPackage.getTopActivityCommand(serial);
         // System.out.println("ActivityCommand =" + topActivityCommand);
         String run = CmdRun.run(topActivityCommand).trim();
+        System.out.println("run = " + run);
         // 如果命令结果中有反斜杠，说明有包名
         if (run.contains("/")) {
             //mResumedActivity: ActivityRecord{7fbc105 u0 com.huawei.health/.MainActivity t1573}
             // String actName = AdbGetPackage.getActName(run);
             // System.out.print("act名 =" + actName + " ");
             // run = getPackageName(run);
-//            run = AdbGetPackage.getPackageName(run);
             // System.out.println("包名 = " + run);
             // System.out.print("包名 = " + run + " ");
             // 获取包名对应的应用名
-//            String appName = isGoldCoinAppAddIntoAppRecord(run);
+            // String appName = isGoldCoinAppAddIntoAppRecord(run);
             // updateFormTitle
             // 在窗体标题上显示当前打开的APP的名称
-//            updateFormTitle(appName);
-
+            // updateFormTitle(appName);
+            //
+            // String appName = isGoldCoinAppAddIntoAppRecord(run);
+            
+            String packageName = AdbGetPackage.getPackageName(run);
+            updateAppOpened(packageName);
             // 如果还没停止签到检查的话
             if (!stopAppCheck) {
                 // 如果用户勾选了所有应用都打开了
@@ -322,6 +327,41 @@ public class ForegroundAppRun implements Runnable {
         });
     }
 
+    // /**
+    // * 如果是金币应用则添加到记录表中
+    // * 查找
+    // *
+    // * @param packageName apk的包名
+    // * @return APP的应用名
+    // */
+    // private String isGoldCoinAppAddIntoAppRecord(String packageName) {
+    // // 获取配置文件中的值
+    // // String appName = AdbToolsProperties.propertiesTools.getProperty(packageName);
+    // String appName = AdbToolsProperties.moneyApkPro.getProperty(packageName);
+    //
+    // // 如果返回的value 不等于原来的key,说明配置文件中有这个值
+    // if (!appName.equals(packageName)) {
+    // // 如果保存可赚钱apk名称的配置文件中找到这个apk
+    // // Collections.binarySearch(apkOpenedToday,  , );
+    //
+    // // 在已打开过的apk名称列表中查找 当前apk名
+    // int i = Collections.binarySearch(appOpened, appName);
+    // // System.out.println("i = " + i);
+    // // 如果没找到
+    // if (i < 0) {
+    // // 把这个赚金币应用 添加到签到记录表中
+    // appOpened.add(appName);
+    // // 排序签到记录表，否则下次二分查找会有问题
+    // Collections.sort(appOpened);
+    // }
+    // } else {
+    // appName = "非赚钱apk";
+    // }
+    // // 输出应用的名称
+    // // System.out.println("应用 = " + appName);
+    // return appName;
+    // }
+
     /**
      * 如果是金币应用则添加到记录表中
      * 查找
@@ -329,15 +369,12 @@ public class ForegroundAppRun implements Runnable {
      * @param packageName apk的包名
      * @return APP的应用名
      */
-    private String isGoldCoinAppAddIntoAppRecord(String packageName) {
-        // 获取配置文件中的值
-        // String appName = AdbToolsProperties.propertiesTools.getProperty(packageName);
+    private void updateAppOpened(String packageName) {
         String appName = AdbToolsProperties.moneyApkPro.getProperty(packageName);
 
         // 如果返回的value 不等于原来的key,说明配置文件中有这个值
         if (!appName.equals(packageName)) {
             // 如果保存可赚钱apk名称的配置文件中找到这个apk
-            // Collections.binarySearch(apkOpenedToday,  , );
 
             // 在已打开过的apk名称列表中查找 当前apk名
             int i = Collections.binarySearch(appOpened, appName);
@@ -349,12 +386,14 @@ public class ForegroundAppRun implements Runnable {
                 // 排序签到记录表，否则下次二分查找会有问题
                 Collections.sort(appOpened);
             }
-        } else {
-            appName = "非赚钱apk";
         }
+
+        // else {
+        // appName = "非赚钱apk";
+        // }
         // 输出应用的名称
         // System.out.println("应用 = " + appName);
-        return appName;
+        // return appName;
     }
 
 

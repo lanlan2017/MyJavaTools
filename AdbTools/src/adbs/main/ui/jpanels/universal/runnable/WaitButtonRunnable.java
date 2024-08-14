@@ -124,6 +124,6 @@ public class WaitButtonRunnable extends CloseableRunnable {
                 }
                 break;
         }
-        timePanels.showConfirmDialog();
+//        timePanels.showConfirmDialog();
     }
 }

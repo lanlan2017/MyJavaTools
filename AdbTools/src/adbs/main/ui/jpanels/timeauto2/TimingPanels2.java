@@ -7,6 +7,7 @@ import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.time.TimePanels;
 import adbs.main.ui.jpanels.time.listener.WaitValues;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
+import adbs.tools.thread.ThreadSleep;
 import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
@@ -271,19 +272,6 @@ public class TimingPanels2 extends WaitValues {
         return btn1_5H;
     }
 
-    //    /**
-    //     * 设置时间选择面板的输入框1的值
-    //     *
-    //     * @param timePanels 时间选择面板
-    //     * @param value      需要设置的时间
-    //     */
-    //    private void setTimePanelsInput1Value(TimePanels timePanels, int value) {
-    //        JTextField input1 = timePanels.getInput1();
-    //        // 获取输入框的文本
-    //        while (Integer.parseInt(input1.getText()) < value) {
-    //            timePanels.getPlusBtn().doClick();
-    //        }
-    //    }
 
     /**
      * 设置时间选择面板的输入框1的值
@@ -295,7 +283,6 @@ public class TimingPanels2 extends WaitValues {
         JTextField input1 = timePanels.getInput1();
         //        System.out.println("--------------------------------");
         //        System.out.println("value sdfsgfsfdfds = " + value);
-        //
         //        System.out.println("index = " + index);
         //        System.out.println("values[index] = " + values[index]);
 
@@ -407,13 +394,14 @@ public class TimingPanels2 extends WaitValues {
     /**
      * 设置JComboBox的选项
      *
-     * @param index JComboBox
+     * @param index JComboBox 要选择的选项的索引
      */
     private void selectedJComboBoxIndex(int index) {
         if (jComboBox != null) {
             // 获取当前选项的
             int selectedIndex = jComboBox.getSelectedIndex();
             int itemCount = jComboBox.getItemCount();
+            // 新的索引和原来的索引不相等，并且小于选项数量的化
             if (selectedIndex != index && index < itemCount) {
                 SwingUtilities.invokeLater(() -> jComboBox.setSelectedIndex(index));
                 // JFramePack.pack();
@@ -423,14 +411,6 @@ public class TimingPanels2 extends WaitValues {
 
     public void w() {
         System.out.println("    建议：等待模式");
-        // if (jComboBox != null) {
-        //     int selectedIndex = jComboBox.getSelectedIndex();
-        //     System.out.println("selectedIndex = " + selectedIndex);
-        //     if (selectedIndex != 0) {
-        //         SwingUtilities.invokeLater(() -> jComboBox.setSelectedIndex(0));
-        //         // JFramePack.pack();
-        //     }
-        // }
         selectedJComboBoxIndex(0);
     }
 
@@ -459,6 +439,8 @@ public class TimingPanels2 extends WaitValues {
             // 改变JComboBox的选项
             changeJComboBoxOption(s0);
             // SwingUtilities.invokeLater(() -> btnDoClick(s2));
+            //            等待一段时间，不要立马就执行
+            ThreadSleep.seconds(5);
             // 点击对应时间的按钮
             btnDoClick(s2);
         }
@@ -538,31 +520,44 @@ public class TimingPanels2 extends WaitValues {
 
 
     public void w35s() {
-        auto("w_35s");
+        //        auto("w_35s");
+        dialogAuto("w_35s");
     }
 
     public void w65s() {
         auto("w_65s");
+        //        dialogAuto("w_65s");
+    }
+
+    public void w65sDialog() {
+        //                auto("w_65s");
+        dialogAuto("w_65s");
     }
 
     public void w95s() {
-        auto("w_95s");
+        //        auto("w_95s");
+        dialogAuto("w_95s");
     }
 
     public void w180s() {
-        auto("w_180s");
+        //        auto("w_180s");
+        dialogAuto("w_180s");
     }
 
     public void s35s() {
-        auto("s_35s");
+        //        auto("s_35s");
+        dialogAuto("s_35s");
     }
 
     public void s65s() {
-        auto("s_65s");
+        //        auto("s_65s");
+        dialogAuto("s_65s");
     }
 
+
     public void s95s() {
-        auto("s_95s");
+        //        auto("s_95s");
+        dialogAuto("s_95s");
     }
 
     public void vw95s() {
@@ -570,8 +565,28 @@ public class TimingPanels2 extends WaitValues {
     }
 
     public void vw180s() {
+
         auto("vw_180s");
+        //        dialogAuto("vw_180s");
     }
 
+    public void vw180sDialog() {
+        //        auto("vw_180s");
+        dialogAuto("vw_180s");
+    }
+
+    /**
+     * 在自动操作之前弹窗确认
+     *
+     * @param code auto方法的代码
+     */
+    private void dialogAuto(String code) {
+        AdbTools.getInstance().showDialogOk(code, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                auto(code);
+            }
+        });
+    }
 
 }

@@ -47,11 +47,10 @@ public class Taskkill {
      * @param id 手机设备的id
      */
     public static void killScrcpy(String id) {
-
         // 执行
         String run = CmdRun.run("jps -m");
+        System.out.println(run);
         Scanner sc = new Scanner(run);
-        // System.out.println(run);
         String line;
         while (sc.hasNext()) {
             line = sc.nextLine();
@@ -70,6 +69,7 @@ public class Taskkill {
 
     /**
      * 杀死指定pid进程的进程树
+     *
      * @param pid 程序的pid
      */
     public static void killPidTree(String pid) {
@@ -79,6 +79,7 @@ public class Taskkill {
 
     /**
      * 杀死指定pid的进程
+     *
      * @param pid 进程的pid
      */
     public static void killPid(String pid) {
