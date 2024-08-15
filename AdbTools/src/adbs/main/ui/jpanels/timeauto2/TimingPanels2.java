@@ -281,22 +281,22 @@ public class TimingPanels2 extends WaitValues {
      */
     private void setTimePanelsInput1Value(TimePanels timePanels, int value) {
         JTextField input1 = timePanels.getInput1();
-        //        System.out.println("--------------------------------");
-        //        System.out.println("value sdfsgfsfdfds = " + value);
-        //        System.out.println("index = " + index);
-        //        System.out.println("values[index] = " + values[index]);
+        // System.out.println("--------------------------------");
+        // System.out.println("value sdfsgfsfdfds = " + value);
+        // System.out.println("index = " + index);
+        // System.out.println("values[index] = " + values[index]);
 
         while (values[index] < value) {
             index++;
         }
 
-        //        System.out.println("index 2 = " + index);
-        //        System.out.println("values[index] 2 = " + values[index]);
+        // System.out.println("index 2 = " + index);
+        // System.out.println("values[index] 2 = " + values[index]);
 
         input1.setText(String.valueOf(values[index]));
         input1.setColumns(greaterOrEqual4(getNumLength(values[index])));
 
-        //        System.out.println("--------------------------------");
+        // System.out.println("--------------------------------");
     }
 
 
@@ -439,7 +439,7 @@ public class TimingPanels2 extends WaitValues {
             // 改变JComboBox的选项
             changeJComboBoxOption(s0);
             // SwingUtilities.invokeLater(() -> btnDoClick(s2));
-            //            等待一段时间，不要立马就执行
+            // 等待一段时间，不要立马就执行
             ThreadSleep.seconds(5);
             // 点击对应时间的按钮
             btnDoClick(s2);
@@ -520,43 +520,58 @@ public class TimingPanels2 extends WaitValues {
 
 
     public void w35s() {
-        //        auto("w_35s");
+        auto("w_35s");
+        // dialogAuto("w_35s");
+    }
+
+    public void w35sDialog() {
+        // auto("w_35s");
         dialogAuto("w_35s");
     }
 
     public void w65s() {
         auto("w_65s");
-        //        dialogAuto("w_65s");
+        // dialogAuto("w_65s");
     }
 
     public void w65sDialog() {
-        //                auto("w_65s");
+        // auto("w_65s");
         dialogAuto("w_65s");
     }
 
     public void w95s() {
-        //        auto("w_95s");
+        auto("w_95s");
+        // dialogAuto("w_95s");
+    }
+
+    public void w95sDialog() {
+        // auto("w_95s");
         dialogAuto("w_95s");
     }
 
     public void w180s() {
-        //        auto("w_180s");
+        auto("w_180s");
+        // dialogAuto("w_180s");
+    }
+
+    public void w180sDialog() {
+        // auto("w_180s");
         dialogAuto("w_180s");
     }
 
     public void s35s() {
-        //        auto("s_35s");
+        // auto("s_35s");
         dialogAuto("s_35s");
     }
 
     public void s65s() {
-        //        auto("s_65s");
+        // auto("s_65s");
         dialogAuto("s_65s");
     }
 
 
     public void s95s() {
-        //        auto("s_95s");
+        // auto("s_95s");
         dialogAuto("s_95s");
     }
 
@@ -567,11 +582,11 @@ public class TimingPanels2 extends WaitValues {
     public void vw180s() {
 
         auto("vw_180s");
-        //        dialogAuto("vw_180s");
+        // dialogAuto("vw_180s");
     }
 
     public void vw180sDialog() {
-        //        auto("vw_180s");
+        // auto("vw_180s");
         dialogAuto("vw_180s");
     }
 

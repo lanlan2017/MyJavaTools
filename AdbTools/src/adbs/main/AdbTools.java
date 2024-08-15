@@ -41,6 +41,7 @@ public class AdbTools {
     private final TimePanels timePanels;
     // adb面板
     private final AdbJPanels adbJPanels;
+
     // 通用面板
     private final UniversalPanels universalPanels;
     // scrcpy面板
@@ -353,9 +354,14 @@ public class AdbTools {
         return adbJPanels;
     }
 
+
+
     public UniversalPanels getUniversalPanels() {
         return universalPanels;
     }
+
+
+
 
     public CheckJPanels getCheckJPanels() {
         return checkJPanels;

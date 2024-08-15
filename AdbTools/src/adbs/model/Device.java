@@ -6,7 +6,8 @@ import adbs.main.run.IsTest;
 import config.AdbToolsProperties;
 import tools.config.properties.PropertiesTools;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * adb设备模型
@@ -25,7 +26,7 @@ public class Device {
     /**
      * 设备描述信息
      */
-    private String description;
+    private final String description;
 
     /**
      * 设备的宽度(像素)
@@ -45,12 +46,12 @@ public class Device {
      */
     private String brand;
 
-//    /**
-//     * 是否安装快手或者快手极速版APP
-//     */
-//    private boolean kuaiShouInstalled;
-//
-//    private boolean dianTaoInstalled;
+    //    /**
+    //     * 是否安装快手或者快手极速版APP
+    //     */
+    //    private boolean kuaiShouInstalled;
+    //
+    //    private boolean dianTaoInstalled;
 
     /**
      * 100以内的质数共有25个，从小到大依次排列为：
@@ -64,8 +65,8 @@ public class Device {
 
     public static HashMap<String, String> map = new HashMap<>();
     private boolean turnSreenOff;
-    private String deviceFilePath;
-    private String loginRecordsTxt;
+    private final String deviceFilePath;
+    private final String loginRecordsTxt;
 
     public Device(String serial, String description) {
         this.serial = serial;
@@ -86,12 +87,12 @@ public class Device {
 
         map.put(name, serial);
         // System.out.println("id=" + id + ",simpleId=" + simpleId);
-//        setIsKuaiShouInstalled(serial);
+        calPriority(serial);
 
         // 设置该设备的配置文件的路径
         deviceFilePath = "AdbToolsPythons" + "\\" + name;
-//       该设备的签到记录文件的路径
-//        loginRecordsTxt = deviceFilePath + "\\loginRecords.txt";
+        //       该设备的签到记录文件的路径
+        //        loginRecordsTxt = deviceFilePath + "\\loginRecords.txt";
         loginRecordsTxt = deviceFilePath + "\\SignIn.txt";
         if (IsTest.isTest()) {
             System.out.print(name + " " + serial + " ");
@@ -109,41 +110,35 @@ public class Device {
     private void initScreen(String serial) {
         PropertiesTools propertiesTools = AdbToolsProperties.propertiesTools;
         String property = propertiesTools.getProperty(serial);
-        if (property.contains("ScreenOff")) {
-            turnSreenOff = true;
-        } else {
-            turnSreenOff = false;
-        }
+        turnSreenOff = property.contains("ScreenOff");
     }
 
-//    private void setIsKuaiShouInstalled(String serial) {
-//        // com.kuaishou.nebula                     快手极速版
-//        // com.smile.gifmaker                      快手
-//        // getName()
-//        // 先在配置文件中查找标记
-//        String installedFlags = getInstalledFlags(serial);
-//        // System.out.print(name + " " + serial + " ");
-//        // System.out.println();
-//        if (installedFlags.contains("QuTouTiao")) {
-//            priority = priority * Priority.priority[0];
-//            // System.out.print(",趣头条=" + Priority.priority[0]);
-//        }
-////        if (installedFlags.contains("DianTao")) {
-////            dianTaoInstalled = true;
-////            priority = priority * Priority.priority[1];
-////            // System.out.print(",点淘=" + Priority.priority[1]);
-////        }
-//        if (installedFlags.contains("BaiDuJiSuBan")) {
-//            priority = priority * Priority.priority[2];
-//            // System.out.print(",百度极速版=" + Priority.priority[2]);
-//        }
-////        if (installedFlags.contains("KuaiShou")) {
-////            kuaiShouInstalled = true;
-////            priority = priority * Priority.priority[3];
-////            // System.out.print(",快手(极速版)=" + Priority.priority[3]);
-////        }
-//        // System.out.println(" priority = " + priority);
-//    }
+    /**
+     * 计算当前设备的优先级
+     * @param serial 设备序列号
+     */
+    private void calPriority(String serial) {
+        // com.kuaishou.nebula                     快手极速版
+        // com.smile.gifmaker                      快手
+        // getName()
+        // 先在配置文件中查找标记
+        String installedFlags = getInstalledFlags(serial);
+        // System.out.print(name + " " + serial + " ");
+        // System.out.println();
+        if (installedFlags.contains("DianTao")) {
+            //            dianTaoInstalled = true;
+            priority = priority * Priority.priority[0];
+            // System.out.print(",点淘=" + Priority.priority[1]);
+        }
+        //        if (installedFlags.contains("QuTouTiao")) {
+        //            priority = priority * Priority.priority[1];
+        //            // System.out.print(",趣头条=" + Priority.priority[0]);
+        //        }
+        //        if (installedFlags.contains("BaiDuJiSuBan")) {
+        //            priority = priority * Priority.priority[2];
+        //            // System.out.print(",百度极速版=" + Priority.priority[2]);
+        //        }
+    }
 
     public int getPriority() {
         return priority;
@@ -157,12 +152,6 @@ public class Device {
         return name;
     }
 
-//    public String getFilePath() {
-//        //拼接Python文件的路径
-////        deviceFilePath = "AdbToolsPythons" + "\\" + name;
-//        return deviceFilePath;
-//    }
-
     public String getDeviceFilePath() {
         return deviceFilePath;
     }
@@ -171,36 +160,6 @@ public class Device {
         return loginRecordsTxt;
     }
 
-    //    private String getLoginRecordsTxt() {
-//        loginRecordsTxt = deviceFilePath + "\\loginRecords.txt";
-//        return loginRecordsTxt;
-//    }
-
-//    public boolean isKuaiShouInstalled() {
-//        return kuaiShouInstalled;
-//    }
-//
-//    public boolean isDianTaoInstalled() {
-//        return dianTaoInstalled;
-//    }
-
-    /**
-     * 获取设备编号对应的短名称
-     *
-     * @param id adb序列号
-     * @return adb序列号别名
-     */
-    public static String findSimpleId(String id) {
-        Set<Map.Entry<String, String>> entries = Device.map.entrySet();
-        Iterator<Map.Entry<String, String>> iterator = entries.iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<String, String> next = iterator.next();
-            if (next.getValue().equals(id)) {
-                return next.getKey();
-            }
-        }
-        return "";
-    }
 
     /**
      * AdbTools.properties

@@ -27,6 +27,12 @@ public class JCheckBoxControlJPanelItemListener implements ItemListener {
         if (e.getStateChange() == ItemEvent.SELECTED) {
             // 显示被控制的面板
             jPanel.setVisible(true);
+            if (jPanel.equals(AdbTools.getInstance().getAppPanels().getAppPanel())) {
+                //                System.out.println("显示 签到面板");
+                JFramePack.pack();
+            } else {
+                //                System.out.println("显示 其他面板");
+            }
         } else {
             // 隐藏面板
             jPanel.setVisible(false);

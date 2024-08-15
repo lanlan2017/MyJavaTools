@@ -37,6 +37,7 @@ public class DianTao {
         // 哪些条件下刷视频180秒
         actToAct_vw = new HashSet<>();
         actToAct_vw.add(new ActToAct(".pha.PHAContainerActivity", ".TaoLiveVideoActivity"));
+        actToAct_vw.add(new ActToAct(".h5.BrowserActivity","com.taobao.video.VideoListActivity"));
 
         //哪些情况下等待65秒
         actToAct_w60 = new HashSet<>();

@@ -10,8 +10,6 @@ import adbs.tools.thread.ThreadSleep;
 import config.AdbToolsProperties;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashSet;
 
 public class ActAutoRun implements Runnable {
@@ -254,27 +252,29 @@ public class ActAutoRun implements Runnable {
 
 
         if (wait180sApp.contains(beforePackageName)) {
-            String title = "应用跳转";
-            String message = "要等待180秒？";
-            AdbTools.getInstance().showDialogOk(title, message, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    timingPanels2.w180s();
-                }
-            });
-            // timingPanels2.w180s();
+//            String title = "应用跳转";
+//            String message = "要等待180秒？";
+            //            AdbTools.getInstance().showDialogOk(title, message, new ActionListener() {
+            //                @Override
+            //                public void actionPerformed(ActionEvent e) {
+            //                    timingPanels2.w180s();
+            //                }
+            //            });
+            //             timingPanels2.w180s();
+            timingPanels2.w180s();
         } else if (wait95sApp.contains(beforePackageName)) {
-            // timingPanels2.w95s();
-            String title = "应用跳转";
-            String message = "要等待95秒？";
-            AdbTools.getInstance().showDialogOk(title, message, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    timingPanels2.w95s();
-                    // timingPanels2.w180s();
-                }
-            });
+//            // timingPanels2.w95s();
+//            String title = "应用跳转";
+//            String message = "要等待95秒？";
+//            AdbTools.getInstance().showDialogOk(title, message, new ActionListener() {
+//                @Override
+//                public void actionPerformed(ActionEvent e) {
+//                    timingPanels2.w95s();
+//                    // timingPanels2.w180s();
+//                }
+//            });
 
+            timingPanels2.w95s();
 
         }
 
