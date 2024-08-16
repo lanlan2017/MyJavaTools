@@ -40,9 +40,9 @@ public class BatteryLevelRun2 implements Runnable {
             this.serial = adbTools.getDevice().getSerial();
             if (batteryModel == null) {
                 batteryModel = new BatteryModel(serial);
-                System.out.print("--------------------------");
-                System.out.print(batteryModel);
-                System.out.println("--------------------------");
+//                System.out.print("--------------------------");
+//                System.out.print(batteryModel);
+//                System.out.println("--------------------------");
             }
             //更新设备序列号
             batteryModel.setSerial(serial);

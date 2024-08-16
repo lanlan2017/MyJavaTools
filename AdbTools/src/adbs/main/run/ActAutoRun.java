@@ -2,6 +2,7 @@ package adbs.main.run;
 
 import adbs.main.AdbTools;
 import adbs.main.run.act.DianTao;
+import adbs.main.run.act.TaoBao;
 import adbs.main.run.model.ActivityInfo;
 import adbs.main.run.model.FrameTitle;
 import adbs.main.ui.jpanels.timeauto2.TimingPanels2;
@@ -252,8 +253,8 @@ public class ActAutoRun implements Runnable {
 
 
         if (wait180sApp.contains(beforePackageName)) {
-//            String title = "应用跳转";
-//            String message = "要等待180秒？";
+            //            String title = "应用跳转";
+            //            String message = "要等待180秒？";
             //            AdbTools.getInstance().showDialogOk(title, message, new ActionListener() {
             //                @Override
             //                public void actionPerformed(ActionEvent e) {
@@ -263,16 +264,16 @@ public class ActAutoRun implements Runnable {
             //             timingPanels2.w180s();
             timingPanels2.w180s();
         } else if (wait95sApp.contains(beforePackageName)) {
-//            // timingPanels2.w95s();
-//            String title = "应用跳转";
-//            String message = "要等待95秒？";
-//            AdbTools.getInstance().showDialogOk(title, message, new ActionListener() {
-//                @Override
-//                public void actionPerformed(ActionEvent e) {
-//                    timingPanels2.w95s();
-//                    // timingPanels2.w180s();
-//                }
-//            });
+            //            // timingPanels2.w95s();
+            //            String title = "应用跳转";
+            //            String message = "要等待95秒？";
+            //            AdbTools.getInstance().showDialogOk(title, message, new ActionListener() {
+            //                @Override
+            //                public void actionPerformed(ActionEvent e) {
+            //                    timingPanels2.w95s();
+            //                    // timingPanels2.w180s();
+            //                }
+            //            });
 
             timingPanels2.w95s();
 
@@ -410,11 +411,12 @@ public class ActAutoRun implements Runnable {
             // 点淘
             case "com.taobao.live":
                 // dianTao(actShortBefore, actShorCurrent);
-                DianTao.dianTao(actShortBefore, actShorCurrent);
+                DianTao.onChange(actShortBefore, actShorCurrent);
                 break;
             // 淘宝
             case "com.taobao.taobao":
-                taobao(actShorCurrent);
+                //                taobao(actShorCurrent);
+                TaoBao.onChange(actShortBefore, actShorCurrent);
                 break;
             case "com.ss.android.article.video":
                 xiGuaShiPin(actShorCurrent);
@@ -455,49 +457,26 @@ public class ActAutoRun implements Runnable {
     }
 
 
-    private void taobao(String actShortName) {
-        switch (actShortName) {
-            // 主界面
-            case "com.taobao.tao.TBMainActivity":
-                // 显示刷视频系列按钮
-                timingPanels2.vw();
-                break;
-            // 签到红包界面
-            case "com.taobao.themis.container.app.TMSActivity":
-            case "com.taobao.browser.BrowserActivity":
-                timingPanels2.s();
-                break;
-            // 浏览领金币界面
-            case "com.taobao.browser.exbrowser.BrowserUpperActivity":
-                timingPanels2.s();
-                // timingPanels2.s35s();
-                break;
-        }
-    }
-    //
-    // private void dianTao(String actBefore, String act) {
-    // switch (actBefore) {
-    // // 之前是元宝中心
-    // case ".pha.PHAContainerActivity":
-    // switch (act) {
-    // // 现在是精品推荐
-    // case ".h5.BrowserUpperActivity":
-    // timingPanels2.s();
-    // break;
-    // // 现在是直播界面
-    // case ".TaoLiveVideoActivity":
-    // // timingPanels2.vw();
-    // timingPanels2.vw180s();
-    // break;
-    // //现在是字节的广告界面
-    // case "com.bytedance.sdk.openadsdk.stub.activity.Stub_Standard_Portrait_Activity":
-    // timingPanels2.w65s();
-    // break;
-    // }
-    // break;
-    // }
-    //
-    // }
+    //    private void taobao(String actShortName) {
+    //        switch (actShortName) {
+    //            // 主界面
+    //            case "com.taobao.tao.TBMainActivity":
+    //                // 显示刷视频系列按钮
+    //                timingPanels2.vw();
+    //                break;
+    //            // 签到红包界面
+    //            case "com.taobao.themis.container.app.TMSActivity":
+    //            case "com.taobao.browser.BrowserActivity":
+    //                timingPanels2.s();
+    //                break;
+    //            // 浏览领金币界面
+    //            case "com.taobao.browser.exbrowser.BrowserUpperActivity":
+    //                timingPanels2.s();
+    //                // timingPanels2.s35s();
+    //                break;
+    //        }
+    //    }
+
 
     /**
      * 趣头条APP

@@ -425,6 +425,15 @@ public class AdbTools {
         //        JFrame frame = AdbTools.getInstance().getFrame();
         DialogFactory.showDialogOk(frame, "", message, actionListenerOk);
     }
+    public void showDialogOkClose(String message, ActionListener actionListenerOk, WindowAdapter windowAdapter) {
+        //        JFrame frame = AdbTools.getInstance().getFrame();
+        DialogFactory.showDialogOkClose(frame, "", message, actionListenerOk, windowAdapter);
+    }
+
+    public void showDialogOkCancel(String message, ActionListener actionListenerOk,ActionListener actionListenerCancel) {
+        //        JFrame frame = AdbTools.getInstance().getFrame();
+        DialogFactory.showDialogOkCancel(frame, "", message, actionListenerOk,actionListenerCancel);
+    }
 
 
     public static void main(String[] args) {

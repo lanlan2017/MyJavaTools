@@ -113,6 +113,7 @@ public class WaitButtonRunnable extends CloseableRunnable {
 
         switch (packageName) {
             case "com.taobao.live":
+            case "com.taobao.taobao":
                 // 点淘APP,停止后返回
                 System.out.println("点淘APP,结束等待后 返回");
                 adbJPanels.getBtnReturn().doClick();

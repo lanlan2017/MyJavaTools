@@ -51,13 +51,11 @@ public class DianTao {
 
     }
 
-    public static void dianTao(String actBefore, String act) {
+    public static void onChange(String actBefore, String act) {
         if (timingPanels2 == null) {
             timingPanels2 = AdbTools.getInstance().getTimingPanels2();
         }
-
         ActToAct actToAct = new ActToAct(actBefore, act);
-
         if (actToAct_s.contains(actToAct)) {
             timingPanels2.s();
         } else if (actToAct_vw.contains(actToAct)) {
@@ -68,7 +66,6 @@ public class DianTao {
             System.out.println("遇到授权要求，直接返回");
             Device device = AdbTools.getInstance().getDevice();
             AdbCommands.returnBtn(device);
-
         }
     }
 }

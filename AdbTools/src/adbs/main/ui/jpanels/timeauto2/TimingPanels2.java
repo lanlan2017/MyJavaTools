@@ -5,8 +5,10 @@ import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.config.Fonts;
 import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.time.TimePanels;
+import adbs.main.ui.jpanels.time.beep.BeepRunnable;
 import adbs.main.ui.jpanels.time.listener.WaitValues;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
+import adbs.main.ui.jpanels.universal.runnable.CloseableRunnable;
 import adbs.tools.thread.ThreadSleep;
 import tools.swing.button.AbstractButtons;
 
@@ -14,6 +16,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class TimingPanels2 extends WaitValues {
     private final JPanel timingPanels2;
@@ -440,7 +444,8 @@ public class TimingPanels2 extends WaitValues {
             changeJComboBoxOption(s0);
             // SwingUtilities.invokeLater(() -> btnDoClick(s2));
             // 等待一段时间，不要立马就执行
-            ThreadSleep.seconds(5);
+            //            ThreadSleep.seconds(5);
+            //            ThreadSleep.seconds(4);
             // 点击对应时间的按钮
             btnDoClick(s2);
         }
@@ -541,17 +546,14 @@ public class TimingPanels2 extends WaitValues {
 
     public void w95s() {
         auto("w_95s");
-        // dialogAuto("w_95s");
     }
 
     public void w95sDialog() {
-        // auto("w_95s");
         dialogAuto("w_95s");
     }
 
     public void w180s() {
         auto("w_180s");
-        // dialogAuto("w_180s");
     }
 
     public void w180sDialog() {
@@ -560,34 +562,62 @@ public class TimingPanels2 extends WaitValues {
     }
 
     public void s35s() {
+        waitAuto("s_35s");
+        //        ThreadSleep.seconds(4);
+        //        auto("s_35s");
+    }
+
+    public void s35sDialog() {
         // auto("s_35s");
         dialogAuto("s_35s");
     }
 
     public void s65s() {
-        // auto("s_65s");
+        //        ThreadSleep.seconds(4);
+        //        auto("s_65s");
+        waitAuto("s_65s");
+    }
+
+    public void s65sDialog() {
         dialogAuto("s_65s");
     }
 
 
     public void s95s() {
+        //        ThreadSleep.seconds(4);
+        //        auto("s_95s");
+        waitAuto("s_95s");
+    }
+
+    public void s95sDialog() {
         // auto("s_95s");
         dialogAuto("s_95s");
     }
 
     public void vw95s() {
-        auto("vw_95s");
+        //        auto("vw_95s");
+        waitAuto("vw_95s");
     }
 
     public void vw180s() {
-
-        auto("vw_180s");
+        waitAuto("vw_180s");
         // dialogAuto("vw_180s");
     }
+
 
     public void vw180sDialog() {
         // auto("vw_180s");
         dialogAuto("vw_180s");
+    }
+
+    /**
+     * 先等待几秒钟再执行自动操作
+     *
+     * @param code
+     */
+    private void waitAuto(String code) {
+        ThreadSleep.seconds(3);
+        auto(code);
     }
 
     /**
@@ -596,10 +626,23 @@ public class TimingPanels2 extends WaitValues {
      * @param code auto方法的代码
      */
     private void dialogAuto(String code) {
-        AdbTools.getInstance().showDialogOk(code, new ActionListener() {
+        CloseableRunnable beepRun = (CloseableRunnable) BeepRunnable.getInstance();
+        // 启动响铃提醒功能
+        new Thread(beepRun).start();
+
+        AdbTools.getInstance().showDialogOkClose(code, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 auto(code);
+                beepRun.stop();
+            }
+        }, new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                beepRun.stop();
+                JDialog source = (JDialog) e.getSource();
+                source.dispose();
             }
         });
     }
