@@ -5,7 +5,7 @@ import adbs.main.run.model.ActivityInfo;
 import adbs.main.run.signinlog.FileUtil;
 import adbs.main.run.signinlog.LoginRecords;
 import adbs.main.ui.jframe.JFramePack;
-import adbs.main.ui.jpanels.app.AppPanels;
+import adbs.main.ui.jpanels.app.AppSignedInPanels;
 import adbs.main.ui.jpanels.tools.ToolsJPanels;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
 import adbs.tools.thread.ThreadSleep;
@@ -32,7 +32,7 @@ public class ForegroundAppRun implements Runnable {
     private final ArrayList<String> appOpened = new ArrayList<>();
 
     private static boolean nextDay = false;
-    private AppPanels appPanels;
+    private AppSignedInPanels appSignedInPanels;
     private ToolsJPanels toolsJPanels;
     public static final String appNameEndFlag = " ";
     /**
@@ -129,7 +129,7 @@ public class ForegroundAppRun implements Runnable {
         adbTools = AdbTools.getInstance();
         universalPanels = adbTools.getUniversalPanels();
         universalPanel = universalPanels.getUniversalPanel();
-        appPanels = AdbTools.getInstance().getAppPanels();
+        appSignedInPanels = AdbTools.getInstance().getAppPanels();
         toolsJPanels = AdbTools.getInstance().getToolsJPanels();
         background = universalPanel.getBackground();
     }
@@ -236,7 +236,7 @@ public class ForegroundAppRun implements Runnable {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                JTextPane signedInApp = appPanels.getSignedIn();
+                JTextPane signedInApp = appSignedInPanels.getSignedIn();
                 StyledDocument doc = signedInApp.getStyledDocument();
                 String text = signedInApp.getText();
                 for (String s : appOpened) {
@@ -304,7 +304,7 @@ public class ForegroundAppRun implements Runnable {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                appPanels.getNotOpened().setText(sb.toString().trim());
+                appSignedInPanels.getNotOpened().setText(sb.toString().trim());
             }
         });
     }
@@ -377,7 +377,7 @@ public class ForegroundAppRun implements Runnable {
                 public void run() {
                     // 恢复原来的背景色，表示还没签到完成
                     universalPanel.setBackground(background);
-                    JTextPane signedIn = appPanels.getSignedIn();
+                    JTextPane signedIn = appSignedInPanels.getSignedIn();
                     showNotOpenApp();
                     // 清空签到记录表
                     signedIn.setText("");

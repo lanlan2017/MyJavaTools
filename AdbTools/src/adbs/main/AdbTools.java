@@ -7,7 +7,7 @@ import adbs.main.run.ForegroundAppRun;
 import adbs.main.run.IsTest;
 import adbs.main.run.model.FrameTitle;
 import adbs.main.ui.jpanels.adb.AdbJPanels;
-import adbs.main.ui.jpanels.app.AppPanels;
+import adbs.main.ui.jpanels.app.AppSignedInPanels;
 import adbs.main.ui.jpanels.check.CheckJPanels;
 import adbs.main.ui.jpanels.scrcpy.ScrcpyJPanels;
 import adbs.main.ui.jpanels.time.TimePanels;
@@ -48,7 +48,7 @@ public class AdbTools {
     private final ScrcpyJPanels scrcpyJPanels;
     private final CheckJPanels checkJPanels;
     private final TimingPanels2 timingPanels2;
-    private final AppPanels appPanels;
+    private final AppSignedInPanels appSignedInPanels;
     //    private final AutoPanels autoPanels;
     private final ToolsJPanels toolsJPanels;
 
@@ -92,11 +92,11 @@ public class AdbTools {
         //        autoPanels = new AutoPanels();
 
         //
-        appPanels = new AppPanels();
+        appSignedInPanels = new AppSignedInPanels();
 
         // JPanel checkJPanel = initCheckJPanel(timingPanels2, toolsJPanels, autoPanels, universalPanels, adbJPanels, scrcpyJPanels);
         //        checkJPanels = new CheckJPanels(timingPanels2, toolsJPanels, autoPanels, universalPanels, adbJPanels, scrcpyJPanels, appPanels);
-        checkJPanels = new CheckJPanels(timingPanels2, toolsJPanels, universalPanels, adbJPanels, scrcpyJPanels, appPanels);
+        checkJPanels = new CheckJPanels(timingPanels2, toolsJPanels, universalPanels, adbJPanels, scrcpyJPanels, appSignedInPanels);
         JPanel checkJPanel = checkJPanels.getCheckJPanel();
 
 
@@ -116,7 +116,7 @@ public class AdbTools {
 
         frame.add(toolsJPanels.getToolsJPanel());
         //        frame.add(autoPanels.getAutoJPanel());
-        frame.add(appPanels.getAppPanel());
+        frame.add(appSignedInPanels.getAppPanel());
 
         // 添加多选框面板到第3行
         AbstractButtons.setMarginInButtonJPanel(checkJPanel, -1);
@@ -367,8 +367,8 @@ public class AdbTools {
         return checkJPanels;
     }
 
-    public AppPanels getAppPanels() {
-        return appPanels;
+    public AppSignedInPanels getAppPanels() {
+        return appSignedInPanels;
     }
 
     public ToolsJPanels getToolsJPanels() {

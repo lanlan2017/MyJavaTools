@@ -21,53 +21,40 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * 应用面板
+ * 签到面板
  */
-public class AppPanels {
-    private JPanel appPanel;
-    //    private JTextArea signedIn;
-//    private JTextArea notOpened;
-    private JPanel btnPanel;
-    private JButton zhongdian;
-    private JButton quxiao;
-    private JTextPane signedIn;
-    private JTextPane notOpened;
+public class AppSignedInPanels {
+    private final JPanel appPanel;
 
-    //    private Highlighter highlighter;
-    private List<Highlighter.Highlight> highlights = new ArrayList<>();
+    private final JPanel btnPanel;
+    private final JButton zhongdian;
+    private final JButton quxiao;
 
-    public AppPanels() {
+    private final JTextPane signedIn;
+    private final JTextPane notOpened;
+
+    private final List<Highlighter.Highlight> highlights = new ArrayList<>();
+
+    public AppSignedInPanels() {
         this.appPanel = new JPanel();
-        appPanel.setLayout(new BorderLayout());
-//        this.notOpened = new JTextArea(1, 10);
-//        notOpened.setBorder(new TitledBorder(new LineBorder(Color.CYAN), "未打开"));
-//        this.signedIn = new JTextArea(1, 10);
-//        signedIn.setBorder(new TitledBorder(new LineBorder(Color.pink), "已打开"));
+        this.appPanel.setLayout(new BorderLayout());
 
         this.notOpened = new JTextPane();
-        notOpened.setBorder(new TitledBorder(new LineBorder(Color.CYAN), "未打开"));
+        this.notOpened.setBorder(new TitledBorder(new LineBorder(Color.CYAN), "未打开"));
         this.signedIn = new JTextPane();
-        signedIn.setBorder(new TitledBorder(new LineBorder(Color.pink), "已打开"));
+        this.signedIn.setBorder(new TitledBorder(new LineBorder(Color.pink), "已打开"));
 
-        btnPanel = new JPanel();
-        btnPanel.setLayout(new BoxLayout(btnPanel, BoxLayout.Y_AXIS));
+        this.btnPanel = new JPanel();
+        this.btnPanel.setLayout(new BoxLayout(btnPanel, BoxLayout.Y_AXIS));
 
-        zhongdian = new JButton("重点");
-        quxiao = new JButton("取消");
+        this.zhongdian = new JButton("重点");
+        this.quxiao = new JButton("取消");
 
 
         // 添加按钮监听器
-        zhongdian.addActionListener(new ActionListener() {
+        this.zhongdian.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                String searchString = inputField.getText();
-
-//                String searchString = "";
-//                highlightString(signedIn, searchString, Color.pink);
-
-//                String searchString = appName;
-//                String appName = getAppName() + "\n";
-//                String appName = getAppName() + " ";
                 String appName = getAppName() + ForegroundAppRun.appNameEndFlag;
                 highlightString(signedIn, appName, Color.pink);
             }
@@ -75,14 +62,6 @@ public class AppPanels {
         quxiao.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-////                removeSpecificHighlights(CustomHighlighter.this.textPane, CustomHighlighter.this.inputField.getText());
-//                String text = "";
-//                removeSpecificHighlights(signedIn, text);
-//                removeSpecificHighlights(CustomHighlighter.this.textPane, CustomHighlighter.this.inputField.getText());
-
-//                String text = "";
-//                removeSpecificHighlights(signedIn, getAppName() + "\n");
-//                removeSpecificHighlights(signedIn, getAppName() + " ");
                 removeSpecificHighlights(signedIn, getAppName() + ForegroundAppRun.appNameEndFlag);
             }
         });
@@ -111,14 +90,6 @@ public class AppPanels {
         return appPanel;
     }
 
-//    public JTextArea getSignedIn() {
-//        return signedIn;
-//    }
-//
-//    public JTextArea getNotOpened() {
-//        return notOpened;
-//    }
-
     public JTextPane getSignedIn() {
         return signedIn;
     }
@@ -138,7 +109,7 @@ public class AppPanels {
             while (index != -1) {
                 int end = index + searchString.length();
                 Highlighter.Highlight highlight = (Highlighter.Highlight) highlighter.addHighlight(index, end, new DefaultHighlighter.DefaultHighlightPainter(color));
-//                Highlighter.Highlight highlight = (Highlighter.Highlight) highlighter.addHighlight(index, end, new DefaultHighlighter.DefaultHighlightPainter(color));
+                //                Highlighter.Highlight highlight = (Highlighter.Highlight) highlighter.addHighlight(index, end, new DefaultHighlighter.DefaultHighlightPainter(color));
                 highlights.add(highlight);
                 index = text.indexOf(searchString, end);
             }
@@ -170,5 +141,4 @@ public class AppPanels {
             ex.printStackTrace();
         }
     }
-
 }
