@@ -19,7 +19,7 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
      */
     private boolean isClickTaskBtn;
 
-    private static ShoppingButtonRunnable instance = new ShoppingButtonRunnable();
+    private static final ShoppingButtonRunnable instance = new ShoppingButtonRunnable();
     private int seconds;
     private int count;
     private String oldInput1Text;
@@ -45,7 +45,7 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
             JTextField input1 = timePanels.getInput1();
             // 保存原来设定的值
             oldInput1Text = input1.getText();
-//            input1.setEditable(false);
+            //            input1.setEditable(false);
             input1Background = input1.getBackground();
 
             SwingUtilities.invokeLater(new Runnable() {
@@ -168,6 +168,7 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
 
         switch (packageName) {
             case "com.taobao.live":
+            case "com.taobao.taobao":
                 System.out.println("点淘APP,结束等待后 返回");
                 AdbTools.getInstance().getAdbJPanels().getBtnReturn().doClick();
                 break;
@@ -187,7 +188,7 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
             // 恢复原来的值
             input1.setText(oldInput1Text);
             // 可以重新编辑
-//            input1.setEditable(true);
+            //            input1.setEditable(true);
             // 恢复原来的颜色
 
             SwingUtilities.invokeLater(new Runnable() {
@@ -199,6 +200,6 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
 
         }
         // 弹窗提醒
-//        timePanels.showConfirmDialog();
+        //        timePanels.showConfirmDialog();
     }
 }
