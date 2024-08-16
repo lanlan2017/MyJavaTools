@@ -10,6 +10,7 @@ import java.util.HashSet;
 public class DianTao {
 
     private static TimingPanels2 timingPanels2;
+    private static final HashSet<ActToAct> actToAct_s65;
     private static final HashSet<ActToAct> actToAct_s;
     private static final HashSet<ActToAct> actToAct_vw;
     private static final HashSet<ActToAct> actToAct_w60;
@@ -17,14 +18,18 @@ public class DianTao {
 
 
     static {
+        actToAct_s65 = new HashSet<>();
+        //从元宝中心，进入 上新日历
+        actToAct_s65.add(new ActToAct(".pha.PHAContainerActivity", ".h5.BrowserActivity"));
+
         //哪些情况下，切换到逛街面板
         actToAct_s = new HashSet<>();
         //从元宝中心，进入 精品推荐
         actToAct_s.add(new ActToAct(".pha.PHAContainerActivity", ".h5.BrowserUpperActivity"));
-        //从元宝中心，进入 上新日历
-        actToAct_s.add(new ActToAct(".pha.PHAContainerActivity", ".h5.BrowserActivity"));
         // 从直播 回到元宝中心
         actToAct_s.add(new ActToAct(".TaoLiveVideoActivity", ".pha.PHAContainerActivity"));
+        // 从直播 转到 走路
+        actToAct_s.add(new ActToAct(".TaoLiveVideoActivity", ".h5.BrowserActivity"));
 
 
         actToAct_s.add(new ActToAct(".h5.BrowserActivity", ".h5.BrowserUpperActivity"));
@@ -37,7 +42,9 @@ public class DianTao {
         // 哪些条件下刷视频180秒
         actToAct_vw = new HashSet<>();
         actToAct_vw.add(new ActToAct(".pha.PHAContainerActivity", ".TaoLiveVideoActivity"));
-        actToAct_vw.add(new ActToAct(".h5.BrowserActivity","com.taobao.video.VideoListActivity"));
+        // 走路，转到 直播
+        actToAct_vw.add(new ActToAct(".h5.BrowserActivity", ".TaoLiveVideoActivity"));
+        actToAct_vw.add(new ActToAct(".h5.BrowserActivity", "com.taobao.video.VideoListActivity"));
 
         //哪些情况下等待65秒
         actToAct_w60 = new HashSet<>();
@@ -46,7 +53,8 @@ public class DianTao {
         // 跳过安全验证
         actToAct_return = new HashSet<>();
         actToAct_return.add(new ActToAct(".TaoLiveVideoActivity", "com.taobao.taolive.sdk.permisson.PermissionActivity"));
-        actToAct_return.add(new ActToAct(".h5.BrowserUpperActivity","com.alibaba.wireless.security.open.middletier.fc.ui.ContainerActivity"));
+        actToAct_return.add(new ActToAct(".h5.BrowserUpperActivity", "com.alibaba.wireless.security.open.middletier.fc.ui.ContainerActivity"));
+        actToAct_return.add(new ActToAct(".pha.PHAContainerActivity", "com.alibaba.wireless.security.open.middletier.fc.ui.ContainerActivity"));
 
 
     }
@@ -56,7 +64,9 @@ public class DianTao {
             timingPanels2 = AdbTools.getInstance().getTimingPanels2();
         }
         ActToAct actToAct = new ActToAct(actBefore, act);
-        if (actToAct_s.contains(actToAct)) {
+        if (actToAct_s65.contains(actToAct)) {
+            timingPanels2.s65sDialog();
+        } else if (actToAct_s.contains(actToAct)) {
             timingPanels2.s();
         } else if (actToAct_vw.contains(actToAct)) {
             timingPanels2.vw180s();

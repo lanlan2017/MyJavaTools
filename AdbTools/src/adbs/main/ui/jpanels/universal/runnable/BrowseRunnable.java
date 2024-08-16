@@ -13,7 +13,7 @@ import javax.swing.*;
  */
 public class BrowseRunnable extends CloseableRunnable {
 
-    private static BrowseRunnable instance = new BrowseRunnable();
+    private static final BrowseRunnable instance = new BrowseRunnable();
 
     private BrowseRunnable() {
     }
@@ -78,6 +78,10 @@ public class BrowseRunnable extends CloseableRunnable {
     @Override
     protected void afterLoop() {
         super.afterLoop();
-        AdbTools.getInstance().getTimePanels().showConfirmDialog();
+        //        AdbTools.getInstance().getTimePanels().showConfirmDialog();
+        //        AdbTools.getInstance().getTimePanels().showConfirmDialog();
+        AdbTools.getInstance().getTimePanels().beepDialog("浏览结束");
+
+
     }
 }

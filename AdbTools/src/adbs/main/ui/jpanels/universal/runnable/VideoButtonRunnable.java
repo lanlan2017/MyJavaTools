@@ -17,7 +17,7 @@ public class VideoButtonRunnable extends CloseableRunnable {
     /**
      * 输入输出汇总模型
      */
-    private static VideoButtonRunnable instance = new VideoButtonRunnable();
+    private static final VideoButtonRunnable instance = new VideoButtonRunnable();
 
 
     private VideoButtonRunnable() {
@@ -51,8 +51,8 @@ public class VideoButtonRunnable extends CloseableRunnable {
         // 要求等待的毫秒数
         int msToWait = randomInt * 1000;
         //
-//        // // 如果向上滑动之后，跳转到其他activity，则修复
-//        isNotVideoActivity(device);
+        //        // // 如果向上滑动之后，跳转到其他activity，则修复
+        //        isNotVideoActivity(device);
         // 向上滑动，如果滑动失败的话
         slideUp(device);
         // 等待并显示倒计时
@@ -70,6 +70,7 @@ public class VideoButtonRunnable extends CloseableRunnable {
     @Override
     protected void afterLoop() {
         super.afterLoop();
+        AdbTools.getInstance().getTimePanels().beepDialog("刷视频结束");
     }
 
     /**
@@ -106,9 +107,7 @@ public class VideoButtonRunnable extends CloseableRunnable {
     private boolean isSlideUpError(Device device) {
         String result = AdbCommands.swipeBottom2TopOnLeft(device);
         // 如果滑动的返回值有问题，则停止主线程
-        if (AdbCommands.ifDeviceNotExist(result))
-            return true;
-        return false;
+        return AdbCommands.ifDeviceNotExist(result);
     }
 
     /**

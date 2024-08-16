@@ -8,13 +8,11 @@ import adbs.main.ui.jpanels.time.listener.InputOkButtonActionListener;
 import adbs.main.ui.jpanels.time.listener.MinusBtnAcListener;
 import adbs.main.ui.jpanels.time.listener.PlusBtnAcListener;
 import adbs.main.ui.jpanels.universal.runnable.CloseableRunnable;
-import adbs.tools.thread.ThreadSleep;
 import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 
 /**
  * 时间选择面板
@@ -187,4 +185,26 @@ public class TimePanels {
             }
         }
     }
+
+    public void beepDialog(String message) {
+        CloseableRunnable beepRun = (CloseableRunnable) BeepRunnable.getInstance();
+        // 启动响铃提醒功能
+        new Thread(beepRun).start();
+        AdbTools.getInstance().showDialogOkClose(message, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //                auto(code);
+                beepRun.stop();
+            }
+        }, new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                beepRun.stop();
+                JDialog source = (JDialog) e.getSource();
+                source.dispose();
+            }
+        });
+    }
+
 }
