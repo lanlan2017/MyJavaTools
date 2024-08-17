@@ -30,6 +30,7 @@ public class OpenApp {
     static {
         mapBrand_MobileButler.put("Meizu", "com.meizu.safe/.SecurityMainActivity");
         mapBrand_MobileButler.put("HONOR", "com.huawei.systemmanager/.mainscreen.MainScreenActivity");
+        mapBrand_MobileButler.put("HUAWEI", "com.huawei.systemmanager/.mainscreen.MainScreenActivity");
         mapBrand_MobileButler.put("OPPO", "com.coloros.safecenter/.SecureSafeMainActivity");
         mapBrand_MobileButler.put("Redmi", "com.miui.securitycenter/com.miui.securityscan.MainActivity");
     }

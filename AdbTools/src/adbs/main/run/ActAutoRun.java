@@ -7,7 +7,6 @@ import adbs.main.run.model.ActivityInfo;
 import adbs.main.run.model.FrameTitle;
 import adbs.main.run.signinlog.FileUtil;
 import adbs.main.run.signinlog.LoginRecords;
-import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.app.AppSignedInPanels;
 import adbs.main.ui.jpanels.timeauto2.TimingPanels2;
 import adbs.main.ui.jpanels.tools.ToolsJPanels;
@@ -19,7 +18,6 @@ import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ActAutoRun implements Runnable {
@@ -62,6 +60,7 @@ public class ActAutoRun implements Runnable {
      * 签到记录文件
      */
     private final LoginRecords loginRecords = new LoginRecords();
+
     private AppSignedInPanels appSignedInPanels;
     /**
      * 保存所有可赚钱的APP名称的列表
@@ -208,7 +207,11 @@ public class ActAutoRun implements Runnable {
         ActivityInfo act;
         // 上一轮查询时的Activity信息
         ActivityInfo beforeAct = null;
+
+
         before();
+
+
         while (!stop) {
             // 获取当前act
             act = AdbGetPackage.getActivityInfo();
@@ -557,7 +560,9 @@ public class ActAutoRun implements Runnable {
     private void readLoginRecords() {
         String loginRecordsTxt = AdbTools.getInstance().getDevice().getLoginRecordsTxt();
         // System.out.println("loginRecordsTxt = " + loginRecordsTxt);
+        // 读取文件中的签到记录
         LoginRecords loginRecords_old = new LoginRecords(loginRecordsTxt);
+        //
         if (loginRecords.equals(loginRecords_old)) {
             // System.out.println("有历史记录");
             String appOpenedStr = loginRecords_old.getAppOpened();
@@ -575,11 +580,12 @@ public class ActAutoRun implements Runnable {
                 // System.out.println(appOpened);
                 this.appOpened.addAll(appOpened);
 
-//                // 打印已经打开的APP
-//                showOpenedApp();
-//                // 打印没打开的APP
-//                showNotOpenApp();
-
+                //                // 打印已经打开的APP
+                //                showOpenedApp();
+                //                // 打印没打开的APP
+                //                showNotOpenApp();
+                //                把文件中保存的已经签到的APP名称显示在签到列表中
+                updateSignedInApp();
                 if (appOpened.size() == apps.size()) {
                     // 签到完成设置
                     afterOpeningAllAPKs();
@@ -587,7 +593,7 @@ public class ActAutoRun implements Runnable {
                 }
             }
             showNotOpenApp();
-            showOpenedApp();
+            //            showOpenedApp();
 
         }
     }
@@ -621,13 +627,6 @@ public class ActAutoRun implements Runnable {
         if (!"".equals(packageName)) {
             check(packageName);
         }
-//        // 等待一定的时间
-//        //        wait_();
-//        // 如果刚好进入第2天
-//        if (isNextDay()) {
-//            // 清空前一天的签到设置
-//            nextDaySetting();
-//        }
     }
 
 
@@ -646,7 +645,7 @@ public class ActAutoRun implements Runnable {
         // 打开手机管家
         adbTools.getAdbJPanels().getBtnMobileButler().doClick();
         // 停止线程，防止反复触发
-        ThreadSleep.minutes(1.5);
+        ThreadSleep.minutes(1);
         // ThreadSleep.minutes(4.0);
     }
 
@@ -810,45 +809,43 @@ public class ActAutoRun implements Runnable {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                JTextPane signedInApp = appSignedInPanels.getSignedIn();
-                StyledDocument doc = signedInApp.getStyledDocument();
-                String text = signedInApp.getText();
-                for (String s : appOpened) {
-                    // 如果原来的记录里没有这个记录
-                    if (!text.contains(s + appNameEndFlag)) {
-                        // 定位到文档末尾
-                        try {
-                            String newAppName = s + appNameEndFlag + "\n";
-                            doc.insertString(doc.getLength(), newAppName, null);
-                            // 如果需要特定样式，可以替换null为相应的AttributeSet
-                            JFramePack.pack();
-                        } catch (BadLocationException e) {
-                            e.printStackTrace();
-                        }
-
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                        String date = simpleDateFormat.format(new Date());
-
-                        // loginRecords = new LoginRecords(date, apps.toString(), appOpened.toString());
-
-                        loginRecords.setApps(apps.toString());
-                        loginRecords.setAppOpened(appOpened.toString());
-
-                        // System.out.println();
-                        // System.out.println("loginRecords = \n" + loginRecords);
-                        // System.out.println();
-
-                        // String loginRecordsTxt = getLoginRecordsTxt();
-                        String loginRecordsTxt = AdbTools.getInstance().getDevice().getLoginRecordsTxt();
-                        System.out.println("loginRecordsTxt = " + loginRecordsTxt);
-                        FileUtil.writeStringToFile(loginRecords.toString(), loginRecordsTxt);
-
-                    }
+                boolean isChange = updateSignedInApp();
+                if (isChange) {
+                    String loginRecordsTxt = AdbTools.getInstance().getDevice().getLoginRecordsTxt();
+                    loginRecords.setApps(apps.toString());
+                    loginRecords.setAppOpened(appOpened.toString());
+                    System.out.println("loginRecordsTxt = " + loginRecordsTxt);
+                    FileUtil.writeStringToFile(loginRecords.toString(), loginRecordsTxt);
+                    System.out.println("签到消息已经写入文件");
                 }
 
             }
 
         });
+    }
+
+    private boolean updateSignedInApp() {
+        JTextPane signedInApp = appSignedInPanels.getSignedIn();
+        StyledDocument doc = signedInApp.getStyledDocument();
+        //                获取签到列表的所有字符串
+        String text = signedInApp.getText();
+        boolean isChange = false;
+        for (String s : appOpened) {
+            // 如果签到记录里没有这个记录
+            if (!text.contains(s + appNameEndFlag)) {
+                try {
+                    String newAppName = s + appNameEndFlag + "\n";
+                    // 把这条记录写到签到列表末尾
+                    doc.insertString(doc.getLength(), newAppName, null);
+                    isChange = true;
+                    // 如果需要特定样式，可以替换null为相应的AttributeSet
+                    //                    JFramePack.pack();
+                } catch (BadLocationException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return isChange;
     }
 
     /**
@@ -905,12 +902,14 @@ public class ActAutoRun implements Runnable {
             }
         });
     }
-        public static void onNextDay() {
-            nextDay = true;
-        }
-        public static void allAppOpened() {
-            isAllAppOpened = true;
-        }
+
+    public static void onNextDay() {
+        nextDay = true;
+    }
+
+    public static void allAppOpened() {
+        isAllAppOpened = true;
+    }
     // --------------------- 前台APP线程 方法 结束  ----------------------------
 
 }

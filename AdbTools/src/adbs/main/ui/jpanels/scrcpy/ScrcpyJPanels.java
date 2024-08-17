@@ -157,6 +157,7 @@ public class ScrcpyJPanels {
                     @Override
                     public void actionPerformed(ActionEvent e) {
 //                        ForegroundAppRun.onNextDay();
+                        ActAutoRun.stopWait();
                         ActAutoRun.onNextDay();
                     }
                 });
