@@ -28,7 +28,7 @@ public class ActAutoRun implements Runnable {
     private TimingPanels2 timingPanels2;
     private UniversalPanels universalPanels;
 
-    private static boolean stop;
+    private static volatile boolean stop;
 
 
     private HashSet<String> wait20M_Act;
@@ -40,11 +40,11 @@ public class ActAutoRun implements Runnable {
     private HashSet<String> wait180sApp;
 
     // --------------------- 前台APP线程的 变量 开始   ----------------------------
-    private static boolean nextDay = false;
+    private static volatile boolean nextDay = false;
     /**
      * 是否所有的APP都签到完毕。
      */
-    private static boolean isAllAppOpened;
+    private static volatile boolean isAllAppOpened;
     private ToolsJPanels toolsJPanels;
     /**
      * 保存今日签到的app名称的列表
@@ -55,7 +55,7 @@ public class ActAutoRun implements Runnable {
     /**
      * 是否停止签到检查
      */
-    private boolean stopAppCheck;
+    private volatile boolean stopAppCheck;
     private JPanel universalPanel;
     private Color background;
     /**
@@ -747,18 +747,8 @@ public class ActAutoRun implements Runnable {
     private void _wait(int endWait) {
         System.out.println("act 等待：" + endWait);
         stopWait = false;
-        // int seconds = 2;
-        //        int s5 = 5;
         int s2 = 2;
-        //
-        //        int endWait = 40;
         int count = 0;
-
-        //        if (IsTest.isTest()) {
-        //            // 测试时使用 5秒钟
-        //            ThreadSleep.seconds(s5);
-        //        } else {
-
         while (!stopWait) {
             // System.out.println("stopWait = " + stopWait);
             // 等待5秒
@@ -770,7 +760,6 @@ public class ActAutoRun implements Runnable {
                 break;
             }
         }
-        //        }
 
     }
 

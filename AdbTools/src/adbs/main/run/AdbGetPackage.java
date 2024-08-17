@@ -99,6 +99,7 @@ public class AdbGetPackage {
     private static String runActCmd() {
         String serial = AdbTools.getInstance().getDevice().getSerial();
         String activityCommand = getTopActivityCommand(serial);
+        System.out.println("activityCommand = " + activityCommand);
         String run = CmdRun.run(activityCommand).trim();
         return run;
     }
