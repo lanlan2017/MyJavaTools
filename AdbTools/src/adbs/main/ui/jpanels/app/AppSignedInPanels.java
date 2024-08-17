@@ -1,8 +1,8 @@
 package adbs.main.ui.jpanels.app;
 
 import adbs.main.AdbTools;
+import adbs.main.run.ActAutoRun;
 import adbs.main.run.AdbGetPackage;
-import adbs.main.run.ForegroundAppRun;
 import config.AdbToolsProperties;
 import tools.swing.button.AbstractButtons;
 
@@ -55,14 +55,16 @@ public class AppSignedInPanels {
         this.zhongdian.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String appName = getAppName() + ForegroundAppRun.appNameEndFlag;
+//                String appName = getAppName() + ForegroundAppRun.appNameEndFlag;
+                String appName = getAppName() + ActAutoRun.appNameEndFlag;
                 highlightString(signedIn, appName, Color.pink);
             }
         });
         quxiao.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                removeSpecificHighlights(signedIn, getAppName() + ForegroundAppRun.appNameEndFlag);
+//                removeSpecificHighlights(signedIn, getAppName() + ForegroundAppRun.appNameEndFlag);
+                removeSpecificHighlights(signedIn, getAppName() + ActAutoRun.appNameEndFlag);
             }
         });
 

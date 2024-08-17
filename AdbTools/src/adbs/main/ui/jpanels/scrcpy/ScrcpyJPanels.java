@@ -3,7 +3,7 @@ package adbs.main.ui.jpanels.scrcpy;
 import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
 import adbs.main.run.ActAutoRun;
-import adbs.main.run.ForegroundAppRun;
+//import adbs.main.run.ForegroundAppRun;
 import adbs.main.run.OppoR9ScrcpyRun;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.config.Fonts;
@@ -156,7 +156,8 @@ public class ScrcpyJPanels {
                 AdbTools.getInstance().showDialogOk("重签", "重置签到状态?", new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        ForegroundAppRun.onNextDay();
+//                        ForegroundAppRun.onNextDay();
+                        ActAutoRun.onNextDay();
                     }
                 });
             }
@@ -408,7 +409,9 @@ public class ScrcpyJPanels {
                 AdbTools.getInstance().showDialogOk("更新赚钱应用", "更新赚钱应用列表", new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        ForegroundAppRun.updatePackages_3_money();
+
+//                        ForegroundAppRun.updatePackages_3_money();
+                        ActAutoRun.updatePackages_3_money();
                     }
                 });
             }
@@ -446,8 +449,12 @@ public class ScrcpyJPanels {
                 AdbTools.getInstance().showDialogOk("都签了", "全部应用都签到完毕了?", new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        ForegroundAppRun.stopWait();
-                        ForegroundAppRun.allAppOpened();
+//                        ForegroundAppRun.stopWait();
+//                        ForegroundAppRun.allAppOpened();
+
+                        ActAutoRun.stopWait();
+                        ActAutoRun.allAppOpened();
+
                     }
                 });
             }

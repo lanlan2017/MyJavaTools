@@ -206,13 +206,9 @@ public class ActAutoRun implements Runnable {
         stop = false;
         // 现在的Activity信息
         ActivityInfo act;
-        // 之前的Activity信息
-        //
+        // 上一轮查询时的Activity信息
         ActivityInfo beforeAct = null;
-
         before();
-
-
         while (!stop) {
             // 获取当前act
             act = AdbGetPackage.getActivityInfo();
@@ -222,6 +218,13 @@ public class ActAutoRun implements Runnable {
             // 当act改变时，说明用户切换了界面。
             if (!equals) {
                 actChange(beforeAct, act);
+            }
+            // 等待一定的时间
+            //        wait_();
+            // 如果刚好进入第2天
+            if (isNextDay()) {
+                // 清空前一天的签到设置
+                nextDaySetting();
             }
             // 根据当前的Activity来决定要等待多久
             _wait(act);
@@ -571,6 +574,12 @@ public class ActAutoRun implements Runnable {
 
                 // System.out.println(appOpened);
                 this.appOpened.addAll(appOpened);
+
+//                // 打印已经打开的APP
+//                showOpenedApp();
+//                // 打印没打开的APP
+//                showNotOpenApp();
+
                 if (appOpened.size() == apps.size()) {
                     // 签到完成设置
                     afterOpeningAllAPKs();
@@ -612,13 +621,13 @@ public class ActAutoRun implements Runnable {
         if (!"".equals(packageName)) {
             check(packageName);
         }
-        // 等待一定的时间
-        //        wait_();
-        // 如果刚好进入第2天
-        if (isNextDay()) {
-            // 清空前一天的签到设置
-            nextDaySetting();
-        }
+//        // 等待一定的时间
+//        //        wait_();
+//        // 如果刚好进入第2天
+//        if (isNextDay()) {
+//            // 清空前一天的签到设置
+//            nextDaySetting();
+//        }
     }
 
 
@@ -896,6 +905,12 @@ public class ActAutoRun implements Runnable {
             }
         });
     }
+        public static void onNextDay() {
+            nextDay = true;
+        }
+        public static void allAppOpened() {
+            isAllAppOpened = true;
+        }
     // --------------------- 前台APP线程 方法 结束  ----------------------------
 
 }
