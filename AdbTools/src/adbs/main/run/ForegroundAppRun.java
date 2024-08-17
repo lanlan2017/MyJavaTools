@@ -49,12 +49,15 @@ public class ForegroundAppRun implements Runnable {
      * 是否所有的APP都签到完毕。
      */
     private static boolean isAllAppOpened;
+
     /**
      * 是否停止签到检查
      */
     private boolean stopAppCheck;
     private Color background;
+
     private JPanel universalPanel;
+
     private UniversalPanels universalPanels;
     private AdbTools adbTools;
 
@@ -82,17 +85,21 @@ public class ForegroundAppRun implements Runnable {
         // 等待4秒
         // ThreadSleep.seconds(4);
         ThreadSleep.seconds(3);
+        before();
+
+        //        System.out.println("你好");
+        while (!stop) {
+            body();
+        }
+    }
+
+    private void before() {
         // 更新操作的面板
         updatePanels();
         // 更新应用列表
         updatePackages_3_money();
         // 如果有旧的记录的话
         readLoginRecords();
-
-//        System.out.println("你好");
-        while (!stop) {
-            body();
-        }
     }
 
     /**
@@ -355,8 +362,6 @@ public class ForegroundAppRun implements Runnable {
                 universalPanel.setBackground(Color.pink);
             }
         });
-
-
     }
 
 
@@ -429,7 +434,6 @@ public class ForegroundAppRun implements Runnable {
                 }
             }
         }
-
     }
 
 

@@ -2,6 +2,7 @@ package adbs.main.ui.jpanels.scrcpy;
 
 import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
+import adbs.main.run.ActAutoRun;
 import adbs.main.run.ForegroundAppRun;
 import adbs.main.run.OppoR9ScrcpyRun;
 import adbs.main.ui.config.FlowLayouts;
@@ -422,7 +423,8 @@ public class ScrcpyJPanels {
         btnSignedIn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ForegroundAppRun.stopWait();
+                //                ForegroundAppRun.stopWait();
+                ActAutoRun.stopWait();
             }
         });
         return btnSignedIn;

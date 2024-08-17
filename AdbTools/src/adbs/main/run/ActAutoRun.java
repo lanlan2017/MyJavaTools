@@ -5,13 +5,22 @@ import adbs.main.run.act.DianTao;
 import adbs.main.run.act.TaoBao;
 import adbs.main.run.model.ActivityInfo;
 import adbs.main.run.model.FrameTitle;
+import adbs.main.run.signinlog.FileUtil;
+import adbs.main.run.signinlog.LoginRecords;
+import adbs.main.ui.jframe.JFramePack;
+import adbs.main.ui.jpanels.app.AppSignedInPanels;
 import adbs.main.ui.jpanels.timeauto2.TimingPanels2;
+import adbs.main.ui.jpanels.tools.ToolsJPanels;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
 import adbs.tools.thread.ThreadSleep;
 import config.AdbToolsProperties;
 
 import javax.swing.*;
-import java.util.HashSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.StyledDocument;
+import java.awt.*;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class ActAutoRun implements Runnable {
 
@@ -29,6 +38,43 @@ public class ActAutoRun implements Runnable {
     private HashSet<String> wait3M_Act;
     private HashSet<String> wait95sApp;
     private HashSet<String> wait180sApp;
+
+    // --------------------- 前台APP线程的 变量 开始   ----------------------------
+    private static boolean nextDay = false;
+    /**
+     * 是否所有的APP都签到完毕。
+     */
+    private static boolean isAllAppOpened;
+    private ToolsJPanels toolsJPanels;
+    /**
+     * 保存今日签到的app名称的列表
+     * <p>
+     * 今日打开的APP
+     */
+    private final ArrayList<String> appOpened = new ArrayList<>();
+    /**
+     * 是否停止签到检查
+     */
+    private boolean stopAppCheck;
+    private JPanel universalPanel;
+    private Color background;
+    /**
+     * 签到记录文件
+     */
+    private final LoginRecords loginRecords = new LoginRecords();
+    private AppSignedInPanels appSignedInPanels;
+    /**
+     * 保存所有可赚钱的APP名称的列表
+     */
+    private static ArrayList<String> apps;
+
+    /**
+     * 是否停止等待，直接进行下一步的签到检查。
+     */
+    private static volatile boolean stopWait;
+    public static final String appNameEndFlag = " ";
+
+    // --------------------- 前台APP线程的 变量 结束   ----------------------------
 
 
     public ActAutoRun() {
@@ -154,15 +200,19 @@ public class ActAutoRun implements Runnable {
 
     @Override
     public void run() {
-        adbTools = AdbTools.getInstance();
-        timingPanels2 = adbTools.getTimingPanels2();
-        universalPanels = adbTools.getUniversalPanels();
+        //        adbTools = AdbTools.getInstance();
+        //        timingPanels2 = adbTools.getTimingPanels2();
+        //        universalPanels = adbTools.getUniversalPanels();
         stop = false;
         // 现在的Activity信息
         ActivityInfo act;
         // 之前的Activity信息
         //
         ActivityInfo beforeAct = null;
+
+        before();
+
+
         while (!stop) {
             // 获取当前act
             act = AdbGetPackage.getActivityInfo();
@@ -179,6 +229,7 @@ public class ActAutoRun implements Runnable {
             beforeAct = act;
         }
     }
+
 
     /**
      * 当activity改变时，要执行的操作
@@ -242,43 +293,17 @@ public class ActAutoRun implements Runnable {
     /**
      * 从一个APP跳转到另一个APP是执行操作
      */
-    //    private void appChange(String offerPackageName) {
     private void appChange(ActivityInfo before, ActivityInfo current) {
-
         String beforePackageName = before.getPackageName();
-        //        String currentPackageName = current.getPackageName();
-        //        String currentAppName = AdbToolsProperties.moneyApkPro.getProperty(currentPackageName);
-        //        System.out.println("currentAppName = " + currentAppName);
-        //        updateFormTitle(currentAppName);
-
-
         if (wait180sApp.contains(beforePackageName)) {
-            //            String title = "应用跳转";
-            //            String message = "要等待180秒？";
-            //            AdbTools.getInstance().showDialogOk(title, message, new ActionListener() {
-            //                @Override
-            //                public void actionPerformed(ActionEvent e) {
-            //                    timingPanels2.w180s();
-            //                }
-            //            });
-            //             timingPanels2.w180s();
             timingPanels2.w180s();
         } else if (wait95sApp.contains(beforePackageName)) {
-            //            // timingPanels2.w95s();
-            //            String title = "应用跳转";
-            //            String message = "要等待95秒？";
-            //            AdbTools.getInstance().showDialogOk(title, message, new ActionListener() {
-            //                @Override
-            //                public void actionPerformed(ActionEvent e) {
-            //                    timingPanels2.w95s();
-            //                    // timingPanels2.w180s();
-            //                }
-            //            });
-
             timingPanels2.w95s();
-
         }
-
+        String packageName = current.getPackageName();
+        if (packageName != null && packageName.contains(".")) {
+            check_(packageName);
+        }
     }
 
     /**
@@ -370,17 +395,17 @@ public class ActAutoRun implements Runnable {
         }
     }
 
-    private void _wait(int seconds) {
-        // System.out.println("等待一段时间...");
-        // ThreadSleep.seconds(30);
-        // ThreadSleep.seconds(5);
-        System.out.println("act 等待：" + seconds);
-        ThreadSleep.seconds(seconds);
-        // ThreadSleep.seconds(8);
-        // ThreadSleep.seconds(10);
-        // ThreadSleep.seconds(15);
-        // ThreadSleep.seconds(20);
-    }
+    //    private void _wait(int seconds) {
+    //        // System.out.println("等待一段时间...");
+    //        // ThreadSleep.seconds(30);
+    //        // ThreadSleep.seconds(5);
+    //        System.out.println("act 等待：" + seconds);
+    //        ThreadSleep.seconds(seconds);
+    //        // ThreadSleep.seconds(8);
+    //        // ThreadSleep.seconds(10);
+    //        // ThreadSleep.seconds(15);
+    //        // ThreadSleep.seconds(20);
+    //    }
 
     /**
      * 同一个App的不同activity改变时
@@ -457,27 +482,6 @@ public class ActAutoRun implements Runnable {
     }
 
 
-    //    private void taobao(String actShortName) {
-    //        switch (actShortName) {
-    //            // 主界面
-    //            case "com.taobao.tao.TBMainActivity":
-    //                // 显示刷视频系列按钮
-    //                timingPanels2.vw();
-    //                break;
-    //            // 签到红包界面
-    //            case "com.taobao.themis.container.app.TMSActivity":
-    //            case "com.taobao.browser.BrowserActivity":
-    //                timingPanels2.s();
-    //                break;
-    //            // 浏览领金币界面
-    //            case "com.taobao.browser.exbrowser.BrowserUpperActivity":
-    //                timingPanels2.s();
-    //                // timingPanels2.s35s();
-    //                break;
-    //        }
-    //    }
-
-
     /**
      * 趣头条APP
      *
@@ -531,4 +535,378 @@ public class ActAutoRun implements Runnable {
                 break;
         }
     }
+
+
+    // --------------------- 前台APP线程 方法 开始  ----------------------------
+
+    private void before() {
+        // 更新操作的面板
+        updatePanels();
+        // 更新应用列表
+        updatePackages_3_money();
+        // 如果有旧的记录的话
+        readLoginRecords();
+    }
+
+    /**
+     * 读取签到记录文件
+     */
+    private void readLoginRecords() {
+        String loginRecordsTxt = AdbTools.getInstance().getDevice().getLoginRecordsTxt();
+        // System.out.println("loginRecordsTxt = " + loginRecordsTxt);
+        LoginRecords loginRecords_old = new LoginRecords(loginRecordsTxt);
+        if (loginRecords.equals(loginRecords_old)) {
+            // System.out.println("有历史记录");
+            String appOpenedStr = loginRecords_old.getAppOpened();
+            // System.out.println("appOpenedStr = " + appOpenedStr);
+
+            // 去除方括号
+            String trimmedAppsStr = appOpenedStr.substring(1, appOpenedStr.length() - 1);
+            // 去除方括号之后还有其他元素
+            if (trimmedAppsStr.contains(", ")) {
+                // 分割字符串
+                String[] split = trimmedAppsStr.split(", ");
+                // 转换为ArrayList
+                ArrayList<String> appOpened = new ArrayList<>(Arrays.asList(split));
+
+                // System.out.println(appOpened);
+                this.appOpened.addAll(appOpened);
+                if (appOpened.size() == apps.size()) {
+                    // 签到完成设置
+                    afterOpeningAllAPKs();
+                    stopAppCheck = true;
+                }
+            }
+            showNotOpenApp();
+            showOpenedApp();
+
+        }
+    }
+
+    public static void updatePackages_3_money() {
+        //        ForegroundAppRun.apps = null;
+        ActAutoRun.apps = null;
+        System.out.println("更新可赚钱APP列表");
+        //        ForegroundAppRun.apps = new AdbShellPmListPackages_3().getPackages_3_money();
+        ActAutoRun.apps = new AdbShellPmListPackages_3().getPackages_3_money();
+        System.out.println("可赚钱APP列表: " + apps);
+    }
+
+
+    private void updatePanels() {
+
+        adbTools = AdbTools.getInstance();
+        universalPanels = adbTools.getUniversalPanels();
+        universalPanel = universalPanels.getUniversalPanel();
+        appSignedInPanels = AdbTools.getInstance().getAppPanels();
+        toolsJPanels = AdbTools.getInstance().getToolsJPanels();
+        background = universalPanel.getBackground();
+
+        //                adbTools = AdbTools.getInstance();
+        timingPanels2 = adbTools.getTimingPanels2();
+        //                universalPanels = adbTools.getUniversalPanels();
+    }
+
+
+    private void check_(String packageName) {
+        if (!"".equals(packageName)) {
+            check(packageName);
+        }
+        // 等待一定的时间
+        //        wait_();
+        // 如果刚好进入第2天
+        if (isNextDay()) {
+            // 清空前一天的签到设置
+            nextDaySetting();
+        }
+    }
+
+
+    /**
+     * 重签之后的操作
+     */
+    private void nextDaySetting() {
+        // 更新签到记录
+        clearCheckInRecords();
+        // 第二天结束了
+        nextDay = false;
+        // stopAppCheck = false;
+        isAllAppOpened = false;
+        // 卸载无用APP
+        toolsJPanels.getBtnUninstallAll().doClick();
+        // 打开手机管家
+        adbTools.getAdbJPanels().getBtnMobileButler().doClick();
+        // 停止线程，防止反复触发
+        ThreadSleep.minutes(1.5);
+        // ThreadSleep.minutes(4.0);
+    }
+
+
+    /**
+     * 停止等待
+     */
+    public static void stopWait() {
+        stopWait = true;
+    }
+
+
+    /**
+     * 清空签到记录
+     */
+    private void clearCheckInRecords() {
+        // 在凌晨的时候，移除所有apk的打开记录
+        // if (isNextDay() && apkOpenedToday.size() > 0) {
+        if (appOpened.size() > 0) {
+            // 清空签到记录表
+            clearCheckInForm();
+            // 开启签到检查
+            stopAppCheck = false;
+
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    // 恢复原来的背景色，表示还没签到完成
+                    universalPanel.setBackground(background);
+                    JTextPane signedIn = appSignedInPanels.getSignedIn();
+                    showNotOpenApp();
+                    // 清空签到记录表
+                    signedIn.setText("");
+                    // 清空已打开APP记录对象变量
+                    loginRecords.setAppOpened("[]");
+                    System.out.println();
+                    System.out.println("loginRecords = " + loginRecords);
+                    System.out.println();
+                    // 把清空后的值写文件
+                    String loginRecordsTxt = AdbTools.getInstance().getDevice().getLoginRecordsTxt();
+                    FileUtil.writeStringToFile(loginRecords.toString(), loginRecordsTxt);
+                    // showOpenedApp();
+                }
+            });
+
+
+        }
+    }
+
+
+    /**
+     * 显示没打开的金币应用名称
+     */
+    private void showNotOpenApp() {
+        StringBuffer sb = new StringBuffer();
+        // System.out.print("未打开:");
+        for (int i = 0, size = apps.size(), count = 0; i < size; i++) {
+            String apkName = apps.get(i);
+            // 在所有的apk名称列表中查找 已打开的apk名称
+            int index = Collections.binarySearch(appOpened, apkName);
+            // 小于零，说明 该apk名称 不再已打开的apk名称列表里吗
+            // 如果该apk没打开过
+            if (index < 0) {
+                // // 最后一个逗号不
+                // if (count > 0) {
+                // System.out.print(", ");
+                // }
+                count++;
+                // 输出这个没打开过的apk
+                // System.out.print(apkName);
+                sb.append(apkName).append("\n");
+            }
+        }
+        // 在事件调度线程中操作JTextArea以确保线程安全
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                appSignedInPanels.getNotOpened().setText(sb.toString().trim());
+            }
+        });
+    }
+
+
+    /**
+     * 清空签到记录表
+     */
+    private void clearCheckInForm() {
+        // 清空签到记录表
+        Iterator<String> iOpened = appOpened.iterator();
+        while (iOpened.hasNext()) {
+            iOpened.next();
+            iOpened.remove();
+        }
+    }
+
+
+    /**
+     * 判断 是否已经到了第2天
+     *
+     * @return 如果到了第2天，返回true，如果不是，返回false
+     */
+    private boolean isNextDay() {
+        return nextDay;
+    }
+
+
+    private void _wait(int endWait) {
+        System.out.println("act 等待：" + endWait);
+        stopWait = false;
+        // int seconds = 2;
+        //        int s5 = 5;
+        int s2 = 2;
+        //
+        //        int endWait = 40;
+        int count = 0;
+
+        //        if (IsTest.isTest()) {
+        //            // 测试时使用 5秒钟
+        //            ThreadSleep.seconds(s5);
+        //        } else {
+
+        while (!stopWait) {
+            // System.out.println("stopWait = " + stopWait);
+            // 等待5秒
+            ThreadSleep.seconds(s2);
+            // System.out.println("签到线程等待中:" + count);
+            count += s2;
+            if (count >= endWait) {
+                // stopWait = true;
+                break;
+            }
+        }
+        //        }
+
+    }
+
+
+    private void check(String packageName) {
+        updateAppOpened(packageName);
+        // 如果还没停止签到检查的话
+        if (!stopAppCheck) {
+            int size = apps.size();
+            System.out.println("size = " + size);
+            int size1 = appOpened.size();
+            System.out.println("size1 = " + size1);
+            // 如果用户勾选了所有应用都打开了
+            if (isAllAppOpened) {
+                // 清空签到记录表
+                clearCheckInForm();
+                // 把所有的APP都填到签到记录表中
+                copyAllAppsIntoCheckInForm();
+                afterOpeningAllAPKs();
+                stopAppCheck = true;
+            }
+            // 如果已签到列表和应用列表的长度一样，则说明所有APP都签到完毕了
+            else if (appOpened.size() == apps.size()) {
+                // 签到完成设置
+                afterOpeningAllAPKs();
+                stopAppCheck = true;
+            }
+            // 打印已经打开的APP
+            showOpenedApp();
+            // 打印没打开的APP
+            showNotOpenApp();
+        }
+    }
+
+    /**
+     * 显示已经打开的金币应用
+     */
+    private void showOpenedApp() {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                JTextPane signedInApp = appSignedInPanels.getSignedIn();
+                StyledDocument doc = signedInApp.getStyledDocument();
+                String text = signedInApp.getText();
+                for (String s : appOpened) {
+                    // 如果原来的记录里没有这个记录
+                    if (!text.contains(s + appNameEndFlag)) {
+                        // 定位到文档末尾
+                        try {
+                            String newAppName = s + appNameEndFlag + "\n";
+                            doc.insertString(doc.getLength(), newAppName, null);
+                            // 如果需要特定样式，可以替换null为相应的AttributeSet
+                            JFramePack.pack();
+                        } catch (BadLocationException e) {
+                            e.printStackTrace();
+                        }
+
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        String date = simpleDateFormat.format(new Date());
+
+                        // loginRecords = new LoginRecords(date, apps.toString(), appOpened.toString());
+
+                        loginRecords.setApps(apps.toString());
+                        loginRecords.setAppOpened(appOpened.toString());
+
+                        // System.out.println();
+                        // System.out.println("loginRecords = \n" + loginRecords);
+                        // System.out.println();
+
+                        // String loginRecordsTxt = getLoginRecordsTxt();
+                        String loginRecordsTxt = AdbTools.getInstance().getDevice().getLoginRecordsTxt();
+                        System.out.println("loginRecordsTxt = " + loginRecordsTxt);
+                        FileUtil.writeStringToFile(loginRecords.toString(), loginRecordsTxt);
+
+                    }
+                }
+
+            }
+
+        });
+    }
+
+    /**
+     * 如果是金币应用则添加到记录表中
+     * 查找
+     *
+     * @param packageName apk的包名
+     * @return APP的应用名
+     */
+    private void updateAppOpened(String packageName) {
+        String appName = AdbToolsProperties.moneyApkPro.getProperty(packageName);
+
+        // 如果返回的value 不等于原来的key,说明配置文件中有这个值
+        if (!appName.equals(packageName)) {
+            // 如果保存可赚钱apk名称的配置文件中找到这个apk
+
+            // 在已打开过的apk名称列表中查找 当前apk名
+            int i = Collections.binarySearch(appOpened, appName);
+            // System.out.println("i = " + i);
+            // 如果没找到
+            if (i < 0) {
+                // 把这个赚金币应用 添加到签到记录表中
+                appOpened.add(appName);
+                // 排序签到记录表，否则下次二分查找会有问题
+                Collections.sort(appOpened);
+            }
+        }
+    }
+
+    private void copyAllAppsIntoCheckInForm() {
+        // 把所有的APP都复制到签到记录表中。
+        Iterator<String> iApps = apps.iterator();
+        while (iApps.hasNext()) {
+            String next = iApps.next();
+            appOpened.add(next);
+        }
+    }
+
+
+    /**
+     * 签到完成设置
+     */
+    private void afterOpeningAllAPKs() {
+        // // 已签到完成，停止签到检查
+        // stopAppCheck = true;
+        // 把apk的名称放到列表中
+        // System.out.println("已打开:" + apkOpenedToday);
+        System.out.println("所有的apk签到完成!");
+        // // 改变背景色，表示签到完成
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                universalPanel.setBackground(Color.pink);
+            }
+        });
+    }
+    // --------------------- 前台APP线程 方法 结束  ----------------------------
+
 }

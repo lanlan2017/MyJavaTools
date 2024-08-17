@@ -3,7 +3,6 @@ package adbs.main;
 import adbs.cmd.AdbCommands;
 import adbs.main.run.ActAutoRun;
 import adbs.main.run.BatteryLevelRun2;
-import adbs.main.run.ForegroundAppRun;
 import adbs.main.run.IsTest;
 import adbs.main.run.model.FrameTitle;
 import adbs.main.ui.jpanels.adb.AdbJPanels;
@@ -448,7 +447,7 @@ public class AdbTools {
             // 在打开应用的时候，就触发投屏按钮
             instance.getScrcpyJPanels().getBtnOpenScrcpy().doClick();
             ThreadSleep.seconds(5);
-            new Thread(new ForegroundAppRun()).start();
+//            new Thread(new ForegroundAppRun()).start();
             // // 启动电池监测线程
             new Thread(new BatteryLevelRun2()).start();
             new Thread(new ActAutoRun()).start();
