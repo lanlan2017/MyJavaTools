@@ -4,16 +4,11 @@ import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
 import adbs.main.run.AdbGetPackage;
 import adbs.main.ui.jpanels.time.TimePanels;
-import adbs.main.ui.jpanels.time.beep.BeepRunnable;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
 import tools.thead.Threads;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 /**
  * 逛街线程体
@@ -204,35 +199,7 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
             });
 
         }
-        //        // 弹窗提醒
-        //                timePanels.showConfirmDialog();
-        //
-        //
-        //        String message = "逛街结束";
-
         timePanels.beepDialog("逛街结束");
 
-
-    }
-
-    private void beepDialog(String message) {
-        CloseableRunnable beepRun = (CloseableRunnable) BeepRunnable.getInstance();
-        // 启动响铃提醒功能
-        new Thread(beepRun).start();
-        AdbTools.getInstance().showDialogOkClose(message, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //                auto(code);
-                beepRun.stop();
-            }
-        }, new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                super.windowClosing(e);
-                beepRun.stop();
-                JDialog source = (JDialog) e.getSource();
-                source.dispose();
-            }
-        });
     }
 }

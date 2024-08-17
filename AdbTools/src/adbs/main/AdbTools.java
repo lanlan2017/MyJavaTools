@@ -427,7 +427,9 @@ public class AdbTools {
     }
     public void showDialogOkClose(String message, ActionListener actionListenerOk, WindowAdapter windowAdapter) {
         //        JFrame frame = AdbTools.getInstance().getFrame();
-        DialogFactory.showDialogOkClose(frame, "", message, actionListenerOk, windowAdapter);
+
+//        DialogFactory.showDialogOkClose(frame, "", message, actionListenerOk, windowAdapter);
+        DialogFactory.showDialogOkClose(frame, device.getName(), message, actionListenerOk, windowAdapter);
     }
 
     public void showDialogOkCancel(String message, ActionListener actionListenerOk,ActionListener actionListenerCancel) {

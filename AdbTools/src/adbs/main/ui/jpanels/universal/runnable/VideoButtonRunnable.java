@@ -70,7 +70,8 @@ public class VideoButtonRunnable extends CloseableRunnable {
     @Override
     protected void afterLoop() {
         super.afterLoop();
-        AdbTools.getInstance().getTimePanels().beepDialog("刷视频结束");
+        //        刷视频线程不需要提醒结束，因为有等待线程来控制
+        //        AdbTools.getInstance().getTimePanels().beepDialog("刷视频结束");
     }
 
     /**

@@ -19,13 +19,18 @@ public class DianTao {
 
     static {
         actToAct_s65 = new HashSet<>();
-        //从元宝中心，进入 上新日历
+        //
+        // 从元宝中心，进入 上新日历
         actToAct_s65.add(new ActToAct(".pha.PHAContainerActivity", ".h5.BrowserActivity"));
+        // 元宝中心 进入 精品推荐
+        actToAct_s65.add(new ActToAct(".pha.PHAContainerActivity", ".h5.BrowserUpperActivity"));
+        //
+        actToAct_s65.add(new ActToAct(".h5.BrowserActivity", ".h5.BrowserUpperActivity"));
 
         //哪些情况下，切换到逛街面板
         actToAct_s = new HashSet<>();
         //从元宝中心，进入 精品推荐
-        actToAct_s.add(new ActToAct(".pha.PHAContainerActivity", ".h5.BrowserUpperActivity"));
+        //        actToAct_s.add(new ActToAct(".pha.PHAContainerActivity", ".h5.BrowserUpperActivity"));
         // 从直播 回到元宝中心
         actToAct_s.add(new ActToAct(".TaoLiveVideoActivity", ".pha.PHAContainerActivity"));
         // 从直播 转到 走路
@@ -45,10 +50,12 @@ public class DianTao {
         // 走路，转到 直播
         actToAct_vw.add(new ActToAct(".h5.BrowserActivity", ".TaoLiveVideoActivity"));
         actToAct_vw.add(new ActToAct(".h5.BrowserActivity", "com.taobao.video.VideoListActivity"));
+        actToAct_vw.add(new ActToAct("com.alibaba.wireless.security.open.middletier.fc.ui.ContainerActivity",".TaoLiveVideoActivity"));
 
         //哪些情况下等待65秒
         actToAct_w60 = new HashSet<>();
         actToAct_w60.add(new ActToAct(".pha.PHAContainerActivity", "com.bytedance.sdk.openadsdk.stub.activity.Stub_Standard_Portrait_Activity"));
+        actToAct_w60.add(new ActToAct(".pha.PHAContainerActivity", "com.baidu.mobads.sdk.api.MobRewardVideoActivity"));
 
         // 跳过安全验证
         actToAct_return = new HashSet<>();
