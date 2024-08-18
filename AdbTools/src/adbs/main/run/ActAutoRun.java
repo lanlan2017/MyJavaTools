@@ -1,8 +1,10 @@
 package adbs.main.run;
 
 import adbs.main.AdbTools;
-import adbs.main.run.act.DianTao;
-import adbs.main.run.act.TaoBao;
+import adbs.main.run.act.DianTaoChange;
+import adbs.main.run.act.DouYinJiSuBan;
+import adbs.main.run.act.FanQieMianFeiXiaoShuo;
+import adbs.main.run.act.TaoBaoChange;
 import adbs.main.run.model.ActivityInfo;
 import adbs.main.run.model.FrameTitle;
 import adbs.main.run.signinlog.FileUtil;
@@ -72,6 +74,9 @@ public class ActAutoRun implements Runnable {
      */
     private static volatile boolean stopWait;
     public static final String appNameEndFlag = " ";
+    // private TaoBaoChange taoBaoChange;
+    // private DianTaoChange dianTaoChange;
+    // private FanQieMianFeiXiaoShuo fanQieMianFeiXiaoShuo;
 
     // --------------------- 前台APP线程的 变量 结束   ----------------------------
 
@@ -145,7 +150,7 @@ public class ActAutoRun implements Runnable {
         wait11s_Act.add("com.taobao.live/.h5.BrowserUpperActivity");
         // 点淘省钱特辑，
         wait11s_Act.add("com.taobao.live/.h5.BrowserActivity");
-        //        番茄畅听，音乐播放界面
+        // 番茄畅听，音乐播放界面
         wait11s_Act.add("com.xs.fm.lite/com.dragon.read.pages.main.MainFragmentActivity");
         return wait11s_Act;
 
@@ -199,9 +204,9 @@ public class ActAutoRun implements Runnable {
 
     @Override
     public void run() {
-        //        adbTools = AdbTools.getInstance();
-        //        timingPanels2 = adbTools.getTimingPanels2();
-        //        universalPanels = adbTools.getUniversalPanels();
+        // adbTools = AdbTools.getInstance();
+        // timingPanels2 = adbTools.getTimingPanels2();
+        // universalPanels = adbTools.getUniversalPanels();
         stop = false;
         // 现在的Activity信息
         ActivityInfo act;
@@ -223,7 +228,7 @@ public class ActAutoRun implements Runnable {
                 actChange(beforeAct, act);
             }
             // 等待一定的时间
-            //        wait_();
+            // wait_();
             // 如果刚好进入第2天
             if (isNextDay()) {
                 // 清空前一天的签到设置
@@ -286,7 +291,7 @@ public class ActAutoRun implements Runnable {
         if (!currentPackageName.equals(currentAppName)) {
             updateFormTitle(currentAppName);
         } else {
-            //                    相等，说明是其他应用，
+            // 相等，说明是其他应用，
             FrameTitle frameTitle = FrameTitle.getFrameTitle();
             String appName = frameTitle.getAppName();
             if (!appName.startsWith("_")) {
@@ -401,17 +406,17 @@ public class ActAutoRun implements Runnable {
         }
     }
 
-    //    private void _wait(int seconds) {
-    //        // System.out.println("等待一段时间...");
-    //        // ThreadSleep.seconds(30);
-    //        // ThreadSleep.seconds(5);
-    //        System.out.println("act 等待：" + seconds);
-    //        ThreadSleep.seconds(seconds);
-    //        // ThreadSleep.seconds(8);
-    //        // ThreadSleep.seconds(10);
-    //        // ThreadSleep.seconds(15);
-    //        // ThreadSleep.seconds(20);
-    //    }
+    // private void _wait(int seconds) {
+    // // System.out.println("等待一段时间...");
+    // // ThreadSleep.seconds(30);
+    // // ThreadSleep.seconds(5);
+    // System.out.println("act 等待：" + seconds);
+    // ThreadSleep.seconds(seconds);
+    // // ThreadSleep.seconds(8);
+    // // ThreadSleep.seconds(10);
+    // // ThreadSleep.seconds(15);
+    // // ThreadSleep.seconds(20);
+    // }
 
     /**
      * 同一个App的不同activity改变时
@@ -430,38 +435,65 @@ public class ActAutoRun implements Runnable {
         // System.out.println("    actShorCurrent = " + actShorCurrent);
         switch (packageCurrent) {
             // case "com.android.dialer/.DialtactsActivity"
-            case "com.android.dialer":
-            case "com.android.contacts":
-                // case "com android dialer":
-                dianHua(actShorCurrent);
-                break;
-            // 趣头条
-            case "com.jifen.qukan":
-                quTouTiao(actShorCurrent);
-                break;
+            // case "com.android.dialer":
+            // case "com.android.contacts":
+            // // case "com android dialer":
+            // dianHua(actShorCurrent);
+            // break;
+            // // 趣头条
+            // case "com.jifen.qukan":
+            // quTouTiao(actShorCurrent);
+            // break;
             // 点淘
             case "com.taobao.live":
                 // dianTao(actShortBefore, actShorCurrent);
-                DianTao.onChange(actShortBefore, actShorCurrent);
+                // DianTao.onChange(actShortBefore, actShorCurrent);
+
+
+                // if (dianTaoChange == null) {
+                // dianTaoChange = new DianTaoChange();
+                // }
+                // dianTaoChange.onChange(actShortBefore, actShorCurrent);
+
+                DianTaoChange.getInstance().onChange(actShortBefore, actShorCurrent);
                 break;
             // 淘宝
             case "com.taobao.taobao":
-                //                taobao(actShorCurrent);
-                TaoBao.onChange(actShortBefore, actShorCurrent);
+                // taobao(actShorCurrent);
+
+                // TaoBao.onChange(actShortBefore, actShorCurrent);
+
+                // if (taoBaoChange == null) {
+                // taoBaoChange = new TaoBaoChange();
+                // }
+                // taoBaoChange.onChange(actShortBefore, actShorCurrent);
+
+                TaoBaoChange.getInstance().onChange(actShortBefore, actShorCurrent);
                 break;
-            case "com.ss.android.article.video":
-                xiGuaShiPin(actShorCurrent);
+            // case "com.ss.android.article.video":
+            // xiGuaShiPin(actShorCurrent);
+            // break;
+            // case "com.xunmeng.pinduoduo":
+            // pinDuoDuo(actShorCurrent);
+            // break;
+            // case "com.kuaishou.kgx.novel":
+            // switch (actShorCurrent) {
+            // case ".ui.activity.HomeActivity":
+            // case "com.kuaishou.novel.read.ReaderActivityV2":
+            // timingPanels2.rw();
+            // break;
+            // }
+            // break;
+            case "com.qiyi.video.lite":
+                // 爱奇艺极速版
                 break;
-            case "com.xunmeng.pinduoduo":
-                pinDuoDuo(actShorCurrent);
+            case "com.dragon.read":
+                // 番茄免费小说
+                FanQieMianFeiXiaoShuo.getInstance().onChange(actShortBefore, actShorCurrent);
                 break;
-            case "com.kuaishou.kgx.novel":
-                switch (actShorCurrent) {
-                    case ".ui.activity.HomeActivity":
-                    case "com.kuaishou.novel.read.ReaderActivityV2":
-                        timingPanels2.rw();
-                        break;
-                }
+            case "com.ss.android.ugc.aweme.lite":
+                //抖音极速版
+                DouYinJiSuBan.getInstance().onChange(actShortBefore, actShorCurrent);
                 break;
         }
     }
@@ -580,11 +612,11 @@ public class ActAutoRun implements Runnable {
                 // System.out.println(appOpened);
                 this.appOpened.addAll(appOpened);
 
-                //                // 打印已经打开的APP
-                //                showOpenedApp();
-                //                // 打印没打开的APP
-                //                showNotOpenApp();
-                //                把文件中保存的已经签到的APP名称显示在签到列表中
+                // // 打印已经打开的APP
+                // showOpenedApp();
+                // // 打印没打开的APP
+                // showNotOpenApp();
+                // 把文件中保存的已经签到的APP名称显示在签到列表中
                 updateSignedInApp();
                 if (appOpened.size() == apps.size()) {
                     // 签到完成设置
@@ -593,16 +625,16 @@ public class ActAutoRun implements Runnable {
                 }
             }
             showNotOpenApp();
-            //            showOpenedApp();
+            // showOpenedApp();
 
         }
     }
 
     public static void updatePackages_3_money() {
-        //        ForegroundAppRun.apps = null;
+        // ForegroundAppRun.apps = null;
         ActAutoRun.apps = null;
         System.out.println("更新可赚钱APP列表");
-        //        ForegroundAppRun.apps = new AdbShellPmListPackages_3().getPackages_3_money();
+        // ForegroundAppRun.apps = new AdbShellPmListPackages_3().getPackages_3_money();
         ActAutoRun.apps = new AdbShellPmListPackages_3().getPackages_3_money();
         System.out.println("可赚钱APP列表: " + apps);
     }
@@ -617,9 +649,9 @@ public class ActAutoRun implements Runnable {
         toolsJPanels = AdbTools.getInstance().getToolsJPanels();
         background = universalPanel.getBackground();
 
-        //                adbTools = AdbTools.getInstance();
+        // adbTools = AdbTools.getInstance();
         timingPanels2 = adbTools.getTimingPanels2();
-        //                universalPanels = adbTools.getUniversalPanels();
+        // universalPanels = adbTools.getUniversalPanels();
     }
 
 
@@ -827,7 +859,7 @@ public class ActAutoRun implements Runnable {
     private boolean updateSignedInApp() {
         JTextPane signedInApp = appSignedInPanels.getSignedIn();
         StyledDocument doc = signedInApp.getStyledDocument();
-        //                获取签到列表的所有字符串
+        // 获取签到列表的所有字符串
         String text = signedInApp.getText();
         boolean isChange = false;
         for (String s : appOpened) {
@@ -839,7 +871,7 @@ public class ActAutoRun implements Runnable {
                     doc.insertString(doc.getLength(), newAppName, null);
                     isChange = true;
                     // 如果需要特定样式，可以替换null为相应的AttributeSet
-                    //                    JFramePack.pack();
+                    // JFramePack.pack();
                 } catch (BadLocationException e) {
                     e.printStackTrace();
                 }
