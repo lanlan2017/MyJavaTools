@@ -10,7 +10,7 @@ public class DianTaoChange extends ActChange {
     }
 
     @Override
-    public HashSet<ActToAct> setSet_s() {
+    public HashSet<ActToAct> set_s_Set() {
 
         //哪些情况下，切换到逛街面板
         HashSet<ActToAct> set_s = new HashSet<>();
@@ -33,12 +33,12 @@ public class DianTaoChange extends ActChange {
     }
 
     @Override
-    public HashSet<ActToAct> setSet_w35sDialog() {
+    public HashSet<ActToAct> set_w35sDialog_Set() {
         return null;
     }
 
     @Override
-    public HashSet<ActToAct> setSet_w65sDialog() {
+    public HashSet<ActToAct> set_w65sDialog_Set() {
 
         //哪些情况下等待65秒
         HashSet<ActToAct> set_w65sDialog = new HashSet<>();
@@ -49,12 +49,12 @@ public class DianTaoChange extends ActChange {
     }
 
     @Override
-    protected HashSet<ActToAct> setSet_w180sDialog() {
+    protected HashSet<ActToAct> set_w180sDialog_Set() {
         return null;
     }
 
     @Override
-    public HashSet<ActToAct> setSet_vw180s() {
+    public HashSet<ActToAct> set_vw180s_Set() {
         // 哪些条件下刷视频180秒
         HashSet<ActToAct> set_vw180s = new HashSet<>();
         set_vw180s.add(new ActToAct(".pha.PHAContainerActivity", ".TaoLiveVideoActivity"));
@@ -68,12 +68,12 @@ public class DianTaoChange extends ActChange {
     }
 
     @Override
-    public HashSet<ActToAct> setSet_s35s() {
+    public HashSet<ActToAct> set_s35s_Set() {
         return null;
     }
 
     @Override
-    public HashSet<ActToAct> setSet_s65sDialog() {
+    public HashSet<ActToAct> set_s65sDialog_Set() {
         HashSet<ActToAct> set_s65sDialog = new HashSet<>();
         //
         // 从元宝中心，进入 上新日历
@@ -87,7 +87,7 @@ public class DianTaoChange extends ActChange {
     }
 
     @Override
-    public HashSet<ActToAct> setSet_return() {
+    public HashSet<ActToAct> set_return_Set() {
 
         // 跳过安全验证
         HashSet<ActToAct> set_return = new HashSet<>();

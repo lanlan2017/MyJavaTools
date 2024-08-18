@@ -198,7 +198,13 @@ public class ActAutoRun implements Runnable {
         // 需要等待1个小时的Activity
         // HashSet<String> wait1H_Act = new HashSet<>();
         wait20M_Act = new HashSet<>();
+        //快手免费小说阅读界面
         wait20M_Act.add("com.kuaishou.kgx.novel/com.kuaishou.novel.read.ReaderActivityV2");
+        //番茄免费小说阅读界面
+        wait20M_Act.add("com.dragon.read/.reader.ui.ReaderActivity");
+        //今日头条极速版电视剧播放界面
+        wait20M_Act.add("com.ss.android.article.lite/com.ss.android.xigualongvideo.detail.LongVideoDetailActivity");
+
         // return wait1H_Act;
     }
 
