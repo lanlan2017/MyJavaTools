@@ -19,9 +19,11 @@ public abstract class ActChange {
     private HashSet<ActToAct> w180sDialog_set;
 
     private HashSet<ActToAct> vw180s_Set;
+    private HashSet<ActToAct> vw180sDialog_Set;
 
-    private HashSet<ActToAct> s35s_Set;
+    private HashSet<ActToAct> s35sDialog_Set;
     private HashSet<ActToAct> s65sDialog_Set;
+    private HashSet<ActToAct> s35s_Set;
     private HashSet<ActToAct> s_Set;
 
     private HashSet<ActToAct> return_Set;
@@ -37,10 +39,12 @@ public abstract class ActChange {
         w180sDialog_set = set_w180sDialog_Set();
 
         s35s_Set = set_s35s_Set();
+        s35sDialog_Set = set_s35sDialog_Set();
         s65sDialog_Set = set_s65sDialog_Set();
         s_Set = set_s_Set();
 
         vw180s_Set = set_vw180s_Set();
+        vw180sDialog_Set = set_vw180sDialog_Set();
 
         return_Set = set_return_Set();
     }
@@ -53,12 +57,17 @@ public abstract class ActChange {
     protected abstract HashSet<ActToAct> set_w180sDialog_Set();
 
 
-    public abstract HashSet<ActToAct> set_s35s_Set();
+    protected abstract HashSet<ActToAct> set_s35sDialog_Set();
+
     public abstract HashSet<ActToAct> set_s65sDialog_Set();
+
+    public abstract HashSet<ActToAct> set_s35s_Set();
 
     public abstract HashSet<ActToAct> set_s_Set();
 
     public abstract HashSet<ActToAct> set_vw180s_Set();
+
+    public abstract HashSet<ActToAct> set_vw180sDialog_Set();
 
     public abstract HashSet<ActToAct> set_return_Set();
 
@@ -81,14 +90,20 @@ public abstract class ActChange {
         } else if (s65sDialog_Set != null && s65sDialog_Set.contains(actToAct)) {
             // 弹窗询问是否需要逛街65秒
             timingPanels2.s65sDialog();
+        } else if (s35sDialog_Set != null && s35sDialog_Set.contains(actToAct)) {
+            // 弹窗询问是否需要逛街35秒
+            timingPanels2.s35sDialog();
         } else if (s35s_Set != null && s35s_Set.contains(actToAct)) {
             // 弹窗询问是否需要逛街35秒
             timingPanels2.s35s();
         } else if (s_Set != null && s_Set.contains(actToAct)) {
             // 显示逛街系列按钮
             timingPanels2.s();
+        } else if (vw180sDialog_Set != null && vw180sDialog_Set.contains(actToAct)) {
+            // 弹窗询问是否需要刷视频180秒
+            timingPanels2.vw180sDialog();
         } else if (vw180s_Set != null && vw180s_Set.contains(actToAct)) {
-            // 刷视频180秒
+            // 直接 刷视频180秒
             timingPanels2.vw180s();
         } else if (return_Set != null && return_Set.contains(actToAct)) {
             System.out.println("遇到授权要求，直接返回");

@@ -39,7 +39,17 @@ public class FanQieMianFeiXiaoShuo extends ActChange {
     }
 
     @Override
+    protected HashSet<ActToAct> set_s35sDialog_Set() {
+        return null;
+    }
+
+    @Override
     public HashSet<ActToAct> set_vw180s_Set() {
+        return null;
+    }
+
+    @Override
+    public HashSet<ActToAct> set_vw180sDialog_Set() {
         return null;
     }
 

@@ -164,6 +164,8 @@ public class ActAutoRun implements Runnable {
         wait15s_Act = new HashSet<>();
         // 直播界面
         wait15s_Act.add("com.taobao.live/.TaoLiveVideoActivity");
+        // 桌面
+        wait15s_Act.add("com.huawei.android.launcher/.unihome.UniHomeLauncher");
         // //
         // wait15s_Act.add("com.taobao.live/.h5.BrowserUpperActivity");
         // //省钱特辑，
@@ -174,7 +176,6 @@ public class ActAutoRun implements Runnable {
         // HashSet<String> wait30S = new HashSet<>();
         HashSet<String> wait30s_Act = new HashSet<>();
         // 华为桌面
-        wait30s_Act.add("com.huawei.android.launcher/.unihome.UniHomeLauncher");
         return wait30s_Act;
     }
 
@@ -204,8 +205,6 @@ public class ActAutoRun implements Runnable {
         wait20M_Act.add("com.dragon.read/.reader.ui.ReaderActivity");
         //今日头条极速版电视剧播放界面
         wait20M_Act.add("com.ss.android.article.lite/com.ss.android.xigualongvideo.detail.LongVideoDetailActivity");
-
-        // return wait1H_Act;
     }
 
     @Override
@@ -218,11 +217,7 @@ public class ActAutoRun implements Runnable {
         ActivityInfo act;
         // 上一轮查询时的Activity信息
         ActivityInfo beforeAct = null;
-
-
         before();
-
-
         while (!stop) {
             // 获取当前act
             act = AdbGetPackage.getActivityInfo();
@@ -280,12 +275,15 @@ public class ActAutoRun implements Runnable {
                 }
                 // 根据当前的Activity更新应用标题
                 updateTitle(act);
-
-
             }
         } else {
+            //            程序启动的时候before为null
             // 在用户切换界面时，执行动作
             // actChange(act);
+            //            如果此时的act改变，也就行一次签到检查
+            String packageName = act.getPackageName();
+            check_(packageName);
+
         }
     }
 
@@ -412,17 +410,6 @@ public class ActAutoRun implements Runnable {
         }
     }
 
-    // private void _wait(int seconds) {
-    // // System.out.println("等待一段时间...");
-    // // ThreadSleep.seconds(30);
-    // // ThreadSleep.seconds(5);
-    // System.out.println("act 等待：" + seconds);
-    // ThreadSleep.seconds(seconds);
-    // // ThreadSleep.seconds(8);
-    // // ThreadSleep.seconds(10);
-    // // ThreadSleep.seconds(15);
-    // // ThreadSleep.seconds(20);
-    // }
 
     /**
      * 同一个App的不同activity改变时
@@ -435,7 +422,7 @@ public class ActAutoRun implements Runnable {
         String actShortBefore = before.getActShortName();
         // System.out.println("act改变： " + actShortBefore + " -> " + actShorCurrent);
         System.out.println("act改变： " + before + " -> " + current);
-        System.out.println("act改变： \"" + actShortBefore + "\",\"" + actShorCurrent + "\"");
+        System.out.println("act改变： \"" + actShortBefore + "\", \"" + actShorCurrent + "\"");
         // System.out.println("\n界面改变，给出建议...");
         // System.out.println("    packageCurrent = " + packageCurrent);
         // System.out.println("    actShorCurrent = " + actShorCurrent);
@@ -452,28 +439,10 @@ public class ActAutoRun implements Runnable {
             // break;
             // 点淘
             case "com.taobao.live":
-                // dianTao(actShortBefore, actShorCurrent);
-                // DianTao.onChange(actShortBefore, actShorCurrent);
-
-
-                // if (dianTaoChange == null) {
-                // dianTaoChange = new DianTaoChange();
-                // }
-                // dianTaoChange.onChange(actShortBefore, actShorCurrent);
-
                 DianTaoChange.getInstance().onChange(actShortBefore, actShorCurrent);
                 break;
             // 淘宝
             case "com.taobao.taobao":
-                // taobao(actShorCurrent);
-
-                // TaoBao.onChange(actShortBefore, actShorCurrent);
-
-                // if (taoBaoChange == null) {
-                // taoBaoChange = new TaoBaoChange();
-                // }
-                // taoBaoChange.onChange(actShortBefore, actShorCurrent);
-
                 TaoBaoChange.getInstance().onChange(actShortBefore, actShorCurrent);
                 break;
             // case "com.ss.android.article.video":
@@ -500,27 +469,6 @@ public class ActAutoRun implements Runnable {
             case "com.ss.android.ugc.aweme.lite":
                 //抖音极速版
                 DouYinJiSuBan.getInstance().onChange(actShortBefore, actShorCurrent);
-                break;
-        }
-    }
-
-    private void pinDuoDuo(String actShortName) {
-        switch (actShortName) {
-            // case ".ui.activity.HomeActivity":
-            case ".ui.activity.HomeActivity":
-                timingPanels2.vw();
-                break;
-        }
-    }
-
-    private void xiGuaShiPin(String actShortName) {
-        switch (actShortName) {
-            case ".activity.SplashActivity":
-                // timingPanels2.vw();
-                // vidioBtn();
-                universalPanels.vidioBtnDoClick();
-                break;
-            default:
                 break;
         }
     }
@@ -605,23 +553,18 @@ public class ActAutoRun implements Runnable {
             // System.out.println("有历史记录");
             String appOpenedStr = loginRecords_old.getAppOpened();
             // System.out.println("appOpenedStr = " + appOpenedStr);
-
             // 去除方括号
             String trimmedAppsStr = appOpenedStr.substring(1, appOpenedStr.length() - 1);
-            // 去除方括号之后还有其他元素
             if (trimmedAppsStr.contains(", ")) {
+                System.out.println("有两个以上的签到记录");
+                System.out.println("trimmedAppsStr = |" + trimmedAppsStr + "|");
+                // 去除方括号之后还有其他元素
                 // 分割字符串
                 String[] split = trimmedAppsStr.split(", ");
                 // 转换为ArrayList
                 ArrayList<String> appOpened = new ArrayList<>(Arrays.asList(split));
-
-                // System.out.println(appOpened);
                 this.appOpened.addAll(appOpened);
 
-                // // 打印已经打开的APP
-                // showOpenedApp();
-                // // 打印没打开的APP
-                // showNotOpenApp();
                 // 把文件中保存的已经签到的APP名称显示在签到列表中
                 updateSignedInApp();
                 if (appOpened.size() == apps.size()) {
@@ -629,7 +572,13 @@ public class ActAutoRun implements Runnable {
                     afterOpeningAllAPKs();
                     stopAppCheck = true;
                 }
+            } else if (!"".equals(trimmedAppsStr)) {
+                System.out.println("只有一个签到记录");
+                System.out.println("trimmedAppsStr = |" + trimmedAppsStr + "|");
+                this.appOpened.add(trimmedAppsStr);
+                updateSignedInApp();
             }
+
             showNotOpenApp();
             // showOpenedApp();
 
@@ -654,16 +603,43 @@ public class ActAutoRun implements Runnable {
         appSignedInPanels = AdbTools.getInstance().getAppPanels();
         toolsJPanels = AdbTools.getInstance().getToolsJPanels();
         background = universalPanel.getBackground();
-
-        // adbTools = AdbTools.getInstance();
         timingPanels2 = adbTools.getTimingPanels2();
-        // universalPanels = adbTools.getUniversalPanels();
     }
 
 
     private void check_(String packageName) {
-        if (!"".equals(packageName)) {
+        if (packageName != null && !"".equals(packageName)) {
             check(packageName);
+        }
+    }
+
+    private void check(String packageName) {
+        updateAppOpened(packageName);
+        // 如果还没停止签到检查的话
+        if (!stopAppCheck) {
+            int size = apps.size();
+            System.out.println("size = " + size);
+            int size1 = appOpened.size();
+            System.out.println("size1 = " + size1);
+            // 如果用户勾选了所有应用都打开了
+            if (isAllAppOpened) {
+                // 清空签到记录表
+                clearCheckInForm();
+                // 把所有的APP都填到签到记录表中
+                copyAllAppsIntoCheckInForm();
+                afterOpeningAllAPKs();
+                stopAppCheck = true;
+            }
+            // 如果已签到列表和应用列表的长度一样，则说明所有APP都签到完毕了
+            else if (appOpened.size() == apps.size()) {
+                // 签到完成设置
+                afterOpeningAllAPKs();
+                stopAppCheck = true;
+            }
+            // 打印已经打开的APP
+            showOpenedApp();
+            // 打印没打开的APP
+            showNotOpenApp();
         }
     }
 
@@ -810,36 +786,6 @@ public class ActAutoRun implements Runnable {
     }
 
 
-    private void check(String packageName) {
-        updateAppOpened(packageName);
-        // 如果还没停止签到检查的话
-        if (!stopAppCheck) {
-            int size = apps.size();
-            System.out.println("size = " + size);
-            int size1 = appOpened.size();
-            System.out.println("size1 = " + size1);
-            // 如果用户勾选了所有应用都打开了
-            if (isAllAppOpened) {
-                // 清空签到记录表
-                clearCheckInForm();
-                // 把所有的APP都填到签到记录表中
-                copyAllAppsIntoCheckInForm();
-                afterOpeningAllAPKs();
-                stopAppCheck = true;
-            }
-            // 如果已签到列表和应用列表的长度一样，则说明所有APP都签到完毕了
-            else if (appOpened.size() == apps.size()) {
-                // 签到完成设置
-                afterOpeningAllAPKs();
-                stopAppCheck = true;
-            }
-            // 打印已经打开的APP
-            showOpenedApp();
-            // 打印没打开的APP
-            showNotOpenApp();
-        }
-    }
-
     /**
      * 显示已经打开的金币应用
      */
@@ -851,10 +797,14 @@ public class ActAutoRun implements Runnable {
                 if (isChange) {
                     String loginRecordsTxt = AdbTools.getInstance().getDevice().getLoginRecordsTxt();
                     loginRecords.setApps(apps.toString());
-                    loginRecords.setAppOpened(appOpened.toString());
-                    System.out.println("loginRecordsTxt = " + loginRecordsTxt);
-                    FileUtil.writeStringToFile(loginRecords.toString(), loginRecordsTxt);
-                    System.out.println("签到消息已经写入文件");
+                    String appOpenedOld = loginRecords.getAppOpened();
+                    String appOpenedStr = appOpened.toString();
+                    if (!appOpenedStr.equals(appOpenedOld)) {
+                        loginRecords.setAppOpened(appOpenedStr);
+                        System.out.println("loginRecordsTxt = " + loginRecordsTxt);
+                        FileUtil.writeStringToFile(loginRecords.toString(), loginRecordsTxt);
+                        System.out.println("签到消息已经写入文件");
+                    }
                 }
 
             }
@@ -871,16 +821,26 @@ public class ActAutoRun implements Runnable {
         for (String s : appOpened) {
             // 如果签到记录里没有这个记录
             if (!text.contains(s + appNameEndFlag)) {
-                try {
+//                try {
                     String newAppName = s + appNameEndFlag + "\n";
-                    // 把这条记录写到签到列表末尾
-                    doc.insertString(doc.getLength(), newAppName, null);
+                    SwingUtilities.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            // 把这条记录写到签到列表末尾
+                            try {
+                                doc.insertString(doc.getLength(), newAppName, null);
+                            } catch (BadLocationException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
                     isChange = true;
                     // 如果需要特定样式，可以替换null为相应的AttributeSet
                     // JFramePack.pack();
-                } catch (BadLocationException e) {
-                    e.printStackTrace();
-                }
+//                } catch (BadLocationException e) {
+//                    e.printStackTrace();
+//                }
             }
         }
         return isChange;

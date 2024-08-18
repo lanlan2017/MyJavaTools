@@ -54,6 +54,11 @@ public class DianTaoChange extends ActChange {
     }
 
     @Override
+    protected HashSet<ActToAct> set_s35sDialog_Set() {
+        return null;
+    }
+
+    @Override
     public HashSet<ActToAct> set_vw180s_Set() {
         // 哪些条件下刷视频180秒
         HashSet<ActToAct> set_vw180s = new HashSet<>();
@@ -65,6 +70,11 @@ public class DianTaoChange extends ActChange {
 
 
         return set_vw180s;
+    }
+
+    @Override
+    public HashSet<ActToAct> set_vw180sDialog_Set() {
+        return null;
     }
 
     @Override
