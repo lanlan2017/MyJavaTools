@@ -1,10 +1,7 @@
 package adbs.main.run;
 
 import adbs.main.AdbTools;
-import adbs.main.run.act.DianTaoChange;
-import adbs.main.run.act.DouYinJiSuBan;
-import adbs.main.run.act.FanQieMianFeiXiaoShuo;
-import adbs.main.run.act.TaoBaoChange;
+import adbs.main.run.act.*;
 import adbs.main.run.model.ActivityInfo;
 import adbs.main.run.model.FrameTitle;
 import adbs.main.run.signinlog.FileUtil;
@@ -427,17 +424,6 @@ public class ActAutoRun implements Runnable {
         // System.out.println("    packageCurrent = " + packageCurrent);
         // System.out.println("    actShorCurrent = " + actShorCurrent);
         switch (packageCurrent) {
-            // case "com.android.dialer/.DialtactsActivity"
-            // case "com.android.dialer":
-            // case "com.android.contacts":
-            // // case "com android dialer":
-            // dianHua(actShorCurrent);
-            // break;
-            // // 趣头条
-            // case "com.jifen.qukan":
-            // quTouTiao(actShorCurrent);
-            // break;
-            // 点淘
             case "com.taobao.live":
                 DianTaoChange.getInstance().onChange(actShortBefore, actShorCurrent);
                 break;
@@ -445,22 +431,9 @@ public class ActAutoRun implements Runnable {
             case "com.taobao.taobao":
                 TaoBaoChange.getInstance().onChange(actShortBefore, actShorCurrent);
                 break;
-            // case "com.ss.android.article.video":
-            // xiGuaShiPin(actShorCurrent);
-            // break;
-            // case "com.xunmeng.pinduoduo":
-            // pinDuoDuo(actShorCurrent);
-            // break;
-            // case "com.kuaishou.kgx.novel":
-            // switch (actShorCurrent) {
-            // case ".ui.activity.HomeActivity":
-            // case "com.kuaishou.novel.read.ReaderActivityV2":
-            // timingPanels2.rw();
-            // break;
-            // }
-            // break;
             case "com.qiyi.video.lite":
                 // 爱奇艺极速版
+                AiQiYi.getInstance().onChange(actShortBefore, actShorCurrent);
                 break;
             case "com.dragon.read":
                 // 番茄免费小说
@@ -469,61 +442,6 @@ public class ActAutoRun implements Runnable {
             case "com.ss.android.ugc.aweme.lite":
                 //抖音极速版
                 DouYinJiSuBan.getInstance().onChange(actShortBefore, actShorCurrent);
-                break;
-        }
-    }
-
-
-    /**
-     * 趣头条APP
-     *
-     * @param actShortName
-     */
-    private void quTouTiao(String actShortName) {
-        // System.out.println("趣头条APP");
-        switch (actShortName) {
-            // 文章界面
-            case ".content.newsdetail.news.NewsDetailNewActivity":
-                // System.out.println("文章界面");
-                // System.out.println();
-                universalPanels.getBrowseButton().doClick();
-                break;
-            // 广告界面
-            case "com.iclicash.advlib.ui.front.InciteADActivity":
-            case "com.qq.e.ads.PortraitADActivity":
-                // System.out.println("广告界面");
-                // timingPanels2.getjComboBox().setSelectedIndex(0);
-                // timingPanels2.auto("w_65s");
-                // timingPanels2.w65s();
-                timingPanels2.w();
-                break;
-
-        }
-    }
-
-    /**
-     * 电话APP
-     *
-     * @param actShortName
-     */
-    private void dianHua(String actShortName) {
-        // System.out.println("电话");
-        switch (actShortName) {
-            case ".DialtactsActivity":
-            case ".activities.DialtactsActivity":
-                // System.out.println("来了啊");
-                // JComboBox<String> stringJComboBox = adbTools.getTimingPanels2().getjComboBox();
-                JComboBox<String> stringJComboBox = timingPanels2.getjComboBox();
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        // stringJComboBox.setSelectedIndex(0);
-                        // // timingPanels2.getBtn180s().doClick();
-                        // timingPanels2.getBtn35s().doClick();
-                        timingPanels2.auto("w_180s");
-
-                    }
-                });
                 break;
         }
     }
@@ -618,9 +536,9 @@ public class ActAutoRun implements Runnable {
         // 如果还没停止签到检查的话
         if (!stopAppCheck) {
             int size = apps.size();
-            System.out.println("size = " + size);
+            //            System.out.println("size = " + size);
             int size1 = appOpened.size();
-            System.out.println("size1 = " + size1);
+            //            System.out.println("size1 = " + size1);
             // 如果用户勾选了所有应用都打开了
             if (isAllAppOpened) {
                 // 清空签到记录表
@@ -821,26 +739,26 @@ public class ActAutoRun implements Runnable {
         for (String s : appOpened) {
             // 如果签到记录里没有这个记录
             if (!text.contains(s + appNameEndFlag)) {
-//                try {
-                    String newAppName = s + appNameEndFlag + "\n";
-                    SwingUtilities.invokeLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            // 把这条记录写到签到列表末尾
-                            try {
-                                doc.insertString(doc.getLength(), newAppName, null);
-                            } catch (BadLocationException e) {
-                                e.printStackTrace();
-                            }
+                //                try {
+                String newAppName = s + appNameEndFlag + "\n";
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        // 把这条记录写到签到列表末尾
+                        try {
+                            doc.insertString(doc.getLength(), newAppName, null);
+                        } catch (BadLocationException e) {
+                            e.printStackTrace();
                         }
-                    });
+                    }
+                });
 
-                    isChange = true;
-                    // 如果需要特定样式，可以替换null为相应的AttributeSet
-                    // JFramePack.pack();
-//                } catch (BadLocationException e) {
-//                    e.printStackTrace();
-//                }
+                isChange = true;
+                // 如果需要特定样式，可以替换null为相应的AttributeSet
+                // JFramePack.pack();
+                //                } catch (BadLocationException e) {
+                //                    e.printStackTrace();
+                //                }
             }
         }
         return isChange;
