@@ -3,7 +3,7 @@ package adbs.main.ui.jpanels.scrcpy;
 import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
 import adbs.main.run.ActAutoRun;
-import adbs.main.run.OppoR9ScrcpyRun;
+import adbs.main.run.ReopenScrcpyRun;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.config.Fonts;
 import adbs.main.ui.jpanels.adb.open.Taskkill;
@@ -343,9 +343,9 @@ public class ScrcpyJPanels {
                         // if ("UDN0217A17001140".equals(serial)) {
                         System.out.println("zzzzzzzzzzz启动一次线程");
                         // new Thread(new OppoR9ScrcpyRun()).start();
-                        OppoR9ScrcpyRun oppoR9ScrcpyRun = OppoR9ScrcpyRun.getInstance();
+                        ReopenScrcpyRun reopenScrcpyRun = ReopenScrcpyRun.getInstance();
                         // oppoR9ScrcpyRun.setStop(true);
-                        new Thread(oppoR9ScrcpyRun).start();
+                        new Thread(reopenScrcpyRun).start();
                     }
                     isFirstTimeRun = false;
                 }
