@@ -50,26 +50,26 @@ public abstract class ActChange {
     }
 
 
-    public abstract HashSet<ActToAct> set_w35sDialog_Set();
+    protected abstract HashSet<ActToAct> set_w35sDialog_Set();
 
-    public abstract HashSet<ActToAct> set_w65sDialog_Set();
+    protected abstract HashSet<ActToAct> set_w65sDialog_Set();
 
     protected abstract HashSet<ActToAct> set_w180sDialog_Set();
 
 
     protected abstract HashSet<ActToAct> set_s35sDialog_Set();
 
-    public abstract HashSet<ActToAct> set_s65sDialog_Set();
+    protected abstract HashSet<ActToAct> set_s65sDialog_Set();
 
-    public abstract HashSet<ActToAct> set_s35s_Set();
+    protected abstract HashSet<ActToAct> set_s35s_Set();
 
-    public abstract HashSet<ActToAct> set_s_Set();
+    protected abstract HashSet<ActToAct> set_s_Set();
 
-    public abstract HashSet<ActToAct> set_vw180s_Set();
+    protected abstract HashSet<ActToAct> set_vw180s_Set();
 
-    public abstract HashSet<ActToAct> set_vw180sDialog_Set();
+    protected abstract HashSet<ActToAct> set_vw180sDialog_Set();
 
-    public abstract HashSet<ActToAct> set_return_Set();
+    protected abstract HashSet<ActToAct> set_return_Set();
 
     public void onChange(String actBefore, String act) {
         if (timingPanels2 == null) {

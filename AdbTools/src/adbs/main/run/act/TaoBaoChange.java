@@ -12,7 +12,7 @@ public class TaoBaoChange extends ActChange {
 
 
     @Override
-    public HashSet<ActToAct> set_w35sDialog_Set() {
+    protected HashSet<ActToAct> set_w35sDialog_Set() {
 
         HashSet<ActToAct> set_w35Dialog = new HashSet<>();
         set_w35Dialog.add(new ActToAct("com.taobao.tao.welcome.Welcome", "com.taobao.browser.exbrowser.BrowserUpperActivity"));
@@ -36,7 +36,7 @@ public class TaoBaoChange extends ActChange {
 
 
     @Override
-    public HashSet<ActToAct> set_s35s_Set() {
+    protected HashSet<ActToAct> set_s35s_Set() {
         HashSet<ActToAct> set_s35s = new HashSet<>();
         set_s35s.add(new ActToAct("com.taobao.tao.welcome.Welcome", "com.taobao.themis.container.app.TMSActivity"));
         set_s35s.add(new ActToAct("com.taobao.tao.welcome.Welcome", "com.taobao.search.sf.MainSearchResultActivity"));
@@ -44,13 +44,13 @@ public class TaoBaoChange extends ActChange {
     }
 
     @Override
-    public HashSet<ActToAct> set_w65sDialog_Set() {
+    protected HashSet<ActToAct> set_w65sDialog_Set() {
         return null;
     }
 
 
     @Override
-    public HashSet<ActToAct> set_s_Set() {
+    protected HashSet<ActToAct> set_s_Set() {
         return null;
     }
 
@@ -61,22 +61,22 @@ public class TaoBaoChange extends ActChange {
 
 
     @Override
-    public HashSet<ActToAct> set_vw180s_Set() {
+    protected HashSet<ActToAct> set_vw180s_Set() {
         return null;
     }
 
     @Override
-    public HashSet<ActToAct> set_vw180sDialog_Set() {
+    protected HashSet<ActToAct> set_vw180sDialog_Set() {
         return null;
     }
 
     @Override
-    public HashSet<ActToAct> set_s65sDialog_Set() {
+    protected HashSet<ActToAct> set_s65sDialog_Set() {
         return null;
     }
 
     @Override
-    public HashSet<ActToAct> set_return_Set() {
+    protected HashSet<ActToAct> set_return_Set() {
         return null;
     }
 }

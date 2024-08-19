@@ -15,17 +15,17 @@ public class FanQieMianFeiXiaoShuo extends ActChange {
     }
 
     @Override
-    public HashSet<ActToAct> set_s_Set() {
+    protected HashSet<ActToAct> set_s_Set() {
         return null;
     }
 
     @Override
-    public HashSet<ActToAct> set_w35sDialog_Set() {
+    protected HashSet<ActToAct> set_w35sDialog_Set() {
         return null;
     }
 
     @Override
-    public HashSet<ActToAct> set_w65sDialog_Set() {
+    protected HashSet<ActToAct> set_w65sDialog_Set() {
         return null;
     }
 
@@ -44,27 +44,27 @@ public class FanQieMianFeiXiaoShuo extends ActChange {
     }
 
     @Override
-    public HashSet<ActToAct> set_vw180s_Set() {
+    protected HashSet<ActToAct> set_vw180s_Set() {
         return null;
     }
 
     @Override
-    public HashSet<ActToAct> set_vw180sDialog_Set() {
+    protected HashSet<ActToAct> set_vw180sDialog_Set() {
         return null;
     }
 
     @Override
-    public HashSet<ActToAct> set_s35s_Set() {
+    protected HashSet<ActToAct> set_s35s_Set() {
         return null;
     }
 
     @Override
-    public HashSet<ActToAct> set_s65sDialog_Set() {
+    protected HashSet<ActToAct> set_s65sDialog_Set() {
         return null;
     }
 
     @Override
-    public HashSet<ActToAct> set_return_Set() {
+    protected HashSet<ActToAct> set_return_Set() {
         return null;
     }
 }

@@ -10,7 +10,7 @@ public class DianTaoChange extends ActChange {
     }
 
     @Override
-    public HashSet<ActToAct> set_s_Set() {
+    protected HashSet<ActToAct> set_s_Set() {
 
         //哪些情况下，切换到逛街面板
         HashSet<ActToAct> set_s = new HashSet<>();
@@ -28,17 +28,18 @@ public class DianTaoChange extends ActChange {
 
         //从头条广告界面 进入 元宝中心
         set_s.add(new ActToAct("com.bytedance.sdk.openadsdk.stub.activity.Stub_Standard_Portrait_Activity", ".pha.PHAContainerActivity"));
+        set_s.add(new ActToAct(".home.activity.TaoLiveHomeActivity", ".pha.PHAContainerActivity"));
 
         return set_s;
     }
 
     @Override
-    public HashSet<ActToAct> set_w35sDialog_Set() {
+    protected HashSet<ActToAct> set_w35sDialog_Set() {
         return null;
     }
 
     @Override
-    public HashSet<ActToAct> set_w65sDialog_Set() {
+    protected HashSet<ActToAct> set_w65sDialog_Set() {
 
         //哪些情况下等待65秒
         HashSet<ActToAct> set_w65sDialog = new HashSet<>();
@@ -59,7 +60,7 @@ public class DianTaoChange extends ActChange {
     }
 
     @Override
-    public HashSet<ActToAct> set_vw180s_Set() {
+    protected HashSet<ActToAct> set_vw180s_Set() {
         // 哪些条件下刷视频180秒
         HashSet<ActToAct> set_vw180s = new HashSet<>();
         set_vw180s.add(new ActToAct(".pha.PHAContainerActivity", ".TaoLiveVideoActivity"));
@@ -73,17 +74,17 @@ public class DianTaoChange extends ActChange {
     }
 
     @Override
-    public HashSet<ActToAct> set_vw180sDialog_Set() {
+    protected HashSet<ActToAct> set_vw180sDialog_Set() {
         return null;
     }
 
     @Override
-    public HashSet<ActToAct> set_s35s_Set() {
+    protected HashSet<ActToAct> set_s35s_Set() {
         return null;
     }
 
     @Override
-    public HashSet<ActToAct> set_s65sDialog_Set() {
+    protected HashSet<ActToAct> set_s65sDialog_Set() {
         HashSet<ActToAct> set_s65sDialog = new HashSet<>();
         //
         // 从元宝中心，进入 上新日历
@@ -97,7 +98,7 @@ public class DianTaoChange extends ActChange {
     }
 
     @Override
-    public HashSet<ActToAct> set_return_Set() {
+    protected HashSet<ActToAct> set_return_Set() {
 
         // 跳过安全验证
         HashSet<ActToAct> set_return = new HashSet<>();

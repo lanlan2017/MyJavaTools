@@ -9,17 +9,18 @@ import javax.swing.*;
 
 /**
  * 大概30分钟之后重启scrcpy.exe
+ * .exe
  */
-public class OppoR9ScrcpyRun implements Runnable {
-    private static final OppoR9ScrcpyRun instance = new OppoR9ScrcpyRun();
+public class ReopenScrcpyRun implements Runnable {
+    private static final ReopenScrcpyRun instance = new ReopenScrcpyRun();
 
-    public static OppoR9ScrcpyRun getInstance() {
+    public static ReopenScrcpyRun getInstance() {
         return instance;
     }
 
     private volatile boolean stop = false;
 
-    private OppoR9ScrcpyRun() {
+    private ReopenScrcpyRun() {
     }
 
     public void setStop(boolean stop) {
@@ -45,7 +46,7 @@ public class OppoR9ScrcpyRun implements Runnable {
             // 测试时，每隔10秒检测一次
             ThreadSleep.seconds(10);
         } else {
-            System.out.println("OPPO检车 等待35秒");
+            System.out.println("scrcpy.exe重启线程 等待35秒");
             // 等待35分钟
             ThreadSleep.minutes(32);
             // ThreadSleep.minutes(1);
