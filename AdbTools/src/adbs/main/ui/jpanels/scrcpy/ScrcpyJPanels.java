@@ -3,7 +3,6 @@ package adbs.main.ui.jpanels.scrcpy;
 import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
 import adbs.main.run.ActAutoRun;
-//import adbs.main.run.ForegroundAppRun;
 import adbs.main.run.OppoR9ScrcpyRun;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.config.Fonts;
@@ -17,6 +16,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+//import adbs.main.run.ForegroundAppRun;
 
 /**
  * 投屏面板
@@ -150,13 +151,13 @@ public class ScrcpyJPanels {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // 设置
-                //                ForegroundAppRun.onNextDay();
+                // ForegroundAppRun.onNextDay();
                 // isFirstTimeRun = true;
                 // ForegroundAppRun.stopWait();
                 AdbTools.getInstance().showDialogOk("重签", "重置签到状态?", new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-//                        ForegroundAppRun.onNextDay();
+                        // ForegroundAppRun.onNextDay();
                         ActAutoRun.stopWait();
                         ActAutoRun.onNextDay();
                     }
@@ -181,7 +182,7 @@ public class ScrcpyJPanels {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                //                switchDebug();
+                // switchDebug();
                 AdbTools.getInstance().showDialogOk("切换", "切换调试", new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -200,7 +201,7 @@ public class ScrcpyJPanels {
                 if (device == null) {
                     device = adbTools.getDevice();
                 }
-                //                Device device = AdbTools.getInstance().getDevice();
+                // Device device = AdbTools.getInstance().getDevice();
 
                 if (networkDebugging.equals(btnSwitchNetworkDebug.getText())) {
                     String serial = device.getSerial();
@@ -226,7 +227,7 @@ public class ScrcpyJPanels {
                         }
                     });
 
-                    //                    连接网络调试
+                    // 连接网络调试
                     String code = "adb disconnect " + ip_serial;
                     AdbCommands.runAbdCmd(code);
                     // reopenScrcpy();
@@ -333,18 +334,13 @@ public class ScrcpyJPanels {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new Thread(new OpenButtonRunnable(widthTextField.getText())).start();
-            }
-        });
-        // btnOpenScrcpy.addActionListener(new OpenButtonListener(widthTextField.getText()));
-        btnOpenScrcpy.addActionListener(new ActionListener() {
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
                 if (isFirstTimeRun) {
                     // 只启动一次线程即可，不可多次启动
                     AdbTools adbTools = AdbTools.getInstance();
                     String serial = adbTools.getDevice().getSerial();
                     if ("75aed56d".equals(serial)) {
+                        // if ("UDN0217A17001140".equals(serial)) {
                         System.out.println("zzzzzzzzzzz启动一次线程");
                         // new Thread(new OppoR9ScrcpyRun()).start();
                         OppoR9ScrcpyRun oppoR9ScrcpyRun = OppoR9ScrcpyRun.getInstance();
@@ -367,7 +363,7 @@ public class ScrcpyJPanels {
         btnOpenScrcpyFull.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //                new Thread(new OpenButtonRunnable("0")).start();
+                // new Thread(new OpenButtonRunnable("0")).start();
                 AdbTools.getInstance().showDialogOk("高清", "不带参数的scrcpy镜像(高清)", new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -405,13 +401,13 @@ public class ScrcpyJPanels {
         btnUpdateEarningApps.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //                ForegroundAppRun.updatePackages_3_money();
+                // ForegroundAppRun.updatePackages_3_money();
                 // ForegroundAppRun.onNextDay();
                 AdbTools.getInstance().showDialogOk("更新赚钱应用", "更新赚钱应用列表", new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
 
-//                        ForegroundAppRun.updatePackages_3_money();
+                        // ForegroundAppRun.updatePackages_3_money();
                         ActAutoRun.updatePackages_3_money();
                     }
                 });
@@ -427,7 +423,7 @@ public class ScrcpyJPanels {
         btnSignedIn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //                ForegroundAppRun.stopWait();
+                // ForegroundAppRun.stopWait();
                 ActAutoRun.stopWait();
             }
         });
@@ -445,13 +441,13 @@ public class ScrcpyJPanels {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // ForegroundAppRun.stopWait(true);
-                //                ForegroundAppRun.stopWait();
-                //                ForegroundAppRun.allAppOpened();
+                // ForegroundAppRun.stopWait();
+                // ForegroundAppRun.allAppOpened();
                 AdbTools.getInstance().showDialogOk("都签了", "全部应用都签到完毕了?", new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-//                        ForegroundAppRun.stopWait();
-//                        ForegroundAppRun.allAppOpened();
+                        // ForegroundAppRun.stopWait();
+                        // ForegroundAppRun.allAppOpened();
 
                         ActAutoRun.stopWait();
                         ActAutoRun.allAppOpened();
