@@ -169,6 +169,7 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
         switch (packageName) {
             case "com.taobao.live":
             case "com.taobao.taobao":
+            case "com.taobao.litetao":
                 System.out.println("点淘APP,结束等待后 返回");
                 AdbTools.getInstance().getAdbJPanels().getBtnReturn().doClick();
                 break;

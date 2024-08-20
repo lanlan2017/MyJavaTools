@@ -1,15 +1,18 @@
 package adbs.main.ui.jpanels.check;
 
+import adbs.main.AdbTools;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.jpanels.adb.AdbJPanels;
 import adbs.main.ui.jpanels.app.AppSignedInPanels;
-//import adbs.main.ui.jpanels.auto.AutoPanels;
 import adbs.main.ui.jpanels.scrcpy.ScrcpyJPanels;
 import adbs.main.ui.jpanels.timeauto2.TimingPanels2;
 import adbs.main.ui.jpanels.tools.ToolsJPanels;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
+import tools.swing.dialog.DialogFactory;
 
 import javax.swing.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 /**
  * 展开或折叠其他面板
@@ -18,20 +21,20 @@ import javax.swing.*;
 public class CheckJPanels {
 
     private final JCheckBox signInCheckBox;
-    private JPanel checkJPanel;
+    private final JPanel checkJPanel;
 
     private final JCheckBox generalJCheckBox;
     private final JCheckBox adbJCheckBox;
     private final JCheckBox scrcpyJCheckBox;
     private final JCheckBox controlJCheckBox;
     private final JCheckBox toolsJCheckBox;
-//    /**
-//     * 控制 自动面板
-//     * 展开或收起 自动面板
-//     */
-//    private final JCheckBox autoCheckBox;
+    // /**
+    // * 控制 自动面板
+    // * 展开或收起 自动面板
+    // */
+    // private final JCheckBox autoCheckBox;
 
-//    public CheckJPanels(TimingPanels2 timingPanels2, ToolsJPanels toolsJPanels, AutoPanels autoPanels, UniversalPanels universralPanels, AdbJPanels adbJPanels, ScrcpyJPanels scrcpyJPanels, AppPanels appPanels) {
+    // public CheckJPanels(TimingPanels2 timingPanels2, ToolsJPanels toolsJPanels, AutoPanels autoPanels, UniversalPanels universralPanels, AdbJPanels adbJPanels, ScrcpyJPanels scrcpyJPanels, AppPanels appPanels) {
     public CheckJPanels(TimingPanels2 timingPanels2, ToolsJPanels toolsJPanels, UniversalPanels universralPanels, AdbJPanels adbJPanels, ScrcpyJPanels scrcpyJPanels, AppSignedInPanels appSignedInPanels) {
         // 初始化多选框面板
         checkJPanel = new JPanel();
@@ -74,30 +77,52 @@ public class CheckJPanels {
         // toolsJCheckBox.doClick();
         toolsJCheckBox.setToolTipText("usb上网，提前apk，安装apk功能");
 
-//        // autoCheckBox = new JCheckBox("Auto");
-//        // autoCheckBox = new JCheckBox("金币");
-//        autoCheckBox = new JCheckBox("币");
-//        autoCheckBox.setToolTipText("打开自动化面板");
-//        autoCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(autoPanels.getAutoJPanel()));
+        // // autoCheckBox = new JCheckBox("Auto");
+        // // autoCheckBox = new JCheckBox("金币");
+        // autoCheckBox = new JCheckBox("币");
+        // autoCheckBox.setToolTipText("打开自动化面板");
+        // autoCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(autoPanels.getAutoJPanel()));
 
         // signInCheckBox = new JCheckBox("签到");
         signInCheckBox = new JCheckBox("签");
         signInCheckBox.setToolTipText("显示已签到APP");
         signInCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(appSignedInPanels.getAppPanel()));
 
+        JCheckBox topCheckBox = new JCheckBox("↑");
+        topCheckBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                AdbTools instance = AdbTools.getInstance();
+                //                instance.showDialogOk();
+                JFrame frame = instance.getFrame();
+                // 如果当前的状态是勾选状态
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    System.out.println("开启 窗口置顶");
+                    frame.setAlwaysOnTop(true);
+                    DialogFactory.setAlwaysOnTop(true);
+                } else {
+                    System.out.println("取消 窗口置顶");
+                    frame.setAlwaysOnTop(false);
+                    DialogFactory.setAlwaysOnTop(false);
+                }
+            }
+        });
+
+
         checkJPanel.add(adbJCheckBox);
         checkJPanel.add(scrcpyJCheckBox);
         checkJPanel.add(generalJCheckBox);
         checkJPanel.add(controlJCheckBox);
         checkJPanel.add(toolsJCheckBox);
-//        checkJPanel.add(autoCheckBox);
+        // checkJPanel.add(autoCheckBox);
         checkJPanel.add(signInCheckBox);
+        checkJPanel.add(topCheckBox);
         // return checkJPanel;
     }
 
-//    public JCheckBox getAutoCheckBox() {
-//        return autoCheckBox;
-//    }
+    // public JCheckBox getAutoCheckBox() {
+    // return autoCheckBox;
+    // }
 
     public JPanel getCheckJPanel() {
         return checkJPanel;
