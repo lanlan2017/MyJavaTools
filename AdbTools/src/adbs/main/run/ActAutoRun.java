@@ -425,11 +425,16 @@ public class ActAutoRun implements Runnable {
         // System.out.println("    actShorCurrent = " + actShorCurrent);
         switch (packageCurrent) {
             case "com.taobao.live":
+                // 点淘
                 DianTaoChange.getInstance().onChange(actShortBefore, actShorCurrent);
                 break;
-            // 淘宝
             case "com.taobao.taobao":
+                // 淘宝
                 TaoBaoChange.getInstance().onChange(actShortBefore, actShorCurrent);
+                break;
+            case "com.taobao.litetao":
+                //陶特
+                TaoTe.getInstance().onChange(actShortBefore, actShorCurrent);
                 break;
             case "com.qiyi.video.lite":
                 // 爱奇艺极速版
