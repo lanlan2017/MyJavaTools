@@ -2,7 +2,7 @@ package adbs.main.run.act;
 
 import java.util.HashSet;
 
-public class DianTaoChange extends ActChange {
+public class DianTaoChange extends ActChangeAdapter {
     private  static DianTaoChange instance=new DianTaoChange();
 
     public static DianTaoChange getInstance() {
@@ -34,11 +34,6 @@ public class DianTaoChange extends ActChange {
     }
 
     @Override
-    protected HashSet<ActToAct> set_w35sDialog_Set() {
-        return null;
-    }
-
-    @Override
     protected HashSet<ActToAct> set_w65sDialog_Set() {
 
         //哪些情况下等待65秒
@@ -47,16 +42,6 @@ public class DianTaoChange extends ActChange {
         set_w65sDialog.add(new ActToAct(".pha.PHAContainerActivity", "com.baidu.mobads.sdk.api.MobRewardVideoActivity"));
 
         return set_w65sDialog;
-    }
-
-    @Override
-    protected HashSet<ActToAct> set_w180sDialog_Set() {
-        return null;
-    }
-
-    @Override
-    protected HashSet<ActToAct> set_s35sDialog_Set() {
-        return null;
     }
 
     @Override
@@ -74,19 +59,8 @@ public class DianTaoChange extends ActChange {
     }
 
     @Override
-    protected HashSet<ActToAct> set_vw180sDialog_Set() {
-        return null;
-    }
-
-    @Override
-    protected HashSet<ActToAct> set_s35s_Set() {
-        return null;
-    }
-
-    @Override
     protected HashSet<ActToAct> set_s65sDialog_Set() {
         HashSet<ActToAct> set_s65sDialog = new HashSet<>();
-        //
         // 从元宝中心，进入 上新日历
         set_s65sDialog.add(new ActToAct(".pha.PHAContainerActivity", ".h5.BrowserActivity"));
         // 元宝中心 进入 精品推荐
@@ -99,7 +73,6 @@ public class DianTaoChange extends ActChange {
 
     @Override
     protected HashSet<ActToAct> set_return_Set() {
-
         // 跳过安全验证
         HashSet<ActToAct> set_return = new HashSet<>();
         set_return.add(new ActToAct(".TaoLiveVideoActivity", "com.taobao.taolive.sdk.permisson.PermissionActivity"));

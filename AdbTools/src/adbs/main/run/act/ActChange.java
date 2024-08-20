@@ -25,6 +25,7 @@ public abstract class ActChange {
     private HashSet<ActToAct> s65sDialog_Set;
     private HashSet<ActToAct> s35s_Set;
     private HashSet<ActToAct> s_Set;
+    private HashSet<ActToAct> rw5HDialog_Set;
 
     private HashSet<ActToAct> return_Set;
 
@@ -45,7 +46,7 @@ public abstract class ActChange {
 
         vw180s_Set = set_vw180s_Set();
         vw180sDialog_Set = set_vw180sDialog_Set();
-
+        rw5HDialog_Set = set_rw5HDialog_Set();
         return_Set = set_return_Set();
     }
 
@@ -69,6 +70,8 @@ public abstract class ActChange {
 
     protected abstract HashSet<ActToAct> set_vw180sDialog_Set();
 
+    public abstract HashSet<ActToAct> set_rw5HDialog_Set();
+
     protected abstract HashSet<ActToAct> set_return_Set();
 
     public void onChange(String actBefore, String act) {
@@ -78,38 +81,51 @@ public abstract class ActChange {
         ActToAct actToAct = new ActToAct(actBefore, act);
         // ActToAct actToAct = new ActToAct(actBefore, act);
 
-        if (w35sDialog_Set != null && w35sDialog_Set.contains(actToAct)) {
+        if (contains(w35sDialog_Set, actToAct)) {
             // 弹窗询问是否要等待35秒
             timingPanels2.w35sDialog();
-        } else if (w65sDialog_Set != null && w65sDialog_Set.contains(actToAct)) {
+        } else if (contains(w65sDialog_Set, actToAct)) {
             // 弹窗询问是否要等待65秒
             timingPanels2.w65sDialog();
-        } else if (w180sDialog_set != null && w180sDialog_set.contains(actToAct)) {
+        } else if (contains(w180sDialog_set, actToAct)) {
             // 弹窗询问是否需要等待180秒
             timingPanels2.w180sDialog();
-        } else if (s65sDialog_Set != null && s65sDialog_Set.contains(actToAct)) {
+        } else if (contains(s65sDialog_Set, actToAct)) {
             // 弹窗询问是否需要逛街65秒
             timingPanels2.s65sDialog();
-        } else if (s35sDialog_Set != null && s35sDialog_Set.contains(actToAct)) {
+        } else if (contains(s35sDialog_Set, actToAct)) {
             // 弹窗询问是否需要逛街35秒
             timingPanels2.s35sDialog();
-        } else if (s35s_Set != null && s35s_Set.contains(actToAct)) {
+        } else if (contains(s35s_Set, actToAct)) {
             // 弹窗询问是否需要逛街35秒
             timingPanels2.s35s();
-        } else if (s_Set != null && s_Set.contains(actToAct)) {
+        } else if (contains(s_Set, actToAct)) {
             // 显示逛街系列按钮
             timingPanels2.s();
-        } else if (vw180sDialog_Set != null && vw180sDialog_Set.contains(actToAct)) {
+        } else if (contains(vw180sDialog_Set, actToAct)) {
             // 弹窗询问是否需要刷视频180秒
             timingPanels2.vw180sDialog();
-        } else if (vw180s_Set != null && vw180s_Set.contains(actToAct)) {
+        } else if (contains(vw180s_Set, actToAct)) {
             // 直接 刷视频180秒
             timingPanels2.vw180s();
-        } else if (return_Set != null && return_Set.contains(actToAct)) {
+        } else if (contains(rw5HDialog_Set, actToAct)) {
+            timingPanels2.rw5HDialog();
+        } else if (contains(return_Set, actToAct)) {
             System.out.println("遇到授权要求，直接返回");
             Device device = AdbTools.getInstance().getDevice();
             // 按下返回键
             AdbCommands.returnBtn(device);
         }
+    }
+
+    /**
+     * 判断给定的set集合中是否存在actToAct这个元素。
+     *
+     * @param set      要查询的Set
+     * @param actToAct 要查询的元素
+     * @return 如果set不是null, 并且set中存在要查询的元素的话，返回true，否则返回false。
+     */
+    private boolean contains(HashSet<ActToAct> set, ActToAct actToAct) {
+        return set != null && set.contains(actToAct);
     }
 }

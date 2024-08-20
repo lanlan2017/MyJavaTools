@@ -2,7 +2,7 @@ package adbs.main.run.act;
 
 import java.util.HashSet;
 
-public class AiQiYi extends ActChange {
+public class AiQiYi extends ActChangeAdapter {
     private static final AiQiYi instance = new AiQiYi();
 
     public static AiQiYi getInstance() {
@@ -22,46 +22,6 @@ public class AiQiYi extends ActChange {
         HashSet<ActToAct> w65sDialog = new HashSet<>();
         w65sDialog.add(new ActToAct(".webview.WebViewActivity", "com.bytedance.sdk.openadsdk.stub.activity.Stub_Standard_Portrait_Activity"));
 
-        return null;
-    }
-
-    @Override
-    protected HashSet<ActToAct> set_w180sDialog_Set() {
-        return null;
-    }
-
-    @Override
-    protected HashSet<ActToAct> set_s35sDialog_Set() {
-        return null;
-    }
-
-    @Override
-    protected HashSet<ActToAct> set_s65sDialog_Set() {
-        return null;
-    }
-
-    @Override
-    protected HashSet<ActToAct> set_s35s_Set() {
-        return null;
-    }
-
-    @Override
-    protected HashSet<ActToAct> set_s_Set() {
-        return null;
-    }
-
-    @Override
-    protected HashSet<ActToAct> set_vw180s_Set() {
-        return null;
-    }
-
-    @Override
-    protected HashSet<ActToAct> set_vw180sDialog_Set() {
-        return null;
-    }
-
-    @Override
-    protected HashSet<ActToAct> set_return_Set() {
         return null;
     }
 }

@@ -2,7 +2,7 @@ package adbs.main.run.act;
 
 import java.util.HashSet;
 
-public class FanQieMianFeiXiaoShuo extends ActChange {
+public class FanQieMianFeiXiaoShuo extends ActChangeAdapter {
 
     // 单例模式
     // 实例对象
@@ -15,21 +15,6 @@ public class FanQieMianFeiXiaoShuo extends ActChange {
     }
 
     @Override
-    protected HashSet<ActToAct> set_s_Set() {
-        return null;
-    }
-
-    @Override
-    protected HashSet<ActToAct> set_w35sDialog_Set() {
-        return null;
-    }
-
-    @Override
-    protected HashSet<ActToAct> set_w65sDialog_Set() {
-        return null;
-    }
-
-    @Override
     protected HashSet<ActToAct> set_w180sDialog_Set() {
         HashSet<ActToAct> set_w180sDialog = new HashSet<>();
         set_w180sDialog.add(new ActToAct("com.ss.android.excitingvideo.ExcitingVideoActivity", "com.bytedance.mira.stub.p0.StubSingleTaskActivity1"));
@@ -38,33 +23,4 @@ public class FanQieMianFeiXiaoShuo extends ActChange {
         return set_w180sDialog;
     }
 
-    @Override
-    protected HashSet<ActToAct> set_s35sDialog_Set() {
-        return null;
-    }
-
-    @Override
-    protected HashSet<ActToAct> set_vw180s_Set() {
-        return null;
-    }
-
-    @Override
-    protected HashSet<ActToAct> set_vw180sDialog_Set() {
-        return null;
-    }
-
-    @Override
-    protected HashSet<ActToAct> set_s35s_Set() {
-        return null;
-    }
-
-    @Override
-    protected HashSet<ActToAct> set_s65sDialog_Set() {
-        return null;
-    }
-
-    @Override
-    protected HashSet<ActToAct> set_return_Set() {
-        return null;
-    }
 }

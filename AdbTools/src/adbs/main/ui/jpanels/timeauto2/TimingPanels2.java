@@ -610,6 +610,11 @@ public class TimingPanels2 extends WaitValues {
         dialogAuto("vw_180s");
     }
 
+    public void rw5HDialog() {
+        // auto("vw_180s");
+        dialogAuto("rw_5H");
+    }
+
     /**
      * 先等待几秒钟再执行自动操作
      *

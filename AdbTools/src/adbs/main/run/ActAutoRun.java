@@ -274,10 +274,10 @@ public class ActAutoRun implements Runnable {
                 updateTitle(act);
             }
         } else {
-            //            程序启动的时候before为null
+            // 程序启动的时候before为null
             // 在用户切换界面时，执行动作
             // actChange(act);
-            //            如果此时的act改变，也就行一次签到检查
+            // 如果此时的act改变，也就行一次签到检查
             String packageName = act.getPackageName();
             check_(packageName);
 
@@ -444,8 +444,12 @@ public class ActAutoRun implements Runnable {
                 DouYinJiSuBan.getInstance().onChange(actShortBefore, actShorCurrent);
                 break;
             case "com.ximalaya.ting.lite":
-                //                喜马拉雅极速版
+                // 喜马拉雅极速版
                 XiMaLaYaJiSuBan.getInstance().onChange(actShortBefore, actShorCurrent);
+                break;
+            case "com.kuaishou.kgx.novel":
+                // 快手免费小说
+                KuaiShouMianFeiXiaoShuo.getInstance().onChange(actShortBefore, actShorCurrent);
                 break;
         }
     }
@@ -540,9 +544,9 @@ public class ActAutoRun implements Runnable {
         // 如果还没停止签到检查的话
         if (!stopAppCheck) {
             int size = apps.size();
-            //            System.out.println("size = " + size);
+            // System.out.println("size = " + size);
             int size1 = appOpened.size();
-            //            System.out.println("size1 = " + size1);
+            // System.out.println("size1 = " + size1);
             // 如果用户勾选了所有应用都打开了
             if (isAllAppOpened) {
                 // 清空签到记录表
@@ -743,7 +747,7 @@ public class ActAutoRun implements Runnable {
         for (String s : appOpened) {
             // 如果签到记录里没有这个记录
             if (!text.contains(s + appNameEndFlag)) {
-                //                try {
+                // try {
                 String newAppName = s + appNameEndFlag + "\n";
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
@@ -760,9 +764,9 @@ public class ActAutoRun implements Runnable {
                 isChange = true;
                 // 如果需要特定样式，可以替换null为相应的AttributeSet
                 // JFramePack.pack();
-                //                } catch (BadLocationException e) {
-                //                    e.printStackTrace();
-                //                }
+                // } catch (BadLocationException e) {
+                // e.printStackTrace();
+                // }
             }
         }
         return isChange;
