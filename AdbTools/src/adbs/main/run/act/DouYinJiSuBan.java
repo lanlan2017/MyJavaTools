@@ -25,6 +25,7 @@ public class DouYinJiSuBan extends ActChange {
         actToActs.add(new ActToAct("com.ss.android.excitingvideo.ExcitingVideoActivity", "com.ss.android.ugc.aweme.live.LivePlayActivity"));
 //        actToActs.add(new ActToAct("com.ss.android.excitingvideo.ExcitingVideoActivity", "com.ss.android.ugc.aweme.live.LivePlayActivity"));
         actToActs.add(new ActToAct("com.ss.android.ugc.aweme.splash.SplashActivity", "com.ss.android.excitingvideo.ExcitingVideoActivity"));
+//        actToActs.add(new ActToAct("com.ss.android.ugc.aweme.splash.SplashActivity", "com.ss.android.excitingvideo.ExcitingVideoActivity"));
         return null;
     }
 

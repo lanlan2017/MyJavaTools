@@ -433,7 +433,8 @@ public class AdbTools {
 
     public void showDialogOkCancel(String message, ActionListener actionListenerOk,ActionListener actionListenerCancel) {
         //        JFrame frame = AdbTools.getInstance().getFrame();
-        DialogFactory.showDialogOkCancel(frame, "", message, actionListenerOk,actionListenerCancel);
+//        DialogFactory.showDialogOkCancel(frame, "", message, actionListenerOk,actionListenerCancel);
+        DialogFactory.showDialogOkCancel(frame, device.getName(), message, actionListenerOk,actionListenerCancel);
     }
 
 

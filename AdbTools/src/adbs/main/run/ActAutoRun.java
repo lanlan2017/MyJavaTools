@@ -443,6 +443,10 @@ public class ActAutoRun implements Runnable {
                 //抖音极速版
                 DouYinJiSuBan.getInstance().onChange(actShortBefore, actShorCurrent);
                 break;
+            case "com.ximalaya.ting.lite":
+                //                喜马拉雅极速版
+                XiMaLaYaJiSuBan.getInstance().onChange(actShortBefore, actShorCurrent);
+                break;
         }
     }
 

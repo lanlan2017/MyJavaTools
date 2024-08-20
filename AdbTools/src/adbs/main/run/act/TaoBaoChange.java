@@ -77,6 +77,9 @@ public class TaoBaoChange extends ActChange {
 
     @Override
     protected HashSet<ActToAct> set_return_Set() {
-        return null;
+        HashSet<ActToAct> return_set = new HashSet<>();
+        return_set.add(new ActToAct("com.taobao.tao.TBMainActivity", "com.taobao.taolive.room.TaoLiveVideoActivity"));
+
+        return return_set;
     }
 }

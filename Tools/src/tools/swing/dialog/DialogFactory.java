@@ -11,9 +11,10 @@ public class DialogFactory {
     // 创建一个新的对话框实例  
     private static JDialog createDialogOkCancel(String title, String message, ActionListener okListener, ActionListener cancelListener) {
         JDialog dialog = new JDialog();
-        dialog.setAlwaysOnTop(true);
+//        dialog.setAlwaysOnTop(true);
         dialog.setTitle(title);
         //        dialog.setModal(true);
+        //非模式，不阻塞主程序
         dialog.setModal(false);
         dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 
@@ -68,7 +69,7 @@ public class DialogFactory {
     // 创建一个新的对话框实例
     private static JDialog createDialogOk(String title, String message, ActionListener okListener) {
         JDialog dialog = new JDialog();
-        dialog.setAlwaysOnTop(true);
+//        dialog.setAlwaysOnTop(true);
         dialog.setTitle(title);
         //        dialog.setModal(true);
         dialog.setModal(false);
@@ -122,7 +123,7 @@ public class DialogFactory {
      */
     private static JDialog createDialogOk(String title, String message, ActionListener okListener, WindowAdapter windowAdapter) {
         JDialog dialog = new JDialog();
-        dialog.setAlwaysOnTop(true);
+//        dialog.setAlwaysOnTop(true);
         dialog.setTitle(title);
         //        dialog.setModal(true);
         dialog.setModal(false);
