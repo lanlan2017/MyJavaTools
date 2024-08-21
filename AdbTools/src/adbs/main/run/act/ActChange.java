@@ -20,6 +20,7 @@ public abstract class ActChange {
 
     private HashSet<ActToAct> vw180s_Set;
     private HashSet<ActToAct> vw180sDialog_Set;
+    private HashSet<ActToAct> vw1HDialog_Set;
 
     private HashSet<ActToAct> s35sDialog_Set;
     private HashSet<ActToAct> s65sDialog_Set;
@@ -46,6 +47,8 @@ public abstract class ActChange {
 
         vw180s_Set = set_vw180s_Set();
         vw180sDialog_Set = set_vw180sDialog_Set();
+        vw1HDialog_Set = set_vw1HDialog_Set();
+
         rw5HDialog_Set = set_rw5HDialog_Set();
         return_Set = set_return_Set();
     }
@@ -69,6 +72,8 @@ public abstract class ActChange {
     protected abstract HashSet<ActToAct> set_vw180s_Set();
 
     protected abstract HashSet<ActToAct> set_vw180sDialog_Set();
+
+    protected abstract HashSet<ActToAct> set_vw1HDialog_Set();
 
     protected abstract HashSet<ActToAct> set_rw5HDialog_Set();
 
@@ -108,6 +113,10 @@ public abstract class ActChange {
         } else if (contains(vw180s_Set, actToAct)) {
             // 直接 刷视频180秒
             timingPanels2.vw180s();
+        } else if (contains(vw1HDialog_Set, actToAct)) {
+            // timingPanels2.vw180sDialog();
+            // 刷视频1小时
+            timingPanels2.vw1HDialog();
         } else if (contains(rw5HDialog_Set, actToAct)) {
             timingPanels2.rw5HDialog();
         } else if (contains(return_Set, actToAct)) {

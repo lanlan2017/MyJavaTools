@@ -211,8 +211,9 @@
 //        // 打开手机管家
 //        adbTools.getAdbJPanels().getBtnMobileButler().doClick();
 //        // 停止线程，防止反复触发
-//         ThreadSleep.minutes(1.5);
+//        //         ThreadSleep.minutes(1.5);
 //        // ThreadSleep.minutes(4.0);
+//        wait_(40);
 //    }
 //
 //    private void copyAllAppsIntoCheckInForm() {
@@ -411,12 +412,38 @@
 //
 //
 //    private void wait_() {
+//        //        stopWait = false;
+//        //        // int seconds = 2;
+//        //        int s5 = 5;
+//        //        int s2 = 2;
+//        //        //
+//        //        int endWait = 40;
+//        //        int count = 0;
+//        //        if (IsTest.isTest()) {
+//        //            // 测试时使用 5秒钟
+//        //            ThreadSleep.seconds(s5);
+//        //        } else {
+//        //            while (!stopWait) {
+//        //                // System.out.println("stopWait = " + stopWait);
+//        //                // 等待5秒
+//        //                ThreadSleep.seconds(s2);
+//        //                // System.out.println("签到线程等待中:" + count);
+//        //                count += s2;
+//        //                if (count >= endWait) {
+//        //                    // stopWait = true;
+//        //                    break;
+//        //                }
+//        //            }
+//        //        }
+//        wait_(40);
+//    }
+//
+//    private void wait_(int endWait) {
 //        stopWait = false;
 //        // int seconds = 2;
 //        int s5 = 5;
 //        int s2 = 2;
 //        //
-//        int endWait = 40;
 //        int count = 0;
 //        if (IsTest.isTest()) {
 //            // 测试时使用 5秒钟

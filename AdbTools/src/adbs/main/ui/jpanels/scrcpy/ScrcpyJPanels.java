@@ -150,16 +150,11 @@ public class ScrcpyJPanels {
         btnNextDay.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // 设置
-                // ForegroundAppRun.onNextDay();
-                // isFirstTimeRun = true;
-                // ForegroundAppRun.stopWait();
                 AdbTools.getInstance().showDialogOk("重签", "重置签到状态?", new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        // ForegroundAppRun.onNextDay();
-                        ActAutoRun.stopWait();
                         ActAutoRun.onNextDay();
+                        ActAutoRun.stopWait();
                     }
                 });
             }
@@ -423,7 +418,6 @@ public class ScrcpyJPanels {
         btnSignedIn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // ForegroundAppRun.stopWait();
                 ActAutoRun.stopWait();
             }
         });
@@ -448,7 +442,6 @@ public class ScrcpyJPanels {
                     public void actionPerformed(ActionEvent e) {
                         // ForegroundAppRun.stopWait();
                         // ForegroundAppRun.allAppOpened();
-
                         ActAutoRun.stopWait();
                         ActAutoRun.allAppOpened();
 
