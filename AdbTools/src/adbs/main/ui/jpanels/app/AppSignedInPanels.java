@@ -1,5 +1,6 @@
 package adbs.main.ui.jpanels.app;
 
+import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
 import adbs.main.run.ActAutoRun;
 import adbs.main.run.AdbGetPackage;
@@ -29,6 +30,7 @@ public class AppSignedInPanels {
     private final JPanel btnPanel;
     private final JButton zhongdian;
     private final JButton quxiao;
+    private final JButton batteryReset;
 
     private final JTextPane signedIn;
     private final JTextPane notOpened;
@@ -55,7 +57,7 @@ public class AppSignedInPanels {
         this.zhongdian.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                String appName = getAppName() + ForegroundAppRun.appNameEndFlag;
+                //                String appName = getAppName() + ForegroundAppRun.appNameEndFlag;
                 String appName = getAppName() + ActAutoRun.appNameEndFlag;
                 highlightString(signedIn, appName, Color.pink);
             }
@@ -63,14 +65,22 @@ public class AppSignedInPanels {
         quxiao.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                removeSpecificHighlights(signedIn, getAppName() + ForegroundAppRun.appNameEndFlag);
+                //                removeSpecificHighlights(signedIn, getAppName() + ForegroundAppRun.appNameEndFlag);
                 removeSpecificHighlights(signedIn, getAppName() + ActAutoRun.appNameEndFlag);
+            }
+        });
+        batteryReset = new JButton("充电");
+        batteryReset.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AdbCommands.batteryReset(AdbTools.getInstance().getDevice());
             }
         });
 
 
         btnPanel.add(zhongdian);
         btnPanel.add(quxiao);
+        btnPanel.add(batteryReset);
 
         AbstractButtons.setMarginInButtonJPanel(btnPanel);
 

@@ -205,8 +205,17 @@ public class AdbJPanels {
                 AdbTools.getInstance().showDialogOk("电源键", "按下手机电源键？", new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        Device device = AdbTools.getInstance().getDevice();
-                        AdbCommands.powerBtn(device);
+                        // AdbCommands.
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Device device = AdbTools.getInstance().getDevice();
+                                // AdbCommands.batteryReset(device.getSerial());
+                                // 按下开机按键
+                                AdbCommands.powerBtn(device);
+
+                            }
+                        }).start();
 
                     }
                 });

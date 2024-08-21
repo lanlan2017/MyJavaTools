@@ -180,6 +180,47 @@ public class AdbCommands implements ActivityStr {
     }
 
     /**
+     * 禁用USB充电
+     *
+     * @param serial 设备序列号
+     */
+    public static void batterySetUsb0(String serial) {
+        String usbChargingProhibited = "adb -s " + serial + " shell dumpsys battery set usb 0";
+        AdbCommands.runAbdCmd(usbChargingProhibited);
+    }
+
+    /**
+     * 禁用USB充电
+     */
+    public static void batterySetUsb0(Device device) {
+        String serial = device.getSerial();
+        String usbChargingProhibited = "adb -s " + serial + " shell dumpsys battery set usb 0";
+        AdbCommands.runAbdCmd(usbChargingProhibited);
+    }
+
+    /**
+     * 重置电池状态，允许USB充电
+     *
+     * @param serial 设备序列号
+     */
+    public static void batteryReset(String serial) {
+        String reset = "adb -s " + serial + " shell dumpsys battery reset";
+        AdbCommands.runAbdCmd(reset);
+    }
+
+    /**
+     * 重置电池状态，允许USB充电
+     *
+     * @param device 设备对象
+     */
+    public static void batteryReset(Device device) {
+        String serial = device.getSerial();
+        String reset = "adb -s " + serial + " shell dumpsys battery reset";
+        AdbCommands.runAbdCmd(reset);
+    }
+
+
+    /**
      * 隐藏导航条
      *
      * @param device 要隐藏导航条的设备
@@ -231,7 +272,7 @@ public class AdbCommands implements ActivityStr {
         ThreadSleep.seconds(3);
         AdbCommands.swipeBotton2TopOnRight(device);
         ThreadSleep.seconds(3);
-//        AdbTap.tapCenterPosition(device);
+        //        AdbTap.tapCenterPosition(device);
         ThreadSleep.seconds(3);
     }
 
