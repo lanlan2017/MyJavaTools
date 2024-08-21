@@ -71,6 +71,7 @@ public class ActAutoRun implements Runnable {
      */
     private static volatile boolean stopWait;
     public static final String appNameEndFlag = " ";
+    private ActivityInfo beforeAct;
     // private TaoBaoChange taoBaoChange;
     // private DianTaoChange dianTaoChange;
     // private FanQieMianFeiXiaoShuo fanQieMianFeiXiaoShuo;
@@ -213,7 +214,7 @@ public class ActAutoRun implements Runnable {
         // 现在的Activity信息
         ActivityInfo act;
         // 上一轮查询时的Activity信息
-        ActivityInfo beforeAct = null;
+        beforeAct = null;
         before();
         while (!stop) {
             // 获取当前act
@@ -225,6 +226,15 @@ public class ActAutoRun implements Runnable {
             if (!equals) {
                 actChange(beforeAct, act);
             }
+
+            if (isAllAppOpened) {
+                //                allAppOpenedSetting();
+                //                showOpenedApp();
+                //                showNotOpenApp();
+                check_(act.getPackageName());
+
+            }
+
             // 等待一定的时间
             // wait_();
             // 如果刚好进入第2天
@@ -232,6 +242,8 @@ public class ActAutoRun implements Runnable {
                 // 清空前一天的签到设置
                 nextDaySetting();
             }
+
+
             // 根据当前的Activity来决定要等待多久
             _wait(act);
             //记录下上次的Activity详细信息
@@ -287,7 +299,7 @@ public class ActAutoRun implements Runnable {
     private void updateTitle(ActivityInfo act) {
         String currentPackageName = act.getPackageName();
         String currentAppName = AdbToolsProperties.moneyApkPro.getProperty(currentPackageName);
-        System.out.println("currentAppName = " + currentAppName);
+        //        System.out.println("currentAppName = " + currentAppName);
         // 如果不相等，说明是可赚钱的APP
         if (!currentPackageName.equals(currentAppName)) {
             updateFormTitle(currentAppName);
@@ -409,6 +421,23 @@ public class ActAutoRun implements Runnable {
         }
     }
 
+    private void _wait(int endWait) {
+        System.out.println("act 等待：" + endWait);
+        stopWait = false;
+        int s2 = 2;
+        int count = 0;
+        while (!stopWait) {
+            // System.out.println("stopWait = " + stopWait);
+            // 等待5秒
+            ThreadSleep.seconds(s2);
+            // System.out.println("签到线程等待中:" + count);
+            count += s2;
+            if (count >= endWait) {
+                // stopWait = true;
+                break;
+            }
+        }
+    }
 
     /**
      * 同一个App的不同activity改变时
@@ -462,6 +491,9 @@ public class ActAutoRun implements Runnable {
                 // 快手免费小说
                 KuaiShouMianFeiXiaoShuo.getInstance().onChange(actShortBefore, actShorCurrent);
                 break;
+            case "com.xunmeng.pinduoduo":
+                //                拼多多
+                break;
         }
     }
 
@@ -506,8 +538,7 @@ public class ActAutoRun implements Runnable {
                 updateSignedInApp();
                 if (appOpened.size() == apps.size()) {
                     // 签到完成设置
-                    afterOpeningAllAPKs();
-                    stopAppCheck = true;
+                    allAppChecked();
                 }
             } else if (!"".equals(trimmedAppsStr)) {
                 System.out.println("只有一个签到记录");
@@ -551,33 +582,70 @@ public class ActAutoRun implements Runnable {
     }
 
     private void check(String packageName) {
-        updateAppOpened(packageName);
+        // 更新签到记录表
+        //        updateAppOpened(packageName);
         // 如果还没停止签到检查的话
         if (!stopAppCheck) {
-            int size = apps.size();
-            // System.out.println("size = " + size);
-            int size1 = appOpened.size();
-            // System.out.println("size1 = " + size1);
+            //            updateAppOpened(packageName);
             // 如果用户勾选了所有应用都打开了
             if (isAllAppOpened) {
                 // 清空签到记录表
                 clearCheckInForm();
                 // 把所有的APP都填到签到记录表中
                 copyAllAppsIntoCheckInForm();
-                afterOpeningAllAPKs();
-                stopAppCheck = true;
+                allAppChecked();
+
+            } else {
+                // 如果没有签到完毕
+                updateAppOpened(packageName);
+
+                if (appOpened.size() == apps.size()) {
+                    // 签到完成设置
+                    allAppChecked();
+                }
             }
-            // 如果已签到列表和应用列表的长度一样，则说明所有APP都签到完毕了
-            else if (appOpened.size() == apps.size()) {
-                // 签到完成设置
-                afterOpeningAllAPKs();
-                stopAppCheck = true;
-            }
+
+
+            //            // 如果已签到列表和应用列表的长度一样，则说明所有APP都签到完毕了
+            ////            else
+            //
+            //                if (appOpened.size() == apps.size()) {
+            //                // 签到完成设置
+            //                allAppChecked();
+            //        }
             // 打印已经打开的APP
             showOpenedApp();
             // 打印没打开的APP
             showNotOpenApp();
         }
+
+    }
+
+    private void allAppChecked() {
+        //        afterOpeningAllAPKs();
+
+        // // 已签到完成，停止签到检查
+        // stopAppCheck = true;
+        // 把apk的名称放到列表中
+        // System.out.println("已打开:" + apkOpenedToday);
+        System.out.println("所有的apk签到完成!");
+        // // 改变背景色，表示签到完成
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                universalPanel.setBackground(Color.pink);
+            }
+        });
+        // 不再进行签到检查
+        stopAppCheck = true;
+    }
+
+    private void allAppOpenedSetting() {
+        // 清空签到记录表
+        clearCheckInForm();
+        // 把所有的APP都填到签到记录表中
+        copyAllAppsIntoCheckInForm();
+        allAppChecked();
     }
 
 
@@ -596,8 +664,11 @@ public class ActAutoRun implements Runnable {
         // 打开手机管家
         adbTools.getAdbJPanels().getBtnMobileButler().doClick();
         // 停止线程，防止反复触发
-        ThreadSleep.minutes(1);
+        //        ThreadSleep.minutes(1);
+
+        beforeAct = null;
         // ThreadSleep.minutes(4.0);
+        _wait(40);
     }
 
 
@@ -684,6 +755,7 @@ public class ActAutoRun implements Runnable {
      * 清空签到记录表
      */
     private void clearCheckInForm() {
+        System.out.println("清空签到记录表");
         // 清空签到记录表
         Iterator<String> iOpened = appOpened.iterator();
         while (iOpened.hasNext()) {
@@ -702,25 +774,24 @@ public class ActAutoRun implements Runnable {
         return nextDay;
     }
 
-
-    private void _wait(int endWait) {
-        System.out.println("act 等待：" + endWait);
-        stopWait = false;
-        int s2 = 2;
-        int count = 0;
-        while (!stopWait) {
-            // System.out.println("stopWait = " + stopWait);
-            // 等待5秒
-            ThreadSleep.seconds(s2);
-            // System.out.println("签到线程等待中:" + count);
-            count += s2;
-            if (count >= endWait) {
-                // stopWait = true;
-                break;
-            }
-        }
-
-    }
+    //
+    //    private void _wait(int endWait) {
+    //        System.out.println("act 等待：" + endWait);
+    //        stopWait = false;
+    //        int s2 = 2;
+    //        int count = 0;
+    //        while (!stopWait) {
+    //            // System.out.println("stopWait = " + stopWait);
+    //            // 等待5秒
+    //            ThreadSleep.seconds(s2);
+    //            // System.out.println("签到线程等待中:" + count);
+    //            count += s2;
+    //            if (count >= endWait) {
+    //                // stopWait = true;
+    //                break;
+    //            }
+    //        }
+    //    }
 
 
     /**
@@ -773,11 +844,6 @@ public class ActAutoRun implements Runnable {
                 });
 
                 isChange = true;
-                // 如果需要特定样式，可以替换null为相应的AttributeSet
-                // JFramePack.pack();
-                // } catch (BadLocationException e) {
-                // e.printStackTrace();
-                // }
             }
         }
         return isChange;
@@ -792,11 +858,9 @@ public class ActAutoRun implements Runnable {
      */
     private void updateAppOpened(String packageName) {
         String appName = AdbToolsProperties.moneyApkPro.getProperty(packageName);
-
+        System.out.println("appName = " + appName);
         // 如果返回的value 不等于原来的key,说明配置文件中有这个值
         if (!appName.equals(packageName)) {
-            // 如果保存可赚钱apk名称的配置文件中找到这个apk
-
             // 在已打开过的apk名称列表中查找 当前apk名
             int i = Collections.binarySearch(appOpened, appName);
             // System.out.println("i = " + i);
@@ -811,6 +875,7 @@ public class ActAutoRun implements Runnable {
     }
 
     private void copyAllAppsIntoCheckInForm() {
+        System.out.println("所有的应用都复制到签到记录表中");
         // 把所有的APP都复制到签到记录表中。
         Iterator<String> iApps = apps.iterator();
         while (iApps.hasNext()) {
@@ -820,23 +885,23 @@ public class ActAutoRun implements Runnable {
     }
 
 
-    /**
-     * 签到完成设置
-     */
-    private void afterOpeningAllAPKs() {
-        // // 已签到完成，停止签到检查
-        // stopAppCheck = true;
-        // 把apk的名称放到列表中
-        // System.out.println("已打开:" + apkOpenedToday);
-        System.out.println("所有的apk签到完成!");
-        // // 改变背景色，表示签到完成
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                universalPanel.setBackground(Color.pink);
-            }
-        });
-    }
+    //    /**
+    //     * 签到完成设置
+    //     */
+    //    private void afterOpeningAllAPKs() {
+    //        // // 已签到完成，停止签到检查
+    //        // stopAppCheck = true;
+    //        // 把apk的名称放到列表中
+    //        // System.out.println("已打开:" + apkOpenedToday);
+    //        System.out.println("所有的apk签到完成!");
+    //        // // 改变背景色，表示签到完成
+    //        SwingUtilities.invokeLater(new Runnable() {
+    //            @Override
+    //            public void run() {
+    //                universalPanel.setBackground(Color.pink);
+    //            }
+    //        });
+    //    }
 
     public static void onNextDay() {
         nextDay = true;
