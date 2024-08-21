@@ -115,8 +115,8 @@ public class CheckJPanels {
         checkJPanel.add(controlJCheckBox);
         checkJPanel.add(toolsJCheckBox);
         // checkJPanel.add(autoCheckBox);
-        checkJPanel.add(signInCheckBox);
         checkJPanel.add(topCheckBox);
+        checkJPanel.add(signInCheckBox);
         // return checkJPanel;
     }
 

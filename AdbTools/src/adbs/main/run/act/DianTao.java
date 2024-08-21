@@ -2,10 +2,10 @@ package adbs.main.run.act;
 
 import java.util.HashSet;
 
-public class DianTaoChange extends ActChangeAdapter {
-    private  static DianTaoChange instance=new DianTaoChange();
+public class DianTao extends ActChangeAdapter {
+    private  static DianTao instance=new DianTao();
 
-    public static DianTaoChange getInstance() {
+    public static DianTao getInstance() {
         return instance;
     }
 
@@ -40,6 +40,7 @@ public class DianTaoChange extends ActChangeAdapter {
         HashSet<ActToAct> set_w65sDialog = new HashSet<>();
         set_w65sDialog.add(new ActToAct(".pha.PHAContainerActivity", "com.bytedance.sdk.openadsdk.stub.activity.Stub_Standard_Portrait_Activity"));
         set_w65sDialog.add(new ActToAct(".pha.PHAContainerActivity", "com.baidu.mobads.sdk.api.MobRewardVideoActivity"));
+        set_w65sDialog.add(new ActToAct(".pha.PHAContainerActivity", "com.qq.e.ads.PortraitADActivity"));
 
         return set_w65sDialog;
     }
@@ -49,9 +50,11 @@ public class DianTaoChange extends ActChangeAdapter {
         // 哪些条件下刷视频180秒
         HashSet<ActToAct> set_vw180s = new HashSet<>();
         set_vw180s.add(new ActToAct(".pha.PHAContainerActivity", ".TaoLiveVideoActivity"));
+        set_vw180s.add(new ActToAct(".pha.PHAContainerActivity", "com.taobao.video.VideoListActivity"));
         // 走路，转到 直播
         set_vw180s.add(new ActToAct(".h5.BrowserActivity", ".TaoLiveVideoActivity"));
         set_vw180s.add(new ActToAct(".h5.BrowserActivity", "com.taobao.video.VideoListActivity"));
+
         set_vw180s.add(new ActToAct("com.alibaba.wireless.security.open.middletier.fc.ui.ContainerActivity", ".TaoLiveVideoActivity"));
 
 

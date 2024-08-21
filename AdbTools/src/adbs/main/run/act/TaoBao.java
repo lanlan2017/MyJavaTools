@@ -2,11 +2,11 @@ package adbs.main.run.act;
 
 import java.util.HashSet;
 
-public class TaoBaoChange extends ActChangeAdapter {
+public class TaoBao extends ActChangeAdapter {
 
-    private static final TaoBaoChange instance = new TaoBaoChange();
+    private static final TaoBao instance = new TaoBao();
 
-    public static TaoBaoChange getInstance() {
+    public static TaoBao getInstance() {
         return instance;
     }
 
@@ -17,6 +17,7 @@ public class TaoBaoChange extends ActChangeAdapter {
         HashSet<ActToAct> set_w35Dialog = new HashSet<>();
         set_w35Dialog.add(new ActToAct("com.taobao.tao.welcome.Welcome", "com.taobao.browser.exbrowser.BrowserUpperActivity"));
         set_w35Dialog.add(new ActToAct("com.taobao.browser.BrowserActivity", "com.taobao.android.detail2.core.framework.NewDetailActivity"));
+        set_w35Dialog.add(new ActToAct("com.taobao.browser.BrowserActivity", "com.taobao.browser.exbrowser.BrowserUpperActivity"));
         set_w35Dialog.add(new ActToAct("com.taobao.themis.container.app.TMSActivity", "com.taobao.android.detail2.core.framework.NewDetailActivity"));
 
 
@@ -26,13 +27,16 @@ public class TaoBaoChange extends ActChangeAdapter {
     @Override
     protected HashSet<ActToAct> set_s35sDialog_Set() {
         HashSet<ActToAct> s35sDialog = new HashSet<>();
-        // 从淘金币到淘宝视频
-        s35sDialog.add(new ActToAct("com.taobao.themis.container.app.TMSActivity", "com.taobao.android.layoutmanager.container.MultiPageContainerActivity"));
-        s35sDialog.add(new ActToAct("com.taobao.search.searchdoor.SearchDoorActivity", "com.taobao.search.sf.MainSearchResultActivity"));
-        s35sDialog.add(new ActToAct("com.taobao.browser.BrowserActivity", "com.taobao.themis.container.app.TMSActivity"));
-        s35sDialog.add(new ActToAct("com.taobao.themis.container.app.TMSActivity", "com.taobao.browser.BrowserActivity"));
         s35sDialog.add(new ActToAct("com.taobao.tao.welcome.Welcome", "com.taobao.themis.container.app.TMSActivity"));
         s35sDialog.add(new ActToAct("com.taobao.tao.welcome.Welcome", "com.taobao.search.sf.MainSearchResultActivity"));
+
+        s35sDialog.add(new ActToAct("com.taobao.browser.BrowserActivity", "com.taobao.themis.container.app.TMSActivity"));
+
+        s35sDialog.add(new ActToAct("com.taobao.themis.container.app.TMSActivity", "com.taobao.browser.BrowserActivity"));
+        s35sDialog.add(new ActToAct("com.taobao.themis.container.app.TMSActivity", "com.taobao.android.layoutmanager.container.MultiPageContainerActivity"));
+
+        s35sDialog.add(new ActToAct("com.taobao.browser.exbrowser.BrowserUpperActivity", "com.taobao.browser.BrowserActivity"));
+        s35sDialog.add(new ActToAct("com.taobao.search.searchdoor.SearchDoorActivity", "com.taobao.search.sf.MainSearchResultActivity"));
         return s35sDialog;
     }
 

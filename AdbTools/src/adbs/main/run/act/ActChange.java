@@ -70,7 +70,7 @@ public abstract class ActChange {
 
     protected abstract HashSet<ActToAct> set_vw180sDialog_Set();
 
-    public abstract HashSet<ActToAct> set_rw5HDialog_Set();
+    protected abstract HashSet<ActToAct> set_rw5HDialog_Set();
 
     protected abstract HashSet<ActToAct> set_return_Set();
 

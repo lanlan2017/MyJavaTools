@@ -130,7 +130,7 @@ public class DialogFactory {
      * @return
      */
     private static JDialog createDialogOk(String title, String message, ActionListener okListener, WindowAdapter windowAdapter) {
-                JDialog dialog = new JDialog();
+        JDialog dialog = new JDialog();
         //        dialog.setAlwaysOnTop(true);
         dialog.setAlwaysOnTop(alwaysOnTop);
         dialog.setTitle(title);

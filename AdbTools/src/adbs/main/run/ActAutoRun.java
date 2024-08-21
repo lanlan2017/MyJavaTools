@@ -353,6 +353,8 @@ public class ActAutoRun implements Runnable {
         systemApp.add("com.android.settings");
         // 安卓短信
         systemApp.add("com.android.mms");
+        // 安卓安装器
+        systemApp.add("com.android.packageinstaller");
         // 搞机工具箱
         systemApp.add("com.byyoung.setting");
         // 华为应用市场
@@ -426,11 +428,11 @@ public class ActAutoRun implements Runnable {
         switch (packageCurrent) {
             case "com.taobao.live":
                 // 点淘
-                DianTaoChange.getInstance().onChange(actShortBefore, actShorCurrent);
+                DianTao.getInstance().onChange(actShortBefore, actShorCurrent);
                 break;
             case "com.taobao.taobao":
                 // 淘宝
-                TaoBaoChange.getInstance().onChange(actShortBefore, actShorCurrent);
+                TaoBao.getInstance().onChange(actShortBefore, actShorCurrent);
                 break;
             case "com.taobao.litetao":
                 //陶特
@@ -447,6 +449,10 @@ public class ActAutoRun implements Runnable {
             case "com.ss.android.ugc.aweme.lite":
                 //抖音极速版
                 DouYinJiSuBan.getInstance().onChange(actShortBefore, actShorCurrent);
+                break;
+            case "com.ss.android.article.video":
+                //西瓜视频
+                XiGuaShiPin.getInstance().onChange(actShortBefore, actShorCurrent);
                 break;
             case "com.ximalaya.ting.lite":
                 // 喜马拉雅极速版

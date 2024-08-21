@@ -24,7 +24,7 @@ public class WaitButtonRunnable extends CloseableRunnable {
      */
     private boolean isClickStopButton;
 
-    private static WaitButtonRunnable instance = new WaitButtonRunnable();
+    private static final WaitButtonRunnable instance = new WaitButtonRunnable();
     private TimePanels timePanels;
     private JTextField input1;
     private String input1OldText;
@@ -114,6 +114,7 @@ public class WaitButtonRunnable extends CloseableRunnable {
         switch (packageName) {
             case "com.taobao.live":
             case "com.taobao.taobao":
+            case "com.taobao.litetao":
                 // 点淘APP,停止后返回
                 System.out.println("点淘APP,结束等待后 返回");
                 adbJPanels.getBtnReturn().doClick();
@@ -125,7 +126,7 @@ public class WaitButtonRunnable extends CloseableRunnable {
                 }
                 break;
         }
-//        timePanels.showConfirmDialog();
+        //        timePanels.showConfirmDialog();
         timePanels.beepDialog("等待结束");
     }
 }

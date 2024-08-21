@@ -52,7 +52,7 @@ public class ActChangeAdapter extends ActChange {
     }
 
     @Override
-    public HashSet<ActToAct> set_rw5HDialog_Set() {
+    protected HashSet<ActToAct> set_rw5HDialog_Set() {
         return null;
     }
 
