@@ -46,7 +46,10 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
             // 保存原来设定的值
             oldInput1Text = input1.getText();
             //            input1.setEditable(false);
-            input1Background = input1.getBackground();
+            // 保存第一次的背景色，后续不用重复设置
+            if (input1Background == null) {
+                input1Background = input1.getBackground();
+            }
 
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
