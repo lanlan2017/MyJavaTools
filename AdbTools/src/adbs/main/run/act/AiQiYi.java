@@ -22,7 +22,9 @@ public class AiQiYi extends ActChangeAdapter {
     protected HashSet<ActToAct> set_w65sDialog_Set() {
         HashSet<ActToAct> w65sDialog = new HashSet<>();
         w65sDialog.add(new ActToAct(".webview.WebViewActivity", "com.bytedance.sdk.openadsdk.stub.activity.Stub_Standard_Portrait_Activity"));
+        w65sDialog.add(new ActToAct(".webview.WebViewActivity", "com.bytedance.sdk.openadsdk.stub.activity.Stub_Standard_Portrait_Activity"));
         w65sDialog.add(new ActToAct(".webview.WebViewActivity", "com.mcto.sspsdk.ssp.activity.QyTrueViewActivity"));
+//        w65sDialog.add(new ActToAct(".webview.WebViewActivity", "com.mcto.sspsdk.ssp.activity.QyTrueViewActivity"));
 
         return null;
     }

@@ -16,8 +16,10 @@ public class TaoBao extends ActChangeAdapter {
 
         HashSet<ActToAct> set_w35Dialog = new HashSet<>();
         set_w35Dialog.add(new ActToAct("com.taobao.tao.welcome.Welcome", "com.taobao.browser.exbrowser.BrowserUpperActivity"));
-        set_w35Dialog.add(new ActToAct("com.taobao.browser.BrowserActivity", "com.taobao.android.detail2.core.framework.NewDetailActivity"));
+
         set_w35Dialog.add(new ActToAct("com.taobao.browser.BrowserActivity", "com.taobao.browser.exbrowser.BrowserUpperActivity"));
+        set_w35Dialog.add(new ActToAct("com.taobao.browser.BrowserActivity", "com.taobao.android.detail2.core.framework.NewDetailActivity"));
+
         set_w35Dialog.add(new ActToAct("com.taobao.themis.container.app.TMSActivity", "com.taobao.android.detail2.core.framework.NewDetailActivity"));
 
 
@@ -35,7 +37,7 @@ public class TaoBao extends ActChangeAdapter {
         s35sDialog.add(new ActToAct("com.taobao.themis.container.app.TMSActivity", "com.taobao.browser.BrowserActivity"));
         s35sDialog.add(new ActToAct("com.taobao.themis.container.app.TMSActivity", "com.taobao.android.layoutmanager.container.MultiPageContainerActivity"));
 
-        s35sDialog.add(new ActToAct("com.taobao.browser.exbrowser.BrowserUpperActivity", "com.taobao.browser.BrowserActivity"));
+//        s35sDialog.add(new ActToAct("com.taobao.browser.exbrowser.BrowserUpperActivity", "com.taobao.browser.BrowserActivity"));
         s35sDialog.add(new ActToAct("com.taobao.search.searchdoor.SearchDoorActivity", "com.taobao.search.sf.MainSearchResultActivity"));
         return s35sDialog;
     }

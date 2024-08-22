@@ -369,18 +369,23 @@ public class ActAutoRun implements Runnable {
         systemApp.add("com.android.packageinstaller");
         // 搞机工具箱
         systemApp.add("com.byyoung.setting");
+
         // 华为应用市场
         systemApp.add("com.huawei.appmarket");
+        // 华为手机管家
+        systemApp.add("com.huawei.systemmanager");
         // 华为桌面
         systemApp.add("com.huawei.android.launcher");
         // 华为运动健康
         systemApp.add("com.huawei.health");
+
         // OPPO任务视图
         systemApp.add("com.coloros.recents");
         // OPPO桌面
         systemApp.add("com.oppo.launcher");
         // OPPO手机管家
         systemApp.add("com.coloros.safecenter");
+
         // 小米桌面
         systemApp.add("com.miui.home");
         // 小米应用市场
@@ -389,8 +394,10 @@ public class ActAutoRun implements Runnable {
         systemApp.add("com.miui.packageinstaller");
         // 小米安全中心
         systemApp.add("com.miui.securitycenter");
+
         // 运动健康OPPO
         systemApp.add("com.free.pedometer");
+
         // 魅族桌面
         systemApp.add("com.meizu.flyme.launcher");
         // 魅族运动
@@ -493,6 +500,7 @@ public class ActAutoRun implements Runnable {
                 break;
             case "com.xunmeng.pinduoduo":
                 //                拼多多
+                PinDuoDuo.getInstance().onChange(actShortBefore, actShorCurrent);
                 break;
         }
     }
