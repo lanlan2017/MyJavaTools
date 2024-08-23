@@ -73,7 +73,13 @@ public class AppSignedInPanels {
         batteryReset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AdbCommands.batteryReset(AdbTools.getInstance().getDevice());
+                final AdbTools instance = AdbTools.getInstance();
+                instance.showDialogOk("重置电池状态恢复充电?", new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        AdbCommands.batteryReset(instance.getDevice());
+                    }
+                });
             }
         });
 
