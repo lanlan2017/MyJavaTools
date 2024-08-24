@@ -16,6 +16,7 @@ public class TaoBao extends ActChangeAdapter {
 
         HashSet<ActToAct> set_w35Dialog = new HashSet<>();
         set_w35Dialog.add(new ActToAct("com.taobao.tao.welcome.Welcome", "com.taobao.browser.exbrowser.BrowserUpperActivity"));
+        set_w35Dialog.add(new ActToAct("com.taobao.tao.welcome.Welcome", "com.taobao.android.detail2.core.framework.NewDetailActivity"));
 
         set_w35Dialog.add(new ActToAct("com.taobao.browser.BrowserActivity", "com.taobao.browser.exbrowser.BrowserUpperActivity"));
         set_w35Dialog.add(new ActToAct("com.taobao.browser.BrowserActivity", "com.taobao.android.detail2.core.framework.NewDetailActivity"));

@@ -220,30 +220,22 @@ public class ActAutoRun implements Runnable {
             // 获取当前act
             act = AdbGetPackage.getActivityInfo();
 
+
             boolean equals = act.equals(beforeAct);
             // System.out.println("beforeAct.equals(appNames) = " + equals);
             // 当act改变时，说明用户切换了界面。
             if (!equals) {
                 actChange(beforeAct, act);
             }
-
             if (isAllAppOpened) {
-                //                allAppOpenedSetting();
-                //                showOpenedApp();
-                //                showNotOpenApp();
                 check_(act.getPackageName());
-
             }
 
-            // 等待一定的时间
-            // wait_();
             // 如果刚好进入第2天
             if (isNextDay()) {
                 // 清空前一天的签到设置
                 nextDaySetting();
             }
-
-
             // 根据当前的Activity来决定要等待多久
             _wait(act);
             //记录下上次的Activity详细信息
