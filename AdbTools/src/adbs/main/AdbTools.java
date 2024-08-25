@@ -5,6 +5,7 @@ import adbs.main.run.ActAutoRun;
 import adbs.main.run.BatteryLevelRun2;
 import adbs.main.run.IsTest;
 import adbs.main.run.model.FrameTitle;
+import adbs.main.ui.jpanels.act.ActSignedInPanels;
 import adbs.main.ui.jpanels.adb.AdbJPanels;
 import adbs.main.ui.jpanels.app.AppSignedInPanels;
 import adbs.main.ui.jpanels.check.CheckJPanels;
@@ -93,12 +94,16 @@ public class AdbTools {
         //
         appSignedInPanels = new AppSignedInPanels();
 
+        ActSignedInPanels actSignedInPanels  = new ActSignedInPanels();
+
         // JPanel checkJPanel = initCheckJPanel(timingPanels2, toolsJPanels, autoPanels, universalPanels, adbJPanels, scrcpyJPanels);
         //        checkJPanels = new CheckJPanels(timingPanels2, toolsJPanels, autoPanels, universalPanels, adbJPanels, scrcpyJPanels, appPanels);
-        checkJPanels = new CheckJPanels(timingPanels2, toolsJPanels, universalPanels, adbJPanels, scrcpyJPanels, appSignedInPanels);
+        checkJPanels = new CheckJPanels(timingPanels2, toolsJPanels, universalPanels, adbJPanels, scrcpyJPanels, appSignedInPanels, actSignedInPanels);
+
+
+
+
         JPanel checkJPanel = checkJPanels.getCheckJPanel();
-
-
         // 添加 选项面板 到窗体中 第1列
         frame.add(checkJPanel);
         // 添加 adb面板 到窗体中 第2行
@@ -117,9 +122,11 @@ public class AdbTools {
         //        frame.add(autoPanels.getAutoJPanel());
         frame.add(appSignedInPanels.getAppPanel());
 
+        frame.add(actSignedInPanels.getTopJPanel());
+
         // 添加多选框面板到第3行
-        AbstractButtons.setMarginInButtonJPanel(checkJPanel, -1);
-        AbstractButtons.setMarginInButtonJPanel(checkJPanel, -1);
+        AbstractButtons.setMargin_2_InButtonJPanel(checkJPanel, -1);
+        AbstractButtons.setMargin_2_InButtonJPanel(checkJPanel, -1);
         // 添加输出面包到最后一行
         // frame.add(outputJPanel);
 
@@ -354,12 +361,9 @@ public class AdbTools {
     }
 
 
-
     public UniversalPanels getUniversalPanels() {
         return universalPanels;
     }
-
-
 
 
     public CheckJPanels getCheckJPanels() {
@@ -422,19 +426,21 @@ public class AdbTools {
      */
     public void showDialogOk(String message, ActionListener actionListenerOk) {
         //        JFrame frame = AdbTools.getInstance().getFrame();
-        DialogFactory.showDialogOk(frame, "", message, actionListenerOk);
+//        DialogFactory.showDialogOk(frame, "", message, actionListenerOk);
+        DialogFactory.showDialogOk(frame, device.getName(), message, actionListenerOk);
     }
+
     public void showDialogOkClose(String message, ActionListener actionListenerOk, WindowAdapter windowAdapter) {
         //        JFrame frame = AdbTools.getInstance().getFrame();
 
-//        DialogFactory.showDialogOkClose(frame, "", message, actionListenerOk, windowAdapter);
+        //        DialogFactory.showDialogOkClose(frame, "", message, actionListenerOk, windowAdapter);
         DialogFactory.showDialogOkClose(frame, device.getName(), message, actionListenerOk, windowAdapter);
     }
 
-    public void showDialogOkCancel(String message, ActionListener actionListenerOk,ActionListener actionListenerCancel) {
+    public void showDialogOkCancel(String message, ActionListener actionListenerOk, ActionListener actionListenerCancel) {
         //        JFrame frame = AdbTools.getInstance().getFrame();
-//        DialogFactory.showDialogOkCancel(frame, "", message, actionListenerOk,actionListenerCancel);
-        DialogFactory.showDialogOkCancel(frame, device.getName(), message, actionListenerOk,actionListenerCancel);
+        //        DialogFactory.showDialogOkCancel(frame, "", message, actionListenerOk,actionListenerCancel);
+        DialogFactory.showDialogOkCancel(frame, device.getName(), message, actionListenerOk, actionListenerCancel);
     }
 
 
@@ -448,7 +454,7 @@ public class AdbTools {
             // 在打开应用的时候，就触发投屏按钮
             instance.getScrcpyJPanels().getBtnOpenScrcpy().doClick();
             ThreadSleep.seconds(5);
-//            new Thread(new ForegroundAppRun()).start();
+            //            new Thread(new ForegroundAppRun()).start();
             // // 启动电池监测线程
             new Thread(new BatteryLevelRun2()).start();
             new Thread(new ActAutoRun()).start();

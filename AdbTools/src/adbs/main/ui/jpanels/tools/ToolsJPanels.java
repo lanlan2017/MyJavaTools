@@ -8,14 +8,12 @@ import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.config.Fonts;
 import adbs.main.ui.jframe.JFramePack;
 //import adbs.main.ui.jpanels.auto.AdbTap;
-import adbs.main.ui.jpanels.tools.example.FocusListenerJTextFieldInfo;
 import adbs.model.Device;
 import runnabletools.pull.AdbPullApk;
 import tools.copy.SystemClipboard;
 import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -97,7 +95,7 @@ public class ToolsJPanels {
         toolsJPanel.setVisible(false);
         // toolsJPanel.add(cancelButton);
         // AbstractButtons.setMarginInButtonJPanel(toolsJPanel,0);
-        AbstractButtons.setMarginInButtonJPanel(toolsJPanel, 1);
+        AbstractButtons.setMargin_2_InButtonJPanel(toolsJPanel, 1);
     }
 
     private JButton initBtnUninstall() {

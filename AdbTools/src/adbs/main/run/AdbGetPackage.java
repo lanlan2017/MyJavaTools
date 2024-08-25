@@ -4,6 +4,7 @@ import adbs.cmd.AdbCommands;
 import adbs.cmd.CmdRun;
 import adbs.main.AdbTools;
 import adbs.main.run.model.ActivityInfo;
+import config.AdbToolsProperties;
 
 public class AdbGetPackage {
     /**
@@ -71,6 +72,19 @@ public class AdbGetPackage {
         }
 
         return actName;
+    }
+
+    public static String getAppName(String currentPackageName) {
+        return AdbToolsProperties.moneyApkPro.getProperty(currentPackageName);
+    }
+
+    public static String getAppName() {
+        // 获取当前act
+        ActivityInfo activityInfo = AdbGetPackage.getActivityInfo();
+        String packageName = activityInfo.getPackageName();
+        String appName = AdbToolsProperties.moneyApkPro.getProperty(packageName);
+        //                packageName.equals()
+        return appName;
     }
 
     public static ActivityInfo getActivityInfo() {

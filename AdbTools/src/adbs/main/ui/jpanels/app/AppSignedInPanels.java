@@ -1,9 +1,9 @@
 package adbs.main.ui.jpanels.app;
 
-import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
 import adbs.main.run.ActAutoRun;
 import adbs.main.run.AdbGetPackage;
+import adbs.main.ui.config.FlowLayouts;
 import config.AdbToolsProperties;
 import tools.swing.button.AbstractButtons;
 
@@ -30,7 +30,7 @@ public class AppSignedInPanels {
     private final JPanel btnPanel;
     private final JButton zhongdian;
     private final JButton quxiao;
-    private final JButton batteryReset;
+    //    private final JButton batteryReset;
 
     private final JTextPane signedIn;
     private final JTextPane notOpened;
@@ -49,9 +49,13 @@ public class AppSignedInPanels {
         this.btnPanel = new JPanel();
         this.btnPanel.setLayout(new BoxLayout(btnPanel, BoxLayout.Y_AXIS));
 
+
+        JPanel panel1 = getBtttonFlowLayoutJPanel();
+
         this.zhongdian = new JButton("重点");
         this.quxiao = new JButton("取消");
-
+        panel1.add(zhongdian);
+        panel1.add(quxiao);
 
         // 添加按钮监听器
         this.zhongdian.addActionListener(new ActionListener() {
@@ -69,32 +73,166 @@ public class AppSignedInPanels {
                 removeSpecificHighlights(signedIn, getAppName() + ActAutoRun.appNameEndFlag);
             }
         });
-        batteryReset = new JButton("充电");
-        batteryReset.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                final AdbTools instance = AdbTools.getInstance();
-                instance.showDialogOk("重置电池状态恢复充电?", new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        AdbCommands.batteryReset(instance.getDevice());
-                    }
-                });
-            }
-        });
+
+        //        batteryReset = getBatteryReset();
 
 
-        btnPanel.add(zhongdian);
-        btnPanel.add(quxiao);
-        btnPanel.add(batteryReset);
+        JButton btnSignedIn = getBtnSignedIn();
+        JButton btnAllCheckedIn = getBtnAllCheckedIn();
 
-        AbstractButtons.setMarginInButtonJPanel(btnPanel);
+
+        //        btnPanel.add(zhongdian);
+        //        btnPanel.add(quxiao);
+
+        JPanel panel2 = getBtttonFlowLayoutJPanel();
+        panel2.add(btnSignedIn);
+        panel2.add((btnAllCheckedIn));
+
+
+        JButton btnNextDay = getBtnNextDay();
+
+
+        JPanel panel3 = getBtttonFlowLayoutJPanel();
+
+        panel3.add(btnNextDay);
+        JButton btnUpdateEarningApps = getBtnUpdateEarningApps();
+        panel3.add(btnUpdateEarningApps);
+
+
+        //        panel3.add(batteryReset);
+
+
+        AbstractButtons.setMargin_2_InButtonJPanel(panel1, 1);
+        AbstractButtons.setMargin_2_InButtonJPanel(panel2, 1);
+        AbstractButtons.setMargin_2_InButtonJPanel(panel3, 1);
+
+        btnPanel.add(panel1);
+        btnPanel.add(panel2);
+        btnPanel.add(panel3);
+
+        //        btnPanel.add(batteryReset);
+
+        AbstractButtons.setMargin_2_InButtonJPanel(btnPanel);
 
         appPanel.add(notOpened, BorderLayout.WEST);
         appPanel.add(btnPanel, BorderLayout.CENTER);
         appPanel.add(signedIn, BorderLayout.EAST);
         appPanel.setVisible(false);
     }
+
+    //    /**
+    //     * 创建充电按钮
+    //     *
+    //     * @return 充电按钮JButton对象。
+    //     */
+    //    private JButton getBatteryReset() {
+    //        final JButton batteryReset;
+    //        batteryReset = new JButton("充电");
+    //        batteryReset.addActionListener(new ActionListener() {
+    //            @Override
+    //            public void actionPerformed(ActionEvent e) {
+    //                final AdbTools instance = AdbTools.getInstance();
+    //                instance.showDialogOk("重置电池状态恢复充电?", new ActionListener() {
+    //                    @Override
+    //                    public void actionPerformed(ActionEvent e) {
+    //                        AdbCommands.batteryReset(instance.getDevice());
+    //                    }
+    //                });
+    //            }
+    //        });
+    //        return batteryReset;
+    //    }
+
+    private JButton getBtnUpdateEarningApps() {
+        final JButton btnUpdateEarningApps;
+        //        btnUpdateEarningApps = new JButton("U");
+        btnUpdateEarningApps = new JButton("更新");
+        btnUpdateEarningApps.setToolTipText("更新赚钱应用列表");
+        btnUpdateEarningApps.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // ForegroundAppRun.updatePackages_3_money();
+                // ForegroundAppRun.onNextDay();
+                AdbTools.getInstance().showDialogOk("更新赚钱应用", "更新赚钱应用列表", new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+
+                        // ForegroundAppRun.updatePackages_3_money();
+                        ActAutoRun.updatePackages_3_money();
+                    }
+                });
+            }
+        });
+        return btnUpdateEarningApps;
+    }
+
+
+    private JButton getBtnNextDay() {
+        // JButton btnNextDay=new JButton("重新签到");
+        // JButton btnNextDay = new JButton("清空签到记录");
+        JButton btnNextDay = new JButton("重签");
+        btnNextDay.setToolTipText("重置签到状态");
+        btnNextDay.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AdbTools.getInstance().showDialogOk("重签", "重置签到状态?", new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        ActAutoRun.onNextDay();
+                        ActAutoRun.stopWait();
+                    }
+                });
+            }
+        });
+        return btnNextDay;
+    }
+
+
+    private JPanel getBtttonFlowLayoutJPanel() {
+        JPanel panel1 = new JPanel();
+        panel1.setLayout(FlowLayouts.flowLayoutLeft);
+
+        return panel1;
+    }
+
+
+    private JButton getBtnSignedIn() {
+        final JButton btnSignedIn;
+        //        btnSignedIn = new JButton("√");
+        btnSignedIn = new JButton("已签");
+        btnSignedIn.setToolTipText("当前APP已签到");
+        btnSignedIn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ActAutoRun.stopWait();
+            }
+        });
+        return btnSignedIn;
+    }
+
+    private JButton getBtnAllCheckedIn() {
+        final JButton btnAllCheckedIn;
+        //        btnAllCheckedIn = new JButton("√√");
+        btnAllCheckedIn = new JButton("签完");
+        btnAllCheckedIn.setToolTipText("所有的APP都签到过了");
+        btnAllCheckedIn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AdbTools.getInstance().showDialogOk("都签了", "全部应用都签到完毕了?", new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        // ForegroundAppRun.stopWait();
+                        // ForegroundAppRun.allAppOpened();
+                        ActAutoRun.stopWait();
+                        ActAutoRun.allAppOpened();
+
+                    }
+                });
+            }
+        });
+        return btnAllCheckedIn;
+    }
+
 
     private String getAppName() {
         String topPackageName = AdbGetPackage.getTopPackageName(AdbTools.getInstance().getDevice().getSerial());

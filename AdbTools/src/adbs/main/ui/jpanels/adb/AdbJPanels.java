@@ -160,16 +160,17 @@ public class AdbJPanels {
 
         // AbstractButtons.setMarginInButtonJPanel(adbJPanel);
         // AbstractButtons.setMarginInButtonJPanel(adbJPanel, -1);
-        AbstractButtons.setMarginInButtonJPanel(adbJPanel, 0);
-        AbstractButtons.setMarginInButtonJPanel(volumeJPanel, -1);
-        AbstractButtons.setMarginInButtonJPanel(statusbarJPanel, -1);
+        AbstractButtons.setMargin_2_InButtonJPanel(adbJPanel, 0);
+        AbstractButtons.setMargin_2_InButtonJPanel(volumeJPanel, -1);
+        AbstractButtons.setMargin_2_InButtonJPanel(statusbarJPanel, -1);
         // 设置的内切
-        AbstractButtons.setMarginInButtonJPanel(navigationKeyJPanel, 0);
+        AbstractButtons.setMargin_2_InButtonJPanel(navigationKeyJPanel, 0);
     }
 
     private JButton initBtnSetting() {
         final JButton btnSetting;
         btnSetting = new JButton("设");
+        btnSetting.setToolTipText("打开设置");
         btnSetting.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

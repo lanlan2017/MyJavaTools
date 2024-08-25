@@ -105,7 +105,7 @@ public class TimePanels {
         timePanel.add(timerJLabel);
         timePanel.setVisible(false);
 
-        AbstractButtons.setMarginInButtonJPanel(timePanel, 1);
+        AbstractButtons.setMargin_2_InButtonJPanel(timePanel, 1);
         // AbstractButtons.setMarginInButtonJPanel(inputPanel,0);
         plusBtn.addActionListener(new PlusBtnAcListener(this));
         minusBtn.addActionListener(new MinusBtnAcListener(this));

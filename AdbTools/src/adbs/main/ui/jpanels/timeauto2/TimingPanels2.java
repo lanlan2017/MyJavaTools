@@ -107,7 +107,7 @@ public class TimingPanels2 extends WaitValues {
         timingPanels2.add(btn40M);
 
 
-        AbstractButtons.setMarginInButtonJPanel(timingPanels2, 0);
+        AbstractButtons.setMargin_2_InButtonJPanel(timingPanels2, 0);
     }
 
     private JComboBox<String> initComboBox() {

@@ -42,7 +42,7 @@ public class AbstractButtons {
      *
      * @param panel 放置按钮的JPanel
      */
-    public static void setMarginInButtonJPanel(JPanel panel) {
+    public static void setMargin_2_InButtonJPanel(JPanel panel) {
         int count = panel.getComponentCount();
         // int x = 3;
         int x = 2;
@@ -66,7 +66,7 @@ public class AbstractButtons {
      * @param panel 放置按钮的JPanel
      * @param x 内边距的值
      */
-    public static void setMarginInButtonJPanel(JPanel panel,int x) {
+    public static void setMargin_2_InButtonJPanel(JPanel panel, int x) {
         int count = panel.getComponentCount();
         // int x = 3;
         Insets insets = new Insets(x, x, x, x);

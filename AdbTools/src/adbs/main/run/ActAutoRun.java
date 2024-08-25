@@ -11,7 +11,6 @@ import adbs.main.ui.jpanels.timeauto2.TimingPanels2;
 import adbs.main.ui.jpanels.tools.ToolsJPanels;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
 import adbs.tools.thread.ThreadSleep;
-import config.AdbToolsProperties;
 
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
@@ -290,7 +289,7 @@ public class ActAutoRun implements Runnable {
 
     private void updateTitle(ActivityInfo act) {
         String currentPackageName = act.getPackageName();
-        String currentAppName = AdbToolsProperties.moneyApkPro.getProperty(currentPackageName);
+        String currentAppName = AdbGetPackage. getAppName(currentPackageName);
         //        System.out.println("currentAppName = " + currentAppName);
         // 如果不相等，说明是可赚钱的APP
         if (!currentPackageName.equals(currentAppName)) {
@@ -305,6 +304,10 @@ public class ActAutoRun implements Runnable {
             }
         }
     }
+
+//    private String getAppName(String currentPackageName) {
+//        return AdbToolsProperties.moneyApkPro.getProperty(currentPackageName);
+//    }
 
     /**
      * 从一个APP跳转到另一个APP是执行操作
@@ -857,7 +860,7 @@ public class ActAutoRun implements Runnable {
      * @return APP的应用名
      */
     private void updateAppOpened(String packageName) {
-        String appName = AdbToolsProperties.moneyApkPro.getProperty(packageName);
+        String appName = AdbGetPackage.getAppName(packageName);
         System.out.println("appName = " + appName);
         // 如果返回的value 不等于原来的key,说明配置文件中有这个值
         if (!appName.equals(packageName)) {

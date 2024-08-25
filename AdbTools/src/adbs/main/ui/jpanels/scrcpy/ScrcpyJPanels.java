@@ -2,7 +2,6 @@ package adbs.main.ui.jpanels.scrcpy;
 
 import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
-import adbs.main.run.ActAutoRun;
 import adbs.main.run.ReopenScrcpyRun;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.config.Fonts;
@@ -11,11 +10,14 @@ import adbs.main.ui.jpanels.scrcpy.run.OpenButtonRunnable;
 import adbs.model.Device;
 import config.AdbConnectPortProperties;
 import tools.swing.button.AbstractButtons;
+import tools.swing.dialog.DialogFactory;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 //import adbs.main.run.ForegroundAppRun;
 
@@ -63,25 +65,25 @@ public class ScrcpyJPanels {
      * 杀死scrcpy.exe
      */
     private final JButton btnKillScrcpy;
-    /**
-     * 更新赚钱APP列表
-     * updateEarningApps
-     */
-    private final JButton btnUpdateEarningApps;
-    /**
-     * 当前APP已签到
-     */
-    private final JButton btnSignedIn;
-    /**
-     * 所有的APP已经签到完毕
-     */
-    private final JButton btnAllCheckedIn;
+    //    /**
+    //     * 更新赚钱APP列表
+    //     * updateEarningApps
+    //     */
+    //    private final JButton btnUpdateEarningApps;
+    //    /**
+    //     * 当前APP已签到
+    //     */
+    //    private final JButton btnSignedIn;
+    //    /**
+    //     * 所有的APP已经签到完毕
+    //     */
+    //    private final JButton btnAllCheckedIn;
 
     /**
      * scrcpy.exe内部镜像宽度数组
      */
     private final String[] widthArr = {"600", "540", "500", "480", "420", "360", "350", "340"};
-    private final JButton btnNextDay;
+    //    private final JButton btnNextDay;
     boolean isFirstTimeRun = true;
 
     /**
@@ -114,13 +116,16 @@ public class ScrcpyJPanels {
 
         btnSwitchNetworkDebug = getBtnSwitchNetworkDebug();
 
-        btnUpdateEarningApps = getBtnUpdateEarningApps();
+        //        btnUpdateEarningApps = getBtnUpdateEarningApps();
 
-        btnNextDay = getBtnNextDay();
+        //        btnNextDay = getBtnNextDay();
 
-        btnSignedIn = getBtnSignedIn();
-        btnAllCheckedIn = getBtnAllCheckedIn();
+        //        btnSignedIn = getBtnSignedIn();
+        //        btnAllCheckedIn = getBtnAllCheckedIn();
 
+
+        JButton batteryReset = getBatteryReset();
+        JCheckBox topCheckBox = getTopCheckBox();
 
         // adb面板添加按钮
         scrcpyJPanel.add(label);
@@ -131,35 +136,74 @@ public class ScrcpyJPanels {
         scrcpyJPanel.add(btnKillScrcpy);
         scrcpyJPanel.add(btnOpenScrcpyFull);
         scrcpyJPanel.add(btnSwitchNetworkDebug);
-        scrcpyJPanel.add(btnNextDay);
-        scrcpyJPanel.add(btnUpdateEarningApps);
-        scrcpyJPanel.add(btnSignedIn);
-        scrcpyJPanel.add(btnAllCheckedIn);
+        scrcpyJPanel.add(batteryReset);
+        scrcpyJPanel.add(topCheckBox);
+
+        //        scrcpyJPanel.add(btnNextDay);
+        //        scrcpyJPanel.add(btnUpdateEarningApps);
+        //        scrcpyJPanel.add(btnSignedIn);
+        //        scrcpyJPanel.add(btnAllCheckedIn);
+
         // scrcpyJPanel.add(btnGetAct);
         // scrcpyJPanel.add(btnOpenMobileButlerApp);
         // scrcpyJPanel.add(btnWiFiSettings);
-        // AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, 1);
+        AbstractButtons.setMargin_2_InButtonJPanel(scrcpyJPanel, 1);
         // AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, -1);
-        AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, 0);
+        //        AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, 0);
     }
 
-    private JButton getBtnNextDay() {
-        // JButton btnNextDay=new JButton("重新签到");
-        // JButton btnNextDay = new JButton("清空签到记录");
-        JButton btnNextDay = new JButton("重签");
-        btnNextDay.addActionListener(new ActionListener() {
+    /**
+     * 创建窗体置顶复选框
+     *
+     * @return
+     */
+    private JCheckBox getTopCheckBox() {
+        JCheckBox topCheckBox = new JCheckBox("↑");
+        //        JCheckBox topCheckBox = new JCheckBox("置顶");
+        //        JCheckBox topCheckBox = new JCheckBox("top");
+        topCheckBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                AdbTools instance = AdbTools.getInstance();
+                //                instance.showDialogOk();
+                JFrame frame = instance.getFrame();
+                // 如果当前的状态是勾选状态
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    System.out.println("开启 窗口置顶");
+                    frame.setAlwaysOnTop(true);
+                    DialogFactory.setAlwaysOnTop(true);
+                } else {
+                    System.out.println("取消 窗口置顶");
+                    frame.setAlwaysOnTop(false);
+                    DialogFactory.setAlwaysOnTop(false);
+                }
+            }
+        });
+        return topCheckBox;
+    }
+
+
+    /**
+     * 创建充电按钮
+     *
+     * @return 充电按钮JButton对象。
+     */
+    private JButton getBatteryReset() {
+        final JButton batteryReset;
+        batteryReset = new JButton("充电");
+        batteryReset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AdbTools.getInstance().showDialogOk("重签", "重置签到状态?", new ActionListener() {
+                final AdbTools instance = AdbTools.getInstance();
+                instance.showDialogOk("重置电池状态恢复充电?", new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        ActAutoRun.onNextDay();
-                        ActAutoRun.stopWait();
+                        AdbCommands.batteryReset(instance.getDevice());
                     }
                 });
             }
         });
-        return btnNextDay;
+        return batteryReset;
     }
 
 
@@ -389,68 +433,84 @@ public class ScrcpyJPanels {
         return btnKillScrcpy;
     }
 
-    private JButton getBtnUpdateEarningApps() {
-        final JButton btnUpdateEarningApps;
-        btnUpdateEarningApps = new JButton("U");
-        btnUpdateEarningApps.setToolTipText("更新赚钱应用列表");
-        btnUpdateEarningApps.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // ForegroundAppRun.updatePackages_3_money();
-                // ForegroundAppRun.onNextDay();
-                AdbTools.getInstance().showDialogOk("更新赚钱应用", "更新赚钱应用列表", new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
 
-                        // ForegroundAppRun.updatePackages_3_money();
-                        ActAutoRun.updatePackages_3_money();
-                    }
-                });
-            }
-        });
-        return btnUpdateEarningApps;
-    }
-
-    private JButton getBtnSignedIn() {
-        final JButton btnSignedIn;
-        btnSignedIn = new JButton("√");
-        btnSignedIn.setToolTipText("当前APP已签到");
-        btnSignedIn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ActAutoRun.stopWait();
-            }
-        });
-        return btnSignedIn;
-    }
-
-    private JButton getBtnAllCheckedIn() {
-        final JButton btnAllCheckedIn;
-        // allCheckedInBtn = new JButton("all");
-        // √√
-        // all
-        btnAllCheckedIn = new JButton("√√");
-        btnAllCheckedIn.setToolTipText("所有的APP都签到过了");
-        btnAllCheckedIn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // ForegroundAppRun.stopWait(true);
-                // ForegroundAppRun.stopWait();
-                // ForegroundAppRun.allAppOpened();
-                AdbTools.getInstance().showDialogOk("都签了", "全部应用都签到完毕了?", new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        // ForegroundAppRun.stopWait();
-                        // ForegroundAppRun.allAppOpened();
-                        ActAutoRun.stopWait();
-                        ActAutoRun.allAppOpened();
-
-                    }
-                });
-            }
-        });
-        return btnAllCheckedIn;
-    }
+    //
+    //    private JButton getBtnNextDay() {
+    //        // JButton btnNextDay=new JButton("重新签到");
+    //        // JButton btnNextDay = new JButton("清空签到记录");
+    //        JButton btnNextDay = new JButton("重签");
+    //        btnNextDay.addActionListener(new ActionListener() {
+    //            @Override
+    //            public void actionPerformed(ActionEvent e) {
+    //                AdbTools.getInstance().showDialogOk("重签", "重置签到状态?", new ActionListener() {
+    //                    @Override
+    //                    public void actionPerformed(ActionEvent e) {
+    //                        ActAutoRun.onNextDay();
+    //                        ActAutoRun.stopWait();
+    //                    }
+    //                });
+    //            }
+    //        });
+    //        return btnNextDay;
+    //    }
+    //
+    //
+    //    private JButton getBtnUpdateEarningApps() {
+    //        final JButton btnUpdateEarningApps;
+    //        btnUpdateEarningApps = new JButton("U");
+    //        btnUpdateEarningApps.setToolTipText("更新赚钱应用列表");
+    //        btnUpdateEarningApps.addActionListener(new ActionListener() {
+    //            @Override
+    //            public void actionPerformed(ActionEvent e) {
+    //                // ForegroundAppRun.updatePackages_3_money();
+    //                // ForegroundAppRun.onNextDay();
+    //                AdbTools.getInstance().showDialogOk("更新赚钱应用", "更新赚钱应用列表", new ActionListener() {
+    //                    @Override
+    //                    public void actionPerformed(ActionEvent e) {
+    //
+    //                        // ForegroundAppRun.updatePackages_3_money();
+    //                        ActAutoRun.updatePackages_3_money();
+    //                    }
+    //                });
+    //            }
+    //        });
+    //        return btnUpdateEarningApps;
+    //    }
+    //
+    //    private JButton getBtnSignedIn() {
+    //        final JButton btnSignedIn;
+    //        btnSignedIn = new JButton("√");
+    //        btnSignedIn.setToolTipText("当前APP已签到");
+    //        btnSignedIn.addActionListener(new ActionListener() {
+    //            @Override
+    //            public void actionPerformed(ActionEvent e) {
+    //                ActAutoRun.stopWait();
+    //            }
+    //        });
+    //        return btnSignedIn;
+    //    }
+    //
+    //    private JButton getBtnAllCheckedIn() {
+    //        final JButton btnAllCheckedIn;
+    //        btnAllCheckedIn = new JButton("√√");
+    //        btnAllCheckedIn.setToolTipText("所有的APP都签到过了");
+    //        btnAllCheckedIn.addActionListener(new ActionListener() {
+    //            @Override
+    //            public void actionPerformed(ActionEvent e) {
+    //                AdbTools.getInstance().showDialogOk("都签了", "全部应用都签到完毕了?", new ActionListener() {
+    //                    @Override
+    //                    public void actionPerformed(ActionEvent e) {
+    //                        // ForegroundAppRun.stopWait();
+    //                        // ForegroundAppRun.allAppOpened();
+    //                        ActAutoRun.stopWait();
+    //                        ActAutoRun.allAppOpened();
+    //
+    //                    }
+    //                });
+    //            }
+    //        });
+    //        return btnAllCheckedIn;
+    //    }
 
 
     private String getIpCode(String serial) {

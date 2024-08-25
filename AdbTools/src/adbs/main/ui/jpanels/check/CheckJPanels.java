@@ -1,18 +1,15 @@
 package adbs.main.ui.jpanels.check;
 
-import adbs.main.AdbTools;
 import adbs.main.ui.config.FlowLayouts;
+import adbs.main.ui.jpanels.act.ActSignedInPanels;
 import adbs.main.ui.jpanels.adb.AdbJPanels;
 import adbs.main.ui.jpanels.app.AppSignedInPanels;
 import adbs.main.ui.jpanels.scrcpy.ScrcpyJPanels;
 import adbs.main.ui.jpanels.timeauto2.TimingPanels2;
 import adbs.main.ui.jpanels.tools.ToolsJPanels;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
-import tools.swing.dialog.DialogFactory;
 
 import javax.swing.*;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 
 /**
  * 展开或折叠其他面板
@@ -20,7 +17,6 @@ import java.awt.event.ItemListener;
  */
 public class CheckJPanels {
 
-    private final JCheckBox signInCheckBox;
     private final JPanel checkJPanel;
 
     private final JCheckBox generalJCheckBox;
@@ -28,6 +24,9 @@ public class CheckJPanels {
     private final JCheckBox scrcpyJCheckBox;
     private final JCheckBox controlJCheckBox;
     private final JCheckBox toolsJCheckBox;
+    private final JCheckBox appSignInCheckBox;
+    private final JCheckBox actSignInCheckBox;
+
     // /**
     // * 控制 自动面板
     // * 展开或收起 自动面板
@@ -35,7 +34,7 @@ public class CheckJPanels {
     // private final JCheckBox autoCheckBox;
 
     // public CheckJPanels(TimingPanels2 timingPanels2, ToolsJPanels toolsJPanels, AutoPanels autoPanels, UniversalPanels universralPanels, AdbJPanels adbJPanels, ScrcpyJPanels scrcpyJPanels, AppPanels appPanels) {
-    public CheckJPanels(TimingPanels2 timingPanels2, ToolsJPanels toolsJPanels, UniversalPanels universralPanels, AdbJPanels adbJPanels, ScrcpyJPanels scrcpyJPanels, AppSignedInPanels appSignedInPanels) {
+    public CheckJPanels(TimingPanels2 timingPanels2, ToolsJPanels toolsJPanels, UniversalPanels universralPanels, AdbJPanels adbJPanels, ScrcpyJPanels scrcpyJPanels, AppSignedInPanels appSignedInPanels, ActSignedInPanels actSignedInPanels) {
         // 初始化多选框面板
         checkJPanel = new JPanel();
         checkJPanel.setLayout(FlowLayouts.flowLayoutLeft);
@@ -84,29 +83,15 @@ public class CheckJPanels {
         // autoCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(autoPanels.getAutoJPanel()));
 
         // signInCheckBox = new JCheckBox("签到");
-        signInCheckBox = new JCheckBox("签");
-        signInCheckBox.setToolTipText("显示已签到APP");
-        signInCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(appSignedInPanels.getAppPanel()));
+        appSignInCheckBox = new JCheckBox("签");
+        appSignInCheckBox.setToolTipText("显示已签到APP");
+        appSignInCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(appSignedInPanels.getAppPanel()));
 
-        JCheckBox topCheckBox = new JCheckBox("↑");
-        topCheckBox.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                AdbTools instance = AdbTools.getInstance();
-                //                instance.showDialogOk();
-                JFrame frame = instance.getFrame();
-                // 如果当前的状态是勾选状态
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    System.out.println("开启 窗口置顶");
-                    frame.setAlwaysOnTop(true);
-                    DialogFactory.setAlwaysOnTop(true);
-                } else {
-                    System.out.println("取消 窗口置顶");
-                    frame.setAlwaysOnTop(false);
-                    DialogFactory.setAlwaysOnTop(false);
-                }
-            }
-        });
+//        JCheckBox topCheckBox = getTopCheckBox();
+
+        actSignInCheckBox=new JCheckBox("细");
+        actSignInCheckBox.setToolTipText("显示某个App的详细任务");
+        actSignInCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(actSignedInPanels.getTopJPanel()));
 
 
         checkJPanel.add(adbJCheckBox);
@@ -115,10 +100,39 @@ public class CheckJPanels {
         checkJPanel.add(controlJCheckBox);
         checkJPanel.add(toolsJCheckBox);
         // checkJPanel.add(autoCheckBox);
-        checkJPanel.add(topCheckBox);
-        checkJPanel.add(signInCheckBox);
+//        checkJPanel.add(topCheckBox);
+        checkJPanel.add(appSignInCheckBox);
+        checkJPanel.add(actSignInCheckBox);
         // return checkJPanel;
     }
+
+//    /**
+    //     * 创建窗体置顶复选框
+    //     *
+    //     * @return
+    //     */
+    //    private JCheckBox getTopCheckBox() {
+    //        JCheckBox topCheckBox = new JCheckBox("↑");
+    //        topCheckBox.addItemListener(new ItemListener() {
+    //            @Override
+    //            public void itemStateChanged(ItemEvent e) {
+    //                AdbTools instance = AdbTools.getInstance();
+    //                //                instance.showDialogOk();
+    //                JFrame frame = instance.getFrame();
+    //                // 如果当前的状态是勾选状态
+    //                if (e.getStateChange() == ItemEvent.SELECTED) {
+    //                    System.out.println("开启 窗口置顶");
+    //                    frame.setAlwaysOnTop(true);
+    //                    DialogFactory.setAlwaysOnTop(true);
+    //                } else {
+    //                    System.out.println("取消 窗口置顶");
+    //                    frame.setAlwaysOnTop(false);
+    //                    DialogFactory.setAlwaysOnTop(false);
+    //                }
+    //            }
+    //        });
+    //        return topCheckBox;
+    //    }
 
     // public JCheckBox getAutoCheckBox() {
     // return autoCheckBox;
@@ -128,7 +142,7 @@ public class CheckJPanels {
         return checkJPanel;
     }
 
-    public JCheckBox getSignInCheckBox() {
-        return signInCheckBox;
+    public JCheckBox getAppSignInCheckBox() {
+        return appSignInCheckBox;
     }
 }

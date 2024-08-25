@@ -135,7 +135,7 @@ public class UniversalPanels {
         universalPanel.add(btnKPy);
         universalPanel.add(output2);
 
-        AbstractButtons.setMarginInButtonJPanel(universalPanel, 1);
+        AbstractButtons.setMargin_2_InButtonJPanel(universalPanel, 1);
     }
 
     private JButton intiBtnKPy() {
