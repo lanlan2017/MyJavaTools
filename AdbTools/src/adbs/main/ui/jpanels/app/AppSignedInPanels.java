@@ -25,16 +25,35 @@ import java.util.List;
  * 签到面板
  */
 public class AppSignedInPanels {
+    /**
+     * 顶层面板
+     */
     private final JPanel appPanel;
-
+    /**
+     * 按钮面板
+     */
     private final JPanel btnPanel;
+    /**
+     * 重点按钮
+     */
     private final JButton zhongdian;
+    /**
+     * 取消按钮
+     */
     private final JButton quxiao;
-    //    private final JButton batteryReset;
 
+    /**
+     * 签到文本面板
+     */
     private final JTextPane signedIn;
+    /**
+     * 未签到文本面板
+     */
     private final JTextPane notOpened;
 
+    /**
+     * 高亮记录列表
+     */
     private final List<Highlighter.Highlight> highlights = new ArrayList<>();
 
     public AppSignedInPanels() {
@@ -47,7 +66,8 @@ public class AppSignedInPanels {
         this.signedIn.setBorder(new TitledBorder(new LineBorder(Color.pink), "已打开"));
 
         this.btnPanel = new JPanel();
-        this.btnPanel.setLayout(new BoxLayout(btnPanel, BoxLayout.Y_AXIS));
+//        this.btnPanel.setLayout(new BoxLayout(btnPanel, BoxLayout.Y_AXIS));
+        this.btnPanel.setLayout(new BorderLayout());
 
 
         JPanel panel1 = getBtttonFlowLayoutJPanel();
@@ -90,12 +110,11 @@ public class AppSignedInPanels {
 
 
         JButton btnNextDay = getBtnNextDay();
+        JButton btnUpdateEarningApps = getBtnUpdateEarningApps();
 
 
         JPanel panel3 = getBtttonFlowLayoutJPanel();
-
         panel3.add(btnNextDay);
-        JButton btnUpdateEarningApps = getBtnUpdateEarningApps();
         panel3.add(btnUpdateEarningApps);
 
 
@@ -106,9 +125,19 @@ public class AppSignedInPanels {
         AbstractButtons.setMargin_2_InButtonJPanel(panel2, 1);
         AbstractButtons.setMargin_2_InButtonJPanel(panel3, 1);
 
-        btnPanel.add(panel1);
-        btnPanel.add(panel2);
-        btnPanel.add(panel3);
+        JPanel btnNorth = new JPanel();
+
+        btnNorth.setLayout(new BoxLayout(btnNorth,BoxLayout.Y_AXIS));
+        btnNorth.add(panel1);
+        btnNorth.add(panel2);
+        btnNorth.add(panel3);
+//        btnPanel.add(btnNorth);
+
+        btnPanel.add(btnNorth,BorderLayout.NORTH);
+
+//        btnPanel.add(panel1);
+//        btnPanel.add(panel2);
+//        btnPanel.add(panel3);
 
         //        btnPanel.add(batteryReset);
 
