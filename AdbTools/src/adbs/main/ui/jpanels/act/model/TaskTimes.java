@@ -11,16 +11,42 @@ public class TaskTimes {
      */
     private String name;
     /**
+     * 已经签到
+     */
+    private boolean selected;
+
+    /**
      * 任务完成次数
      */
     private int times;
 
-    public TaskTimes(String name, int times) {
+    public TaskTimes(String name, boolean selected, int times) {
         this.name = name;
+        this.selected = selected;
         this.times = times;
     }
 
+//    public TaskTimes(String name, int times) {
+//        this.name = name;
+//        this.times = times;
+//    }
+
+    public TaskTimes(String name) {
+        this.name = name;
+    }
+
+    /**
+     * 必须提供默认构造器，一边使用JackSon进行序列化
+     */
     public TaskTimes() {
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 
     public String getName() {

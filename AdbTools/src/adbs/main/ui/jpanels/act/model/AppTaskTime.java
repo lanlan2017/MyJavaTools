@@ -2,7 +2,6 @@ package adbs.main.ui.jpanels.act.model;
 
 import adbs.main.ui.jpanels.act.model.jaskson.file.JsonToFile;
 
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.function.Consumer;
 
@@ -14,32 +13,15 @@ public class AppTaskTime {
     /**
      * 任务列表
      */
-    private HashSet<TaskTimes> taskTimesHashSet;
+    private HashSet<TaskTimes> tasks;
 
-//    private static final AppTaskTime dianTao;
-
-//    static {
-//        HashSet<TaskTimes> dianTaoTaskTimes = new HashSet<>();
-//        dianTaoTaskTimes.add(new TaskTimes("商城", -1));
-//        dianTaoTaskTimes.add(new TaskTimes("红包", 0));
-//        dianTaoTaskTimes.add(new TaskTimes("购金", -1));
-//        dianTaoTaskTimes.add(new TaskTimes("开店", -1));
-//        dianTaoTaskTimes.add(new TaskTimes("签到", 0));
-//        dianTaoTaskTimes.add(new TaskTimes("打工", 0));
-//        dianTaoTaskTimes.add(new TaskTimes("睡觉", 0));
-//        dianTaoTaskTimes.add(new TaskTimes("走路", 0));
-//
-////        dianTaoTaskTimes.contains(new TaskTimes())
-//
-//        AppTaskTime  dianTao = new AppTaskTime("点淘", dianTaoTaskTimes);
-//    }
-
+    // JackSon需要默认的构造器用来反序列化
     public AppTaskTime() {
     }
 
-    public AppTaskTime(String appName, HashSet<TaskTimes> taskTimesHashSet) {
+    public AppTaskTime(String appName, HashSet<TaskTimes> tasks) {
         this.appName = appName;
-        this.taskTimesHashSet = taskTimesHashSet;
+        this.tasks = tasks;
     }
 
     public String getAppName() {
@@ -50,19 +32,19 @@ public class AppTaskTime {
         this.appName = appName;
     }
 
-    public HashSet<TaskTimes> getTaskTimesHashSet() {
-        return taskTimesHashSet;
+    public HashSet<TaskTimes> getTasks() {
+        return tasks;
     }
 
-    public void setTaskTimesHashSet(HashSet<TaskTimes> taskTimesHashSet) {
-        this.taskTimesHashSet = taskTimesHashSet;
+    public void setTasks(HashSet<TaskTimes> tasks) {
+        this.tasks = tasks;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         //        sb.append("[");
-        taskTimesHashSet.forEach(new Consumer<TaskTimes>() {
+        tasks.forEach(new Consumer<TaskTimes>() {
             @Override
             public void accept(TaskTimes taskTimes) {
                 String name = taskTimes.getName();
@@ -78,52 +60,84 @@ public class AppTaskTime {
 
     public static void main(String[] args) {
         HashSet<TaskTimes> dianTaoTaskTimes = new HashSet<>();
-        dianTaoTaskTimes.add(new TaskTimes("商城", -1));
-        dianTaoTaskTimes.add(new TaskTimes("红包", 0));
-        dianTaoTaskTimes.add(new TaskTimes("购金", -1));
-        dianTaoTaskTimes.add(new TaskTimes("开店", -1));
-        dianTaoTaskTimes.add(new TaskTimes("签到", 0));
-        dianTaoTaskTimes.add(new TaskTimes("打工", 0));
-        dianTaoTaskTimes.add(new TaskTimes("睡觉", 0));
-        dianTaoTaskTimes.add(new TaskTimes("走路", 0));
+        dianTaoTaskTimes.add(new TaskTimes("商城", false, -1));
+        dianTaoTaskTimes.add(new TaskTimes("红包", false, 0));
+        dianTaoTaskTimes.add(new TaskTimes("购金", false, -1));
+        dianTaoTaskTimes.add(new TaskTimes("开店", false, -1));
+        dianTaoTaskTimes.add(new TaskTimes("签到", false, 0));
+        dianTaoTaskTimes.add(new TaskTimes("打工", false, 0));
+        dianTaoTaskTimes.add(new TaskTimes("睡觉", false, 0));
+        dianTaoTaskTimes.add(new TaskTimes("走路", false, 0));
 
         //        dianTaoTaskTimes.contains(new TaskTimes())
 
-        AppTaskTime  dianTao = new AppTaskTime("点淘", dianTaoTaskTimes);
+        AppTaskTime dianTao = new AppTaskTime("点淘", dianTaoTaskTimes);
 
-        JsonToFile<AppTaskTime> jsonToFileHandler = new JsonToFile<>();
+        JsonToFile<AppTaskTime> jsonToFile = new JsonToFile<>();
         //        System.out.println(dianTao);
         //        testPrintJSON();
 
         // 要序列化的文件
         String filePath = "dianTao.json";
 
+        //        tofile(dianTao, jsonToFile, filePath);
+
         // 把这个对象序列化到文件中
-        //            jsonToFileHandler.toJsonFile(user, filePath);
-        try {
-            jsonToFileHandler.toJsonFile(dianTao, filePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        //            jsonToFile.toJsonFile(user, filePath);
+        jsonToFile.toJsonFile(dianTao, filePath);
 
+        //            AppTaskTime appTaskTime = getAppTaskTime(jsonToFile, filePath, AppTaskTime.class);
 
-        try {
-            AppTaskTime appTaskTime = jsonToFileHandler.fromJsonFile(filePath, AppTaskTime.class);
-            System.out.println(appTaskTime);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        AppTaskTime appTaskTime = jsonToFile.fromJsonFile(filePath, AppTaskTime.class);
+        System.out.println(appTaskTime);
+
+        TaskTimes toFind = new TaskTimes("打工");
+        HashSet<TaskTimes> taskTimesHashSet = appTaskTime.getTasks();
+        //            if (taskTimesHashSet.contains(toFind)) {
+        //                System.out.println("找到");
+        //                taskTimesHashSet.
+        //            }
+
+        taskTimesHashSet.forEach(new Consumer<TaskTimes>() {
+            @Override
+            public void accept(TaskTimes taskTimes) {
+                if (taskTimes.equals(toFind)) {
+                    System.out.println("taskTimes = " + taskTimes);
+                    String name = taskTimes.getName();
+                    int times = taskTimes.getTimes();
+                    System.out.println("name = " + name);
+                    System.out.println("times = " + times);
+                    taskTimes.setTimes(times + 11111);
+                    jsonToFile.toJsonFile(appTaskTime, filePath);
+
+                    return;
+                }
+            }
+        });
+
 
     }
 
-//    private static void testPrintJSON() {
-//        ObjectMapper mapper = new ObjectMapper();
-//        String jsonString = null;
-//        try {
-//            jsonString = mapper.writeValueAsString(dianTao);
-//        } catch (JsonProcessingException e) {
-//            e.printStackTrace();
-//        }
-//        System.out.println(jsonString);
-//    }
+    //    private static AppTaskTime getAppTaskTime(JsonToFile<AppTaskTime> jsonToFileHandler, String filePath, Class<AppTaskTime> clazz) {
+    //        AppTaskTime appTaskTime = jsonToFileHandler.fromJsonFile(filePath, clazz);
+    //        System.out.println(appTaskTime);
+    //        return appTaskTime;
+    //    }
+
+    //    private static void tofile(AppTaskTime dianTao, JsonToFile<AppTaskTime> jsonToFileHandler, String filePath) {
+    //        // 把这个对象序列化到文件中
+    //        //            jsonToFileHandler.toJsonFile(user, filePath);
+    //        jsonToFileHandler.toJsonFile(dianTao, filePath);
+    //    }
+
+    //    private static void testPrintJSON() {
+    //        ObjectMapper mapper = new ObjectMapper();
+    //        String jsonString = null;
+    //        try {
+    //            jsonString = mapper.writeValueAsString(dianTao);
+    //        } catch (JsonProcessingException e) {
+    //            e.printStackTrace();
+    //        }
+    //        System.out.println(jsonString);
+    //    }
 }

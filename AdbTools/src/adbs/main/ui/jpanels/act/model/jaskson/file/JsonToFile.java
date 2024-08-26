@@ -22,8 +22,13 @@ public class JsonToFile<T> {
      * @param filePath 文件路径
      * @throws IOException 如果写入文件失败
      */
-    public void toJsonFile(T obj, String filePath) throws IOException {
-        mapper.writeValue(new File(filePath), obj);
+    public void toJsonFile(T obj, String filePath) {
+        try {
+            mapper.writeValue(new File(filePath), obj);
+            System.out.println("已经写入文件：" + filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -34,8 +39,13 @@ public class JsonToFile<T> {
      * @return 反序列化的对象
      * @throws IOException 如果读取文件失败
      */
-    public <U extends T> U fromJsonFile(String filePath, Class<U> clazz) throws IOException {
-        return mapper.readValue(new File(filePath), clazz);
+    public <U extends T> U fromJsonFile(String filePath, Class<U> clazz) {
+        try {
+            return mapper.readValue(new File(filePath), clazz);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public static void main(String[] args) {
@@ -46,16 +56,12 @@ public class JsonToFile<T> {
         // 要序列化的文件
         String filePath = "user2.json";
 
-        try {
-            // 把这个对象序列化到文件中
-            jsonToFileHandler.toJsonFile(user, filePath);
-            System.out.println("User object has been serialized to " + filePath);
+        // 把这个对象序列化到文件中
+        jsonToFileHandler.toJsonFile(user, filePath);
+        System.out.println("User object has been serialized to " + filePath);
 
-            // 反序列化，从文件中读取对象
-            User2 deserializedUser = jsonToFileHandler.fromJsonFile(filePath, User2.class);
-            System.out.println("Deserialized User: " + deserializedUser);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // 反序列化，从文件中读取对象
+        User2 deserializedUser = jsonToFileHandler.fromJsonFile(filePath, User2.class);
+        System.out.println("Deserialized User: " + deserializedUser);
     }
 }
