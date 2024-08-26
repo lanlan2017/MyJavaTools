@@ -1,0 +1,28 @@
+{
+  "appName" : "点淘",
+  "taskTimesHashSet" : [ {
+    "name" : "红包",
+    "times" : 0
+  }, {
+    "name" : "打工",
+    "times" : 0
+  }, {
+    "name" : "购金",
+    "times" : -1
+  }, {
+    "name" : "商城",
+    "times" : -1
+  }, {
+    "name" : "签到",
+    "times" : 0
+  }, {
+    "name" : "走路",
+    "times" : 0
+  }, {
+    "name" : "开店",
+    "times" : -1
+  }, {
+    "name" : "睡觉",
+    "times" : 0
+  } ]
+}
