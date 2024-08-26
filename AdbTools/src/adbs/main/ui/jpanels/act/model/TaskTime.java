@@ -5,11 +5,11 @@ import java.util.Objects;
 /**
  * 任务，任务要完成的次数
  */
-public class TaskTimes {
+public class TaskTime {
     /**
      * 任务名称
      */
-    private String name;
+    private String taskName;
     /**
      * 已经签到
      */
@@ -20,25 +20,20 @@ public class TaskTimes {
      */
     private int times;
 
-    public TaskTimes(String name, boolean selected, int times) {
-        this.name = name;
+    public TaskTime(String taskName, boolean selected, int times) {
+        this.taskName = taskName;
         this.selected = selected;
         this.times = times;
     }
 
-//    public TaskTimes(String name, int times) {
-//        this.name = name;
-//        this.times = times;
-//    }
-
-    public TaskTimes(String name) {
-        this.name = name;
+    public TaskTime(String taskName) {
+        this.taskName = taskName;
     }
 
     /**
      * 必须提供默认构造器，一边使用JackSon进行序列化
      */
-    public TaskTimes() {
+    public TaskTime() {
     }
 
     public boolean isSelected() {
@@ -49,12 +44,12 @@ public class TaskTimes {
         this.selected = selected;
     }
 
-    public String getName() {
-        return name;
+    public String getTaskName() {
+        return taskName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
     }
 
     public int getTimes() {
@@ -71,12 +66,17 @@ public class TaskTimes {
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-        TaskTimes taskTimes = (TaskTimes) o;
-        return Objects.equals(name, taskTimes.name);
+        TaskTime taskTime = (TaskTime) o;
+        return Objects.equals(taskName, taskTime.taskName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(taskName);
+    }
+
+    @Override
+    public String toString() {
+        return "TaskTime{" + "taskName='" + taskName + '\'' + ", selected=" + selected + ", times=" + times + '}';
     }
 }

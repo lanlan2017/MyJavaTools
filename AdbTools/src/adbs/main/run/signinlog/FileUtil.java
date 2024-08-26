@@ -45,9 +45,10 @@ public class FileUtil {
 
 
     /**
-     * 当文件不存在时创建该文件
+     * 当文件不存在时创建文件
      *
      * @param filePath 文件路径
+     * @return 如果创建了文件，则返回true。如果没有创建文件，则返回false。
      */
     public static boolean isNeedToCreateFile(String filePath) {
         // 使用File类来操作文件
@@ -55,23 +56,28 @@ public class FileUtil {
         boolean flag = false;
         // 创建文件所在的目录结构（如果它们不存在的话）
         if (!file.getParentFile().exists()) {
-            file.getParentFile().mkdirs(); // 注意是mkdirs()，它会创建所有必要的父目录
-            flag = true;
+            // 注意是mkdirs()，它会创建所有必要的父目录
+            //先创建目录树
+            file.getParentFile().mkdirs();
+            //            flag = true;
         }
 
         // 现在可以安全地尝试创建文件了
         if (!file.exists()) {
             try {
                 boolean isCreated = file.createNewFile();
-                flag = true;
                 if (isCreated) {
                     System.out.println("文件已创建: " + file.getAbsolutePath());
+                    flag = true;
                 } else {
                     System.out.println("文件已存在，未进行创建。");
+
                 }
+                //                flag = isCreated;
             } catch (IOException e) {
                 e.printStackTrace();
                 System.out.println("文件创建失败。");
+                //                flag = false;
             }
         } else {
             // 如果文件已存在

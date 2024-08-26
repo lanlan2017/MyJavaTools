@@ -1,4 +1,4 @@
-package adbs.main.ui.jpanels.act.model.jaskson.test;
+package adbs.main.ui.jpanels.act.jaskson.test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

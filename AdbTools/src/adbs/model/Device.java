@@ -67,6 +67,7 @@ public class Device {
     private boolean turnSreenOff;
     private final String deviceFilePath;
     private final String loginRecordsTxt;
+    private final String actTaskJSON;
 
     public Device(String serial, String description) {
         this.serial = serial;
@@ -94,6 +95,7 @@ public class Device {
         //       该设备的签到记录文件的路径
         //        loginRecordsTxt = deviceFilePath + "\\loginRecords.txt";
         loginRecordsTxt = deviceFilePath + "\\SignIn.txt";
+        actTaskJSON = deviceFilePath + "\\tasks.json";
         if (IsTest.isTest()) {
             System.out.print(name + " " + serial + " ");
             System.out.print(" width=" + getWidth());
@@ -115,6 +117,7 @@ public class Device {
 
     /**
      * 计算当前设备的优先级
+     *
      * @param serial 设备序列号
      */
     private void calPriority(String serial) {
@@ -160,6 +163,9 @@ public class Device {
         return loginRecordsTxt;
     }
 
+    public String getActTaskJSON() {
+        return actTaskJSON;
+    }
 
     /**
      * AdbTools.properties

@@ -1,4 +1,4 @@
-package adbs.main.ui.jpanels.act.model.jaskson.file;
+package adbs.main.ui.jpanels.act.jaskson.file;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;

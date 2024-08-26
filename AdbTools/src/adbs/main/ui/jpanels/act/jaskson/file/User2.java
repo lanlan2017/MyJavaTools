@@ -1,4 +1,4 @@
-package adbs.main.ui.jpanels.act.model.jaskson.file;
+package adbs.main.ui.jpanels.act.jaskson.file;
 
 import java.io.Serializable;
 
