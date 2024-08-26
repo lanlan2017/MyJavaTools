@@ -5,12 +5,13 @@ import adbs.main.run.AdbGetPackage;
 import adbs.main.run.signinlog.FileUtil;
 import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.act.jaskson.file.JsonToFile;
-import adbs.main.ui.jpanels.act.model.*;
+import adbs.main.ui.jpanels.act.model.AppTask3;
+import adbs.main.ui.jpanels.act.model.AppTaskTimeSet;
+import adbs.main.ui.jpanels.act.model.TaskTime;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.function.Consumer;
@@ -147,61 +148,13 @@ public class ActSignedInPanels {
                         jPanel.setLayout(new BorderLayout());
 
                         JCheckBox jCheckBox;
-//                        jCheckBox = getjCheckBox(taskTime, filePath, jsonToFile, appTask2);
+                        //                        jCheckBox = getjCheckBox(taskTime, filePath, jsonToFile, appTask2);
                         jCheckBox = getjCheckBox(taskTime, filePath, jsonToFile, appTask3);
 
                         jPanel.add(jCheckBox, BorderLayout.WEST);
 
                         if (times >= 0) {
-                            JTextField textField = new JTextField();
-                            // 设置为不可编辑
-                            textField.setEditable(false);
-                            textField.setColumns(2);
-                            textField.setText("0");  // 初始化为0
-                            // 添加键盘事件监听器
-                            textField.addKeyListener(new KeyAdapter() {
-                                @Override
-                                public void keyPressed(KeyEvent e) {
-                                    try {
-                                        int value = Integer.parseInt(textField.getText());
-                                        //当按下上箭头或者加号的时候
-                                        if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyChar() == '+') {
-                                            //                                        String s1 = text + "+1?";
-                                            String s1 = taskName + "+1?";
-                                            AdbTools.getInstance().showDialogOk(s1, new ActionListener() {
-                                                @Override
-                                                public void actionPerformed(ActionEvent e) {
-                                                    // 上箭头被按下，增加1
-                                                    int value_ = value + 1;
-
-                                                    textField.setText(Integer.toString(value_));
-
-                                                    taskTime.setTimes(value_);
-//                                                    jsonToFile.toJsonFile(appTask2, filePath);
-                                                    jsonToFile.toJsonFile(appTask3, filePath);
-                                                }
-                                            });
-                                        } else if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyChar() == '-') {
-                                            // 下箭头被按下，减少1，但不能小于0
-                                            if (value > 0) {
-                                                String s1 = taskName + "-1?";
-                                                AdbTools.getInstance().showDialogOk(s1, new ActionListener() {
-                                                    @Override
-                                                    public void actionPerformed(ActionEvent e) {
-                                                        int value_ = value - 1;
-                                                        textField.setText(Integer.toString(value_));
-//                                                        jsonToFile.toJsonFile(appTask2, filePath);
-                                                        jsonToFile.toJsonFile(appTask3, filePath);
-                                                    }
-                                                });
-                                            }
-                                        }
-                                    } catch (NumberFormatException ex) {
-                                        // 如果不是整数，则不执行任何操作
-                                        ex.printStackTrace();
-                                    }
-                                }
-                            });
+                            JTextField textField = getjTextField(taskTime, taskName, jsonToFile, appTask3, filePath);
                             jPanel.add(textField, BorderLayout.CENTER);
                         }
                         taskPanel.add(jPanel);
@@ -212,90 +165,147 @@ public class ActSignedInPanels {
         }
     }
 
-    //    private void updatePanels(String filePath, JsonToFile<AppTask2> jsonToFile, String appName, AppTask2 appTask2) {
-    private void updatePanels(String filePath, JsonToFile<AppTask2> jsonToFile, String appName, AppTask2 appTask2) {
-        HashMap<String, TaskTimeSet> tasks1 = appTask2.getTasks();
-        if (tasks1.containsKey(appName)) {
-            //移除所有面板
-            taskPanel.removeAll();
+    private JTextField getjTextField(TaskTime taskTime, String taskName, JsonToFile<AppTask3> jsonToFile, AppTask3 appTask3, String filePath) {
+        JTextField textField = new JTextField();
+        // 设置为不可编辑
+        textField.setEditable(false);
+        textField.setColumns(2);
 
-            TaskTimeSet taskTimeSet = tasks1.get(appName);
+        //        textField.setText("0");  // 初始化为0
+        int times = taskTime.getTimes();
+        textField.setText(String.valueOf(times));
 
-            HashSet<TaskTime> tasks = taskTimeSet.getTasks();
-
-            tasks.forEach(new Consumer<TaskTime>() {
-                @Override
-                public void accept(TaskTime taskTime) {
-                    //获取任务名
-                    String taskName = taskTime.getTaskName();
-                    //                    获取任务次数
-                    int times = taskTime.getTimes();
-
-                    JPanel jPanel = new JPanel();
-                    jPanel.setLayout(new BorderLayout());
-
-                    JCheckBox jCheckBox;
-                    jCheckBox = getjCheckBox(taskTime, filePath, jsonToFile, appTask2);
-
-                    jPanel.add(jCheckBox, BorderLayout.WEST);
-
-                    if (times >= 0) {
-                        JTextField textField = new JTextField();
-                        // 设置为不可编辑
-                        textField.setEditable(false);
-                        textField.setColumns(2);
-                        textField.setText("0");  // 初始化为0
-                        // 添加键盘事件监听器
-                        textField.addKeyListener(new KeyAdapter() {
+        // 添加键盘事件监听器
+        textField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                try {
+                    int value = Integer.parseInt(textField.getText());
+                    //当按下上箭头或者加号的时候
+                    if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyChar() == '+') {
+                        //                                        String s1 = text + "+1?";
+                        String s1 = taskName + "+1?";
+                        AdbTools.getInstance().showDialogOk(s1, new ActionListener() {
                             @Override
-                            public void keyPressed(KeyEvent e) {
-                                try {
-                                    int value = Integer.parseInt(textField.getText());
-                                    //当按下上箭头或者加号的时候
-                                    if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyChar() == '+') {
-                                        //                                        String s1 = text + "+1?";
-                                        String s1 = taskName + "+1?";
-                                        AdbTools.getInstance().showDialogOk(s1, new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                // 上箭头被按下，增加1
-                                                int value_ = value + 1;
+                            public void actionPerformed(ActionEvent e) {
+                                // 上箭头被按下，增加1
+                                int value_ = value + 1;
 
-                                                textField.setText(Integer.toString(value_));
+                                textField.setText(Integer.toString(value_));
 
-                                                taskTime.setTimes(value_);
-                                                jsonToFile.toJsonFile(appTask2, filePath);
-                                            }
-                                        });
-                                    } else if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyChar() == '-') {
-                                        // 下箭头被按下，减少1，但不能小于0
-                                        if (value > 0) {
-                                            String s1 = taskName + "-1?";
-                                            AdbTools.getInstance().showDialogOk(s1, new ActionListener() {
-                                                @Override
-                                                public void actionPerformed(ActionEvent e) {
-                                                    int value_ = value - 1;
-                                                    textField.setText(Integer.toString(value_));
-                                                    jsonToFile.toJsonFile(appTask2, filePath);
-                                                }
-                                            });
-                                        }
-                                    }
-                                } catch (NumberFormatException ex) {
-                                    // 如果不是整数，则不执行任何操作
-                                    ex.printStackTrace();
-                                }
+                                taskTime.setTimes(value_);
+                                //                                                    jsonToFile.toJsonFile(appTask2, filePath);
+                                jsonToFile.toJsonFile(appTask3, filePath);
                             }
                         });
-                        jPanel.add(textField, BorderLayout.CENTER);
+                    } else if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyChar() == '-') {
+                        // 下箭头被按下，减少1，但不能小于0
+                        if (value > 0) {
+                            String s1 = taskName + "-1?";
+                            AdbTools.getInstance().showDialogOk(s1, new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    int value_ = value - 1;
+                                    textField.setText(Integer.toString(value_));
+                                    //                                                        jsonToFile.toJsonFile(appTask2, filePath);
+                                    jsonToFile.toJsonFile(appTask3, filePath);
+                                }
+                            });
+                        }
                     }
-                    taskPanel.add(jPanel);
-
+                } catch (NumberFormatException ex) {
+                    // 如果不是整数，则不执行任何操作
+                    ex.printStackTrace();
                 }
-            });
-
-        }
+            }
+        });
+        return textField;
     }
+    //
+    //    //    private void updatePanels(String filePath, JsonToFile<AppTask2> jsonToFile, String appName, AppTask2 appTask2) {
+    //    private void updatePanels(String filePath, JsonToFile<AppTask2> jsonToFile, String appName, AppTask2 appTask2) {
+    //        HashMap<String, TaskTimeSet> tasks1 = appTask2.getTasks();
+    //        if (tasks1.containsKey(appName)) {
+    //            //移除所有面板
+    //            taskPanel.removeAll();
+    //
+    //            TaskTimeSet taskTimeSet = tasks1.get(appName);
+    //
+    //            HashSet<TaskTime> tasks = taskTimeSet.getTasks();
+    //
+    //            tasks.forEach(new Consumer<TaskTime>() {
+    //                @Override
+    //                public void accept(TaskTime taskTime) {
+    //                    //获取任务名
+    //                    String taskName = taskTime.getTaskName();
+    //                    //                    获取任务次数
+    //                    int times = taskTime.getTimes();
+    //
+    //                    JPanel jPanel = new JPanel();
+    //                    jPanel.setLayout(new BorderLayout());
+    //
+    //                    JCheckBox jCheckBox;
+    //                    jCheckBox = getjCheckBox(taskTime, filePath, jsonToFile, appTask2);
+    //
+    //                    jPanel.add(jCheckBox, BorderLayout.WEST);
+    //
+    //                    if (times >= 0) {
+    //                        JTextField textField = new JTextField();
+    //                        // 设置为不可编辑
+    //                        textField.setEditable(false);
+    //                        textField.setColumns(2);
+    //                        textField.setText("0");  // 初始化为0
+    //                        // 添加键盘事件监听器
+    //                        textField.addKeyListener(new KeyAdapter() {
+    //                            @Override
+    //                            public void keyPressed(KeyEvent e) {
+    //                                try {
+    //                                    int value = Integer.parseInt(textField.getText());
+    //                                    //当按下上箭头或者加号的时候
+    //                                    if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyChar() == '+') {
+    //                                        //                                        String s1 = text + "+1?";
+    //                                        String s1 = taskName + "+1?";
+    //                                        AdbTools.getInstance().showDialogOk(s1, new ActionListener() {
+    //                                            @Override
+    //                                            public void actionPerformed(ActionEvent e) {
+    //                                                // 上箭头被按下，增加1
+    //                                                int value_ = value + 1;
+    //
+    //                                                textField.setText(Integer.toString(value_));
+    //
+    //                                                taskTime.setTimes(value_);
+    //                                                jsonToFile.toJsonFile(appTask2, filePath);
+    //                                            }
+    //                                        });
+    //                                    } else if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyChar() == '-') {
+    //                                        // 下箭头被按下，减少1，但不能小于0
+    //                                        if (value > 0) {
+    //                                            String s1 = taskName + "-1?";
+    //                                            AdbTools.getInstance().showDialogOk(s1, new ActionListener() {
+    //                                                @Override
+    //                                                public void actionPerformed(ActionEvent e) {
+    //                                                    int value_ = value - 1;
+    //                                                    textField.setText(Integer.toString(value_));
+    //                                                    jsonToFile.toJsonFile(appTask2, filePath);
+    //                                                }
+    //                                            });
+    //                                        }
+    //                                    }
+    //                                } catch (NumberFormatException ex) {
+    //                                    // 如果不是整数，则不执行任何操作
+    //                                    ex.printStackTrace();
+    //                                }
+    //                            }
+    //                        });
+    //                        jPanel.add(textField, BorderLayout.CENTER);
+    //                    }
+    //                    taskPanel.add(jPanel);
+    //
+    //                }
+    //            });
+    //
+    //        }
+    //    }
 
     private JCheckBox getjCheckBox(TaskTime taskTime, String filePath, JsonToFile<AppTask3> jsonToFile, AppTask3 appTask2) {
         JCheckBox jCheckBox;
@@ -319,28 +329,28 @@ public class ActSignedInPanels {
         return jCheckBox;
     }
 
-
-    private JCheckBox getjCheckBox(TaskTime taskTime, String filePath, JsonToFile<AppTask2> jsonToFile, AppTask2 appTask2) {
-        JCheckBox jCheckBox;
-        jCheckBox = new JCheckBox(taskTime.getTaskName());
-        boolean selected = taskTime.isSelected();
-        System.out.println("selected = " + selected);
-        jCheckBox.setSelected(selected);
-        // 添加ItemListener来监听复选框的状态变化
-        jCheckBox.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    taskTime.setSelected(true);
-                    jsonToFile.toJsonFile(appTask2, filePath);
-                } else {
-                    taskTime.setSelected(false);
-                    jsonToFile.toJsonFile(appTask2, filePath);
-                }
-            }
-        });
-        return jCheckBox;
-    }
+    //
+    //    private JCheckBox getjCheckBox(TaskTime taskTime, String filePath, JsonToFile<AppTask2> jsonToFile, AppTask2 appTask2) {
+    //        JCheckBox jCheckBox;
+    //        jCheckBox = new JCheckBox(taskTime.getTaskName());
+    //        boolean selected = taskTime.isSelected();
+    //        System.out.println("selected = " + selected);
+    //        jCheckBox.setSelected(selected);
+    //        // 添加ItemListener来监听复选框的状态变化
+    //        jCheckBox.addItemListener(new ItemListener() {
+    //            @Override
+    //            public void itemStateChanged(ItemEvent e) {
+    //                if (e.getStateChange() == ItemEvent.SELECTED) {
+    //                    taskTime.setSelected(true);
+    //                    jsonToFile.toJsonFile(appTask2, filePath);
+    //                } else {
+    //                    taskTime.setSelected(false);
+    //                    jsonToFile.toJsonFile(appTask2, filePath);
+    //                }
+    //            }
+    //        });
+    //        return jCheckBox;
+    //    }
 
     /**
      * 根据任务名称数组创建复选框和文本框
