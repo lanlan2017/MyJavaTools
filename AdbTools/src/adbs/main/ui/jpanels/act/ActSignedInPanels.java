@@ -12,7 +12,7 @@ import adbs.main.ui.jpanels.act.model.TaskTime;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.function.Consumer;
 
@@ -90,11 +90,22 @@ public class ActSignedInPanels {
             AppTask3 appTask_old = jsonToFile.fromJsonFile(filePath, AppTask3.class);
 
             if (appTask_old != null) {
-                String date = appTask_old.getDate();
-                if (date.matches("\\d\\d\\d\\d-\\d\\d-\\d\\d")) {
-                    System.out.println("有当前APP的打开记录！。。。。。。。。。。。。。。。。。");
+                String oldDate = appTask_old.getDate();
+                System.out.println("oldDate = " + oldDate);
+                if (oldDate.matches("\\d\\d\\d\\d-\\d\\d-\\d\\d")) {
+                    System.out.println("有当前APP中的任务的打卡记录，。。。。。。。。。。。。。。。。。");
                     //                    appTask2 = appTask_old;
-                    appTask3 = appTask_old;
+                    String date = DateString.getDate_yyyyMMdd();
+                    System.out.println("date = " + date);
+                    if (date.equals(oldDate)) {
+                        System.out.println("是今天的打卡记录");
+                        appTask3 = appTask_old;
+                    } else {
+                        System.out.println("不是今天的打卡记录，记录已过期");
+                        appTask3 = new AppTask3();
+                    }
+
+
                 } else {
                     System.out.println("有文件，日期格式不对");
                     //                    appTask2 = new AppTask2();
@@ -122,7 +133,8 @@ public class ActSignedInPanels {
     }
 
     private void updatePanels2(String filePath, JsonToFile<AppTask3> jsonToFile, String appName, AppTask3 appTask3) {
-        HashSet<AppTaskTimeSet> tasks = appTask3.getTasks();
+        //        HashSet<AppTaskTimeSet> tasks = appTask3.getTasks();
+        ArrayList<AppTaskTimeSet> tasks = appTask3.getTasks();
         //        if (tasks.contains(new AppTaskTimeSet(appName))) {
         //
         //        }
@@ -130,12 +142,14 @@ public class ActSignedInPanels {
         while (iterator.hasNext()) {
 
             AppTaskTimeSet next = iterator.next();
-            System.out.println("next = " + next);
+            //            System.out.println("next = " + next);
             if (next.getAppName().equals(appName)) {
                 System.out.println("找到该应用的任务列表");
                 //移除所有面板
                 taskPanel.removeAll();
-                HashSet<TaskTime> taskTimeSet = next.getTaskTimeSet();
+                //                HashSet<TaskTime> taskTimeSet = next.getTaskTimeSet();
+                ArrayList<TaskTime> taskTimeSet = next.getTaskTimeSet();
+
                 taskTimeSet.forEach(new Consumer<TaskTime>() {
                     @Override
                     public void accept(TaskTime taskTime) {
@@ -311,7 +325,7 @@ public class ActSignedInPanels {
         JCheckBox jCheckBox;
         jCheckBox = new JCheckBox(taskTime.getTaskName());
         boolean selected = taskTime.isSelected();
-        System.out.println("selected = " + selected);
+        //        System.out.println("selected = " + selected);
         jCheckBox.setSelected(selected);
         // 添加ItemListener来监听复选框的状态变化
         jCheckBox.addItemListener(new ItemListener() {
