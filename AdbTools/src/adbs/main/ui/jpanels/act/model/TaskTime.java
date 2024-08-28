@@ -7,6 +7,10 @@ import java.util.Objects;
  */
 public class TaskTime {
     /**
+     * 任务不需要完成多次时的标志
+     */
+    public static final int NotNeedTIMES = -1;
+    /**
      * 任务名称
      */
     private String taskName;
@@ -27,7 +31,10 @@ public class TaskTime {
     }
 
     public TaskTime(String taskName) {
+
         this.taskName = taskName;
+        this.selected = false;
+        this.times = NotNeedTIMES;
     }
 
     /**

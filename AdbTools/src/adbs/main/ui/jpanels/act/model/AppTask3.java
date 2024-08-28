@@ -19,11 +19,6 @@ public class AppTask3 {
         tasks = new ArrayList<>();
     }
 
-    //    public AppTask3(String date, HashSet<AppTaskTimeSet> tasks) {
-    //        this.date = date;
-    //        this.tasks = tasks;
-    //    }
-
     public AppTask3(String date, ArrayList<AppTaskTimeSet> tasks) {
         this.date = date;
         this.tasks = tasks;
@@ -34,7 +29,7 @@ public class AppTask3 {
         tasks = new ArrayList<>();
         date = DateString.getDate_yyyyMMdd();
 
-//        HashSet<TaskTime> dianTaoTasks = new HashSet<>();
+        //        HashSet<TaskTime> dianTaoTasks = new HashSet<>();
         ArrayList<TaskTime> dianTaoTasks = new ArrayList<>();
 
         dianTaoTasks.add(new TaskTime("商城", false, -1));
@@ -46,9 +41,8 @@ public class AppTask3 {
         dianTaoTasks.add(new TaskTime("睡觉", false, 0));
         dianTaoTasks.add(new TaskTime("走路", false, 0));
 
-//        HashSet<TaskTime> fqctyybTask = new HashSet<>();
+        //        HashSet<TaskTime> fqctyybTask = new HashSet<>();
         ArrayList<TaskTime> fqctyybTask = new ArrayList<>();
-
         fqctyybTask.add(new TaskTime("商城", false, -1));
         fqctyybTask.add(new TaskTime("红包", false, 0));
         fqctyybTask.add(new TaskTime("购金", false, -1));
@@ -59,9 +53,31 @@ public class AppTask3 {
         fqctyybTask.add(new TaskTime("走路", false, 0));
 
         AppTaskTimeSet dianTao = new AppTaskTimeSet("点淘", dianTaoTasks);
-        AppTaskTimeSet fqctyyb = new AppTaskTimeSet("番茄畅听音乐版", fqctyybTask);
+
+
+        ArrayList<TaskTime> taoBaoTask = new ArrayList<>();
+        taoBaoTask.add(new TaskTime("红包签到"));
+        taoBaoTask.add(new TaskTime("视频"));
+        taoBaoTask.add(new TaskTime("芭芭农场"));
+        //        taoBaoTask.add(new TaskTime("红包签到", false, -1));
+        //        taoBaoTask.add(new TaskTime("视频", false, -1));
+        //        taoBaoTask.add(new TaskTime("芭芭农场", false, -1));
+        AppTaskTimeSet taoBao = new AppTaskTimeSet("淘宝", taoBaoTask);
+
+
+        ArrayList<TaskTime> taskTimesTaoTe = new ArrayList<>();
+        taskTimesTaoTe.add(new TaskTime("天天领红包"));
+        taskTimesTaoTe.add(new TaskTime("小鸡送好礼"));
+        taskTimesTaoTe.add(new TaskTime("现金签到"));
+        AppTaskTimeSet taoTe = new AppTaskTimeSet("淘特", taskTimesTaoTe);
+
+
+        AppTaskTimeSet fqctyyb = new AppTaskTimeSet("番茄畅听音乐版", taskTimesTaoTe);
+
         tasks.add(dianTao);
         tasks.add(fqctyyb);
+        tasks.add(taoBao);
+        tasks.add(taoTe);
     }
 
     public String getDate() {
@@ -79,37 +95,6 @@ public class AppTask3 {
     public void setTasks(ArrayList<AppTaskTimeSet> tasks) {
         this.tasks = tasks;
     }
-
-    //    public HashSet<AppTaskTimeSet> getTasks() {
-//        return tasks;
-//    }
-//
-//    public void setTasks(HashSet<AppTaskTimeSet> tasks) {
-//        this.tasks = tasks;
-//    }
-    //    public TaskTimeSet[] getTasks() {
-    //        return tasks;
-    //    }
-    //
-    //    public void setTasks(TaskTimeSet[] tasks) {
-    //        this.tasks = tasks;
-    //    }
-
-//    /**
-//     * 线程安全的获取yyyy-MM-dd格式的日期字符串。
-//     *
-//     * @return
-//     */
-//    public static String getDate_yyyyMMdd() {
-//        // 获取当前日期
-//        LocalDate currentDate = LocalDate.now();
-//        // 定义一个 DateTimeFormatter 使用 yyyy-MM-dd 的格式
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//        // 将 LocalDate 格式化为字符串
-//        String formattedDate = currentDate.format(formatter);
-//        System.out.println("formattedDate = " + formattedDate);
-//        return formattedDate;
-//    }
 
     @Override
     public boolean equals(Object o) {
