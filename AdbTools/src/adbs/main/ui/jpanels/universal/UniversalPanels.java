@@ -144,7 +144,7 @@ public class UniversalPanels {
         universalPanel.add(btnKPy);
         universalPanel.add(output2);
 
-        AbstractButtons.setMargin_2_InButtonJPanel(universalPanel, 1);
+        AbstractButtons.setMarginInButtonJPanel(universalPanel, 1);
     }
 
     private JButton initBtnStop() {
@@ -165,32 +165,38 @@ public class UniversalPanels {
         zhongDuanBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //获取正在运行的线程列表
-                Iterator<Runnable> iterator = AdbTools.getInstance().getIsRunningSet().iterator();
-                //遍历正在运行的线程列表
-                while (iterator.hasNext()) {
-                    Runnable runnable = iterator.next();
-                    //如果是可停止的线程类或者它的子类
-                    if (runnable instanceof CloseableRunnable) {
-                        CloseableRunnable closeableRunnable = (CloseableRunnable) runnable;
-                        //停止并跳过线程的after方法
-                        closeableRunnable.stopSkipAfter();
-                        // 从线程池中删除掉
-                        iterator.remove();
-                    }
-                }
-                // JLable线程不安全，在事件调度线程中执行，以确保线程安全
-                SwingUtilities.invokeLater(new Runnable() {
+                AdbTools.getInstance().showDialogOk("中断", new ActionListener() {
                     @Override
-                    public void run() {
-                        // 时间面板的标签文字设为空字符串
-                        AdbTools.getInstance().getTimePanels().getTimerJLabel().setText("");
-                        // 隐藏时间面板
-//                        AdbTools.getInstance().getTimePanels().getTimePanel().setVisible(false);
-//                        ThreadSleep.seconds(1);
-//                        // 通用面板的标签文字设置为空字符串
-//                        AdbTools.getInstance().getUniversalPanels().getOutput2().setText("");
-                        JFramePack.pack();
+                    public void actionPerformed(ActionEvent e) {
+
+                        //获取正在运行的线程列表
+                        Iterator<Runnable> iterator = AdbTools.getInstance().getIsRunningSet().iterator();
+                        //遍历正在运行的线程列表
+                        while (iterator.hasNext()) {
+                            Runnable runnable = iterator.next();
+                            //如果是可停止的线程类或者它的子类
+                            if (runnable instanceof CloseableRunnable) {
+                                CloseableRunnable closeableRunnable = (CloseableRunnable) runnable;
+                                //停止并跳过线程的after方法
+                                closeableRunnable.stopSkipAfter();
+                                // 从线程池中删除掉
+                                iterator.remove();
+                            }
+                        }
+                        // JLable线程不安全，在事件调度线程中执行，以确保线程安全
+                        SwingUtilities.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                // 时间面板的标签文字设为空字符串
+                                AdbTools.getInstance().getTimePanels().getTimerJLabel().setText("");
+                                // 隐藏时间面板
+                                //                        AdbTools.getInstance().getTimePanels().getTimePanel().setVisible(false);
+                                //                        ThreadSleep.seconds(1);
+                                //                        // 通用面板的标签文字设置为空字符串
+                                //                        AdbTools.getInstance().getUniversalPanels().getOutput2().setText("");
+                                JFramePack.pack();
+                            }
+                        });
                     }
                 });
             }

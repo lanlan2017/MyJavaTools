@@ -118,7 +118,7 @@ public class TimingPanels2 extends WaitValues {
         timingPanels2.add(btn40M);
 
 
-        AbstractButtons.setMargin_2_InButtonJPanel(timingPanels2, 0);
+        AbstractButtons.setMarginInButtonJPanel(timingPanels2, 0);
     }
 
     private JComboBox<String> initComboBox() {
@@ -316,7 +316,9 @@ public class TimingPanels2 extends WaitValues {
 
 
     private void showWaitButtons() {
+        // 先把所有的按钮都隐藏
         hideAllButtons();
+        // 然后再显示需要的按钮
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -332,33 +334,9 @@ public class TimingPanels2 extends WaitValues {
                 btn3HMore.setVisible(true);
             }
         });
-
-        //        btn30s.setVisible(false);
-        //        btn210s.setVisible(false);
-        //        btn20M.setVisible(false);
-        //        btn40M.setVisible(false);
-        //        btn4H.setVisible(false);
-        //        btn5H.setVisible(false);
     }
 
     private void showReadWaitButtons() {
-        //        btn30s.setVisible(false);
-        //        btn35s.setVisible(false);
-        //        btn65s.setVisible(false);
-        //        btn95s.setVisible(false);
-        //        btn120s.setVisible(false);
-        //        btn180s.setVisible(false);
-        //        btn5M.setVisible(false);
-        //        btn210s.setVisible(false);
-        //        btn40M.setVisible(false);
-        //        btn20M.setVisible(true);
-        //        btn1H.setVisible(true);
-        //        btn1_5H.setVisible(true);
-        //        btn2H.setVisible(true);
-        //        btn3HMore.setVisible(true);
-        //        btn4H.setVisible(true);
-        //        btn5H.setVisible(true);
-
         hideAllButtons();
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -376,25 +354,6 @@ public class TimingPanels2 extends WaitValues {
     }
 
     private void showShoppingButtons() {
-        //        btn30s.setVisible(false);
-        //        btn120s.setVisible(false);
-        //        btn180s.setVisible(false);
-        //        btn210s.setVisible(false);
-        //        btn5M.setVisible(false);
-        //        btn20s.setVisible(true);
-        //        btn35s.setVisible(true);
-        //        btn65s.setVisible(true);
-        //        btn95s.setVisible(true);
-        //        btn20M.setVisible(false);
-        //        btn40M.setVisible(false);
-        //        btn1H.setVisible(false);
-        //        btn1_5H.setVisible(false);
-        //        btn2H.setVisible(false);
-        //        btn3HMore.setVisible(false);
-        //        btn4H.setVisible(false);
-        //        btn5H.setVisible(false);
-
-
         hideAllButtons();
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -411,23 +370,6 @@ public class TimingPanels2 extends WaitValues {
      * VW，需要的时间
      */
     private void showVideoButtons() {
-        //        btn20s.setVisible(false);
-        //        btn30s.setVisible(false);
-        //        btn35s.setVisible(false);
-        //        btn120s.setVisible(false);
-        //        btn5M.setVisible(false);
-        //        btn65s.setVisible(true);
-        //        btn95s.setVisible(true);
-        //        btn180s.setVisible(true);
-        //        btn210s.setVisible(true);
-        //        btn20M.setVisible(true);
-        //        btn40M.setVisible(true);
-        //        btn1H.setVisible(true);
-        //        btn1_5H.setVisible(false);
-        //        btn2H.setVisible(false);
-        //        btn3HMore.setVisible(false);
-        //        btn4H.setVisible(false);
-        //        btn5H.setVisible(false);
         hideAllButtons();
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -444,29 +386,21 @@ public class TimingPanels2 extends WaitValues {
     }
 
     private void hideAllButtons() {
-        //        btn20s.setVisible(false);
-        //        btn30s.setVisible(false);
-        //        btn35s.setVisible(false);
-        //        btn65s.setVisible(false);
-        //        btn95s.setVisible(false);
-        //        btn120s.setVisible(false);
-        //        btn180s.setVisible(false);
-        //        btn5M.setVisible(false);
-        //        btn20M.setVisible(false);
-        //        btn1H.setVisible(false);
-        //        btn1_5H.setVisible(false);
-        //        btn2H.setVisible(false);
-        //        btn3HMore.setVisible(false);
-        //        btn4H.setVisible(false);
-        //        btn5H.setVisible(false);
-        // 在一段时间后隐藏所有按钮组件
+        // 在一段时间后隐藏所有的按钮组件
         SwingUtilities.invokeLater(() -> hideAllButtons(timingPanels2));
 
     }
 
+    /**
+     * 隐藏所欲的按钮
+     *
+     * @param container 存放JButton的容器，例如：JPanel。
+     */
     private static void hideAllButtons(Container container) {
+        // 遍历所有的组件
         for (Component component : container.getComponents()) {
             if (component instanceof JButton) {
+                //隐藏所有的按钮
                 component.setVisible(false);
             }
         }

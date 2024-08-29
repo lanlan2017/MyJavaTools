@@ -83,14 +83,17 @@ public class WaitButtonRunnable extends CloseableRunnable {
                 stopLoopBody = true;
                 break;
             }
-            int waitingSeconds = (millisecond - count) / 1000;
-            input1.setText(String.valueOf(waitingSeconds));
+            //是有整数秒的时候才更新
+            if (count % 1000 == 0) {
+                int waitingSeconds = (millisecond - count) / 1000;
+                input1.setText(String.valueOf(waitingSeconds));
+            }
         }
     }
 
     @Override
     protected void cleanOutput() {
-//        super.cleanOutput();
+        //        super.cleanOutput();
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -107,16 +110,16 @@ public class WaitButtonRunnable extends CloseableRunnable {
     @Override
     protected void after() {
         super.after();
-//        SwingUtilities.invokeLater(new Runnable() {
-//            @Override
-//            public void run() {
-//                // 恢复原来的设置
-//                input1.setText(input1OldText);
-//                input1.setBackground(input1Background);
-//                JLabel timerJLabel = timePanels.getTimerJLabel();
-//                timerJLabel.setText("");
-//            }
-//        });
+        //        SwingUtilities.invokeLater(new Runnable() {
+        //            @Override
+        //            public void run() {
+        //                // 恢复原来的设置
+        //                input1.setText(input1OldText);
+        //                input1.setBackground(input1Background);
+        //                JLabel timerJLabel = timePanels.getTimerJLabel();
+        //                timerJLabel.setText("");
+        //            }
+        //        });
 
         AdbTools adbTools = AdbTools.getInstance();
         AdbJPanels adbJPanels = adbTools.getAdbJPanels();

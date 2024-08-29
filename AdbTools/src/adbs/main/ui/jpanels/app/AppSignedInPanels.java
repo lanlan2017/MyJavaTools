@@ -121,9 +121,9 @@ public class AppSignedInPanels {
         //        panel3.add(batteryReset);
 
 
-        AbstractButtons.setMargin_2_InButtonJPanel(panel1, 1);
-        AbstractButtons.setMargin_2_InButtonJPanel(panel2, 1);
-        AbstractButtons.setMargin_2_InButtonJPanel(panel3, 1);
+        AbstractButtons.setMarginInButtonJPanel(panel1, 1);
+        AbstractButtons.setMarginInButtonJPanel(panel2, 1);
+        AbstractButtons.setMarginInButtonJPanel(panel3, 1);
 
         JPanel btnNorth = new JPanel();
 

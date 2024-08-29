@@ -147,7 +147,7 @@ public class ScrcpyJPanels {
         // scrcpyJPanel.add(btnGetAct);
         // scrcpyJPanel.add(btnOpenMobileButlerApp);
         // scrcpyJPanel.add(btnWiFiSettings);
-        AbstractButtons.setMargin_2_InButtonJPanel(scrcpyJPanel, 1);
+        AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, 1);
         // AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, -1);
         //        AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, 0);
     }

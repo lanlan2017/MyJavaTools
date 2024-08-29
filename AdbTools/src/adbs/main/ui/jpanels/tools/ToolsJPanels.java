@@ -95,7 +95,7 @@ public class ToolsJPanels {
         toolsJPanel.setVisible(false);
         // toolsJPanel.add(cancelButton);
         // AbstractButtons.setMarginInButtonJPanel(toolsJPanel,0);
-        AbstractButtons.setMargin_2_InButtonJPanel(toolsJPanel, 1);
+        AbstractButtons.setMarginInButtonJPanel(toolsJPanel, 1);
     }
 
     private JButton initBtnUninstall() {

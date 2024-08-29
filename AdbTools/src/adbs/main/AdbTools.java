@@ -59,6 +59,7 @@ public class AdbTools {
     private final HashSet<Runnable> isRunningSet = new HashSet<>();
     private static final AdbTools instance = new AdbTools();
     private JPanel contentPane;
+    private final ActSignedInPanels actSignedInPanels;
 
     private AdbTools() {
         // 创建窗体
@@ -94,7 +95,7 @@ public class AdbTools {
         //
         appSignedInPanels = new AppSignedInPanels();
 
-        ActSignedInPanels actSignedInPanels  = new ActSignedInPanels();
+        actSignedInPanels = new ActSignedInPanels();
 
         // JPanel checkJPanel = initCheckJPanel(timingPanels2, toolsJPanels, autoPanels, universalPanels, adbJPanels, scrcpyJPanels);
         //        checkJPanels = new CheckJPanels(timingPanels2, toolsJPanels, autoPanels, universalPanels, adbJPanels, scrcpyJPanels, appPanels);
@@ -125,8 +126,8 @@ public class AdbTools {
         frame.add(actSignedInPanels.getTopJPanel());
 
         // 添加多选框面板到第3行
-        AbstractButtons.setMargin_2_InButtonJPanel(checkJPanel, -1);
-        AbstractButtons.setMargin_2_InButtonJPanel(checkJPanel, -1);
+        AbstractButtons.setMarginInButtonJPanel(checkJPanel, -1);
+        AbstractButtons.setMarginInButtonJPanel(checkJPanel, -1);
         // 添加输出面包到最后一行
         // frame.add(outputJPanel);
 
@@ -155,6 +156,8 @@ public class AdbTools {
                         // adbJPanels.getStopBtn().doClick();
                         universalPanels.getBtnStop().doClick();
                         scrcpyJPanels.getBtnKillScrcpy().doClick();
+
+                        actSignedInPanels.cancelReminder();
                         System.out.println("窗体正在关闭。。。。。。。。。。。。");
                         // ThreadSleep.seconds(5);
                         System.exit(0);

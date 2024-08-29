@@ -18,6 +18,8 @@ import java.awt.event.*;
  * 时间选择面板
  */
 public class TimePanels {
+
+
     private final JPanel timePanel;
     /**
      * 时间提示标签
@@ -105,7 +107,7 @@ public class TimePanels {
         timePanel.add(timerJLabel);
         timePanel.setVisible(false);
 
-        AbstractButtons.setMargin_2_InButtonJPanel(timePanel, 1);
+        AbstractButtons.setMarginInButtonJPanel(timePanel, 1);
         // AbstractButtons.setMarginInButtonJPanel(inputPanel,0);
         plusBtn.addActionListener(new PlusBtnAcListener(this));
         minusBtn.addActionListener(new MinusBtnAcListener(this));
