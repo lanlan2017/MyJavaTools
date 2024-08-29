@@ -45,26 +45,34 @@ public class TimingPanels2 extends WaitValues {
     private final JButton btn95s;
     private final JButton btn120s;
     private final JButton btn180s;
-    private final JButton btn3HMore;
-    private final JButton btn4H;
+    private final JButton btn210s;
+    private final JButton btn5M;
     private final JButton btn20M;
     private final JButton btn40M;
     private final JButton btn1H;
     private final JButton btn2H;
-    private final JButton btn1_5H;
+    private final JButton btn3HMore;
+    private final JButton btn4H;
     private final JButton btn5H;
-    private final JButton btn210s;
+    private final JButton btn1_5H;
     private String selected;
+    private final JButton btn20s;
 
     public TimingPanels2() {
         timingPanels2 = new JPanel();
         timingPanels2.setLayout(FlowLayouts.flowLayoutLeft);
-        btn30s = initButton(30);
-        btn35s = initButton(35);
-        btn65s = initButton(65);
-        btn95s = initButton(95);
+        btn20s = initButton(s20);
+        //        btn30s = initButton(30);
+        btn30s = initButton(s30);
+        //        btn35s = initButton(35);
+        btn35s = initButton(s35);
+        //        btn65s = initButton(65);
+        btn65s = initButton(s65);
+        //        btn95s = initButton(95);
+        btn95s = initButton(s95);
         btn120s = initButton(120);
         btn180s = initButton(180);
+        btn5M = initButton(m5);
         btn210s = initButton(m3s30);
         // btn1H = initButton(1 * 60 * 60);
         btn1H = initButton(h1);
@@ -96,12 +104,15 @@ public class TimingPanels2 extends WaitValues {
         timingPanels2.add(btn3HMore);
         timingPanels2.add(btn4H);
         timingPanels2.add(btn5H);
+
+        timingPanels2.add(btn20s);
         timingPanels2.add(btn30s);
         timingPanels2.add(btn35s);
         timingPanels2.add(btn65s);
         timingPanels2.add(btn95s);
         timingPanels2.add(btn120s);
         timingPanels2.add(btn180s);
+        timingPanels2.add(btn5M);
         timingPanels2.add(btn210s);
         timingPanels2.add(btn20M);
         timingPanels2.add(btn40M);
@@ -305,95 +316,162 @@ public class TimingPanels2 extends WaitValues {
 
 
     private void showWaitButtons() {
-        btn30s.setVisible(false);
-        btn35s.setVisible(true);
-        btn65s.setVisible(true);
-        btn95s.setVisible(true);
-        btn120s.setVisible(true);
-        btn180s.setVisible(true);
-        btn210s.setVisible(false);
-        btn20M.setVisible(false);
-        btn40M.setVisible(false);
-        btn1H.setVisible(true);
-        btn1_5H.setVisible(true);
-        btn2H.setVisible(true);
-        btn3HMore.setVisible(true);
-        btn4H.setVisible(false);
-        btn5H.setVisible(false);
+        hideAllButtons();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                btn35s.setVisible(true);
+                btn65s.setVisible(true);
+                btn95s.setVisible(true);
+                btn120s.setVisible(true);
+                btn180s.setVisible(true);
+                btn5M.setVisible(true);
+                btn1H.setVisible(true);
+                btn1_5H.setVisible(true);
+                btn2H.setVisible(true);
+                btn3HMore.setVisible(true);
+            }
+        });
+
+        //        btn30s.setVisible(false);
+        //        btn210s.setVisible(false);
+        //        btn20M.setVisible(false);
+        //        btn40M.setVisible(false);
+        //        btn4H.setVisible(false);
+        //        btn5H.setVisible(false);
     }
 
     private void showReadWaitButtons() {
-        btn30s.setVisible(false);
-        btn35s.setVisible(false);
-        btn65s.setVisible(false);
-        btn95s.setVisible(false);
-        btn120s.setVisible(false);
-        btn180s.setVisible(false);
-        btn210s.setVisible(false);
-        btn20M.setVisible(true);
-        btn40M.setVisible(false);
-        btn1H.setVisible(true);
-        btn1_5H.setVisible(true);
-        btn2H.setVisible(true);
-        btn3HMore.setVisible(true);
-        btn4H.setVisible(true);
-        btn5H.setVisible(true);
+        //        btn30s.setVisible(false);
+        //        btn35s.setVisible(false);
+        //        btn65s.setVisible(false);
+        //        btn95s.setVisible(false);
+        //        btn120s.setVisible(false);
+        //        btn180s.setVisible(false);
+        //        btn5M.setVisible(false);
+        //        btn210s.setVisible(false);
+        //        btn40M.setVisible(false);
+        //        btn20M.setVisible(true);
+        //        btn1H.setVisible(true);
+        //        btn1_5H.setVisible(true);
+        //        btn2H.setVisible(true);
+        //        btn3HMore.setVisible(true);
+        //        btn4H.setVisible(true);
+        //        btn5H.setVisible(true);
+
+        hideAllButtons();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                btn1H.setVisible(true);
+                btn1_5H.setVisible(true);
+                btn2H.setVisible(true);
+                btn3HMore.setVisible(true);
+                btn4H.setVisible(true);
+                btn5H.setVisible(true);
+            }
+        });
+
+
     }
 
     private void showShoppingButtons() {
-        btn30s.setVisible(false);
-        btn35s.setVisible(true);
-        btn65s.setVisible(true);
-        btn95s.setVisible(true);
-        btn120s.setVisible(false);
-        btn180s.setVisible(false);
-        btn210s.setVisible(false);
-        btn20M.setVisible(false);
-        btn40M.setVisible(false);
-        btn1H.setVisible(false);
-        btn1_5H.setVisible(false);
-        btn2H.setVisible(false);
-        btn3HMore.setVisible(false);
-        btn4H.setVisible(false);
-        btn5H.setVisible(false);
+        //        btn30s.setVisible(false);
+        //        btn120s.setVisible(false);
+        //        btn180s.setVisible(false);
+        //        btn210s.setVisible(false);
+        //        btn5M.setVisible(false);
+        //        btn20s.setVisible(true);
+        //        btn35s.setVisible(true);
+        //        btn65s.setVisible(true);
+        //        btn95s.setVisible(true);
+        //        btn20M.setVisible(false);
+        //        btn40M.setVisible(false);
+        //        btn1H.setVisible(false);
+        //        btn1_5H.setVisible(false);
+        //        btn2H.setVisible(false);
+        //        btn3HMore.setVisible(false);
+        //        btn4H.setVisible(false);
+        //        btn5H.setVisible(false);
+
+
+        hideAllButtons();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                btn20s.setVisible(true);
+                btn35s.setVisible(true);
+                btn65s.setVisible(true);
+                btn95s.setVisible(true);
+            }
+        });
     }
 
     /**
      * VW，需要的时间
      */
     private void showVideoButtons() {
-        btn30s.setVisible(false);
-        btn35s.setVisible(false);
-        btn65s.setVisible(true);
-        btn95s.setVisible(true);
-        btn120s.setVisible(false);
-        btn180s.setVisible(true);
-        btn210s.setVisible(true);
-        btn20M.setVisible(true);
-        btn40M.setVisible(true);
-        btn1H.setVisible(true);
-        btn1_5H.setVisible(false);
-        btn2H.setVisible(false);
-        btn3HMore.setVisible(false);
-        btn4H.setVisible(false);
-        btn5H.setVisible(false);
+        //        btn20s.setVisible(false);
+        //        btn30s.setVisible(false);
+        //        btn35s.setVisible(false);
+        //        btn120s.setVisible(false);
+        //        btn5M.setVisible(false);
+        //        btn65s.setVisible(true);
+        //        btn95s.setVisible(true);
+        //        btn180s.setVisible(true);
+        //        btn210s.setVisible(true);
+        //        btn20M.setVisible(true);
+        //        btn40M.setVisible(true);
+        //        btn1H.setVisible(true);
+        //        btn1_5H.setVisible(false);
+        //        btn2H.setVisible(false);
+        //        btn3HMore.setVisible(false);
+        //        btn4H.setVisible(false);
+        //        btn5H.setVisible(false);
+        hideAllButtons();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                btn65s.setVisible(true);
+                btn95s.setVisible(true);
+                btn180s.setVisible(true);
+                btn210s.setVisible(true);
+                btn20M.setVisible(true);
+                btn40M.setVisible(true);
+                btn1H.setVisible(true);
+            }
+        });
     }
 
     private void hideAllButtons() {
-        btn30s.setVisible(false);
-        btn35s.setVisible(false);
-        btn65s.setVisible(false);
-        btn95s.setVisible(false);
-        btn120s.setVisible(false);
-        btn180s.setVisible(false);
-        btn20M.setVisible(false);
-        btn1H.setVisible(false);
-        btn1_5H.setVisible(false);
-        btn2H.setVisible(false);
-        btn3HMore.setVisible(false);
-        btn4H.setVisible(false);
-        btn5H.setVisible(false);
+        //        btn20s.setVisible(false);
+        //        btn30s.setVisible(false);
+        //        btn35s.setVisible(false);
+        //        btn65s.setVisible(false);
+        //        btn95s.setVisible(false);
+        //        btn120s.setVisible(false);
+        //        btn180s.setVisible(false);
+        //        btn5M.setVisible(false);
+        //        btn20M.setVisible(false);
+        //        btn1H.setVisible(false);
+        //        btn1_5H.setVisible(false);
+        //        btn2H.setVisible(false);
+        //        btn3HMore.setVisible(false);
+        //        btn4H.setVisible(false);
+        //        btn5H.setVisible(false);
+        // 在一段时间后隐藏所有按钮组件
+        SwingUtilities.invokeLater(() -> hideAllButtons(timingPanels2));
+
     }
+
+    private static void hideAllButtons(Container container) {
+        for (Component component : container.getComponents()) {
+            if (component instanceof JButton) {
+                component.setVisible(false);
+            }
+        }
+    }
+
 
     /**
      * 设置JComboBox的选项
@@ -554,6 +632,10 @@ public class TimingPanels2 extends WaitValues {
 
     public void w180s() {
         auto("w_180s");
+    }
+
+    public void w5M() {
+        auto("w_5M");
     }
 
     public void w180sDialog() {

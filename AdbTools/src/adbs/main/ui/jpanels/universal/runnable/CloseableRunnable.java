@@ -60,6 +60,8 @@ public abstract class CloseableRunnable implements Runnable {
     public void run() {
         // 默认循环不停止
         stopLoopBody = false;
+        //默认执行最后一步
+        callAfter = true;
         // 表示当前进程正在运行
         // AdbTools.getInstance().addRunningInSet(this);
         AdbTools.getInstance().addRunningInSet(this);
