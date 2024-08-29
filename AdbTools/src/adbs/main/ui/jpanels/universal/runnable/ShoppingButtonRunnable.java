@@ -24,6 +24,7 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
     private int count;
     private String oldInput1Text;
     private Color input1Background;
+    private TimePanels timePanels;
 
     private ShoppingButtonRunnable() {
     }
@@ -38,9 +39,9 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
 
 
     @Override
-    protected void beforeLoop() {
-        super.beforeLoop();
-        TimePanels timePanels = AdbTools.getInstance().getTimePanels();
+    protected void before() {
+        super.before();
+        timePanels = AdbTools.getInstance().getTimePanels();
         if (timePanels.getTimerJLabel().isVisible()) {
             JTextField input1 = timePanels.getInput1();
             // 保存原来设定的值
@@ -62,7 +63,7 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
     }
 
     @Override
-    protected void loopBody() {
+    protected void loop() {
         // String serial = AdbTools.device.getId();
         AdbTools adbTools = AdbTools.getInstance();
         String serial = adbTools.getDevice().getSerial();
@@ -154,10 +155,10 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
     }
 
     @Override
-    protected void afterLoop() {
-        super.afterLoop();
-        TimePanels timePanels = AdbTools.getInstance().getTimePanels();
-        timePanels.getTimerJLabel().setText("");
+    protected void after() {
+        super.after();
+//        TimePanels timePanels = AdbTools.getInstance().getTimePanels();
+//        timePanels.getTimerJLabel().setText("");
         String packageName = AdbGetPackage.getActivityInfo().getPackageName();
 
         switch (packageName) {
@@ -177,24 +178,23 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
                 break;
         }
 
+        timePanels.beepDialog("逛街结束");
+    }
 
-        if (timePanels.getTimerJLabel().isVisible()) {
-            JTextField input1 = timePanels.getInput1();
-            // 恢复原来的值
-            input1.setText(oldInput1Text);
+    @Override
+    protected void cleanOutput() {
+        super.cleanOutput();
+        SwingUtilities.invokeLater(new Runnable() {
             // 可以重新编辑
             //            input1.setEditable(true);
-            // 恢复原来的颜色
-
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    input1.setBackground(input1Background);
-                }
-            });
-
-        }
-        timePanels.beepDialog("逛街结束");
-
+            @Override
+            public void run() {
+                JTextField input1 = timePanels.getInput1();
+                // 恢复原来的值
+                input1.setText(oldInput1Text);
+                // 恢复原来的颜色
+                input1.setBackground(input1Background);
+            }
+        });
     }
 }

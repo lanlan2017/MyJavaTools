@@ -34,14 +34,14 @@ public class ReadButtonRunnable extends CloseableRunnable {
 
 
     @Override
-    protected void beforeLoop() {
-        super.beforeLoop();
+    protected void before() {
+        super.before();
         // 先等待1秒
         Threads.sleep(500);
     }
 
     @Override
-    protected void loopBody() {
+    protected void loop() {
         body();
     }
 

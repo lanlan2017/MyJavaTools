@@ -39,7 +39,7 @@ public class VideoButtonRunnable extends CloseableRunnable {
     }
 
     @Override
-    protected void loopBody() {
+    protected void loop() {
         AdbTools adbTools = AdbTools.getInstance();
         Device device = adbTools.getDevice();
         JLabel output2 = adbTools.getUniversalPanels().getOutput2();

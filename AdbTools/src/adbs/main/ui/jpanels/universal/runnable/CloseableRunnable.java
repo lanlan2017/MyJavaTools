@@ -64,36 +64,46 @@ public abstract class CloseableRunnable implements Runnable {
         // AdbTools.getInstance().addRunningInSet(this);
         AdbTools.getInstance().addRunningInSet(this);
         // 循环之前要做的
-        beforeLoop();
+        before();
         // 如果不需要停止循环的话，就一直循环
         while (!stopLoopBody) {
-            loopBody();
+            loop();
         }
+        // 清空输出标签
+        cleanOutput();
         if (callAfter) {
             // 循环之后要做的
-            afterLoop();
+            after();
         }
     }
 
     /**
      * 循环之前要准备的工作
      */
-    protected void beforeLoop() {
+    protected void before() {
     }
 
 
     /**
      * 循环体
      */
-    protected abstract void loopBody();
+    protected abstract void loop();
 
 
     /**
      * 循环之后要准备的工作
      */
-    protected void afterLoop() {
+    protected void after() {
         // AdbTools.getInstance().getUniversalPanels().getOutput2().setText("");
         // 确保JLabel线程安全
+        //        cleanOutput();
+    }
+
+    /**
+     * 清理输出面板
+     * cleanOutput
+     */
+    protected void cleanOutput() {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {

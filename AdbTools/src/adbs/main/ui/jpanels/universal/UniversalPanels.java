@@ -147,6 +147,13 @@ public class UniversalPanels {
         AbstractButtons.setMargin_2_InButtonJPanel(universalPanel, 1);
     }
 
+    private JButton initBtnStop() {
+        JButton stopBtn = new JButton("停止");
+        stopBtn.setToolTipText("停止所有后台线程,刷新界面");
+        stopBtn.addActionListener(new StopBtnAcListener2());
+        return stopBtn;
+    }
+
     /**
      * 创建停止CloseRunnable线程，并且跳过最后一步操作的按钮
      *
@@ -166,6 +173,7 @@ public class UniversalPanels {
                     //如果是可停止的线程类或者它的子类
                     if (runnable instanceof CloseableRunnable) {
                         CloseableRunnable closeableRunnable = (CloseableRunnable) runnable;
+                        //停止并跳过线程的after方法
                         closeableRunnable.stopSkipAfter();
                         // 从线程池中删除掉
                         iterator.remove();
@@ -178,16 +186,13 @@ public class UniversalPanels {
                         // 时间面板的标签文字设为空字符串
                         AdbTools.getInstance().getTimePanels().getTimerJLabel().setText("");
                         // 隐藏时间面板
-                        AdbTools.getInstance().getTimePanels().getTimePanel().setVisible(false);
-                        // 通用面板的标签文字设置为空字符串
-                        AdbTools.getInstance().getUniversalPanels().getOutput2().setText("");
-
+//                        AdbTools.getInstance().getTimePanels().getTimePanel().setVisible(false);
+//                        ThreadSleep.seconds(1);
+//                        // 通用面板的标签文字设置为空字符串
+//                        AdbTools.getInstance().getUniversalPanels().getOutput2().setText("");
+                        JFramePack.pack();
                     }
                 });
-
-                // 更新JFrame界面
-                // JFramePack.onJComponentActionEvent(e);
-                JFramePack.pack();
             }
         });
         return zhongDuanBtn;
@@ -295,12 +300,6 @@ public class UniversalPanels {
         return shoppingButton;
     }
 
-    private JButton initBtnStop() {
-        JButton stopBtn = new JButton("停止");
-        stopBtn.setToolTipText("停止所有后台线程,刷新界面");
-        stopBtn.addActionListener(new StopBtnAcListener2());
-        return stopBtn;
-    }
 
     public JButton getBtnStop() {
         return btnStop;

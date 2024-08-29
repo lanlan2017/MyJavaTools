@@ -23,7 +23,7 @@ public class BrowseRunnable extends CloseableRunnable {
     }
 
     @Override
-    protected void loopBody() {
+    protected void loop() {
         // 获取选中的adb设备的序列号
         // String id = AdbTools.device.getId();
         AdbTools adbTools = AdbTools.getInstance();
@@ -76,12 +76,8 @@ public class BrowseRunnable extends CloseableRunnable {
     }
 
     @Override
-    protected void afterLoop() {
-        super.afterLoop();
-        //        AdbTools.getInstance().getTimePanels().showConfirmDialog();
-        //        AdbTools.getInstance().getTimePanels().showConfirmDialog();
+    protected void after() {
+        super.after();
         AdbTools.getInstance().getTimePanels().beepDialog("浏览结束");
-
-
     }
 }

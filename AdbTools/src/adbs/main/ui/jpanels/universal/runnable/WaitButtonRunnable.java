@@ -47,8 +47,8 @@ public class WaitButtonRunnable extends CloseableRunnable {
     }
 
     @Override
-    protected void beforeLoop() {
-        super.beforeLoop();
+    protected void before() {
+        super.before();
         timePanels = AdbTools.getInstance().getTimePanels();
         input1 = timePanels.getInput1();
         // 解析输入文本1中的数字,并计算得到毫秒数
@@ -69,7 +69,7 @@ public class WaitButtonRunnable extends CloseableRunnable {
     }
 
     @Override
-    protected void loopBody() {
+    protected void loop() {
         int millisecond = Integer.parseInt(input1OldText) * 1000;
         int count = 0;
         int timeSlice = 250;
@@ -89,8 +89,8 @@ public class WaitButtonRunnable extends CloseableRunnable {
     }
 
     @Override
-    protected void afterLoop() {
-        super.afterLoop();
+    protected void cleanOutput() {
+//        super.cleanOutput();
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -99,8 +99,24 @@ public class WaitButtonRunnable extends CloseableRunnable {
                 input1.setBackground(input1Background);
                 JLabel timerJLabel = timePanels.getTimerJLabel();
                 timerJLabel.setText("");
+                AdbTools.getInstance().getUniversalPanels().getOutput2().setText("");
             }
         });
+    }
+
+    @Override
+    protected void after() {
+        super.after();
+//        SwingUtilities.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                // 恢复原来的设置
+//                input1.setText(input1OldText);
+//                input1.setBackground(input1Background);
+//                JLabel timerJLabel = timePanels.getTimerJLabel();
+//                timerJLabel.setText("");
+//            }
+//        });
 
         AdbTools adbTools = AdbTools.getInstance();
         AdbJPanels adbJPanels = adbTools.getAdbJPanels();

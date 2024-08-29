@@ -15,13 +15,13 @@ public class BeepRunnable extends CloseableRunnable {
     }
 
     @Override
-    protected void beforeLoop() {
-        super.beforeLoop();
+    protected void before() {
+        super.before();
         count = 0;
     }
 
     @Override
-    protected void loopBody() {
+    protected void loop() {
         // ThreadSleep.seconds(2);
         Toolkit.getDefaultToolkit().beep();
         // 等待5秒
