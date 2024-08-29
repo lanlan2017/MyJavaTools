@@ -44,8 +44,22 @@ public class ActSignedInPanels {
      * 定时器
      */
     private Timer timer;
-    private final JTextField jtfMinute;
+    /**
+     * 小时
+     */
     private final JTextField jtfHour;
+    /**
+     * 分钟
+     */
+    private final JTextField jtfMinute;
+    /**
+     * 定时按钮最开始的背景色
+     */
+    private Color btnDingShiOkBackground;
+    /**
+     * 定时按钮
+     */
+    private final JButton btnDingShiOk;
 
     public ActSignedInPanels() {
         this.topJPanel = new JPanel();
@@ -71,40 +85,8 @@ public class ActSignedInPanels {
 
         jtfMinute = initMinute();
 
-
-        JButton btnDingShiOk = new JButton("定时");
-        btnDingShiOk.setToolTipText("开启定时器");
-        btnDingShiOk.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String jtfHourText = jtfHour.getText();
-                String jtfMinuteText = jtfMinute.getText();
-                if (jtfHourText.matches("\\d{1,2}") && jtfMinuteText.matches("\\d{1,2}")) {
-                    int hour = Integer.parseInt(jtfHourText);
-                    int minute = Integer.parseInt(jtfMinuteText);
-
-                    AdbTools.getInstance().showDialogOk("定时:" + hour + ":" + minute + "?", new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-
-                            // 等待两个小时,然后多等待2分钟作为误差。
-                            //                            startReminder((2 * 60 + 2) * 60 * 1000, "点淘打工结束");
-                            //                            startReminder(minute * 60 * 1000, "点淘打工结束");
-                            //                        startReminder(5000, "点淘打工结束");
-                            startReminder((hour * 60 + minute) * 60 * 1000, "点淘打工结束");
-                        }
-                    });
-                }
-            }
-        });
-        JButton btnDingShiCancel = new JButton("取消");
-        btnDingShiOk.setToolTipText("取消定时器");
-        btnDingShiCancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cancelReminder();
-            }
-        });
+        btnDingShiOk = getBtnDingShiOk();
+        JButton btnDingShiCancel = getBtnDingShiCancel();
 
         toolPanel.add(btnUpdate);
 
@@ -129,6 +111,52 @@ public class ActSignedInPanels {
         topJPanel.add(toolPanel, BorderLayout.NORTH);
         topJPanel.add(taskPanel, BorderLayout.CENTER);
         topJPanel.setVisible(false);
+    }
+
+    private JButton getBtnDingShiOk() {
+        JButton btnDingShiOk = new JButton("定时");
+
+        this.btnDingShiOkBackground = btnDingShiOk.getBackground();
+
+        btnDingShiOk.setToolTipText("开启定时器");
+        btnDingShiOk.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String jtfHourText = jtfHour.getText();
+                String jtfMinuteText = jtfMinute.getText();
+                if (jtfHourText.matches("\\d{1,2}") && jtfMinuteText.matches("\\d{1,2}")) {
+                    int hour = Integer.parseInt(jtfHourText);
+                    int minute = Integer.parseInt(jtfMinuteText);
+
+                    AdbTools.getInstance().showDialogOk("定时:" + hour + ":" + minute + "?", new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+
+                            // 等待两个小时,然后多等待2分钟作为误差。
+                            //                            startReminder((2 * 60 + 2) * 60 * 1000, "点淘打工结束");
+                            //                            startReminder(minute * 60 * 1000, "点淘打工结束");
+                            //                        startReminder(5000, "点淘打工结束");
+                            startReminder((hour * 60 + minute) * 60 * 1000, "点淘打工结束");
+                            btnDingShiOk.setBackground(Color.pink);
+                        }
+                    });
+                }
+            }
+        });
+        return btnDingShiOk;
+    }
+
+    private JButton getBtnDingShiCancel() {
+        JButton btnDingShiCancel = new JButton("取消");
+        btnDingShiOk.setToolTipText("取消定时器");
+        btnDingShiCancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cancelReminder();
+                btnDingShiOk.setBackground(btnDingShiOkBackground);
+            }
+        });
+        return btnDingShiCancel;
     }
 
     private JTextField initMinute() {
@@ -161,7 +189,7 @@ public class ActSignedInPanels {
                             value += 1;
                         }
                     } else if (e.getKeyCode() == KeyEvent.VK_PAGE_DOWN) {
-                        if (value >= 10) {
+                        if (value > 10) {
                             value -= 10;
                         } else if (value > 0) {
                             value -= 1;
@@ -236,6 +264,7 @@ public class ActSignedInPanels {
                     public void run() {
                         //定时结束时响铃提醒
                         AdbTools.getInstance().getTimePanels().beepDialog(message);
+                        btnDingShiOk.setBackground(btnDingShiOkBackground);
                     }
                 });
             }
