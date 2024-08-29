@@ -31,7 +31,7 @@ public class BeepRunnable extends CloseableRunnable {
             // 结束进程，响铃5次就够了，
             // 如果响了五次之后用户还不点击结束线程，
             // 说明用户不在电脑旁边，响铃再多也是没有用的
-            stop=true;
+            stopLoopBody =true;
         }
     }
 

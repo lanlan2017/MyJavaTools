@@ -56,7 +56,7 @@ public class ReadButtonRunnable extends CloseableRunnable {
             // 如果没有选择设备
             JOptionPane.showConfirmDialog(null, "请勾选要操作的设备");
             // return;
-            stop = true;
+            stopLoopBody = true;
         } else {
             // 如果选择了设备
             // 点击屏幕右侧
@@ -93,7 +93,7 @@ public class ReadButtonRunnable extends CloseableRunnable {
         int count = 0;
         while (count < s) {
             // 如果已经收到结束的通知
-            if (stop) {
+            if (stopLoopBody) {
                 // 不再等待
                 break;
             }

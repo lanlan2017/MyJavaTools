@@ -69,6 +69,8 @@ public class AppTask3 {
         taskTimesTaoTe.add(new TaskTime("天天领红包"));
         taskTimesTaoTe.add(new TaskTime("小鸡送好礼"));
         taskTimesTaoTe.add(new TaskTime("现金签到"));
+        taskTimesTaoTe.add(new TaskTime("发财鸭"));
+        taskTimesTaoTe.add(new TaskTime("天天赚特币"));
         AppTaskTimeSet taoTe = new AppTaskTimeSet("淘特", taskTimesTaoTe);
 
 

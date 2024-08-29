@@ -45,12 +45,12 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
             JTextField input1 = timePanels.getInput1();
             // 保存原来设定的值
             oldInput1Text = input1.getText();
-            //            input1.setEditable(false);
-            // 保存第一次的背景色，后续不用重复设置
+            // 保存最开始的文本框的的背景色
             if (input1Background == null) {
                 input1Background = input1.getBackground();
             }
 
+            //把文本框的背景色设置为粉色，表示逛街线程正在运行
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {
@@ -86,23 +86,23 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
             // 在左侧，从下向上滑动三次
             if (swipeFromBottomToTopOnce(serial, input1)) {
                 // 如果到达了指定时间，
-                stop = true;
+                stopLoopBody = true;
                 return;
             }
         }
 
-        while (!stop) {
+        while (!stopLoopBody) {
             output.setText("↓");
             // 休眠1秒
             if (swipeFromBottomToTopOnce(serial, input1)) {
                 System.out.println("到达指定时间1!");
-                stop = true;
+                stopLoopBody = true;
                 break;
             }
             output.setText("↑");
             if (swipeFromTopToBottomOnce(serial, input1)) {
                 System.out.println("到达指定时间2!");
-                stop = true;
+                stopLoopBody = true;
                 break;
             }
         }
@@ -156,17 +156,8 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
     @Override
     protected void afterLoop() {
         super.afterLoop();
-
-        // TimePanels timePanels = inOutputModel.getTimePanels();
         TimePanels timePanels = AdbTools.getInstance().getTimePanels();
-
         timePanels.getTimerJLabel().setText("");
-        // if (isClickReturnBtn) {
-        //     // AdbTools.getInstance().getAdbJPanels().getReturnBtn().doClick();
-        //     AdbTools.getInstance().getAdbJPanels().getBtnReturn().doClick();
-        //     // AdbTools.getInstance().getAdbJPanels().getBtnTask().doClick();
-        //     isClickReturnBtn = false;
-        // }
         String packageName = AdbGetPackage.getActivityInfo().getPackageName();
 
         switch (packageName) {

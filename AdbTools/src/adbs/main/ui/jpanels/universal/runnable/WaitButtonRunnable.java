@@ -73,14 +73,14 @@ public class WaitButtonRunnable extends CloseableRunnable {
         int millisecond = Integer.parseInt(input1OldText) * 1000;
         int count = 0;
         int timeSlice = 250;
-        while (!stop) {
+        while (!stopLoopBody) {
             // 等待指定时间
             Threads.sleep(timeSlice);
             // 统计已经等待的时间
             count += timeSlice;
             // 如果等待指定时间
             if (count >= millisecond) {
-                stop = true;
+                stopLoopBody = true;
                 break;
             }
             int waitingSeconds = (millisecond - count) / 1000;

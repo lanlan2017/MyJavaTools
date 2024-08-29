@@ -7,9 +7,13 @@ import javax.swing.*;
 public abstract class CloseableRunnable implements Runnable {
 
     /**
-     * 是否结束线程
+     * 是否继续执行loopBody()方法
      */
-    protected boolean stop = false;
+    protected boolean stopLoopBody = false;
+    /**
+     * 是否需要调用afterLoop()方法
+     */
+    protected boolean callAfter = true;
     /**
      * 线程消息
      */
@@ -27,8 +31,6 @@ public abstract class CloseableRunnable implements Runnable {
         msg = "";
     }
 
-    ;
-
     /**
      * 获取消息
      *
@@ -42,24 +44,35 @@ public abstract class CloseableRunnable implements Runnable {
      * 停止线程
      */
     public void stop() {
-        stop = true;
+        stopLoopBody = true;
+    }
+
+    /**
+     * 停止线程，跳过最后一步
+     */
+    public void stopSkipAfter() {
+        stopLoopBody = true;
+        callAfter = false;
+
     }
 
     @Override
     public void run() {
         // 默认循环不停止
-        stop = false;
+        stopLoopBody = false;
         // 表示当前进程正在运行
         // AdbTools.getInstance().addRunningInSet(this);
         AdbTools.getInstance().addRunningInSet(this);
         // 循环之前要做的
         beforeLoop();
         // 如果不需要停止循环的话，就一直循环
-        while (!stop) {
+        while (!stopLoopBody) {
             loopBody();
         }
-        // 循环之后要做的
-        afterLoop();
+        if (callAfter) {
+            // 循环之后要做的
+            afterLoop();
+        }
     }
 
     /**

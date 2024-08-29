@@ -48,7 +48,7 @@ public class BrowseRunnable extends CloseableRunnable {
 
 
             // output2.setText(msg + ":在手机左侧，从下向上滑动");
-            while (!stop) {
+            while (!stopLoopBody) {
                 // 休眠1秒
                 // output.setText("浏览线程：在手机左侧，从下向上滑动");
                 Threads.sleep(1000);

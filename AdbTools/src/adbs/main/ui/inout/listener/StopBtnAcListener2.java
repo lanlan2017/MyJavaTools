@@ -13,10 +13,12 @@ public class StopBtnAcListener2 implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        //获取正在运行的线程列表
         Iterator<Runnable> iterator = AdbTools.getInstance().getIsRunningSet().iterator();
-        // Iterator<Runnable> iterator = isRunningSet.iterator();
+        //遍历正在运行的线程列表
         while (iterator.hasNext()) {
             Runnable runnable = iterator.next();
+            //如果是可停止的线程类或者它的子类
             if (runnable instanceof CloseableRunnable) {
                 CloseableRunnable closeableRunnable = (CloseableRunnable) runnable;
                 // 关闭线程

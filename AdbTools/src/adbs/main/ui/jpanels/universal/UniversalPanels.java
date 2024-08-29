@@ -5,10 +5,12 @@ import adbs.main.run.AdbGetPackage;
 import adbs.main.run.PythonCloseableRun;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.inout.listener.StopBtnAcListener2;
+import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.time.TimePanels;
 import adbs.main.ui.jpanels.universal.listener.*;
 import adbs.main.ui.jpanels.universal.pinyin.FileCreator;
 import adbs.main.ui.jpanels.universal.pinyin.PinyinConverter;
+import adbs.main.ui.jpanels.universal.runnable.CloseableRunnable;
 import adbs.model.Device;
 import adbs.python.Region;
 import config.AdbToolsProperties;
@@ -17,6 +19,7 @@ import tools.swing.button.AbstractButtons;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Iterator;
 
 /**
  * 通用面板
@@ -29,30 +32,31 @@ public class UniversalPanels {
     /**
      * 浏览按钮
      */
-    private JButton browseButton;
+    private final JButton browseButton;
     /**
      * 等待返回按钮
      */
-    private JButton waitButton;
+    private final JButton waitButton;
     /**
      * 阅读按钮
      */
-    private JButton readButton;
+    private final JButton readButton;
     /**
      * 刷视频按钮
      */
-    private JButton videoButton;
+    private final JButton videoButton;
     /**
      * 逛街按钮
      */
-    private JButton shoppingButton;
+    private final JButton shoppingButton;
 
 
     private final JButton btnStop;
     /**
      * 通用面板输出功能
      */
-    private JLabel output2;
+    private final JLabel output2;
+
     private PythonCloseableRun pyRun;
     private Thread pyThread;
 
@@ -110,6 +114,9 @@ public class UniversalPanels {
 
         btnStop = initBtnStop();
 
+        JButton zhongDuanBtn = initBtnZhongDuan();
+
+
         JButton btnPy = initBtnPy();
         btnScrcpyOrder = new JButton("0");
 
@@ -130,12 +137,60 @@ public class UniversalPanels {
         universalPanel.add(shoppingButton);
         universalPanel.add(waitButton);
         universalPanel.add(btnStop);
+        universalPanel.add(zhongDuanBtn);
+
         universalPanel.add(btnScrcpyOrder);
         universalPanel.add(btnPy);
         universalPanel.add(btnKPy);
         universalPanel.add(output2);
 
         AbstractButtons.setMargin_2_InButtonJPanel(universalPanel, 1);
+    }
+
+    /**
+     * 创建停止CloseRunnable线程，并且跳过最后一步操作的按钮
+     *
+     * @return
+     */
+    private JButton initBtnZhongDuan() {
+        JButton zhongDuanBtn = new JButton("中断");
+        zhongDuanBtn.setToolTipText("中断正在运行的的线程");
+        zhongDuanBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //获取正在运行的线程列表
+                Iterator<Runnable> iterator = AdbTools.getInstance().getIsRunningSet().iterator();
+                //遍历正在运行的线程列表
+                while (iterator.hasNext()) {
+                    Runnable runnable = iterator.next();
+                    //如果是可停止的线程类或者它的子类
+                    if (runnable instanceof CloseableRunnable) {
+                        CloseableRunnable closeableRunnable = (CloseableRunnable) runnable;
+                        closeableRunnable.stopSkipAfter();
+                        // 从线程池中删除掉
+                        iterator.remove();
+                    }
+                }
+                // JLable线程不安全，在事件调度线程中执行，以确保线程安全
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        // 时间面板的标签文字设为空字符串
+                        AdbTools.getInstance().getTimePanels().getTimerJLabel().setText("");
+                        // 隐藏时间面板
+                        AdbTools.getInstance().getTimePanels().getTimePanel().setVisible(false);
+                        // 通用面板的标签文字设置为空字符串
+                        AdbTools.getInstance().getUniversalPanels().getOutput2().setText("");
+
+                    }
+                });
+
+                // 更新JFrame界面
+                // JFramePack.onJComponentActionEvent(e);
+                JFramePack.pack();
+            }
+        });
+        return zhongDuanBtn;
     }
 
     private JButton intiBtnKPy() {
@@ -168,14 +223,14 @@ public class UniversalPanels {
                     Device device = AdbTools.getInstance().getDevice();
                     String deviceName = device.getName();
 
-//                    System.out.println("deviceName = " + deviceName);
+                    //                    System.out.println("deviceName = " + deviceName);
                     if (deviceName.endsWith("+")) {
                         deviceName = deviceName.substring(0, deviceName.length() - 1);
                     }
-//                    System.out.println("deviceName = " + deviceName);
+                    //                    System.out.println("deviceName = " + deviceName);
 
                     String packageName = AdbGetPackage.getTopPackageName(device.getSerial());
-//                    System.out.println("packageName = " + packageName);
+                    //                    System.out.println("packageName = " + packageName);
 
                     // 获取应用名（中文名）
                     String chName = AdbToolsProperties.moneyApkPro.getProperty(packageName);
@@ -185,9 +240,9 @@ public class UniversalPanels {
 
                         System.out.println("pinyin = " + pinyin);
 
-//                        //拼接Python文件的路径
-//                        String deviceFilePath = "AdbToolsPythons" + "\\" + deviceName;
-//                        String deviceFilePath = device.getFilePath();
+                        //                        //拼接Python文件的路径
+                        //                        String deviceFilePath = "AdbToolsPythons" + "\\" + deviceName;
+                        //                        String deviceFilePath = device.getFilePath();
                         String deviceFilePath = device.getDeviceFilePath();
 
                         String pyPath = deviceFilePath + "\\" + pinyin + "\\1.py";
