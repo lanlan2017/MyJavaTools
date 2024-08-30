@@ -58,6 +58,7 @@ public class AppTask3 {
         ArrayList<TaskTime> taoBaoTask = new ArrayList<>();
         taoBaoTask.add(new TaskTime("红包签到"));
         taoBaoTask.add(new TaskTime("视频"));
+        taoBaoTask.add(new TaskTime("淘金币"));
         taoBaoTask.add(new TaskTime("芭芭农场"));
         //        taoBaoTask.add(new TaskTime("红包签到", false, -1));
         //        taoBaoTask.add(new TaskTime("视频", false, -1));

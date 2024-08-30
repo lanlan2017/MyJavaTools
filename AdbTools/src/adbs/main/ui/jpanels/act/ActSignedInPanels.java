@@ -152,8 +152,13 @@ public class ActSignedInPanels {
         btnDingShiCancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cancelReminder();
-                btnDingShiOk.setBackground(btnDingShiOkBackground);
+                AdbTools.getInstance().showDialogOk("取消定时", new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        cancelReminder();
+                        btnDingShiOk.setBackground(btnDingShiOkBackground);
+                    }
+                });
             }
         });
         return btnDingShiCancel;
