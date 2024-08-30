@@ -18,7 +18,7 @@ import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.util.*;
 
-public class ActAutoRun implements Runnable {
+public class ActAutoRun extends ActWait implements Runnable {
 
     private AdbTools adbTools;
     private TimingPanels2 timingPanels2;
@@ -27,13 +27,15 @@ public class ActAutoRun implements Runnable {
     private static volatile boolean stop;
 
 
-    private HashSet<String> wait20M_Act;
-    private final HashSet<String> wait11s_Act;
-    private HashSet<String> wait15s_Act;
-    private final HashSet<String> wait20s_Act;
-    private HashSet<String> wait3M_Act;
-    private HashSet<String> wait95sApp;
-    private HashSet<String> wait180sApp;
+//    private HashSet<String> wait11s_Act;
+//    private HashSet<String> wait13s_Act;
+//    private HashSet<String> wait20s_Act;
+//
+//    private HashSet<String> wait3M_Act;
+//    private HashSet<String> wait1H_Act;
+//
+//    private HashSet<String> wait95sApp;
+//    private HashSet<String> wait180sApp;
 
     // --------------------- 前台APP线程的 变量 开始   ----------------------------
     private static volatile boolean nextDay = false;
@@ -84,11 +86,11 @@ public class ActAutoRun implements Runnable {
         //射中从哪些APP离开后需要等待95秒钟
         initWait95sApp();
 
-        wait11s_Act = initWait11sAct();
+        initWait11sAct();
         // 设置在哪些Activity界面钟，线程等待间隔为15秒
         initWait15sAct();
         // 设置在哪些Activity界面钟，线程等待间隔为30秒
-        wait20s_Act = initWait30sAct();
+       initWait20sAct();
         //设置在哪些Activity界面中，线程等待间隔为3分钟
         initWait3M_Act();
         // 设置在哪些Activity界面中，线程等待间隔为1小时
@@ -97,112 +99,116 @@ public class ActAutoRun implements Runnable {
 
     }
 
-    /**
-     * 从哪些APP离开之后需要等待95秒。
-     */
-    private void initWait95sApp() {
-        wait95sApp = new HashSet<>();
-        // 百度极速版
-        wait95sApp.add("com.baidu.searchbox.lite");
-        // 快手极速版
-        wait95sApp.add("com.kuaishou.nebula");
-        // 快手
-        wait95sApp.add("com.smile.gifmaker");
-        // 悟空浏览器
-        wait95sApp.add("com.cat.readall");
-    }
+//    /**
+//     * 从哪些APP离开之后需要等待95秒。
+//     */
+//    private void initWait95sApp() {
+//        wait95sApp = new HashSet<>();
+//        // 百度极速版
+//        wait95sApp.add("com.baidu.searchbox.lite");
+//        // 快手极速版
+//        wait95sApp.add("com.kuaishou.nebula");
+//        // 快手
+//        wait95sApp.add("com.smile.gifmaker");
+//        // 悟空浏览器
+//        wait95sApp.add("com.cat.readall");
+//    }
 
-    /**
-     * 确定从哪些APP离开后需要等待180秒
-     */
-    private void initWait180sApp() {
-        wait180sApp = new HashSet<>();
-        // 趣头条
-        wait180sApp.add("com.jifen.qukan");
-        //今日头条极速版
-        wait180sApp.add("com.ss.android.article.lite");
-        // 今日头条
-        wait180sApp.add("com.ss.android.article.news");
-        // 西瓜视频
-        wait180sApp.add("com.ss.android.article.video");
-        // 番茄免费小说
-        wait180sApp.add("com.dragon.read");
-        //番茄畅听
-        wait180sApp.add("com.xs.fm");
-        //番茄畅听音乐版
-        wait180sApp.add("com.xs.fm.lite");
-        // 抖音
-        wait180sApp.add("com.ss.android.ugc.aweme");
-        //抖音极速版
-        wait180sApp.add("com.ss.android.ugc.aweme.lite");
-        //抖音火山版
-        wait180sApp.add("com.ss.android.ugc.live");
-        //红果免费短剧
-        wait180sApp.add("com.phoenix.read");
-    }
+//    /**
+//     * 确定从哪些APP离开后需要等待180秒
+//     */
+//    private void initWait180sApp() {
+//        wait180sApp = new HashSet<>();
+//        // 趣头条
+//        wait180sApp.add("com.jifen.qukan");
+//        //今日头条极速版
+//        wait180sApp.add("com.ss.android.article.lite");
+//        // 今日头条
+//        wait180sApp.add("com.ss.android.article.news");
+//        // 西瓜视频
+//        wait180sApp.add("com.ss.android.article.video");
+//        // 番茄免费小说
+//        wait180sApp.add("com.dragon.read");
+//        //番茄畅听
+//        wait180sApp.add("com.xs.fm");
+//        //番茄畅听音乐版
+//        wait180sApp.add("com.xs.fm.lite");
+//        // 抖音
+//        wait180sApp.add("com.ss.android.ugc.aweme");
+//        //抖音极速版
+//        wait180sApp.add("com.ss.android.ugc.aweme.lite");
+//        //抖音火山版
+//        wait180sApp.add("com.ss.android.ugc.live");
+//        //红果免费短剧
+//        wait180sApp.add("com.phoenix.read");
+//    }
 
-    private HashSet<String> initWait11sAct() {
-        HashSet<String> wait11s_Act = new HashSet<>();
-        // 点淘
-        wait11s_Act.add("com.taobao.live/.h5.BrowserUpperActivity");
-        // 点淘省钱特辑，
-        wait11s_Act.add("com.taobao.live/.h5.BrowserActivity");
-        // 番茄畅听，音乐播放界面
-        wait11s_Act.add("com.xs.fm.lite/com.dragon.read.pages.main.MainFragmentActivity");
-        return wait11s_Act;
-
-    }
-
-    /**
-     * 设置检查频率为15秒的Activity
-     */
-    private void initWait15sAct() {
-        // HashSet<String> wait30S = new HashSet<>();
-        wait15s_Act = new HashSet<>();
-        // 直播界面
-        wait15s_Act.add("com.taobao.live/.TaoLiveVideoActivity");
-        // 桌面
-        wait15s_Act.add("com.huawei.android.launcher/.unihome.UniHomeLauncher");
-        // //
-        // wait15s_Act.add("com.taobao.live/.h5.BrowserUpperActivity");
-        // //省钱特辑，
-        // wait15s_Act.add("com.taobao.live/.h5.BrowserActivity");
-    }
-
-    private HashSet<String> initWait30sAct() {
-        // HashSet<String> wait30S = new HashSet<>();
-        HashSet<String> wait30s_Act = new HashSet<>();
-        // 华为桌面
-        return wait30s_Act;
-    }
-
-    /**
-     * 在哪些Activity中，线程等待间隔为3分钟
-     */
-    private void initWait3M_Act() {
-        wait3M_Act = new HashSet<>();
-        // 红果免费短剧，短剧播放界面
-        wait3M_Act.add("com.phoenix.read/com.ss.android.excitingvideo.ExcitingVideoActivity");
-        //番茄畅听音乐版，音频播放界面
-        wait3M_Act.add("com.xs.fm.lite/com.dragon.read.reader.speech.page.AudioPlayActivity");
-        //番茄畅听音乐版，全屏歌词显示界面
-        wait3M_Act.add("com.xs.fm.lite/com.dragon.read.music.lyric.FullScreenLyricActivity");
-    }
-
-    /**
-     * 在哪些Activity中，线程等待间隔时间为1小时
-     */
-    private void initWait1HAct() {
-        // 需要等待1个小时的Activity
-        // HashSet<String> wait1H_Act = new HashSet<>();
-        wait20M_Act = new HashSet<>();
-        //快手免费小说阅读界面
-        wait20M_Act.add("com.kuaishou.kgx.novel/com.kuaishou.novel.read.ReaderActivityV2");
-        //番茄免费小说阅读界面
-        wait20M_Act.add("com.dragon.read/.reader.ui.ReaderActivity");
-        //今日头条极速版电视剧播放界面
-        wait20M_Act.add("com.ss.android.article.lite/com.ss.android.xigualongvideo.detail.LongVideoDetailActivity");
-    }
+//    private void initWait11sAct() {
+//        //        HashSet<String> wait11s_Act = new HashSet<>();
+//        wait11s_Act = new HashSet<>();
+//
+//        // 点淘
+//        wait11s_Act.add("com.taobao.live/.h5.BrowserUpperActivity");
+//        // 点淘省钱特辑，
+//        wait11s_Act.add("com.taobao.live/.h5.BrowserActivity");
+//        // 番茄畅听，音乐播放界面
+//        wait11s_Act.add("com.xs.fm.lite/com.dragon.read.pages.main.MainFragmentActivity");
+//        //        return wait11s_Act;
+//
+//    }
+//
+//    /**
+//     * 设置检查频率为15秒的Activity
+//     */
+//    private void initWait15sAct() {
+//        // HashSet<String> wait30S = new HashSet<>();
+//        wait13s_Act = new HashSet<>();
+//        // 直播界面
+//        wait13s_Act.add("com.taobao.live/.TaoLiveVideoActivity");
+//        // 桌面
+//        wait13s_Act.add("com.huawei.android.launcher/.unihome.UniHomeLauncher");
+//        // //
+//        // wait15s_Act.add("com.taobao.live/.h5.BrowserUpperActivity");
+//        // //省钱特辑，
+//        // wait15s_Act.add("com.taobao.live/.h5.BrowserActivity");
+//    }
+//
+//    private void initWait20sAct() {
+//        // HashSet<String> wait30S = new HashSet<>();
+////        HashSet<String> wait30s_Act = new HashSet<>();
+//
+//        wait20s_Act = new HashSet<>();
+//        // 华为桌面
+////        return wait30s_Act;
+//    }
+//
+//    /**
+//     * 在哪些Activity中，线程等待间隔为3分钟
+//     */
+//    private void initWait3M_Act() {
+//        wait3M_Act = new HashSet<>();
+//        // 红果免费短剧，短剧播放界面
+//        wait3M_Act.add("com.phoenix.read/com.ss.android.excitingvideo.ExcitingVideoActivity");
+//        //番茄畅听音乐版，音频播放界面
+//        wait3M_Act.add("com.xs.fm.lite/com.dragon.read.reader.speech.page.AudioPlayActivity");
+//        //番茄畅听音乐版，全屏歌词显示界面
+//        wait3M_Act.add("com.xs.fm.lite/com.dragon.read.music.lyric.FullScreenLyricActivity");
+//    }
+//
+//    /**
+//     * 在哪些Activity中，线程等待间隔时间为1小时
+//     */
+//    private void initWait1HAct() {
+//        // 需要等待1个小时的Activity
+//        // HashSet<String> wait1H_Act = new HashSet<>();
+//        wait1H_Act = new HashSet<>();
+//        //快手免费小说阅读界面
+//        wait1H_Act.add("com.kuaishou.kgx.novel/com.kuaishou.novel.read.ReaderActivityV2");
+//        //番茄免费小说阅读界面
+//        wait1H_Act.add("com.dragon.read/.reader.ui.ReaderActivity");
+//        //今日头条极速版电视剧播放界面
+//        wait1H_Act.add("com.ss.android.article.lite/com.ss.android.xigualongvideo.detail.LongVideoDetailActivity");
+//    }
 
     @Override
     public void run() {
@@ -289,7 +295,7 @@ public class ActAutoRun implements Runnable {
 
     private void updateTitle(ActivityInfo act) {
         String currentPackageName = act.getPackageName();
-        String currentAppName = AdbGetPackage. getAppName(currentPackageName);
+        String currentAppName = AdbGetPackage.getAppName(currentPackageName);
         //        System.out.println("currentAppName = " + currentAppName);
         // 如果不相等，说明是可赚钱的APP
         if (!currentPackageName.equals(currentAppName)) {
@@ -305,9 +311,6 @@ public class ActAutoRun implements Runnable {
         }
     }
 
-//    private String getAppName(String currentPackageName) {
-//        return AdbToolsProperties.moneyApkPro.getProperty(currentPackageName);
-//    }
 
     /**
      * 从一个APP跳转到另一个APP是执行操作
@@ -405,14 +408,14 @@ public class ActAutoRun implements Runnable {
 
     private void _wait(ActivityInfo activityInfo) {
         String actLongName = activityInfo.getActLongName();
-        if (wait20M_Act.contains(actLongName)) {
+        if (wait1H_Act.contains(actLongName)) {
             _wait(60 * 60);
         } else if (wait3M_Act.contains(actLongName)) {
             _wait(3 * 60);
         } else if (wait20s_Act.contains(actLongName)) {
             _wait(20);
-        } else if (wait15s_Act.contains(actLongName)) {
-            _wait(15);
+        } else if (wait13s_Act.contains(actLongName)) {
+            _wait(13);
         } else if (wait11s_Act.contains(actLongName)) {
             _wait(11);
         } else {
@@ -607,15 +610,6 @@ public class ActAutoRun implements Runnable {
                     allAppChecked();
                 }
             }
-
-
-            //            // 如果已签到列表和应用列表的长度一样，则说明所有APP都签到完毕了
-            ////            else
-            //
-            //                if (appOpened.size() == apps.size()) {
-            //                // 签到完成设置
-            //                allAppChecked();
-            //        }
             // 打印已经打开的APP
             showOpenedApp();
             // 打印没打开的APP
@@ -625,7 +619,6 @@ public class ActAutoRun implements Runnable {
     }
 
     private void allAppChecked() {
-        //        afterOpeningAllAPKs();
 
         // // 已签到完成，停止签到检查
         // stopAppCheck = true;
@@ -641,14 +634,6 @@ public class ActAutoRun implements Runnable {
         });
         // 不再进行签到检查
         stopAppCheck = true;
-    }
-
-    private void allAppOpenedSetting() {
-        // 清空签到记录表
-        clearCheckInForm();
-        // 把所有的APP都填到签到记录表中
-        copyAllAppsIntoCheckInForm();
-        allAppChecked();
     }
 
 
@@ -777,25 +762,6 @@ public class ActAutoRun implements Runnable {
         return nextDay;
     }
 
-    //
-    //    private void _wait(int endWait) {
-    //        System.out.println("act 等待：" + endWait);
-    //        stopWait = false;
-    //        int s2 = 2;
-    //        int count = 0;
-    //        while (!stopWait) {
-    //            // System.out.println("stopWait = " + stopWait);
-    //            // 等待5秒
-    //            ThreadSleep.seconds(s2);
-    //            // System.out.println("签到线程等待中:" + count);
-    //            count += s2;
-    //            if (count >= endWait) {
-    //                // stopWait = true;
-    //                break;
-    //            }
-    //        }
-    //    }
-
 
     /**
      * 显示已经打开的金币应用
@@ -886,25 +852,6 @@ public class ActAutoRun implements Runnable {
             appOpened.add(next);
         }
     }
-
-
-    //    /**
-    //     * 签到完成设置
-    //     */
-    //    private void afterOpeningAllAPKs() {
-    //        // // 已签到完成，停止签到检查
-    //        // stopAppCheck = true;
-    //        // 把apk的名称放到列表中
-    //        // System.out.println("已打开:" + apkOpenedToday);
-    //        System.out.println("所有的apk签到完成!");
-    //        // // 改变背景色，表示签到完成
-    //        SwingUtilities.invokeLater(new Runnable() {
-    //            @Override
-    //            public void run() {
-    //                universalPanel.setBackground(Color.pink);
-    //            }
-    //        });
-    //    }
 
     public static void onNextDay() {
         nextDay = true;

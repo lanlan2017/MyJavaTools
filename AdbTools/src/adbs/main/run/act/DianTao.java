@@ -82,7 +82,6 @@ public class DianTao extends ActChangeAdapter {
         set_return.add(new ActToAct(".h5.BrowserUpperActivity", "com.alibaba.wireless.security.open.middletier.fc.ui.ContainerActivity"));
         set_return.add(new ActToAct(".pha.PHAContainerActivity", "com.alibaba.wireless.security.open.middletier.fc.ui.ContainerActivity"));
 
-
         return set_return;
     }
 }
