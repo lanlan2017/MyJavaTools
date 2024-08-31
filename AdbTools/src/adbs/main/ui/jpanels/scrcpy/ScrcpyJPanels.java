@@ -124,7 +124,25 @@ public class ScrcpyJPanels {
         //        btnAllCheckedIn = getBtnAllCheckedIn();
 
 
-        JButton batteryReset = getBatteryReset();
+        JButton batterySetUsb1 = getBatterySetUsb1();
+        JButton batterySetUsb0 = getBatterySetUsb0();
+        //        JButton batteryReset = new JButton("重置电池状态");
+        JButton batteryReset = new JButton("初");
+        String message = "重装电池状态";
+        batteryReset.setToolTipText(message);
+        batteryReset.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AdbTools instance = AdbTools.getInstance();
+                instance.showDialogOk(message, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        AdbCommands.batteryReset(instance.getDevice());
+                    }
+                });
+            }
+        });
+
         JCheckBox topCheckBox = getTopCheckBox();
 
         // adb面板添加按钮
@@ -136,6 +154,8 @@ public class ScrcpyJPanels {
         scrcpyJPanel.add(btnKillScrcpy);
         scrcpyJPanel.add(btnOpenScrcpyFull);
         scrcpyJPanel.add(btnSwitchNetworkDebug);
+        scrcpyJPanel.add(batterySetUsb1);
+        scrcpyJPanel.add(batterySetUsb0);
         scrcpyJPanel.add(batteryReset);
         scrcpyJPanel.add(topCheckBox);
 
@@ -151,6 +171,7 @@ public class ScrcpyJPanels {
         // AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, -1);
         //        AbstractButtons.setMarginInButtonJPanel(scrcpyJPanel, 0);
     }
+
 
     /**
      * 创建窗体置顶复选框
@@ -182,28 +203,57 @@ public class ScrcpyJPanels {
         return topCheckBox;
     }
 
-
     /**
      * 创建充电按钮
      *
      * @return 充电按钮JButton对象。
      */
-    private JButton getBatteryReset() {
+    private JButton getBatterySetUsb1() {
+
         final JButton batteryReset;
-        batteryReset = new JButton("充电");
+        //        batteryReset = new JButton("充电");
+        batteryReset = new JButton("充");
+        final String message = "允许USB充电";
+        batteryReset.setToolTipText(message);
         batteryReset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 final AdbTools instance = AdbTools.getInstance();
-                instance.showDialogOk("重置电池状态恢复充电?", new ActionListener() {
+                instance.showDialogOk(message, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        AdbCommands.batteryReset(instance.getDevice());
+                        Device device = instance.getDevice();
+                        //允许USB充电
+                        AdbCommands.batterySetUsb_1(device);
+                        //                        AdbCommands.batteryReset(device);
+
                     }
                 });
             }
         });
         return batteryReset;
+    }
+
+    private JButton getBatterySetUsb0() {
+        //        JButton batteryUsb0 = new JButton("断电");
+        JButton batteryUsb0 = new JButton("断");
+        final String msg = "禁止USB充电";
+
+        batteryUsb0.setToolTipText(msg);
+        batteryUsb0.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println(msg);
+                AdbTools.getInstance().showDialogOk(msg, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+
+                        AdbCommands.batterySetUsb_0(AdbTools.getInstance().getDevice());
+                    }
+                });
+            }
+        });
+        return batteryUsb0;
     }
 
 

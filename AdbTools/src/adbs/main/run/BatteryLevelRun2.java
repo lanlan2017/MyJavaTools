@@ -3,6 +3,7 @@ package adbs.main.run;
 import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
 import adbs.main.run.model.FrameTitle;
+import adbs.model.Device;
 import adbs.tools.thread.ThreadSleep;
 
 import javax.swing.*;
@@ -78,9 +79,8 @@ public class BatteryLevelRun2 implements Runnable {
                 case JOptionPane.OK_OPTION:
                     displayJOptionPane = false;
                     System.out.println("点击 是 按钮，禁用USB充电");
-                    AdbCommands.batterySetUsb0(serial);
-
-
+                    //禁止USB充电
+                    AdbCommands.batterySetUsb_0(serial);
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -90,11 +90,22 @@ public class BatteryLevelRun2 implements Runnable {
                             // // 设置电池为充电状态
                             // String usbChargingAllowed = "adb -s " + serial + " shell dumpsys battery set usb 1";
                             // // String usbChargingAllowed = "adb -s " + serial + " shell dumpsys battery set usb 1";
-                            //                            AdbCommands.runAbdCmd(usbChargingAllowed);
                             //
-
-                            AdbCommands.batteryReset(BatteryLevelRun2.this.serial);
-
+                            //                            AdbCommands.runAbdCmd(usbChargingAllowed);
+                            Device device = AdbTools.getInstance().getDevice();
+                            String name = device.getName();
+                            //充电
+                            AdbCommands.batterySetUsb_1(serial);
+                            switch (name) {
+                                case "vHei":
+                                    ThreadSleep.minutes(5);
+                                    break;
+                                case "v2Lan":
+                                    ThreadSleep.minutes(10);
+                                    break;
+                            }
+                            //恢复电池状态
+                            AdbCommands.batteryReset(serial);
 
                             // 允许弹窗
                             displayJOptionPane = true;
@@ -118,25 +129,6 @@ public class BatteryLevelRun2 implements Runnable {
         }
     }
 
-    //    /**
-    //     * 禁用USB充电
-    //     *
-    //     * @param serial 设备序列号
-    //     */
-    //    private void batterySetUsb0(String serial) {
-    //        String usbChargingProhibited = "adb -s " + serial + " shell dumpsys battery set usb 0";
-    //        AdbCommands.runAbdCmd(usbChargingProhibited);
-    //    }
-    //
-    //    /**
-    //     * 重置电池状态，允许USB充电
-    //     *
-    //     * @param serial 设备序列号
-    //     */
-    //    private void batteryReset(String serial) {
-    //        String reset = "adb -s " + serial + " shell dumpsys battery reset";
-    //        AdbCommands.runAbdCmd(reset);
-    //    }
 
     private void wait_() {
         if (IsTest.isTest()) {

@@ -184,7 +184,7 @@ public class AdbCommands implements ActivityStr {
      *
      * @param serial 设备序列号
      */
-    public static void batterySetUsb0(String serial) {
+    public static void batterySetUsb_0(String serial) {
         String usbChargingProhibited = "adb -s " + serial + " shell dumpsys battery set usb 0";
         AdbCommands.runAbdCmd(usbChargingProhibited);
     }
@@ -192,9 +192,26 @@ public class AdbCommands implements ActivityStr {
     /**
      * 禁用USB充电
      */
-    public static void batterySetUsb0(Device device) {
+    public static void batterySetUsb_0(Device device) {
         String serial = device.getSerial();
-        String usbChargingProhibited = "adb -s " + serial + " shell dumpsys battery set usb 0";
+        //        String usbChargingProhibited = "adb -s " + serial + " shell dumpsys battery set usb 0";
+        //        AdbCommands.runAbdCmd(usbChargingProhibited);
+        batterySetUsb_0(serial);
+    }
+
+    /**
+     * 允许USB充电
+     */
+    public static void batterySetUsb_1(Device device) {
+        String serial = device.getSerial();
+        batterySetUsb_1(serial);
+    }
+
+    /**
+     * 允许USB充电
+     */
+    public static void batterySetUsb_1(String serial) {
+        String usbChargingProhibited = "adb -s " + serial + " shell dumpsys battery set usb 1";
         AdbCommands.runAbdCmd(usbChargingProhibited);
     }
 
