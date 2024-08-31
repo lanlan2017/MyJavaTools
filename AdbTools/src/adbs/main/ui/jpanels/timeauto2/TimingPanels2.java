@@ -131,6 +131,7 @@ public class TimingPanels2 extends WaitValues {
         Dimension preferredSize = btn65s.getPreferredSize();
         // 设置下拉框的首选大小
         jComboBox.setPreferredSize(new Dimension(preferredSize.height * 2 + 2, preferredSize.height));
+
         // 添加选项
         jComboBox.addItem(textJrBtnWait);
         jComboBox.addItem(textJrBtnReadWait);

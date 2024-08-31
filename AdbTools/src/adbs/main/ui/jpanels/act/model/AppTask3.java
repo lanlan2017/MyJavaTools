@@ -76,11 +76,13 @@ public class AppTask3 {
 
 
         AppTaskTimeSet fqctyyb = new AppTaskTimeSet("番茄畅听音乐版", taskTimesTaoTe);
+        AppTaskTimeSet hgmfdj = new AppTaskTimeSet("红果免费短剧", taoBaoTask);
 
         tasks.add(dianTao);
-        tasks.add(fqctyyb);
         tasks.add(taoBao);
         tasks.add(taoTe);
+        tasks.add(fqctyyb);
+        tasks.add(hgmfdj);
     }
 
     public String getDate() {

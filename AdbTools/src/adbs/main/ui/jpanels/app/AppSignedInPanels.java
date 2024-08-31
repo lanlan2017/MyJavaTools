@@ -61,6 +61,7 @@ public class AppSignedInPanels {
         this.appPanel.setLayout(new BorderLayout());
 
         this.notOpened = new JTextPane();
+        // 添加带有标题的边框，
         this.notOpened.setBorder(new TitledBorder(new LineBorder(Color.CYAN), "未打开"));
         this.signedIn = new JTextPane();
         this.signedIn.setBorder(new TitledBorder(new LineBorder(Color.pink), "已打开"));

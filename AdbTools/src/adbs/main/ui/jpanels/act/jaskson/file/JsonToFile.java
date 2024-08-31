@@ -8,11 +8,20 @@ import java.io.IOException;
 
 // 使用泛型 T 表示任意类型
 public class JsonToFile<T> {
-
+    private String filePath;
     private final ObjectMapper mapper;
 
     public JsonToFile() {
         this.mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT); // 格式化输出
+    }
+
+    public JsonToFile(String filePath) {
+        this.mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT); // 格式化输出
+        this.filePath = filePath;
+    }
+
+    public String getFilePath() {
+        return filePath;
     }
 
     /**
@@ -23,6 +32,22 @@ public class JsonToFile<T> {
      * @throws IOException 如果写入文件失败
      */
     public void toJsonFile(T obj, String filePath) {
+        try {
+            mapper.writeValue(new File(filePath), obj);
+            System.out.println("已经写入文件：" + filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 将对象序列化为JSON并写入文件。
+     *
+     * @param obj 要序列化的对象
+     *            //     * @param filePath 文件路径
+     * @throws IOException 如果写入文件失败
+     */
+    public void toJsonFile(T obj) {
         try {
             mapper.writeValue(new File(filePath), obj);
             System.out.println("已经写入文件：" + filePath);
@@ -48,9 +73,43 @@ public class JsonToFile<T> {
         }
     }
 
-    public static void main(String[] args) {
-        JsonToFile<User2> jsonToFileHandler = new JsonToFile<>();
+    /**
+     * 从文件中反序列化JSON为对象。
+     * <p>
+     * //     * @param filePath 文件路径
+     *
+     * @param clazz 泛型参数的实际类型
+     * @return 反序列化的对象
+     * @throws IOException 如果读取文件失败
+     */
+    public <U extends T> U fromJsonFile(Class<U> clazz) {
+        try {
+            return mapper.readValue(new File(filePath), clazz);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
+    public static void main(String[] args) {
+        //        test0();
+        // 创建一个对象
+        User2 user = new User2("John xxx", 50);
+        // 要序列化的文件
+        String filePath = "user2.json";
+        JsonToFile<User2> jsonToFileHandler = new JsonToFile<>(filePath);
+
+        // 把这个对象序列化到文件中
+        jsonToFileHandler.toJsonFile(user);
+        System.out.println("User object has been serialized to " + filePath);
+
+        // 反序列化，从文件中读取对象
+        User2 deserializedUser = jsonToFileHandler.fromJsonFile(User2.class);
+        System.out.println("Deserialized User: " + deserializedUser);
+    }
+
+    private static void test0() {
+        JsonToFile<User2> jsonToFileHandler = new JsonToFile<>();
         // 创建一个对象
         User2 user = new User2("John Doe", 30);
         // 要序列化的文件
