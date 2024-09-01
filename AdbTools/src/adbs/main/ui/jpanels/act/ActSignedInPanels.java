@@ -73,6 +73,10 @@ public class ActSignedInPanels {
         this.taskPanel = new JPanel();
         if (titledBorder == null) {
             titledBorder = new TitledBorder(new LineBorder(Color.blue), "");
+            //标题右对齐，默认是左对齐
+//            titledBorder.setTitleJustification(TitledBorder.TRAILING);
+            //标题居中对齐，默认是左对齐
+            titledBorder.setTitleJustification(TitledBorder.CENTER);
             taskPanel.setBorder(titledBorder);
         }
         // 垂直排列
@@ -340,7 +344,6 @@ public class ActSignedInPanels {
     }
 
 
-
     private AppTask3 getAppTask3(JsonToFile<AppTask3> jsonToFile) {
         AppTask3 appTask3;
         String filePath = jsonToFile.getFilePath();
@@ -419,7 +422,6 @@ public class ActSignedInPanels {
             }
         }
     }
-
 
 
     private void addTaskPanel(JsonToFile<AppTask3> jsonToFile, AppTask3 appTask3, AppTaskTimeSet next) {
@@ -520,7 +522,6 @@ public class ActSignedInPanels {
     }
 
 
-
     private JCheckBox getjCheckBox(TaskTime taskTime, JsonToFile<AppTask3> jsonToFile, AppTask3 appTask2) {
         JCheckBox jCheckBox;
         jCheckBox = new JCheckBox(taskTime.getTaskName());
@@ -545,86 +546,86 @@ public class ActSignedInPanels {
         return jCheckBox;
     }
 
-    /**
-     * 根据任务名称数组创建复选框和文本框
-     *
-     * @param taskNames 任务名称数组
-     */
-    private void createJCheckBoxs(String[] taskNames) {
-        taskPanel.removeAll();
-        for (String s : taskNames) {
-            JPanel jPanel = new JPanel();
-            jPanel.setLayout(new BorderLayout());
-            JCheckBox jCheckBox;
-
-            if (s.endsWith("_")) {
-                System.out.println("s = " + s);
-                // 移除后面的标识符，也就是下划线
-                String text = s.substring(0, s.length() - 1);
-                System.out.println("text = " + text);
-                // 添加任务到列表中
-                jCheckBox = new JCheckBox(text);
-
-                JTextField textField = new JTextField();
-                textField.setEditable(false);  // 设置为不可编辑
-                textField.setColumns(2);
-
-                textField.setText("0");  // 初始化为0
-
-                // 添加键盘事件监听器
-                textField.addKeyListener(new KeyAdapter() {
-                    @Override
-                    public void keyPressed(KeyEvent e) {
-                        try {
-                            int value = Integer.parseInt(textField.getText());
-                            //当按下上箭头或者加号的时候
-                            if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyChar() == '+') {
-                                String s1 = text + "+1?";
-                                AdbTools.getInstance().showDialogOk(s1, new ActionListener() {
-                                    @Override
-                                    public void actionPerformed(ActionEvent e) {
-
-                                        // 上箭头被按下，增加1
-                                        textField.setText(Integer.toString(value + 1));
-                                    }
-                                });
-                                // 阻止加号键插入文本
-                                // e.consume();
-                            } else if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyChar() == '-') {
-                                // 下箭头被按下，减少1，但不能小于0
-                                if (value > 0) {
-                                    String s1 = text + "-1?";
-
-                                    AdbTools.getInstance().showDialogOk(s1, new ActionListener() {
-                                        @Override
-                                        public void actionPerformed(ActionEvent e) {
-
-                                            textField.setText(Integer.toString(value - 1));
-                                        }
-                                    });
-                                }
-                            }
-                        } catch (NumberFormatException ex) {
-                            // 如果不是整数，则不执行任何操作
-                        }
-                    }
-                });
-
-
-                // jPanel.add(jCheckBox, BorderLayout.WEST);
-                jPanel.add(textField, BorderLayout.CENTER);
-                // jPanel.add(textField, BorderLayout.EAST);
-            } else {
-                // 添加任务到列表中
-                jCheckBox = new JCheckBox(s);
-            }
-            // jCheckBoxes.add(jCheckBox);
-            jPanel.add(jCheckBox, BorderLayout.WEST);
-            taskPanel.add(jPanel);
-        }
-
-        JFramePack.pack();
-    }
+    //    /**
+    //     * 根据任务名称数组创建复选框和文本框
+    //     *
+    //     * @param taskNames 任务名称数组
+    //     */
+    //    private void createJCheckBoxs(String[] taskNames) {
+    //        taskPanel.removeAll();
+    //        for (String s : taskNames) {
+    //            JPanel jPanel = new JPanel();
+    //            jPanel.setLayout(new BorderLayout());
+    //            JCheckBox jCheckBox;
+    //
+    //            if (s.endsWith("_")) {
+    //                System.out.println("s = " + s);
+    //                // 移除后面的标识符，也就是下划线
+    //                String text = s.substring(0, s.length() - 1);
+    //                System.out.println("text = " + text);
+    //                // 添加任务到列表中
+    //                jCheckBox = new JCheckBox(text);
+    //
+    //                JTextField textField = new JTextField();
+    //                textField.setEditable(false);  // 设置为不可编辑
+    //                textField.setColumns(2);
+    //
+    //                textField.setText("0");  // 初始化为0
+    //
+    //                // 添加键盘事件监听器
+    //                textField.addKeyListener(new KeyAdapter() {
+    //                    @Override
+    //                    public void keyPressed(KeyEvent e) {
+    //                        try {
+    //                            int value = Integer.parseInt(textField.getText());
+    //                            //当按下上箭头或者加号的时候
+    //                            if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyChar() == '+') {
+    //                                String s1 = text + "+1?";
+    //                                AdbTools.getInstance().showDialogOk(s1, new ActionListener() {
+    //                                    @Override
+    //                                    public void actionPerformed(ActionEvent e) {
+    //
+    //                                        // 上箭头被按下，增加1
+    //                                        textField.setText(Integer.toString(value + 1));
+    //                                    }
+    //                                });
+    //                                // 阻止加号键插入文本
+    //                                // e.consume();
+    //                            } else if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyChar() == '-') {
+    //                                // 下箭头被按下，减少1，但不能小于0
+    //                                if (value > 0) {
+    //                                    String s1 = text + "-1?";
+    //
+    //                                    AdbTools.getInstance().showDialogOk(s1, new ActionListener() {
+    //                                        @Override
+    //                                        public void actionPerformed(ActionEvent e) {
+    //
+    //                                            textField.setText(Integer.toString(value - 1));
+    //                                        }
+    //                                    });
+    //                                }
+    //                            }
+    //                        } catch (NumberFormatException ex) {
+    //                            // 如果不是整数，则不执行任何操作
+    //                        }
+    //                    }
+    //                });
+    //
+    //
+    //                // jPanel.add(jCheckBox, BorderLayout.WEST);
+    //                jPanel.add(textField, BorderLayout.CENTER);
+    //                // jPanel.add(textField, BorderLayout.EAST);
+    //            } else {
+    //                // 添加任务到列表中
+    //                jCheckBox = new JCheckBox(s);
+    //            }
+    //            // jCheckBoxes.add(jCheckBox);
+    //            jPanel.add(jCheckBox, BorderLayout.WEST);
+    //            taskPanel.add(jPanel);
+    //        }
+    //
+    //        JFramePack.pack();
+    //    }
 
     public JPanel getTopJPanel() {
         return topJPanel;
