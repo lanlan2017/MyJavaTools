@@ -1,3 +1,4 @@
 @echo off
 cls
-call adbtools.bat %*
+@REM call adbtools.bat %*
+call adbtools_2.bat %*

@@ -40,18 +40,6 @@ public class AppTask3 {
         dianTaoTasks.add(new TaskTime("打工", false, 0));
         dianTaoTasks.add(new TaskTime("睡觉", false, 0));
         dianTaoTasks.add(new TaskTime("走路", false, 0));
-
-        //        HashSet<TaskTime> fqctyybTask = new HashSet<>();
-        ArrayList<TaskTime> fqctyybTask = new ArrayList<>();
-        fqctyybTask.add(new TaskTime("商城", false, -1));
-        fqctyybTask.add(new TaskTime("红包", false, 0));
-        fqctyybTask.add(new TaskTime("购金", false, -1));
-        fqctyybTask.add(new TaskTime("开店", false, -1));
-        fqctyybTask.add(new TaskTime("签到", false, 0));
-        fqctyybTask.add(new TaskTime("打工", false, 0));
-        fqctyybTask.add(new TaskTime("睡觉", false, 0));
-        fqctyybTask.add(new TaskTime("走路", false, 0));
-
         AppTaskTimeSet dianTao = new AppTaskTimeSet("点淘", dianTaoTasks);
 
 
@@ -60,9 +48,6 @@ public class AppTask3 {
         taoBaoTask.add(new TaskTime("视频"));
         taoBaoTask.add(new TaskTime("淘金币"));
         taoBaoTask.add(new TaskTime("芭芭农场"));
-        //        taoBaoTask.add(new TaskTime("红包签到", false, -1));
-        //        taoBaoTask.add(new TaskTime("视频", false, -1));
-        //        taoBaoTask.add(new TaskTime("芭芭农场", false, -1));
         AppTaskTimeSet taoBao = new AppTaskTimeSet("淘宝", taoBaoTask);
 
 

@@ -225,8 +225,6 @@ public class ScrcpyJPanels {
                         Device device = instance.getDevice();
                         //允许USB充电
                         AdbCommands.batterySetUsb_1(device);
-                        //                        AdbCommands.batteryReset(device);
-
                     }
                 });
             }
@@ -247,7 +245,6 @@ public class ScrcpyJPanels {
                 AdbTools.getInstance().showDialogOk(msg, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-
                         AdbCommands.batterySetUsb_0(AdbTools.getInstance().getDevice());
                     }
                 });
