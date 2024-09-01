@@ -317,15 +317,42 @@ public class ActAutoRun extends ActWait implements Runnable {
      */
     private void appChange(ActivityInfo before, ActivityInfo current) {
         String beforePackageName = before.getPackageName();
+        String currentPackageName = current.getPackageName();
+        //之前的APP需要等待180秒
         if (wait180sApp.contains(beforePackageName)) {
-            timingPanels2.w180s();
+            //            currentPackageName
+            //            之前的APP是头条系列的APP
+            if (touTiao180sApp.contains(beforePackageName)) {
+                //                现在的APP是头条系列的APP
+                if (isTouTiaoApp(currentPackageName)) {
+                    System.out.println("同一个头条应用 跳到 另一个头条应用，无需等待");
+                } else {
+                    System.out.println("从头条应用 跳转到 非头条应用，等待180秒");
+                    timingPanels2.w180s();
+                }
+            } else {
+                System.out.println("之前的应用不是头条应用，直接等待");
+                timingPanels2.w180s();
+            }
         } else if (wait95sApp.contains(beforePackageName)) {
-            timingPanels2.w95s();
+            // 之前的是头条需要等待95秒的应用
+            if (touTiao95sApp.contains(beforePackageName)) {
+                // 现在不是头条应用，则等待，如果是头条应用，则不做任何操作
+                if (!isTouTiaoApp(currentPackageName)) {
+                    timingPanels2.w95s();
+                }
+            } else {
+                timingPanels2.w95s();
+            }
         }
-        String packageName = current.getPackageName();
+        String packageName = currentPackageName;
         if (packageName != null && packageName.contains(".")) {
             check_(packageName);
         }
+    }
+
+    private boolean isTouTiaoApp(String currentPackageName) {
+        return touTiao180sApp.contains(currentPackageName) || touTiao95sApp.contains(currentPackageName);
     }
 
     /**

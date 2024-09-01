@@ -8,7 +8,11 @@ public abstract class ActWait {
     protected HashSet<String> wait20s_Act;
     protected HashSet<String> wait1H_Act;
     protected HashSet<String> wait3M_Act;
+
+    protected HashSet<String> touTiao95sApp;
     protected HashSet<String> wait95sApp;
+
+    protected HashSet<String> touTiao180sApp;
     protected HashSet<String> wait180sApp;
 
 
@@ -56,7 +60,7 @@ public abstract class ActWait {
     }
 
 
-    protected  HashSet<String> initWait11sAct() {
+    protected HashSet<String> initWait11sAct() {
         wait11s_Act = new HashSet<>();
         // 点淘
         wait11s_Act.add("com.taobao.live/.h5.BrowserUpperActivity");
@@ -109,40 +113,58 @@ public abstract class ActWait {
         wait95sApp.add("com.kuaishou.nebula");
         // 快手
         wait95sApp.add("com.smile.gifmaker");
+        //        touTiao95sApp();
+        initTouTiao95sApp();
+        wait95sApp.addAll(touTiao95sApp);
+
+    }
+
+    private void initTouTiao95sApp() {
+        touTiao95sApp = new HashSet<>();
+        //        touTiao95sApp
         // 悟空浏览器
-        wait95sApp.add("com.cat.readall");
+        touTiao95sApp.add("com.cat.readall");
     }
 
     /**
      * 确定从哪些APP离开后需要等待180秒
      */
-    protected  void initWait180sApp() {
+    protected void initWait180sApp() {
         wait180sApp = new HashSet<>();
         // 趣头条
         wait180sApp.add("com.jifen.qukan");
+        initTouTiao180sApp();
+        wait180sApp.addAll(touTiao180sApp);
+
+        //        touTiaoApp();
+    }
+
+    private void initTouTiao180sApp() {
+        touTiao180sApp = new HashSet<>();
+        //        touTiaoApp.add()
         //今日头条极速版
-        wait180sApp.add("com.ss.android.article.lite");
+        touTiao180sApp.add("com.ss.android.article.lite");
         // 今日头条
-        wait180sApp.add("com.ss.android.article.news");
+        touTiao180sApp.add("com.ss.android.article.news");
         // 西瓜视频
-        wait180sApp.add("com.ss.android.article.video");
+        touTiao180sApp.add("com.ss.android.article.video");
         // 番茄免费小说
-        wait180sApp.add("com.dragon.read");
+        touTiao180sApp.add("com.dragon.read");
         //番茄畅听
-        wait180sApp.add("com.xs.fm");
+        touTiao180sApp.add("com.xs.fm");
         //番茄畅听音乐版
-        wait180sApp.add("com.xs.fm.lite");
+        touTiao180sApp.add("com.xs.fm.lite");
         // 抖音
-        wait180sApp.add("com.ss.android.ugc.aweme");
+        touTiao180sApp.add("com.ss.android.ugc.aweme");
         //抖音极速版
-        wait180sApp.add("com.ss.android.ugc.aweme.lite");
+        touTiao180sApp.add("com.ss.android.ugc.aweme.lite");
         //抖音火山版
-        wait180sApp.add("com.ss.android.ugc.live");
+        touTiao180sApp.add("com.ss.android.ugc.live");
         //红果免费短剧
-        wait180sApp.add("com.phoenix.read");
+        touTiao180sApp.add("com.phoenix.read");
     }
 
 
-//    protected abstract void _wait(int endWait);
+    //    protected abstract void _wait(int endWait);
 
 }
