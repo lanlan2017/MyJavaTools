@@ -98,11 +98,13 @@ public class BatteryLevelRun2 implements Runnable {
                             AdbCommands.batterySetUsb_1(serial);
                             switch (name) {
                                 case "vHei":
-                                    ThreadSleep.minutes(5);
+                                    ThreadSleep.minutes(3);
                                     break;
                                 case "v2Lan":
-                                    ThreadSleep.minutes(10);
+                                    ThreadSleep.minutes(5);
                                     break;
+                                default:
+                                    ThreadSleep.minutes(1);
                             }
                             //恢复电池状态
                             AdbCommands.batteryReset(serial);

@@ -318,6 +318,14 @@ public class ActAutoRun extends ActWait implements Runnable {
     private void appChange(ActivityInfo before, ActivityInfo current) {
         String beforePN = before.getPackageName();
         String currentPN = current.getPackageName();
+        appChangeAuto(beforePN, currentPN);
+        //String packageName = current.getPackageName();
+        //String packageName = currentPN;
+        //extracted(packageName);
+        check_(currentPN);
+    }
+
+    private void appChangeAuto(String beforePN, String currentPN) {
         //之前的APP需要等待180秒
         if (wait180sApp.contains(beforePN)) {
             //之前的是头条 180秒 系列
@@ -360,12 +368,13 @@ public class ActAutoRun extends ActWait implements Runnable {
                 timingPanels2.w95s();
             }
         }
-
-        //        else {
-        //            timingPanels2.w95s();
-        //
-        //        }
     }
+
+    //    private void extracted(String packageName) {
+    //        if (packageName != null && packageName.contains(".")) {
+    //            check_(packageName);
+    //        }
+    //    }
 
     //    /**
     //     * 判断是否从头条95秒应用跳转到非头条应用
