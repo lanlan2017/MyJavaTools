@@ -10,30 +10,12 @@ public abstract class ActWait {
     protected HashSet<String> wait3M_Act;
 
     protected HashSet<String> touTiao95sApp;
+    protected HashSet<String> kuaiShou95sApp;
     protected HashSet<String> wait95sApp;
 
     protected HashSet<String> touTiao180sApp;
     protected HashSet<String> wait180sApp;
 
-
-    //    private HashSet<String> initWait11sAct() {
-    //        HashSet<String> wait11s_Act = new HashSet<>();
-    //        // 点淘
-    //        wait11s_Act.add("com.taobao.live/.h5.BrowserUpperActivity");
-    //        // 点淘省钱特辑，
-    //        wait11s_Act.add("com.taobao.live/.h5.BrowserActivity");
-    //        // 番茄畅听，音乐播放界面
-    //        wait11s_Act.add("com.xs.fm.lite/com.dragon.read.pages.main.MainFragmentActivity");
-    //        return wait11s_Act;
-    //
-    //    }
-
-    //    private HashSet<String> initWait20sAct() {
-    //        // HashSet<String> wait30S = new HashSet<>();
-    //        HashSet<String> wait30s_Act = new HashSet<>();
-    //        // 华为桌面
-    //        return wait30s_Act;
-    //    }
 
     protected void initWait20sAct() {
         // HashSet<String> wait30S = new HashSet<>();
@@ -109,14 +91,20 @@ public abstract class ActWait {
         wait95sApp = new HashSet<>();
         // 百度极速版
         wait95sApp.add("com.baidu.searchbox.lite");
-        // 快手极速版
-        wait95sApp.add("com.kuaishou.nebula");
-        // 快手
-        wait95sApp.add("com.smile.gifmaker");
+        initKuaiShou95sApp();
+        wait95sApp.addAll(kuaiShou95sApp);
         //        touTiao95sApp();
         initTouTiao95sApp();
         wait95sApp.addAll(touTiao95sApp);
 
+    }
+
+    private void initKuaiShou95sApp() {
+        kuaiShou95sApp = new HashSet<>();
+        // 快手极速版
+        kuaiShou95sApp.add("com.kuaishou.nebula");
+        // 快手
+        kuaiShou95sApp.add("com.smile.gifmaker");
     }
 
     private void initTouTiao95sApp() {

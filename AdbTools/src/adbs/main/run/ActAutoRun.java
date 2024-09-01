@@ -316,40 +316,81 @@ public class ActAutoRun extends ActWait implements Runnable {
      * 从一个APP跳转到另一个APP是执行操作
      */
     private void appChange(ActivityInfo before, ActivityInfo current) {
-        String beforePackageName = before.getPackageName();
-        String currentPackageName = current.getPackageName();
+        String beforePN = before.getPackageName();
+        String currentPN = current.getPackageName();
         //之前的APP需要等待180秒
-        if (wait180sApp.contains(beforePackageName)) {
-            //            currentPackageName
-            //            之前的APP是头条系列的APP
-            if (touTiao180sApp.contains(beforePackageName)) {
-                //                现在的APP是头条系列的APP
-                if (isTouTiaoApp(currentPackageName)) {
-                    System.out.println("同一个头条应用 跳到 另一个头条应用，无需等待");
+        if (wait180sApp.contains(beforePN)) {
+            //之前的是头条 180秒 系列
+            if (touTiao180sApp.contains(beforePN)) {
+                //现在不是头条应用，不是头条 180s，也不是头条95秒
+                if (!isTouTiaoApp(currentPN)) {
+                    System.out.println("头条 180s 应用 跳转到 非头条应用 ---> 等待180秒");
+                    timingPanels2.w180sDialog();
                 } else {
-                    System.out.println("从头条应用 跳转到 非头条应用，等待180秒");
-                    timingPanels2.w180s();
+                    System.out.println("头条 180s 应用 跳转到 头条应用   ---> 无需操作");
                 }
             } else {
-                System.out.println("之前的应用不是头条应用，直接等待");
-                timingPanels2.w180s();
+                System.out.println("之前的应用不是头条应用，---> 等待180秒 ");
+                //                timingPanels2.w180sDialog();
+                timingPanels2.w180sDialog();
             }
-        } else if (wait95sApp.contains(beforePackageName)) {
-            // 之前的是头条需要等待95秒的应用
-            if (touTiao95sApp.contains(beforePackageName)) {
-                // 现在不是头条应用，则等待，如果是头条应用，则不做任何操作
-                if (!isTouTiaoApp(currentPackageName)) {
-                    timingPanels2.w95s();
+        } else if (wait95sApp.contains(beforePN)) {
+            // 之前是 头条 95秒 系列
+            if (touTiao95sApp.contains(beforePN)) {
+                if (!isTouTiaoApp(currentPN)) {
+                    System.out.println("头条 95s 应用，跳转到 非头条 应用 ---> 等待95秒");
+                    //                timingPanels2.w95s();
+                    timingPanels2.w95sDialog();
+                } else {
+                    System.out.println("头条 95s 应用，跳转到 头条 应用   ---> 无需操作 ");
+                }
+            }
+            // 之前的是 快手 95秒 系列
+            else if (kuaiShou95sApp.contains(beforePN)) {
+                //现在 不是快手95秒系列
+                if (!kuaiShou95sApp.contains(currentPN)) {
+                    System.out.println("快手 95s 应用，跳转到 非快手 95s 应用  ---> 等待95秒");
+                    //                timingPanels2.w95s();
+                    timingPanels2.w95sDialog();
+                } else {
+                    System.out.println("快手 95s 应用，跳转到 快手 95s 应用    ---> 无需操作");
                 }
             } else {
+                System.out.println("其他 95s 应用 跳转到 新应用 ---> 等待95秒");
                 timingPanels2.w95s();
             }
         }
-        String packageName = currentPackageName;
-        if (packageName != null && packageName.contains(".")) {
-            check_(packageName);
-        }
+
+        //        else {
+        //            timingPanels2.w95s();
+        //
+        //        }
     }
+
+    //    /**
+    //     * 判断是否从头条95秒应用跳转到非头条应用
+    //     *
+    //     * @param beforePackageName
+    //     * @param currentPackageName
+    //     * @return
+    //     */
+    //    private boolean touTiao95sAppToNotTouTiao(String beforePackageName, String currentPackageName) {
+    //        //        return touTiao95sApp.contains(beforePackageName) && !touTiao95sApp.contains(currentPackageName) && !touTiao180sApp.contains(currentPackageName);
+    //        return touTiao95sApp.contains(beforePackageName) && !isTouTiaoApp(currentPackageName);
+    //    }
+
+    /**
+     * 从快手公司的应用，进入到 不是这个公司的应用。
+     *
+     * @param beforePackageName  之前的应用
+     * @param currentPackageName 现在的应用
+     * @return
+     */
+    private boolean kuaiShouAppsToOthersApp(String beforePackageName, String currentPackageName) {
+        //如果之前的应用在 集合中，并且现在的应用不再集合中
+        return kuaiShou95sApp.contains(beforePackageName) && !kuaiShou95sApp.contains(currentPackageName);
+    }
+
 
     private boolean isTouTiaoApp(String currentPackageName) {
         return touTiao180sApp.contains(currentPackageName) || touTiao95sApp.contains(currentPackageName);
