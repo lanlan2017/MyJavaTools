@@ -81,20 +81,20 @@ public class ActAutoRun extends ActWait implements Runnable {
 
 
     public ActAutoRun() {
-//        //设置从哪些APP离开后需要等待180秒钟
-//        initWait180sApp();
-//        //射中从哪些APP离开后需要等待95秒钟
-//        initWait95sApp();
-//
-//        initWait11sAct();
-//        // 设置在哪些Activity界面钟，线程等待间隔为15秒
-//        initWait15sAct();
-//        // 设置在哪些Activity界面钟，线程等待间隔为30秒
-//        initWait20sAct();
-//        //设置在哪些Activity界面中，线程等待间隔为3分钟
-//        initWait3M_Act();
-//        // 设置在哪些Activity界面中，线程等待间隔为1小时
-//        initWait1HAct();
+        //        //设置从哪些APP离开后需要等待180秒钟
+        //        initWait180sApp();
+        //        //射中从哪些APP离开后需要等待95秒钟
+        //        initWait95sApp();
+        //
+        //        initWait11sAct();
+        //        // 设置在哪些Activity界面钟，线程等待间隔为15秒
+        //        initWait15sAct();
+        //        // 设置在哪些Activity界面钟，线程等待间隔为30秒
+        //        initWait20sAct();
+        //        //设置在哪些Activity界面中，线程等待间隔为3分钟
+        //        initWait3M_Act();
+        //        // 设置在哪些Activity界面中，线程等待间隔为1小时
+        //        initWait1HAct();
 
 
     }
@@ -221,10 +221,10 @@ public class ActAutoRun extends ActWait implements Runnable {
         // 上一轮查询时的Activity信息
         beforeAct = null;
         before();
+        boolean isfrist = true;
         while (!stop) {
             // 获取当前act
             act = AdbGetPackage.getActivityInfo();
-
 
             boolean equals = act.equals(beforeAct);
             // System.out.println("beforeAct.equals(appNames) = " + equals);
@@ -234,6 +234,10 @@ public class ActAutoRun extends ActWait implements Runnable {
             }
             if (isAllAppOpened) {
                 check_(act.getPackageName());
+            }
+            if (isfrist) {
+                check_(act.getPackageName());
+                isfrist = false;
             }
 
             // 如果刚好进入第2天
@@ -371,9 +375,9 @@ public class ActAutoRun extends ActWait implements Runnable {
     }
 
 
-//    private boolean isTouTiaoApp(String currentPackageName) {
-//        return touTiao180sApp.contains(currentPackageName) || touTiao95sApp.contains(currentPackageName);
-//    }
+    //    private boolean isTouTiaoApp(String currentPackageName) {
+    //        return touTiao180sApp.contains(currentPackageName) || touTiao95sApp.contains(currentPackageName);
+    //    }
 
     /**
      * 更新窗体标题

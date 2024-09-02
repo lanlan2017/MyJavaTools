@@ -64,7 +64,7 @@ public class ActSignedInPanels {
     private final JButton btnDingShiOk;
     private JsonToFile<AppTask3> jsonToFile;
     private TitledBorder titledBorder;
-    //    private final JButton btnLieBiao;
+    // private final JButton btnLieBiao;
 
     public ActSignedInPanels() {
         this.topJPanel = new JPanel();
@@ -74,7 +74,7 @@ public class ActSignedInPanels {
         if (titledBorder == null) {
             titledBorder = new TitledBorder(new LineBorder(Color.blue), "");
             //标题右对齐，默认是左对齐
-            //            titledBorder.setTitleJustification(TitledBorder.TRAILING);
+            // titledBorder.setTitleJustification(TitledBorder.TRAILING);
             //标题居中对齐，默认是左对齐
             titledBorder.setTitleJustification(TitledBorder.CENTER);
             taskPanel.setBorder(titledBorder);
@@ -85,7 +85,7 @@ public class ActSignedInPanels {
         this.toolPanel = new JPanel();
         this.toolPanel.setLayout(new BoxLayout(toolPanel, BoxLayout.X_AXIS));
 
-        //        this.btnUpdate = new JButton("更新任务");
+        // this.btnUpdate = new JButton("更新任务");
         this.btnUpdate = new JButton("任务");
         btnUpdate.addActionListener(e -> AdbTools.getInstance().showDialogOk("更新任务", e1 -> updateAction()));
 
@@ -104,23 +104,15 @@ public class ActSignedInPanels {
         JButton btnDingShiCancel = getBtnDingShiCancel();
 
         toolPanel.add(btnUpdate);
-        //        toolPanel.add(btnLieBiao);
-        //        toolPanel.add(appJComboBox);
-
-        //        toolPanel.add(jtfMinute);
-        //        toolPanel.add(label);
-        //        toolPanel.add(btnDingShiOk);
-        //        toolPanel.add(btnDingShiCancel);
-
         timePanel.add(jtfHour);
         timePanel.add(label);
         timePanel.add(jtfMinute);
         timePanel.add(btnDingShiOk);
         timePanel.add(btnDingShiCancel);
         timePanelTop.add(timePanel, BorderLayout.WEST);
-
-        toolPanel.add(timePanelTop);
         AbstractButtons.setMarginInButtonJPanel(timePanel, 1);
+        toolPanel.add(timePanelTop);
+
         AbstractButtons.setMarginInButtonJPanel(toolPanel, 1);
 
 
@@ -155,9 +147,9 @@ public class ActSignedInPanels {
                         public void actionPerformed(ActionEvent e) {
 
                             // 等待两个小时,然后多等待2分钟作为误差。
-                            //                            startReminder((2 * 60 + 2) * 60 * 1000, "点淘打工结束");
-                            //                            startReminder(minute * 60 * 1000, "点淘打工结束");
-                            //                        startReminder(5000, "点淘打工结束");
+                            // startReminder((2 * 60 + 2) * 60 * 1000, "点淘打工结束");
+                            // startReminder(minute * 60 * 1000, "点淘打工结束");
+                            // startReminder(5000, "点淘打工结束");
                             startReminder((hour * 60 + minute) * 60 * 1000, "点淘打工结束");
                             btnDingShiOk.setBackground(Color.pink);
                         }
@@ -299,7 +291,7 @@ public class ActSignedInPanels {
 
         // 设置延迟时间（例如5秒后触发）
         // 设置延迟时间（例如5秒后触发）
-        //        long delay = 5000; // 5 seconds
+        // long delay = 5000; // 5 seconds
 
         System.out.println("定时：" + delay + "毫秒");
         //启动定时器
@@ -321,20 +313,20 @@ public class ActSignedInPanels {
 
 
     private void updateAction() {
-        //        JsonToFile<AppTask3> jsonToFile = new JsonToFile<>();
-        //        String filePath = AdbTools.getInstance().getDevice().getActTaskJSON();
+        // JsonToFile<AppTask3> jsonToFile = new JsonToFile<>();
+        // String filePath = AdbTools.getInstance().getDevice().getActTaskJSON();
         if (jsonToFile == null) {
             jsonToFile = new JsonToFile<>(AdbTools.getInstance().getDevice().getActTaskJSON());
         }
 
-        //        AppTask3 appTask3 = getAppTask3(jsonToFile, filePath);
+        // AppTask3 appTask3 = getAppTask3(jsonToFile, filePath);
         AppTask3 appTask3 = getAppTask3(jsonToFile);
 
         // 获取应用名
         String appName = AdbGetPackage.getAppName();
         System.out.println("appName = " + appName);
 
-        //        updateTaskPanel(filePath, jsonToFile, appName, appTask3);
+        // updateTaskPanel(filePath, jsonToFile, appName, appTask3);
         updateTaskPanel(jsonToFile, appName, appTask3);
 
         switch (appName) {
@@ -362,7 +354,7 @@ public class ActSignedInPanels {
         if (!needToCreateFile) {
             //从旧文件中反序列化对象
             // AppTask2 appTask_old = jsonToFile.fromJsonFile(filePath, AppTask2.class);
-            //            AppTask3 appTask_old = jsonToFile.fromJsonFile(filePath, AppTask3.class);
+            // AppTask3 appTask_old = jsonToFile.fromJsonFile(filePath, AppTask3.class);
             AppTask3 appTask_old = jsonToFile.fromJsonFile(AppTask3.class);
 
             if (appTask_old != null) {
@@ -402,27 +394,21 @@ public class ActSignedInPanels {
 
 
     private void updateTaskPanel(JsonToFile<AppTask3> jsonToFile, String appName, AppTask3 appTask3) {
-        //        String filePath = jsonToFile.getFilePath();
+        // String filePath = jsonToFile.getFilePath();
         //获取应用
         ArrayList<AppTaskTimeSet> tasks = appTask3.getTasks();
         //获取任务的迭代器
         Iterator<AppTaskTimeSet> iterator = tasks.iterator();
         while (iterator.hasNext()) {
             AppTaskTimeSet next = iterator.next();
-            System.out.println("next = " + next);
-            System.out.println("appName = " + appName);
+            // System.out.println("next = " + next);
+            // System.out.println("appName = " + appName);
             //如果查找这个应用的任务
             if (next.getAppName().equals(appName)) {
                 System.out.println("找到应用" + appName + "的任务列表");
                 //移除所有面板
                 taskPanel.removeAll();
-                //                if (titledBorder == null) {
-                //                    titledBorder = new TitledBorder("");
-                //                    taskPanel.setBorder(titledBorder);
-                //                }
-
                 titledBorder.setTitle(appName);
-                //                addTaskPanel(filePath, jsonToFile, appTask3, next);
                 addTaskPanel(jsonToFile, appTask3, next);
 
             }
@@ -431,14 +417,14 @@ public class ActSignedInPanels {
 
 
     private void addTaskPanel(JsonToFile<AppTask3> jsonToFile, AppTask3 appTask3, AppTaskTimeSet next) {
-        //        String filePath = jsonToFile.getFilePath();
+        // String filePath = jsonToFile.getFilePath();
         //取出这个应用的任务集合
         ArrayList<TaskTime> taskTimeSet = next.getTaskTimeSet();
         //遍历任务集合
         taskTimeSet.forEach(new Consumer<TaskTime>() {
             @Override
             public void accept(TaskTime taskTime) {
-                //                JPanel checkTextPanel = getCheckTextPanel(taskTime, filePath, jsonToFile, appTask3);
+                // JPanel checkTextPanel = getCheckTextPanel(taskTime, filePath, jsonToFile, appTask3);
                 JPanel checkTextPanel = getCheckTextPanel(taskTime, jsonToFile, appTask3);
                 taskPanel.add(checkTextPanel);
 
@@ -447,7 +433,7 @@ public class ActSignedInPanels {
     }
 
     private JPanel getCheckTextPanel(TaskTime taskTime, JsonToFile<AppTask3> jsonToFile, AppTask3 appTask3) {
-        //        String filePath = jsonToFile.getFilePath();
+        // String filePath = jsonToFile.getFilePath();
         //存放多选框和文本框的面板
         JPanel checkTextPanel = new JPanel();
         checkTextPanel.setLayout(new BorderLayout());
@@ -455,12 +441,10 @@ public class ActSignedInPanels {
         int times = taskTime.getTimes();
         String taskName = taskTime.getTaskName();
         JCheckBox jCheckBox;
-        //        jCheckBox = getjCheckBox(taskTime, filePath, jsonToFile, appTask3);
         jCheckBox = getjCheckBox(taskTime, jsonToFile, appTask3);
         checkTextPanel.add(jCheckBox, BorderLayout.WEST);
 
         if (times >= 0) {
-            //            JTextField textField = initHour(taskTime, taskName, jsonToFile, appTask3, filePath);
             JTextField textField = initJTextField(taskTime, taskName, jsonToFile, appTask3);
             checkTextPanel.add(textField, BorderLayout.CENTER);
         }
@@ -498,7 +482,7 @@ public class ActSignedInPanels {
 
                                 taskTime.setTimes(value_);
                                 // jsonToFile.toJsonFile(appTask2, filePath);
-                                //                                jsonToFile.toJsonFile(appTask3, filePath);
+                                // jsonToFile.toJsonFile(appTask3, filePath);
                                 jsonToFile.toJsonFile(appTask3);
                             }
                         });
@@ -512,7 +496,7 @@ public class ActSignedInPanels {
                                     int value_ = value - 1;
                                     textField.setText(Integer.toString(value_));
                                     // jsonToFile.toJsonFile(appTask2, filePath);
-                                    //                                    jsonToFile.toJsonFile(appTask3, filePath);
+                                    // jsonToFile.toJsonFile(appTask3, filePath);
                                     jsonToFile.toJsonFile(appTask3);
                                 }
                             });
@@ -540,98 +524,17 @@ public class ActSignedInPanels {
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     taskTime.setSelected(true);
-                    //                    jsonToFile.toJsonFile(appTask2, filePath);
+                    // jsonToFile.toJsonFile(appTask2, filePath);
                     jsonToFile.toJsonFile(appTask2);
                 } else {
                     taskTime.setSelected(false);
-                    //                    jsonToFile.toJsonFile(appTask2, filePath);
+                    // jsonToFile.toJsonFile(appTask2, filePath);
                     jsonToFile.toJsonFile(appTask2);
                 }
             }
         });
         return jCheckBox;
     }
-
-    //    /**
-    //     * 根据任务名称数组创建复选框和文本框
-    //     *
-    //     * @param taskNames 任务名称数组
-    //     */
-    //    private void createJCheckBoxs(String[] taskNames) {
-    //        taskPanel.removeAll();
-    //        for (String s : taskNames) {
-    //            JPanel jPanel = new JPanel();
-    //            jPanel.setLayout(new BorderLayout());
-    //            JCheckBox jCheckBox;
-    //
-    //            if (s.endsWith("_")) {
-    //                System.out.println("s = " + s);
-    //                // 移除后面的标识符，也就是下划线
-    //                String text = s.substring(0, s.length() - 1);
-    //                System.out.println("text = " + text);
-    //                // 添加任务到列表中
-    //                jCheckBox = new JCheckBox(text);
-    //
-    //                JTextField textField = new JTextField();
-    //                textField.setEditable(false);  // 设置为不可编辑
-    //                textField.setColumns(2);
-    //
-    //                textField.setText("0");  // 初始化为0
-    //
-    //                // 添加键盘事件监听器
-    //                textField.addKeyListener(new KeyAdapter() {
-    //                    @Override
-    //                    public void keyPressed(KeyEvent e) {
-    //                        try {
-    //                            int value = Integer.parseInt(textField.getText());
-    //                            //当按下上箭头或者加号的时候
-    //                            if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyChar() == '+') {
-    //                                String s1 = text + "+1?";
-    //                                AdbTools.getInstance().showDialogOk(s1, new ActionListener() {
-    //                                    @Override
-    //                                    public void actionPerformed(ActionEvent e) {
-    //
-    //                                        // 上箭头被按下，增加1
-    //                                        textField.setText(Integer.toString(value + 1));
-    //                                    }
-    //                                });
-    //                                // 阻止加号键插入文本
-    //                                // e.consume();
-    //                            } else if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyChar() == '-') {
-    //                                // 下箭头被按下，减少1，但不能小于0
-    //                                if (value > 0) {
-    //                                    String s1 = text + "-1?";
-    //
-    //                                    AdbTools.getInstance().showDialogOk(s1, new ActionListener() {
-    //                                        @Override
-    //                                        public void actionPerformed(ActionEvent e) {
-    //
-    //                                            textField.setText(Integer.toString(value - 1));
-    //                                        }
-    //                                    });
-    //                                }
-    //                            }
-    //                        } catch (NumberFormatException ex) {
-    //                            // 如果不是整数，则不执行任何操作
-    //                        }
-    //                    }
-    //                });
-    //
-    //
-    //                // jPanel.add(jCheckBox, BorderLayout.WEST);
-    //                jPanel.add(textField, BorderLayout.CENTER);
-    //                // jPanel.add(textField, BorderLayout.EAST);
-    //            } else {
-    //                // 添加任务到列表中
-    //                jCheckBox = new JCheckBox(s);
-    //            }
-    //            // jCheckBoxes.add(jCheckBox);
-    //            jPanel.add(jCheckBox, BorderLayout.WEST);
-    //            taskPanel.add(jPanel);
-    //        }
-    //
-    //        JFramePack.pack();
-    //    }
 
     public JPanel getTopJPanel() {
         return topJPanel;

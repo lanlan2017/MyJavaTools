@@ -61,13 +61,20 @@ public class AppTask3 {
 
 
         AppTaskTimeSet fqctyyb = new AppTaskTimeSet("番茄畅听音乐版", taskTimesTaoTe);
-        AppTaskTimeSet hgmfdj = new AppTaskTimeSet("红果免费短剧", taoBaoTask);
+        //        AppTaskTimeSet hgmfdj = new AppTaskTimeSet("红果免费短剧", taoBaoTask);
 
+        ArrayList<TaskTime> taskTimeQuTouTiao = new ArrayList<>();
+        taskTimeQuTouTiao.add(new TaskTime("签到"));
+        taskTimeQuTouTiao.add(new TaskTime("小视频"));
+
+        AppTaskTimeSet quTouTiao = new AppTaskTimeSet("趣头条", taskTimeQuTouTiao);
         tasks.add(dianTao);
         tasks.add(taoBao);
         tasks.add(taoTe);
         tasks.add(fqctyyb);
-        tasks.add(hgmfdj);
+        //        tasks.add(hgmfdj);
+        tasks.add(quTouTiao);
+
     }
 
     public String getDate() {
