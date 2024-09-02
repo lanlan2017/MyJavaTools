@@ -25,6 +25,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class AdbTools {
 
@@ -60,6 +63,8 @@ public class AdbTools {
     private static final AdbTools instance = new AdbTools();
     private JPanel contentPane;
     private final ActSignedInPanels actSignedInPanels;
+    private WindowStateListener windowStateListener;
+    private static ScheduledExecutorService executorService;
 
     private AdbTools() {
         // 创建窗体
@@ -100,8 +105,6 @@ public class AdbTools {
         // JPanel checkJPanel = initCheckJPanel(timingPanels2, toolsJPanels, autoPanels, universalPanels, adbJPanels, scrcpyJPanels);
         //        checkJPanels = new CheckJPanels(timingPanels2, toolsJPanels, autoPanels, universalPanels, adbJPanels, scrcpyJPanels, appPanels);
         checkJPanels = new CheckJPanels(timingPanels2, toolsJPanels, universalPanels, adbJPanels, scrcpyJPanels, appSignedInPanels, actSignedInPanels);
-
-
 
 
         JPanel checkJPanel = checkJPanels.getCheckJPanel();
@@ -147,49 +150,66 @@ public class AdbTools {
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                // int result = JOptionPane.showConfirmDialog(contentPane, "确认关闭");
-                int result = JOptionPane.showConfirmDialog(contentPane, "", "关闭窗体", JOptionPane.YES_NO_OPTION);
 
-                switch (result) {
-                    case JOptionPane.OK_OPTION:
-                        super.windowClosing(e);
-                        // adbJPanels.getStopBtn().doClick();
-                        universalPanels.getBtnStop().doClick();
-                        scrcpyJPanels.getBtnKillScrcpy().doClick();
+                showDialogOkCancel("关闭窗体?", new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent ee) {
+                        windowClosingMy(e);
+                    }
+                }, e12 -> {
+                });
 
-                        actSignedInPanels.cancelReminder();
-                        System.out.println("窗体正在关闭。。。。。。。。。。。。");
-                        // ThreadSleep.seconds(5);
-                        System.exit(0);
-                        break;
-                    // default:
-                    //     frame.pack();
-                    //     break;
-                    default:
-                        break;
-                    // throw new IllegalStateException("Unexpected value: " + result);
-                }
+            }
+
+            private void windowClosingMy(WindowEvent e) {
+                super.windowClosing(e);
+                // adbJPanels.getStopBtn().doClick();
+                //停止后天线程
+                universalPanels.getBtnStop().doClick();
+                //关闭所有的投屏
+                scrcpyJPanels.getBtnKillScrcpy().doClick();
+                //取消定时任务
+                actSignedInPanels.cancelReminder();
+                System.out.println("窗体正在关闭。。。。。。。。。。。。");
+                // ThreadSleep.seconds(5);
+                System.exit(0);
             }
         });
 
         // 添加窗口状态监听器
-        frame.addWindowStateListener(new WindowStateListener() {
+        windowStateListener = new WindowStateListener() {
             @Override
             public void windowStateChanged(WindowEvent e) {
                 if (e.getNewState() == Frame.ICONIFIED) {
                     // 检查窗口是否被最小化
                     String message = "最小化" + device.getName() + "?";
-                    //                     String title = "确认";
-                    String title = "";
-                    int result = JOptionPane.showConfirmDialog(frame, message, title, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                    if (result != JOptionPane.YES_OPTION) {
-                        // 如果用户点击“否”，则取消最小化操作并恢复原窗口位置
-                        frame.setExtendedState(Frame.NORMAL);
-                    }
+
+                    //先恢复正常的状态
+                    frame.setExtendedState(Frame.NORMAL);
+                    //然后再弹出对话框
+                    showDialogOkCancel(message, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            //最小化
+                            frame.setExtendedState(Frame.ICONIFIED);
+                            //移除监听器，避免重复触发
+                            frame.removeWindowStateListener(windowStateListener);
+                            // 使用ScheduledExecutorService在一定时间后重新添加监听器
+                            executorService.schedule(() -> {
+                                SwingUtilities.invokeLater(() -> {
+                                    frame.addWindowStateListener(windowStateListener);
+                                });
+                            }, 1, TimeUnit.SECONDS);
+                        }
+                    }, e1 -> {});
+
                 }
             }
-        });
 
+        };
+        frame.addWindowStateListener(windowStateListener);
+        // 初始化ScheduledExecutorService
+        executorService = Executors.newSingleThreadScheduledExecutor();
 
         //永远置顶
         //        frame.setAlwaysOnTop(true);
@@ -429,7 +449,7 @@ public class AdbTools {
      */
     public void showDialogOk(String message, ActionListener actionListenerOk) {
         //        JFrame frame = AdbTools.getInstance().getFrame();
-//        DialogFactory.showDialogOk(frame, "", message, actionListenerOk);
+        //        DialogFactory.showDialogOk(frame, "", message, actionListenerOk);
         DialogFactory.showDialogOk(frame, device.getName(), message, actionListenerOk);
     }
 
