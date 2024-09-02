@@ -16,6 +16,22 @@ public abstract class ActWait {
     protected HashSet<String> touTiao180sApp;
     protected HashSet<String> wait180sApp;
 
+    public ActWait() {
+        //设置从哪些APP离开后需要等待180秒钟
+        initWait180sApp();
+        //射中从哪些APP离开后需要等待95秒钟
+        initWait95sApp();
+
+        initWait11sAct();
+        // 设置在哪些Activity界面钟，线程等待间隔为15秒
+        initWait15sAct();
+        // 设置在哪些Activity界面钟，线程等待间隔为30秒
+        initWait20sAct();
+        //设置在哪些Activity界面中，线程等待间隔为3分钟
+        initWait3M_Act();
+        // 设置在哪些Activity界面中，线程等待间隔为1小时
+        initWait1HAct();
+    }
 
     protected void initWait20sAct() {
         // HashSet<String> wait30S = new HashSet<>();
@@ -150,9 +166,13 @@ public abstract class ActWait {
         touTiao180sApp.add("com.ss.android.ugc.live");
         //红果免费短剧
         touTiao180sApp.add("com.phoenix.read");
+        //蛋花免费小说
+        touTiao180sApp.add("com.eggflower.read");
     }
 
 
     //    protected abstract void _wait(int endWait);
-
+    protected boolean isTouTiaoApp(String currentPackageName) {
+        return touTiao180sApp.contains(currentPackageName) || touTiao95sApp.contains(currentPackageName);
+    }
 }

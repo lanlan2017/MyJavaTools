@@ -170,6 +170,56 @@ public class AdbCommands implements ActivityStr {
     }
 
     /**
+     * 关机
+     *
+     * @param device 要关机的设备
+     */
+    public static void rebootP(Device device) {
+        String serial = device.getSerial();
+        rebootP(serial);
+    }
+
+    /**
+     * 关机
+     *
+     * @param serial 要关机的设备的序列号
+     */
+    private static void rebootP(String serial) {
+        // 拼接关机代码
+        String adbCmd = "adb -s " + serial + " " + "shell reboot -p";
+        System.out.println("adbCmd = " + adbCmd);
+        // 启动cmd进程执行adb命令
+        AdbCommands.runAbdCmd(adbCmd);
+    }
+
+    /**
+     * 重启手机
+     *
+     * @param device 要重启的设备
+     */
+    public static void reboot(Device device) {
+        String serial = device.getSerial();
+        reboot(serial);
+
+    }
+
+    /**
+     * 重启手机
+     *
+     * @param serial 要重启的设备的序列号
+     */
+    private static void reboot(String serial) {
+        // 拼接重启代码
+        // String adbCmd = "adb -s " + serial + " " + code;
+        // 拼接重启代码
+        String adbCmd = "adb -s " + serial + " " + "reboot";
+        System.out.println("adbCmd = " + adbCmd);
+        // 启动cmd进程执行adb命令
+        AdbCommands.runAbdCmd(adbCmd);
+    }
+
+
+    /**
      * 按下安卓设备的电源键
      *
      * @param device

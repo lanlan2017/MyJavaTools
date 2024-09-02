@@ -81,20 +81,20 @@ public class ActAutoRun extends ActWait implements Runnable {
 
 
     public ActAutoRun() {
-        //设置从哪些APP离开后需要等待180秒钟
-        initWait180sApp();
-        //射中从哪些APP离开后需要等待95秒钟
-        initWait95sApp();
-
-        initWait11sAct();
-        // 设置在哪些Activity界面钟，线程等待间隔为15秒
-        initWait15sAct();
-        // 设置在哪些Activity界面钟，线程等待间隔为30秒
-        initWait20sAct();
-        //设置在哪些Activity界面中，线程等待间隔为3分钟
-        initWait3M_Act();
-        // 设置在哪些Activity界面中，线程等待间隔为1小时
-        initWait1HAct();
+//        //设置从哪些APP离开后需要等待180秒钟
+//        initWait180sApp();
+//        //射中从哪些APP离开后需要等待95秒钟
+//        initWait95sApp();
+//
+//        initWait11sAct();
+//        // 设置在哪些Activity界面钟，线程等待间隔为15秒
+//        initWait15sAct();
+//        // 设置在哪些Activity界面钟，线程等待间隔为30秒
+//        initWait20sAct();
+//        //设置在哪些Activity界面中，线程等待间隔为3分钟
+//        initWait3M_Act();
+//        // 设置在哪些Activity界面中，线程等待间隔为1小时
+//        initWait1HAct();
 
 
     }
@@ -370,40 +370,10 @@ public class ActAutoRun extends ActWait implements Runnable {
         }
     }
 
-    //    private void extracted(String packageName) {
-    //        if (packageName != null && packageName.contains(".")) {
-    //            check_(packageName);
-    //        }
-    //    }
 
-    //    /**
-    //     * 判断是否从头条95秒应用跳转到非头条应用
-    //     *
-    //     * @param beforePackageName
-    //     * @param currentPackageName
-    //     * @return
-    //     */
-    //    private boolean touTiao95sAppToNotTouTiao(String beforePackageName, String currentPackageName) {
-    //        //        return touTiao95sApp.contains(beforePackageName) && !touTiao95sApp.contains(currentPackageName) && !touTiao180sApp.contains(currentPackageName);
-    //        return touTiao95sApp.contains(beforePackageName) && !isTouTiaoApp(currentPackageName);
-    //    }
-
-    /**
-     * 从快手公司的应用，进入到 不是这个公司的应用。
-     *
-     * @param beforePackageName  之前的应用
-     * @param currentPackageName 现在的应用
-     * @return
-     */
-    private boolean kuaiShouAppsToOthersApp(String beforePackageName, String currentPackageName) {
-        //如果之前的应用在 集合中，并且现在的应用不再集合中
-        return kuaiShou95sApp.contains(beforePackageName) && !kuaiShou95sApp.contains(currentPackageName);
-    }
-
-
-    private boolean isTouTiaoApp(String currentPackageName) {
-        return touTiao180sApp.contains(currentPackageName) || touTiao95sApp.contains(currentPackageName);
-    }
+//    private boolean isTouTiaoApp(String currentPackageName) {
+//        return touTiao180sApp.contains(currentPackageName) || touTiao95sApp.contains(currentPackageName);
+//    }
 
     /**
      * 更新窗体标题

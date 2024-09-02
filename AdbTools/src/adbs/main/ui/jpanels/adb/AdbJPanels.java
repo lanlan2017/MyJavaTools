@@ -8,6 +8,7 @@ import adbs.main.ui.config.Fonts;
 import adbs.main.ui.jpanels.adb.listener.*;
 import adbs.main.ui.jpanels.scrcpy.OpenApp;
 import adbs.model.Device;
+import adbs.tools.thread.ThreadSleep;
 import config.AdbToolsProperties;
 import tools.config.properties.PropertiesTools;
 import tools.copy.SystemClipboard;
@@ -350,12 +351,11 @@ public class AdbJPanels {
                 AdbTools.getInstance().showDialogOk("关机", "关机?", new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        String serial = AdbTools.getInstance().getDevice().getSerial();
-                        // 拼接重启代码
-                        String adbCmd = "adb -s " + serial + " " + "shell reboot -p";
-                        System.out.println("adbCmd = " + adbCmd);
-                        // 启动cmd进程执行adb命令
-                        AdbCommands.runAbdCmd(adbCmd);
+                        Device device = AdbTools.getInstance().getDevice();
+                        //重置电池状态
+                        AdbCommands.batteryReset(device);
+                        ThreadSleep.seconds(1);
+                        AdbCommands.rebootP(device);
                     }
                 });
             }
@@ -363,6 +363,36 @@ public class AdbJPanels {
 
         return powerOffBtn;
     }
+
+    //    /**
+    //     * 关机
+    //     *
+    //     * @param device 要关机的设备
+    //     */
+    //    public void rebootP(Device device) {
+    //        String serial = device.getSerial();
+    //        // 拼接关机代码
+    //        String adbCmd = "adb -s " + serial + " " + "shell reboot -p";
+    //        System.out.println("adbCmd = " + adbCmd);
+    //        // 启动cmd进程执行adb命令
+    //        AdbCommands.runAbdCmd(adbCmd);
+    //    }
+    //
+    //    /**
+    //     * 重启手机
+    //     * @param device 要重启的设备
+    //     */
+    //    public void reboot(Device device) {
+    //        String serial = device.getSerial();
+    //        // 拼接重启代码
+    //        // String adbCmd = "adb -s " + serial + " " + code;
+    //        // 拼接重启代码
+    //        String adbCmd = "adb -s " + serial + " " + "reboot";
+    //        System.out.println("adbCmd = " + adbCmd);
+    //        // 启动cmd进程执行adb命令
+    //        AdbCommands.runAbdCmd(adbCmd);
+    //    }
+
 
     private JButton intBtnReboot() {
         // 重启按钮
@@ -377,21 +407,17 @@ public class AdbJPanels {
                 AdbTools.getInstance().showDialogOk("重启", "重启手机?", new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        String serial = AdbTools.getInstance().getDevice().getSerial();
+                        Device device = AdbTools.getInstance().getDevice();
 
-                        // 拼接重启代码
-                        // String adbCmd = "adb -s " + serial + " " + code;
-                        // 拼接重启代码
-                        String adbCmd = "adb -s " + serial + " " + "reboot";
-                        System.out.println("adbCmd = " + adbCmd);
-                        // 启动cmd进程执行adb命令
-                        AdbCommands.runAbdCmd(adbCmd);
+                        //                        reboot(device);
+                        AdbCommands.reboot(device);
                     }
                 });
             }
         });
         return rebootBtn;
     }
+
 
     private JButton initBtnVolumeMinus() {
         JButton volumeMinus = new JButton("-");

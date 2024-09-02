@@ -22,7 +22,7 @@ import java.util.TimerTask;
 import java.util.function.Consumer;
 
 /**
- *
+ * Activity打卡面板
  */
 public class ActSignedInPanels {
     /**
@@ -74,7 +74,7 @@ public class ActSignedInPanels {
         if (titledBorder == null) {
             titledBorder = new TitledBorder(new LineBorder(Color.blue), "");
             //标题右对齐，默认是左对齐
-//            titledBorder.setTitleJustification(TitledBorder.TRAILING);
+            //            titledBorder.setTitleJustification(TitledBorder.TRAILING);
             //标题居中对齐，默认是左对齐
             titledBorder.setTitleJustification(TitledBorder.CENTER);
             taskPanel.setBorder(titledBorder);
@@ -130,6 +130,11 @@ public class ActSignedInPanels {
         topJPanel.setVisible(false);
     }
 
+    /**
+     * 创建定时按钮
+     *
+     * @return
+     */
     private JButton getBtnDingShiOk() {
         JButton btnDingShiOk = new JButton("定时");
 
@@ -297,6 +302,7 @@ public class ActSignedInPanels {
         //        long delay = 5000; // 5 seconds
 
         System.out.println("定时：" + delay + "毫秒");
+        //启动定时器
         timer.schedule(reminderTask, delay);
     }
 
