@@ -1,25 +1,31 @@
 package adbs.main.run.model;
 
+import tools.process.ProcessRunner;
+
 import java.util.Objects;
 
 /**
  * Activity详细信息
- *
  */
 public class ActivityInfo {
     /**
      * 全限定Activity名称，例如“com.huawei.android.launcher/.unihome.UniHomeLauncher”
      */
-    private String actLongName;
+    private final String actLongName;
     /**
-     *
      * 应用包名，例如“com.huawei.android.launcher”
      */
-    private String packageName;
+    private final String packageName;
     /**
      * 去掉包名的Activity名称，例如“.unihome.UniHomeLauncher”
      */
-    private String actShortName;
+    private final String actShortName;
+
+//    private ActivityInfo() {
+//        actLongName = null;
+//        packageName = null;
+//        actShortName = null;
+//    }
 
     public ActivityInfo(String actLongName) {
         this.actLongName = actLongName;
@@ -59,6 +65,10 @@ public class ActivityInfo {
 
     public String getActLongName() {
         return actLongName;
+    }
+
+    public boolean isAdbError() {
+        return actLongName == null || actLongName.startsWith(ProcessRunner.ERROR_EXIT_CODE);
     }
 
     @Override

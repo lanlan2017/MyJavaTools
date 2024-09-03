@@ -282,7 +282,8 @@ public class ActSignedInPanels {
                 SwingUtilities.invokeLater(new Runnable() {
                     public void run() {
                         //定时结束时响铃提醒
-                        AdbTools.getInstance().getTimePanels().beepDialog(message);
+//                        AdbTools.getInstance().getTimePanels().beepDialog(message);
+                        AdbTools.getInstance().beepDialog(message);
                         btnDingShiOk.setBackground(btnDingShiOkBackground);
                     }
                 });

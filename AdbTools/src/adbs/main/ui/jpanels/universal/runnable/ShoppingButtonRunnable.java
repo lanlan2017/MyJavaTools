@@ -178,7 +178,8 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
                 break;
         }
 
-        timePanels.beepDialog("逛街结束");
+//        timePanels.beepDialog("逛街结束");
+        AdbTools.getInstance().beepDialog("逛街结束");
     }
 
     @Override

@@ -6,6 +6,7 @@ import adbs.main.run.model.ActivityInfo;
 import adbs.main.run.model.FrameTitle;
 import adbs.main.run.signinlog.FileUtil;
 import adbs.main.run.signinlog.LoginRecords;
+import adbs.main.ui.jpanels.act.reminder.DailyReminderScheduler_Second;
 import adbs.main.ui.jpanels.app.AppSignedInPanels;
 import adbs.main.ui.jpanels.timeauto2.TimingPanels2;
 import adbs.main.ui.jpanels.tools.ToolsJPanels;
@@ -233,6 +234,7 @@ public class ActAutoRun extends ActWait implements Runnable {
         while (!stop) {
             // 获取当前act
             act = AdbGetPackage.getActivityInfo();
+            //            System.out.println("act.getActLongName() = " + act.getActLongName());
 
             boolean equals = act.equals(beforeAct);
             // System.out.println("beforeAct.equals(appNames) = " + equals);
@@ -243,7 +245,11 @@ public class ActAutoRun extends ActWait implements Runnable {
             if (isAllAppOpened) {
                 check_(act.getPackageName());
             }
-            if (isfrist) {
+            //            if (isfrist && !"".equals(act.getPackageName())) {
+            if (isfrist && !act.isAdbError()) {
+                System.out.println("首次更新签到列表");
+                //                System.out.println("act.getActLongName() = " + act.getActLongName());
+                //                System.out.println("act.getPackageName() = " + act.getPackageName());
                 check_(act.getPackageName());
                 isfrist = false;
             }
@@ -470,7 +476,8 @@ public class ActAutoRun extends ActWait implements Runnable {
 
         //        adbErorrTimes = 0;
         //如果包名是空字符串，说明adb命令执行出错了，一般来说是设备掉线，或者设备暂时无法响应。
-        if ("".equals(actLongName)) {
+        //        if ("".equals(actLongName)) {
+        if (activityInfo.isAdbError()) {
             System.out.println("获取Activity 失败，失败计数器加一");
             if (adbErorrTimes < 10) {
                 adbErorrTimes++;
@@ -658,6 +665,53 @@ public class ActAutoRun extends ActWait implements Runnable {
         // ForegroundAppRun.apps = new AdbShellPmListPackages_3().getPackages_3_money();
         ActAutoRun.apps = new AdbShellPmListPackages_3().getPackages_3_money();
         System.out.println("可赚钱APP列表: " + apps);
+        extracted();
+    }
+
+    /**
+     * 给指定的APP添加提醒任务
+     */
+    private static void extracted() {
+        //在指定的时间提醒用户
+        Iterator<String> iterator = apps.iterator();
+        while (iterator.hasNext()) {
+            String next = iterator.next();
+            if ("点淘".equals(next)) {
+                //            if ("番茄畅听音乐版".equals(next)) {
+                //                DailyReminderScheduler_Second.scheduleDailyReminder("13:00:00", new Runnable() {
+                //                    @Override
+                //                    public void run() {
+                //                        //                        AdbTools.getInstance().showDialogOk("点淘 开始午睡");
+                //                        AdbTools.getInstance().beepDialog("点淘 开始午睡");
+                //                    }
+                //                });
+                //                DailyReminderScheduler_Second.scheduleDailyReminder("16:00:00", new Runnable() {
+                //                    @Override
+                //                    public void run() {
+                //                        //                        AdbTools.getInstance().showDialogOk("点淘 结束午睡");
+                //                        AdbTools.getInstance().beepDialog("点淘 结束 午睡");
+                //                    }
+                //                });
+                //                DailyReminderScheduler_Second.scheduleDailyReminder("21:00:00", new Runnable() {
+                //                    @Override
+                //                    public void run() {
+                //                        //                        AdbTools.getInstance().showDialogOk("点淘 结束午睡");
+                //                        AdbTools.getInstance().beepDialog("点淘 开始 晚睡");
+                //                    }
+                //                });
+
+                dianTaoTasks();
+                break;
+            }
+        }
+    }
+
+    private static void dianTaoTasks() {
+        Map<String, Runnable> tasks = new HashMap<>();
+        tasks.put("13:00:00", () -> AdbTools.getInstance().beepDialog("点淘 开始午睡"));
+        tasks.put("16:00:00", () -> AdbTools.getInstance().beepDialog("点淘 结束 午睡"));
+        tasks.put("21:00:00", () -> AdbTools.getInstance().beepDialog("点淘 开始 晚睡"));
+        tasks.forEach((s, runnable) -> DailyReminderScheduler_Second.scheduleDailyReminder(s, runnable));
     }
 
 

@@ -44,6 +44,7 @@ public class AdbGetPackage {
     //  * @return
     //  */
     public static String getActName(String adbOuput) {
+
         // mResumedActivity: ActivityRecord{7fbc105 u0 com.huawei.health/.MainActivity t1573}
         adbOuput = adbOuput.substring(0, adbOuput.lastIndexOf(" "));
         adbOuput = adbOuput.substring(adbOuput.lastIndexOf(" ") + 1);
@@ -66,9 +67,11 @@ public class AdbGetPackage {
     public static String getActName() {
         String run = runActCmd();
         // 如果命令结果中有反斜杠，说明有包名
-        String actName = "";
+        String actName;
         if (run.contains("/")) {
             actName = getActName(run);
+        } else {
+            actName = run;
         }
 
         return actName;
@@ -89,7 +92,7 @@ public class AdbGetPackage {
 
     public static ActivityInfo getActivityInfo() {
         String actName = AdbGetPackage.getActName();
-        // System.out.println("actName = " + actName);
+//        System.out.println("actName = " + actName);
         ActivityInfo activityInfo = new ActivityInfo(actName);
         return activityInfo;
     }
@@ -113,8 +116,9 @@ public class AdbGetPackage {
     private static String runActCmd() {
         String serial = AdbTools.getInstance().getDevice().getSerial();
         String activityCommand = getTopActivityCommand(serial);
-//        System.out.println("activityCommand = " + activityCommand);
+        //        System.out.println("activityCommand = " + activityCommand);
         String run = CmdRun.run(activityCommand).trim();
+        //        System.out.println("run = " + run);
         return run;
     }
 

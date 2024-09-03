@@ -188,25 +188,25 @@ public class TimePanels {
         }
     }
 
-    public void beepDialog(String message) {
-        CloseableRunnable beepRun = (CloseableRunnable) BeepRunnable.getInstance();
-        // 启动响铃提醒功能
-        new Thread(beepRun).start();
-        AdbTools.getInstance().showDialogOkClose(message, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //                auto(code);
-                beepRun.stop();
-            }
-        }, new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                super.windowClosing(e);
-                beepRun.stop();
-                JDialog source = (JDialog) e.getSource();
-                source.dispose();
-            }
-        });
-    }
+//    public void beepDialog(String message) {
+//        CloseableRunnable beepRun = (CloseableRunnable) BeepRunnable.getInstance();
+//        // 启动响铃提醒功能
+//        new Thread(beepRun).start();
+//        AdbTools.getInstance().showDialogOkClose(message, new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                //                auto(code);
+//                beepRun.stop();
+//            }
+//        }, new WindowAdapter() {
+//            @Override
+//            public void windowClosing(WindowEvent e) {
+//                super.windowClosing(e);
+//                beepRun.stop();
+//                JDialog source = (JDialog) e.getSource();
+//                source.dispose();
+//            }
+//        });
+//    }
 
 }

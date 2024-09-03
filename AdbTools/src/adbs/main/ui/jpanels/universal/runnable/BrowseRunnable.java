@@ -78,6 +78,7 @@ public class BrowseRunnable extends CloseableRunnable {
     @Override
     protected void after() {
         super.after();
-        AdbTools.getInstance().getTimePanels().beepDialog("浏览结束");
+//        AdbTools.getInstance().getTimePanels().beepDialog("浏览结束");
+        AdbTools.getInstance().beepDialog("浏览结束");
     }
 }

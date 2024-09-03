@@ -6,14 +6,17 @@ import adbs.main.run.BatteryLevelRun2;
 import adbs.main.run.IsTest;
 import adbs.main.run.model.FrameTitle;
 import adbs.main.ui.jpanels.act.ActSignedInPanels;
+import adbs.main.ui.jpanels.act.reminder.DailyReminderScheduler_Second;
 import adbs.main.ui.jpanels.adb.AdbJPanels;
 import adbs.main.ui.jpanels.app.AppSignedInPanels;
 import adbs.main.ui.jpanels.check.CheckJPanels;
 import adbs.main.ui.jpanels.scrcpy.ScrcpyJPanels;
 import adbs.main.ui.jpanels.time.TimePanels;
+import adbs.main.ui.jpanels.time.beep.BeepRunnable;
 import adbs.main.ui.jpanels.timeauto2.TimingPanels2;
 import adbs.main.ui.jpanels.tools.ToolsJPanels;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
+import adbs.main.ui.jpanels.universal.runnable.CloseableRunnable;
 import adbs.model.Device;
 import adbs.tools.thread.ThreadSleep;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -449,6 +452,27 @@ public class AdbTools {
       showDialogOk(message, e -> {});
     }
 
+    public void beepDialog(String message) {
+        CloseableRunnable beepRun = (CloseableRunnable) BeepRunnable.getInstance();
+        // 启动响铃提醒功能
+        new Thread(beepRun).start();
+        showDialogOkClose(message, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //                auto(code);
+                beepRun.stop();
+            }
+        }, new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                beepRun.stop();
+                JDialog source = (JDialog) e.getSource();
+                source.dispose();
+            }
+        });
+    }
+
     /**
      * 在AdbTools程序中弹出有一个确认按钮的对话框
      *
@@ -489,6 +513,8 @@ public class AdbTools {
             // // 启动电池监测线程
             new Thread(new BatteryLevelRun2()).start();
             new Thread(new ActAutoRun()).start();
+            // 注册关闭钩子，在虚拟机注销的时候，关闭调度器
+            Runtime.getRuntime().addShutdownHook(new Thread(DailyReminderScheduler_Second::shutdownScheduler));
         }
 
     }

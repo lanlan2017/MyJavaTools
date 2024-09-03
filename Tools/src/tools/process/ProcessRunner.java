@@ -8,6 +8,9 @@ import java.io.InputStreamReader;
  * 进程执行器.
  */
 public class ProcessRunner {
+
+    public static final String ERROR_EXIT_CODE = "Error!ExitCode=";
+
     /**
      * 运行cmd命令,默认cmd的编码为gbk.
      *
@@ -88,7 +91,7 @@ public class ProcessRunner {
             // 如果线程返回值不是0则表示线程执行失败.
             if (exitCode != 0) {
                 // return null;
-                return "Error!ExitCode=" + exitCode;
+                return ERROR_EXIT_CODE + exitCode;
             }
 
         } catch (IOException | InterruptedException e) {
