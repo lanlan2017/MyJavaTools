@@ -73,6 +73,14 @@ public class ActAutoRun extends ActWait implements Runnable {
     private static volatile boolean stopWait;
     public static final String appNameEndFlag = " ";
     private ActivityInfo beforeAct;
+    //    /**
+    //     * 设备师傅已经离线
+    //     */
+    //    private boolean liXian;
+    /**
+     * 获取Activity信息的adb.exe命令支持出错的次数
+     */
+    private int adbErorrTimes;
     // private TaoBaoChange taoBaoChange;
     // private DianTaoChange dianTaoChange;
     // private FanQieMianFeiXiaoShuo fanQieMianFeiXiaoShuo;
@@ -459,11 +467,30 @@ public class ActAutoRun extends ActWait implements Runnable {
 
     private void _wait(ActivityInfo activityInfo) {
         String actLongName = activityInfo.getActLongName();
+
+        //        adbErorrTimes = 0;
+        //如果包名是空字符串，说明adb命令执行出错了，一般来说是设备掉线，或者设备暂时无法响应。
         if ("".equals(actLongName)) {
-            int adbErrorWait = 30;
-            System.out.println("Act线程遇到空的Act名称，等待" + adbErrorWait + "分钟");
-            _wait(adbErrorWait * 60);
+            System.out.println("获取Activity 失败，失败计数器加一");
+            if (adbErorrTimes < 10) {
+                adbErorrTimes++;
+            }
+        } else {
+            //            System.out.println("成功获取Activity");
+            adbErorrTimes = 0;
         }
+        //        lixian = false;
+        //        if (liXian) {
+        //如果执行adb命令连续出错超过5次，则认为设备已经离线了
+        if (adbErorrTimes > 5) {
+            //
+            String message = "设备已经离线，10分钟后再检测";
+            System.out.println(message);
+            //            AdbTools.getInstance().showDialogOk(message);
+            _wait(10 * 60);
+        }
+
+
         if (wait1H_Act.contains(actLongName)) {
             _wait(60 * 60);
         } else if (wait3M_Act.contains(actLongName)) {
@@ -481,6 +508,10 @@ public class ActAutoRun extends ActWait implements Runnable {
             // _wait(7);
         }
     }
+
+    //    private void showDialogOk(String message) {
+    //        AdbTools.getInstance().showDialogOk(message, e -> {});
+    //    }
 
     /**
      * 等待当前线程指定秒数
@@ -646,6 +677,7 @@ public class ActAutoRun extends ActWait implements Runnable {
         if (packageName != null && !"".equals(packageName)) {
             check(packageName);
         }
+        //        isfrist = false;
     }
 
     private void check(String packageName) {

@@ -442,6 +442,14 @@ public class AdbTools {
     }
 
     /**
+     * 弹出一个有OK按钮的对话框，只用来显示消息，点击OK按钮，不会做任何动作。
+     * @param message
+     */
+    public void showDialogOk(String message) {
+      showDialogOk(message, e -> {});
+    }
+
+    /**
      * 在AdbTools程序中弹出有一个确认按钮的对话框
      *
      * @param message          消息

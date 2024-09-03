@@ -1,4 +1,4 @@
-package adbs.main.run;
+package adbs.main.run.act;
 
 import java.util.HashSet;
 
@@ -162,6 +162,8 @@ public abstract class ActWait {
         touTiao180sApp.add("com.ss.android.ugc.aweme");
         //抖音极速版
         touTiao180sApp.add("com.ss.android.ugc.aweme.lite");
+        //抖音商城版
+        touTiao180sApp.add("com.ss.android.ugc.livelite");
         //抖音火山版
         touTiao180sApp.add("com.ss.android.ugc.live");
         //红果免费短剧
