@@ -9,12 +9,13 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 每天特定时间给出提醒，精确到分钟的版本
+ * AlarmClock
+ * 每天特定时间给出提醒，精确到秒的版本
  */
-public final class DailyReminderScheduler_Second {
+public final class AlarmUtils_Second {
 
     // 私有构造函数，防止实例化
-    private DailyReminderScheduler_Second() {
+    private AlarmUtils_Second() {
         throw new AssertionError("Utility class cannot be instantiated.");
     }
 
@@ -48,7 +49,7 @@ public final class DailyReminderScheduler_Second {
         scheduleDailyReminder(time2, reminderTask2);
 
         // 注册关闭钩子
-        Runtime.getRuntime().addShutdownHook(new Thread(DailyReminderScheduler_Second::shutdownScheduler));
+        Runtime.getRuntime().addShutdownHook(new Thread(AlarmUtils_Second::shutdownScheduler));
 
         // 防止主线程立即退出
         try {
@@ -93,7 +94,8 @@ public final class DailyReminderScheduler_Second {
     private static LocalTime parseReminderTime(String time) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         try {
-            return LocalTime.parse(time, formatter);
+            LocalTime localTime = LocalTime.parse(time, formatter);
+            return localTime;
         } catch (Exception e) {
             throw new IllegalArgumentException("Invalid time format: " + time, e);
         }
@@ -135,7 +137,7 @@ public final class DailyReminderScheduler_Second {
      * 关闭调度器。
      */
     public static void shutdownScheduler() {
-        System.out.println("关闭调度器");
+        System.out.println("关闭闹钟器");
         if (!scheduler.isShutdown()) {
             scheduler.shutdown();
             try {

@@ -6,7 +6,8 @@ import adbs.main.run.BatteryLevelRun2;
 import adbs.main.run.IsTest;
 import adbs.main.run.model.FrameTitle;
 import adbs.main.ui.jpanels.act.ActSignedInPanels;
-import adbs.main.ui.jpanels.act.reminder.DailyReminderScheduler_Second;
+import adbs.main.ui.jpanels.act.reminder.AlarmUtils_Second;
+import adbs.main.ui.jpanels.act.reminder.after.TimerUtils;
 import adbs.main.ui.jpanels.adb.AdbJPanels;
 import adbs.main.ui.jpanels.app.AppSignedInPanels;
 import adbs.main.ui.jpanels.check.CheckJPanels;
@@ -171,8 +172,8 @@ public class AdbTools {
                 universalPanels.getBtnStop().doClick();
                 //关闭所有的投屏
                 scrcpyJPanels.getBtnKillScrcpy().doClick();
-                //取消定时任务
-                actSignedInPanels.cancelReminder();
+//                //取消定时任务
+//                actSignedInPanels.cancelReminder();
                 System.out.println("窗体正在关闭。。。。。。。。。。。。");
                 // ThreadSleep.seconds(5);
                 System.exit(0);
@@ -204,7 +205,8 @@ public class AdbTools {
                                 });
                             }, 1, TimeUnit.SECONDS);
                         }
-                    }, e1 -> {});
+                    }, e1 -> {
+                    });
 
                 }
             }
@@ -446,10 +448,12 @@ public class AdbTools {
 
     /**
      * 弹出一个有OK按钮的对话框，只用来显示消息，点击OK按钮，不会做任何动作。
+     *
      * @param message
      */
     public void showDialogOk(String message) {
-      showDialogOk(message, e -> {});
+        showDialogOk(message, e -> {
+        });
     }
 
     public void beepDialog(String message) {
@@ -513,9 +517,11 @@ public class AdbTools {
             // // 启动电池监测线程
             new Thread(new BatteryLevelRun2()).start();
             new Thread(new ActAutoRun()).start();
-            // 注册关闭钩子，在虚拟机注销的时候，关闭调度器
-            Runtime.getRuntime().addShutdownHook(new Thread(DailyReminderScheduler_Second::shutdownScheduler));
         }
 
+        // 注册关闭钩子，在虚拟机注销的时候，关闭调度器
+        Runtime.getRuntime().addShutdownHook(new Thread(AlarmUtils_Second::shutdownScheduler));
+        //在虚拟机注销的时候关闭延迟定时器
+        Runtime.getRuntime().addShutdownHook(new Thread(TimerUtils::shutdown));
     }
 }

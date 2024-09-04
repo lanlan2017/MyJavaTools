@@ -6,7 +6,7 @@ import adbs.main.run.model.ActivityInfo;
 import adbs.main.run.model.FrameTitle;
 import adbs.main.run.signinlog.FileUtil;
 import adbs.main.run.signinlog.LoginRecords;
-import adbs.main.ui.jpanels.act.reminder.DailyReminderScheduler_Second;
+import adbs.main.ui.jpanels.act.reminder.AlarmUtils_Second;
 import adbs.main.ui.jpanels.app.AppSignedInPanels;
 import adbs.main.ui.jpanels.timeauto2.TimingPanels2;
 import adbs.main.ui.jpanels.tools.ToolsJPanels;
@@ -677,29 +677,6 @@ public class ActAutoRun extends ActWait implements Runnable {
         while (iterator.hasNext()) {
             String next = iterator.next();
             if ("点淘".equals(next)) {
-                //            if ("番茄畅听音乐版".equals(next)) {
-                //                DailyReminderScheduler_Second.scheduleDailyReminder("13:00:00", new Runnable() {
-                //                    @Override
-                //                    public void run() {
-                //                        //                        AdbTools.getInstance().showDialogOk("点淘 开始午睡");
-                //                        AdbTools.getInstance().beepDialog("点淘 开始午睡");
-                //                    }
-                //                });
-                //                DailyReminderScheduler_Second.scheduleDailyReminder("16:00:00", new Runnable() {
-                //                    @Override
-                //                    public void run() {
-                //                        //                        AdbTools.getInstance().showDialogOk("点淘 结束午睡");
-                //                        AdbTools.getInstance().beepDialog("点淘 结束 午睡");
-                //                    }
-                //                });
-                //                DailyReminderScheduler_Second.scheduleDailyReminder("21:00:00", new Runnable() {
-                //                    @Override
-                //                    public void run() {
-                //                        //                        AdbTools.getInstance().showDialogOk("点淘 结束午睡");
-                //                        AdbTools.getInstance().beepDialog("点淘 开始 晚睡");
-                //                    }
-                //                });
-
                 dianTaoTasks();
                 break;
             }
@@ -711,7 +688,7 @@ public class ActAutoRun extends ActWait implements Runnable {
         tasks.put("13:00:00", () -> AdbTools.getInstance().beepDialog("点淘 开始午睡"));
         tasks.put("16:00:00", () -> AdbTools.getInstance().beepDialog("点淘 结束 午睡"));
         tasks.put("21:00:00", () -> AdbTools.getInstance().beepDialog("点淘 开始 晚睡"));
-        tasks.forEach((s, runnable) -> DailyReminderScheduler_Second.scheduleDailyReminder(s, runnable));
+        tasks.forEach((s, runnable) -> AlarmUtils_Second.scheduleDailyReminder(s, runnable));
     }
 
 

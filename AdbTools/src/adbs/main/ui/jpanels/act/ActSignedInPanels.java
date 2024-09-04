@@ -8,6 +8,7 @@ import adbs.main.ui.jpanels.act.jaskson.file.JsonToFile;
 import adbs.main.ui.jpanels.act.model.AppTask3;
 import adbs.main.ui.jpanels.act.model.AppTaskTimeSet;
 import adbs.main.ui.jpanels.act.model.TaskTime;
+import adbs.main.ui.jpanels.act.reminder.after.TimerUtils;
 import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
@@ -17,8 +18,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.function.Consumer;
 
 /**
@@ -42,10 +41,10 @@ public class ActSignedInPanels {
      * 任务面板，根据不同的App生成不同的任务多选框
      */
     private final JPanel taskPanel;
-    /**
-     * 定时器
-     */
-    private Timer timer;
+//    /**
+//     * 定时器
+//     */
+//    private Timer timer;
     /**
      * 小时
      */
@@ -129,8 +128,9 @@ public class ActSignedInPanels {
      */
     private JButton getBtnDingShiOk() {
         JButton btnDingShiOk = new JButton("定时");
-
-        this.btnDingShiOkBackground = btnDingShiOk.getBackground();
+        if (this.btnDingShiOkBackground == null) {
+            this.btnDingShiOkBackground = btnDingShiOk.getBackground();
+        }
 
         btnDingShiOk.setToolTipText("开启定时器");
         btnDingShiOk.addActionListener(new ActionListener() {
@@ -150,8 +150,37 @@ public class ActSignedInPanels {
                             // startReminder((2 * 60 + 2) * 60 * 1000, "点淘打工结束");
                             // startReminder(minute * 60 * 1000, "点淘打工结束");
                             // startReminder(5000, "点淘打工结束");
-                            startReminder((hour * 60 + minute) * 60 * 1000, "点淘打工结束");
-                            btnDingShiOk.setBackground(Color.pink);
+                            // 计算秒
+                            int seconds = (hour * 60 + minute) * 60;
+
+                            String message = "点淘打工结束";
+                            //                            startReminder(seconds * 1000, message);
+
+
+                            //                            Runnable runnable = () -> {
+                            //                                AdbTools.getInstance().beepDialog(message);
+                            //                                SwingUtilities.invokeLater(new Runnable() {
+                            //                                    @Override
+                            //                                    public void run() {
+                            //                                        btnDingShiOk.setBackground(btnDingShiOkBackground);
+                            //                                    }
+                            //                                });
+                            //                            };
+                            //启动定时任务，等待指定的秒之后，执行任务
+                            TimerUtils.afterSeconds(seconds, () -> {
+                                AdbTools.getInstance().beepDialog(message);
+                                SwingUtilities.invokeLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        // 恢复原来按钮的颜色，表示定时任务已经完成或者取消
+                                        btnDingShiOk.setBackground(btnDingShiOkBackground);
+                                    }
+                                });
+                            });
+                            //设置确定按钮的背景色，表示有定时任务在运行
+                            SwingUtilities.invokeLater(() -> {
+                                btnDingShiOk.setBackground(Color.pink);
+                            });
                         }
                     });
                 }
@@ -169,8 +198,15 @@ public class ActSignedInPanels {
                 AdbTools.getInstance().showDialogOk("取消定时", new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        cancelReminder();
-                        btnDingShiOk.setBackground(btnDingShiOkBackground);
+                        //取消定时任务
+                        TimerUtils.shutdown();
+                        //恢复默认颜色
+                        SwingUtilities.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                btnDingShiOk.setBackground(btnDingShiOkBackground);
+                            }
+                        });
                     }
                 });
             }
@@ -263,54 +299,55 @@ public class ActSignedInPanels {
         return jtfHour;
     }
 
-    /**
-     * 定时器需要等待的毫秒数
-     *
-     * @param delay   毫秒
-     * @param message
-     */
-    private void startReminder(long delay, final String message) {
-        if (timer != null) {
-            timer.cancel(); // 取消之前的定时器任务
-        }
-
-        timer = new Timer();
-
-        TimerTask reminderTask = new TimerTask() {
-            @Override
-            public void run() {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        //定时结束时响铃提醒
-//                        AdbTools.getInstance().getTimePanels().beepDialog(message);
-                        AdbTools.getInstance().beepDialog(message);
-                        btnDingShiOk.setBackground(btnDingShiOkBackground);
-                    }
-                });
-            }
-        };
-
-        // 设置延迟时间（例如5秒后触发）
-        // 设置延迟时间（例如5秒后触发）
-        // long delay = 5000; // 5 seconds
-
-        System.out.println("定时：" + delay + "毫秒");
-        //启动定时器
-        timer.schedule(reminderTask, delay);
-    }
-
-    public Timer getTimer() {
-        return timer;
-    }
-
-    public void cancelReminder() {
-        if (timer != null) {
-            System.out.println("取消定时器");
-            // 取消定时器
-            timer.cancel();
-            timer = null;
-        }
-    }
+//    /**
+//     * 定时器需要等待的毫秒数
+//     *
+//     * @param delay   毫秒
+//     * @param message
+//     */
+//    private void startReminder(long delay, final String message) {
+//        if (timer != null) {
+//            timer.cancel(); // 取消之前的定时器任务
+//        }
+//
+//        timer = new Timer();
+//
+//        TimerTask reminderTask = new TimerTask() {
+//            @Override
+//            public void run() {
+//                Runnable run = new Runnable() {
+//                    public void run() {
+//                        //定时结束时响铃提醒
+//                        //                        AdbTools.getInstance().getTimePanels().beepDialog(message);
+//                        AdbTools.getInstance().beepDialog(message);
+//                        btnDingShiOk.setBackground(btnDingShiOkBackground);
+//                    }
+//                };
+//                SwingUtilities.invokeLater(run);
+//            }
+//        };
+//
+//        // 设置延迟时间（例如5秒后触发）
+//        // 设置延迟时间（例如5秒后触发）
+//        // long delay = 5000; // 5 seconds
+//
+//        System.out.println("定时：" + delay + "毫秒");
+//        //启动定时器
+//        timer.schedule(reminderTask, delay);
+//    }
+//
+//    public Timer getTimer() {
+//        return timer;
+//    }
+//
+//    public void cancelReminder() {
+//        if (timer != null) {
+//            System.out.println("取消定时器");
+//            // 取消定时器
+//            timer.cancel();
+//            timer = null;
+//        }
+//    }
 
 
     private void updateAction() {
