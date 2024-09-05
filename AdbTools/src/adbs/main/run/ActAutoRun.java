@@ -351,14 +351,16 @@ public class ActAutoRun extends ActWait implements Runnable {
                 //现在不是头条应用，不是头条 180s，也不是头条95秒
                 if (!isTouTiaoApp(currentPN)) {
                     System.out.println("头条 180s 应用 跳转到 非头条应用 ---> 等待180秒");
-                    timingPanels2.w180sDialog();
+                    //                    timingPanels2.w180sDialog();
+                    timingPanels2.w180s();
                 } else {
                     System.out.println("头条 180s 应用 跳转到 头条应用   ---> 无需操作");
                 }
             } else {
                 System.out.println("之前的应用不是头条应用，---> 等待180秒 ");
                 //                timingPanels2.w180sDialog();
-                timingPanels2.w180sDialog();
+                timingPanels2.w180s();
+                //                timingPanels2.w180sDialog();
             }
         } else if (wait95sApp.contains(beforePN)) {
             // 之前是 头条 95秒 系列
@@ -366,7 +368,8 @@ public class ActAutoRun extends ActWait implements Runnable {
                 if (!isTouTiaoApp(currentPN)) {
                     System.out.println("头条 95s 应用，跳转到 非头条 应用 ---> 等待95秒");
                     //                timingPanels2.w95s();
-                    timingPanels2.w95sDialog();
+                    //                    timingPanels2.w95sDialog();
+                    timingPanels2.w95s();
                 } else {
                     System.out.println("头条 95s 应用，跳转到 头条 应用   ---> 无需操作 ");
                 }
@@ -377,7 +380,8 @@ public class ActAutoRun extends ActWait implements Runnable {
                 if (!kuaiShou95sApp.contains(currentPN)) {
                     System.out.println("快手 95s 应用，跳转到 非快手 95s 应用  ---> 等待95秒");
                     //                timingPanels2.w95s();
-                    timingPanels2.w95sDialog();
+                    timingPanels2.w95s();
+                    //                    timingPanels2.w95sDialog();
                 } else {
                     System.out.println("快手 95s 应用，跳转到 快手 95s 应用    ---> 无需操作");
                 }

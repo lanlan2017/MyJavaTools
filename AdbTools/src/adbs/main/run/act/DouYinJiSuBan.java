@@ -9,11 +9,18 @@ public class DouYinJiSuBan extends ActChangeAdapter {
         return instance;
     }
 
+    @Override
+    protected HashSet<ActToAct> set_return_Set() {
+        HashSet<ActToAct> actToActs = new HashSet<>();
+        actToActs.add(new ActToAct("com.ss.android.excitingvideo.ExcitingVideoActivity", "com.ss.android.ugc.aweme.live.LivePlayActivity"));
+
+        return actToActs;
+    }
 
     @Override
     protected HashSet<ActToAct> set_w180sDialog_Set() {
         HashSet<ActToAct> actToActs = new HashSet<>();
-        actToActs.add(new ActToAct("com.ss.android.excitingvideo.ExcitingVideoActivity", "com.ss.android.ugc.aweme.live.LivePlayActivity"));
+//        actToActs.add(new ActToAct("com.ss.android.excitingvideo.ExcitingVideoActivity", "com.ss.android.ugc.aweme.live.LivePlayActivity"));
         //        actToActs.add(new ActToAct("com.ss.android.excitingvideo.ExcitingVideoActivity", "com.ss.android.ugc.aweme.live.LivePlayActivity"));
         actToActs.add(new ActToAct("com.ss.android.ugc.aweme.splash.SplashActivity", "com.ss.android.excitingvideo.ExcitingVideoActivity"));
         //        actToActs.add(new ActToAct("com.ss.android.ugc.aweme.splash.SplashActivity", "com.ss.android.excitingvideo.ExcitingVideoActivity"));

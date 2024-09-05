@@ -457,7 +457,7 @@ public class ActSignedInPanels {
     private void addTaskPanel(JsonToFile<AppTask3> jsonToFile, AppTask3 appTask3, AppTaskTimeSet next) {
         // String filePath = jsonToFile.getFilePath();
         //取出这个应用的任务集合
-        ArrayList<TaskTime> taskTimeSet = next.getTaskTimeSet();
+        ArrayList<TaskTime> taskTimeSet = next.getTaskTimeList();
         //遍历任务集合
         taskTimeSet.forEach(new Consumer<TaskTime>() {
             @Override

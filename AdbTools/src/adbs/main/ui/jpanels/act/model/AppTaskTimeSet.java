@@ -1,20 +1,28 @@
 package adbs.main.ui.jpanels.act.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class AppTaskTimeSet {
     private String appName;
-//    private HashSet<TaskTime> taskTimeSet;
-    private ArrayList<TaskTime> taskTimeSet;
+    //    private HashSet<TaskTime> taskTimeSet;
+    private ArrayList<TaskTime> taskTimeList;
 
-//    public AppTaskTimeSet(String appName, HashSet<TaskTime> taskTimeSet) {
-//        this.appName = appName;
-//        this.taskTimeSet = taskTimeSet;
-//    }
+    //    public AppTaskTimeSet(String appName, HashSet<TaskTime> taskTimeSet) {
+    //        this.appName = appName;
+    //        this.taskTimeSet = taskTimeSet;
+    //    }
 
-    public AppTaskTimeSet(String appName, ArrayList<TaskTime> taskTimeSet) {
+    public AppTaskTimeSet(String appName, ArrayList<TaskTime> taskTimeList) {
         this.appName = appName;
-        this.taskTimeSet = taskTimeSet;
+        this.taskTimeList = taskTimeList;
+    }
+
+    public AppTaskTimeSet(String appName, TaskTime[] taskTimeArr) {
+        this.appName = appName;
+
+        //        this.taskTimeSet = taskTimeSet;
+        this.taskTimeList = new ArrayList<>(Arrays.asList(taskTimeArr));
     }
 
     public AppTaskTimeSet() {
@@ -32,24 +40,24 @@ public class AppTaskTimeSet {
         this.appName = appName;
     }
 
-    public ArrayList<TaskTime> getTaskTimeSet() {
-        return taskTimeSet;
+    public ArrayList<TaskTime> getTaskTimeList() {
+        return taskTimeList;
     }
 
-    public void setTaskTimeSet(ArrayList<TaskTime> taskTimeSet) {
-        this.taskTimeSet = taskTimeSet;
+    public void setTaskTimeList(ArrayList<TaskTime> taskTimeList) {
+        this.taskTimeList = taskTimeList;
     }
 
     //    public HashSet<TaskTime> getTaskTimeSet() {
-//        return taskTimeSet;
-//    }
-//
-//    public void setTaskTimeSet(HashSet<TaskTime> taskTimeSet) {
-//        this.taskTimeSet = taskTimeSet;
-//    }
+    //        return taskTimeSet;
+    //    }
+    //
+    //    public void setTaskTimeSet(HashSet<TaskTime> taskTimeSet) {
+    //        this.taskTimeSet = taskTimeSet;
+    //    }
 
     @Override
     public String toString() {
-        return "AppTaskTimeSet{" + "appName='" + appName + '\'' + ", taskTimeSet=" + taskTimeSet + '}';
+        return "AppTaskTimeSet{" + "appName='" + appName + '\'' + ", taskTimeSet=" + taskTimeList + '}';
     }
 }

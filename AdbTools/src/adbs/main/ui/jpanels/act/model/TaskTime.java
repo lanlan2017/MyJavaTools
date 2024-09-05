@@ -37,6 +37,12 @@ public class TaskTime {
         this.times = NotNeedTIMES;
     }
 
+    public TaskTime(String taskName, int times) {
+        this.taskName = taskName;
+        this.selected = false;
+        this.times = times;
+    }
+
     /**
      * 必须提供默认构造器，一边使用JackSon进行序列化
      */
