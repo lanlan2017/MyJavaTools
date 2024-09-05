@@ -81,18 +81,20 @@ public final class TimerUtils {
      */
     public static void shutdown() {
         System.out.println("关闭延迟定时器");
-        SCHEDULER.shutdown();
-        // 尝试优雅地关闭executor，等待所有任务完成
-        try {
-            if (!SCHEDULER.awaitTermination(60, TimeUnit.MILLISECONDS)) {
-                SCHEDULER.shutdownNow(); // 取消正在执行的任务
-                // 如果有任务被取消，则重新尝试终止
-                if (!SCHEDULER.awaitTermination(60, TimeUnit.MILLISECONDS))
-                    System.err.println("ScheduledExecutorService did not terminate");
+        if (SCHEDULER != null) {
+            SCHEDULER.shutdown();
+            // 尝试优雅地关闭executor，等待所有任务完成
+            try {
+                if (!SCHEDULER.awaitTermination(60, TimeUnit.MILLISECONDS)) {
+                    SCHEDULER.shutdownNow(); // 取消正在执行的任务
+                    // 如果有任务被取消，则重新尝试终止
+                    if (!SCHEDULER.awaitTermination(60, TimeUnit.MILLISECONDS))
+                        System.err.println("ScheduledExecutorService did not terminate");
+                }
+            } catch (InterruptedException ie) {
+                SCHEDULER.shutdownNow(); // (Re-)Cancel if current thread also interrupted
+                Thread.currentThread().interrupt(); // Preserve interrupt status
             }
-        } catch (InterruptedException ie) {
-            SCHEDULER.shutdownNow(); // (Re-)Cancel if current thread also interrupted
-            Thread.currentThread().interrupt(); // Preserve interrupt status
         }
     }
 
