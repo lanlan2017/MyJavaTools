@@ -1,18 +1,15 @@
 package adbs.main.ui.jpanels.time;
 
-import adbs.main.AdbTools;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.config.Fonts;
-import adbs.main.ui.jpanels.time.beep.BeepRunnable;
 import adbs.main.ui.jpanels.time.listener.InputOkButtonActionListener;
 import adbs.main.ui.jpanels.time.listener.MinusBtnAcListener;
 import adbs.main.ui.jpanels.time.listener.PlusBtnAcListener;
-import adbs.main.ui.jpanels.universal.runnable.CloseableRunnable;
 import tools.swing.button.AbstractButtons;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 /**
  * 时间选择面板
@@ -155,58 +152,4 @@ public class TimePanels {
     public JLabel getTimerJLabel() {
         return timerJLabel;
     }
-
-    public void showConfirmDialog() {
-
-        // 得到窗体的内容面板
-        Container parent = timePanel.getParent();
-        // String simpleId = AdbTools.device.getName();
-        String simpleId = AdbTools.getInstance().getDevice().getName();
-        int returnVal = -100;
-        String message = simpleId + "再次执行?";
-
-
-        CloseableRunnable beepRun = (CloseableRunnable) BeepRunnable.getInstance();
-        // 启动响铃提醒功能
-        new Thread(beepRun).start();
-        if (parent != null) {
-            // System.out.println("---------------是组件");
-            // Component comp = parent;
-            returnVal = JOptionPane.showConfirmDialog(parent, message);
-        } else {
-            returnVal = JOptionPane.showConfirmDialog(null, message);
-        }
-        // 关闭响铃提醒线程
-        beepRun.stop();
-
-        // 如果选择的是确认按键
-        if (returnVal == JOptionPane.OK_OPTION) {
-            if (inputOkButton != null) {
-                // 触发按钮
-                inputOkButton.doClick();
-            }
-        }
-    }
-
-//    public void beepDialog(String message) {
-//        CloseableRunnable beepRun = (CloseableRunnable) BeepRunnable.getInstance();
-//        // 启动响铃提醒功能
-//        new Thread(beepRun).start();
-//        AdbTools.getInstance().showDialogOkClose(message, new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                //                auto(code);
-//                beepRun.stop();
-//            }
-//        }, new WindowAdapter() {
-//            @Override
-//            public void windowClosing(WindowEvent e) {
-//                super.windowClosing(e);
-//                beepRun.stop();
-//                JDialog source = (JDialog) e.getSource();
-//                source.dispose();
-//            }
-//        });
-//    }
-
 }

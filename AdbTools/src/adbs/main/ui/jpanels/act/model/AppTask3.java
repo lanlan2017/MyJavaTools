@@ -46,10 +46,11 @@ public class AppTask3 {
 
 
         ArrayList<TaskTime> taoBaoTask = new ArrayList<>();
-        taoBaoTask.add(new TaskTime("红包签到"));
-        taoBaoTask.add(new TaskTime("视频"));
-        taoBaoTask.add(new TaskTime("淘金币"));
-        taoBaoTask.add(new TaskTime("芭芭农场"));
+        taoBaoTask.add(new TaskTime("红包签到", 0));
+        taoBaoTask.add(new TaskTime("视频", 0));
+        taoBaoTask.add(new TaskTime("淘金币", 0));
+        taoBaoTask.add(new TaskTime("芭芭农场", 0));
+
         AppTaskTimeSet taoBao = new AppTaskTimeSet("淘宝", taoBaoTask);
 
 
@@ -68,6 +69,7 @@ public class AppTask3 {
 
         ArrayList<TaskTime> taskTimeQuTouTiao = new ArrayList<>();
         taskTimeQuTouTiao.add(new TaskTime("签到"));
+        taskTimeQuTouTiao.add(new TaskTime("通知"));
         taskTimeQuTouTiao.add(new TaskTime("小视频"));
         AppTaskTimeSet quTouTiao = new AppTaskTimeSet("趣头条", taskTimeQuTouTiao);
 

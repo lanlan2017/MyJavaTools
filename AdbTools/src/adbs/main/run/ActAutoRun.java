@@ -587,6 +587,11 @@ public class ActAutoRun extends ActWait implements Runnable {
                 //抖音极速版
                 DouYinJiSuBan.getInstance().onChange(actShortBefore, actShorCurrent);
                 break;
+            //今日头条极速版
+            case "com.ss.android.article.lite":
+                JinRiTouTiaoJiSuBan.getInstance().onChange(actShortBefore, actShorCurrent);
+                break;
+
             case "com.ss.android.article.video":
                 //西瓜视频
                 XiGuaShiPin.getInstance().onChange(actShortBefore, actShorCurrent);
@@ -600,7 +605,7 @@ public class ActAutoRun extends ActWait implements Runnable {
                 KuaiShouMianFeiXiaoShuo.getInstance().onChange(actShortBefore, actShorCurrent);
                 break;
             case "com.xunmeng.pinduoduo":
-                //                拼多多
+                // 拼多多
                 PinDuoDuo.getInstance().onChange(actShortBefore, actShorCurrent);
                 break;
         }

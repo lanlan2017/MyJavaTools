@@ -172,8 +172,8 @@ public class AdbTools {
                 universalPanels.getBtnStop().doClick();
                 //关闭所有的投屏
                 scrcpyJPanels.getBtnKillScrcpy().doClick();
-//                //取消定时任务
-//                actSignedInPanels.cancelReminder();
+                //                //取消定时任务
+                //                actSignedInPanels.cancelReminder();
                 System.out.println("窗体正在关闭。。。。。。。。。。。。");
                 // ThreadSleep.seconds(5);
                 System.exit(0);

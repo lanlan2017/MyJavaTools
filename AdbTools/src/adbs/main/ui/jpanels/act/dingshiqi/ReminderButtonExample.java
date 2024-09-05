@@ -69,8 +69,8 @@ public class ReminderButtonExample {
             public void run() {
                 SwingUtilities.invokeLater(new Runnable() {
                     public void run() {
-//                                                JOptionPane.showMessageDialog(frame, "提醒：该做的事情！", "提醒", JOptionPane.INFORMATION_MESSAGE);
-//                        AdbTools.getInstance().getTimePanels().beepDialog("点淘打工结束");
+                        //                                                JOptionPane.showMessageDialog(frame, "提醒：该做的事情！", "提醒", JOptionPane.INFORMATION_MESSAGE);
+                        //                        AdbTools.getInstance().getTimePanels().beepDialog("点淘打工结束");
 
                         AdbTools.getInstance().beepDialog("点淘打工结束");
                     }

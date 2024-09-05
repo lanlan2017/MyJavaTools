@@ -9,7 +9,7 @@ public abstract class CloseableRunnable implements Runnable {
     /**
      * 是否继续执行loopBody()方法
      */
-    protected boolean stopLoopBody = false;
+    protected volatile boolean stopLoopBody = false;
     /**
      * 是否需要调用afterLoop()方法
      */

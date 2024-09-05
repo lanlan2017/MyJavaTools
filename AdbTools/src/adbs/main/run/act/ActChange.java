@@ -120,7 +120,7 @@ public abstract class ActChange {
         } else if (contains(rw5HDialog_Set, actToAct)) {
             timingPanels2.rw5HDialog();
         } else if (contains(return_Set, actToAct)) {
-            System.out.println("遇到授权要求，直接返回");
+            System.out.println("按下返回键");
             Device device = AdbTools.getInstance().getDevice();
             // 按下返回键
             AdbCommands.returnBtn(device);

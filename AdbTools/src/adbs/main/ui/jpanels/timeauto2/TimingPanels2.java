@@ -654,7 +654,11 @@ public class TimingPanels2 extends WaitValues {
      */
     private void dialogAuto(String code) {
         CloseableRunnable beepRun = (CloseableRunnable) BeepRunnable.getInstance();
-
+        // 启动响铃提醒功能
+        new Thread(beepRun).start();
+        /*
+         * 弹窗确认
+         */
         AdbTools.getInstance().showDialogOkClose(code, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -670,18 +674,6 @@ public class TimingPanels2 extends WaitValues {
                 source.dispose();
             }
         });
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                // 响铃提醒
-                ThreadSleep.seconds(2);
-                beepRun.run();
-            }
-        });
-        //        //延迟启动
-        //        ThreadSleep.seconds(1);
-        //        // 启动响铃提醒功能
-        //        new Thread(beepRun).start();
     }
 
 }
