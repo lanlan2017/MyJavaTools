@@ -18,6 +18,7 @@ public class BeepRunnable extends CloseableRunnable {
 
     private BeepRunnable() {
 //        times = 10;
+//        times = 5;
         times = 5;
     }
 
