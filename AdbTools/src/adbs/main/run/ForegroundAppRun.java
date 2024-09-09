@@ -1,7 +1,7 @@
 //package adbs.main.run;
 //
 //import adbs.main.AdbTools;
-//import adbs.main.run.model.ActivityInfo;
+//import adbs.main.run.act.model.ActivityInfo;
 //import adbs.main.run.signinlog.FileUtil;
 //import adbs.main.run.signinlog.LoginRecords;
 //import adbs.main.ui.jframe.JFramePack;

@@ -1,4 +1,4 @@
-package adbs.main.run.model;
+package adbs.main.run.act.model;
 
 import tools.process.ProcessRunner;
 

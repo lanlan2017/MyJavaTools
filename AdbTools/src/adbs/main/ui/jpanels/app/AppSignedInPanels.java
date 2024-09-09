@@ -1,7 +1,7 @@
 package adbs.main.ui.jpanels.app;
 
 import adbs.main.AdbTools;
-import adbs.main.run.ActAutoRun;
+import adbs.main.run.act.ActAutoRun;
 import adbs.main.run.AdbGetPackage;
 import adbs.main.ui.config.FlowLayouts;
 import config.AdbToolsProperties;

@@ -2,7 +2,7 @@ package adbs.main.ui.jpanels.universal.runnable;
 
 import adbs.main.AdbTools;
 import adbs.main.run.AdbGetPackage;
-import adbs.main.run.model.ActivityInfo;
+import adbs.main.run.act.model.ActivityInfo;
 import adbs.main.ui.jpanels.adb.AdbJPanels;
 import adbs.main.ui.jpanels.time.TimePanels;
 import adbs.main.ui.jpanels.universal.UniversalPanels;

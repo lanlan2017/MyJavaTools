@@ -3,7 +3,7 @@
 //import adbs.cmd.AdbCommands;
 //import adbs.main.AdbTools;
 //import adbs.main.run.AdbGetPackage;
-//import adbs.main.run.model.AppNames;
+//import adbs.main.run.act.model.AppNames;
 //import adbs.main.ui.jpanels.auto.CoinsType;
 //import adbs.main.ui.jpanels.auto.act.code.*;
 //import adbs.main.ui.jpanels.universal.runnable.CloseableRunnable;

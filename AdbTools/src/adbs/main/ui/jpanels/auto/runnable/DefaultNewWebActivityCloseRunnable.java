@@ -2,7 +2,7 @@
 //
 //import adbs.cmd.AdbCommands;
 //import adbs.main.run.AdbGetPackage;
-//import adbs.main.run.model.AppNames;
+//import adbs.main.run.act.model.AppNames;
 //import adbs.main.ui.jpanels.auto.AdbTap;
 //import adbs.main.ui.jpanels.auto.ScreenPositionRatio;
 //import adbs.main.ui.jpanels.universal.runnable.CloseableRunnable;

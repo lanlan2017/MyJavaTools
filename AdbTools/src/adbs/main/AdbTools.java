@@ -1,10 +1,10 @@
 package adbs.main;
 
 import adbs.cmd.AdbCommands;
-import adbs.main.run.ActAutoRun;
-import adbs.main.run.BatteryLevelRun2;
+import adbs.main.run.act.ActAutoRun;
+import adbs.main.run.battery.BatteryLevelRun2;
 import adbs.main.run.IsTest;
-import adbs.main.run.model.FrameTitle;
+import adbs.main.run.act.model.FrameTitle;
 import adbs.main.ui.jpanels.act.ActSignedInPanels;
 import adbs.main.ui.jpanels.act.reminder.AlarmUtils_Second;
 import adbs.main.ui.jpanels.act.reminder.after.TimerUtils;

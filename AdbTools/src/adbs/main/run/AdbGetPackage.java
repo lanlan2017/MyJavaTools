@@ -3,7 +3,7 @@ package adbs.main.run;
 import adbs.cmd.AdbCommands;
 import adbs.cmd.CmdRun;
 import adbs.main.AdbTools;
-import adbs.main.run.model.ActivityInfo;
+import adbs.main.run.act.model.ActivityInfo;
 import config.AdbToolsProperties;
 
 public class AdbGetPackage {

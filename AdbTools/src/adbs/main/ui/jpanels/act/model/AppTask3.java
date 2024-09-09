@@ -64,7 +64,7 @@ public class AppTask3 {
         AppTaskTimeSet taoTe = new AppTaskTimeSet("淘特", taskTimesTaoTe);
 
 
-        AppTaskTimeSet fqctyyb = new AppTaskTimeSet("番茄畅听音乐版", taskTimesTaoTe);
+        AppTaskTimeSet fqctyyb = new AppTaskTimeSet("番茄畅听音乐版", taoBaoTask);
         //        AppTaskTimeSet hgmfdj = new AppTaskTimeSet("红果免费短剧", taoBaoTask);
 
         ArrayList<TaskTime> taskTimeQuTouTiao = new ArrayList<>();
