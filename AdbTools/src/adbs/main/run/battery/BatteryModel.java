@@ -1,4 +1,4 @@
-package adbs.main.run;
+package adbs.main.run.battery;
 
 import adbs.cmd.CmdRun;
 
@@ -81,6 +81,7 @@ public class BatteryModel {
         // update();
         // return !isAcPowered && level == 100;
         return !isAcPowered && level >= 95;
+//        return !isAcPowered && level >= 50;
         // return !isAcPowered && level <= 100;
     }
 
