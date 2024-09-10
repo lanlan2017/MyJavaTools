@@ -33,7 +33,8 @@ public class BatteryLevelRun2 implements Runnable {
     public static final int SELECT_NO = 1;
     public static final int SELECT_CANCEL = 2;
     public static final int SELECT_CLOSE = 3;
-    public static final int DIALOG_STRUTWIDTH = 20;
+//    public static final int DIALOG_STRUTWIDTH = 20;
+    public static final int DIALOG_STRUTWIDTH = 10;
 
     public BatteryLevelRun2() {
         dialogFullyCharged = initDialogFullyCharged();
