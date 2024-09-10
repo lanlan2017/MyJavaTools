@@ -27,7 +27,7 @@ public class BatteryModel {
     //   voltage: 4359
     //   temperature: 340
     //   technology: Li-poly
-    private static String[] flag = {"Current Battery Service state:", "AC powered:", "USB powered:", "Wireless powered:", "Max charging current:", "Max charging voltage:", "Charge counter:", "status:", "health:", "present:", "level:", "scale:", "voltage:", "temperature:", "technology:"};
+    private static final String[] flag = {"Current Battery Service state:", "AC powered:", "USB powered:", "Wireless powered:", "Max charging current:", "Max charging voltage:", "Charge counter:", "status:", "health:", "present:", "level:", "scale:", "voltage:", "temperature:", "technology:"};
     // private static ArrayList<String> mameList = new ArrayList<>(flag.length);
     //
     // static {
@@ -72,16 +72,22 @@ public class BatteryModel {
     public boolean needAcPower() {
         // 更新电池信息
         // update();
-        return !isAcPowered && level < 30 && level > 0;
-        // return !isAcPowered && level <= 100;
+//        return !isAcPowered && level < 30 && level > 0;
+        return !isAcPowered && level < 40 && level > 0;
+        // 测试使用
+        //        return !isAcPowered && level <= 100;
     }
 
     public boolean isBatteryFullyCharged() {
         // 更新电池信息
         // update();
-        // return !isAcPowered && level == 100;
         return !isAcPowered && level >= 95;
-//        return !isAcPowered && level >= 50;
+
+
+        //        测试使用
+        // return !isAcPowered && level == 100;
+        //        return !isAcPowered && level >= 70;
+        //        return !isAcPowered && level >= 50;
         // return !isAcPowered && level <= 100;
     }
 
