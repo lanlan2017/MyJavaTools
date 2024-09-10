@@ -213,17 +213,10 @@ public class BatteryLevelRun2 implements Runnable {
     }
 
     private void selectCancel() {
-        //        System.out.println("等待 30 分钟");
-        //        ThreadSleep.minutes(30);
-        // 停止电池检测线程
-        // stop = true;
         logSleep("电池检测线程 满电 取消 按钮", 10);
     }
 
     private void selectNo() {
-        //        System.out.println("等待 10 分钟");
-        //        // ThreadSleep.minutes(10);
-        //        ThreadSleep.minutes(10);
         logSleep("电池检测线程 满电 否 按钮", 30);
     }
 
@@ -243,43 +236,6 @@ public class BatteryLevelRun2 implements Runnable {
         AdbCommands.batteryReset(serial);
         //        System.out.println("充电，等待2分钟");
         logSleep(msg, 2);
-        // 等待一段时间
-        //        ThreadSleep.minutes(2);
-
-
-        //        new Thread(new Runnable() {
-        //            @Override
-        //            public void run() {
-        //                // 等待50
-        //                // ThreadSleep.minutes(50);
-        //                ThreadSleep.minutes(60);
-        //                // // 设置电池为充电状态
-        //                // String usbChargingAllowed = "adb -s " + serial + " shell dumpsys battery set usb 1";
-        //                // // String usbChargingAllowed = "adb -s " + serial + " shell dumpsys battery set usb 1";
-        //                //
-        //                //                            AdbCommands.runAbdCmd(usbChargingAllowed);
-        //                Device device = AdbTools.getInstance().getDevice();
-        //                String name = device.getName();
-        //                //充电
-        //                AdbCommands.batterySetUsb_1(serial);
-        //                switch (name) {
-        //                    case "vHei":
-        //                        ThreadSleep.minutes(3);
-        //                        break;
-        //                    case "v2Lan":
-        //                        ThreadSleep.minutes(5);
-        //                        break;
-        //                    default:
-        //                        ThreadSleep.minutes(1);
-        //                }
-        //                //恢复电池状态
-        //                AdbCommands.batteryReset(serial);
-        //
-        //                // 允许弹窗
-        //                displayJOptionPane = true;
-        //            }
-        //        }).start();
-        // 禁止后续的弹窗
     }
 
 
