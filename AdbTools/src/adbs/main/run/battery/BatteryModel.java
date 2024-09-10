@@ -13,25 +13,25 @@ import java.util.Scanner;
 public class BatteryModel {
 
     // Current Battery Service state:
-    //   AC powered: true
-    //   USB powered: false
-    //   Wireless powered: false
-    //   Max charging current: 0
-    //   Max charging voltage: 0
-    //   Charge counter: 220
-    //   status: 2
-    //   health: 2
-    //   present: true
-    //   level: 15
-    //   scale: 100
-    //   voltage: 4359
-    //   temperature: 340
-    //   technology: Li-poly
+    // AC powered: true
+    // USB powered: false
+    // Wireless powered: false
+    // Max charging current: 0
+    // Max charging voltage: 0
+    // Charge counter: 220
+    // status: 2
+    // health: 2
+    // present: true
+    // level: 15
+    // scale: 100
+    // voltage: 4359
+    // temperature: 340
+    // technology: Li-poly
     private static final String[] flag = {"Current Battery Service state:", "AC powered:", "USB powered:", "Wireless powered:", "Max charging current:", "Max charging voltage:", "Charge counter:", "status:", "health:", "present:", "level:", "scale:", "voltage:", "temperature:", "technology:"};
     // private static ArrayList<String> mameList = new ArrayList<>(flag.length);
     //
     // static {
-    //     Collections.addAll(mameList, flag);
+    // Collections.addAll(mameList, flag);
     // }
 
     private String serial;
@@ -72,10 +72,11 @@ public class BatteryModel {
     public boolean needAcPower() {
         // 更新电池信息
         // update();
-//        return !isAcPowered && level < 30 && level > 0;
+        // return !isAcPowered && level < 30 && level > 0;
         return !isAcPowered && level < 40 && level > 0;
+
         // 测试使用
-        //        return !isAcPowered && level <= 100;
+        // return !isAcPowered && level <= 100;
     }
 
     public boolean isBatteryFullyCharged() {
@@ -83,11 +84,10 @@ public class BatteryModel {
         // update();
         return !isAcPowered && level >= 95;
 
-
-        //        测试使用
+        // 测试使用
         // return !isAcPowered && level == 100;
-        //        return !isAcPowered && level >= 70;
-        //        return !isAcPowered && level >= 50;
+        // return !isAcPowered && level >= 70;
+        // return !isAcPowered && level >= 50;
         // return !isAcPowered && level <= 100;
     }
 
@@ -192,7 +192,7 @@ public class BatteryModel {
                             break;
                         }
                         // else {
-                        //     System.out.println("不包含：" + name);
+                        // System.out.println("不包含：" + name);
                         // }
                     }
 
@@ -320,7 +320,7 @@ public class BatteryModel {
 
     // @Override
     // public String toString() {
-    //     return "BatteryLeveModel{" + "isAcPowered=" + isAcPowered + ", isUSBPowered=" + isUSBPowered + ", isWirelessPowered=" + isWirelessPowered + ", maxChargingCurrent=" + maxChargingCurrent + ", maxChargingVoltage=" + maxChargingVoltage + ", chargeCounter=" + chargeCounter + ", status=" + status + ", health=" + health + ", present=" + present + ", level=" + level + ", scale=" + scale + ", voltage=" + voltage + ", temperature=" + temperature + ", technology='" + technology + '\'' + '}';
+    // return "BatteryLeveModel{" + "isAcPowered=" + isAcPowered + ", isUSBPowered=" + isUSBPowered + ", isWirelessPowered=" + isWirelessPowered + ", maxChargingCurrent=" + maxChargingCurrent + ", maxChargingVoltage=" + maxChargingVoltage + ", chargeCounter=" + chargeCounter + ", status=" + status + ", health=" + health + ", present=" + present + ", level=" + level + ", scale=" + scale + ", voltage=" + voltage + ", temperature=" + temperature + ", technology='" + technology + '\'' + '}';
     // }
 
     @Override

@@ -471,8 +471,8 @@ public class AdbTools {
             public void windowClosing(WindowEvent e) {
                 super.windowClosing(e);
                 beepRun.stop();
-                JDialog source = (JDialog) e.getSource();
-                source.dispose();
+//                JDialog source = (JDialog) e.getSource();
+//                source.dispose();
             }
         });
     }

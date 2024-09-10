@@ -670,8 +670,8 @@ public class TimingPanels2 extends WaitValues {
             public void windowClosing(WindowEvent e) {
                 super.windowClosing(e);
                 beepRun.stop();
-                JDialog source = (JDialog) e.getSource();
-                source.dispose();
+//                JDialog source = (JDialog) e.getSource();
+//                source.dispose();
             }
         });
     }

@@ -4,6 +4,7 @@ import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
 import adbs.main.run.IsTest;
 import adbs.main.run.act.model.FrameTitle;
+import adbs.main.run.battery.ontop.OnTops;
 import adbs.tools.thread.ThreadSleep;
 import tools.swing.button.AbstractButtons;
 
@@ -32,6 +33,7 @@ public class BatteryLevelRun2 implements Runnable {
     public static final int SELECT_NO = 1;
     public static final int SELECT_CANCEL = 2;
     public static final int SELECT_CLOSE = 3;
+    public static final int DIALOG_STRUTWIDTH = 20;
 
     public BatteryLevelRun2() {
         dialogFullyCharged = initDialogFullyCharged();
@@ -101,8 +103,15 @@ public class BatteryLevelRun2 implements Runnable {
             dialogFullyCharged.pack();
             // 居中显示
             dialogFullyCharged.setLocationRelativeTo(frame);
+            //获取之前的其他窗体的置顶状态
+            // OnTops onTops = getOnTops();
+
+            OnTops onTops = new OnTops();
+            // 其他弹窗不要置顶
+            onTops.allFalse();
             // 显示对话框
             dialogFullyCharged.setVisible(true);
+            onTops.restore();
 
             switch (dialogFullyChargedReturn) {
                 case SELECT_YES:
@@ -123,14 +132,15 @@ public class BatteryLevelRun2 implements Runnable {
                 default:
                     break;
             }
+
         }
     }
 
     private JDialog initDialogFullyCharged() {
         System.out.println("电池检测线程，创建对话框");
         dialogFullyCharged = new JDialog(frame, "电量检测线程", true);
-        //        // 设置为非模态
-        //        dialogFullyCharged.setModalityType(Dialog.ModalityType.DOCUMENT_MODAL);
+        // // 设置为非模态
+        // dialogFullyCharged.setModalityType(Dialog.ModalityType.DOCUMENT_MODAL);
 
         dialogFullyCharged.setLayout(new BoxLayout(dialogFullyCharged.getContentPane(), BoxLayout.Y_AXIS));
 
@@ -149,11 +159,11 @@ public class BatteryLevelRun2 implements Runnable {
 
 
         buttonPanel.add(yesButton);
-        buttonPanel.add(Box.createHorizontalStrut(10));
-        //                buttonPanel.add(horizontalStrut1);
+        buttonPanel.add(Box.createHorizontalStrut(DIALOG_STRUTWIDTH));
+        // buttonPanel.add(horizontalStrut1);
         buttonPanel.add(noButton);
-        //                buttonPanel.add(horizontalStrut1);
-        buttonPanel.add(Box.createHorizontalStrut(10));
+        // buttonPanel.add(horizontalStrut1);
+        buttonPanel.add(Box.createHorizontalStrut(DIALOG_STRUTWIDTH));
         buttonPanel.add(cancelButton);
 
         //设置每个按钮的内切
@@ -165,9 +175,9 @@ public class BatteryLevelRun2 implements Runnable {
         yesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //                dialogFullyCharged.dispose();
+                // dialogFullyCharged.dispose();
 
-                //                selectOk();
+                // selectOk();
 
                 // 隐藏对话框
                 dialogFullyCharged.setVisible(false);
@@ -180,8 +190,8 @@ public class BatteryLevelRun2 implements Runnable {
             public void actionPerformed(ActionEvent e) {
                 // 隐藏对话框
                 dialogFullyCharged.setVisible(false);
-                //                        dialog.dispose();
-                //                selectNo();
+                // dialog.dispose();
+                // selectNo();
                 dialogFullyChargedReturn = SELECT_NO;
             }
         });
@@ -191,8 +201,8 @@ public class BatteryLevelRun2 implements Runnable {
             public void actionPerformed(ActionEvent e) {
                 // 隐藏对话框
                 dialogFullyCharged.setVisible(false);
-                //                        dialog.dispose();
-                //                selectCancel();
+                // dialog.dispose();
+                // selectCancel();
 
                 dialogFullyChargedReturn = SELECT_CANCEL;
             }
@@ -203,7 +213,7 @@ public class BatteryLevelRun2 implements Runnable {
             @Override
             public void windowClosing(WindowEvent we) {
                 // 关闭对话框
-                //                        dialog.dispose();
+                // dialog.dispose();
                 // 隐藏对话框
                 dialogFullyCharged.setVisible(false);
                 dialogFullyChargedReturn = SELECT_CLOSE;
@@ -228,13 +238,13 @@ public class BatteryLevelRun2 implements Runnable {
 
         String msg = "电池检测线程 满电 是 按钮";
         logSleep(msg, 60);
-        //        System.out.println("等待60分钟");
-        //        // 等待一段时间
-        //        ThreadSleep.minutes(60);
+        // System.out.println("等待60分钟");
+        // // 等待一段时间
+        // ThreadSleep.minutes(60);
         System.out.println("时间结束，恢复电池状态");
         //恢复电池状态
         AdbCommands.batteryReset(serial);
-        //        System.out.println("充电，等待2分钟");
+        // System.out.println("充电，等待2分钟");
         logSleep(msg, 2);
     }
 
@@ -244,7 +254,7 @@ public class BatteryLevelRun2 implements Runnable {
             // 20秒检测一次
             ThreadSleep.seconds(20);
         } else {
-            //            ThreadSleep.seconds(10);
+            // ThreadSleep.seconds(10);
             // 等待一段时间，再进行更新电池信息
             // ThreadSleep.minutes(2);
             // 10检测一次电池
@@ -284,57 +294,35 @@ public class BatteryLevelRun2 implements Runnable {
      * @param message 包含当前电量的消息
      */
     private void remindeAcDialog(String message) {
-        // 弹出确认对话框
-        // int confirmDialog = JOptionPane.showConfirmDialog(null, message);
-        // 弹出确认对话框，显示标题，显示“是，否，取消”三个按钮
-
-        // int confirmDialog = JOptionPane.showConfirmDialog(null, message,name,JOptionPane.YES_NO_CANCEL_OPTION);
-        // int confirmDialog = JOptionPane.showConfirmDialog(adbTools.getContentPane(), message, name, JOptionPane.YES_NO_OPTION);
-        //        int confirmDialog = JOptionPane.showConfirmDialog(adbTools.getContentPane(), message, name, JOptionPane.YES_NO_CANCEL_OPTION);
-        //        switch (confirmDialog) {
-        //            case JOptionPane.OK_OPTION:
-        //                System.out.println("点击 是 按钮");
-        //                break;
-        //            case JOptionPane.NO_OPTION:
-        //                System.out.println("点击 否 按钮");
-        //                // ThreadSleep.minutes(10);
-        //                ThreadSleep.minutes(20);
-        //                break;
-        //            case JOptionPane.CANCEL_OPTION:
-        //                System.out.println("点击 取消 按钮");
-        //                // ThreadSleep.minutes(30);
-        //                ThreadSleep.minutes(40);
-        //                // 停止电池检测线程
-        //                // stop = true;
-        //                break;
-        //        }
-
-        //        //        System.out.println("电池检测线程，创建对话框");
-        //        if (dialogAC == null) {
-        //            JDialog dialogAC = getDialogAC(message);
-        //            this.dialogAC = dialogAC;
-        //        }
+        boolean frameAlwaysOnTop = frame.isAlwaysOnTop();
+        // 其他弹窗不要置顶
+        // otherOnTopFalse();
         // 更新消息
         dialogACMessage.setText(message);
         // 自动调整对话框的大小
         dialogAC.pack();
         // 设置对话框的位置
         dialogAC.setLocationRelativeTo(frame);
+        // 获取其他窗体的置顶桩状态
+        OnTops onTops = new OnTops();
+        onTops.allFalse();
         // 显示对话框
         dialogAC.setVisible(true);
+        // 恢复置顶状态
+        onTops.restore();
 
         switch (dialogACReturn) {
             case SELECT_YES:
                 System.out.println("缺电弹窗 点击 是 按钮");
                 break;
             case SELECT_NO:
-                //                System.out.println("缺电弹窗 点击 否 按钮");
-                //                ThreadSleep.minutes(10);
+                // System.out.println("缺电弹窗 点击 否 按钮");
+                // ThreadSleep.minutes(10);
                 logSleep("缺电弹窗 点击 否 按钮", 30);
                 break;
             case SELECT_CANCEL:
-                //                System.out.println("缺电弹窗 点击 取消 按钮");
-                //                ThreadSleep.minutes(30);
+                // System.out.println("缺电弹窗 点击 取消 按钮");
+                // ThreadSleep.minutes(30);
                 logSleep("缺电弹窗 点击 取消 按钮", 10);
                 break;
             case SELECT_CLOSE:
@@ -344,14 +332,15 @@ public class BatteryLevelRun2 implements Runnable {
                 break;
         }
 
+        frame.setAlwaysOnTop(frameAlwaysOnTop);
     }
 
     private JDialog initDialogAC() {
         // 创建一个模式对话框
         JDialog dialogAC = new JDialog(frame, "电量检测线程", true);
 
-        //        // 设置为非模态
-        //        dialogAC.setModalityType(Dialog.ModalityType.DOCUMENT_MODAL);
+        // // 设置为非模态
+        // dialogAC.setModalityType(Dialog.ModalityType.DOCUMENT_MODAL);
 
         dialogAC.setLayout(new BoxLayout(dialogAC.getContentPane(), BoxLayout.Y_AXIS));
         // 置顶
@@ -372,14 +361,14 @@ public class BatteryLevelRun2 implements Runnable {
         JButton cancelButton = new JButton("取消");
 
         // 创建一个带有水平空白的Box，例如5个单位的间距
-        //                Component horizontalStrut1 = Box.createHorizontalStrut(5);
-        //                Box horizontalStrut = (Box) horizontalStrut1;
+        // Component horizontalStrut1 = Box.createHorizontalStrut(5);
+        // Box horizontalStrut = (Box) horizontalStrut1;
         buttonPanel.add(yesButton);
-        buttonPanel.add(Box.createHorizontalStrut(10));
-        //                buttonPanel.add(horizontalStrut1);
+        buttonPanel.add(Box.createHorizontalStrut(DIALOG_STRUTWIDTH));
+        // buttonPanel.add(horizontalStrut1);
         buttonPanel.add(noButton);
-        //                buttonPanel.add(horizontalStrut1);
-        buttonPanel.add(Box.createHorizontalStrut(10));
+        // buttonPanel.add(horizontalStrut1);
+        buttonPanel.add(Box.createHorizontalStrut(DIALOG_STRUTWIDTH));
         buttonPanel.add(cancelButton);
 
         //设置每个按钮的内切
@@ -387,14 +376,14 @@ public class BatteryLevelRun2 implements Runnable {
 
         dialogAC.add(buttonPanel);
 
-        dialogACReturn = -10;
+        dialogACReturn = -1;
 
         // 按钮的ActionListener
         yesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //                dialogAC.dispose();
-                //                ();
+                // dialogAC.dispose();
+                // ();
                 dialogAC.setVisible(false);
                 System.out.println("点击 是");
                 BatteryLevelRun2.this.dialogACReturn = SELECT_YES;
@@ -407,9 +396,9 @@ public class BatteryLevelRun2 implements Runnable {
                 // 隐藏对话框
                 dialogAC.setVisible(false);
                 System.out.println("点击 否");
-                //                        dialogAC.dispose();
-                //                selectNo();
-                //                ThreadSleep.minutes(10);
+                // dialogAC.dispose();
+                // selectNo();
+                // ThreadSleep.minutes(10);
                 BatteryLevelRun2.this.dialogACReturn = SELECT_NO;
             }
         });
@@ -419,10 +408,10 @@ public class BatteryLevelRun2 implements Runnable {
             public void actionPerformed(ActionEvent e) {
                 // 隐藏对话框
                 dialogAC.setVisible(false);
-                //                        dialogAC.dispose();
-                //                selectCancel();
+                // dialogAC.dispose();
+                // selectCancel();
                 System.out.println("点击 取消");
-                //                ThreadSleep.minutes(20);
+                // ThreadSleep.minutes(20);
                 BatteryLevelRun2.this.dialogACReturn = SELECT_CANCEL;
             }
         });
@@ -432,7 +421,7 @@ public class BatteryLevelRun2 implements Runnable {
             @Override
             public void windowClosing(WindowEvent we) {
                 // 关闭对话框
-                //                        dialogAC.dispose();
+                // dialogAC.dispose();
                 // 隐藏对话框
                 dialogAC.setVisible(false);
                 BatteryLevelRun2.this.dialogACReturn = SELECT_CLOSE;
