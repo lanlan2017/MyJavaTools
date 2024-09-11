@@ -41,10 +41,10 @@ public class ActSignedInPanels {
      * 任务面板，根据不同的App生成不同的任务多选框
      */
     private final JPanel taskPanel;
-//    /**
-//     * 定时器
-//     */
-//    private Timer timer;
+    //    /**
+    //     * 定时器
+    //     */
+    //    private Timer timer;
     /**
      * 小时
      */
@@ -86,7 +86,21 @@ public class ActSignedInPanels {
 
         // this.btnUpdate = new JButton("更新任务");
         this.btnUpdate = new JButton("任务");
-        btnUpdate.addActionListener(e -> AdbTools.getInstance().showDialogOk("更新任务", e1 -> updateAction()));
+        btnUpdate.addActionListener(e -> {
+            String title = titledBorder.getTitle();
+            System.out.println("title = " + title);
+            String appName = AdbGetPackage.getAppName();
+            System.out.println("appName = " + appName);
+            // 应用的名称不是包名，并且应用名称改变了
+            if (!appName.contains(".") && !title.equals(appName)) {
+                System.out.println("应用 已经 改变了，询问是否更新任务");
+                AdbTools.getInstance().showDialogOk("更新任务", e1 -> {
+                    updateAction(appName);
+                });
+            } else {
+                System.out.println("应用 没有 改变了，无需更新任务列表");
+            }
+        });
 
 
         JPanel timePanelTop = new JPanel();
@@ -154,18 +168,7 @@ public class ActSignedInPanels {
                             int seconds = (hour * 60 + minute) * 60;
 
                             String message = "点淘打工结束";
-                            //                            startReminder(seconds * 1000, message);
 
-
-                            //                            Runnable runnable = () -> {
-                            //                                AdbTools.getInstance().beepDialog(message);
-                            //                                SwingUtilities.invokeLater(new Runnable() {
-                            //                                    @Override
-                            //                                    public void run() {
-                            //                                        btnDingShiOk.setBackground(btnDingShiOkBackground);
-                            //                                    }
-                            //                                });
-                            //                            };
                             //启动定时任务，等待指定的秒之后，执行任务
                             TimerUtils.afterSeconds(seconds, () -> {
                                 AdbTools.getInstance().beepDialog(message);
@@ -299,58 +302,8 @@ public class ActSignedInPanels {
         return jtfHour;
     }
 
-//    /**
-//     * 定时器需要等待的毫秒数
-//     *
-//     * @param delay   毫秒
-//     * @param message
-//     */
-//    private void startReminder(long delay, final String message) {
-//        if (timer != null) {
-//            timer.cancel(); // 取消之前的定时器任务
-//        }
-//
-//        timer = new Timer();
-//
-//        TimerTask reminderTask = new TimerTask() {
-//            @Override
-//            public void run() {
-//                Runnable run = new Runnable() {
-//                    public void run() {
-//                        //定时结束时响铃提醒
-//                        //                        AdbTools.getInstance().getTimePanels().beepDialog(message);
-//                        AdbTools.getInstance().beepDialog(message);
-//                        btnDingShiOk.setBackground(btnDingShiOkBackground);
-//                    }
-//                };
-//                SwingUtilities.invokeLater(run);
-//            }
-//        };
-//
-//        // 设置延迟时间（例如5秒后触发）
-//        // 设置延迟时间（例如5秒后触发）
-//        // long delay = 5000; // 5 seconds
-//
-//        System.out.println("定时：" + delay + "毫秒");
-//        //启动定时器
-//        timer.schedule(reminderTask, delay);
-//    }
-//
-//    public Timer getTimer() {
-//        return timer;
-//    }
-//
-//    public void cancelReminder() {
-//        if (timer != null) {
-//            System.out.println("取消定时器");
-//            // 取消定时器
-//            timer.cancel();
-//            timer = null;
-//        }
-//    }
 
-
-    private void updateAction() {
+    private void updateAction(String appName) {
         // JsonToFile<AppTask3> jsonToFile = new JsonToFile<>();
         // String filePath = AdbTools.getInstance().getDevice().getActTaskJSON();
         if (jsonToFile == null) {
@@ -361,7 +314,6 @@ public class ActSignedInPanels {
         AppTask3 appTask3 = getAppTask3(jsonToFile);
 
         // 获取应用名
-        String appName = AdbGetPackage.getAppName();
         System.out.println("appName = " + appName);
 
         // updateTaskPanel(filePath, jsonToFile, appName, appTask3);
@@ -577,6 +529,7 @@ public class ActSignedInPanels {
     public JPanel getTopJPanel() {
         return topJPanel;
     }
+
     public JButton getBtnUpdate() {
         return btnUpdate;
     }
