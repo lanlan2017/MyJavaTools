@@ -7,12 +7,14 @@ import adbs.main.run.act.model.ActivityInfo;
 import adbs.main.run.act.model.FrameTitle;
 import adbs.main.run.signinlog.FileUtil;
 import adbs.main.run.signinlog.LoginRecords;
+import adbs.main.ui.jpanels.act.ActSignedInPanels;
 import adbs.main.ui.jpanels.act.reminder.AlarmUtils_Second;
 import adbs.main.ui.jpanels.app.AppSignedInPanels;
 import adbs.main.ui.jpanels.timeauto2.TimingPanels2;
 import adbs.main.ui.jpanels.tools.ToolsJPanels;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
 import adbs.tools.thread.ThreadSleep;
+import config.AdbToolsProperties;
 
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
@@ -201,6 +203,8 @@ public class ActAutoRun extends ActWait implements Runnable {
         String beforePN = before.getPackageName();
         String currentPN = current.getPackageName();
         appChangeAuto(beforePN, currentPN);
+
+        ActSignedInPanels.setAppName(AdbToolsProperties.moneyApkPro.getProperty(currentPN));
         //String packageName = current.getPackageName();
         //String packageName = currentPN;
         //extracted(packageName);

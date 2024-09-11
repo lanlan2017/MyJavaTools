@@ -63,6 +63,7 @@ public class ActSignedInPanels {
     private final JButton btnDingShiOk;
     private JsonToFile<AppTask3> jsonToFile;
     private TitledBorder titledBorder;
+    private static String appName = "";
     // private final JButton btnLieBiao;
 
     public ActSignedInPanels() {
@@ -89,16 +90,25 @@ public class ActSignedInPanels {
         btnUpdate.addActionListener(e -> {
             String title = titledBorder.getTitle();
             System.out.println("title = " + title);
-            String appName = AdbGetPackage.getAppName();
+            //            appName = AdbGetPackage.getAppName();
+            // 如果应用名称为空，则说明是第一次展开任务面包，此时应该更新一次任务，
+            if ("".equals(appName)) {
+                System.out.println("应用名还没被Act线程更新，执行adb获取命令名");
+                appName = AdbGetPackage.getAppName();
+            }
             System.out.println("appName = " + appName);
-            // 应用的名称不是包名，并且应用名称改变了
-            if (!appName.contains(".") && !title.equals(appName)) {
-                System.out.println("应用 已经 改变了，询问是否更新任务");
+
+            if (appName.contains(".")) {
+                //应用名是包名，说明不是赚钱应用，不需要更新任务列表
+                System.out.println("非赚钱应用，不需要更新任务列表");
+            } else if (!title.equals(appName)) {
+                // 应用的名称不是包名，并且应用名称改变了
+                System.out.println("赚钱应用 已经 改变，询问是否更新任务");
                 AdbTools.getInstance().showDialogOk("更新任务", e1 -> {
                     updateAction(appName);
                 });
             } else {
-                System.out.println("应用 没有 改变了，无需更新任务列表");
+                System.out.println("应用 没有 改变，无需更新任务列表");
             }
         });
 
@@ -532,5 +542,9 @@ public class ActSignedInPanels {
 
     public JButton getBtnUpdate() {
         return btnUpdate;
+    }
+
+    public static void setAppName(String appName) {
+        ActSignedInPanels.appName = appName;
     }
 }
