@@ -85,7 +85,13 @@ public class CheckJPanels {
         // signInCheckBox = new JCheckBox("签到");
         appSignInCheckBox = new JCheckBox("签");
         appSignInCheckBox.setToolTipText("显示已签到APP");
-        appSignInCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(appSignedInPanels.getAppPanel()));
+        appSignInCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(appSignedInPanels.getAppPanel()) {
+            @Override
+            protected void after() {
+                // 展开签到的时候，点击已签按钮
+                appSignedInPanels.getBtnSignedIn().doClick();
+            }
+        });
 
         //        JCheckBox topCheckBox = getTopCheckBox();
 
@@ -94,7 +100,7 @@ public class CheckJPanels {
         actSignInCheckBox.addItemListener(new JCheckBoxControlJPanelItemListener(actSignedInPanels.getTopJPanel()) {
             @Override
             protected void after() {
-//                super.after();
+                //                super.after();
                 JButton btnUpdate = actSignedInPanels.getBtnUpdate();
                 btnUpdate.doClick();
             }

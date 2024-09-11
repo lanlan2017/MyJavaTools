@@ -55,6 +55,7 @@ public class AppSignedInPanels {
      * 高亮记录列表
      */
     private final List<Highlighter.Highlight> highlights = new ArrayList<>();
+    private JButton btnSignedIn;
 
     public AppSignedInPanels() {
         this.appPanel = new JPanel();
@@ -98,8 +99,8 @@ public class AppSignedInPanels {
         //        batteryReset = getBatteryReset();
 
 
-        JButton btnSignedIn = getBtnSignedIn();
-        JButton btnAllCheckedIn = getBtnAllCheckedIn();
+        JButton btnSignedIn = initBtnSignedIn();
+        JButton btnAllCheckedIn = initBtnAllCheckedIn();
 
 
         //        btnPanel.add(zhongdian);
@@ -110,8 +111,8 @@ public class AppSignedInPanels {
         panel2.add((btnAllCheckedIn));
 
 
-        JButton btnNextDay = getBtnNextDay();
-        JButton btnUpdateEarningApps = getBtnUpdateEarningApps();
+        JButton btnNextDay = initBtnNextDay();
+        JButton btnUpdateEarningApps = initBtnUpdateEarningApps();
 
 
         JPanel panel3 = getBtttonFlowLayoutJPanel();
@@ -173,7 +174,7 @@ public class AppSignedInPanels {
     //        return batteryReset;
     //    }
 
-    private JButton getBtnUpdateEarningApps() {
+    private JButton initBtnUpdateEarningApps() {
         final JButton btnUpdateEarningApps;
         //        btnUpdateEarningApps = new JButton("U");
         btnUpdateEarningApps = new JButton("更新");
@@ -197,7 +198,7 @@ public class AppSignedInPanels {
     }
 
 
-    private JButton getBtnNextDay() {
+    private JButton initBtnNextDay() {
         // JButton btnNextDay=new JButton("重新签到");
         // JButton btnNextDay = new JButton("清空签到记录");
         JButton btnNextDay = new JButton("重签");
@@ -226,8 +227,7 @@ public class AppSignedInPanels {
     }
 
 
-    private JButton getBtnSignedIn() {
-        final JButton btnSignedIn;
+    private JButton initBtnSignedIn() {
         //        btnSignedIn = new JButton("√");
         btnSignedIn = new JButton("已签");
         btnSignedIn.setToolTipText("当前APP已签到");
@@ -240,7 +240,7 @@ public class AppSignedInPanels {
         return btnSignedIn;
     }
 
-    private JButton getBtnAllCheckedIn() {
+    private JButton initBtnAllCheckedIn() {
         final JButton btnAllCheckedIn;
         //        btnAllCheckedIn = new JButton("√√");
         btnAllCheckedIn = new JButton("签完");
@@ -284,6 +284,9 @@ public class AppSignedInPanels {
         return notOpened;
     }
 
+    public JButton getBtnSignedIn() {
+        return btnSignedIn;
+    }
 
     public void highlightString(JTextPane textPane, String searchString, Color color) {
         try {
