@@ -10,12 +10,12 @@ public class AppTask3 {
      * 格式为yyyy-MM-dd的日期字符串。
      */
     private String date;
-    //    private HashSet<AppTaskTimeSet> tasks;
+    // private HashSet<AppTaskTimeSet> tasks;
     private ArrayList<AppTaskTimeSet> tasks;
 
     public AppTask3(String date) {
         this.date = date;
-        //        tasks = new HashSet<>();
+        // tasks = new HashSet<>();
         tasks = new ArrayList<>();
     }
 
@@ -25,11 +25,11 @@ public class AppTask3 {
     }
 
     public AppTask3() {
-        //        tasks = new HashSet<>();
+        // tasks = new HashSet<>();
         tasks = new ArrayList<>();
         date = DateString.getDate_yyyyMMdd();
 
-        //        HashSet<TaskTime> dianTaoTasks = new HashSet<>();
+        // HashSet<TaskTime> dianTaoTasks = new HashSet<>();
         ArrayList<TaskTime> dianTaoTasks = new ArrayList<>();
 
 
@@ -58,14 +58,14 @@ public class AppTask3 {
         taskTimesTaoTe.add(new TaskTime("天天领红包", 0));
         taskTimesTaoTe.add(new TaskTime("小鸡送好礼", 0));
         taskTimesTaoTe.add(new TaskTime("现金签到", 0));
-        taskTimesTaoTe.add(new TaskTime("发财鸭", 0));
-        taskTimesTaoTe.add(new TaskTime("天天赚特币", 0));
+        taskTimesTaoTe.add(new TaskTime("积分兑红包", 0));
+        // taskTimesTaoTe.add(new TaskTime("天天赚特币", 0));
 
         AppTaskTimeSet taoTe = new AppTaskTimeSet("淘特", taskTimesTaoTe);
 
 
         AppTaskTimeSet fqctyyb = new AppTaskTimeSet("番茄畅听音乐版", taoBaoTask);
-        //        AppTaskTimeSet hgmfdj = new AppTaskTimeSet("红果免费短剧", taoBaoTask);
+        // AppTaskTimeSet hgmfdj = new AppTaskTimeSet("红果免费短剧", taoBaoTask);
 
         ArrayList<TaskTime> taskTimeQuTouTiao = new ArrayList<>();
         taskTimeQuTouTiao.add(new TaskTime("签到"));
