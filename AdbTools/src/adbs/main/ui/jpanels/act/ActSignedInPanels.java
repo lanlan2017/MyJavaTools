@@ -463,14 +463,14 @@ public class ActSignedInPanels {
             @Override
             public void accept(TaskTime taskTime) {
                 // JPanel checkTextPanel = getCheckTextPanel(taskTime, filePath, jsonToFile, appTask3);
-                JPanel checkTextPanel = getCheckTextPanel(taskTime, jsonToFile, appTask3);
+                JPanel checkTextPanel = initCheckTextPanel(taskTime, jsonToFile, appTask3);
                 taskPanel.add(checkTextPanel);
 
             }
         });
     }
 
-    private JPanel getCheckTextPanel(TaskTime taskTime, JsonToFile<AppTask3> jsonToFile, AppTask3 appTask3) {
+    private JPanel initCheckTextPanel(TaskTime taskTime, JsonToFile<AppTask3> jsonToFile, AppTask3 appTask3) {
         // String filePath = jsonToFile.getFilePath();
         //存放多选框和文本框的面板
         JPanel checkTextPanel = new JPanel();
@@ -479,7 +479,7 @@ public class ActSignedInPanels {
         int times = taskTime.getTimes();
         String taskName = taskTime.getTaskName();
         JCheckBox jCheckBox;
-        jCheckBox = getjCheckBox(taskTime, jsonToFile, appTask3);
+        jCheckBox = initJCheckBox(taskTime, jsonToFile, appTask3);
         checkTextPanel.add(jCheckBox, BorderLayout.WEST);
 
         if (times >= 0) {
@@ -550,7 +550,7 @@ public class ActSignedInPanels {
     }
 
 
-    private JCheckBox getjCheckBox(TaskTime taskTime, JsonToFile<AppTask3> jsonToFile, AppTask3 appTask2) {
+    private JCheckBox initJCheckBox(TaskTime taskTime, JsonToFile<AppTask3> jsonToFile, AppTask3 appTask2) {
         JCheckBox jCheckBox;
         jCheckBox = new JCheckBox(taskTime.getTaskName());
         boolean selected = taskTime.isSelected();
@@ -576,5 +576,8 @@ public class ActSignedInPanels {
 
     public JPanel getTopJPanel() {
         return topJPanel;
+    }
+    public JButton getBtnUpdate() {
+        return btnUpdate;
     }
 }
