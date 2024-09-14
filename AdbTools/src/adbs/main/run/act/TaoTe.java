@@ -13,6 +13,7 @@ public class TaoTe extends ActChangeAdapter {
     protected HashSet<ActToAct> set_s35sDialog_Set() {
         HashSet<ActToAct> s35Dialog = new HashSet<>();
         s35Dialog.add(new ActToAct("com.litetao.app.MNWebActivity", "com.taobao.themis.container.app.TMSActivity"));
+        s35Dialog.add(new ActToAct("com.taobao.themis.container.app.TMSActivity", "com.litetao.app.MNWebActivity"));
         return s35Dialog;
     }
 

@@ -49,6 +49,8 @@ public class TaoBao extends ActChangeAdapter {
         return_set.add(new ActToAct("com.taobao.tao.TBMainActivity", "com.taobao.taolive.room.TaoLiveVideoActivity"));
         // 从淘宝视频进入淘宝直播
         return_set.add(new ActToAct("com.taobao.android.layoutmanager.container.MultiPageContainerActivity", "com.taobao.taolive.room.TaoLiveVideoActivity"));
+        //从淘宝视频进入淘宝直播
+        return_set.add(new ActToAct("com.taobao.tao.welcome.Welcome", "com.taobao.taolive.room.TaoLiveVideoActivity"));
 
         return return_set;
     }

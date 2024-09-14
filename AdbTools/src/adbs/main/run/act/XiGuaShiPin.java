@@ -9,8 +9,16 @@ public class XiGuaShiPin extends ActChangeAdapter {
         return instance;
     }
 
+//    @Override
+//    protected HashSet<ActToAct> set_w65sDialog_Set() {
+//        HashSet<ActToAct> actToActs = new HashSet<>();
+//        //        从金币界面进入广告界面
+//        actToActs.add(new ActToAct("com.ixigua.lynx.specific.page.XgBulletContainerActivity", "com.ss.android.excitingvideo.ExcitingVideoActivity"));
+//        return actToActs;
+//    }
+
     @Override
-    protected HashSet<ActToAct> set_w65sDialog_Set() {
+    protected HashSet<ActToAct> set_vw180s_Set() {
         HashSet<ActToAct> actToActs = new HashSet<>();
         //        从金币界面进入广告界面
         actToActs.add(new ActToAct("com.ixigua.lynx.specific.page.XgBulletContainerActivity", "com.ss.android.excitingvideo.ExcitingVideoActivity"));

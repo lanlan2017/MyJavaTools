@@ -5,6 +5,9 @@ import adbs.main.ui.jpanels.act.DateString;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * 每个赚钱APP的详细任务
+ */
 public class AppTask3 {
     /**
      * 格式为yyyy-MM-dd的日期字符串。
@@ -35,11 +38,11 @@ public class AppTask3 {
 
         dianTaoTasks.add(new TaskTime("商城", -1));
         dianTaoTasks.add(new TaskTime("红包", 0));
+        dianTaoTasks.add(new TaskTime("打工", 0));
+        dianTaoTasks.add(new TaskTime("睡觉", 0));
         dianTaoTasks.add(new TaskTime("购金", -1));
         dianTaoTasks.add(new TaskTime("开店", -1));
         dianTaoTasks.add(new TaskTime("签到", 0));
-        dianTaoTasks.add(new TaskTime("打工", 0));
-        dianTaoTasks.add(new TaskTime("睡觉", 0));
         dianTaoTasks.add(new TaskTime("走路", 0));
 
         AppTaskTimeSet dianTao = new AppTaskTimeSet("点淘", dianTaoTasks);
@@ -77,9 +80,14 @@ public class AppTask3 {
         ksmfxsTask.add(new TaskTime("阅读"));
         ksmfxsTask.add(new TaskTime("广告"));
         ksmfxsTask.add(new TaskTime("宝箱"));
-
         AppTaskTimeSet ksmfxs = new AppTaskTimeSet("快手免费小说", ksmfxsTask);
 
+        //        TaskTime[] zongQiangKanDianTask = new TaskTime[]{new TaskTime("看视频", 0), new TaskTime("看广告", 0), new TaskTime("看广告", 0),};
+        //        AppTaskTimeSet zhongQingKanDian = new AppTaskTimeSet("中青看点", zongQiangKanDianTask);
+        //        AppTaskTimeSet zhongQingKanDian = new AppTaskTimeSet("中青看点", new TaskTime[]{
+        //                new TaskTime("看视频", 0), new TaskTime("看广告", 0),
+        //                new TaskTime("看广告", 0),
+        //        });
 
         tasks.add(dianTao);
         tasks.add(taoBao);
@@ -87,6 +95,9 @@ public class AppTask3 {
         tasks.add(quTouTiao);
         tasks.add(ksmfxs);
         tasks.add(fqctyyb);
+        //        tasks.add(zhongQingKanDian);
+        tasks.add(new AppTaskTimeSet("中青看点", new TaskTime[]{new TaskTime("签到", 0), new TaskTime("通知", 0), new TaskTime("提现", 0)}));        //        tasks.add(zhongQingKanDian);
+        tasks.add(new AppTaskTimeSet("速度免费小说", new TaskTime[]{new TaskTime("签到"), new TaskTime("阅读"), new TaskTime("红包")}));
 
     }
 
