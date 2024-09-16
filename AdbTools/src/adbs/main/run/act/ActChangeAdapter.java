@@ -22,6 +22,11 @@ public class ActChangeAdapter extends ActChange {
     }
 
     @Override
+    protected HashSet<ActToAct> set_w180s_Set() {
+        return null;
+    }
+
+    @Override
     protected HashSet<ActToAct> set_s35sDialog_Set() {
         return null;
     }

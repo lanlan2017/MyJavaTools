@@ -17,6 +17,7 @@ public abstract class ActChange {
     private HashSet<ActToAct> w35sDialog_Set;
     private HashSet<ActToAct> w65sDialog_Set;
     private HashSet<ActToAct> w180sDialog_set;
+    private HashSet<ActToAct> w180s_set;
 
     private HashSet<ActToAct> vw180s_Set;
     private HashSet<ActToAct> vw180sDialog_Set;
@@ -59,6 +60,7 @@ public abstract class ActChange {
     protected abstract HashSet<ActToAct> set_w65sDialog_Set();
 
     protected abstract HashSet<ActToAct> set_w180sDialog_Set();
+    protected abstract HashSet<ActToAct> set_w180s_Set();
 
 
     protected abstract HashSet<ActToAct> set_s35sDialog_Set();
@@ -92,10 +94,15 @@ public abstract class ActChange {
         } else if (contains(w65sDialog_Set, actToAct)) {
             // 弹窗询问是否要等待65秒
             timingPanels2.w65sDialog();
-        } else if (contains(w180sDialog_set, actToAct)) {
+        }
+        else if (contains(w180sDialog_set, actToAct)) {
             // 弹窗询问是否需要等待180秒
             timingPanels2.w180sDialog();
-        } else if (contains(s65sDialog_Set, actToAct)) {
+        }      else if (contains(w180s_set, actToAct)) {
+            // 弹窗询问是否需要等待180秒
+            timingPanels2.w180s();
+        }
+        else if (contains(s65sDialog_Set, actToAct)) {
             // 弹窗询问是否需要逛街65秒
             timingPanels2.s65sDialog();
         } else if (contains(s35sDialog_Set, actToAct)) {
@@ -107,10 +114,12 @@ public abstract class ActChange {
         } else if (contains(s_Set, actToAct)) {
             // 显示逛街系列按钮
             timingPanels2.s();
-        } else if (contains(vw180sDialog_Set, actToAct)) {
+        }
+        else if (contains(vw180sDialog_Set, actToAct)) {
             // 弹窗询问是否需要刷视频180秒
             timingPanels2.vw180sDialog();
-        } else if (contains(vw180s_Set, actToAct)) {
+        }
+        else if (contains(vw180s_Set, actToAct)) {
             // 直接 刷视频180秒
             timingPanels2.vw180s();
         } else if (contains(vw1HDialog_Set, actToAct)) {

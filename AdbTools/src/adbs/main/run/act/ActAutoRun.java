@@ -556,6 +556,7 @@ public class ActAutoRun extends ActWait implements Runnable {
         tasks.put("13:00:00", () -> AdbTools.getInstance().beepDialog("点淘 开始午睡"));
         tasks.put("16:00:00", () -> AdbTools.getInstance().beepDialog("点淘 结束 午睡"));
         tasks.put("18:00:00", () -> AdbTools.getInstance().beepDialog("点淘 睡觉 气泡更新"));
+        tasks.put("20:00:00", () -> AdbTools.getInstance().beepDialog("点淘 开始 第二次签到"));
         tasks.put("21:00:00", () -> AdbTools.getInstance().beepDialog("点淘 开始 晚睡"));
         tasks.forEach((s, runnable) -> AlarmUtils_Second.scheduleDailyReminder(s, runnable));
     }
