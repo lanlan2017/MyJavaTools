@@ -67,7 +67,13 @@ public class AppTask3 {
         AppTaskTimeSet taoTe = new AppTaskTimeSet("淘特", taskTimesTaoTe);
 
 
-        AppTaskTimeSet fqctyyb = new AppTaskTimeSet("番茄畅听音乐版", taoBaoTask);
+        //        AppTaskTimeSet fqctyyb = new AppTaskTimeSet("番茄畅听音乐版", taoBaoTask);
+        AppTaskTimeSet fqctyyb = new AppTaskTimeSet("番茄畅听音乐版", new TaskTime[]{
+                new TaskTime("签到"),
+                new TaskTime("听歌"),
+                new TaskTime("睡觉"),
+                new TaskTime("走路")
+        });
         // AppTaskTimeSet hgmfdj = new AppTaskTimeSet("红果免费短剧", taoBaoTask);
 
         ArrayList<TaskTime> taskTimeQuTouTiao = new ArrayList<>();
@@ -77,17 +83,12 @@ public class AppTask3 {
         AppTaskTimeSet quTouTiao = new AppTaskTimeSet("趣头条", taskTimeQuTouTiao);
 
         ArrayList<TaskTime> ksmfxsTask = new ArrayList<>();
+        ksmfxsTask.add(new TaskTime("签到"));
         ksmfxsTask.add(new TaskTime("阅读"));
         ksmfxsTask.add(new TaskTime("广告"));
         ksmfxsTask.add(new TaskTime("宝箱"));
         AppTaskTimeSet ksmfxs = new AppTaskTimeSet("快手免费小说", ksmfxsTask);
 
-        //        TaskTime[] zongQiangKanDianTask = new TaskTime[]{new TaskTime("看视频", 0), new TaskTime("看广告", 0), new TaskTime("看广告", 0),};
-        //        AppTaskTimeSet zhongQingKanDian = new AppTaskTimeSet("中青看点", zongQiangKanDianTask);
-        //        AppTaskTimeSet zhongQingKanDian = new AppTaskTimeSet("中青看点", new TaskTime[]{
-        //                new TaskTime("看视频", 0), new TaskTime("看广告", 0),
-        //                new TaskTime("看广告", 0),
-        //        });
 
         tasks.add(dianTao);
         tasks.add(taoBao);
@@ -96,10 +97,31 @@ public class AppTask3 {
         tasks.add(ksmfxs);
         tasks.add(fqctyyb);
         //        tasks.add(zhongQingKanDian);
-        tasks.add(new AppTaskTimeSet("中青看点", new TaskTime[]{new TaskTime("签到", 0), new TaskTime("通知", 0), new TaskTime("提现", 0)}));        //        tasks.add(zhongQingKanDian);
-        tasks.add(new AppTaskTimeSet("速度免费小说", new TaskTime[]{new TaskTime("签到"), new TaskTime("阅读"), new TaskTime("红包")}));
+
+        //        tasks.add(new AppTaskTimeSet("中青看点", getTaskTimeArr()));
+        tasks.add(new AppTaskTimeSet("中青看点", new TaskTime[]{
+                new TaskTime("签到"),
+                new TaskTime("通知"),
+                new TaskTime("提现")
+        }));
+
+
+        //        tasks.add(zhongQingKanDian);
+        tasks.add(new AppTaskTimeSet("速度免费小说", new TaskTime[]{
+                new TaskTime("签到"),
+                new TaskTime("阅读"),
+                new TaskTime("红包")
+        }));
 
     }
+
+    //    private TaskTime[] getTaskTimeArr() {
+    ////        String s0 = "签到";
+    ////        String s1 = "通知";
+    ////        String S2 = "提现";
+    //        String[] arrStr = {};
+    //        return new TaskTime[]{new TaskTime(s0, 0), new TaskTime(s1, 0), new TaskTime(S2, 0)};
+    //    }
 
     public String getDate() {
         return date;

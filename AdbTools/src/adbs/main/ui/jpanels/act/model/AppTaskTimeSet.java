@@ -20,7 +20,6 @@ public class AppTaskTimeSet {
 
     public AppTaskTimeSet(String appName, TaskTime[] taskTimeArr) {
         this.appName = appName;
-
         //        this.taskTimeSet = taskTimeSet;
         this.taskTimeList = new ArrayList<>(Arrays.asList(taskTimeArr));
     }
@@ -56,8 +55,13 @@ public class AppTaskTimeSet {
     //        this.taskTimeSet = taskTimeSet;
     //    }
 
+//    @Override
+//    public String toString() {
+//        return "AppTaskTimeSet{" + "appName='" + appName + '\'' + ", taskTimeSet=" + taskTimeList + '}';
+//    }
+
     @Override
     public String toString() {
-        return "AppTaskTimeSet{" + "appName='" + appName + '\'' + ", taskTimeSet=" + taskTimeList + '}';
+        return "AppTaskTimeSet{" + "appName='" + appName + '\'' + ", taskTimeList=" + taskTimeList + '}';
     }
 }

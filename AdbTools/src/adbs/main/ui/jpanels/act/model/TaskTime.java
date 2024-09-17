@@ -31,7 +31,6 @@ public class TaskTime {
     }
 
     public TaskTime(String taskName) {
-
         this.taskName = taskName;
         this.selected = false;
         this.times = NotNeedTIMES;
