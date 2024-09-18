@@ -49,7 +49,7 @@ public class AppTask3 {
                 new TaskTime("红包", 0),
                 new TaskTime("打工", 0),
                 new TaskTime("睡觉", 0),
-                new TaskTime("购金", -1),
+                new TaskTime("购金", 0),
                 new TaskTime("开店", -1),
                 new TaskTime("签到", 0),
                 new TaskTime("走路", 0)
