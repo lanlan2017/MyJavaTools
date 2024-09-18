@@ -33,38 +33,59 @@ public class AppTask3 {
         date = DateString.getDate_yyyyMMdd();
 
         // HashSet<TaskTime> dianTaoTasks = new HashSet<>();
-        ArrayList<TaskTime> dianTaoTasks = new ArrayList<>();
+        //        ArrayList<TaskTime> dianTaoTasks = new ArrayList<>();
+        //        dianTaoTasks.add(new TaskTime("商城", -1));
+        //        dianTaoTasks.add(new TaskTime("红包", 0));
+        //        dianTaoTasks.add(new TaskTime("打工", 0));
+        //        dianTaoTasks.add(new TaskTime("睡觉", 0));
+        //        dianTaoTasks.add(new TaskTime("购金", -1));
+        //        dianTaoTasks.add(new TaskTime("开店", -1));
+        //        dianTaoTasks.add(new TaskTime("签到", 0));
+        //        dianTaoTasks.add(new TaskTime("走路", 0));
+
+        //        AppTaskTimeSet dianTao = new AppTaskTimeSet("点淘", dianTaoTasks);
+        AppTaskTimeSet dianTao = new AppTaskTimeSet("点淘", new TaskTime[]{
+                new TaskTime("商城", -1),
+                new TaskTime("红包", 0),
+                new TaskTime("打工", 0),
+                new TaskTime("睡觉", 0),
+                new TaskTime("购金", -1),
+                new TaskTime("开店", -1),
+                new TaskTime("签到", 0),
+                new TaskTime("走路", 0)
+        });
 
 
-        dianTaoTasks.add(new TaskTime("商城", -1));
-        dianTaoTasks.add(new TaskTime("红包", 0));
-        dianTaoTasks.add(new TaskTime("打工", 0));
-        dianTaoTasks.add(new TaskTime("睡觉", 0));
-        dianTaoTasks.add(new TaskTime("购金", -1));
-        dianTaoTasks.add(new TaskTime("开店", -1));
-        dianTaoTasks.add(new TaskTime("签到", 0));
-        dianTaoTasks.add(new TaskTime("走路", 0));
+        //        ArrayList<TaskTime> taoBaoTask = new ArrayList<>();
+        //        taoBaoTask.add(new TaskTime("红包签到", 0));
+        //        taoBaoTask.add(new TaskTime("视频", 0));
+        //        taoBaoTask.add(new TaskTime("淘金币", 0));
+        //        taoBaoTask.add(new TaskTime("芭芭农场", 0));
+        //
+        //        AppTaskTimeSet taoBao = new AppTaskTimeSet("淘宝", taoBaoTask);
 
-        AppTaskTimeSet dianTao = new AppTaskTimeSet("点淘", dianTaoTasks);
-
-
-        ArrayList<TaskTime> taoBaoTask = new ArrayList<>();
-        taoBaoTask.add(new TaskTime("红包签到", 0));
-        taoBaoTask.add(new TaskTime("视频", 0));
-        taoBaoTask.add(new TaskTime("淘金币", 0));
-        taoBaoTask.add(new TaskTime("芭芭农场", 0));
-
-        AppTaskTimeSet taoBao = new AppTaskTimeSet("淘宝", taoBaoTask);
+        AppTaskTimeSet taoBao = new AppTaskTimeSet("淘宝", new TaskTime[]{
+                new TaskTime("红包签到", 0),
+                new TaskTime("视频", 0),
+                new TaskTime("淘金币", 0),
+                new TaskTime("芭芭农场", 0)
+        });
 
 
-        ArrayList<TaskTime> taskTimesTaoTe = new ArrayList<>();
-        taskTimesTaoTe.add(new TaskTime("天天领红包", 0));
-        taskTimesTaoTe.add(new TaskTime("小鸡送好礼", 0));
-        taskTimesTaoTe.add(new TaskTime("现金签到", 0));
-        taskTimesTaoTe.add(new TaskTime("积分兑红包", 0));
+        //        ArrayList<TaskTime> taskTimesTaoTe = new ArrayList<>();
+        //        taskTimesTaoTe.add(new TaskTime("天天领红包", 0));
+        //        taskTimesTaoTe.add(new TaskTime("小鸡送好礼", 0));
+        //        taskTimesTaoTe.add(new TaskTime("现金签到", 0));
+        //        taskTimesTaoTe.add(new TaskTime("积分兑红包", 0));
         // taskTimesTaoTe.add(new TaskTime("天天赚特币", 0));
 
-        AppTaskTimeSet taoTe = new AppTaskTimeSet("淘特", taskTimesTaoTe);
+        //        AppTaskTimeSet taoTe = new AppTaskTimeSet("淘特", taskTimesTaoTe);
+        AppTaskTimeSet taoTe = new AppTaskTimeSet("淘特", new TaskTime[]{
+                new TaskTime("天天领红包", 0),
+                new TaskTime("小鸡送好礼", 0),
+                new TaskTime("现金签到", 0),
+                new TaskTime("积分兑红包", 0)
+        });
 
 
         //        AppTaskTimeSet fqctyyb = new AppTaskTimeSet("番茄畅听音乐版", taoBaoTask);
@@ -75,19 +96,34 @@ public class AppTask3 {
                 new TaskTime("走路")
         });
         // AppTaskTimeSet hgmfdj = new AppTaskTimeSet("红果免费短剧", taoBaoTask);
+        //
+        //        ArrayList<TaskTime> taskTimeQuTouTiao = new ArrayList<>();
+        //        taskTimeQuTouTiao.add(new TaskTime("签到"));
+        //        taskTimeQuTouTiao.add(new TaskTime("通知"));
+        //        taskTimeQuTouTiao.add(new TaskTime("小视频"));
+        //        AppTaskTimeSet quTouTiao = new AppTaskTimeSet("趣头条", taskTimeQuTouTiao);
 
-        ArrayList<TaskTime> taskTimeQuTouTiao = new ArrayList<>();
-        taskTimeQuTouTiao.add(new TaskTime("签到"));
-        taskTimeQuTouTiao.add(new TaskTime("通知"));
-        taskTimeQuTouTiao.add(new TaskTime("小视频"));
-        AppTaskTimeSet quTouTiao = new AppTaskTimeSet("趣头条", taskTimeQuTouTiao);
 
-        ArrayList<TaskTime> ksmfxsTask = new ArrayList<>();
-        ksmfxsTask.add(new TaskTime("签到"));
-        ksmfxsTask.add(new TaskTime("阅读"));
-        ksmfxsTask.add(new TaskTime("广告"));
-        ksmfxsTask.add(new TaskTime("宝箱"));
-        AppTaskTimeSet ksmfxs = new AppTaskTimeSet("快手免费小说", ksmfxsTask);
+        AppTaskTimeSet quTouTiao = new AppTaskTimeSet("趣头条", new TaskTime[]{
+                new TaskTime("签到"),
+                new TaskTime("通知"),
+                new TaskTime("小视频")
+        });
+
+        //        ArrayList<TaskTime> ksmfxsTask = new ArrayList<>();
+        //        ksmfxsTask.add(new TaskTime("签到"));
+        //        ksmfxsTask.add(new TaskTime("阅读"));
+        //        ksmfxsTask.add(new TaskTime("广告"));
+        //        ksmfxsTask.add(new TaskTime("宝箱"));
+        //        AppTaskTimeSet ksmfxs = new AppTaskTimeSet("快手免费小说", ksmfxsTask);
+
+
+        AppTaskTimeSet ksmfxs = new AppTaskTimeSet("快手免费小说", new TaskTime[]{
+                new TaskTime("签到"),
+                new TaskTime("阅读"),
+                new TaskTime("广告"),
+                new TaskTime("宝箱")
+        });
 
 
         tasks.add(dianTao);
