@@ -85,7 +85,7 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
         output.setText("↑3");
         for (int i = 0; i < 3; i++) {
             // 在左侧，从下向上滑动三次
-            if (swipeFromBottomToTopOnce(serial, input1)) {
+            if (!stopLoopBody && swipeFromBottomToTopOnce(serial, input1)) {
                 // 如果到达了指定时间，
                 stopLoopBody = true;
                 return;
@@ -157,8 +157,8 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
     @Override
     protected void after() {
         super.after();
-//        TimePanels timePanels = AdbTools.getInstance().getTimePanels();
-//        timePanels.getTimerJLabel().setText("");
+        //        TimePanels timePanels = AdbTools.getInstance().getTimePanels();
+        //        timePanels.getTimerJLabel().setText("");
         String packageName = AdbGetPackage.getActivityInfo().getPackageName();
 
         switch (packageName) {
@@ -178,7 +178,7 @@ public class ShoppingButtonRunnable extends CloseableRunnable {
                 break;
         }
 
-//        timePanels.beepDialog("逛街结束");
+        //        timePanels.beepDialog("逛街结束");
         AdbTools.getInstance().beepDialog("逛街结束");
     }
 
