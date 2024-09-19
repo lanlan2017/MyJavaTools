@@ -342,6 +342,7 @@ public class TimingPanels2 extends WaitValues {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
+                btn20M.setVisible(true);
                 btn1H.setVisible(true);
                 btn1_5H.setVisible(true);
                 btn2H.setVisible(true);
@@ -670,8 +671,8 @@ public class TimingPanels2 extends WaitValues {
             public void windowClosing(WindowEvent e) {
                 super.windowClosing(e);
                 beepRun.stop();
-//                JDialog source = (JDialog) e.getSource();
-//                source.dispose();
+                //                JDialog source = (JDialog) e.getSource();
+                //                source.dispose();
             }
         });
     }
