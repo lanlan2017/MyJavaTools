@@ -105,6 +105,9 @@ public class ActSignedInPanels {
                 // 应用的名称不是包名，并且应用名称改变了
                 System.out.println("赚钱应用 已经 改变，询问是否更新任务");
                 AdbTools.getInstance().showDialogOk("更新任务", e1 -> {
+                    // 先显示任务面板
+                    taskPanel.setVisible(true);
+                    // 更新任务面板
                     updateAction(appName);
                 });
             } else {
@@ -120,18 +123,38 @@ public class ActSignedInPanels {
         jtfHour = initJTextField();
 
         JLabel label = new JLabel(":");
-
         jtfMinute = initMinute();
-
         btnDingShiOk = getBtnDingShiOk();
+        // 取消定时按钮
         JButton btnDingShiCancel = getBtnDingShiCancel();
 
         toolPanel.add(btnUpdate);
+
+        JButton btnShouQi = new JButton("收起");
+        btnShouQi.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (taskPanel.isVisible()) {
+                    taskPanel.setVisible(false);
+                    btnShouQi.setText("展开");
+                } else {
+                    taskPanel.setVisible(true);
+                    btnShouQi.setText("收起");
+                }
+                JFramePack.pack();
+                //                taskPanel.setVisible(false);
+            }
+        });
+
+
         timePanel.add(jtfHour);
         timePanel.add(label);
         timePanel.add(jtfMinute);
         timePanel.add(btnDingShiOk);
         timePanel.add(btnDingShiCancel);
+        timePanel.add(btnShouQi);
+
+
         timePanelTop.add(timePanel, BorderLayout.WEST);
         AbstractButtons.setMarginInButtonJPanel(timePanel, 1);
         toolPanel.add(timePanelTop);
