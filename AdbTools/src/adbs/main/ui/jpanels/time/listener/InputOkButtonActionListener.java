@@ -40,7 +40,7 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
     /**
      * 刷视频。逛街，阅读,浏览，共用线程。这个几个操作不能同时进行，所以钥共用一个线程。
      */
-    private Thread thread;
+    private static Thread thread;
 
     /**
      * 等待线程，
@@ -72,8 +72,7 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
             }
             startThreadOnece(shoppingButtonRunnable);
 
-        }
-        else if ("开始等待".equals(ok.getText())) {
+        } else if ("开始等待".equals(ok.getText())) {
             // output.setText("等待返回线程：开始等待");
             // new Thread(waitReturnButtonRunnable).start();
             TimePanels timePanels = AdbTools.getInstance().getTimePanels();
@@ -81,16 +80,8 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
             timePanels.getTimerJLabel().setText("");
             // AdbTools.getInstance().getFrame().pack();
             JCheckBox taskCheckBox = timePanels.getTaskCheckBox();
-            if (taskCheckBox.isSelected()) {
-                waitReturnButtonRunnable.setClickTaskButton(true);
-            } else {
-                waitReturnButtonRunnable.setClickTaskButton(false);
-            }
-            if (timePanels.getStopCheckBox().isSelected()) {
-                waitReturnButtonRunnable.setClickStopButton(true);
-            } else {
-                waitReturnButtonRunnable.setClickStopButton(false);
-            }
+            waitReturnButtonRunnable.setClickTaskButton(taskCheckBox.isSelected());
+            waitReturnButtonRunnable.setClickStopButton(timePanels.getStopCheckBox().isSelected());
 
             // new Thread(waitReturnButtonRunnable).start();
 
@@ -134,15 +125,33 @@ public class InputOkButtonActionListener extends ButtonFocusReleaseActionListene
                 }
             }
         }
-//        JFramePack.pack();
+        //        JFramePack.pack();
+    }
+
+    //    public Thread getThread() {
+    //        return thread;
+    //    }
+
+
+    public static Thread getThread() {
+        return thread;
+    }
+
+    /**
+     * 判断是否正在执行刷视频、阅读、浏览、逛街操作
+     *
+     * @return
+     */
+    public static boolean isShoppingThreadRunning() {
+        return thread != null && thread.isAlive();
     }
 
     private void startThreadOnece(CloseableRunnable runnable) {
         // 如果线程已经死掉了,或者线程还没创建
         if (Threads.threadIsNullOrNotAlive(thread)) {
-            this.thread = new Thread(runnable);
+            thread = new Thread(runnable);
             // this.waitBtnThread = shoppingBtnThread;
-            this.thread.start();
+            thread.start();
         } else {
             System.out.println(runnable.getMsg() + " 已经在运行中,请勿重复启动");
         }

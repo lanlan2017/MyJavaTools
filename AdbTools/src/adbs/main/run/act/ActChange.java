@@ -2,6 +2,7 @@ package adbs.main.run.act;
 
 import adbs.cmd.AdbCommands;
 import adbs.main.AdbTools;
+import adbs.main.ui.jpanels.time.listener.InputOkButtonActionListener;
 import adbs.main.ui.jpanels.timeauto2.TimingPanels2;
 import adbs.model.Device;
 
@@ -60,6 +61,7 @@ public abstract class ActChange {
     protected abstract HashSet<ActToAct> set_w65sDialog_Set();
 
     protected abstract HashSet<ActToAct> set_w180sDialog_Set();
+
     protected abstract HashSet<ActToAct> set_w180s_Set();
 
 
@@ -94,32 +96,40 @@ public abstract class ActChange {
         } else if (contains(w65sDialog_Set, actToAct)) {
             // 弹窗询问是否要等待65秒
             timingPanels2.w65sDialog();
-        }
-        else if (contains(w180sDialog_set, actToAct)) {
+        } else if (contains(w180sDialog_set, actToAct)) {
             // 弹窗询问是否需要等待180秒
             timingPanels2.w180sDialog();
-        }      else if (contains(w180s_set, actToAct)) {
+        } else if (contains(w180s_set, actToAct)) {
             // 弹窗询问是否需要等待180秒
             timingPanels2.w180s();
-        }
-        else if (contains(s65sDialog_Set, actToAct)) {
-            // 弹窗询问是否需要逛街65秒
-            timingPanels2.s65sDialog();
+        } else if (contains(s65sDialog_Set, actToAct)) {
+            //            //            如果逛街线程已经在运行中，则不执行此操作
+            //            if (!InputOkButtonActionListener.isShoppingThreadRunning()) {
+            //                //            thread!=null
+            //                // 弹窗询问是否需要逛街65秒
+            //                timingPanels2.s65sDialog();
+            //            }
+            s65Dialog();
         } else if (contains(s35sDialog_Set, actToAct)) {
-            // 弹窗询问是否需要逛街35秒
-            timingPanels2.s35sDialog();
+            //            // 弹窗询问是否需要逛街35秒
+            //            timingPanels2.s35sDialog();
+
+            //            if (!InputOkButtonActionListener.isShoppingThreadRunning()) {
+            //                // 弹窗询问是否需要逛街35秒
+            //                timingPanels2.s35sDialog();
+            //            }
+            s35Dialog();
+
         } else if (contains(s35s_Set, actToAct)) {
             // 弹窗询问是否需要逛街35秒
             timingPanels2.s35s();
         } else if (contains(s_Set, actToAct)) {
             // 显示逛街系列按钮
             timingPanels2.s();
-        }
-        else if (contains(vw180sDialog_Set, actToAct)) {
+        } else if (contains(vw180sDialog_Set, actToAct)) {
             // 弹窗询问是否需要刷视频180秒
             timingPanels2.vw180sDialog();
-        }
-        else if (contains(vw180s_Set, actToAct)) {
+        } else if (contains(vw180s_Set, actToAct)) {
             // 直接 刷视频180秒
             timingPanels2.vw180s();
         } else if (contains(vw1HDialog_Set, actToAct)) {
@@ -130,6 +140,22 @@ public abstract class ActChange {
             timingPanels2.rw5HDialog();
         } else if (contains(return_Set, actToAct)) {
             clickReturn();
+        }
+    }
+
+    private void s35Dialog() {
+        if (!InputOkButtonActionListener.isShoppingThreadRunning()) {
+            // 弹窗询问是否需要逛街35秒
+            timingPanels2.s35sDialog();
+        }
+    }
+
+    private void s65Dialog() {
+        //            如果逛街线程已经在运行中，则不执行此操作
+        if (!InputOkButtonActionListener.isShoppingThreadRunning()) {
+            //            thread!=null
+            // 弹窗询问是否需要逛街65秒
+            timingPanels2.s65sDialog();
         }
     }
 

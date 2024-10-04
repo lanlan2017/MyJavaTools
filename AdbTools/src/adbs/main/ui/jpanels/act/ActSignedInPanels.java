@@ -110,8 +110,11 @@ public class ActSignedInPanels {
                     // 更新任务面板
                     updateAction(appName);
                 });
+                //默认的定时时间
+                defaultTime(appName);
             } else {
                 System.out.println("应用 没有 改变，无需更新任务列表");
+                defaultTime(appName);
             }
         });
 
@@ -352,6 +355,20 @@ public class ActSignedInPanels {
         // updateTaskPanel(filePath, jsonToFile, appName, appTask3);
         updateTaskPanel(jsonToFile, appName, appTask3);
 
+//        // 设置默认的定时时间
+//        defaultTime(appName);
+
+        //调整窗体到合适的大小
+        JFramePack.pack();
+    }
+
+
+    /**
+     * 默认的定时时间
+     *
+     * @param appName
+     */
+    private void defaultTime(String appName) {
         switch (appName) {
             case "点淘":
             case "番茄畅听音乐版":
@@ -359,9 +376,6 @@ public class ActSignedInPanels {
                 jtfMinute.setText(String.valueOf(0));
                 break;
         }
-
-        //调整窗体到合适的大小
-        JFramePack.pack();
     }
 
 

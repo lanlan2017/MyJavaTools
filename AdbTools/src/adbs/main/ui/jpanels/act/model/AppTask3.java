@@ -143,21 +143,22 @@ public class AppTask3 {
 
 
         //        tasks.add(zhongQingKanDian);
-        tasks.add(new AppTaskTimeSet("速度免费小说", new TaskTime[]{
+        tasks.add(new AppTaskTimeSet("速读免费小说", new TaskTime[]{
                 new TaskTime("签到"),
                 new TaskTime("阅读"),
                 new TaskTime("红包")
         }));
+        //        tasks.add(zhongQingKanDian);
+        tasks.add(new AppTaskTimeSet("红果免费短剧", new TaskTime[]{
+                new TaskTime("签到"),
+                new TaskTime("短剧"),
+                new TaskTime("走路"),
+                new TaskTime("睡觉"),
+                new TaskTime("吃饭")
+        }));
 
     }
 
-    //    private TaskTime[] getTaskTimeArr() {
-    ////        String s0 = "签到";
-    ////        String s1 = "通知";
-    ////        String S2 = "提现";
-    //        String[] arrStr = {};
-    //        return new TaskTime[]{new TaskTime(s0, 0), new TaskTime(s1, 0), new TaskTime(S2, 0)};
-    //    }
 
     public String getDate() {
         return date;
