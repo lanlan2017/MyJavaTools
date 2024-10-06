@@ -581,6 +581,10 @@ public class ActSignedInPanels {
         return btnUpdate;
     }
 
+    public TitledBorder getTitledBorder() {
+        return titledBorder;
+    }
+
     public static void setAppName(String appName) {
         ActSignedInPanels.appName = appName;
     }

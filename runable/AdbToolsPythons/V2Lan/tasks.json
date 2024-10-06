@@ -1,0 +1,183 @@
+{
+  "date" : "2024-09-30",
+  "tasks" : [ {
+    "appName" : "点淘",
+    "taskTimeList" : [ {
+      "taskName" : "商城",
+      "selected" : false,
+      "times" : -1
+    }, {
+      "taskName" : "红包",
+      "selected" : false,
+      "times" : 0
+    }, {
+      "taskName" : "打工",
+      "selected" : false,
+      "times" : 1
+    }, {
+      "taskName" : "睡觉",
+      "selected" : false,
+      "times" : 0
+    }, {
+      "taskName" : "购金",
+      "selected" : false,
+      "times" : 0
+    }, {
+      "taskName" : "开店",
+      "selected" : false,
+      "times" : -1
+    }, {
+      "taskName" : "签到",
+      "selected" : false,
+      "times" : 1
+    }, {
+      "taskName" : "走路",
+      "selected" : false,
+      "times" : 0
+    } ]
+  }, {
+    "appName" : "淘宝",
+    "taskTimeList" : [ {
+      "taskName" : "红包签到",
+      "selected" : false,
+      "times" : 0
+    }, {
+      "taskName" : "视频",
+      "selected" : false,
+      "times" : 0
+    }, {
+      "taskName" : "淘金币",
+      "selected" : false,
+      "times" : 0
+    }, {
+      "taskName" : "芭芭农场",
+      "selected" : false,
+      "times" : 0
+    } ]
+  }, {
+    "appName" : "淘特",
+    "taskTimeList" : [ {
+      "taskName" : "天天领红包",
+      "selected" : false,
+      "times" : 0
+    }, {
+      "taskName" : "小鸡送好礼",
+      "selected" : false,
+      "times" : 0
+    }, {
+      "taskName" : "现金签到",
+      "selected" : false,
+      "times" : 0
+    }, {
+      "taskName" : "积分兑红包",
+      "selected" : false,
+      "times" : 0
+    } ]
+  }, {
+    "appName" : "趣头条",
+    "taskTimeList" : [ {
+      "taskName" : "签到",
+      "selected" : false,
+      "times" : -1
+    }, {
+      "taskName" : "通知",
+      "selected" : false,
+      "times" : -1
+    }, {
+      "taskName" : "小视频",
+      "selected" : false,
+      "times" : -1
+    } ]
+  }, {
+    "appName" : "快手免费小说",
+    "taskTimeList" : [ {
+      "taskName" : "签到",
+      "selected" : false,
+      "times" : -1
+    }, {
+      "taskName" : "阅读",
+      "selected" : false,
+      "times" : -1
+    }, {
+      "taskName" : "广告",
+      "selected" : false,
+      "times" : -1
+    }, {
+      "taskName" : "宝箱",
+      "selected" : false,
+      "times" : -1
+    } ]
+  }, {
+    "appName" : "番茄畅听音乐版",
+    "taskTimeList" : [ {
+      "taskName" : "签到",
+      "selected" : false,
+      "times" : -1
+    }, {
+      "taskName" : "听歌",
+      "selected" : false,
+      "times" : -1
+    }, {
+      "taskName" : "睡觉",
+      "selected" : false,
+      "times" : -1
+    }, {
+      "taskName" : "走路",
+      "selected" : false,
+      "times" : -1
+    } ]
+  }, {
+    "appName" : "中青看点",
+    "taskTimeList" : [ {
+      "taskName" : "签到",
+      "selected" : false,
+      "times" : -1
+    }, {
+      "taskName" : "通知",
+      "selected" : false,
+      "times" : -1
+    }, {
+      "taskName" : "提现",
+      "selected" : false,
+      "times" : -1
+    } ]
+  }, {
+    "appName" : "速读免费小说",
+    "taskTimeList" : [ {
+      "taskName" : "签到",
+      "selected" : false,
+      "times" : -1
+    }, {
+      "taskName" : "阅读",
+      "selected" : false,
+      "times" : -1
+    }, {
+      "taskName" : "红包",
+      "selected" : false,
+      "times" : -1
+    } ]
+  }, {
+    "appName" : "红果免费短剧",
+    "taskTimeList" : [ {
+      "taskName" : "签到",
+      "selected" : false,
+      "times" : -1
+    }, {
+      "taskName" : "短剧",
+      "selected" : false,
+      "times" : -1
+    }, {
+      "taskName" : "走路",
+      "selected" : false,
+      "times" : -1
+    }, {
+      "taskName" : "睡觉",
+      "selected" : false,
+      "times" : -1
+    }, {
+      "taskName" : "吃饭",
+      "selected" : false,
+      "times" : -1
+    } ]
+  } ]
+}

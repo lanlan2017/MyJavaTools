@@ -1,9 +1,10 @@
 package adbs.main.ui.jpanels.app;
 
 import adbs.main.AdbTools;
-import adbs.main.run.act.ActAutoRun;
 import adbs.main.run.AdbGetPackage;
+import adbs.main.run.act.ActAutoRun;
 import adbs.main.ui.config.FlowLayouts;
+import adbs.main.ui.jframe.JFramePack;
 import config.AdbToolsProperties;
 import tools.swing.button.AbstractButtons;
 
@@ -68,7 +69,7 @@ public class AppSignedInPanels {
         this.signedIn.setBorder(new TitledBorder(new LineBorder(Color.pink), "已打开"));
 
         this.btnPanel = new JPanel();
-//        this.btnPanel.setLayout(new BoxLayout(btnPanel, BoxLayout.Y_AXIS));
+        //        this.btnPanel.setLayout(new BoxLayout(btnPanel, BoxLayout.Y_AXIS));
         this.btnPanel.setLayout(new BorderLayout());
 
 
@@ -129,17 +130,17 @@ public class AppSignedInPanels {
 
         JPanel btnNorth = new JPanel();
 
-        btnNorth.setLayout(new BoxLayout(btnNorth,BoxLayout.Y_AXIS));
+        btnNorth.setLayout(new BoxLayout(btnNorth, BoxLayout.Y_AXIS));
         btnNorth.add(panel1);
         btnNorth.add(panel2);
         btnNorth.add(panel3);
-//        btnPanel.add(btnNorth);
+        //        btnPanel.add(btnNorth);
 
-        btnPanel.add(btnNorth,BorderLayout.NORTH);
+        btnPanel.add(btnNorth, BorderLayout.NORTH);
 
-//        btnPanel.add(panel1);
-//        btnPanel.add(panel2);
-//        btnPanel.add(panel3);
+        //        btnPanel.add(panel1);
+        //        btnPanel.add(panel2);
+        //        btnPanel.add(panel3);
 
         //        btnPanel.add(batteryReset);
 
@@ -211,6 +212,8 @@ public class AppSignedInPanels {
                     public void actionPerformed(ActionEvent e) {
                         ActAutoRun.onNextDay();
                         ActAutoRun.stopWait();
+                        AdbTools.getInstance().getActSignedInPanels().getTitledBorder().setTitle("已经重签");
+                        JFramePack.pack();
                     }
                 });
             }

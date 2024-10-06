@@ -402,6 +402,10 @@ public class AdbTools {
         return appSignedInPanels;
     }
 
+    public ActSignedInPanels getActSignedInPanels() {
+        return actSignedInPanels;
+    }
+
     public ToolsJPanels getToolsJPanels() {
         return toolsJPanels;
     }

@@ -68,7 +68,9 @@ public class AppTask3 {
                 new TaskTime("红包签到", 0),
                 new TaskTime("视频", 0),
                 new TaskTime("淘金币", 0),
-                new TaskTime("芭芭农场", 0)
+                new TaskTime("淘宝秒杀", 0),
+                new TaskTime("芭芭农场", 0),
+                new TaskTime("充值中心", 0)
         });
 
 
