@@ -7,9 +7,9 @@ import java.util.ArrayList;
  */
 public class ShiPinQuJian {
     // LinkedHashMap<I,QuJian>
-    private static ArrayList<QuJian> list = new ArrayList<>();
+    private static final ArrayList<QuJian> list = new ArrayList<>();
     private static int index;
-    private static int size;
+    private static final int size;
 
     // public ShiPinQuJian() {
     //     list.add(new QuJian(5, 10));
@@ -96,7 +96,7 @@ public class ShiPinQuJian {
 
 
     public static boolean hasNext() {
-        return index >= 0 && index < size-1;
+        return index >= 0 && index < size - 1;
     }
 
 
@@ -107,8 +107,9 @@ public class ShiPinQuJian {
     }
 
     public static QuJian init() {
-        // index = 5;
-        index = 6;
+        //        index = 4;
+        index = 5;
+        //        index = 6;
         return next();
     }
 

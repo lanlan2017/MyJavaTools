@@ -585,6 +585,10 @@ public class ActSignedInPanels {
         return titledBorder;
     }
 
+    public JPanel getTaskPanel() {
+        return taskPanel;
+    }
+
     public static void setAppName(String appName) {
         ActSignedInPanels.appName = appName;
     }

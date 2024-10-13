@@ -4,7 +4,7 @@ import adbs.main.AdbTools;
 import adbs.main.run.AdbGetPackage;
 import adbs.main.run.act.ActAutoRun;
 import adbs.main.ui.config.FlowLayouts;
-import adbs.main.ui.jframe.JFramePack;
+import adbs.main.ui.jpanels.act.ActSignedInPanels;
 import config.AdbToolsProperties;
 import tools.swing.button.AbstractButtons;
 
@@ -152,29 +152,6 @@ public class AppSignedInPanels {
         appPanel.setVisible(false);
     }
 
-    //    /**
-    //     * 创建充电按钮
-    //     *
-    //     * @return 充电按钮JButton对象。
-    //     */
-    //    private JButton getBatteryReset() {
-    //        final JButton batteryReset;
-    //        batteryReset = new JButton("充电");
-    //        batteryReset.addActionListener(new ActionListener() {
-    //            @Override
-    //            public void actionPerformed(ActionEvent e) {
-    //                final AdbTools instance = AdbTools.getInstance();
-    //                instance.showDialogOk("重置电池状态恢复充电?", new ActionListener() {
-    //                    @Override
-    //                    public void actionPerformed(ActionEvent e) {
-    //                        AdbCommands.batteryReset(instance.getDevice());
-    //                    }
-    //                });
-    //            }
-    //        });
-    //        return batteryReset;
-    //    }
-
     private JButton initBtnUpdateEarningApps() {
         final JButton btnUpdateEarningApps;
         //        btnUpdateEarningApps = new JButton("U");
@@ -212,14 +189,34 @@ public class AppSignedInPanels {
                     public void actionPerformed(ActionEvent e) {
                         ActAutoRun.onNextDay();
                         ActAutoRun.stopWait();
-                        AdbTools.getInstance().getActSignedInPanels().getTitledBorder().setTitle("已经重签");
-                        JFramePack.pack();
+                        SwingUtilities.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                AdbTools instance = AdbTools.getInstance();
+                                ActSignedInPanels actSignedInPanels = instance.getActSignedInPanels();
+                                actSignedInPanels.getTitledBorder().setTitle("已经重签");
+                                JPanel taskPanel = actSignedInPanels.getTaskPanel();
+                                JComponents.updateJPanelUI(taskPanel);
+                                JFrame frame = instance.getFrame();
+                                frame.setTitle("已经重签");
+                            }
+                        });
                     }
                 });
             }
         });
         return btnNextDay;
     }
+    //
+    //    /**
+    //     * 更新容器的UI
+    //     * @param component 要更新的JPanel对象。
+    //     */
+    //    private void updateJPanelUI(JComponent component) {
+    //        component.revalidate();
+    //        component.repaint();
+    //    }
 
 
     private JPanel getBtttonFlowLayoutJPanel() {

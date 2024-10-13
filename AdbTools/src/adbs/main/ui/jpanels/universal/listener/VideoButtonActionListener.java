@@ -22,12 +22,6 @@ public class VideoButtonActionListener extends ButtonFocusReleaseActionListener 
     @Override
     protected void actionEvent(ActionEvent e) {
 
-//        SwingUtilities.invokeLater(new Runnable() {
-//            @Override
-//            public void run() {
-
-
-
                 // 显示输入界面
                 timePanels.getTimePanel().setVisible(true);
                 // 设置标签
@@ -71,11 +65,6 @@ public class VideoButtonActionListener extends ButtonFocusReleaseActionListener 
                 // AdbTools.getInstance().getFrame().pack();
                 JFramePack.pack();
 
-
-
-
-//            }
-//        });
 
 
     }
