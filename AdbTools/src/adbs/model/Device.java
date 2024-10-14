@@ -2,6 +2,7 @@ package adbs.model;
 
 import adbs.cmd.AdbCommands;
 import adbs.cmd.CmdRun;
+import adbs.main.run.AdbGetPackage;
 import adbs.main.run.IsTest;
 import config.AdbToolsProperties;
 import tools.config.properties.PropertiesTools;
@@ -313,6 +314,18 @@ public class Device {
 
     public void returnBtn() {
         AdbCommands.taskBtn(this);
+    }
+
+    /**
+     * 获取当前设备正在运行的app的中文名称
+     *
+     * @return 应用中文名称
+     */
+    public String getDeviceAppCHName() {
+        //        String packageName = AdbGetPackage.getTopPackageName(device.getSerial());
+        String packageName = AdbGetPackage.getTopPackageName(this.getSerial());
+        String appCHName = AdbToolsProperties.getAppCHName(packageName);
+        return appCHName;
     }
 
     @Override

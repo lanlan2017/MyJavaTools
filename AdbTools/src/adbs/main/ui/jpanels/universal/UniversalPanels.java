@@ -326,13 +326,4 @@ public class UniversalPanels {
         return btnScrcpyOrder;
     }
 
-    public void vidioBtnDoClick() {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                videoButton.doClick();
-            }
-        });
-    }
-
 }

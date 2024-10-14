@@ -1,5 +1,10 @@
 package adbs.main.ui.jpanels.time.listener;
 
+import adbs.main.AdbTools;
+import adbs.main.run.AdbGetPackage;
+import adbs.model.Device;
+import config.AdbToolsProperties;
+
 import java.util.ArrayList;
 
 /**
@@ -107,10 +112,31 @@ public class ShiPinQuJian {
     }
 
     public static QuJian init() {
-        //        index = 4;
-        index = 5;
-        //        index = 6;
+
+        Device device = AdbTools.getInstance().getDevice();
+        String appCHName = device.getDeviceAppCHName();
+        switch (appCHName) {
+            case "淘宝":
+                index = 4;
+                // index = 5;
+                break;
+            // case "点淘":
+            // index = 6;
+            // break;
+            default:
+                index = 6;
+                break;
+        }
+
+        // index = 4;
+        // index = 5;
+        // index = 6;
         return next();
+    }
+
+    private static void getDeviceAppCHName(Device device) {
+        String packageName = AdbGetPackage.getTopPackageName(device.getSerial());
+        AdbToolsProperties.getAppCHName(packageName);
     }
 
     public static boolean hasPrevious() {
