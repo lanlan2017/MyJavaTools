@@ -74,6 +74,7 @@ public class ActAutoRun extends ActWait implements Runnable {
      * 获取Activity信息的adb.exe命令支持出错的次数
      */
     private int adbErorrTimes;
+    private boolean isfrist;
     // private TaoBaoChange taoBaoChange;
     // private DianTaoChange dianTaoChange;
     // private FanQieMianFeiXiaoShuo fanQieMianFeiXiaoShuo;
@@ -96,7 +97,7 @@ public class ActAutoRun extends ActWait implements Runnable {
         // 上一轮查询时的Activity信息
         beforeAct = null;
         before();
-        boolean isfrist = true;
+        isfrist = true;
         while (!stop) {
             // 获取当前act
             act = AdbGetPackage.getActivityInfo();
@@ -108,6 +109,7 @@ public class ActAutoRun extends ActWait implements Runnable {
             if (!equals) {
                 actChange(beforeAct, act);
             }
+
             if (isAllAppOpened) {
                 check_(act.getPackageName());
             }
@@ -116,19 +118,25 @@ public class ActAutoRun extends ActWait implements Runnable {
                 System.out.println("首次更新签到列表");
                 //                System.out.println("act.getActLongName() = " + act.getActLongName());
                 //                System.out.println("act.getPackageName() = " + act.getPackageName());
+
+                // todo 修改窗体标题
                 check_(act.getPackageName());
+                updateTitle(act);
+
                 isfrist = false;
             }
+
+            //记录下上次的Activity详细信息
+            beforeAct = act;
 
             // 如果刚好进入第2天
             if (isNextDay()) {
                 // 清空前一天的签到设置
                 nextDaySetting();
             }
+
             // 根据当前的Activity来决定要等待多久
             _wait(act);
-            //记录下上次的Activity详细信息
-            beforeAct = act;
         }
     }
 
@@ -180,7 +188,7 @@ public class ActAutoRun extends ActWait implements Runnable {
     private void updateTitle(ActivityInfo act) {
         String currentPackageName = act.getPackageName();
         String currentAppName = AdbGetPackage.getAppName(currentPackageName);
-        //        System.out.println("currentAppName = " + currentAppName);
+        System.out.println("currentAppName = " + currentAppName);
         // 如果不相等，说明是可赚钱的APP
         if (!currentPackageName.equals(currentAppName)) {
             updateFormTitle(currentAppName);
@@ -641,6 +649,7 @@ public class ActAutoRun extends ActWait implements Runnable {
         nextDay = false;
         // stopAppCheck = false;
         isAllAppOpened = false;
+        isfrist = true;
         // 卸载无用APP
         toolsJPanels.getBtnUninstallAll().doClick();
         // 打开手机管家
@@ -650,7 +659,7 @@ public class ActAutoRun extends ActWait implements Runnable {
 
         beforeAct = null;
         // ThreadSleep.minutes(4.0);
-        _wait(40);
+        //        _wait(40);
     }
 
 

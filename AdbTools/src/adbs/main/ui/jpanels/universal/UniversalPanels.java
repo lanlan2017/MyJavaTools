@@ -165,7 +165,7 @@ public class UniversalPanels {
         zhongDuanBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                AdbTools.getInstance().showDialogOk("中断", new ActionListener() {
+                //                AdbTools.getInstance().showDialogOk("中断", new ActionListener() {
                 //                    @Override
                 //                    public void actionPerformed(ActionEvent e) {
                 //                        zhongduan();
@@ -247,9 +247,9 @@ public class UniversalPanels {
 
                     String packageName = AdbGetPackage.getTopPackageName(device.getSerial());
                     //                    System.out.println("packageName = " + packageName);
+                    //                    String chName = getAppCHName(packageName);
+                    String chName = AdbToolsProperties.getAppCHName(packageName);
 
-                    // 获取应用名（中文名）
-                    String chName = AdbToolsProperties.moneyApkPro.getProperty(packageName);
                     System.out.println("chName = " + chName);
                     if (!chName.equals(packageName)) {
                         String pinyin = PinyinConverter.convertToPinyin(chName);
@@ -281,6 +281,12 @@ public class UniversalPanels {
         });
         return btnPy;
     }
+    //
+    //    private String getAppCHName(String packageName) {
+    //        // 获取应用名（中文名）
+    //        String chName = AdbToolsProperties.moneyApkPro.getProperty(packageName);
+    //        return chName;
+    //    }
 
 
     public JPanel getUniversalPanel() {

@@ -56,14 +56,6 @@ public class AppTask3 {
         });
 
 
-        //        ArrayList<TaskTime> taoBaoTask = new ArrayList<>();
-        //        taoBaoTask.add(new TaskTime("红包签到", 0));
-        //        taoBaoTask.add(new TaskTime("视频", 0));
-        //        taoBaoTask.add(new TaskTime("淘金币", 0));
-        //        taoBaoTask.add(new TaskTime("芭芭农场", 0));
-        //
-        //        AppTaskTimeSet taoBao = new AppTaskTimeSet("淘宝", taoBaoTask);
-
         AppTaskTimeSet taoBao = new AppTaskTimeSet("淘宝", new TaskTime[]{
                 new TaskTime("红包签到", 0),
                 new TaskTime("视频", 0),
@@ -74,16 +66,9 @@ public class AppTask3 {
         });
 
 
-        //        ArrayList<TaskTime> taskTimesTaoTe = new ArrayList<>();
-        //        taskTimesTaoTe.add(new TaskTime("天天领红包", 0));
-        //        taskTimesTaoTe.add(new TaskTime("小鸡送好礼", 0));
-        //        taskTimesTaoTe.add(new TaskTime("现金签到", 0));
-        //        taskTimesTaoTe.add(new TaskTime("积分兑红包", 0));
-        // taskTimesTaoTe.add(new TaskTime("天天赚特币", 0));
-
-        //        AppTaskTimeSet taoTe = new AppTaskTimeSet("淘特", taskTimesTaoTe);
         AppTaskTimeSet taoTe = new AppTaskTimeSet("淘特", new TaskTime[]{
                 new TaskTime("天天领红包", 0),
+                new TaskTime("淘宝秒杀", 0),
                 new TaskTime("小鸡送好礼", 0),
                 new TaskTime("现金签到", 0),
                 new TaskTime("积分兑红包", 0)

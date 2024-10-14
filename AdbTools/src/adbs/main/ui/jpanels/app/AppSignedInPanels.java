@@ -3,6 +3,7 @@ package adbs.main.ui.jpanels.app;
 import adbs.main.AdbTools;
 import adbs.main.run.AdbGetPackage;
 import adbs.main.run.act.ActAutoRun;
+import adbs.main.run.act.model.FrameTitle;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.jpanels.act.ActSignedInPanels;
 import config.AdbToolsProperties;
@@ -199,7 +200,9 @@ public class AppSignedInPanels {
                                 JPanel taskPanel = actSignedInPanels.getTaskPanel();
                                 JComponents.updateJPanelUI(taskPanel);
                                 JFrame frame = instance.getFrame();
-                                frame.setTitle("已经重签");
+                                FrameTitle frameTitle = FrameTitle.getFrameTitle();
+                                frameTitle.setAppName("已经重签");
+                                frame.setTitle(frameTitle.toString());
                             }
                         });
                     }
