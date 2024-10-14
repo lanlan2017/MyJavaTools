@@ -118,8 +118,6 @@ public class ActAutoRun extends ActWait implements Runnable {
                 System.out.println("首次更新签到列表");
                 //                System.out.println("act.getActLongName() = " + act.getActLongName());
                 //                System.out.println("act.getPackageName() = " + act.getPackageName());
-
-                // todo 修改窗体标题
                 check_(act.getPackageName());
                 updateTitle(act);
 

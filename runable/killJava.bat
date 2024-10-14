@@ -1,4 +1,5 @@
 call adbbr.bat
+call adb_all_home.bat
 taskkill /f /im scrcpy.exe
 taskkill /f /im adb.exe
 taskkill /f /im python.exe
