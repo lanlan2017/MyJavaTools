@@ -303,6 +303,18 @@ public class Device {
         this.name = name;
     }
 
+    public void homeBtn() {
+        AdbCommands.home(this);
+    }
+
+    public void taskBtn() {
+        AdbCommands.taskBtn(this);
+    }
+
+    public void returnBtn() {
+        AdbCommands.taskBtn(this);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o)

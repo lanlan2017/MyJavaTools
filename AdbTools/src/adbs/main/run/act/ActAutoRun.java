@@ -656,7 +656,9 @@ public class ActAutoRun extends ActWait implements Runnable {
         adbTools.getAdbJPanels().getBtnMobileButler().doClick();
         // 停止线程，防止反复触发
         //        ThreadSleep.minutes(1);
-
+        //        adbTools.getDevice().getSerial();
+        //        AdbCommands.home(adbTools.getDevice());
+        adbTools.getDevice().homeBtn();
         beforeAct = null;
         // ThreadSleep.minutes(4.0);
         //        _wait(40);

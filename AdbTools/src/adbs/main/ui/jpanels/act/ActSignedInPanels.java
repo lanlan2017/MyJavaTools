@@ -355,8 +355,8 @@ public class ActSignedInPanels {
         // updateTaskPanel(filePath, jsonToFile, appName, appTask3);
         updateTaskPanel(jsonToFile, appName, appTask3);
 
-//        // 设置默认的定时时间
-//        defaultTime(appName);
+        //        // 设置默认的定时时间
+        //        defaultTime(appName);
 
         //调整窗体到合适的大小
         JFramePack.pack();
@@ -382,7 +382,8 @@ public class ActSignedInPanels {
     private AppTask3 getAppTask3(JsonToFile<AppTask3> jsonToFile) {
         AppTask3 appTask3;
         String filePath = jsonToFile.getFilePath();
-
+        //是否是直接new的AppTask3
+        boolean isNew = false;
         // 获取当前这个设备对应的JSON文件路径
         System.out.println("filePath = " + filePath);
         //如果文件不存在这创建这个文件，如果创建了文件，则返回true，否则返回false
@@ -409,22 +410,30 @@ public class ActSignedInPanels {
                     } else {
                         System.out.println("不是今天的打卡记录，记录已过期");
                         appTask3 = new AppTask3();
+                        isNew = true;
                     }
 
                 } else {
                     System.out.println("有文件，日期格式不对");
                     // appTask2 = new AppTask2();
                     appTask3 = new AppTask3();
+                    isNew = true;
                 }
             } else {
                 System.out.println("遇到null");
                 // appTask2 = new AppTask2();
                 appTask3 = new AppTask3();
+                isNew = true;
             }
         } else {
             System.out.println("新建JSON文件");
             // appTask2 = new AppTask2();
             appTask3 = new AppTask3();
+            isNew = true;
+        }
+        if (isNew) {
+            // 这里应该直接保存到json文件，免得错误
+            jsonToFile.toJsonFile(appTask3);
         }
         return appTask3;
     }
