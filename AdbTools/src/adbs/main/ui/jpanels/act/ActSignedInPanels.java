@@ -41,10 +41,7 @@ public class ActSignedInPanels {
      * 任务面板，根据不同的App生成不同的任务多选框
      */
     private final JPanel taskPanel;
-    //    /**
-    //     * 定时器
-    //     */
-    //    private Timer timer;
+
     /**
      * 小时
      */
@@ -87,6 +84,7 @@ public class ActSignedInPanels {
 
         // this.btnUpdate = new JButton("更新任务");
         this.btnUpdate = new JButton("任务");
+        // todo: 添加一个下拉框，用来查看其的任务列表
         btnUpdate.addActionListener(e -> {
             String title = titledBorder.getTitle();
             System.out.println("title = " + title);
@@ -110,12 +108,13 @@ public class ActSignedInPanels {
                     // 更新任务面板
                     updateAction(appName);
                 });
-                //默认的定时时间
-                defaultTime(appName);
-            } else {
-                System.out.println("应用 没有 改变，无需更新任务列表");
-                defaultTime(appName);
+                //                //默认的定时时间
+                //                defaultTime(appName);
             }
+            //            else {
+            //                System.out.println("应用 没有 改变，无需更新任务列表");
+            //                defaultTime(appName);
+            //            }
         });
 
 
@@ -149,10 +148,47 @@ public class ActSignedInPanels {
             }
         });
 
+        // 时间切换按钮
+        JButton btnJH = new JButton("切换");
+
+        btnJH.addActionListener(new ActionListener() {
+
+            private String[][] dianTaoTimes;
+            private int i;
+
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (dianTaoTimes == null) {
+
+                    dianTaoTimes = new String[][]{
+                            {
+                                    "0",
+                                    "10"
+                            },
+                            {
+                                    "1",
+                                    "0"
+                            },
+                            {
+                                    "2",
+                                    "0"
+                            }
+                    };
+                }
+
+                jtfHour.setText(dianTaoTimes[i][0]);
+                jtfMinute.setText(dianTaoTimes[i][1]);
+                // 循环数组的下标
+                i = (i + 1) % dianTaoTimes.length;
+            }
+        });
+
 
         timePanel.add(jtfHour);
         timePanel.add(label);
         timePanel.add(jtfMinute);
+        timePanel.add(btnJH);
         timePanel.add(btnDingShiOk);
         timePanel.add(btnDingShiCancel);
         timePanel.add(btnShouQi);
@@ -363,20 +399,20 @@ public class ActSignedInPanels {
     }
 
 
-    /**
-     * 默认的定时时间
-     *
-     * @param appName
-     */
-    private void defaultTime(String appName) {
-        switch (appName) {
-            case "点淘":
-            case "番茄畅听音乐版":
-                jtfHour.setText(String.valueOf(2));
-                jtfMinute.setText(String.valueOf(0));
-                break;
-        }
-    }
+    //    /**
+    //     * 默认的定时时间
+    //     *
+    //     * @param appName
+    //     */
+    //    private void defaultTime(String appName) {
+    //        switch (appName) {
+    //            case "点淘":
+    //            case "番茄畅听音乐版":
+    //                jtfHour.setText(String.valueOf(2));
+    //                jtfMinute.setText(String.valueOf(0));
+    //                break;
+    //        }
+    //    }
 
 
     private AppTask3 getAppTask3(JsonToFile<AppTask3> jsonToFile) {
