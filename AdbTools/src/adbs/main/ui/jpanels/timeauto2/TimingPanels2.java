@@ -146,7 +146,6 @@ public class TimingPanels2 extends WaitValues {
                 String elementAt = jComboBoxModel.getElementAt(jComboBox.getSelectedIndex());
                 selected = elementAt;
 
-
                 switch (elementAt) {
                     case textJrBtnReadWait:
                         showReadWaitButtons();
@@ -384,6 +383,7 @@ public class TimingPanels2 extends WaitValues {
                 btn20M.setVisible(true);
                 btn40M.setVisible(true);
                 btn1H.setVisible(true);
+                btn2H.setVisible(true);
                 btn3HMore.setVisible(true);
             }
         });

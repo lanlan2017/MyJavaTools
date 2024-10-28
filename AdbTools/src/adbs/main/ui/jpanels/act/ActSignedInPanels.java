@@ -61,6 +61,8 @@ public class ActSignedInPanels {
     private JsonToFile<AppTask3> jsonToFile;
     private TitledBorder titledBorder;
     private static String appName = "";
+    private final JComboBox<String> appComboBox;
+    private AppTask3 appTask3;
     // private final JButton btnLieBiao;
 
     public ActSignedInPanels() {
@@ -82,8 +84,80 @@ public class ActSignedInPanels {
         this.toolPanel = new JPanel();
         this.toolPanel.setLayout(new BoxLayout(toolPanel, BoxLayout.X_AXIS));
 
+        //        // 获取json文件
+        //        if (jsonToFile == null) {
+        //            jsonToFile = new JsonToFile<>(AdbTools.getInstance().getDevice().getActTaskJSON());
+        //        }
+
         // this.btnUpdate = new JButton("更新任务");
-        this.btnUpdate = new JButton("任务");
+        btnUpdate = getUpdate();
+
+
+        appComboBox = new JComboBox<>();
+        appComboBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    // 获取被选中的项
+                    String selectedItem = (String) appComboBox.getSelectedItem();
+                    //                    System.out.println("Selected: " + selectedItem);
+                    updateAction(selectedItem, appTask3);
+                }
+            }
+        });
+
+
+        // 获取其他按钮的首选大小
+        Dimension preferredSize = btnUpdate.getPreferredSize();
+        // 设置下拉框的首选大小
+        appComboBox.setPreferredSize(new Dimension(preferredSize.height * 2, preferredSize.height));
+
+        toolPanel.add(btnUpdate);
+        toolPanel.add(appComboBox);
+
+        JPanel timePanelTop = new JPanel();
+        timePanelTop.setLayout(new BorderLayout());
+        JPanel timePanel = new JPanel();
+        timePanel.setLayout(new BoxLayout(timePanel, BoxLayout.X_AXIS));
+        jtfHour = initJTextField();
+        JLabel label = new JLabel(":");
+        jtfMinute = initMinute();
+        btnDingShiOk = getBtnDingShiOk();
+
+        // 取消定时按钮
+        JButton btnDingShiCancel = getBtnDingShiCancel();
+
+        JButton btnShouQi = getBtnShouQi();
+
+        // 创建切换定时的按钮
+        JButton btnJH = getBtnJH();
+
+
+        timePanel.add(jtfHour);
+        timePanel.add(label);
+        timePanel.add(jtfMinute);
+        timePanel.add(btnJH);
+        timePanel.add(btnDingShiOk);
+        timePanel.add(btnDingShiCancel);
+        timePanel.add(btnShouQi);
+
+
+        timePanelTop.add(timePanel, BorderLayout.WEST);
+        AbstractButtons.setMarginInButtonJPanel(timePanel, 1);
+        toolPanel.add(timePanelTop);
+
+        AbstractButtons.setMarginInButtonJPanel(toolPanel, 1);
+
+
+        // topJPanel.add(btnUpdate, BorderLayout.NORTH);
+        topJPanel.add(toolPanel, BorderLayout.NORTH);
+        topJPanel.add(taskPanel, BorderLayout.CENTER);
+        topJPanel.setVisible(false);
+    }
+
+    private JButton getUpdate() {
+        //        final JButton btnUpdate;
+        JButton btnUpdate = new JButton("任务");
         // todo: 添加一个下拉框，用来查看其的任务列表
         btnUpdate.addActionListener(e -> {
             String title = titledBorder.getTitle();
@@ -96,6 +170,27 @@ public class ActSignedInPanels {
             }
             System.out.println("appName = " + appName);
 
+
+            //todo: 给下拉框添加应用名
+            // 获取json文件
+            if (jsonToFile == null) {
+                jsonToFile = new JsonToFile<>(AdbTools.getInstance().getDevice().getActTaskJSON());
+                appTask3 = getAppTask3(jsonToFile);
+            }
+
+            int itemCount = appComboBox.getItemCount();
+            System.out.println("itemCount = " + itemCount);
+
+            if (itemCount == 0) {
+                ArrayList<AppTaskTimeSet> tasks = appTask3.getTasks();
+                ArrayList<String> appNames = new ArrayList<>(tasks.size());
+                tasks.forEach(next -> {
+                    String appName = next.getAppName();
+                    appNames.add(appName);
+                    appComboBox.addItem(appName);
+                });
+            }
+
             if (appName.contains(".")) {
                 //应用名是包名，说明不是赚钱应用，不需要更新任务列表
                 System.out.println("非赚钱应用，不需要更新任务列表");
@@ -106,32 +201,17 @@ public class ActSignedInPanels {
                     // 先显示任务面板
                     taskPanel.setVisible(true);
                     // 更新任务面板
-                    updateAction(appName);
+                    //                    AppTask3 appTask3 = getAppTask3(jsonToFile);
+                    updateAction(appName, appTask3);
                 });
                 //                //默认的定时时间
                 //                defaultTime(appName);
             }
-            //            else {
-            //                System.out.println("应用 没有 改变，无需更新任务列表");
-            //                defaultTime(appName);
-            //            }
         });
+        return btnUpdate;
+    }
 
-
-        JPanel timePanelTop = new JPanel();
-        timePanelTop.setLayout(new BorderLayout());
-        JPanel timePanel = new JPanel();
-        timePanel.setLayout(new BoxLayout(timePanel, BoxLayout.X_AXIS));
-        jtfHour = initJTextField();
-
-        JLabel label = new JLabel(":");
-        jtfMinute = initMinute();
-        btnDingShiOk = getBtnDingShiOk();
-        // 取消定时按钮
-        JButton btnDingShiCancel = getBtnDingShiCancel();
-
-        toolPanel.add(btnUpdate);
-
+    private JButton getBtnShouQi() {
         JButton btnShouQi = new JButton("收起");
         btnShouQi.addActionListener(new ActionListener() {
             @Override
@@ -147,15 +227,19 @@ public class ActSignedInPanels {
                 //                taskPanel.setVisible(false);
             }
         });
+        return btnShouQi;
+    }
 
+    private JButton getBtnJH() {
         // 时间切换按钮
-        JButton btnJH = new JButton("切换");
+        //        JButton btnJH = new JButton("切换");
+        JButton btnJH = new JButton("换");
+        btnJH.setToolTipText("切换定时");
 
         btnJH.addActionListener(new ActionListener() {
 
             private String[][] dianTaoTimes;
             private int i;
-
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -183,28 +267,7 @@ public class ActSignedInPanels {
                 i = (i + 1) % dianTaoTimes.length;
             }
         });
-
-
-        timePanel.add(jtfHour);
-        timePanel.add(label);
-        timePanel.add(jtfMinute);
-        timePanel.add(btnJH);
-        timePanel.add(btnDingShiOk);
-        timePanel.add(btnDingShiCancel);
-        timePanel.add(btnShouQi);
-
-
-        timePanelTop.add(timePanel, BorderLayout.WEST);
-        AbstractButtons.setMarginInButtonJPanel(timePanel, 1);
-        toolPanel.add(timePanelTop);
-
-        AbstractButtons.setMarginInButtonJPanel(toolPanel, 1);
-
-
-        // topJPanel.add(btnUpdate, BorderLayout.NORTH);
-        topJPanel.add(toolPanel, BorderLayout.NORTH);
-        topJPanel.add(taskPanel, BorderLayout.CENTER);
-        topJPanel.setVisible(false);
+        return btnJH;
     }
 
     /**
@@ -375,15 +438,18 @@ public class ActSignedInPanels {
     }
 
 
-    private void updateAction(String appName) {
+    private void updateAction(String appName, AppTask3 appTask3) {
         // JsonToFile<AppTask3> jsonToFile = new JsonToFile<>();
         // String filePath = AdbTools.getInstance().getDevice().getActTaskJSON();
-        if (jsonToFile == null) {
-            jsonToFile = new JsonToFile<>(AdbTools.getInstance().getDevice().getActTaskJSON());
-        }
+        //        if (jsonToFile == null) {
+        //            jsonToFile = new JsonToFile<>(AdbTools.getInstance().getDevice().getActTaskJSON());
+        //        }
 
         // AppTask3 appTask3 = getAppTask3(jsonToFile, filePath);
-        AppTask3 appTask3 = getAppTask3(jsonToFile);
+
+        //        int itemCount = appComboBox.getItemCount();
+        //        System.out.println("itemCount = " + itemCount);
+
 
         // 获取应用名
         System.out.println("appName = " + appName);
@@ -397,6 +463,33 @@ public class ActSignedInPanels {
         //调整窗体到合适的大小
         JFramePack.pack();
     }
+
+    //    private void updateAction(String appName) {
+    //        // JsonToFile<AppTask3> jsonToFile = new JsonToFile<>();
+    //        // String filePath = AdbTools.getInstance().getDevice().getActTaskJSON();
+    //        if (jsonToFile == null) {
+    //            jsonToFile = new JsonToFile<>(AdbTools.getInstance().getDevice().getActTaskJSON());
+    //        }
+    //
+    //        // AppTask3 appTask3 = getAppTask3(jsonToFile, filePath);
+    //        AppTask3 appTask3 = getAppTask3(jsonToFile);
+    //
+    //        int itemCount = appComboBox.getItemCount();
+    //        System.out.println("itemCount = " + itemCount);
+    //
+    //
+    //        // 获取应用名
+    //        System.out.println("appName = " + appName);
+    //
+    //        // updateTaskPanel(filePath, jsonToFile, appName, appTask3);
+    //        updateTaskPanel(jsonToFile, appName, appTask3);
+    //
+    //        //        // 设置默认的定时时间
+    //        //        defaultTime(appName);
+    //
+    //        //调整窗体到合适的大小
+    //        JFramePack.pack();
+    //    }
 
 
     //    /**
@@ -483,16 +576,18 @@ public class ActSignedInPanels {
         Iterator<AppTaskTimeSet> iterator = tasks.iterator();
         while (iterator.hasNext()) {
             AppTaskTimeSet next = iterator.next();
-            // System.out.println("next = " + next);
-            // System.out.println("appName = " + appName);
+            //            System.out.println("next = " + next);
+            //            System.out.println("appName = " + appName);
             //如果查找这个应用的任务
             if (next.getAppName().equals(appName)) {
-                System.out.println("找到应用" + appName + "的任务列表");
+                System.out.println("找到应用:" + appName + "的任务列表");
                 //移除所有面板
                 taskPanel.removeAll();
                 titledBorder.setTitle(appName);
                 addTaskPanel(jsonToFile, appTask3, next);
-
+                taskPanel.revalidate();
+                taskPanel.repaint();
+                break;
             }
         }
     }
@@ -509,7 +604,6 @@ public class ActSignedInPanels {
                 // JPanel checkTextPanel = getCheckTextPanel(taskTime, filePath, jsonToFile, appTask3);
                 JPanel checkTextPanel = initCheckTextPanel(taskTime, jsonToFile, appTask3);
                 taskPanel.add(checkTextPanel);
-
             }
         });
     }

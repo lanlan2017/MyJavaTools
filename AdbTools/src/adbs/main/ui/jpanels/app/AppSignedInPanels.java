@@ -193,7 +193,7 @@ public class AppSignedInPanels {
                         SwingUtilities.invokeLater(new Runnable() {
                             @Override
                             public void run() {
-
+                                notOpened.setText("");
                                 AdbTools instance = AdbTools.getInstance();
                                 ActSignedInPanels actSignedInPanels = instance.getActSignedInPanels();
                                 actSignedInPanels.getTitledBorder().setTitle("已经重签");
