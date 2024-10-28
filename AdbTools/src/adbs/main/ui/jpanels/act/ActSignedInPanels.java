@@ -97,11 +97,16 @@ public class ActSignedInPanels {
         appComboBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    // 获取被选中的项
-                    String selectedItem = (String) appComboBox.getSelectedItem();
-                    //                    System.out.println("Selected: " + selectedItem);
-                    updateAction(selectedItem, appTask3);
+                int itemCount = appComboBox.getItemCount();
+                System.out.println("itemCount = " + itemCount);
+                if (itemCount > 1) {
+                    if (e.getStateChange() == ItemEvent.SELECTED) {
+
+                        // 获取被选中的项
+                        String selectedItem = (String) appComboBox.getSelectedItem();
+                        //                    System.out.println("Selected: " + selectedItem);
+                        updateAction(selectedItem, appTask3);
+                    }
                 }
             }
         });
