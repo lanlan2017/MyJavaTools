@@ -70,6 +70,7 @@ public class ActSignedInPanels {
         this.topJPanel.setLayout(new BorderLayout());
 
         this.taskPanel = new JPanel();
+
         if (titledBorder == null) {
             titledBorder = new TitledBorder(new LineBorder(Color.blue), "");
             //标题右对齐，默认是左对齐
@@ -80,6 +81,7 @@ public class ActSignedInPanels {
         }
         // 垂直排列
         taskPanel.setLayout(new BoxLayout(taskPanel, BoxLayout.Y_AXIS));
+        JButton btnShouQi = getBtnShouQi();
 
         this.toolPanel = new JPanel();
         this.toolPanel.setLayout(new BoxLayout(toolPanel, BoxLayout.X_AXIS));
@@ -94,6 +96,11 @@ public class ActSignedInPanels {
 
 
         appComboBox = new JComboBox<>();
+        // 获取其他按钮的首选大小
+        Dimension preferredSize = btnUpdate.getPreferredSize();
+        // 设置下拉框的首选大小
+        appComboBox.setPreferredSize(new Dimension(preferredSize.height * 2, preferredSize.height));
+        // 添加选项监听器
         appComboBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -106,16 +113,14 @@ public class ActSignedInPanels {
                         String selectedItem = (String) appComboBox.getSelectedItem();
                         //                    System.out.println("Selected: " + selectedItem);
                         updateAction(selectedItem, appTask3);
+                        String text = btnShouQi.getText();
+                        if (text.equals("展开")) {
+                            btnShouQi.doClick();
+                        }
                     }
                 }
             }
         });
-
-
-        // 获取其他按钮的首选大小
-        Dimension preferredSize = btnUpdate.getPreferredSize();
-        // 设置下拉框的首选大小
-        appComboBox.setPreferredSize(new Dimension(preferredSize.height * 2, preferredSize.height));
 
         toolPanel.add(btnUpdate);
         toolPanel.add(appComboBox);
@@ -132,7 +137,6 @@ public class ActSignedInPanels {
         // 取消定时按钮
         JButton btnDingShiCancel = getBtnDingShiCancel();
 
-        JButton btnShouQi = getBtnShouQi();
 
         // 创建切换定时的按钮
         JButton btnJH = getBtnJH();
