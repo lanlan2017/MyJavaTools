@@ -2,6 +2,7 @@ package adbs.main.ui.jpanels.act;
 
 import adbs.main.AdbTools;
 import adbs.main.run.AdbGetPackage;
+import adbs.main.run.AdbShellPmListPackages_3;
 import adbs.main.run.signinlog.FileUtil;
 import adbs.main.ui.jframe.JFramePack;
 import adbs.main.ui.jpanels.act.jaskson.file.JsonToFile;
@@ -192,11 +193,16 @@ public class ActSignedInPanels {
 
             if (itemCount == 0) {
                 ArrayList<AppTaskTimeSet> tasks = appTask3.getTasks();
-                ArrayList<String> appNames = new ArrayList<>(tasks.size());
+                ArrayList<String> packages_3_money = new AdbShellPmListPackages_3().getPackages_3_money();
+                //                ArrayList<String> appNames = new ArrayList<>(tasks.size());
                 tasks.forEach(next -> {
                     String appName = next.getAppName();
-                    appNames.add(appName);
-                    appComboBox.addItem(appName);
+                    if (packages_3_money.contains(appName)) {
+                        //                        // 如果是赚钱应用，则添加到赚钱应用列表中
+                        //                        appName += "（赚钱）";
+                        appComboBox.addItem(appName);
+                    }
+                    //                    appNames.add(appName);
                 });
             }
 
