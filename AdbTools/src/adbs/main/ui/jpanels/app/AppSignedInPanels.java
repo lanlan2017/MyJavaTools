@@ -194,12 +194,18 @@ public class AppSignedInPanels {
                             @Override
                             public void run() {
                                 notOpened.setText("");
-                                AdbTools instance = AdbTools.getInstance();
-                                ActSignedInPanels actSignedInPanels = instance.getActSignedInPanels();
+                                AdbTools adbTools = AdbTools.getInstance();
+
+                                ActSignedInPanels actSignedInPanels = adbTools.getActSignedInPanels();
+                                // 更新任务
+                                actSignedInPanels.updateAppTask3();
+                                // 更新任务列表面板的标题
                                 actSignedInPanels.getTitledBorder().setTitle("已经重签");
+
                                 JPanel taskPanel = actSignedInPanels.getTaskPanel();
                                 JComponents.updateJPanelUI(taskPanel);
-                                JFrame frame = instance.getFrame();
+
+                                JFrame frame = adbTools.getFrame();
                                 FrameTitle frameTitle = FrameTitle.getFrameTitle();
                                 frameTitle.setAppName("已经重签");
                                 frame.setTitle(frameTitle.toString());

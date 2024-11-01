@@ -180,7 +180,6 @@ public class ActSignedInPanels {
             }
             System.out.println("appName = " + appName);
 
-
             //todo: 给下拉框添加应用名
             // 获取json文件
             if (jsonToFile == null) {
@@ -198,11 +197,8 @@ public class ActSignedInPanels {
                 tasks.forEach(next -> {
                     String appName = next.getAppName();
                     if (packages_3_money.contains(appName)) {
-                        //                        // 如果是赚钱应用，则添加到赚钱应用列表中
-                        //                        appName += "（赚钱）";
                         appComboBox.addItem(appName);
                     }
-                    //                    appNames.add(appName);
                 });
             }
 
@@ -215,12 +211,8 @@ public class ActSignedInPanels {
                 AdbTools.getInstance().showDialogOk("更新任务", e1 -> {
                     // 先显示任务面板
                     taskPanel.setVisible(true);
-                    // 更新任务面板
-                    //                    AppTask3 appTask3 = getAppTask3(jsonToFile);
                     updateAction(appName, appTask3);
                 });
-                //                //默认的定时时间
-                //                defaultTime(appName);
             }
         });
         return btnUpdate;
@@ -454,74 +446,17 @@ public class ActSignedInPanels {
 
 
     private void updateAction(String appName, AppTask3 appTask3) {
-        // JsonToFile<AppTask3> jsonToFile = new JsonToFile<>();
-        // String filePath = AdbTools.getInstance().getDevice().getActTaskJSON();
-        //        if (jsonToFile == null) {
-        //            jsonToFile = new JsonToFile<>(AdbTools.getInstance().getDevice().getActTaskJSON());
-        //        }
-
-        // AppTask3 appTask3 = getAppTask3(jsonToFile, filePath);
-
-        //        int itemCount = appComboBox.getItemCount();
-        //        System.out.println("itemCount = " + itemCount);
-
-
         // 获取应用名
         System.out.println("appName = " + appName);
-
-        // updateTaskPanel(filePath, jsonToFile, appName, appTask3);
         updateTaskPanel(jsonToFile, appName, appTask3);
-
-        //        // 设置默认的定时时间
-        //        defaultTime(appName);
-
         //调整窗体到合适的大小
         JFramePack.pack();
     }
 
-    //    private void updateAction(String appName) {
-    //        // JsonToFile<AppTask3> jsonToFile = new JsonToFile<>();
-    //        // String filePath = AdbTools.getInstance().getDevice().getActTaskJSON();
-    //        if (jsonToFile == null) {
-    //            jsonToFile = new JsonToFile<>(AdbTools.getInstance().getDevice().getActTaskJSON());
-    //        }
-    //
-    //        // AppTask3 appTask3 = getAppTask3(jsonToFile, filePath);
-    //        AppTask3 appTask3 = getAppTask3(jsonToFile);
-    //
-    //        int itemCount = appComboBox.getItemCount();
-    //        System.out.println("itemCount = " + itemCount);
-    //
-    //
-    //        // 获取应用名
-    //        System.out.println("appName = " + appName);
-    //
-    //        // updateTaskPanel(filePath, jsonToFile, appName, appTask3);
-    //        updateTaskPanel(jsonToFile, appName, appTask3);
-    //
-    //        //        // 设置默认的定时时间
-    //        //        defaultTime(appName);
-    //
-    //        //调整窗体到合适的大小
-    //        JFramePack.pack();
-    //    }
-
-
-    //    /**
-    //     * 默认的定时时间
-    //     *
-    //     * @param appName
-    //     */
-    //    private void defaultTime(String appName) {
-    //        switch (appName) {
-    //            case "点淘":
-    //            case "番茄畅听音乐版":
-    //                jtfHour.setText(String.valueOf(2));
-    //                jtfMinute.setText(String.valueOf(0));
-    //                break;
-    //        }
-    //    }
-
+    public void updateAppTask3() {
+        this.appTask3 = new AppTask3();
+        updateAction(appName, appTask3);
+    }
 
     private AppTask3 getAppTask3(JsonToFile<AppTask3> jsonToFile) {
         AppTask3 appTask3;
