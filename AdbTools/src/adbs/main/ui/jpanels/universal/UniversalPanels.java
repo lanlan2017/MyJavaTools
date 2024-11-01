@@ -68,6 +68,7 @@ public class UniversalPanels {
     static {
         MAX_VALUE = Region.parts;
     }
+    private JButton btnZhongDuan;
 
     /**
      * 初始化通用面板
@@ -160,9 +161,9 @@ public class UniversalPanels {
      * @return
      */
     private JButton initBtnZhongDuan() {
-        JButton zhongDuanBtn = new JButton("中断");
-        zhongDuanBtn.setToolTipText("中断正在运行的的线程");
-        zhongDuanBtn.addActionListener(new ActionListener() {
+        btnZhongDuan = new JButton("中断");
+        btnZhongDuan.setToolTipText("中断正在运行的的线程");
+        btnZhongDuan.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //                AdbTools.getInstance().showDialogOk("中断", new ActionListener() {
@@ -206,7 +207,7 @@ public class UniversalPanels {
                 });
             }
         });
-        return zhongDuanBtn;
+        return btnZhongDuan;
     }
 
     private JButton intiBtnKPy() {
@@ -320,6 +321,10 @@ public class UniversalPanels {
 
     public JButton getBtnStop() {
         return btnStop;
+    }
+
+    public JButton getBtnZhongDuan() {
+        return btnZhongDuan;
     }
 
     public JButton getBtnScrcpyOrder() {

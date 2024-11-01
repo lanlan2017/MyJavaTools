@@ -6,6 +6,7 @@ import adbs.main.run.act.ActAutoRun;
 import adbs.main.run.act.model.FrameTitle;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.jpanels.act.ActSignedInPanels;
+import adbs.main.ui.jpanels.universal.UniversalPanels;
 import config.AdbToolsProperties;
 import tools.swing.button.AbstractButtons;
 
@@ -195,7 +196,10 @@ public class AppSignedInPanels {
                             public void run() {
                                 notOpened.setText("");
                                 AdbTools adbTools = AdbTools.getInstance();
-
+                                // 按下停止按钮，停止所有线程
+                                UniversalPanels universalPanels = adbTools.getUniversalPanels();
+                                // universalPanels.getBtnStop().doClick();
+                                universalPanels.getBtnZhongDuan().doClick();
                                 ActSignedInPanels actSignedInPanels = adbTools.getActSignedInPanels();
                                 // 更新任务
                                 actSignedInPanels.updateAppTask3();
