@@ -637,30 +637,30 @@ public class ActAutoRun extends ActWait implements Runnable {
     }
 
 
-    /**
-     * 重签之后的操作
-     */
-    private void nextDaySetting() {
-        // 更新签到记录
-        clearCheckInRecords();
-        // 第二天结束了
-        nextDay = false;
-        // stopAppCheck = false;
-        isAllAppOpened = false;
-        isfrist = true;
-        // 卸载无用APP
-        toolsJPanels.getBtnUninstallAll().doClick();
-        // 打开手机管家
-        adbTools.getAdbJPanels().getBtnMobileButler().doClick();
-        // 停止线程，防止反复触发
-        //        ThreadSleep.minutes(1);
-        //        adbTools.getDevice().getSerial();
-        //        AdbCommands.home(adbTools.getDevice());
-        adbTools.getDevice().homeBtn();
-        beforeAct = null;
-        // ThreadSleep.minutes(4.0);
-        //        _wait(40);
-    }
+    //    /**
+    //     * 重签之后的操作
+    //     */
+    //    private void nextDaySetting() {
+    //        // 更新签到记录
+    //        clearCheckInRecords();
+    //        // 第二天结束了
+    //        nextDay = false;
+    //        // stopAppCheck = false;
+    //        isAllAppOpened = false;
+    //        isfrist = true;
+    ////        // 卸载无用APP
+    ////        toolsJPanels.getBtnUninstallAll().doClick();
+    ////        // 打开手机管家
+    ////        adbTools.getAdbJPanels().getBtnMobileButler().doClick();
+    ////        // 停止线程，防止反复触发
+    ////        //        ThreadSleep.minutes(1);
+    ////        //        adbTools.getDevice().getSerial();
+    ////        //        AdbCommands.home(adbTools.getDevice());
+    ////        adbTools.getDevice().homeBtn();
+    //        beforeAct = null;
+    //        // ThreadSleep.minutes(4.0);
+    //        //        _wait(40);
+    //    }
 
 
     /**
@@ -694,6 +694,8 @@ public class ActAutoRun extends ActWait implements Runnable {
                     signedIn.setText("");
                     // 清空已打开APP记录对象变量
                     loginRecords.setAppOpened("[]");
+                    // 已经是第二天，更新日期
+                    loginRecords.updateDate();
                     System.out.println();
                     System.out.println("loginRecords = " + loginRecords);
                     System.out.println();
@@ -858,6 +860,32 @@ public class ActAutoRun extends ActWait implements Runnable {
 
     public static void onNextDay() {
         nextDay = true;
+    }
+
+
+    /**
+     * 重签之后的操作
+     */
+    private void nextDaySetting() {
+        // 更新签到记录
+        clearCheckInRecords();
+        // 第二天结束了
+        nextDay = false;
+        // stopAppCheck = false;
+        isAllAppOpened = false;
+        isfrist = true;
+        //        // 卸载无用APP
+        //        toolsJPanels.getBtnUninstallAll().doClick();
+        //        // 打开手机管家
+        //        adbTools.getAdbJPanels().getBtnMobileButler().doClick();
+        //        // 停止线程，防止反复触发
+        //        //        ThreadSleep.minutes(1);
+        //        //        adbTools.getDevice().getSerial();
+        //        //        AdbCommands.home(adbTools.getDevice());
+        //        adbTools.getDevice().homeBtn();
+        beforeAct = null;
+        // ThreadSleep.minutes(4.0);
+        //        _wait(40);
     }
 
     public static void allAppOpened() {

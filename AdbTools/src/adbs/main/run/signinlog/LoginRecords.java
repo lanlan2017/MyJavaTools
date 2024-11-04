@@ -40,6 +40,10 @@ public class LoginRecords {
     private final String oppenedStartFlag = "签到:";
 
     public LoginRecords() {
+        updateDate();
+    }
+
+    public void updateDate() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String date = simpleDateFormat.format(new Date());
         this.date = date;

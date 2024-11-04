@@ -315,12 +315,8 @@ public class AdbJPanels {
                 // if (text.equals(showFlag)) {
                 // 获取选中的adb设备的序列号
                 // String id = AdbTools.device.getId();
-                String id = AdbTools.getInstance().getDevice().getSerial();
-                // 拼接重启代码
-                String adbCmd = "adb -s " + id + " shell service call statusbar 1";
-                // System.out.println("adbCmd = " + adbCmd);
-                // 启动cmd进程执行adb命令
-                AdbCommands.runAbdCmd(adbCmd);
+                Device device = AdbTools.getInstance().getDevice();
+                device.statusbar_1();
                 // statusbarShow.setText(hideFlag);
                 statusbarShow.setToolTipText("展开状态栏");
                 // } else {
@@ -337,6 +333,19 @@ public class AdbJPanels {
         });
         return statusbarShow;
     }
+
+    //    /**
+    //     * 展开状态栏
+    //     * @param device
+    //     */
+    //    private void statusbar_1(Device device) {
+    //        String serial = device.getSerial();
+    //        // 拼接重启代码
+    //        String adbCmd = "adb -s " + serial + " shell service call statusbar 1";
+    //        // System.out.println("adbCmd = " + adbCmd);
+    //        // 启动cmd进程执行adb命令
+    //        AdbCommands.runAbdCmd(adbCmd);
+    //    }
 
     private JButton initBntPowerOff() {
         // 关机按钮

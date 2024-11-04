@@ -317,6 +317,30 @@ public class Device {
     }
 
     /**
+     * 展开状态栏
+     */
+    public void statusbar_1() {
+        String serial = this.getSerial();
+        // 拼接重启代码
+        String adbCmd = "adb -s " + serial + " shell service call statusbar 1";
+        // System.out.println("adbCmd = " + adbCmd);
+        // 启动cmd进程执行adb命令
+        AdbCommands.runAbdCmd(adbCmd);
+    }
+    /**
+     * 收起状态栏
+     */
+    public void statusbar_0() {
+        String serial = this.getSerial();
+        // 拼接重启代码
+        String adbCmd = "adb -s " + serial + " shell service call statusbar 2";
+        // System.out.println("adbCmd = " + adbCmd);
+        // 启动cmd进程执行adb命令
+        AdbCommands.runAbdCmd(adbCmd);
+    }
+
+
+    /**
      * 获取当前设备正在运行的app的中文名称
      *
      * @return 应用中文名称

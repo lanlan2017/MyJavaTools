@@ -6,7 +6,10 @@ import adbs.main.run.act.ActAutoRun;
 import adbs.main.run.act.model.FrameTitle;
 import adbs.main.ui.config.FlowLayouts;
 import adbs.main.ui.jpanels.act.ActSignedInPanels;
+import adbs.main.ui.jpanels.tools.ToolsJPanels;
 import adbs.main.ui.jpanels.universal.UniversalPanels;
+import adbs.model.Device;
+import adbs.tools.thread.ThreadSleep;
 import config.AdbToolsProperties;
 import tools.swing.button.AbstractButtons;
 
@@ -71,7 +74,7 @@ public class AppSignedInPanels {
         this.signedIn.setBorder(new TitledBorder(new LineBorder(Color.pink), "已打开"));
 
         this.btnPanel = new JPanel();
-        //        this.btnPanel.setLayout(new BoxLayout(btnPanel, BoxLayout.Y_AXIS));
+        // this.btnPanel.setLayout(new BoxLayout(btnPanel, BoxLayout.Y_AXIS));
         this.btnPanel.setLayout(new BorderLayout());
 
 
@@ -86,7 +89,7 @@ public class AppSignedInPanels {
         this.zhongdian.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //                String appName = getAppName() + ForegroundAppRun.appNameEndFlag;
+                // String appName = getAppName() + ForegroundAppRun.appNameEndFlag;
                 String appName = getAppName() + ActAutoRun.appNameEndFlag;
                 highlightString(signedIn, appName, Color.pink);
             }
@@ -94,20 +97,20 @@ public class AppSignedInPanels {
         quxiao.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //                removeSpecificHighlights(signedIn, getAppName() + ForegroundAppRun.appNameEndFlag);
+                // removeSpecificHighlights(signedIn, getAppName() + ForegroundAppRun.appNameEndFlag);
                 removeSpecificHighlights(signedIn, getAppName() + ActAutoRun.appNameEndFlag);
             }
         });
 
-        //        batteryReset = getBatteryReset();
+        // batteryReset = getBatteryReset();
 
 
         JButton btnSignedIn = initBtnSignedIn();
         JButton btnAllCheckedIn = initBtnAllCheckedIn();
 
 
-        //        btnPanel.add(zhongdian);
-        //        btnPanel.add(quxiao);
+        // btnPanel.add(zhongdian);
+        // btnPanel.add(quxiao);
 
         JPanel panel2 = getBtttonFlowLayoutJPanel();
         panel2.add(btnSignedIn);
@@ -123,7 +126,7 @@ public class AppSignedInPanels {
         panel3.add(btnUpdateEarningApps);
 
 
-        //        panel3.add(batteryReset);
+        // panel3.add(batteryReset);
 
 
         AbstractButtons.setMarginInButtonJPanel(panel1, 1);
@@ -136,15 +139,15 @@ public class AppSignedInPanels {
         btnNorth.add(panel1);
         btnNorth.add(panel2);
         btnNorth.add(panel3);
-        //        btnPanel.add(btnNorth);
+        // btnPanel.add(btnNorth);
 
         btnPanel.add(btnNorth, BorderLayout.NORTH);
 
-        //        btnPanel.add(panel1);
-        //        btnPanel.add(panel2);
-        //        btnPanel.add(panel3);
+        // btnPanel.add(panel1);
+        // btnPanel.add(panel2);
+        // btnPanel.add(panel3);
 
-        //        btnPanel.add(batteryReset);
+        // btnPanel.add(batteryReset);
 
         AbstractButtons.setMargin_2_InButtonJPanel(btnPanel);
 
@@ -156,7 +159,7 @@ public class AppSignedInPanels {
 
     private JButton initBtnUpdateEarningApps() {
         final JButton btnUpdateEarningApps;
-        //        btnUpdateEarningApps = new JButton("U");
+        // btnUpdateEarningApps = new JButton("U");
         btnUpdateEarningApps = new JButton("更新");
         btnUpdateEarningApps.setToolTipText("更新赚钱应用列表");
         btnUpdateEarningApps.addActionListener(new ActionListener() {
@@ -191,14 +194,17 @@ public class AppSignedInPanels {
                     public void actionPerformed(ActionEvent e) {
                         ActAutoRun.onNextDay();
                         ActAutoRun.stopWait();
+                        AdbTools adbTools = AdbTools.getInstance();
+                        Device device = adbTools.getDevice();
+
                         SwingUtilities.invokeLater(new Runnable() {
                             @Override
                             public void run() {
                                 notOpened.setText("");
-                                AdbTools adbTools = AdbTools.getInstance();
                                 // 按下停止按钮，停止所有线程
                                 UniversalPanels universalPanels = adbTools.getUniversalPanels();
                                 // universalPanels.getBtnStop().doClick();
+                                // 按下中断按钮
                                 universalPanels.getBtnZhongDuan().doClick();
                                 ActSignedInPanels actSignedInPanels = adbTools.getActSignedInPanels();
                                 // 更新任务
@@ -213,8 +219,43 @@ public class AppSignedInPanels {
                                 FrameTitle frameTitle = FrameTitle.getFrameTitle();
                                 frameTitle.setAppName("已经重签");
                                 frame.setTitle(frameTitle.toString());
+
+                                // 下面的代码中有sleep方法，应该在新线程中执行，否则会阻塞界面。
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        // 按下home键
+                                        adbTools.getDevice().homeBtn();
+                                        ThreadSleep.seconds(1);
+                                        // 展开通知栏
+                                        device.statusbar_1();
+                                        // adbTools.showDialogOk("清理通知", new ActionListener() {
+                                        //     @Override
+                                        //     public void actionPerformed(ActionEvent e) {
+                                        //         // 展开通知栏
+                                        //         device.statusbar_1();
+                                        //     }
+                                        // });
+                                        ThreadSleep.seconds(3);
+                                        // 收起通知栏
+                                        device.statusbar_0();
+
+                                        adbTools.showDialogOk("卸载无用App", new ActionListener() {
+                                            @Override
+                                            public void actionPerformed(ActionEvent e) {
+                                                ToolsJPanels toolsJPanels = adbTools.getToolsJPanels();
+                                                // 卸载无用APP
+                                                toolsJPanels.getBtnUninstallAll().doClick();
+                                                // 打开手机管家
+                                                adbTools.getAdbJPanels().getBtnMobileButler().doClick();
+                                            }
+                                        });
+                                    }
+                                }).start();
                             }
                         });
+
+
                     }
                 });
             }
@@ -222,14 +263,14 @@ public class AppSignedInPanels {
         return btnNextDay;
     }
     //
-    //    /**
-    //     * 更新容器的UI
-    //     * @param component 要更新的JPanel对象。
-    //     */
-    //    private void updateJPanelUI(JComponent component) {
-    //        component.revalidate();
-    //        component.repaint();
-    //    }
+    // /**
+    // * 更新容器的UI
+    // * @param component 要更新的JPanel对象。
+    // */
+    // private void updateJPanelUI(JComponent component) {
+    // component.revalidate();
+    // component.repaint();
+    // }
 
 
     private JPanel getBtttonFlowLayoutJPanel() {
@@ -241,7 +282,7 @@ public class AppSignedInPanels {
 
 
     private JButton initBtnSignedIn() {
-        //        btnSignedIn = new JButton("√");
+        // btnSignedIn = new JButton("√");
         btnSignedIn = new JButton("已签");
         btnSignedIn.setToolTipText("当前APP已签到");
         btnSignedIn.addActionListener(new ActionListener() {
@@ -255,7 +296,7 @@ public class AppSignedInPanels {
 
     private JButton initBtnAllCheckedIn() {
         final JButton btnAllCheckedIn;
-        //        btnAllCheckedIn = new JButton("√√");
+        // btnAllCheckedIn = new JButton("√√");
         btnAllCheckedIn = new JButton("签完");
         btnAllCheckedIn.setToolTipText("所有的APP都签到过了");
         btnAllCheckedIn.addActionListener(new ActionListener() {
@@ -311,7 +352,7 @@ public class AppSignedInPanels {
             while (index != -1) {
                 int end = index + searchString.length();
                 Highlighter.Highlight highlight = (Highlighter.Highlight) highlighter.addHighlight(index, end, new DefaultHighlighter.DefaultHighlightPainter(color));
-                //                Highlighter.Highlight highlight = (Highlighter.Highlight) highlighter.addHighlight(index, end, new DefaultHighlighter.DefaultHighlightPainter(color));
+                // Highlighter.Highlight highlight = (Highlighter.Highlight) highlighter.addHighlight(index, end, new DefaultHighlighter.DefaultHighlightPainter(color));
                 highlights.add(highlight);
                 index = text.indexOf(searchString, end);
             }
