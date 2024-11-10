@@ -596,22 +596,7 @@ public class ActSignedInPanels {
                     int value = Integer.parseInt(textField.getText());
                     //当按下上箭头或者加号的时候
                     if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyChar() == '+') {
-                        // String s1 = text + "+1?";
-                        String s1 = taskName + "+1?";
-                        AdbTools.getInstance().showDialogOk(s1, new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent e) {
-                                // 上箭头被按下，增加1
-                                int value_ = value + 1;
-
-                                textField.setText(Integer.toString(value_));
-
-                                taskTime.setTimes(value_);
-                                // jsonToFile.toJsonFile(appTask2, filePath);
-                                // jsonToFile.toJsonFile(appTask3, filePath);
-                                jsonToFile.toJsonFile(appTask3);
-                            }
-                        });
+                        add(value, taskName, textField, taskTime, jsonToFile, appTask3);
                     } else if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyChar() == '-') {
                         // 下箭头被按下，减少1，但不能小于0
                         if (value > 0) {
@@ -634,7 +619,46 @@ public class ActSignedInPanels {
                 }
             }
         });
+        textField.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // 检查是否是鼠标右键点击
+                if (e.getButton() == MouseEvent.BUTTON3) {
+                    try {
+                        // 尝试将文本转换为整数并加1
+                        int value = Integer.parseInt(textField.getText());
+//                        value++;
+//                        textField.setText(String.valueOf(value));
+                        add(value, taskName, textField, taskTime, jsonToFile, appTask3);
+
+                    } catch (NumberFormatException ex) {
+                        // 如果不是整数，则不执行任何操作
+                        ex.printStackTrace();
+                    }
+//                    add(value, taskName, textField, taskTime, jsonToFile, appTask3);
+                }
+            }
+        });
         return textField;
+    }
+
+    private void add(int value, String taskName, JTextField textField, TaskTime taskTime, JsonToFile<AppTask3> jsonToFile, AppTask3 appTask3) {
+        // String s1 = text + "+1?";
+        String s1 = taskName + "+1?";
+        AdbTools.getInstance().showDialogOk(s1, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 上箭头被按下，增加1
+                int value_ = value + 1;
+
+                textField.setText(Integer.toString(value_));
+
+                taskTime.setTimes(value_);
+                // jsonToFile.toJsonFile(appTask2, filePath);
+                // jsonToFile.toJsonFile(appTask3, filePath);
+                jsonToFile.toJsonFile(appTask3);
+            }
+        });
     }
 
 
