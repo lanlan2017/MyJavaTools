@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class AdbConnectPortProperties {
     // public static PropertiesTools portPro_ = new PropertiesTools("Adbtools_money_apk.properties");
     public static PropertiesTools propertiesTools = new PropertiesTools("AdbTools_Port.properties");
-    private static String key = "NextPort";
+    private static final String key = "NextPort";
 
 
     public static void main(String[] args) {
@@ -26,7 +26,7 @@ public class AdbConnectPortProperties {
     public static String getPort() {
         String port;
         boolean adbTools_jar_running = isAdbTools_Jar_Running();
-        // System.out.println(adbTools_jar_running);
+        System.out.println(adbTools_jar_running);
         if (adbTools_jar_running) {
             port = nextPort();
         } else {
@@ -44,12 +44,12 @@ public class AdbConnectPortProperties {
         boolean isOtherExistence = false;
         String code = "jps -l";
         String jps_l_output = CmdRun.run(code);
-        // System.out.println("jps_l_output = " + jps_l_output);
+         System.out.println("jps_l_output = " + jps_l_output);
 
         Scanner scanner = new Scanner(jps_l_output);
         while (scanner.hasNext()) {
             String line = scanner.nextLine();
-            if (line.endsWith("AdbTools.jar")) {
+            if (line.endsWith("AdbTools.jar")|| (line.contains("AdbTools")&&line.contains(".jar"))) {
                 isOtherExistence = true;
                 break;
             }

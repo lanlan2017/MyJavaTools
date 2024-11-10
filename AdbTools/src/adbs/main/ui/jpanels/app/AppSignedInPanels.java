@@ -236,7 +236,7 @@ public class AppSignedInPanels {
                                         //         device.statusbar_1();
                                         //     }
                                         // });
-                                        ThreadSleep.seconds(3);
+                                        ThreadSleep.seconds(5);
                                         // 收起通知栏
                                         device.statusbar_0();
 

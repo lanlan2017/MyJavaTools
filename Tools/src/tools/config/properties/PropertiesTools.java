@@ -111,7 +111,7 @@ public class PropertiesTools {
             // fileOutputStream=new FileOutputStream(file);
             // fileOutputStream.flush();
             FileOutputStream fileOutputStream = new FileOutputStream(file);
-            properties.store(fileOutputStream, "更新端口号");
+            properties.store(fileOutputStream, "update port");
             fileOutputStream.close();
         } catch (IOException e) {
             e.printStackTrace();

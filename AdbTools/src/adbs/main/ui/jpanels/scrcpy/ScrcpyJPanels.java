@@ -82,7 +82,16 @@ public class ScrcpyJPanels {
     /**
      * scrcpy.exe内部镜像宽度数组
      */
-    private final String[] widthArr = {"600", "540", "500", "480", "420", "360", "350", "340"};
+    private final String[] widthArr = {
+            "600",
+            "540",
+            "500",
+            "480",
+            "420",
+            "360",
+            "350",
+            "340"
+    };
     //    private final JButton btnNextDay;
     boolean isFirstTimeRun = true;
 
@@ -288,21 +297,18 @@ public class ScrcpyJPanels {
                     device = adbTools.getDevice();
                 }
                 // Device device = AdbTools.getInstance().getDevice();
-
+                // 如果网络调试的按钮文字是网调，则切换为线调
                 if (networkDebugging.equals(btnSwitchNetworkDebug.getText())) {
                     String serial = device.getSerial();
                     serialOld = serial;
                     nameOld = device.getName();
                     getIpCode(serial);
                     networkDebug(serial);
-
-
                 } else {
                     btnKillScrcpy.doClick();
                     String ip_serial = device.getSerial();
                     device.setSerial(serialOld);
                     device.setName(nameOld);
-
 
                     SwingUtilities.invokeLater(new Runnable() {
                         @Override
@@ -313,7 +319,7 @@ public class ScrcpyJPanels {
                         }
                     });
 
-                    // 连接网络调试
+                    // 断开网络调试
                     String code = "adb disconnect " + ip_serial;
                     AdbCommands.runAbdCmd(code);
                     // reopenScrcpy();
@@ -324,6 +330,7 @@ public class ScrcpyJPanels {
 
             private void networkDebug(String serial) {
                 // String port = "5555";
+                // 获取配置文件中的端口号
                 String port = AdbConnectPortProperties.getPort();
                 String tcp = "adb -s " + serial + " tcpip " + port;
                 AdbCommands.runAbdCmd(tcp);

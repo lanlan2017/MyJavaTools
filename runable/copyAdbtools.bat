@@ -5,9 +5,18 @@ del "E:\Tools\runnable\AdbTools.jar"
 @REM 设置局域网的主机的IP地址
 set ip=192.168.0.102
 @REM 设置本电脑中接收主机runnable目录的目标路径
+@REM 笔记本1路径
 set runnable=E:\Tools\runnable
 @REM 本电脑另一个目标路径
 set tools=E:\Tools\BatTools
+
+@REM 设置本电脑中接收主机runnable目录的目标路径
+@REM set runnable=D:\Tools\runnable
+@REM 台式机路径
+@REM set runnable=D:\Code\runnable
+
+@REM 重置端口号
+echo NextPort=5555>%runnable%\AdbTools_Port.properties
 
 @REM echo "runable=%runnable%"
 @REM echo "tools=%tools%"
