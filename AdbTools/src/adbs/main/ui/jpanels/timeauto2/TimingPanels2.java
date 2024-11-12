@@ -348,6 +348,7 @@ public class TimingPanels2 extends WaitValues {
                 btn3HMore.setVisible(true);
                 btn4H.setVisible(true);
                 btn5H.setVisible(true);
+                btn40M.setVisible(true);
             }
         });
 
