@@ -24,7 +24,8 @@ if "%choice%"=="1" (
     set waitTime=10800
 )
 @REM timeout %waitTime%
-timeout /t %waitTime% /nobreak
+@REM timeout /t %waitTime% /nobreak
+timeout /t %waitTime%
 @REM 调用另一个批处理文件
 @REM 重置手机电池状态
 call adbbr.bat
