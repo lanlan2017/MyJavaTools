@@ -80,8 +80,10 @@ public class Devices {
         int size = connectedDeviceMap.size();
         if (size > 0) {
             boolean isTest = IsTest.isTest();
-            String formatTest = "%4d %-8s%-22s%-6s%-6s\n";
-            String formatRun = "%4d %-8s%-22s\n";
+//            String formatTest = "%4d %-8s%-22s%-6s%-6s\n";
+//            String formatRun = "%4d %-8s%-22s\n";
+            String formatTest = "%4d %-18s%-22s%-6s%-6s\n";
+            String formatRun = "%4d %-18s%-22s\n";
             printTitle(isTest, formatTest, formatRun);
             printConnectedDevices(connectedDeviceMap, isTest, formatTest, formatRun);
         }
