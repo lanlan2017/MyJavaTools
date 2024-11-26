@@ -170,6 +170,8 @@ public abstract class ActWait {
         touTiao180sApp.add("com.phoenix.read");
         //蛋花免费小说
         touTiao180sApp.add("com.eggflower.read");
+        //有柿
+        touTiao180sApp.add("com.ss.android.article.search");
     }
 
 
