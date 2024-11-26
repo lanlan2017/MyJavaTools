@@ -95,16 +95,20 @@ public class AppTask3 {
                 new TaskTime("通知"),
                 new TaskTime("提现")
         }));
-
-
         //        tasks.add(zhongQingKanDian);
         tasks.add(new AppTaskTimeSet("速读免费小说", new TaskTime[]{
                 new TaskTime("签到"),
                 new TaskTime("阅读"),
                 new TaskTime("红包")
         }));
+        tasks.add(new AppTaskTimeSet("蛋花免费小说", new TaskTime[]{
+                new TaskTime("签到"),
+                new TaskTime("阅读"),
+                new TaskTime("听书"),
+                new TaskTime("红包")
+        }));
 
-        //        tasks.add(zhongQingKanDian);
+        //
         tasks.add(new AppTaskTimeSet("红果免费短剧", new TaskTime[]{
                 new TaskTime("签到"),
                 new TaskTime("短剧"),
@@ -112,6 +116,39 @@ public class AppTask3 {
                 new TaskTime("睡觉"),
                 new TaskTime("吃饭")
         }));
+        //
+        tasks.add(new AppTaskTimeSet("喜马拉雅极速版", new TaskTime[]{
+                new TaskTime("签到"),
+                new TaskTime("听书"),
+                new TaskTime("视频"),
+                new TaskTime("喝水"),
+                new TaskTime("答题")
+        }));
+        //
+        tasks.add(new AppTaskTimeSet("抖音商城", new TaskTime[]{
+                new TaskTime("签到"),
+                new TaskTime("广告"),
+//                new TaskTime("视频"),
+//                new TaskTime("喝水"),
+//                new TaskTime("答题")
+        }));
+        tasks.add(new AppTaskTimeSet("有柿", new TaskTime[]{
+                new TaskTime("签到"),
+                new TaskTime("广告"),
+                new TaskTime("宝箱"),
+                new TaskTime("走路"),
+                new TaskTime("早餐"),
+                new TaskTime("午餐"),
+                new TaskTime("晚餐"),
+//                new TaskTime("晚餐")
+        }));
+        tasks.add(new AppTaskTimeSet("美团", new TaskTime[]{
+                new TaskTime("签到"),
+                new TaskTime("预约"),
+                new TaskTime("宝箱"),
+//                new TaskTime("晚餐")
+        }));
+
 
     }
 
