@@ -81,9 +81,13 @@ public class AppSignedInPanels {
         JPanel panel1 = getBtttonFlowLayoutJPanel();
 
         this.zhongdian = new JButton("重点");
+        JButton wancheng = new JButton("完成");
+//        this.zhongdian = wancheng;
         this.quxiao = new JButton("取消");
         panel1.add(zhongdian);
         panel1.add(quxiao);
+        panel1.add(wancheng);
+
 
         // 添加按钮监听器
         this.zhongdian.addActionListener(new ActionListener() {
@@ -91,14 +95,28 @@ public class AppSignedInPanels {
             public void actionPerformed(ActionEvent e) {
                 // String appName = getAppName() + ForegroundAppRun.appNameEndFlag;
                 String appName = getAppName() + ActAutoRun.appNameEndFlag;
+                // 取消重点
+                removeSpecificHighlights(signedIn,appName);
+                // 改成粉红色
                 highlightString(signedIn, appName, Color.pink);
             }
         });
+        wancheng.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String appName = getAppName() + ActAutoRun.appNameEndFlag;
+                // 取消重点
+                removeSpecificHighlights(signedIn,appName);
+                highlightString(signedIn, appName, Color.CYAN);
+            }
+        });
+
         quxiao.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // removeSpecificHighlights(signedIn, getAppName() + ForegroundAppRun.appNameEndFlag);
-                removeSpecificHighlights(signedIn, getAppName() + ActAutoRun.appNameEndFlag);
+                String searchString = getAppName() + ActAutoRun.appNameEndFlag;
+                removeSpecificHighlights(signedIn, searchString);
             }
         });
 
