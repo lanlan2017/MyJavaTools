@@ -6,6 +6,5 @@
 APP_ID=
 API_KEY=
 SECRET_KEY=
-
 ```
 这些值，可以从百度文字识别实例的官网上[https://console.bce.baidu.com/ai-engine/old/#/ai/ocr/app/list](https://console.bce.baidu.com/ai-engine/old/#/ai/ocr/app/list)获取。
